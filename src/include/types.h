@@ -5952,16 +5952,15 @@ struct awardmetrics {
 
 struct tex {
 	/*0x00*/ u16 texturenum : 12;
-	/*0x00*/ u16 unk00_0c : 4;
 	/*0x04*/ u8 *data;
 	/*0x08*/ u8 width;
 	/*0x09*/ u8 height;
 	/*0x0a*/ u8 unk0a;
-	/*0x0b*/ u8 maxlod : 3;
+	/*0x0b*/ u8 numlods : 3;
 	/*0x0b*/ u8 gbiformat : 3;
 	/*0x0b*/ u8 depth : 2;
 	/*0x0c*/ u32 lutmodeindex : 2;
-	/*0x0c*/ u32 unk0c_02 : 1;
+	/*0x0c*/ u32 hasloddata : 1;
 	/*0x0c*/ u32 unk0c_03 : 1;
 	/*0x0c*/ u32 next : 24;
 };

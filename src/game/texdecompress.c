@@ -17,9 +17,9 @@ struct texpool g_TexSharedPool;
 struct texcacheitem g_TexCacheItems[150];
 s32 g_TexCacheCount;
 s32 g_TexNumToLoad;
-u8 *var800ab540;
-u32 var800ab544;
-s32 var800ab548;
+u8 *g_TexBitstring;
+u32 g_TexAccumValue;
+s32 g_TexAccumNumBits;
 u32 var800ab54c;
 u32 g_TexBase;
 u8 *g_TextureConfigSegment;
@@ -141,7 +141,7 @@ void func0f16e810(u32 arg0)
  *
  * The zlib data is prefixed with the standard 5-byte rarezip header.
  */
-s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
+s32 texInflateZlib(u8 *src, u8 *dst, bool hasloddata, s32 numlods, struct texpool *pool, bool unusedarg)
 {
 	s32 i;
 	s32 imagebytesout;
@@ -153,9 +153,9 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 	s32 width;
 	s32 height;
 	s32 numcolours;
-	u8 *end;
-	u8 *start;
-	s32 j;
+	u8 *loddst;
+	u8 *lodsrc;
+	s32 lod;
 	u8 scratch2[0x800];
 	u16 palette[256];
 	u8 scratch[5120];
@@ -165,16 +165,16 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 
 	texSetBitstring(src);
 
-	if (arg2 && forcenumimages) {
-		numimages = forcenumimages;
+	if (hasloddata && numlods) {
+		numimages = numlods;
 	} else {
 		numimages = 1;
 	}
 
-	pool->rightpos->maxlod = forcenumimages;
-	pool->rightpos->unk0c_02 = arg2;
+	pool->rightpos->numlods = numlods;
+	pool->rightpos->hasloddata = hasloddata;
 
-	if (arg2) {
+	if (hasloddata) {
 		writetocache = true;
 
 		for (i = 0; i < g_TexCacheCount; i++) {
@@ -193,11 +193,11 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 
 	foundthething = false;
 
-	for (j = 0; j < numimages; j++) {
+	for (lod = 0; lod < numimages; lod++) {
 		width = texReadBits(8);
 		height = texReadBits(8);
 
-		if (j == 0) {
+		if (lod == 0) {
 			pool->rightpos->width = width;
 			pool->rightpos->height = height;
 			pool->rightpos->unk0a = numcolours - 1;
@@ -205,19 +205,19 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 			pool->rightpos->depth = g_TexFormatDepths[format];
 			pool->rightpos->lutmodeindex = g_TexFormatLutModes[format] >> G_MDSFT_TEXTLUT;
 		} else if (writetocache) {
-			g_TexCacheItems[g_TexCacheCount].widths[j - 1] = width;
-			g_TexCacheItems[g_TexCacheCount].heights[j - 1] = height;
+			g_TexCacheItems[g_TexCacheCount].widths[lod - 1] = width;
+			g_TexCacheItems[g_TexCacheCount].heights[lod - 1] = height;
 		}
 
-		if (rzipInflate(var800ab540, scratch2, scratch) == 0) {
+		if (rzipInflate(g_TexBitstring, scratch2, scratch) == 0) {
 #if VERSION < VERSION_NTSC_1_0
 			char message[128];
 			sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
 					"texdecompress.c", 357,
-					var800ab540[0], var800ab540[1], var800ab540[2], var800ab540[3],
-					var800ab540[4], var800ab540[5], var800ab540[6], var800ab540[7],
-					var800ab540[8], var800ab540[9], var800ab540[10], var800ab540[11],
-					var800ab540[12], var800ab540[13], var800ab540[14], var800ab540[15]);
+					g_TexBitstring[0], g_TexBitstring[1], g_TexBitstring[2], g_TexBitstring[3],
+					g_TexBitstring[4], g_TexBitstring[5], g_TexBitstring[6], g_TexBitstring[7],
+					g_TexBitstring[8], g_TexBitstring[9], g_TexBitstring[10], g_TexBitstring[11],
+					g_TexBitstring[12], g_TexBitstring[13], g_TexBitstring[14], g_TexBitstring[15]);
 			crashSetMessage(message);
 			CRASH();
 #endif
@@ -226,19 +226,19 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 		imagebytesout = texAlignIndices(scratch2, width, height, format, &dst[totalbytesout]);
 		texSetBitstring(rzipGetSomething());
 
-		if (arg2 == 1) {
-			if (IS4MB() && j == 2 && !foundthething) {
-				pool->rightpos->maxlod = j;
+		if (hasloddata == true) {
+			if (IS4MB() && lod == 2 && !foundthething) {
+				pool->rightpos->numlods = lod;
 				foundthething = true;
 			}
 
 			if (totalbytesout + imagebytesout > 0x800 || foundthething) {
 				if (!foundthething) {
-					pool->rightpos->maxlod = j;
+					pool->rightpos->numlods = lod;
 					foundthething = true;
 				}
 			} else {
-				texSwapAltRowBytes(&dst[totalbytesout], width, height, format);
+				texSwizzle(&dst[totalbytesout], width, height, format);
 				totalbytesout += imagebytesout;
 			}
 		} else {
@@ -256,41 +256,43 @@ s32 texInflateZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpoo
 		}
 	}
 
-	if (!arg2) {
-		if (forcenumimages >= 2) {
+	// If the texture data doesn't contain multiple LODs but the header has a numlods value,
+	// generate the other LODs by shrinking the image.
+	if (!hasloddata) {
+		if (numlods >= 2) {
 			s32 tmpwidth = width;
 			s32 tmpheight = height;
 
-			start = dst;
-			end = &dst[totalbytesout];
+			lodsrc = dst;
+			loddst = &dst[totalbytesout];
 
-			for (j = 1; j < forcenumimages; j++) {
-				imagebytesout = texShrinkPaletted(start, end, tmpwidth, tmpheight, format, palette, numcolours);
+			for (lod = 1; lod < numlods; lod++) {
+				imagebytesout = texShrinkPaletted(lodsrc, loddst, tmpwidth, tmpheight, format, palette, numcolours);
 
-				if (IS4MB() && j == 2) {
-					pool->rightpos->maxlod = j;
+				if (IS4MB() && lod == 2) {
+					pool->rightpos->numlods = lod;
 					break;
 				}
 
 				if (totalbytesout + imagebytesout > 0x800) {
-					pool->rightpos->maxlod = j;
+					pool->rightpos->numlods = lod;
 					break;
 				}
 
-				texSwapAltRowBytes(start, tmpwidth, tmpheight, format);
+				texSwizzle(lodsrc, tmpwidth, tmpheight, format);
 
 				totalbytesout += imagebytesout;
 
 				tmpwidth = (tmpwidth + 1) >> 1;
 				tmpheight = (tmpheight + 1) >> 1;
 
-				start = end;
-				end += imagebytesout;
+				lodsrc = loddst;
+				loddst += imagebytesout;
 			}
 
-			texSwapAltRowBytes(start, tmpwidth, tmpheight, format);
+			texSwizzle(lodsrc, tmpwidth, tmpheight, format);
 		} else {
-			texSwapAltRowBytes(dst, width, height, format);
+			texSwizzle(dst, width, height, format);
 		}
 	}
 
@@ -678,7 +680,7 @@ s32 texFindClosestColourIndexIA(u16 *palette, s32 numcolours, s32 intensity, s32
  * h = height in pixels
  * c = compression method (see TEXCOMPMETHOD constants)
  */
-s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct texpool *pool, s32 arg5)
+s32 texInflateNonZlib(u8 *src, u8 *dst, bool hasloddata, s32 numlods, struct texpool *pool, bool unusedarg)
 {
 	u8 scratch[0x2000];
 	u8 lookup[0x1000];
@@ -693,18 +695,18 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 	s32 imagebytesout;
 	s32 format;
 	s32 value;
-	u8 *start;
-	u8 *end;
+	u8 *lodsrc;
+	u8 *loddst;
 	bool writetocache = false;
 
 	texSetBitstring(src);
 
-	numimages = arg2 && forcenumimages ? forcenumimages : 1;
+	numimages = hasloddata && numlods ? numlods : 1;
 
-	pool->rightpos->maxlod = forcenumimages;
-	pool->rightpos->unk0c_02 = arg2;
+	pool->rightpos->numlods = numlods;
+	pool->rightpos->hasloddata = hasloddata;
 
-	if (arg2) {
+	if (hasloddata) {
 		writetocache = true;
 
 		for (i = 0; i < g_TexCacheCount; i++) {
@@ -807,17 +809,17 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 			break;
 		}
 
-		if (arg2 == 1) {
-			texSwapAltRowBytes(&dst[totalbytesout], width, height, format);
+		if (hasloddata == true) {
+			texSwizzle(&dst[totalbytesout], width, height, format);
 		}
 
 		imagebytesout = (imagebytesout + 7) & ~7;
 		totalbytesout += imagebytesout;
 
-		if (var800ab548 == 0) {
-			var800ab540++;
+		if (g_TexAccumNumBits == 0) {
+			g_TexBitstring++;
 		} else {
-			var800ab548 = 0;
+			g_TexAccumNumBits = 0;
 		}
 	}
 
@@ -838,32 +840,34 @@ s32 texInflateNonZlib(u8 *src, u8 *dst, s32 arg2, s32 forcenumimages, struct tex
 		}
 	}
 
-	if (!arg2) {
-		if (forcenumimages >= 2) {
+	// If the texture data doesn't contain multiple LODs but the header has a numlods value,
+	// generate the other LODs by shrinking the image.
+	if (!hasloddata) {
+		if (numlods >= 2) {
 			s32 tmpwidth = width;
 			s32 tmpheight = height;
 
-			start = dst;
+			lodsrc = dst;
 			if (1);
-			end = &dst[totalbytesout];
+			loddst = &dst[totalbytesout];
 
-			for (i = 1; i < forcenumimages; i++) {
-				imagebytesout = texShrinkNonPaletted(start, end, tmpwidth, tmpheight, format);
+			for (i = 1; i < numlods; i++) {
+				imagebytesout = texShrinkNonPaletted(lodsrc, loddst, tmpwidth, tmpheight, format);
 
-				texSwapAltRowBytes(start, tmpwidth, tmpheight, format);
+				texSwizzle(lodsrc, tmpwidth, tmpheight, format);
 
 				totalbytesout += imagebytesout;
 
 				tmpwidth = (tmpwidth + 1) >> 1;
 				tmpheight = (tmpheight + 1) >> 1;
 
-				start = end;
-				end += imagebytesout;
+				lodsrc = loddst;
+				loddst += imagebytesout;
 			}
 
-			texSwapAltRowBytes(start, tmpwidth, tmpheight, format);
+			texSwizzle(lodsrc, tmpwidth, tmpheight, format);
 		} else {
-			texSwapAltRowBytes(dst, width, height, format);
+			texSwizzle(dst, width, height, format);
 		}
 	}
 
@@ -1902,48 +1906,45 @@ s32 texInflateLookupFromBuffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *look
 }
 
 /**
- * For every second row, swap the bytes within that row.
- *
- * For textures with 32-bit colour values (in GBI format), swap every pair
- * within each word. For all other textures, swap every byte within each pair.
+ * For every second row, swap every pair of words within that row.
  */
-void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
+void texSwizzle(u8 *dst, s32 width, s32 height, s32 format)
 {
 	s32 x;
 	s32 y;
-	s32 alignedwidth;
+	s32 wordsperrow;
 	u32 *row = (u32 *)dst;
 	s32 tmp;
 
 	switch (format) {
 	case TEXFORMAT_RGBA32:
 	case TEXFORMAT_RGB24:
-		alignedwidth = (width + 3) & 0xffc;
+		wordsperrow = (width + 3) & 0xffc;
 		break;
 	case TEXFORMAT_RGBA16:
 	case TEXFORMAT_RGB15:
 	case TEXFORMAT_IA16:
-		alignedwidth = ((width + 3) & 0xffc) >> 1;
+		wordsperrow = ((width + 3) & 0xffc) >> 1;
 		break;
 	case TEXFORMAT_IA8:
 	case TEXFORMAT_I8:
 	case TEXFORMAT_RGBA16_CI8:
 	case TEXFORMAT_IA16_CI8:
-		alignedwidth = ((width + 7) & 0xff8) >> 2;
+		wordsperrow = ((width + 7) & 0xff8) >> 2;
 		break;
 	case TEXFORMAT_IA4:
 	case TEXFORMAT_I4:
 	case TEXFORMAT_RGBA16_CI4:
 	case TEXFORMAT_IA16_CI4:
-		alignedwidth = ((width + 0xf) & 0xff0) >> 3;
+		wordsperrow = ((width + 0xf) & 0xff0) >> 3;
 		break;
 	}
 
-	row += alignedwidth;
+	row += wordsperrow;
 
 	if (format == TEXFORMAT_RGBA32 || format == TEXFORMAT_RGB24) {
 		for (y = 1; y < height; y += 2) {
-			for (x = 0; x < alignedwidth; x += 4) {
+			for (x = 0; x < wordsperrow; x += 4) {
 				tmp = row[x + 0];
 				row[x + 0] = row[x + 2];
 				row[x + 2] = tmp;
@@ -1953,17 +1954,17 @@ void texSwapAltRowBytes(u8 *dst, s32 width, s32 height, s32 format)
 				row[x + 3] = tmp;
 			}
 
-			row += alignedwidth * 2;
+			row += wordsperrow * 2;
 		}
 	} else {
 		for (y = 1; y < height; y += 2) {
-			for (x = 0; x < alignedwidth; x += 2) {
+			for (x = 0; x < wordsperrow; x += 2) {
 				tmp = row[x + 0];
 				row[x + 0] = row[x + 1];
 				row[x + 1] = tmp;
 			}
 
-			row += alignedwidth * 2;
+			row += wordsperrow * 2;
 		}
 	}
 }
@@ -2080,7 +2081,7 @@ void texLoadFromDisplayList(Gfx *gdl, struct texpool *pool, s32 arg2)
 			texLoad((s32 *)((s32)bytes + 4), pool, arg2);
 		}
 
-		bytes += 8;
+		bytes += sizeof(Gfx);
 	}
 }
 
@@ -2121,13 +2122,13 @@ extern u8 _texturesdataSegmentRomStart;
  * z = texture is compressed with zlib
  * l = number of levels of detail within the texture
  */
-void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
+void texLoad(s32 *updateword, struct texpool *pool, bool unusedarg)
 {
 	u8 compbuffer[4 * 1024 + 0x40];
 	u8 *compptr;
-	s32 sp14a8;
+	s32 hasloddata;
 	s32 iszlib;
-	s32 lod;
+	s32 numlods;
 	struct tex *tex;
 	u8 *alignedcompbuffer;
 	u32 stack;
@@ -2184,12 +2185,12 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 
 			compptr = (u8 *) alignedcompbuffer + (thisoffset & 7);
 			thisoffset = 0;
-			sp14a8 = (*compptr & 0x80) >> 7;
+			hasloddata = (*compptr & 0x80) >> 7;
 			iszlib = (*compptr & 0x40) >> 6;
-			lod = *compptr & 0x3f;
+			numlods = *compptr & 0x3f;
 
-			if (lod > 5) {
-				lod = 5;
+			if (numlods > 5) {
+				numlods = 5;
 			}
 
 			compptr++;
@@ -2241,9 +2242,9 @@ void texLoad(s32 *updateword, struct texpool *pool, bool arg2)
 
 			// Extract the texture data to the allocation (pool->leftpos)
 			if (iszlib) {
-				bytesout = texInflateZlib(compptr, pool->leftpos, sp14a8, lod, pool, arg2);
+				bytesout = texInflateZlib(compptr, pool->leftpos, hasloddata, numlods, pool, unusedarg);
 			} else {
-				bytesout = texInflateNonZlib(compptr, pool->leftpos, sp14a8, lod, pool, arg2);
+				bytesout = texInflateNonZlib(compptr, pool->leftpos, hasloddata, numlods, pool, unusedarg);
 			}
 
 			// If we're using the shared pool, the data must be copied out of

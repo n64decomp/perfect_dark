@@ -11,24 +11,24 @@
 #include "textureconfig.h"
 #include "types.h"
 
-void texSetBitstring(u8 *arg0)
+void texSetBitstring(u8 *bitstring)
 {
-	var800ab540 = arg0;
-	var800ab544 = 0;
-	var800ab548 = 0;
+	g_TexBitstring = bitstring;
+	g_TexAccumValue = 0;
+	g_TexAccumNumBits = 0;
 }
 
-s32 texReadBits(s32 arg0)
+s32 texReadBits(s32 wantnumbits)
 {
-	while (var800ab548 < arg0) {
-		var800ab544 = *var800ab540 | var800ab544 << 8;
-		var800ab540++;
-		var800ab548 += 8;
+	while (g_TexAccumNumBits < wantnumbits) {
+		g_TexAccumValue = g_TexAccumValue << 8 | *g_TexBitstring;
+		g_TexBitstring++;
+		g_TexAccumNumBits += 8;
 	}
 
-	var800ab548 -= arg0;
+	g_TexAccumNumBits -= wantnumbits;
 
-	return var800ab544 >> var800ab548 & ((1 << arg0) - 1);
+	return (g_TexAccumValue >> g_TexAccumNumBits) & ((1 << wantnumbits) - 1);
 }
 
 extern u8 *g_TextureConfigSegment;

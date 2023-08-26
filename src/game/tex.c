@@ -268,7 +268,7 @@ s32 texGetWidthAtLod(struct tex *tex, s32 lod)
 		return width;
 	}
 
-	if (tex->unk0c_02) {
+	if (tex->hasloddata) {
 		for (i = 0; i < g_TexCacheCount; i++) {
 			if (tex->texturenum == g_TexCacheItems[i].texturenum) {
 				return g_TexCacheItems[i].widths[lod - 1];
@@ -294,7 +294,7 @@ s32 texGetHeightAtLod(struct tex *tex, s32 lod)
 		return height;
 	}
 
-	if (tex->unk0c_02) {
+	if (tex->hasloddata) {
 		for (i = 0; i < g_TexCacheCount; i++) {
 			if (tex->texturenum == g_TexCacheItems[i].texturenum) {
 				return g_TexCacheItems[i].heights[lod - 1];
@@ -339,7 +339,7 @@ s32 texGetSizeInBytes(struct tex *tex, s32 lod)
 void tex0f173e50(struct tex *tex, s32 *deptharg, s32 *lenarg)
 {
 	s32 depth = tex->depth;
-	s32 maxlod = tex->maxlod ? tex->maxlod : 1;
+	s32 numlods = tex->numlods ? tex->numlods : 1;
 	s32 lod;
 
 	*lenarg = 0;
@@ -354,7 +354,7 @@ void tex0f173e50(struct tex *tex, s32 *deptharg, s32 *lenarg)
 		*deptharg = G_IM_SIZ_16b;
 	}
 
-	for (lod = 0; lod < maxlod; lod++) {
+	for (lod = 0; lod < numlods; lod++) {
 		*lenarg += texGetSizeInBytes(tex, lod) * 4;
 	}
 }
@@ -415,10 +415,10 @@ Gfx *tex0f173f78(Gfx *gdl, struct tex *tex, s32 arg2, s32 shifts, s32 shiftt, s3
 				tex0f173f48(0), sp88 - s0->unk04_08, shifts);
 	}
 
-	uls = (arg2 == 2 && !tex->unk0c_02 ? 2 : 0) + 0;
-	ult = (arg2 == 2 && !tex->unk0c_02 ? 2 : 0) + 0;
-	lrs = (arg2 == 2 && !tex->unk0c_02 ? 2 : 0) + ((tex->width - 1) << 2);
-	lrt = (arg2 == 2 && !tex->unk0c_02 ? 2 : 0) + ((tex->height - 1) << 2);
+	uls = (arg2 == 2 && !tex->hasloddata ? 2 : 0) + 0;
+	ult = (arg2 == 2 && !tex->hasloddata ? 2 : 0) + 0;
+	lrs = (arg2 == 2 && !tex->hasloddata ? 2 : 0) + ((tex->width - 1) << 2);
+	lrt = (arg2 == 2 && !tex->hasloddata ? 2 : 0) + ((tex->height - 1) << 2);
 
 	if (tex0f173b8c(0, uls, ult, lrs, lrt)) {
 		gDPSetTileSize(gdl++, 0, uls, ult, lrs, lrt);
@@ -429,7 +429,7 @@ Gfx *tex0f173f78(Gfx *gdl, struct tex *tex, s32 arg2, s32 shifts, s32 shiftt, s3
 
 Gfx *tex0f1742e4(Gfx *arg0, Gfx *arg1, struct tex *tex, bool arg3)
 {
-	s32 lod = tex->maxlod ? tex->maxlod - 1 : 0;
+	s32 lod = tex->numlods ? tex->numlods - 1 : 0;
 
 	if (arg3) {
 		if (arg1 != NULL) {
@@ -518,17 +518,17 @@ Gfx *tex0f1743a0(Gfx *gdl, struct tex *tex, s32 arg2)
 Gfx *tex0f1747a4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u32 arg7)
 {
 	u32 tmem;
-	s32 maxlod;
+	s32 numlods;
 	s32 tile;
 
 	tmem = arg7;
-	maxlod = tex->maxlod;
+	numlods = tex->numlods;
 
-	if (arg6 >= 0 && arg6 < maxlod) {
-		maxlod = arg6;
+	if (arg6 >= 0 && arg6 < numlods) {
+		numlods = arg6;
 	}
 
-	for (tile = arg5; tile < maxlod + arg5 && tile < 6; tile++) {
+	for (tile = arg5; tile < numlods + arg5 && tile < 6; tile++) {
 		s32 stack[2];
 		s32 lod = tile - arg5;
 		u32 masks = tex0f173f18(texGetWidthAtLod(tex, lod));
@@ -539,7 +539,7 @@ Gfx *tex0f1747a4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ar
 		s32 lrs;
 		s32 lrt;
 		s32 bytes = texGetSizeInBytes(tex, lod);
-		s32 sp7c = tex->unk0c_02;
+		bool hasloddata = tex->hasloddata;
 
 		if (texSetLutMode(tex->lutmodeindex << G_MDSFT_TEXTLUT)) {
 			gDPSetTextureLUT(gdl++, tex->lutmodeindex << G_MDSFT_TEXTLUT);
@@ -551,10 +551,10 @@ Gfx *tex0f1747a4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ar
 					tex0f173f48(arg2), masks, tile - arg5);
 		}
 
-		uls = (arg4 == 2 && sp7c == 0 ? 2 : 0) + 0;
-		ult = (arg4 == 2 && sp7c == 0 ? 2 : 0) + 0;
-		lrs = ((texGetWidthAtLod(tex, lod) - 1) << 2) + (arg4 == 2 && sp7c == 0 ? 2 : 0);
-		lrt = ((texGetHeightAtLod(tex, lod) - 1) << 2) + (arg4 == 2 && sp7c == 0 ? 2 : 0);
+		uls = (arg4 == 2 && hasloddata == false ? 2 : 0) + 0;
+		ult = (arg4 == 2 && hasloddata == false ? 2 : 0) + 0;
+		lrs = ((texGetWidthAtLod(tex, lod) - 1) << 2) + (arg4 == 2 && hasloddata == false ? 2 : 0);
+		lrt = ((texGetHeightAtLod(tex, lod) - 1) << 2) + (arg4 == 2 && hasloddata == false ? 2 : 0);
 
 		if (tex0f173b8c(tile, uls, ult, lrs, lrt)) {
 			gDPSetTileSize(gdl++, tile, uls, ult, lrs, lrt);
@@ -635,12 +635,12 @@ Gfx *tex0f174f30(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ti
 	s32 ult;
 	s32 lrs;
 	s32 lrt;
-	s32 sp50;
+	bool hasloddata;
 
 	masks = tex0f173f18(tex->width);
 	maskt = tex0f173f18(tex->height);
 	line = texGetLineSizeInBytes(tex, 0);
-	sp50 = tex->unk0c_02;
+	hasloddata = tex->hasloddata;
 
 	if (texSetLutMode(tex->lutmodeindex << G_MDSFT_TEXTLUT)) {
 		gDPSetTextureLUT(gdl++, tex->lutmodeindex << G_MDSFT_TEXTLUT);
@@ -652,10 +652,10 @@ Gfx *tex0f174f30(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ti
 				tex0f173f48(arg2), masks, G_TX_NOLOD);
 	}
 
-	uls = (arg4 == 2 && sp50 == 0 ? 2 : 0) + 0;
-	ult = (arg4 == 2 && sp50 == 0 ? 2 : 0) + 0;
-	lrs = (arg4 == 2 && sp50 == 0 ? 2 : 0) + ((tex->width - 1) << 2);
-	lrt = (arg4 == 2 && sp50 == 0 ? 2 : 0) + ((tex->height - 1) << 2);
+	uls = (arg4 == 2 && hasloddata == false ? 2 : 0) + 0;
+	ult = (arg4 == 2 && hasloddata == false ? 2 : 0) + 0;
+	lrs = (arg4 == 2 && hasloddata == false ? 2 : 0) + ((tex->width - 1) << 2);
+	lrt = (arg4 == 2 && hasloddata == false ? 2 : 0) + ((tex->height - 1) << 2);
 
 	if (tex0f173b8c(tile, uls, ult, lrs, lrt)) {
 		gDPSetTileSize(gdl++, tile, uls, ult, lrs, lrt);
@@ -677,9 +677,9 @@ Gfx *tex0f1751e4(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ar
 
 	gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, -1, 0);
 
-	sp34 += tex->maxlod;
+	sp34 += tex->numlods;
 
-	if (!arg5 && tex->maxlod == 1) {
+	if (!arg5 && tex->numlods == 1) {
 		gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, -1, 0);
 	}
 
@@ -711,9 +711,9 @@ Gfx *tex0f175308(Gfx *gdl, struct tex *tex1, s32 arg2, s32 arg3, s32 arg4, struc
 
 	gdl = tex0f1747a4(gdl, tex1, arg2, arg3, arg4, sp38, -1, size);
 
-	sp38 += tex1->maxlod;
+	sp38 += tex1->numlods;
 
-	if (!arg9 && tex1->maxlod == 1) {
+	if (!arg9 && tex1->numlods == 1) {
 		gdl = tex0f1747a4(gdl, tex1, arg2, arg3, arg4, sp38, -1, size);
 	}
 
@@ -740,9 +740,9 @@ Gfx *tex0f175490(Gfx *gdl, struct tex *tex, s32 arg2, s32 arg3, s32 arg4, s32 ar
 
 	gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, -1, 0);
 
-	sp34 += tex->maxlod;
+	sp34 += tex->numlods;
 
-	if (!arg8 && tex->maxlod == 1) {
+	if (!arg8 && tex->numlods == 1) {
 		gdl = tex0f1747a4(gdl, tex, arg2, arg3, arg4, sp34, -1, 0);
 	}
 
@@ -1111,13 +1111,13 @@ s32 texLoadFromGdl(Gfx *arg0, s32 gdlsizeinbytes, Gfx *arg2, struct texpool *poo
 	return (uintptr_t) s6 - (uintptr_t) arg2;
 }
 
-void texCopyGdls(Gfx *src, Gfx *dst, s32 arg2)
+void texCopyGdls(Gfx *src, Gfx *dst, s32 count)
 {
-	arg2 = (arg2 >> 3);
-	src = src + (arg2 - 1);
-	dst = dst + (arg2 - 1);
+	count = (count >> 3);
+	src = src + (count - 1);
+	dst = dst + (count - 1);
 
-	while (arg2--) {
+	while (count--) {
 		dst->force_structure_alignment = src->force_structure_alignment;
 		dst--;
 		src--;
