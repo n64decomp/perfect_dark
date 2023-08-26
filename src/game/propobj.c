@@ -2689,7 +2689,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 				while (hitpart > 0) {
 					if (func0f084594(model, spe4, arg5, arg6, &thing1, &mtxindex1, &node1)) {
-						mtx4TransformVec(&model->matrices[mtxindex1], &thing1.unk00, &spfc);
+						mtx4TransformVec(&model->matrices[mtxindex1], &thing1.pos, &spfc);
 
 						sum2 = (spfc.f[0] - arg5->f[0]) * arg6->f[0]
 							+ (spfc.f[1] - arg5->f[1]) * arg6->f[1]
@@ -2715,9 +2715,9 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 							g_EmbedNode = spe4;
 
 							g_EmbedSide = thing1.unk28 / 2;
-							var8006993c[0] = thing1.unk00.x;
-							var8006993c[1] = thing1.unk00.y;
-							var8006993c[2] = thing1.unk00.z;
+							var8006993c[0] = thing1.pos.x;
+							var8006993c[1] = thing1.pos.y;
+							var8006993c[2] = thing1.pos.z;
 
 							result = 1;
 						}
@@ -2741,13 +2741,13 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 					if (node && func0f084594(model, node, arg5, arg6, &thing2, &mtxindex2, &node2)) {
 						if (hitpart <= 0 ||
-								+ model->matrices[mtxindex2].m[0][2] * thing2.unk00.f[0]
-								+ model->matrices[mtxindex2].m[1][2] * thing2.unk00.f[1]
-								+ model->matrices[mtxindex2].m[2][2] * thing2.unk00.f[2]
+								+ model->matrices[mtxindex2].m[0][2] * thing2.pos.f[0]
+								+ model->matrices[mtxindex2].m[1][2] * thing2.pos.f[1]
+								+ model->matrices[mtxindex2].m[2][2] * thing2.pos.f[2]
 								>
-								+ model->matrices[mtxindex1].m[0][2] * thing1.unk00.f[0]
-								+ model->matrices[mtxindex1].m[1][2] * thing1.unk00.f[1]
-								+ model->matrices[mtxindex1].m[2][2] * thing1.unk00.f[2]
+								+ model->matrices[mtxindex1].m[0][2] * thing1.pos.f[0]
+								+ model->matrices[mtxindex1].m[1][2] * thing1.pos.f[1]
+								+ model->matrices[mtxindex1].m[2][2] * thing1.pos.f[2]
 								) {
 							hitpart = 1;
 
@@ -2760,7 +2760,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 				}
 
 				if (hitpart > 0) {
-					mtx4TransformVec(&model->matrices[mtxindex1], &thing1.unk00, &spfc);
+					mtx4TransformVec(&model->matrices[mtxindex1], &thing1.pos, &spfc);
 
 					sum3 = (spfc.f[0] - arg5->f[0]) * arg6->f[0]
 						+ (spfc.f[1] - arg5->f[1]) * arg6->f[1]
@@ -2798,9 +2798,9 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 						if (thing1.texturenum == 10000) {
 							g_EmbedSide = thing1.unk28 / 2;
-							var8006993c[0] = thing1.unk00.x;
-							var8006993c[1] = thing1.unk00.y;
-							var8006993c[2] = thing1.unk00.z;
+							var8006993c[0] = thing1.pos.x;
+							var8006993c[1] = thing1.pos.y;
+							var8006993c[2] = thing1.pos.z;
 						}
 					}
 				}
@@ -2994,7 +2994,7 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 {
 	f32 spec;
 	struct prop *prop = chr->prop;
-	f32 spe4 = chr0f0278a4(chr);
+	f32 spe4 = chrGetHitRadius(chr);
 	f32 x = (prop->pos.f[0] - arg1->f[0]);
 	f32 y = (prop->pos.f[1] - arg1->f[1]);
 	f32 z = (prop->pos.f[2] - arg1->f[2]);
@@ -3021,7 +3021,7 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 
 				while (hitpart > 0) {
 					if (func0f084594(model, spcc, arg5, arg6, &sp7c, &sp78, &sp74)) {
-						mtx4TransformVec(&model->matrices[sp78], &sp7c.unk00, &spb8);
+						mtx4TransformVec(&model->matrices[sp78], &sp7c.pos, &spb8);
 
 						spec = (spb8.f[0] - arg5->f[0]) * arg6->f[0]
 							+ (spb8.f[1] - arg5->f[1]) * arg6->f[1]
@@ -3047,9 +3047,9 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 							g_EmbedNode = spcc;
 							g_EmbedSide = sp7c.unk28 / 2;
 
-							var8006993c[0] = sp7c.unk00.x;
-							var8006993c[1] = sp7c.unk00.y;
-							var8006993c[2] = sp7c.unk00.z;
+							var8006993c[0] = sp7c.pos.x;
+							var8006993c[1] = sp7c.pos.y;
+							var8006993c[2] = sp7c.pos.z;
 
 							result = true;
 						}
@@ -3061,10 +3061,10 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 				hitpart = modelTestForHit(model, arg5, arg6, &spcc);
 
 				if (hitpart > 0
-						&& func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, arg5, arg6, &sp7c.unk00, &spec, &spcc, &hitpart, &sp78, &sp74)
+						&& func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, arg5, arg6, &sp7c.pos, &spec, &spcc, &hitpart, &sp78, &sp74)
 						&& spec < *arg9) {
 					*arg9 = spec;
-					mtx4TransformVec(camGetProjectionMtxF(), &sp7c.unk00, arg7);
+					mtx4TransformVec(camGetProjectionMtxF(), &sp7c.pos, arg7);
 					mtx4RotateVec(camGetProjectionMtxF(), &sp7c.unk0c, arg8);
 
 					if (arg8->x != 0.0f || arg8->y != 0.0f || arg8->z != 0.0f) {
@@ -3270,9 +3270,9 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 
 			if (bgRoomIsLoaded(spcc[i])) {
 				if (bgTestHitInRoom(&prop->pos, &sp1c4, spcc[i], &hitthing)) {
-					hitthing.unk00.x *= scale;
-					hitthing.unk00.y *= scale;
-					hitthing.unk00.z *= scale;
+					hitthing.pos.x *= scale;
+					hitthing.pos.y *= scale;
+					hitthing.pos.z *= scale;
 
 					var80069944 = hitthing.texturenum;
 
@@ -3281,7 +3281,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 					if (g_Textures[hitthing.texturenum].surfacetype == SURFACETYPE_DEEPWATER) {
 						struct coord spa4 = {0, 0, 0};
 						s0 = false;
-						sparksCreate(prop->rooms[0], prop, &hitthing.unk00, &spa4, &hitthing.unk0c, SPARKTYPE_DEEPWATER);
+						sparksCreate(prop->rooms[0], prop, &hitthing.pos, &spa4, &hitthing.unk0c, SPARKTYPE_DEEPWATER);
 						psCreate(0, prop, SFX_HIT_WATER, -1, -1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 						obj->hidden |= OBJHFLAG_DELETING;
 					}
@@ -3294,28 +3294,28 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 				if (cdExamLos09(&prop->pos, spa0, &sp1c4, CDTYPE_BG) == CDRESULT_COLLISION) {
 					s0 = true;
 #if VERSION >= VERSION_PAL_FINAL
-					cdGetPos(&hitthing.unk00, 4258, "prop/propobj.c");
+					cdGetPos(&hitthing.pos, 4258, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-					cdGetPos(&hitthing.unk00, 4258, "propobj.c");
+					cdGetPos(&hitthing.pos, 4258, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-					cdGetPos(&hitthing.unk00, 4257, "propobj.c");
+					cdGetPos(&hitthing.pos, 4257, "propobj.c");
 #else
-					cdGetPos(&hitthing.unk00, 4246, "propobj.c");
+					cdGetPos(&hitthing.pos, 4246, "propobj.c");
 #endif
 					cdGetObstacleNormal(&hitthing.unk0c);
 				}
 			}
 
 			if (s0
-					&& ((prop->pos.x <= sp1c4.x && hitthing.unk00.x <= sp1c4.x && prop->pos.x <= hitthing.unk00.x) || (sp1c4.x <= prop->pos.x && sp1c4.x <= hitthing.unk00.x && hitthing.unk00.x <= prop->pos.x))
-					&& ((prop->pos.y <= sp1c4.y && hitthing.unk00.y <= sp1c4.y && prop->pos.y <= hitthing.unk00.y) || (sp1c4.y <= prop->pos.y && sp1c4.y <= hitthing.unk00.y && hitthing.unk00.y <= prop->pos.y))
-					&& ((prop->pos.z <= sp1c4.z && hitthing.unk00.z <= sp1c4.z && prop->pos.z <= hitthing.unk00.z) || (sp1c4.z <= prop->pos.z && sp1c4.z <= hitthing.unk00.z && hitthing.unk00.z <= prop->pos.z))
-					&& (prop->pos.f[0] != hitthing.unk00.f[0] || prop->pos.f[1] != hitthing.unk00.f[1] || prop->pos.f[2] != hitthing.unk00.f[2])) {
+					&& ((prop->pos.x <= sp1c4.x && hitthing.pos.x <= sp1c4.x && prop->pos.x <= hitthing.pos.x) || (sp1c4.x <= prop->pos.x && sp1c4.x <= hitthing.pos.x && hitthing.pos.x <= prop->pos.x))
+					&& ((prop->pos.y <= sp1c4.y && hitthing.pos.y <= sp1c4.y && prop->pos.y <= hitthing.pos.y) || (sp1c4.y <= prop->pos.y && sp1c4.y <= hitthing.pos.y && hitthing.pos.y <= prop->pos.y))
+					&& ((prop->pos.z <= sp1c4.z && hitthing.pos.z <= sp1c4.z && prop->pos.z <= hitthing.pos.z) || (sp1c4.z <= prop->pos.z && sp1c4.z <= hitthing.pos.z && hitthing.pos.z <= prop->pos.z))
+					&& (prop->pos.f[0] != hitthing.pos.f[0] || prop->pos.f[1] != hitthing.pos.f[1] || prop->pos.f[2] != hitthing.pos.f[2])) {
 				cdresult = CDRESULT_COLLISION;
 
-				sp1c4.x = hitthing.unk00.x;
-				sp1c4.y = hitthing.unk00.y;
-				sp1c4.z = hitthing.unk00.z;
+				sp1c4.x = hitthing.pos.x;
+				sp1c4.y = hitthing.pos.y;
+				sp1c4.z = hitthing.pos.z;
 
 				arg3->x = hitthing.unk0c.x;
 				arg3->y = hitthing.unk0c.y;
@@ -14102,7 +14102,7 @@ void objDeform(struct defaultobj *obj, s32 level)
 /**
  * Bounce an object, such as a hoverbot when it's destroyed.
  */
-void objBounce(struct defaultobj *obj, struct coord *arg1)
+void objBounce(struct defaultobj *obj, struct coord *gundir2d)
 {
 	struct coord dir;
 	struct coord rot = {0, 0, 0};
@@ -14135,9 +14135,9 @@ void objBounce(struct defaultobj *obj, struct coord *arg1)
 
 		projectile->flags |= PROJECTILEFLAG_AIRBORNE;
 
-		dir.x = arg1->x;
-		dir.y = arg1->y;
-		dir.z = arg1->z;
+		dir.x = gundir2d->x;
+		dir.y = gundir2d->y;
+		dir.z = gundir2d->z;
 
 		mtx4RotateVecInPlace(camGetProjectionMtxF(), &dir);
 
@@ -14740,8 +14740,8 @@ void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum)
 				obj->flags &= ~OBJFLAG_CHOPPER_INACTIVE;
 			} else if (obj->type == OBJTYPE_HOVERCAR) {
 				struct hovercarobj *hovercar = (struct hovercarobj *)obj;
-				struct coord sp40;
-				struct coord sp34;
+				struct coord gunpos2d;
+				struct coord gundir2d;
 
 				if (obj->flags & OBJFLAG_HOVERCAR_ISHOVERBOT) {
 					// Hoverbots bounce and spark when dead
@@ -14749,8 +14749,8 @@ void objCheckDestroyed(struct defaultobj *obj, struct coord *pos, s32 playernum)
 					hovercar->deadtimer60 = TICKS(250);
 					hovercar->sparkstimer60 = TICKS(50);
 
-					bgunCalculatePlayerShotSpread(&sp40, &sp34, HAND_RIGHT, false);
-					objBounce(obj, &sp34);
+					bgunCalculatePlayerShotSpread(&gunpos2d, &gundir2d, HAND_RIGHT, false);
+					objBounce(obj, &gundir2d);
 				} else if (obj->modelnum == MODEL_TAXICAB || obj->modelnum == MODEL_POLICECAR) {
 					// Taxi and police car (limo) fall to the ground and retain collision
 					objDeform(obj, 10);
@@ -14888,7 +14888,7 @@ bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg
 
 	if (reset) {
 		for (i = 0; i < 3; i++) {
-			hitthing->unk00.f[i] = spb8.f[i];
+			hitthing->pos.f[i] = spb8.f[i];
 		}
 
 		hitthing->unk0c.x = 0.0f;
@@ -14917,13 +14917,13 @@ bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg
 		} else {
 			for (i = 0; i < 3; i++) {
 				if (maxindex != i) {
-					hitthing->unk00.f[i] = spb8.f[i] + sp7c.f[maxindex] * spac.f[i];
+					hitthing->pos.f[i] = spb8.f[i] + sp7c.f[maxindex] * spac.f[i];
 
-					if (hitthing->unk00.f[i] < min.f[i] || hitthing->unk00.f[i] > max.f[i]) {
+					if (hitthing->pos.f[i] < min.f[i] || hitthing->pos.f[i] > max.f[i]) {
 						ok = false;
 					}
 				} else {
-					hitthing->unk00.f[i] = sp88.f[i];
+					hitthing->pos.f[i] = sp88.f[i];
 				}
 			}
 
@@ -15570,20 +15570,20 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	}
 
 	if (var8005efc0 > 0.0f) {
-		hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+		hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node1);
 
 		while (hitpart > 0) {
-			if (func0f084594(model, node1, &shotdata->unk00, &shotdata->unk0c, &hitthing1, &spe4, &node2)) {
+			if (func0f084594(model, node1, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing1, &spe4, &node2)) {
 				break;
 			}
 
-			hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+			hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node1);
 		}
 	} else {
 		do {
-			hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node1);
+			hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node1);
 
-			if (hitpart > 0 && func0f0849dc(model, node1, &shotdata->unk00, &shotdata->unk0c, &hitthing1, &spe4, &node2)) {
+			if (hitpart > 0 && func0f0849dc(model, node1, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing1, &spe4, &node2)) {
 				break;
 			}
 		} while (hitpart > 0);
@@ -15592,10 +15592,10 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	if (obj->flags3 & OBJFLAG3_HOVERBEDSHIELD) {
 		node3 = modelGetPart(model->definition, MODELPART_0067);
 
-		if (node3 && func0f084594(model, node3, &shotdata->unk00, &shotdata->unk0c, &hitthing2, &sp90, &node4)) {
+		if (node3 && func0f084594(model, node3, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing2, &sp90, &node4)) {
 			if (hitpart <= 0 ||
-					model->matrices[sp90].m[0][2] * hitthing2.unk00.f[0] + model->matrices[sp90].m[1][2] * hitthing2.unk00.f[1] + model->matrices[sp90].m[2][2] * hitthing2.unk00.f[2] >
-					model->matrices[spe4].m[0][2] * hitthing1.unk00.f[0] + model->matrices[spe4].m[1][2] * hitthing1.unk00.f[1] + model->matrices[spe4].m[2][2] * hitthing1.unk00.f[2]) {
+					model->matrices[sp90].m[0][2] * hitthing2.pos.f[0] + model->matrices[sp90].m[1][2] * hitthing2.pos.f[1] + model->matrices[sp90].m[2][2] * hitthing2.pos.f[2] >
+					model->matrices[spe4].m[0][2] * hitthing1.pos.f[0] + model->matrices[spe4].m[1][2] * hitthing1.pos.f[1] + model->matrices[spe4].m[2][2] * hitthing1.pos.f[2]) {
 				hitpart = HITPART_LFOOT;
 				hitthing1 = hitthing2;
 				node1 = node3;
@@ -15607,10 +15607,10 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	}
 
 	if (hitpart > 0) {
-		mtx4TransformVec(&model->matrices[spe4], &hitthing1.unk00, &spd8);
+		mtx4TransformVec(&model->matrices[spe4], &hitthing1.pos, &spd8);
 		spd4 = -spd8.f[2];
 
-		if (spd4 <= shotdata->unk34) {
+		if (spd4 <= shotdata->distance) {
 			isnotglass = true;
 
 			if ((obj->flags & OBJFLAG_INVINCIBLE) == 0) {
@@ -15626,7 +15626,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 			mtx4RotateVec(&model->matrices[spe4], &hitthing1.unk0c, &sp70);
 			mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp70);
 
-			func0f061fa8(shotdata, prop, spd4, hitpart,
+			hitCreate(shotdata, prop, spd4, hitpart,
 					node1, &hitthing1, spe4, node2,
 					model, isnotglass && shotdata->gset.weaponnum != WEAPON_FARSIGHT,
 					(obj->flags2 & OBJFLAG2_BULLETPROOF)
@@ -15637,7 +15637,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	}
 }
 
-void func0f085e00(struct prop *prop, struct shotdata *shotdata)
+void objTestHit(struct prop *prop, struct shotdata *shotdata)
 {
 	f32 tmp;
 	struct defaultobj *obj = prop->obj;
@@ -15649,7 +15649,7 @@ void func0f085e00(struct prop *prop, struct shotdata *shotdata)
 			&& (obj->flags2 & OBJFLAG2_SHOOTTHROUGH) == 0) {
 		tmp = -(model->matrices[0].m[3][2] + objGetRotatedLocalZMaxByMtx4(bbox, model->matrices));
 
-		if (tmp <= shotdata->unk34) {
+		if (tmp <= shotdata->distance) {
 			func0f0859a0(prop, shotdata);
 		}
 	}
@@ -15663,7 +15663,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 	u8 ismeleefunc = false;
 	s32 i;
 	bool explosiveshells = false;
-	bool spfc = hit->unk4c;
+	bool slowsbullet = hit->slowsbullet;
 	struct weaponfunc *func = gsetGetWeaponFunction(&shotdata->gset);
 	struct coord spec;
 	f32 tmp;
@@ -15689,17 +15689,17 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 
 	obj = hit->prop->obj;
 
-	sp110.x = shotdata->unk00.x - hit->distance * shotdata->unk0c.x / shotdata->unk0c.z;
-	sp110.y = shotdata->unk00.y - hit->distance * shotdata->unk0c.y / shotdata->unk0c.z;
-	sp110.z = shotdata->unk00.z - hit->distance;
+	sp110.x = shotdata->gunpos2d.x - hit->distance * shotdata->gundir2d.x / shotdata->gundir2d.z;
+	sp110.y = shotdata->gunpos2d.y - hit->distance * shotdata->gundir2d.y / shotdata->gundir2d.z;
+	sp110.z = shotdata->gunpos2d.z - hit->distance;
 
 	mtx4TransformVecInPlace(camGetProjectionMtxF(), &sp110);
 
-	if (!spfc && chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
-		spfc = true;
+	if (!slowsbullet && chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
+		slowsbullet = true;
 	}
 
-	if (hit->unk4c) {
+	if (hit->slowsbullet) {
 		bgunSetHitPos(&sp110);
 	}
 
@@ -15711,7 +15711,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				&& shotdata->gset.weaponnum != WEAPON_FARSIGHT
 #endif
 				) {
-			// For some penetrating weapons, unset hits beyond the shot distance?
+			// For some penetrating weapons, unset hits beyond the shot distance
 			spe4 = hit->prop;
 			mtx4TransformVec(obj->model->matrices, &sp110, &spec);
 			tmp = -spec.z;
@@ -15722,7 +15722,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				}
 			}
 
-			shotdata->unk34 = tmp;
+			shotdata->distance = tmp;
 		}
 	}
 
@@ -15737,20 +15737,20 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 
 	// Create shield hit if object is shielded
 	if (hit->hitthing.texturenum == 10000) {
-		spdc[0] = hit->hitthing.unk00.x;
-		spdc[1] = hit->hitthing.unk00.y;
-		spdc[2] = hit->hitthing.unk00.z;
+		spdc[0] = hit->hitthing.pos.x;
+		spdc[1] = hit->hitthing.pos.y;
+		spdc[2] = hit->hitthing.pos.z;
 
-		shieldhitCreate(prop, (obj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4.0f : 8.0f, hit->prop, hit->node, hit->model, hit->hitthing.unk28 / 2, spdc);
+		shieldhitCreate(prop, (obj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4.0f : 8.0f, hit->prop, hit->bboxnode, hit->model, hit->hitthing.unk28 / 2, spdc);
 	}
 
 	// Increment object hit count
-	if (objIsHealthy(obj) && objIsMortal(obj) && hit->unk4c) {
+	if (objIsHealthy(obj) && objIsMortal(obj) && hit->slowsbullet) {
 		mpstatsIncrementPlayerShotCount2(&shotdata->gset, SHOTREGION_OBJECT);
 	}
 
 	// Play hit sound
-	if (!spfc) {
+	if (!slowsbullet) {
 		bgunPlayGlassHitSound(&hit->prop->pos, hit->prop->rooms, hit->hitthing.texturenum);
 	} else if (!ismeleefunc) {
 		bgunPlayPropHitSound(&shotdata->gset, hit->prop, hit->hitthing.texturenum);
@@ -15763,7 +15763,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 			&& shotdata->gset.weaponnum != WEAPON_LASER
 			&& shotdata->gset.weaponnum != WEAPON_TRANQUILIZER
 			&& shotdata->gset.weaponnum != WEAPON_FARSIGHT) {
-		if (hit->unk4c == 0) {
+		if (!hit->slowsbullet) {
 			struct prop *hitprop = hit->prop;
 			s8 iswindoweddoor = obj->model->definition->skel == &g_SkelWindowedDoor ? true : false;
 
@@ -15776,7 +15776,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				textureindex += 10;
 			}
 
-			wallhitCreate(&hit->hitthing.unk00, &hit->hitthing.unk0c, &shotdata->gunpos, 0,
+			wallhitCreate(&hit->hitthing.pos, &hit->hitthing.unk0c, &shotdata->gunpos3d, 0,
 					0, textureindex, 1, hitprop, hit->mtxindex, iswindoweddoor, g_Vars.currentplayer->prop->chr, true);
 		} else {
 			s16 textureindex;
@@ -15797,8 +15797,8 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				spc4 = false;
 				spcc = random() % surfacetype->numwallhittexes;
 
-				if ((obj->model->definition->skel == &g_SkelWindowedDoor && hit->unk44 == modelGetPart(obj->model->definition, MODELPART_WINDOWEDDOOR_0003))
-						|| (obj->model->definition->skel == &g_SkelCctv && hit->unk44 == modelGetPart(obj->model->definition, MODELPART_CCTV_LENS))) {
+				if ((obj->model->definition->skel == &g_SkelWindowedDoor && hit->dlnode == modelGetPart(obj->model->definition, MODELPART_WINDOWEDDOOR_0003))
+						|| (obj->model->definition->skel == &g_SkelCctv && hit->dlnode == modelGetPart(obj->model->definition, MODELPART_CCTV_LENS))) {
 					spcb = true;
 				}
 
@@ -15815,7 +15815,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 					spc4 = true;
 				}
 
-				wallhitCreate(&hit->hitthing.unk00, &hit->hitthing.unk0c, &shotdata->gunpos, 0,
+				wallhitCreate(&hit->hitthing.pos, &hit->hitthing.unk0c, &shotdata->gunpos3d, 0,
 						0, textureindex, 1, hit->prop, hit->mtxindex, spcb, g_Vars.currentplayer->prop->chr, spc4);
 			}
 		}
@@ -15830,7 +15830,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 			} else if (obj->type == OBJTYPE_CCTV) {
 				// Leftover from GE: shots to a CCTV's lens is a one hit kill
 				if (obj->model->definition->skel == &g_SkelCctv) {
-					if (modelGetPart(obj->model->definition, MODELPART_CCTV_LENS) == hit->unk44) {
+					if (modelGetPart(obj->model->definition, MODELPART_CCTV_LENS) == hit->dlnode) {
 						damage *= 100.0f;
 						cctvHandleLensShot(obj);
 					}
@@ -15847,7 +15847,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 
 			objTakeGunfire(obj, damage, &sp110, shotdata->gset.weaponnum, g_Vars.currentplayernum);
 
-			if (obj->model->definition->skel == &g_SkelWindowedDoor && !hit->unk4c) {
+			if (obj->model->definition->skel == &g_SkelWindowedDoor && !hit->slowsbullet) {
 				struct doorobj *door = (struct doorobj *)obj;
 				door->glasshits++;
 
@@ -15867,16 +15867,16 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				struct coord pushdir;
 				Mtxf sp58;
 
-				spb0.x = shotdata->dir.x * 3.0f;
-				spb0.y = shotdata->dir.y * 3.0f;
-				spb0.z = shotdata->dir.z * 3.0f;
+				spb0.x = shotdata->gundir3d.x * 3.0f;
+				spb0.y = shotdata->gundir3d.y * 3.0f;
+				spb0.z = shotdata->gundir3d.z * 3.0f;
 
 				mtx4MultMtx4(camGetProjectionMtxF(), &obj->model->matrices[hit->mtxindex], &sp58);
-				mtx4TransformVec(&sp58, &hit->hitthing.unk00, &spa4);
+				mtx4TransformVec(&sp58, &hit->hitthing.pos, &spa4);
 
-				pushdir.x = shotdata->dir.x;
-				pushdir.y = shotdata->dir.y;
-				pushdir.z = shotdata->dir.z;
+				pushdir.x = shotdata->gundir3d.x;
+				pushdir.y = shotdata->gundir3d.y;
+				pushdir.z = shotdata->gundir3d.z;
 
 				func0f082e84(obj, &spa4, &pushdir, &spb0, true);
 			} else {
@@ -15901,7 +15901,7 @@ void objHit(struct shotdata *shotdata, struct hit *hit)
 				}
 
 				if (bounce) {
-					objBounce(obj, &shotdata->unk0c);
+					objBounce(obj, &shotdata->gundir2d);
 				}
 			}
 		}

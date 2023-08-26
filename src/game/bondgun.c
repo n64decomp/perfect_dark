@@ -4447,8 +4447,8 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 {
 	struct coord velocity = {0, 0, 0};
 	Mtxf sp1f4;
-	struct coord sp1e8;
-	struct coord sp1dc;
+	struct coord gunpos;
+	struct coord gundir;
 	struct prop *playerprop = g_Vars.currentplayer->prop;
 	struct coord *prevpos = &g_Vars.currentplayer->bondprevpos;
 	struct coord *extrapos = &g_Vars.currentplayer->bondextrapos;
@@ -4520,17 +4520,17 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 
 	playerSetPerimEnabled(playerprop, true);
 
-	bgunCalculatePlayerShotSpread(&sp1e8, &sp1dc, handnum, true);
-	mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp1dc);
+	bgunCalculatePlayerShotSpread(&gunpos, &gundir, handnum, true);
+	mtx4RotateVecInPlace(camGetProjectionMtxF(), &gundir);
 
 	if (droppinggrenade) {
 		// Dropping a grenade because player is in an nbomb storm
-		velocity.x = sp1dc.x * 1.6666666f;
-		velocity.y = sp1dc.y * 1.6666666f;
-		velocity.z = sp1dc.z * 1.6666666f;
+		velocity.x = gundir.x * 1.6666666f;
+		velocity.y = gundir.y * 1.6666666f;
+		velocity.z = gundir.z * 1.6666666f;
 	} else if (gsetHasFunctionFlags(&hand->gset, FUNCFLAG_CALCULATETRAJECTORY)) {
 		// Calculate the velocity based on the trajectory to the aimpos
-		func0f061d54(0, 0, 0);
+		propFindAimingAt(HAND_RIGHT, false, FINDPROPCONTEXT_QUERY);
 
 		if (hand->hasdotinfo) {
 			aimpos.x = hand->dotpos.x;
@@ -4539,11 +4539,11 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 
 			chrCalculateTrajectory(&spawnpos, 21.666666f, &aimpos, &sp140);
 
-			radians = acosf(sp1dc.f[0] * sp140.f[0] + sp1dc.f[1] * sp140.f[1] + sp1dc.f[2] * sp140.f[2]);
+			radians = acosf(gundir.f[0] * sp140.f[0] + gundir.f[1] * sp140.f[1] + gundir.f[2] * sp140.f[2]);
 
 			// Check within 20 degrees
 			if (radians > 0.34901026f || radians < -0.34901026f) {
-				mtx00016b58(&spf8, 0, 0, 0, sp1dc.x, sp1dc.y, sp1dc.z, 0, 1, 0);
+				mtx00016b58(&spf8, 0, 0, 0, gundir.x, gundir.y, gundir.z, 0, 1, 0);
 				mtx00016b58(&spb8, 0, 0, 0, sp140.x, sp140.y, sp140.z, 0, 1, 0);
 
 				quaternion0f097044(&spf8, sp68);
@@ -4559,24 +4559,24 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 				quaternionSlerp(sp68, sp58, frac, sp48);
 				quaternionToMtx(sp48, &sp78);
 
-				sp1dc.x = -sp78.m[2][0];
-				sp1dc.y = -sp78.m[2][1];
-				sp1dc.z = -sp78.m[2][2];
+				gundir.x = -sp78.m[2][0];
+				gundir.y = -sp78.m[2][1];
+				gundir.z = -sp78.m[2][2];
 			} else {
-				sp1dc.x = sp140.x;
-				sp1dc.y = sp140.y;
-				sp1dc.z = sp140.z;
+				gundir.x = sp140.x;
+				gundir.y = sp140.y;
+				gundir.z = sp140.z;
 			}
 		}
 
-		velocity.x = sp1dc.x * 21.666666f;
-		velocity.y = sp1dc.y * 21.666666f;
-		velocity.z = sp1dc.z * 21.666666f;
+		velocity.x = gundir.x * 21.666666f;
+		velocity.y = gundir.y * 21.666666f;
+		velocity.z = gundir.z * 21.666666f;
 	} else {
 		// Simple velocity
-		velocity.x = sp1dc.x * 16.666666f;
-		velocity.y = sp1dc.y * 16.666666f;
-		velocity.z = sp1dc.z * 16.666666f;
+		velocity.x = gundir.x * 16.666666f;
+		velocity.y = gundir.y * 16.666666f;
+		velocity.z = gundir.z * 16.666666f;
 
 		if (gset->weaponnum == WEAPON_GRENADE || gset->weaponnum == WEAPON_NBOMB) {
 			velocity.y += 1.6666666f;
@@ -4722,8 +4722,8 @@ void bgunCreateFiredProjectile(s32 handnum)
 	f32 sp25c;
 	struct coord sp250;
 	Mtxf sp210;
-	struct coord sp204;
-	struct coord sp1f8;
+	struct coord gunpos;
+	struct coord gundir;
 	struct prop *playerprop;
 	struct coord *prevpos;
 	struct coord *extrapos;
@@ -4757,24 +4757,24 @@ void bgunCreateFiredProjectile(s32 handnum)
 			funcdef = (struct weaponfunc_shootprojectile *)tmp;
 
 			mtx4LoadIdentity(&sp270);
-			bgunCalculatePlayerShotSpread(&sp204, &sp1f8, handnum, true);
-			mtx4RotateVecInPlace(camGetProjectionMtxF(), &sp1f8);
+			bgunCalculatePlayerShotSpread(&gunpos, &gundir, handnum, true);
+			mtx4RotateVecInPlace(camGetProjectionMtxF(), &gundir);
 
 			spawnpos.x = hand->muzzlepos.x;
 			spawnpos.y = hand->muzzlepos.y;
 			spawnpos.z = hand->muzzlepos.z;
 
 			if (hand->gset.weaponnum == WEAPON_SLAYER && hand->gset.weaponfunc == FUNC_SECONDARY) {
-				spawnpos.x += 50.0f * sp1f8.x;
-				spawnpos.y += 50.0f * sp1f8.y;
-				spawnpos.z += 50.0f * sp1f8.z;
+				spawnpos.x += 50.0f * gundir.x;
+				spawnpos.y += 50.0f * gundir.y;
+				spawnpos.z += 50.0f * gundir.z;
 			}
 
 			sp260 = funcdef->speed * 1.6666666f / 60.0f;
 			sp25c = funcdef->traveldist * 1.6666666f;
 
 			if (gsetHasFunctionFlags(&hand->gset, FUNCFLAG_CALCULATETRAJECTORY)) {
-				func0f061d54(0, 0, 0);
+				propFindAimingAt(HAND_RIGHT, false, FINDPROPCONTEXT_QUERY);
 
 				if (hand->hasdotinfo) {
 					aimpos.x = hand->dotpos.x;
@@ -4783,10 +4783,10 @@ void bgunCreateFiredProjectile(s32 handnum)
 
 					chrCalculateTrajectory(&spawnpos, sp25c, &aimpos, &sp1bc);
 
-					radians = acosf(sp1f8.f[0] * sp1bc.f[0] + sp1f8.f[1] * sp1bc.f[1] + sp1f8.f[2] * sp1bc.f[2]);
+					radians = acosf(gundir.f[0] * sp1bc.f[0] + gundir.f[1] * sp1bc.f[1] + gundir.f[2] * sp1bc.f[2]);
 
 					if (radians > 0.17450513f || radians < -0.17450513f) {
-						mtx00016b58(&sp174, 0.0f, 0.0f, 0.0f, sp1f8.x, sp1f8.y, sp1f8.z, 0.0f, 1.0f, 0.0f);
+						mtx00016b58(&sp174, 0.0f, 0.0f, 0.0f, gundir.x, gundir.y, gundir.z, 0.0f, 1.0f, 0.0f);
 						mtx00016b58(&sp134, 0.0f, 0.0f, 0.0f, sp1bc.x, sp1bc.y, sp1bc.z, 0.0f, 1.0f, 0.0f);
 
 						quaternion0f097044(&sp174, spe4);
@@ -4802,24 +4802,24 @@ void bgunCreateFiredProjectile(s32 handnum)
 						quaternionSlerp(spe4, spd4, frac, spc4);
 						quaternionToMtx(spc4, &spf4);
 
-						sp1f8.x = -spf4.m[2][0];
-						sp1f8.y = -spf4.m[2][1];
-						sp1f8.z = -spf4.m[2][2];
+						gundir.x = -spf4.m[2][0];
+						gundir.y = -spf4.m[2][1];
+						gundir.z = -spf4.m[2][2];
 					} else {
-						sp1f8.x = sp1bc.x;
-						sp1f8.y = sp1bc.y;
-						sp1f8.z = sp1bc.z;
+						gundir.x = sp1bc.x;
+						gundir.y = sp1bc.y;
+						gundir.z = sp1bc.z;
 					}
 				}
 			}
 
-			sp250.x = sp1f8.x * sp260;
-			sp250.y = sp1f8.y * sp260;
-			sp250.z = sp1f8.z * sp260;
+			sp250.x = gundir.x * sp260;
+			sp250.y = gundir.y * sp260;
+			sp250.z = gundir.z * sp260;
 
-			sp264.x = sp250.f[0] * g_Vars.lvupdate60freal + sp1f8.f[0] * sp25c;
-			sp264.y = sp250.f[1] * g_Vars.lvupdate60freal + sp1f8.f[1] * sp25c;
-			sp264.z = sp250.f[2] * g_Vars.lvupdate60freal + sp1f8.f[2] * sp25c;
+			sp264.x = sp250.f[0] * g_Vars.lvupdate60freal + gundir.f[0] * sp25c;
+			sp264.y = sp250.f[1] * g_Vars.lvupdate60freal + gundir.f[1] * sp25c;
+			sp264.z = sp250.f[2] * g_Vars.lvupdate60freal + gundir.f[2] * sp25c;
 
 			if ((funcdef->base.base.flags & FUNCFLAG_FLYBYWIRE) == 0 && g_Vars.lvupdate240 > 0) {
 				sp264.x += (playerprop->pos.x - prevpos->x + extrapos->x) / g_Vars.lvupdate60freal;
@@ -5236,7 +5236,7 @@ void bgun0f0a0c44(s32 handnum, struct coord *arg1, struct coord *arg2)
 	cam0f0b4c3c(g_Vars.currentplayer->hands[handnum].crosspos, arg2, 1);
 }
 
-void bgunCalculatePlayerShotSpread(struct coord *arg0, struct coord *arg1, s32 handnum, bool dorandom)
+void bgunCalculatePlayerShotSpread(struct coord *gunpos2d, struct coord *gundir2d, s32 handnum, bool dorandom)
 {
 	f32 crosspos[2];
 	f32 spread = 0;
@@ -5250,7 +5250,6 @@ void bgunCalculatePlayerShotSpread(struct coord *arg0, struct coord *arg1, s32 h
 		spread = shootfunc->spread;
 	}
 
-	// Unsure what this is
 	if (weaponHasAimFlag(bgunGetWeaponNum2(handnum), INVAIMFLAG_ACCURATESINGLESHOT)
 			&& player->hands[handnum].burstbullets == 1) {
 		spread *= 0.25f;
@@ -5286,11 +5285,11 @@ void bgunCalculatePlayerShotSpread(struct coord *arg0, struct coord *arg1, s32 h
 	crosspos[1] = player->crosspos[1] + (randfactor * scaledspread * camGetScreenHeight())
 		/ viGetHeight();
 
-	arg0->x = 0;
-	arg0->y = 0;
-	arg0->z = 0;
+	gunpos2d->x = 0;
+	gunpos2d->y = 0;
+	gunpos2d->z = 0;
 
-	cam0f0b4c3c(crosspos, arg1, 1);
+	cam0f0b4c3c(crosspos, gundir2d, 1);
 }
 
 void bgunCalculateBotShotSpread(struct coord *arg0, s32 weaponnum, s32 funcnum, bool arg3, s32 crouchpos, bool dual)

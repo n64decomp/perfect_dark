@@ -105,7 +105,7 @@ void camSetScale(void)
 	player->c_cameraleftnorm.z = -fVar5 * fVar4;
 }
 
-void cam0f0b4c3c(f32 *crosspos, struct coord *dst, f32 arg2)
+void cam0f0b4c3c(f32 pos2d[2], struct coord *dir2d, f32 arg2)
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 sp20;
@@ -113,14 +113,14 @@ void cam0f0b4c3c(f32 *crosspos, struct coord *dst, f32 arg2)
 	f32 sp18 = -1.0f;
 	f32 f2;
 
-	sp1c = (player->c_halfheight - (crosspos[1] - player->c_screentop)) * player->c_scaley;
-	sp20 = (crosspos[0] - player->c_screenleft - player->c_halfwidth) * player->c_scalex;
+	sp1c = (player->c_halfheight - (pos2d[1] - player->c_screentop)) * player->c_scaley;
+	sp20 = (pos2d[0] - player->c_screenleft - player->c_halfwidth) * player->c_scalex;
 
 	f2 = arg2 / sqrtf(sp20 * sp20 + sp1c * sp1c + sp18 * sp18);
 
-	dst->x = sp20 * f2;
-	dst->y = sp1c * f2;
-	dst->z = sp18 * f2;
+	dir2d->x = sp20 * f2;
+	dir2d->y = sp1c * f2;
+	dir2d->z = sp18 * f2;
 }
 
 void cam0f0b4d04(struct coord *in, f32 *out)
@@ -128,11 +128,8 @@ void cam0f0b4d04(struct coord *in, f32 *out)
 	struct player *player = g_Vars.currentplayer;
 	f32 value = 1.0f / in->z;
 
-	out[1] = in->y * value * player->c_recipscaley
-		+ (player->c_screentop + player->c_halfheight);
-
-	out[0] = (player->c_screenleft + player->c_halfwidth)
-		- in->x * value * player->c_recipscalex;
+	out[1] = in->y * value * player->c_recipscaley + (player->c_screentop + player->c_halfheight);
+	out[0] = (player->c_screenleft + player->c_halfwidth) - in->x * value * player->c_recipscalex;
 }
 
 void cam0f0b4d68(struct coord *in, f32 out[2])

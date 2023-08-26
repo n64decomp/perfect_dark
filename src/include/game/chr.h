@@ -45,8 +45,8 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3);
 void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3);
 void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius);
-f32 chr0f0278a4(struct chrdata *chr);
-void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool arg3);
+f32 chrGetHitRadius(struct chrdata *chr);
+void chrTestHit(struct prop *prop, struct shotdata *shotdata, bool isshooting, bool cheap);
 void chrHit(struct shotdata *shotdata, struct hit *hit);
 void chr0f028498(bool value);
 void chrsCheckForNoise(f32 noiseradius);

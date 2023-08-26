@@ -1199,7 +1199,7 @@ Gfx *lvRender(Gfx *gdl)
 						|| g_Vars.coopplayernum >= 0
 						|| g_Vars.antiplayernum >= 0
 						|| (weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmoveIsInSightAimMode())) {
-					g_Vars.currentplayer->lookingatprop.prop = func0f061d54(HAND_RIGHT, 0, 0);
+					g_Vars.currentplayer->lookingatprop.prop = propFindAimingAt(HAND_RIGHT, false, FINDPROPCONTEXT_QUERY);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
 						if (g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_CHR

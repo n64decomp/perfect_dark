@@ -162,13 +162,13 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 	s32 j;
 
 	if (splattype == 0) {
-		dist = coordsGetDistance(&shotdata->gunpos, arg5);
+		dist = coordsGetDistance(&shotdata->gunpos3d, arg5);
 
 		for (i = 0; i < 3; i++) {
-			spfc.f[i] = shotdata->dir.f[i];
-			spf0.f[i] = shotdata->unk0c.f[i];
-			shotdata->gunpos.f[i] = arg5->f[i];
-			shotdata->unk00.f[i] = arg4->f[i];
+			spfc.f[i] = shotdata->gundir3d.f[i];
+			spf0.f[i] = shotdata->gundir2d.f[i];
+			shotdata->gunpos3d.f[i] = arg5->f[i];
+			shotdata->gunpos2d.f[i] = arg4->f[i];
 		}
 	} else {
 		f32 extraheight;
@@ -181,21 +181,21 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 
 		dist = 0.7f;
 
-		spfc.x = shotdata->dir.x = 0;
-		spfc.y = shotdata->dir.y = -1;
-		spfc.z = shotdata->dir.z = 0;
+		spfc.x = shotdata->gundir3d.x = 0;
+		spfc.y = shotdata->gundir3d.y = -1;
+		spfc.z = shotdata->gundir3d.z = 0;
 
-		spf0.x = shotdata->unk0c.x = 0;
-		spf0.y = shotdata->unk0c.y = -1;
-		spf0.z = shotdata->unk0c.z = 0;
+		spf0.x = shotdata->gundir2d.x = 0;
+		spf0.y = shotdata->gundir2d.y = -1;
+		spf0.z = shotdata->gundir2d.z = 0;
 
-		shotdata->gunpos.x = prop->pos.x;
-		shotdata->gunpos.y = prop->pos.y + extraheight;
-		shotdata->gunpos.z = prop->pos.z;
+		shotdata->gunpos3d.x = prop->pos.x;
+		shotdata->gunpos3d.y = prop->pos.y + extraheight;
+		shotdata->gunpos3d.z = prop->pos.z;
 
-		shotdata->unk00.x = prop->pos.x;
-		shotdata->unk00.y = prop->pos.y + extraheight;
-		shotdata->unk00.z = prop->pos.z;
+		shotdata->gunpos2d.x = prop->pos.x;
+		shotdata->gunpos2d.y = prop->pos.y + extraheight;
+		shotdata->gunpos2d.z = prop->pos.z;
 	}
 
 	for (i = 0; i < qty; i++) {
@@ -204,15 +204,15 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 		}
 
 		mtx4LoadRotation(&spe4, &spa4);
-		mtx4RotateVec(&spa4, &spfc, &shotdata->dir);
-		mtx4RotateVec(&spa4, &spf0, &shotdata->unk0c);
+		mtx4RotateVec(&spa4, &spfc, &shotdata->gundir3d);
+		mtx4RotateVec(&spa4, &spf0, &shotdata->gundir2d);
 
 #if VERSION >= VERSION_NTSC_1_0
-		func0f177164(&shotdata->dir, &shotdata->dir, 403, "splat.c");
-		func0f177164(&shotdata->unk0c, &shotdata->unk0c, 404, "splat.c");
+		func0f177164(&shotdata->gundir3d, &shotdata->gundir3d, 403, "splat.c");
+		func0f177164(&shotdata->gundir2d, &shotdata->gundir2d, 404, "splat.c");
 #else
-		func0f177164(&shotdata->dir, &shotdata->dir, 405, "splat.c");
-		func0f177164(&shotdata->unk0c, &shotdata->unk0c, 406, "splat.c");
+		func0f177164(&shotdata->gundir3d, &shotdata->gundir3d, 405, "splat.c");
+		func0f177164(&shotdata->gundir2d, &shotdata->gundir2d, 406, "splat.c");
 #endif
 
 		if (splat0f149274(arg1, prop, shotdata, /*reused var*/ dist, isskedar, splattype, timermax, chr, timerspeed)) {
@@ -262,33 +262,33 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	struct shotdata stackshotdata;
 
 	for (i = 0; i < 3; i++) {
-		stackshotdata.unk00.f[i] = shotdata->unk00.f[i];
-		stackshotdata.unk0c.f[i] = shotdata->unk0c.f[i];
-		stackshotdata.gunpos.f[i] = shotdata->gunpos.f[i];
-		stackshotdata.dir.f[i] = shotdata->dir.f[i];
+		stackshotdata.gunpos2d.f[i] = shotdata->gunpos2d.f[i];
+		stackshotdata.gundir2d.f[i] = shotdata->gundir2d.f[i];
+		stackshotdata.gunpos3d.f[i] = shotdata->gunpos3d.f[i];
+		stackshotdata.gundir3d.f[i] = shotdata->gundir3d.f[i];
 	}
 
 	stackshotdata.penetration = 1;
 
 	for (i = 0; i < 3; i++) {
-		endpos.f[i] = stackshotdata.gunpos.f[i] + stackshotdata.dir.f[i] * g_SplatMaxDistance;
+		endpos.f[i] = stackshotdata.gunpos3d.f[i] + stackshotdata.gundir3d.f[i] * g_SplatMaxDistance;
 	}
 
-	portal00018148(&chrprop->pos, &stackshotdata.gunpos, chrprop->rooms, gunrooms, NULL, 0);
-	portal00018148(&stackshotdata.gunpos, &endpos, gunrooms, endrooms, rooms, ARRAYCOUNT(rooms) - 1);
+	portal00018148(&chrprop->pos, &stackshotdata.gunpos3d, chrprop->rooms, gunrooms, NULL, 0);
+	portal00018148(&stackshotdata.gunpos3d, &endpos, gunrooms, endrooms, rooms, ARRAYCOUNT(rooms) - 1);
 
 	for (i = 0; rooms[i] != -1; i++) {
-		if (bgTestHitInRoom(&stackshotdata.gunpos, &endpos, rooms[i], &hitthing)
-				&& ((stackshotdata.gunpos.x <= endpos.x && hitthing.unk00.x <= endpos.x && stackshotdata.gunpos.x <= hitthing.unk00.x) || (endpos.x <= stackshotdata.gunpos.x && endpos.x <= hitthing.unk00.x && hitthing.unk00.x <= stackshotdata.gunpos.x))
-					&& ((stackshotdata.gunpos.y <= endpos.y && hitthing.unk00.y <= endpos.y && stackshotdata.gunpos.y <= hitthing.unk00.y) || (endpos.y <= stackshotdata.gunpos.y && endpos.y <= hitthing.unk00.y && hitthing.unk00.y <= stackshotdata.gunpos.y))
-					&& ((stackshotdata.gunpos.z <= endpos.z && hitthing.unk00.z <= endpos.z && stackshotdata.gunpos.z <= hitthing.unk00.z) || (endpos.z <= stackshotdata.gunpos.z && endpos.z <= hitthing.unk00.z && hitthing.unk00.z <= stackshotdata.gunpos.z))) {
-			if (stackshotdata.gunpos.x != hitthing.unk00.x || stackshotdata.gunpos.y != hitthing.unk00.y || stackshotdata.gunpos.z != hitthing.unk00.z) {
+		if (bgTestHitInRoom(&stackshotdata.gunpos3d, &endpos, rooms[i], &hitthing)
+				&& ((stackshotdata.gunpos3d.x <= endpos.x && hitthing.pos.x <= endpos.x && stackshotdata.gunpos3d.x <= hitthing.pos.x) || (endpos.x <= stackshotdata.gunpos3d.x && endpos.x <= hitthing.pos.x && hitthing.pos.x <= stackshotdata.gunpos3d.x))
+					&& ((stackshotdata.gunpos3d.y <= endpos.y && hitthing.pos.y <= endpos.y && stackshotdata.gunpos3d.y <= hitthing.pos.y) || (endpos.y <= stackshotdata.gunpos3d.y && endpos.y <= hitthing.pos.y && hitthing.pos.y <= stackshotdata.gunpos3d.y))
+					&& ((stackshotdata.gunpos3d.z <= endpos.z && hitthing.pos.z <= endpos.z && stackshotdata.gunpos3d.z <= hitthing.pos.z) || (endpos.z <= stackshotdata.gunpos3d.z && endpos.z <= hitthing.pos.z && hitthing.pos.z <= stackshotdata.gunpos3d.z))) {
+			if (stackshotdata.gunpos3d.x != hitthing.pos.x || stackshotdata.gunpos3d.y != hitthing.pos.y || stackshotdata.gunpos3d.z != hitthing.pos.z) {
 				bestroom = rooms[i];
 				besthitthing = hitthing;
 
-				endpos.x = hitthing.unk00.x;
-				endpos.y = hitthing.unk00.y;
-				endpos.z = hitthing.unk00.z;
+				endpos.x = hitthing.pos.x;
+				endpos.y = hitthing.pos.y;
+				endpos.z = hitthing.pos.z;
 
 				hasresult = true;
 				break;
@@ -297,11 +297,11 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	}
 
 	if (hasresult) {
-		spraydistance = coordsGetDistance(&stackshotdata.gunpos, &besthitthing.unk00);
+		spraydistance = coordsGetDistance(&stackshotdata.gunpos3d, &besthitthing.pos);
 
 		if (spraydistance < g_SplatMaxDistance) {
-			sp50c = &hitthing.unk00;
-			hitpos = &hitthing.unk00;
+			sp50c = &hitthing.pos;
+			hitpos = &hitthing.pos;
 			sp504 = &hitthing.unk0c;
 			objprop = NULL;
 			mtxindex = 0;
@@ -316,13 +316,13 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	}
 
 	if (splattype == 0) {
-		stackshotdata.unk34 = (spraydistance < g_SplatMaxDistance ? spraydistance : g_SplatMaxDistance);
-		stackshotdata.unk34 += arg3;
+		stackshotdata.distance = (spraydistance < g_SplatMaxDistance ? spraydistance : g_SplatMaxDistance);
+		stackshotdata.distance += arg3;
 
 		for (i = 0; i < ARRAYCOUNT(stackshotdata.hits); i++) {
 			stackshotdata.hits[i].prop = NULL;
 			stackshotdata.hits[i].hitpart = 0;
-			stackshotdata.hits[i].node = NULL;
+			stackshotdata.hits[i].bboxnode = NULL;
 		}
 
 		propptr = g_Vars.endonscreenprops - 1;
@@ -332,7 +332,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 
 			if (prop) {
 				if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
-					func0f085e00(prop, &stackshotdata);
+					objTestHit(prop, &stackshotdata);
 					if (1);
 				}
 			}
@@ -346,7 +346,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 			if (hit->prop && (hit->hitthing.texturenum < 0
 						|| hit->hitthing.texturenum >= NUM_TEXTURES
 						|| g_SurfaceTypes[g_Textures[hit->hitthing.texturenum].surfacetype]->numwallhittexes != 0)) {
-				sp50c = &hit->hitthing.unk00;
+				sp50c = &hit->hitthing.pos;
 				hitpos = &hit->pos;
 				sp504 = &hit->hitthing.unk0c;
 				objprop = hit->prop;
@@ -366,7 +366,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 		for (i = 0; i < 3; i++) {
 			splatdata.relpos.f[i] = sp50c->f[i];
 			splatdata.unk0c.f[i] = hitpos->f[i];
-			splatdata.gunpos.f[i] = stackshotdata.gunpos.f[i];
+			splatdata.gunpos.f[i] = stackshotdata.gunpos3d.f[i];
 			splatdata.unk18.f[i] = sp504->f[i];
 		}
 
@@ -387,9 +387,9 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 		return true;
 	}
 
-	if (hitthing.unk00.x);
-	if (hitthing.unk00.y);
-	if (hitthing.unk00.z);
+	if (hitthing.pos.x);
+	if (hitthing.pos.y);
+	if (hitthing.pos.z);
 
 	return false;
 }

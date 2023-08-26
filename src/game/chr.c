@@ -4449,7 +4449,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 	}
 }
 
-f32 chr0f0278a4(struct chrdata *chr)
+f32 chrGetHitRadius(struct chrdata *chr)
 {
 	s32 i;
 	f32 result;
@@ -4481,16 +4481,16 @@ f32 chr0f0278a4(struct chrdata *chr)
 	return result;
 }
 
-void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool arg3)
+void chrTestHit(struct prop *prop, struct shotdata *shotdata, bool isshooting, bool cheap)
 {
 	struct coord spdc;
 	struct coord spd0;
 	struct chrdata *chr = prop->chr;
 
 	if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
-		f32 fStack32 = chr0f0278a4(chr);
+		f32 radius = chrGetHitRadius(chr);
 
-		if (prop->z - fStack32 < shotdata->unk34) {
+		if (prop->z - radius < shotdata->distance) {
 			struct model *model = chr->model;
 			s32 hitpart = 0;
 			struct modelnode *node = NULL;
@@ -4498,14 +4498,14 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 			struct hitthing sp88;
 			s32 sp84 = 0;
 			struct modelnode *sp80 = NULL;
-			Mtxf *iVar5 = modelGetRootMtx(model);
+			Mtxf *rootmtx = modelGetRootMtx(model);
 			struct prop *next;
 			struct prop *child;
 			f32 sp70;
 			Mtxf *mtx;
 			f32 sp68;
 
-			if (func0f06b39c(&shotdata->unk00, &shotdata->unk0c, (struct coord *)iVar5->m[3], fStack32)) {
+			if (func0f06b39c(&shotdata->gunpos2d, &shotdata->gundir2d, (struct coord *)rootmtx->m[3], radius)) {
 				spb8 = 1;
 				hitpart = 1;
 			}
@@ -4523,27 +4523,27 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 					child = next;
 				}
 
-				if (arg3 || var8005efc0 > 0.0f) {
-					hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node);
+				if (cheap || var8005efc0 > 0.0f) {
+					hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
 
 					while (hitpart > 0) {
-						if (func0f084594(model, node, &shotdata->unk00, &shotdata->unk0c, &sp88, &sp84, &sp80)) {
-							mtx4TransformVec(&model->matrices[sp84], &sp88.unk00, &spdc);
+						if (func0f084594(model, node, &shotdata->gunpos2d, &shotdata->gundir2d, &sp88, &sp84, &sp80)) {
+							mtx4TransformVec(&model->matrices[sp84], &sp88.pos, &spdc);
 							mtx4TransformVecInPlace(camGetProjectionMtxF(), &spdc);
 							mtx4RotateVec(&model->matrices[sp84], &sp88.unk0c, &spd0);
 							mtx4RotateVecInPlace(camGetProjectionMtxF(), &spd0);
 							break;
 						}
 
-						hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node);
+						hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
 					}
 				} else {
-					hitpart = modelTestForHit(model, &shotdata->unk00, &shotdata->unk0c, &node);
+					hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
 
 					if (hitpart > 0) {
-						if (func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, &shotdata->unk00,
-									&shotdata->unk0c, &sp88.unk00, &sp70, &node, &hitpart, &sp84, &sp80)) {
-							mtx4TransformVec(camGetProjectionMtxF(), &sp88.unk00, &spdc);
+						if (func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, &shotdata->gunpos2d,
+									&shotdata->gundir2d, &sp88.pos, &sp70, &node, &hitpart, &sp84, &sp80)) {
+							mtx4TransformVec(camGetProjectionMtxF(), &sp88.pos, &spdc);
 							mtx4RotateVec(camGetProjectionMtxF(), &sp88.unk0c, &spd0);
 						} else {
 							hitpart = 0;
@@ -4561,12 +4561,12 @@ void chr0f027994(struct prop *prop, struct shotdata *shotdata, bool arg2, bool a
 				sp68 = spdc.x * mtx->m[0][2] + spdc.y * mtx->m[1][2] + spdc.z * mtx->m[2][2] + mtx->m[3][2];
 				sp68 = -sp68;
 
-				if (sp68 < shotdata->unk34) {
-					func0f061fa8(shotdata, prop, sp68, hitpart, node, &sp88, sp84, sp80, model, 1, chrGetShield(chr) > 0.0f, &spdc, &spd0);
+				if (sp68 < shotdata->distance) {
+					hitCreate(shotdata, prop, sp68, hitpart, node, &sp88, sp84, sp80, model, true, chrGetShield(chr) > 0.0f, &spdc, &spd0);
 				}
 			}
 
-			if (spb8 && hitpart <= 0 && prop->z <= shotdata->unk34 && arg2) {
+			if (spb8 && hitpart <= 0 && prop->z <= shotdata->distance && isshooting) {
 				if (chrGetTargetProp(chr) == g_Vars.currentplayer->prop) {
 					chr->chrflags |= CHRCFLAG_NEAR_MISS;
 				}
@@ -4607,24 +4607,24 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 	chr = prop->chr;
 
 	if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0) {
-		sp98.x = shotdata->unk00.x - (hit->distance * shotdata->unk0c.x) / shotdata->unk0c.z;
-		sp98.y = shotdata->unk00.y - (hit->distance * shotdata->unk0c.y) / shotdata->unk0c.z;
-		sp98.z = shotdata->unk00.z - hit->distance;
+		sp98.x = shotdata->gunpos2d.x - (hit->distance * shotdata->gundir2d.x) / shotdata->gundir2d.z;
+		sp98.y = shotdata->gunpos2d.y - (hit->distance * shotdata->gundir2d.y) / shotdata->gundir2d.z;
+		sp98.z = shotdata->gunpos2d.z - hit->distance;
 
 		mtx4TransformVec(camGetProjectionMtxF(), &sp98, &hitpos);
 		bgunSetHitPos(&hitpos);
 		bgunPlayPropHitSound(&shotdata->gset, hit->prop, -1);
 
-		chrEmitSparks(chr, hit->prop, hit->hitpart, &hitpos, &shotdata->dir, g_Vars.currentplayer->prop->chr);
+		chrEmitSparks(chr, hit->prop, hit->hitpart, &hitpos, &shotdata->gundir3d, g_Vars.currentplayer->prop->chr);
 
-		sp90[0] = hit->hitthing.unk00.x;
-		sp90[1] = hit->hitthing.unk00.y;
-		sp90[2] = hit->hitthing.unk00.z;
+		sp90[0] = hit->hitthing.pos.x;
+		sp90[1] = hit->hitthing.pos.y;
+		sp90[2] = hit->hitthing.pos.z;
 
 		shield = chrGetShield(chr);
 
-		func0f0341dc(chr, gsetGetDamage(&shotdata->gset), &shotdata->dir, &shotdata->gset,
-				g_Vars.currentplayer->prop, hit->hitpart, hit->prop, hit->node,
+		func0f0341dc(chr, gsetGetDamage(&shotdata->gset), &shotdata->gundir3d, &shotdata->gset,
+				g_Vars.currentplayer->prop, hit->hitpart, hit->prop, hit->bboxnode,
 				hit->model, hit->hitthing.unk28 / 2, sp90);
 
 		if (g_Vars.antiplayernum >= 0
@@ -4679,9 +4679,9 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						index = random() % type->numwallhittexes;
 
 						wallhitCreate(
-								&hit->hitthing.unk00,
+								&hit->hitthing.pos,
 								&hit->hitthing.unk0c,
-								&shotdata->gunpos,
+								&shotdata->gunpos3d,
 								0,
 								0,
 								type->wallhittexes[index],
@@ -4715,9 +4715,9 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				index = random() % type->numwallhittexes;
 
 				wallhitCreate(
-						&hit->hitthing.unk00,
+						&hit->hitthing.pos,
 						&hit->hitthing.unk0c,
-						&shotdata->gunpos,
+						&shotdata->gunpos3d,
 						0,
 						0,
 						type->wallhittexes[index],
@@ -4731,7 +4731,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				// Shot a chr in the flesh
 				s32 race = CHRRACE(chr);
 				struct coord sp5c;
-				Mtxf *sp58 = modelFindNodeMtx(hit->model, hit->node, 0);
+				Mtxf *sp58 = modelFindNodeMtx(hit->model, hit->bboxnode, 0);
 
 				// Create blood
 				mtx0001719c(sp58->m, spb0.m);
@@ -4753,7 +4753,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 					}
 
 					if (!chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
-						chrBruise(hit->model, hit->hitpart, hit->node, &sp5c);
+						chrBruise(hit->model, hit->hitpart, hit->bboxnode, &sp5c);
 					}
 
 					splatsCreateForChrHit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
@@ -4776,7 +4776,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						darker = false;
 					}
 
-					chrBruise(hit->model, hit->hitpart, hit->node, &sp5c);
+					chrBruise(hit->model, hit->hitpart, hit->bboxnode, &sp5c);
 
 					splatsCreateForChrHit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}

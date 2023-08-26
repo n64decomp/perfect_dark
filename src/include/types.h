@@ -5662,7 +5662,7 @@ struct warpparams {
 };
 
 struct hitthing {
-	struct coord unk00;
+	struct coord pos; // world pos
 	struct coord unk0c;
 	Vtx *unk18;
 	Vtx *unk1c;
@@ -5677,24 +5677,24 @@ struct hit {
 	/*0x00*/ f32 distance;
 	/*0x04*/ struct prop *prop;
 	/*0x08*/ s32 hitpart;
-	/*0x0c*/ struct modelnode *node;
+	/*0x0c*/ struct modelnode *bboxnode;
 	/*0x10*/ struct hitthing hitthing;
 	/*0x40*/ s32 mtxindex;
-	/*0x44*/ struct modelnode *unk44;
+	/*0x44*/ struct modelnode *dlnode;
 	/*0x48*/ struct model *model;
-	/*0x4c*/ s8 unk4c;
-	/*0x4d*/ s8 unk4d;
+	/*0x4c*/ s8 slowsbullet;
+	/*0x4d*/ s8 bulletproof;
 	/*0x50*/ struct coord pos;
 	/*0x5c*/ struct coord dir;
 };
 
 struct shotdata {
-	/*0x00*/ struct coord unk00;
-	/*0x0c*/ struct coord unk0c;
+	/*0x00*/ struct coord gunpos2d;
+	/*0x0c*/ struct coord gundir2d;
 	/*0x18*/ struct gset gset;
-	/*0x1c*/ struct coord gunpos;
-	/*0x28*/ struct coord dir;
-	/*0x34*/ f32 unk34;
+	/*0x1c*/ struct coord gunpos3d;
+	/*0x28*/ struct coord gundir3d;
+	/*0x34*/ f32 distance;
 	/*0x38*/ s32 penetration;
 	/*0x3c*/ struct hit hits[10];
 };

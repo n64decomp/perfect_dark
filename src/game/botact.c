@@ -259,7 +259,7 @@ bool botactShootFarsight(struct chrdata *chr, s32 arg1, struct coord *vector, st
 				// chance of passing.
 				if (oppchr != chr
 						&& value > rand
-						&& func0f06b39c(arg3, vector, &oppprop->pos, chr0f0278a4(oppchr))) {
+						&& func0f06b39c(arg3, vector, &oppprop->pos, chrGetHitRadius(oppchr))) {
 					bgunPlayPropHitSound(&gset, oppprop, -1);
 
 					if (oppchr->model && chrGetShield(oppchr) > 0) {

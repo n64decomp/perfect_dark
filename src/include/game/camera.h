@@ -9,7 +9,7 @@ void camSetScreenPosition(f32 left, f32 top);
 void camSetPerspective(f32 near, f32 fovy, f32 aspect);
 f32 cam0f0b49b8(f32 arg0);
 void camSetScale(void);
-void cam0f0b4c3c(f32 *crosspos, struct coord *dst, f32 arg2);
+void cam0f0b4c3c(f32 pos2d[2], struct coord *dir2d, f32 arg2);
 void cam0f0b4d04(struct coord *in, f32 *out);
 void cam0f0b4d68(struct coord *in, f32 out[2]);
 void cam0f0b4dec(struct coord *in, f32 out[2]);

@@ -564,13 +564,13 @@ void func0f060bac(s32 weaponnum, struct prop *prop)
  *
  * The return value is the final prop that was hit.
  */
-struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struct coord *arg3, struct coord *gunpos, struct coord *dir, u32 arg6, f32 arg7, bool arg8)
+struct prop *shotCalculateHits(s32 handnum, bool isshooting, struct coord *gunpos2d, struct coord *gundir2d, struct coord *gunpos3d, struct coord *gundir3d, u32 arg6, f32 distance, bool cheap)
 {
 	u32 index;
 	struct prop **propptr;
 	struct prop *root;
 	bool explosiveshells = false;
-	bool sp6cc = false;
+	bool blockedbyprop = false;
 	bool hitbg = false;
 	s32 room = 0;
 	struct hitthing sp694;
@@ -583,7 +583,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	s32 s1 = 0;
 	struct weaponfunc *func;
 	bool laserstream = false;
-	bool shortrange = false;
+	bool ismelee = false;
 	f32 range = 200;
 	struct prop *result = NULL;
 	s32 hitindex;
@@ -599,46 +599,46 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 	RoomNum spc8[8];
 	RoomNum spb8[8];
-	s32 uVar6;
+	s32 texnum;
 	RoomNum *roomsptr;
 	struct prop *prop;
 	struct coord spa0;
 	struct defaultobj *obj;
 	bool doexplosiveshells;
-	struct coord sp8c;
-	RoomNum sp7c[8];
-	RoomNum sp6c[8];
+	struct coord exppos;
+	RoomNum exprooms[8];
+	RoomNum rooms2[8];
 	struct prop *hitprop;
 
 	bgun0f0a9494(arg6);
 
-	shotdata.gunpos.x = gunpos->x;
-	shotdata.gunpos.y = gunpos->y;
-	shotdata.gunpos.z = gunpos->z;
+	shotdata.gunpos3d.x = gunpos3d->x;
+	shotdata.gunpos3d.y = gunpos3d->y;
+	shotdata.gunpos3d.z = gunpos3d->z;
 
-	shotdata.unk00.x = arg2->x;
-	shotdata.unk00.y = arg2->y;
-	shotdata.unk00.z = arg2->z;
+	shotdata.gunpos2d.x = gunpos2d->x;
+	shotdata.gunpos2d.y = gunpos2d->y;
+	shotdata.gunpos2d.z = gunpos2d->z;
 
-	shotdata.dir.x = dir->x;
-	shotdata.dir.y = dir->y;
-	shotdata.dir.z = dir->z;
+	shotdata.gundir3d.x = gundir3d->x;
+	shotdata.gundir3d.y = gundir3d->y;
+	shotdata.gundir3d.z = gundir3d->z;
 
-	shotdata.unk0c.x = arg3->x;
-	shotdata.unk0c.y = arg3->y;
-	shotdata.unk0c.z = arg3->z;
+	shotdata.gundir2d.x = gundir2d->x;
+	shotdata.gundir2d.y = gundir2d->y;
+	shotdata.gundir2d.z = gundir2d->z;
 
 	gsetPopulateFromCurrentPlayer(handnum, &shotdata.gset);
 	func = gsetGetWeaponFunction(&shotdata.gset);
 
 	if (func) {
-		if (arg1 && (func->flags & FUNCFLAG_EXPLOSIVESHELLS)) {
+		if (isshooting && (func->flags & FUNCFLAG_EXPLOSIVESHELLS)) {
 			explosiveshells = true;
 		}
 
-		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE && arg1) {
-			shortrange = true;
-			arg1 = false;
+		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE && isshooting) {
+			ismelee = true;
+			isshooting = false;
 		}
 	}
 
@@ -646,41 +646,41 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 		laserstream = true;
 	}
 
-	if (arg1) {
+	if (isshooting) {
 		shotdata.penetration = gsetGetSinglePenetration(&shotdata.gset);
 	} else {
 		shotdata.penetration = 1;
 	}
 
-	shotdata.unk34 = arg7;
+	shotdata.distance = distance;
 
 	for (i = 0; i < ARRAYCOUNT(shotdata.hits); i++) {
 		shotdata.hits[i].prop = NULL;
 		shotdata.hits[i].hitpart = 0;
-		shotdata.hits[i].node = NULL;
+		shotdata.hits[i].bboxnode = NULL;
 	}
 
 	if (laserstream) {
-		hitpos.x = shotdata.gunpos.x + shotdata.dir.x * 300;
-		hitpos.y = shotdata.gunpos.y + shotdata.dir.y * 300;
-		hitpos.z = shotdata.gunpos.z + shotdata.dir.z * 300;
-	} else if (shortrange) {
+		hitpos.x = shotdata.gunpos3d.x + shotdata.gundir3d.x * 300;
+		hitpos.y = shotdata.gunpos3d.y + shotdata.gundir3d.y * 300;
+		hitpos.z = shotdata.gunpos3d.z + shotdata.gundir3d.z * 300;
+	} else if (ismelee) {
 		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
 			struct weaponfunc_melee *meleefunc = (struct weaponfunc_melee *) func;
 			range = meleefunc->range;
 		}
 
-		hitpos.x = shotdata.gunpos.x + shotdata.dir.x * range;
-		hitpos.y = shotdata.gunpos.y + shotdata.dir.y * range;
-		hitpos.z = shotdata.gunpos.z + shotdata.dir.z * range;
+		hitpos.x = shotdata.gunpos3d.x + shotdata.gundir3d.x * range;
+		hitpos.y = shotdata.gunpos3d.y + shotdata.gundir3d.y * range;
+		hitpos.z = shotdata.gunpos3d.z + shotdata.gundir3d.z * range;
 	} else {
-		hitpos.x = shotdata.gunpos.x + shotdata.dir.x * 65536;
-		hitpos.y = shotdata.gunpos.y + shotdata.dir.y * 65536;
-		hitpos.z = shotdata.gunpos.z + shotdata.dir.z * 65536;
+		hitpos.x = shotdata.gunpos3d.x + shotdata.gundir3d.x * 65536;
+		hitpos.y = shotdata.gunpos3d.y + shotdata.gundir3d.y * 65536;
+		hitpos.z = shotdata.gunpos3d.z + shotdata.gundir3d.z * 65536;
 	}
 
-	portal00018148(&playerprop->pos, &shotdata.gunpos, playerprop->rooms, spc8, 0, 0);
-	portal00018148(&shotdata.gunpos, &hitpos, spc8, spb8, rooms, 30);
+	portal00018148(&playerprop->pos, &shotdata.gunpos3d, playerprop->rooms, spc8, 0, 0);
+	portal00018148(&shotdata.gunpos3d, &hitpos, spc8, spb8, rooms, 30);
 
 	if (shotdata.gset.weaponnum != WEAPON_FARSIGHT || g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 		roomsptr = rooms;
@@ -693,36 +693,36 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 		bgGetForceOnscreenRooms(roomsptr, 100);
 
 		for (i = 0; rooms[i] != -1; i++) {
-			if (bgTestHitInRoom(&shotdata.gunpos, &hitpos, rooms[i], &sp664)) {
-				sp664.unk00.x *= 1;
-				sp664.unk00.y *= 1;
-				sp664.unk00.z *= 1;
+			if (bgTestHitInRoom(&shotdata.gunpos3d, &hitpos, rooms[i], &sp664)) {
+				sp664.pos.x *= 1;
+				sp664.pos.y *= 1;
+				sp664.pos.z *= 1;
 
-				if (((hitpos.x >= shotdata.gunpos.x && hitpos.x >= sp664.unk00.x && sp664.unk00.x >= shotdata.gunpos.x)
-							|| (hitpos.x <= shotdata.gunpos.x && hitpos.x <= sp664.unk00.x && sp664.unk00.x <= shotdata.gunpos.x))
-						&& ((hitpos.y >= shotdata.gunpos.y && hitpos.y >= sp664.unk00.y && sp664.unk00.y >= shotdata.gunpos.y)
-							|| (hitpos.y <= shotdata.gunpos.y && hitpos.y <= sp664.unk00.y && sp664.unk00.y <= shotdata.gunpos.y))
-						&& ((shotdata.gunpos.z <= hitpos.z && sp664.unk00.z <= hitpos.z && shotdata.gunpos.z <= sp664.unk00.z)
-							|| (hitpos.z <= shotdata.gunpos.z && hitpos.z <= sp664.unk00.z && sp664.unk00.z <= shotdata.gunpos.z))
-						&& (shotdata.gunpos.x != sp664.unk00.x || shotdata.gunpos.y != sp664.unk00.y || shotdata.gunpos.z != sp664.unk00.z)) {
+				if (((hitpos.x >= shotdata.gunpos3d.x && hitpos.x >= sp664.pos.x && sp664.pos.x >= shotdata.gunpos3d.x)
+							|| (hitpos.x <= shotdata.gunpos3d.x && hitpos.x <= sp664.pos.x && sp664.pos.x <= shotdata.gunpos3d.x))
+						&& ((hitpos.y >= shotdata.gunpos3d.y && hitpos.y >= sp664.pos.y && sp664.pos.y >= shotdata.gunpos3d.y)
+							|| (hitpos.y <= shotdata.gunpos3d.y && hitpos.y <= sp664.pos.y && sp664.pos.y <= shotdata.gunpos3d.y))
+						&& ((shotdata.gunpos3d.z <= hitpos.z && sp664.pos.z <= hitpos.z && shotdata.gunpos3d.z <= sp664.pos.z)
+							|| (hitpos.z <= shotdata.gunpos3d.z && hitpos.z <= sp664.pos.z && sp664.pos.z <= shotdata.gunpos3d.z))
+						&& (shotdata.gunpos3d.x != sp664.pos.x || shotdata.gunpos3d.y != sp664.pos.y || shotdata.gunpos3d.z != sp664.pos.z)) {
 					hitbg = true;
 					room = rooms[i];
 
 					sp694 = sp664;
 
-					hitpos.x = sp664.unk00.x;
-					hitpos.y = sp664.unk00.y;
-					hitpos.z = sp664.unk00.z;
+					hitpos.x = sp664.pos.x;
+					hitpos.y = sp664.pos.y;
+					hitpos.z = sp664.pos.z;
 				}
 			}
 		}
 	}
 
 	if (hitbg && shotdata.gset.weaponnum != WEAPON_FARSIGHT) {
-		mtx4TransformVec(camGetWorldToScreenMtxf(), &sp694.unk00, &sp658);
+		mtx4TransformVec(camGetWorldToScreenMtxf(), &sp694.pos, &sp658);
 
-		if (shotdata.unk34 > -sp658.z) {
-			shotdata.unk34 = -sp658.z;
+		if (shotdata.distance > -sp658.z) {
+			shotdata.distance = -sp658.z;
 		}
 	}
 
@@ -734,11 +734,11 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 		if (prop) {
 			if (prop->type == PROPTYPE_CHR
 					|| (prop->type == PROPTYPE_PLAYER && prop->chr && playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
-				if (!shortrange) {
-					chr0f027994(prop, &shotdata, arg1, arg8);
+				if (!ismelee) {
+					chrTestHit(prop, &shotdata, isshooting, cheap);
 				}
 			} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-				func0f085e00(prop, &shotdata);
+				objTestHit(prop, &shotdata);
 			}
 		}
 
@@ -759,10 +759,10 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	if (hitindex != -1) {
 		bgun0f0a94d0(arg6, &shotdata.hits[hitindex].pos, &shotdata.hits[hitindex].dir);
 	} else if (hitbg) {
-		bgun0f0a94d0(arg6, &sp694.unk00, &sp694.unk0c);
+		bgun0f0a94d0(arg6, &sp694.pos, &sp694.unk0c);
 	}
 
-	if (arg1) {
+	if (isshooting) {
 		for (i = 0; i < ARRAYCOUNT(shotdata.hits); i++) {
 			hitprop = shotdata.hits[i].prop;
 
@@ -781,18 +781,18 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 					objHit(&shotdata, &shotdata.hits[i]);
 				}
 
-				if (shotdata.hits[i].unk4d) {
-					sp6cc = true;
+				if (shotdata.hits[i].bulletproof) {
+					blockedbyprop = true;
 					doexplosiveshells = explosiveshells;
 					hitpos.x = shotdata.hits[i].pos.x;
 					hitpos.y = shotdata.hits[i].pos.y;
 					hitpos.z = shotdata.hits[i].pos.z;
-				} else if (shotdata.hits[i].unk4c
+				} else if (shotdata.hits[i].slowsbullet
 						|| (explosiveshells && (obj->type == OBJTYPE_GLASS || obj->type == OBJTYPE_TINTEDGLASS))) {
 					s1++;
 
 					if (s1 >= shotdata.penetration) {
-						sp6cc = true;
+						blockedbyprop = true;
 						doexplosiveshells = explosiveshells;
 						hitpos.x = shotdata.hits[i].pos.x;
 						hitpos.y = shotdata.hits[i].pos.y;
@@ -801,21 +801,21 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 				}
 
 				if (doexplosiveshells) {
-					sp8c.x = shotdata.hits[i].pos.x;
-					sp8c.y = shotdata.hits[i].pos.y;
-					sp8c.z = shotdata.hits[i].pos.z;
+					exppos.x = shotdata.hits[i].pos.x;
+					exppos.y = shotdata.hits[i].pos.y;
+					exppos.z = shotdata.hits[i].pos.z;
 
-					func0f065e74(&root->pos, root->rooms, &sp8c, sp7c);
-					explosionCreateSimple(0, &sp8c, sp7c, EXPLOSIONTYPE_PHOENIX, g_Vars.currentplayernum);
+					func0f065e74(&root->pos, root->rooms, &exppos, exprooms);
+					explosionCreateSimple(0, &exppos, exprooms, EXPLOSIONTYPE_PHOENIX, g_Vars.currentplayernum);
 				}
 			}
 		}
 
-		if (hitbg && !sp6cc) {
-			sp6c[0] = room;
-			sp6c[1] = -1;
+		if (hitbg && !blockedbyprop) {
+			rooms2[0] = room;
+			rooms2[1] = -1;
 
-			uVar6 = lightsHandleHit(&shotdata.gunpos, &hitpos, room);
+			texnum = lightsHandleHit(&shotdata.gunpos3d, &hitpos, room);
 
 			if (sp694.texturenum < 0 || sp694.texturenum >= NUM_TEXTURES) {
 				surfacetype = g_SurfaceTypes[SURFACETYPE_DEFAULT];
@@ -829,47 +829,47 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 				}
 			}
 
-			bgunSetHitPos(&sp694.unk00);
+			bgunSetHitPos(&sp694.pos);
 
 			if (surfacetype->numwallhittexes > 0 && (!func || (func->type & 0xff) != INVENTORYFUNCTYPE_MELEE)) {
 				if (shotdata.gset.weaponnum != WEAPON_UNARMED
 						&& shotdata.gset.weaponnum != WEAPON_LASER
 						&& shotdata.gset.weaponnum != WEAPON_TRANQUILIZER
 						&& shotdata.gset.weaponnum != WEAPON_FARSIGHT) {
-					uVar6 = random() % surfacetype->numwallhittexes;
-					uVar6 = surfacetype->wallhittexes[uVar6];
+					texnum = random() % surfacetype->numwallhittexes;
+					texnum = surfacetype->wallhittexes[texnum];
 
-					if (uVar6 >= WALLHITTEX_GLASS1 && uVar6 <= WALLHITTEX_GLASS3) {
+					if (texnum >= WALLHITTEX_GLASS1 && texnum <= WALLHITTEX_GLASS3) {
 						// Use bulletproof glass hit textures instead
-						uVar6 += 10;
+						texnum += 10;
 					}
 
-					if (uVar6) {
-						wallhitCreate(&sp694.unk00, &sp694.unk0c, &shotdata.gunpos, 0, 0, uVar6, room, 0, -1, 0, g_Vars.currentplayer->prop->chr, sp694.unk2c == 2);
+					if (texnum) {
+						wallhitCreate(&sp694.pos, &sp694.unk0c, &shotdata.gunpos3d, 0, 0, texnum, room, 0, -1, 0, g_Vars.currentplayer->prop->chr, sp694.unk2c == 2);
 					}
 				}
 
-				bgunPlayBgHitSound(&shotdata.gset, &sp694.unk00, sp694.texturenum, sp6c);
+				bgunPlayBgHitSound(&shotdata.gset, &sp694.pos, sp694.texturenum, rooms2);
 
 				if (explosiveshells) {
-					explosionCreateSimple(NULL, &sp694.unk00, sp6c, EXPLOSIONTYPE_PHOENIX, g_Vars.currentplayernum);
+					explosionCreateSimple(NULL, &sp694.pos, rooms2, EXPLOSIONTYPE_PHOENIX, g_Vars.currentplayernum);
 				} else {
 					if (!chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
 						if (PLAYERCOUNT() >= 2) {
 							if ((random() % 8) == 0) {
-								smokeCreateSimple(&sp694.unk00, sp6c, SMOKETYPE_BULLETIMPACT);
+								smokeCreateSimple(&sp694.pos, rooms2, SMOKETYPE_BULLETIMPACT);
 							}
 						} else {
-							if (uVar6) {
-								explosionCreateSimple(NULL, &sp694.unk00, sp6c, EXPLOSIONTYPE_BULLETHOLE, g_Vars.currentplayernum);
+							if (texnum) {
+								explosionCreateSimple(NULL, &sp694.pos, rooms2, EXPLOSIONTYPE_BULLETHOLE, g_Vars.currentplayernum);
 							}
 						}
 					}
 
 					if (PLAYERCOUNT() <= 2 || g_Vars.lvupdate240 <= 8 || (random() % 4) == 0) {
-						if (sp694.unk00.x > -32000 && sp694.unk00.x < 32000
-								&& sp694.unk00.y > -32000 && sp694.unk00.y < 32000
-								&& sp694.unk00.z > -32000 && sp694.unk00.z < 32000) {
+						if (sp694.pos.x > -32000 && sp694.pos.x < 32000
+								&& sp694.pos.y > -32000 && sp694.pos.y < 32000
+								&& sp694.pos.z > -32000 && sp694.pos.z < 32000) {
 							sparktype = SPARKTYPE_DEFAULT;
 
 							if (chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
@@ -893,14 +893,14 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 									break;
 								}
 
-								uVar6 = g_Textures[sp694.texturenum].surfacetype;
+								texnum = g_Textures[sp694.texturenum].surfacetype;
 
-								if (uVar6 == SURFACETYPE_SHALLOWWATER || uVar6 == SURFACETYPE_DEEPWATER) {
+								if (texnum == SURFACETYPE_SHALLOWWATER || texnum == SURFACETYPE_DEEPWATER) {
 									sparktype = SPARKTYPE_SHALLOWWATER;
 								}
 							}
 
-							sparksCreate(room, NULL, &sp694.unk00, &shotdata.dir, &sp694.unk0c, sparktype);
+							sparksCreate(room, NULL, &sp694.pos, &shotdata.gundir3d, &sp694.unk0c, sparktype);
 						}
 					}
 				}
@@ -908,7 +908,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 		} else {
 			bgunSetHitPos(&hitpos);
 		}
-	} else if (shortrange) {
+	} else if (ismelee) {
 		s32 hitindex;
 		bool hitaprop = false;
 
@@ -927,18 +927,17 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 
 			if (shotdata.gset.weaponnum != WEAPON_UNARMED && shotdata.gset.weaponnum != WEAPON_TRANQUILIZER) {
 				if (hitaprop) {
-					sparksCreate(shotdata.hits[hitindex].prop->rooms[0], NULL, &shotdata.hits[hitindex].pos, &shotdata.dir, &shotdata.hits[hitindex].dir, SPARKTYPE_DEFAULT);
+					sparksCreate(shotdata.hits[hitindex].prop->rooms[0], NULL, &shotdata.hits[hitindex].pos, &shotdata.gundir3d, &shotdata.hits[hitindex].dir, SPARKTYPE_DEFAULT);
 				} else {
-					sparksCreate(room, NULL, &sp694.unk00, &shotdata.dir, &sp694.unk0c, SPARKTYPE_DEFAULT);
+					sparksCreate(room, NULL, &sp694.pos, &shotdata.gundir3d, &sp694.unk0c, SPARKTYPE_DEFAULT);
 				}
 			}
 		} else {
 			weaponPlayWhooshSound(shotdata.gset.weaponnum, g_Vars.currentplayer->prop);
 		}
 	} else {
-		// Figure out what prop was hit so it can be returned,
-		// by iterating the props in order of distance.
-		// For laser stream, bail early once the laser's range is reached.
+		// The caller is querying which prop is being aimed at rather than taking a shot.
+		// Find the closest object and return it.
 		done = false;
 
 		for (i = 0; i < ARRAYCOUNT(shotdata.hits); i++) {
@@ -959,10 +958,7 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 						done = true;
 					}
 
-					// This seems like it handles penetration (bullets going
-					// through multiple props), but the loop is effectively
-					// stopped when any prop is hit so this seems unlikely.
-					if (shotdata.hits[i].unk4c) {
+					if (shotdata.hits[i].slowsbullet) {
 						s1++;
 
 						if (s1 >= shotdata.penetration) {
@@ -977,59 +973,73 @@ struct prop *shotCalculateHits(s32 handnum, bool arg1, struct coord *arg2, struc
 	return result;
 }
 
-struct prop *func0f061d54(s32 handnum, u32 arg1, u32 arg2)
+struct prop *propFindAimingAt(s32 handnum, bool isshooting, u32 context)
 {
-	struct coord sp64;
-	struct coord sp58;
-	struct coord sp4c;
-	struct coord sp40;
+	struct coord gundir2d;
+	struct coord gunpos2d;
+	struct coord gundir3d;
+	struct coord gunpos3d;
 
-	bgunCalculatePlayerShotSpread(&sp58, &sp64, handnum, arg2);
+	bgunCalculatePlayerShotSpread(&gunpos2d, &gundir2d, handnum, context);
 
-	if (arg2 == 2 && bgunGetWeaponNum(HAND_RIGHT) == WEAPON_REAPER) {
-		sp58.y -= 15 * RANDOMFRAC();
+	if (context == FINDPROPCONTEXT_SHOOT && bgunGetWeaponNum(HAND_RIGHT) == WEAPON_REAPER) {
+		gunpos2d.y -= 15 * RANDOMFRAC();
 	}
 
-	mtx4TransformVec(camGetProjectionMtxF(), &sp58, &sp40);
-	mtx4RotateVec(camGetProjectionMtxF(), &sp64, &sp4c);
+	mtx4TransformVec(camGetProjectionMtxF(), &gunpos2d, &gunpos3d);
+	mtx4RotateVec(camGetProjectionMtxF(), &gundir2d, &gundir3d);
 
-	return shotCalculateHits(handnum, arg1, &sp58, &sp64, &sp40, &sp4c, 0, 4294836224, PLAYERCOUNT() >= 2);
+	return shotCalculateHits(handnum, isshooting, &gunpos2d, &gundir2d, &gunpos3d, &gundir3d, 0, 4294836224, PLAYERCOUNT() >= 2);
 }
 
-void shotCreate(s32 handnum, bool arg1, bool dorandom, s32 arg3, bool arg4)
+void shotCreate(s32 handnum, bool isshooting, bool dorandom, s32 numshots, bool cheap)
 {
-	struct coord shootdir;
-	struct coord shootpos;
-	struct coord sp44;
-	struct coord sp38;
+	struct coord gundir3d;
+	struct coord gunpos3d;
+	struct coord gundir2d;
+	struct coord gunpos2d;
 
-	bgunCalculatePlayerShotSpread(&sp38, &sp44, handnum, dorandom);
+	bgunCalculatePlayerShotSpread(&gunpos2d, &gundir2d, handnum, dorandom);
 
-	if (arg3 > 0) {
-		mtx4TransformVec(camGetProjectionMtxF(), &sp38, &shootpos);
-		mtx4RotateVec(camGetProjectionMtxF(), &sp44, &shootdir);
+	if (numshots > 0) {
+		mtx4TransformVec(camGetProjectionMtxF(), &gunpos2d, &gunpos3d);
+		mtx4RotateVec(camGetProjectionMtxF(), &gundir2d, &gundir3d);
 
-		shotCalculateHits(handnum, arg1, &sp38, &sp44, &shootpos, &shootdir, 0, 4294836224, arg4);
+		shotCalculateHits(handnum, isshooting, &gunpos2d, &gundir2d, &gunpos3d, &gundir3d, 0, 4294836224, cheap);
 
-		if (arg3 < 2) {
-			bgunSetLastShootInfo(&shootpos, &shootdir, handnum);
+		if (numshots <= 1) {
+			bgunSetLastShootInfo(&gunpos3d, &gundir3d, handnum);
 		}
 	}
 }
 
-void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hitpart, struct modelnode *node, struct hitthing *hitthing, s32 arg6, struct modelnode *arg7, struct model *model, bool arg9, s32 arg10, struct coord *arg11, struct coord *arg12)
+/**
+ * Add a prop to the shot's hit list.
+ *
+ * Possible @bug: This function assumes the prop that's being added to the list
+ * is closer than the previous furtherest. This is okay if it's guaranteed that
+ * hits are added in the order of furtherest to closest. I'm unsure if this is
+ * true though.
+ */
+void hitCreate(struct shotdata *shotdata, struct prop *prop, f32 hitdistance, s32 hitpart,
+		struct modelnode *bboxnode, struct hitthing *hitthing, s32 mtxindex, struct modelnode *dlnode,
+		struct model *model, bool slowsbullet, bool bulletproof, struct coord *arg11, struct coord *arg12)
 {
 	s32 i;
 	f32 fVar8;
 
-	if (arg9) {
+	// If this prop "slows" the bullet, it means it contributes to the bullet's
+	// penetration total. Most props slow the bullet. Glass does not.
+	if (slowsbullet) {
 		s32 bestindex = 0;
 		s32 count = 0;
 		f32 mostdist = 0;
 		f32 prevmostdist = 0;
 
+		// Count the number of existing hits that slow the bullet,
+		// and note which hit of these is the furtherest.
 		for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
-			if (shotdata->hits[i].prop && shotdata->hits[i].unk4c) {
+			if (shotdata->hits[i].prop && shotdata->hits[i].slowsbullet) {
 				count++;
 
 				if (shotdata->hits[i].distance > mostdist) {
@@ -1041,49 +1051,58 @@ void func0f061fa8(struct shotdata *shotdata, struct prop *prop, f32 arg2, s32 hi
 		}
 
 		if (count >= shotdata->penetration) {
+			// There are too many props for the bullet to penetrate all of them.
+			// Remove the furtherest from the hit list, as well as any glass
+			// which is be beyond the now-reduced shot distance.
 			shotdata->hits[bestindex].prop = NULL;
-			shotdata->unk34 = prevmostdist;
+			shotdata->distance = prevmostdist;
 
-			if (shotdata->unk34 < arg2) {
-				shotdata->unk34 = arg2;
+			if (shotdata->distance < hitdistance) {
+				shotdata->distance = hitdistance;
 			}
 
 			for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
-				if (shotdata->hits[i].prop && !shotdata->hits[i].unk4c && shotdata->hits[i].distance > prevmostdist) {
+				if (shotdata->hits[i].prop && !shotdata->hits[i].slowsbullet && shotdata->hits[i].distance > prevmostdist) {
 					shotdata->hits[i].prop = NULL;
 				}
 			}
-		} else if (count + 1 == shotdata->penetration) {
-			if (shotdata->unk34 > arg2) {
-				shotdata->unk34 = arg2;
+		} else {
+			// If this hit will be stopping the bullet, adjust the shot distance.
+			if (count + 1 == shotdata->penetration) {
+				if (shotdata->distance > hitdistance) {
+					shotdata->distance = hitdistance;
+				}
 			}
 		}
 	}
 
-	if (arg10) {
+	// If this prop must stop the bullet (eg. because it's bulletproof),
+	// remove any hits that are beyond it.
+	if (bulletproof) {
 		for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
-			if (shotdata->hits[i].prop && shotdata->hits[i].distance > arg2) {
+			if (shotdata->hits[i].prop && shotdata->hits[i].distance > hitdistance) {
 				shotdata->hits[i].prop = NULL;
 			}
 		}
 
-		shotdata->unk34 = arg2;
+		shotdata->distance = hitdistance;
 	}
 
+	// Record the new hit
 	for (i = 0; i < ARRAYCOUNT(shotdata->hits); i++) {
 		if (shotdata->hits[i].prop == NULL) {
 			struct hit *hit = &shotdata->hits[i];
 
-			hit->distance = arg2;
+			hit->distance = hitdistance;
 			hit->prop = prop;
 			hit->hitpart = hitpart;
-			hit->node = node;
+			hit->bboxnode = bboxnode;
 			hit->hitthing = *hitthing;
-			hit->mtxindex = arg6;
-			hit->unk44 = arg7;
+			hit->mtxindex = mtxindex;
+			hit->dlnode = dlnode;
 			hit->model = model;
-			hit->unk4c = arg9;
-			hit->unk4d = arg10;
+			hit->slowsbullet = slowsbullet;
+			hit->bulletproof = bulletproof;
 			hit->pos.x = arg11->x;
 			hit->pos.y = arg11->y;
 			hit->pos.z = arg11->z;
@@ -1202,13 +1221,13 @@ void handInflictMeleeDamage(s32 handnum, struct gset *gset, bool arg2)
 					if (cdTestLos04(&playerprop->pos, playerprop->rooms, &prop->pos, cdtypes)) {
 						if (isglass) {
 							struct model *model = obj->model;
-							struct coord spd8;
-							struct coord spcc;
+							struct coord gunpos2d;
+							struct coord gundir2d;
 							struct modelnode *node = NULL;
 
-							bgunCalculatePlayerShotSpread(&spd8, &spcc, handnum, true);
+							bgunCalculatePlayerShotSpread(&gunpos2d, &gundir2d, handnum, true);
 
-							if (modelTestForHit(model, &spd8, &spcc, &node) > 0) {
+							if (modelTestForHit(model, &gunpos2d, &gundir2d, &node) > 0) {
 								f32 damage = gsetGetDamage(gset) * 2.5f;
 								skipthething = true;
 								bgunPlayGlassHitSound(&playerprop->pos, playerprop->rooms, -1);
@@ -1218,21 +1237,21 @@ void handInflictMeleeDamage(s32 handnum, struct gset *gset, bool arg2)
 						} else if (arg2) {
 							chr->chrflags |= CHRCFLAG_AVOIDING;
 						} else {
-							struct coord spb8;
-							struct coord vector;
+							struct coord gunpos2d;
+							struct coord gundir2d;
 							struct modelnode *node = NULL;
 							struct model *model = NULL;
 							s32 side = -1;
 							s32 hitpart = HITPART_TORSO;
 
 							if (!chrIsAvoiding(chr)) {
-								bgunCalculatePlayerShotSpread(&spb8, &vector, handnum, true);
+								bgunCalculatePlayerShotSpread(&gunpos2d, &gundir2d, handnum, true);
 								skipthething = true;
-								mtx4RotateVecInPlace(camGetProjectionMtxF(), &vector);
+								mtx4RotateVecInPlace(camGetProjectionMtxF(), &gundir2d);
 								bgunPlayPropHitSound(gset, prop, -1);
 
 								if (chr->model && chrGetShield(chr) > 0) {
-									chrCalculateShieldHit(chr, &playerprop->pos, &vector, &node, &hitpart, &model, &side);
+									chrCalculateShieldHit(chr, &playerprop->pos, &gundir2d, &node, &hitpart, &model, &side);
 								}
 
 								if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
@@ -1243,7 +1262,7 @@ void handInflictMeleeDamage(s32 handnum, struct gset *gset, bool arg2)
 									hitpart = HITPART_TORSO;
 								}
 
-								func0f0341dc(chr, gsetGetDamage(gset), &vector, gset,
+								func0f0341dc(chr, gsetGetDamage(gset), &gundir2d, gset,
 										g_Vars.currentplayer->prop, hitpart, chr->prop, node, model, side, 0);
 							}
 						}
@@ -1271,7 +1290,7 @@ void handTickAttack(s32 handnum)
 		}
 
 		if (doit) {
-			func0f061d54(handnum, 1, 2);
+			propFindAimingAt(handnum, true, FINDPROPCONTEXT_SHOOT);
 		}
 
 		g_Vars.currentplayer->hands[handnum].unk0d0f_02 = false;

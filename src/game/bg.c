@@ -3790,9 +3790,9 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 
 									lowestsqdist = sqdist;
 
-									hitthing->unk00.x = sp8c.x;
-									hitthing->unk00.y = sp8c.y;
-									hitthing->unk00.z = sp8c.z;
+									hitthing->pos.x = sp8c.x;
+									hitthing->pos.y = sp8c.y;
+									hitthing->pos.z = sp8c.z;
 									hitthing->unk0c.x = sp80.x;
 									hitthing->unk0c.y = sp80.y;
 									hitthing->unk0c.z = sp80.z;
@@ -4068,9 +4068,9 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 
 									*sqdistptr = sqdist;
 
-									hitthing->unk00.x = sp84.x;
-									hitthing->unk00.y = sp84.y;
-									hitthing->unk00.z = sp84.z;
+									hitthing->pos.x = sp84.x;
+									hitthing->pos.y = sp84.y;
+									hitthing->pos.z = sp84.z;
 									hitthing->unk0c.x = sp78.x;
 									hitthing->unk0c.y = sp78.y;
 									hitthing->unk0c.z = sp78.z;
@@ -4292,9 +4292,9 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 											if (hit) {
 												lowestsqdist = sqdist;
 
-												hitthing->unk00.x = spb0.x;
-												hitthing->unk00.y = spb0.y;
-												hitthing->unk00.z = spb0.z;
+												hitthing->pos.x = spb0.x;
+												hitthing->pos.y = spb0.y;
+												hitthing->pos.z = spb0.z;
 												hitthing->unk0c.x = spa4.x;
 												hitthing->unk0c.y = spa4.y;
 												hitthing->unk0c.z = spa4.z;
@@ -4469,20 +4469,20 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 	numbatches = g_Rooms[roomnum].numvtxbatches;
 
 	for (i = 0; i < numbatches; batch++, i++) {
-		j = bg0f1612e4(&batch->bbmin, &batch->bbmax, &from, &dist, &sp94, &hitthing->unk00);
+		j = bg0f1612e4(&batch->bbmin, &batch->bbmax, &from, &dist, &sp94, &hitthing->pos);
 
 		if (j == 0) {
 			continue;
 		}
 
 		if (j == 1) {
-			f0 = from.x - hitthing->unk00.x;
+			f0 = from.x - hitthing->pos.x;
 			f20 = f0 * f0;
 
-			f0 = from.y - hitthing->unk00.y;
+			f0 = from.y - hitthing->pos.y;
 			f20 += f0 * f0;
 
-			f0 = from.z - hitthing->unk00.z;
+			f0 = from.z - hitthing->pos.z;
 			f20 += f0 * f0;
 		} else {
 			f20 = -1.0f;
@@ -4512,13 +4512,13 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 
 			for (j = 0; j < ARRAYCOUNT(var800a6538); j++) {
 				if (bgTestHitInVtxBatch(&from, &to, &dist, &g_Rooms[roomnum].vtxbatches[var800a6538[j].vtxbatchindex], roomnum, hitthing)) {
-					f0 = from.x - hitthing->unk00.x;
+					f0 = from.x - hitthing->pos.x;
 					f2 = f0 * f0;
 
-					f0 = from.y - hitthing->unk00.y;
+					f0 = from.y - hitthing->pos.y;
 					f2 += f0 * f0;
 
-					f0 = from.z - hitthing->unk00.z;
+					f0 = from.z - hitthing->pos.z;
 					f2 += f0 * f0;
 
 					if (count == 0) {
@@ -4564,31 +4564,31 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 			i++;
 
 			if (i < count) {
-				f0 = from.x - hitthing->unk00.x;
+				f0 = from.x - hitthing->pos.x;
 				spc8 = f0 * f0;
 
-				f0 = from.y - hitthing->unk00.y;
+				f0 = from.y - hitthing->pos.y;
 				spc8 += f0 * f0;
 
-				f0 = from.z - hitthing->unk00.z;
+				f0 = from.z - hitthing->pos.z;
 				spc8 += f0 * f0;
 
 				for (; i < count; i++) {
 					if (var800a6538[i].unk04 <= spc8) {
 						if (bgTestHitInVtxBatch(&from, &to, &dist, &batch[var800a6538[i].vtxbatchindex], roomnum, &sp60)) {
-							f0 = from.f[0] - sp60.unk00.f[0];
+							f0 = from.f[0] - sp60.pos.f[0];
 							f20 = f0 * f0;
 
-							f0 = from.f[1] - sp60.unk00.f[1];
+							f0 = from.f[1] - sp60.pos.f[1];
 							f20 += f0 * f0;
 
-							f0 = from.f[2] - sp60.unk00.f[2];
+							f0 = from.f[2] - sp60.pos.f[2];
 							f20 += f0 * f0;
 
 							if (f20 < spc8) {
-								hitthing->unk00.x = sp60.unk00.x;
-								hitthing->unk00.y = sp60.unk00.y;
-								hitthing->unk00.z = sp60.unk00.z;
+								hitthing->pos.x = sp60.pos.x;
+								hitthing->pos.y = sp60.pos.y;
+								hitthing->pos.z = sp60.pos.z;
 								hitthing->unk0c.x = sp60.unk0c.x;
 								hitthing->unk0c.y = sp60.unk0c.y;
 								hitthing->unk0c.z = sp60.unk0c.z;
