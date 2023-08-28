@@ -5228,28 +5228,6 @@ struct var80061420 {
 	u8 *unk04;
 };
 
-struct var800ab5b8 {
-	u32 unk00;
-	u32 unk04;
-	u32 unk08;
-	u32 unk0c;
-	u32 unk10;
-	u32 unk14;
-	u32 unk18;
-	u32 unk1c;
-	u32 unk20;
-	u32 unk24;
-	u32 unk28;
-};
-
-struct var800ab718 {
-	bool inuse;
-	s32 uls;
-	s32 ult;
-	s32 lrs;
-	s32 lrt;
-};
-
 struct menurendercontext {
 	s16 x;
 	s16 y;

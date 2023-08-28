@@ -449,7 +449,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			}
 
 			if (tex && tex->hasloddata) {
-				tex0f173e50(tex, &depth2, &lrs);
+				texGetDepthAndSize(tex, &depth2, &lrs);
 			} else {
 				switch (depth) {
 				case G_IM_SIZ_32b:
