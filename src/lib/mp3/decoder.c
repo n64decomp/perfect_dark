@@ -2730,8 +2730,8 @@ bool mp3dec000427d8(struct asistream *stream, u32 gr)
 	f32 *sp0c = stream->unk4664[0][0].unk00;
 	s32 i = 0;
 
-	if (stream->window_switching[gr][0] && stream->window_switching[gr][2] == 2) {
-		if (stream->window_switching[gr][4]) {
+	if (stream->window_switching[gr][0] && stream->block_type[gr][0] == 2) {
+		if (stream->mixed_block_flag[gr][0]) {
 			while (i++ < 36) {
 				*(sp10++) = *(sp0c++);
 			}
