@@ -3954,10 +3954,7 @@ struct gamefile {
 };
 
 struct mpchrconfig {
-	/*0x00*/ char name[12]; // up to 10 visible chars plus line break plus null byte
-	/*0x0c*/ u8 unk0c;
-	/*0x0d*/ u8 unk0d;
-	/*0x0e*/ u8 unk0e;
+	/*0x00*/ char name[15];
 	/*0x0f*/ u8 mpheadnum;
 	/*0x10*/ u8 mpbodynum;
 	/*0x11*/ u8 team;
