@@ -31,6 +31,17 @@
 #include "data.h"
 #include "types.h"
 
+#define CHEATINFO_TIMED_EXISTS       0x000100
+#define CHEATINFO_TIMED_UNLOCKING    0x000200
+#define CHEATINFO_TIMED_PREVUNLOCKED 0x000400
+#define CHEATINFO_COMPL_UNLOCKING    0x000800
+#define CHEATINFO_COMPL_EXISTS       0x001000
+
+#define CHEATINFO_GET_TIMED_CHEATNUM(info)     ((info) & 0xff)
+#define CHEATINFO_GET_COMPL_CHEATNUM(info)     (((info) >> 16) & 0xff)
+#define CHEATINFO_SET_TIMED_CHEATNUM(cheatnum) (cheatnum)
+#define CHEATINFO_SET_COMPL_CHEATNUM(cheatnum) ((cheatnum) << 16)
+
 MenuItemHandlerResult endscreenHandleDeclineMission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
@@ -1001,14 +1012,14 @@ MenuItemHandlerResult endscreenHandleCheatInfo(s32 operation, struct menuitem *i
 	static u32 cheatcolour = 0xff7f7fff;
 
 	if (operation == MENUOP_GETCOLOUR
-			&& ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x200) || item->param == 5)) {
-		// Timed cheat just got unlocked, and this item is the timed cheat name
+			&& ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_TIMED_UNLOCKING) || item->param == 5)) {
+		// Timed cheat just got unlocked, or this item is the timed cheat name
 		u32 weight = menuGetSinOscFrac(40) * 255;
 
 		mainOverrideVariable("ctcol", &cheatcolour);
 
 		if (item->param == 0
-				&& cheatGetTime(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff) == 0) {
+				&& cheatGetTime(CHEATINFO_GET_TIMED_CHEATNUM(g_Menus[g_MpPlayerNum].endscreen.cheatinfo)) == 0) {
 			return 0;
 		}
 
@@ -1027,31 +1038,30 @@ MenuItemHandlerResult endscreenHandleCheatInfo(s32 operation, struct menuitem *i
 		if (item->param == 1) { // target time
 			u32 info = g_Menus[g_MpPlayerNum].endscreen.cheatinfo;
 
-			if (info & 0x800) { // completion cheat just got unlocked
+			if (info & CHEATINFO_COMPL_UNLOCKING) {
 				return true;
 			}
 
-			// (has timed cheat)
-			// and (timed cheat just got unlocked or timed cheat already unlocked) == 0
-			// and cheat has a target time configured
-			if ((info & 0x100) && (info & 0x600) == 0 && cheatGetTime(info & 0xff) > 0) {
+			if ((info & CHEATINFO_TIMED_EXISTS)
+					&& (info & (CHEATINFO_TIMED_UNLOCKING | CHEATINFO_TIMED_PREVUNLOCKED)) == 0
+					&& cheatGetTime(CHEATINFO_GET_TIMED_CHEATNUM(info)) > 0) {
 				return false;
 			}
 
 			return true;
-		} else if (item->param == 2 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xa00) == 0) {
+		} else if (item->param == 2 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & (CHEATINFO_TIMED_UNLOCKING | CHEATINFO_COMPL_UNLOCKING)) == 0) {
 			// new cheat available
 			return true;
-		} else if (item->param == 3 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x200) == 0) {
+		} else if (item->param == 3 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_TIMED_UNLOCKING) == 0) {
 			// completion cheat name
 			return true;
-		} else if (item->param == 4 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xa00)) {
+		} else if (item->param == 4 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & (CHEATINFO_TIMED_UNLOCKING | CHEATINFO_COMPL_UNLOCKING))) {
 			// others (shots)
 			return true;
-		} else if (item->param == 6 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xa00) == 0xa00) {
+		} else if (item->param == 6 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & (CHEATINFO_TIMED_UNLOCKING | CHEATINFO_COMPL_UNLOCKING)) == (CHEATINFO_TIMED_UNLOCKING | CHEATINFO_COMPL_UNLOCKING)) {
 			// limb shots
 			return true;
-		} else if (item->param == 5 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x800) == 0) {
+		} else if (item->param == 5 && (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_COMPL_UNLOCKING) == 0) {
 			// timed cheat name
 			return true;
 		}
@@ -1336,8 +1346,8 @@ struct menuitem g_MissionEndscreenMenuItems[] = {
 #if VERSION >= VERSION_NTSC_1_0
 char *endscreenMenuTextTimedCheatName(struct menuitem *item)
 {
-	if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000300) {
-		return cheatGetName(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
+	if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & (CHEATINFO_TIMED_EXISTS | CHEATINFO_TIMED_UNLOCKING)) {
+		return cheatGetName(CHEATINFO_GET_TIMED_CHEATNUM(g_Menus[g_MpPlayerNum].endscreen.cheatinfo));
 	}
 
 	return NULL;
@@ -1347,8 +1357,8 @@ char *endscreenMenuTextTimedCheatName(struct menuitem *item)
 #if VERSION >= VERSION_NTSC_1_0
 char *endscreenMenuTextCompletionCheatName(struct menuitem *item)
 {
-	if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000800) {
-		return cheatGetName((g_Menus[g_MpPlayerNum].endscreen.cheatinfo >> 16) & 0xff);
+	if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_COMPL_UNLOCKING) {
+		return cheatGetName(CHEATINFO_GET_COMPL_CHEATNUM(g_Menus[g_MpPlayerNum].endscreen.cheatinfo));
 	}
 
 	return NULL;
@@ -1359,13 +1369,12 @@ char *endscreenMenuTextCompletionCheatName(struct menuitem *item)
 char *endscreenMenuTextTargetTime(struct menuitem *item)
 {
 	s32 time;
-	s32 time2;
 
-	if ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x00000100) == 0) {
+	if ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_TIMED_EXISTS) == 0) {
 		return NULL;
 	}
 
-	time = g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff;
+	time = CHEATINFO_GET_TIMED_CHEATNUM(g_Menus[g_MpPlayerNum].endscreen.cheatinfo);
 	time = cheatGetTime(time);
 
 	if (!time) {
@@ -1446,11 +1455,11 @@ void endscreenPrepare(void)
 			complcheatid = cheatGetByCompletedStageIndex(g_MissionConfig.stageindex);
 
 			if (timedcheatid >= 0) {
-				g_Menus[g_MpPlayerNum].endscreen.cheatinfo = 0x0100 | timedcheatid;
+				g_Menus[g_MpPlayerNum].endscreen.cheatinfo = CHEATINFO_TIMED_EXISTS | CHEATINFO_SET_TIMED_CHEATNUM(timedcheatid);
 			}
 
 			if (complcheatid >= 0) {
-				g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x1000 | (complcheatid << 16);
+				g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= CHEATINFO_COMPL_EXISTS | CHEATINFO_SET_COMPL_CHEATNUM(complcheatid);
 			}
 		}
 #else
@@ -1478,18 +1487,17 @@ void endscreenPrepare(void)
 			timedalreadyunlocked = false;
 			complalreadyunlocked = false;
 
-			// If there's a timed cheat for this stage + difficulty
-			if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x100) {
-				timedalreadyunlocked = cheatIsUnlocked(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
+			if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_TIMED_EXISTS) {
+				timedalreadyunlocked = cheatIsUnlocked(CHEATINFO_GET_TIMED_CHEATNUM(g_Menus[g_MpPlayerNum].endscreen.cheatinfo));
 
 				if (timedalreadyunlocked) {
-					g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x400;
+					g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= CHEATINFO_TIMED_PREVUNLOCKED;
 				}
 			}
 
 			// If there's a completion cheat for this stage (ie. not a special stage)
-			if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x1000) {
-				complalreadyunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].endscreen.cheatinfo >> 16) & 0xff);
+			if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_COMPL_EXISTS) {
+				complalreadyunlocked = cheatIsUnlocked(CHEATINFO_GET_COMPL_CHEATNUM(g_Menus[g_MpPlayerNum].endscreen.cheatinfo));
 			}
 #else
 			playerGetMissionTime();
@@ -1584,23 +1592,22 @@ void endscreenPrepare(void)
 					}
 				}
 
-				if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x100) {
-					nowunlocked = cheatIsUnlocked(g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0xff);
+				if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_TIMED_EXISTS) {
+					nowunlocked = cheatIsUnlocked(CHEATINFO_GET_TIMED_CHEATNUM(g_Menus[g_MpPlayerNum].endscreen.cheatinfo));
 
 					if (!timedalreadyunlocked && nowunlocked) {
-						g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x0200;
+						g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= CHEATINFO_TIMED_UNLOCKING;
 					}
 				}
 
-				if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & 0x1000) {
-					nowunlocked = cheatIsUnlocked((g_Menus[g_MpPlayerNum].endscreen.cheatinfo >> 16) & 0xff);
+				if (g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_COMPL_EXISTS) {
+					nowunlocked = cheatIsUnlocked(CHEATINFO_GET_COMPL_CHEATNUM(g_Menus[g_MpPlayerNum].endscreen.cheatinfo));
 
 					if (!complalreadyunlocked && nowunlocked) {
-						g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= 0x0800;
+						g_Menus[g_MpPlayerNum].endscreen.cheatinfo |= CHEATINFO_COMPL_UNLOCKING;
 					}
 				}
 #else
-				// 154
 				if (g_MissionConfig.stageindex <= SOLOSTAGEINDEX_SKEDARRUINS) {
 					g_GameFile.autostageindex = g_MissionConfig.stageindex + 1;
 
