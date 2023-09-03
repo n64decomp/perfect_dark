@@ -3212,8 +3212,8 @@ void chrBeginDeath(struct chrdata *chr, struct coord *dir, f32 relangle, s32 hit
 				struct animtablerow *row;
 
 				struct animtablerow rows[] = {
-					{ 0x005b, 0, -1, 0.6, 0, 27, -1 },
-					{ 0x0255, 0, -1, 0.5, 0, 25, -1 },
+					{ ANIM_005B, 0, -1, 0.6, 0, 27, -1 },
+					{ ANIM_0255, 0, -1, 0.5, 0, 25, -1 },
 				};
 
 				bool flip;
@@ -3452,14 +3452,14 @@ void chrBeginArgh(struct chrdata *chr, f32 angle, s32 hitpart)
 			&& random() % 5 < 2) {
 		struct animtablerow *row;
 		struct animtablerow rows[] = {
-			{ 0x013b, 0, -1, 0.5, 0, -1, -1 },
-			{ 0x013c, 0, -1, 0.5, 0, -1, -1 },
-			{ 0x013f, 0, -1, 0.5, 0, -1, -1 },
-			{ 0x0142, 0, -1, 0.5, 0, -1, -1 },
-			{ 0x0145, 0, -1, 0.5, 0, -1, -1 },
-			{ 0x0148, 0, -1, 0.5, 0, -1, -1 },
-			{ 0x0036, 0, -1, 0.5, 0, -1, -1 },
-			{ 0x0037, 0, -1, 0.5, 0, -1, -1 },
+			{ ANIM_013B, 0, -1, 0.5, 0, -1, -1 },
+			{ ANIM_013C, 0, -1, 0.5, 0, -1, -1 },
+			{ ANIM_013F, 0, -1, 0.5, 0, -1, -1 },
+			{ ANIM_0142, 0, -1, 0.5, 0, -1, -1 },
+			{ ANIM_0145, 0, -1, 0.5, 0, -1, -1 },
+			{ ANIM_0148, 0, -1, 0.5, 0, -1, -1 },
+			{ ANIM_0036, 0, -1, 0.5, 0, -1, -1 },
+			{ ANIM_0037, 0, -1, 0.5, 0, -1, -1 },
 		};
 
 		chrStopFiring(chr);

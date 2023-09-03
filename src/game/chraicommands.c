@@ -7654,7 +7654,7 @@ bool aiShuffleInvestigationTerminals(void)
 }
 
 /**
- * Used by the blow command, which makes Investigation scientists run to the
+ * Used by the below command, which makes Investigation scientists run to the
  * computer terminals. The number of the left is the pad that the terminal sits
  * on, and the number on the right is the pad that the scientist will run to
  * when running to the terminal.

@@ -297,9 +297,9 @@ void weatherTickRain(struct weatherdata *weather)
 	// Rain noise
 	for (i = 0; i != 4; i++) {
 		s32 sounds[] = {
-			0x80b7,
-			0x80b6,
-			0x80b8,
+			SFX_80B7,
+			SFX_80B6,
+			SFX_80B8,
 			-1,
 		};
 
