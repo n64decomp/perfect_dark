@@ -785,12 +785,12 @@ struct aibot {
 	/*0x16c*/ u8 chrsinsight[MAX_MPCHRS];
 	/*0x178*/ s32 chrslastseen60[MAX_MPCHRS];
 	/*0x1a8*/ RoomNum chrrooms[MAX_MPCHRS];
-	/*0x1c0*/ f32 extraangle;
-	/*0x1c4*/ f32 extraanglerate;
-	/*0x1c8*/ f32 extraanglebase;
+	/*0x1c0*/ f32 zeroangle;
+	/*0x1c4*/ f32 zerospeed;
+	/*0x1c8*/ f32 zeroinc;
 	/*0x1cc*/ s32 random3ttl60;
 	/*0x1d0*/ u32 random3;
-	/*0x1d4*/ f32 targetinsighttemperature;
+	/*0x1d4*/ f32 curzerotimer60;
 	/*0x1d8*/ s32 abortattacktimer60;
 	/*0x1dc*/ bool canbreakdefend;
 	/*0x1e0*/ bool canbreakfollow;
@@ -4517,17 +4517,6 @@ struct modelstate {
 	struct modeldef *modeldef;
 	u16 fileid;
 	u16 scale;
-};
-
-struct botdifficulty {
-	u8 shootdelay;
-	f32 unk04;
-	f32 unk08;
-	u16 unk0c;
-	f32 unk10;
-	f32 unk14;
-	f32 unk18;
-	s32 dizzyamount;
 };
 
 struct animtablerow {

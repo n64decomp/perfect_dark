@@ -30,7 +30,7 @@ void botDisarm(struct chrdata *chr, struct prop *attacker);
 void botSetTarget(struct chrdata *chr, s32 propnum);
 bool botIsTargetInvisible(struct chrdata *botchr, struct chrdata *otherchr);
 bool botHasGround(struct chrdata *chr);
-void bot0f192a74(struct chrdata *chr);
+void botUpdateZeroAngle(struct chrdata *chr);
 bool botPassesPeaceCheck(struct chrdata *botchr, struct chrdata *otherchr);
 bool botPassesCowardCheck(struct chrdata *botchr, struct chrdata *otherchr);
 void botChooseGeneralTarget(struct chrdata *chr);

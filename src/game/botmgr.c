@@ -226,12 +226,12 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 						aibot->chrrooms[i] = -1;
 					}
 
-					aibot->extraangle = 0.0f;
-					aibot->extraanglerate = 0.0f;
-					aibot->extraanglebase = 0.0f;
+					aibot->zeroangle = 0.0f;
+					aibot->zerospeed = 0.0f;
+					aibot->zeroinc = 0.0f;
 					aibot->random3ttl60 = -1;
 					aibot->random3 = 0;
-					aibot->targetinsighttemperature = 0.0f;
+					aibot->curzerotimer60 = 0.0f;
 					aibot->realignangleframe = -1;
 					aibot->waypoints[0] = NULL;
 					aibot->numwaystepstotarget = 0;

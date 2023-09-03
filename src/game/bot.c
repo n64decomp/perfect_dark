@@ -42,16 +42,51 @@ struct chrdata *g_MpBotChrPtrs[MAX_BOTS];
 
 u8 g_BotCount = 0;
 
+struct botdifficulty {
+	u8 shootdelay60;
+	f32 minzerospeed;
+	f32 maxzerospeed;
+	u16 zerotime60;
+	f32 turnunzeromult;
+	f32 zerocloakspeed;
+	f32 forcezerominspeed;
+	s32 dizzyamount;
+};
+
+/**
+ * shootdelay60:
+ *     How long the bot waits between seeing their target and shooting.
+ *     It has a cooldown, so a brief break in sight will have little effect.
+ *
+ * minzerospeed and maxzerospeed:
+ *     Controls the speed at which the bot zeroes their target.
+ *     These values are scaled linearly based on the bot's current zerotimer60.
+ *     A random speed between the scaled min and max is chosen.
+ *
+ * zerotime60:
+ *     How long it takes for the bot to zero their target. A cooldown is used.
+ *
+ * turnunzeromult:
+ *     When a bot is zeroing or has zeroed its target and has to turn naturally,
+ *     this controls the rate at which the target is "unzeroed".
+ *     The value is a multiplier for the zerotime60 cooldown.
+ *
+ * zerocloakspeed:
+ *     A minimum value for maxzerospeed which is used when the target is cloaked.
+ *     It allows the bot to zero faster when they're just starting to zero.
+ *
+ * forcezerominspeed:
+ *     A minimum value for maxzerospeed.
+ *     It allows the bot to zero faster when they're just starting to zero.
+ *
+ * dizzyamount:
+ *     How much tranq the bot needs to receive before they start being affected.
+ *     (ie. punching/shooting as soon as target is in sight, even if not zeroed)
+ */
+
 struct botdifficulty g_BotDifficulties[] = {
-	//           shootdelay
-	//           |          unk04
-	//           |          |                             unk08
-	//           |          |                             |                           unk0c
-	//           |          |                             |                           |           unk10
-	//           |          |                             |                           |           |   unk14
-	//           |          |                             |                           |           |   |                             unk18
-	//           |          |                             |                           |           |   |                             |                           dizzyamount
-	//           |          |                             |                           |           |   |                             |                           |
+	//           shootdelay60                                                                     turnunzeromult
+	//           |          minzerospeed                  maxzerospeed                zerotime60  |   zerocloakspeed                forcezerominspeed           dizzyamount
 	/* meat */ { TICKS(90), RAD(15,   0.26175770163536),  RAD(30, 0.52351540327072),  TICKS(600), 10, RAD(40,    0.69802051782608), RAD(20, 0.34901025891304),  TICKS(1000) },
 	/* easy */ { TICKS(60), RAD(7,    0.12215359508991),  RAD(14, 0.24430719017982),  TICKS(360), 10, RAD(28.5f, 0.49733963608742), RAD(8,  0.13960410654545),  TICKS(1000) },
 	/* norm */ { TICKS(30), RAD(4,    0.069802053272724), RAD(8,  0.13960410654545),  TICKS(180), 4,  RAD(20,    0.34901025891304), RAD(5,  0.08725256472826),  TICKS(1500) },
@@ -905,7 +940,7 @@ s32 botTick(struct prop *prop)
 			} else if (botIsAboutToAttack(chr, false)) {
 				struct prop *target = chrGetTargetProp(chr);
 				targetangle = chrGetAngleToPos(chr, &target->pos);
-				targetangle = oldangle + targetangle + aibot->extraangle;
+				targetangle = oldangle + targetangle + aibot->zeroangle;
 			} else if (chr->myaction == MA_AIBOTDOWNLOAD && g_ScenarioData.htm.dlterminalnum != -1) {
 				targetangle = chrGetAngleToPos(chr, &g_ScenarioData.htm.terminals[g_ScenarioData.htm.dlterminalnum].prop->pos);
 				targetangle = oldangle + targetangle;
@@ -1382,15 +1417,21 @@ bool botHasGround(struct chrdata *chr)
 	return chr->ground >= -20000;
 }
 
-void bot0f192a74(struct chrdata *chr)
+/**
+ * The zero angle is the additional angle that's needed for the bot to zero in
+ * on its target from its natural facing angle.
+ */
+void botUpdateZeroAngle(struct chrdata *chr)
 {
 	struct aibot *aibot = chr->aibot;
 	s32 diff = aibot->config->difficulty;
 	s32 i;
-	f32 fVar12;
-	f32 fVar11;
+	f32 minspeed;
+	f32 maxspeed;
 	f32 tmp;
+	f32 frac;
 
+	// Consider recalculating random values
 	aibot->random3ttl60 -= g_Vars.lvupdate60;
 
 	if (aibot->random3ttl60 <= 0) {
@@ -1398,65 +1439,76 @@ void bot0f192a74(struct chrdata *chr)
 		aibot->random3ttl60 = TICKS(20) + random() % TICKS(20);
 	}
 
+	// Increase or decrease curzerotimer60 depending on whether the target is in sight or not
 	if (g_Vars.lvupdate240 > 0) {
 		if (aibot->targetinsight) {
-			aibot->targetinsighttemperature += g_Vars.diffframe60;
+			aibot->curzerotimer60 += g_Vars.diffframe60;
 		} else {
-			aibot->targetinsighttemperature -= g_Vars.diffframe60;
+			aibot->curzerotimer60 -= g_Vars.diffframe60;
 		}
 
-		tmp = g_BotDifficulties[diff].unk10 * (aibot->speedtheta * g_Vars.lvupdate60f);
+		// If the bot is naturally turning, decrease the zero timer
+		tmp = g_BotDifficulties[diff].turnunzeromult * (aibot->speedtheta * g_Vars.lvupdate60f);
 
 		if (tmp < 0) {
 			tmp = -tmp;
 		}
 
-		aibot->targetinsighttemperature -= tmp;
+		aibot->curzerotimer60 -= tmp;
 	}
 
-	if (aibot->targetinsighttemperature > aibot->shootdelaytimer60) {
-		aibot->targetinsighttemperature = aibot->shootdelaytimer60;
+	// Don't allow the bot to zero faster than its shoot delay timer.
+	// ie. The bot should not zero its target then have to wait before it can shoot.
+	if (aibot->curzerotimer60 > aibot->shootdelaytimer60) {
+		aibot->curzerotimer60 = aibot->shootdelaytimer60;
 	}
 
-	if (aibot->targetinsighttemperature < 0) {
-		aibot->targetinsighttemperature = 0;
+	if (aibot->curzerotimer60 < 0) {
+		aibot->curzerotimer60 = 0;
 	}
 
-	if (aibot->targetinsighttemperature >= g_BotDifficulties[diff].unk0c) {
-		aibot->targetinsighttemperature = g_BotDifficulties[diff].unk0c;
-		fVar12 = 0;
-		fVar11 = 0;
+	// Figure out the turn speed that will be used.
+	// The actual speed will be somewhere between minspeed and maxspeed using randomness.
+	if (aibot->curzerotimer60 >= g_BotDifficulties[diff].zerotime60) {
+		aibot->curzerotimer60 = g_BotDifficulties[diff].zerotime60;
+		minspeed = 0;
+		maxspeed = 0;
 	} else {
-		tmp = (g_BotDifficulties[diff].unk0c - aibot->targetinsighttemperature) / g_BotDifficulties[diff].unk0c;
-		fVar12 = g_BotDifficulties[diff].unk04 * tmp;
-		fVar11 = g_BotDifficulties[diff].unk08 * tmp;
+		frac = (g_BotDifficulties[diff].zerotime60 - aibot->curzerotimer60) / g_BotDifficulties[diff].zerotime60;
+		minspeed = g_BotDifficulties[diff].minzerospeed * frac;
+		maxspeed = g_BotDifficulties[diff].maxzerospeed * frac;
 	}
 
+	// If the bot's target is cloaked, make sure the max speed is at least a
+	// certain value. So the bot can zero faster when their target is cloaked?
+	// Rare might have intended for this to apply to zeroinc instead.
 	if (chr->target != -1) {
-		struct prop *target = chrGetTargetProp(chr);
-
-		if (target->chr->hidden & CHRHFLAG_CLOAKED) {
-			if (fVar11 < g_BotDifficulties[diff].unk14) {
-				fVar11 = g_BotDifficulties[diff].unk14;
+		if (chrGetTargetProp(chr)->chr->hidden & CHRHFLAG_CLOAKED) {
+			if (maxspeed < g_BotDifficulties[diff].zerocloakspeed) {
+				maxspeed = g_BotDifficulties[diff].zerocloakspeed;
 			}
 		}
 	}
 
-	if (fVar11 < g_BotDifficulties[diff].unk18) {
-		fVar11 = g_BotDifficulties[diff].unk18;
+	// Force a minimum max speed (applies if the bot is just starting to zero).
+	// As above, Rare might have intended for this to apply to zeroinc instead.
+	if (maxspeed < g_BotDifficulties[diff].forcezerominspeed) {
+		maxspeed = g_BotDifficulties[diff].forcezerominspeed;
 	}
 
-	aibot->extraanglebase = (fVar11 - fVar12) * (aibot->random3 & 0xffff) * 0.000015259021893144f + fVar12;
+	// Calculate the actual speed increment to use
+	aibot->zeroinc = (maxspeed - minspeed) * (aibot->random3 % 0x10000) * (1.0f / 65535.0f) + minspeed;
 
+	// Negating this seems like a weird choice... unsure what effect this has
 	if (aibot->random3 & 0x10000) {
-		aibot->extraanglebase = -aibot->extraanglebase;
+		aibot->zeroinc = -aibot->zeroinc;
 	}
 
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
-		aibot->extraanglerate = aibot->extraanglerate * (PAL ? 0.97f : 0.97500002384186f) + aibot->extraanglebase;
+		aibot->zerospeed = aibot->zerospeed * (PAL ? 0.97f : 0.97500002384186f) + aibot->zeroinc;
 	}
 
-	aibot->extraangle = aibot->extraanglerate * (PAL ? 0.029999971389771f : 0.024999976158142f);
+	aibot->zeroangle = aibot->zerospeed * (PAL ? 0.029999971389771f : 0.024999976158142f);
 }
 
 /**
@@ -1576,7 +1628,7 @@ void botChooseGeneralTarget(struct chrdata *botchr)
 		}
 	}
 
-	bot0f192a74(botchr);
+	botUpdateZeroAngle(botchr);
 
 	// If the bot is data uplinking, clear the target
 	if (botchr->myaction == MA_AIBOTDOWNLOAD) {
@@ -3359,7 +3411,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 								if (chr->target != -1
 										&& aibot->targetinsight
-										&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay) {
+										&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay60) {
 									if (!botIsDizzy(chr)) {
 										if (aibot->weaponnum == WEAPON_TRANQUILIZER) {
 											if (!chrIsTargetInFov(chr, 30, 0) || chrGetDistanceToTarget(chr) > range) {
@@ -3469,7 +3521,7 @@ void botTickUnpaused(struct chrdata *chr)
 
 									if (chr->target != -1
 											&& aibot->targetinsight
-											&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay
+											&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay60
 											&& (botIsDizzy(chr) || chrIsTargetInFov(chr, 45, false))) {
 										throw = true;
 									}
@@ -3532,7 +3584,7 @@ void botTickUnpaused(struct chrdata *chr)
 								firing = true;
 							} else if (chr->target != -1
 									&& aibot->targetinsight
-									&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay
+									&& aibot->shootdelaytimer60 >= g_BotDifficulties[aibot->config->difficulty].shootdelay60
 									&& (botIsDizzy(chr) || chrIsTargetInFov(chr, 45, false))
 									&& !chrIsDead(chrGetTargetProp(chr)->chr)) {
 								firing = true;
