@@ -469,7 +469,7 @@ void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xra
 
 						if (1);
 
-						colfrac = sinf((1.0f - anglefrac) * 1.5707964f);
+						colfrac = sinf((1.0f - anglefrac) * RAD(90, 1.5707964f));
 
 						*colour = (u32)(colfrac * 255.0f) << player->ecol_1
 							| (u32)((1.0f - colfrac) * 255.0f) << player->ecol_2
@@ -480,7 +480,7 @@ void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xra
 
 						if (1);
 
-						colfrac = sinf(anglefrac * 1.5707964f);
+						colfrac = sinf(anglefrac * RAD(90, 1.5707964f));
 
 						*colour = (u32)(colfrac * 255.0f) << player->ecol_3
 							| 0xff << player->ecol_2

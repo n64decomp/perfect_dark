@@ -179,14 +179,14 @@ void bbikeHandleActivate(void)
 
 		g_Vars.currentplayer->walkinitmove = false;
 
-		bbikeTryDismountAngle(1.5705462694168f, sidedist);  // 90  - left
-		bbikeTryDismountAngle(4.7116389274597f, sidedist);  // 270 - right
-		bbikeTryDismountAngle(0.7852731347084f, diagdist);  // 45  - front left
-		bbikeTryDismountAngle(5.4969120025635f, diagdist);  // 315 - front right
-		bbikeTryDismountAngle(2.3558194637299f, diagdist);  // 135 - back left
-		bbikeTryDismountAngle(3.9263656139374f, diagdist);  // 225 - back right
-		bbikeTryDismountAngle(0, frontdist);                // 0   - front
-		bbikeTryDismountAngle(3.1410925388336f, frontdist); // 180 - back
+		bbikeTryDismountAngle(RAD(90, 1.5705462694168f),  sidedist);  // left
+		bbikeTryDismountAngle(RAD(270, 4.7116389274597f), sidedist);  // right
+		bbikeTryDismountAngle(RAD(45, 0.7852731347084f),  diagdist);  // front left
+		bbikeTryDismountAngle(RAD(315, 5.4969120025635f), diagdist);  // front right
+		bbikeTryDismountAngle(RAD(135, 2.3558194637299f), diagdist);  // back left
+		bbikeTryDismountAngle(RAD(225, 3.9263656139374f), diagdist);  // back right
+		bbikeTryDismountAngle(RAD(0, 0),                  frontdist); // front
+		bbikeTryDismountAngle(RAD(180, 3.1410925388336f), frontdist); // back
 
 		if (g_Vars.currentplayer->walkinitmove) {
 			bmoveSetMode(MOVEMODE_WALK);

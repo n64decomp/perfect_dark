@@ -887,7 +887,7 @@ void setupCreateAutogun(struct autogunobj *autogun, s32 cmdindex)
 		autogun->xzero = atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 	} else if (autogun->base.modelnum == MODEL_CETROOFGUN) {
 		// Deep Sea roofgun
-		autogun->xzero = -1.5705462694168f;
+		autogun->xzero = RAD(-90, -1.5705462694168f);
 	}
 }
 
@@ -1099,8 +1099,8 @@ void setupCreateDoor(struct doorobj *door, s32 cmdindex)
 		mtx00016d58(&sp110, 0, 0, 0,
 				-pad.look.x, -pad.look.y, -pad.look.z,
 				pad.up.x, pad.up.y, pad.up.z);
-		mtx4LoadXRotation(1.5705462694168f, &finalmtx);
-		mtx4LoadZRotation(1.5705462694168f, &zrotmtx);
+		mtx4LoadXRotation(RAD(90, 1.5705462694168f), &finalmtx);
+		mtx4LoadZRotation(RAD(90, 1.5705462694168f), &zrotmtx);
 		mtx4MultMtx4InPlace(&zrotmtx, &finalmtx);
 		mtx4MultMtx4InPlace(&sp110, &finalmtx);
 
@@ -1764,7 +1764,7 @@ void setupCreateProps(s32 stagenum)
 						if (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) {
 							step->frame = escstepy;
 							escstepy += 40;
-							mtx4LoadYRotation(4.7116389274597f, (Mtxf *) &sp1a8);
+							mtx4LoadYRotation(RAD(270, 4.7116389274597f), (Mtxf *) &sp1a8);
 							mtx4ToMtx3((Mtxf *) &sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						} else {

@@ -15,9 +15,9 @@ f32 atan2f(f32 x, f32 z)
 		}
 	} else if (z == 0) {
 		if (x > 0) {
-			result = 1.5707963705063f;
+			result = RAD(90, 1.5707963705063f);
 		} else {
-			result = 1.5707963705063f * 3;
+			result = RAD(90, 1.5707963705063f) * 3;
 		}
 	} else {
 		result = sqrtf(x * x + z * z);
@@ -30,7 +30,7 @@ f32 atan2f(f32 x, f32 z)
 			}
 		} else {
 			result = acosf(x / result);
-			result = 1.5707963705063f - result;
+			result = RAD(90, 1.5707963705063f) - result;
 
 			if (z < 0) {
 				result = M_PI - result;

@@ -508,7 +508,7 @@ void wallhitsTick(void)
 					f32 tmp;
 					s32 j;
 
-					tmp = 1.5707964f * f24;
+					tmp = RAD(90, 1.5707964f) * f24;
 					f30 = (1.0f - frac) * sinf(tmp);
 					f22 = 1.0f - tmp + 0.6f;
 

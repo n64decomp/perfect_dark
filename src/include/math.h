@@ -15,4 +15,13 @@
 #define RAD2DEG2(rad) ((rad) * 180.0f / M_PI)
 #define BADRAD2DEG(rad) ((rad) * (180.0f / M_BADPI))
 
+/**
+ * In many places, using the DEG2RAD macro results in a value that differs from
+ * the original by 1 bit, so a literal radian value must be used to get a match.
+ *
+ * To help with readability, the RAD macro is used so that both the degree and
+ * radian values can be specified, even though degrees is not used.
+ */
+#define RAD(deg, rad) (rad)
+
 #endif

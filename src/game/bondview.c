@@ -333,7 +333,7 @@ Gfx *bviewDrawSlayerRocketInterlace(Gfx *gdl, u32 colour, u32 alpha)
 	s32 viewwidth = viGetViewWidth();
 	s32 y;
 	s32 viewleft = viGetViewLeft();
-	f32 angle = 0.52359879016876f;
+	f32 angle = RAD(30, 0.52359879016876f);
 	s32 offset = (s32)(g_20SecIntervalFrac * 600.0f) % 12;
 	f32 increment;
 
@@ -347,7 +347,7 @@ Gfx *bviewDrawSlayerRocketInterlace(Gfx *gdl, u32 colour, u32 alpha)
 
 	gDPPipeSync(gdl++);
 
-	increment = (2.6179938316345f - angle) / viewheight;
+	increment = (RAD(150, 2.6179938316345f) - angle) / viewheight;
 
 	gdl = bviewPrepareStaticRgba16(gdl, colour, alpha);
 

@@ -81,7 +81,7 @@ void camSetScale(void)
 	player->c_recipscalex = 1.0f / player->c_scalex;
 	player->c_recipscaley = 1.0f / player->c_scaley;
 
-	fVar4 = sinf(0.52359879016876f) / (cosf(0.52359879016876f) * 120.0f);
+	fVar4 = sinf(RAD(30, 0.52359879016876f)) / (cosf(RAD(30, 0.52359879016876f)) * 120.0f);
 	player->c_scalelod60 = fVar4;
 	player->c_lodscalez = player->c_scalelod / fVar4;
 	tmp = player->c_lodscalez * 65536.0f;

@@ -2339,7 +2339,7 @@ void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, RoomNu
 	bbox = modelFindBboxRodata(obj->model);
 	mult = objGetLocalZMin(bbox);
 
-	mtx4LoadXRotation(4.7116389274597f, &sp5c);
+	mtx4LoadXRotation(RAD(270, 4.7116389274597f), &sp5c);
 	mtx4LoadYRotation(M_BADPI, &sp1c);
 	mtx4MultMtx4InPlace(&sp1c, &sp5c);
 	mtx4MultMtx4InPlace(arg2, &sp5c);
@@ -3953,8 +3953,8 @@ void func0f06e9cc(struct coord *arg0, Mtxf *arg1)
 
 	spf0 = atan2f(sp24.x, sp24.y);
 
-	mtx4LoadYRotation(-1.5705463f + spf4, &sp70);
-	mtx4LoadXRotation(-1.5705463f - spf0, &sp30);
+	mtx4LoadYRotation(RAD(-90, -1.5705463f) + spf4, &sp70);
+	mtx4LoadXRotation(RAD(-90, -1.5705463f) - spf0, &sp30);
 
 	mtx4MultMtx4(&sp70, &sp30, arg1);
 }
@@ -4035,7 +4035,7 @@ void knifeLand(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	sp1c.z = RANDOMFRAC() * 0.8f + arg2->z - 0.4f;
 
 	func0f06e9cc(&sp1c, &sp90);
-	mtx4LoadXRotation(-1.5705463f, &sp50);
+	mtx4LoadXRotation(RAD(-90, -1.5705463f), &sp50);
 	mtx4MultMtx4(&sp90, &sp50, &spd0);
 	mtx00015f04(obj->model->scale, &spd0);
 
@@ -8248,7 +8248,7 @@ void cctvTick(struct prop *camprop)
 			finalangle -= M_BADTAU;
 		}
 
-		if (finalangle > 0.7852731347084f || finalangle < -0.7852731347084f) {
+		if (finalangle > RAD(45, 0.7852731347084f) || finalangle < RAD(-45, -0.7852731347084f)) {
 			canseeplayer = false;
 		}
 	}
@@ -8272,7 +8272,7 @@ void cctvTick(struct prop *camprop)
 
 		if (finalangle);
 
-		if (finalangle > 0.7852731347084f || finalangle < -0.7852731347084f) {
+		if (finalangle > RAD(45, 0.7852731347084f) || finalangle < RAD(-45, -0.7852731347084f)) {
 			canseeplayer = false;
 		}
 	}
@@ -8435,8 +8435,8 @@ void fanTick(struct prop *prop)
 	if (fan->yspeed > 0) {
 		fan->yrot += fan->yspeed * g_Vars.lvupdate60freal;
 
-		while (fan->yrot >= 1.5705462694168f) { // almost BADDEG2RAD(90)
-			fan->yrot -= 1.5705462694168f;
+		while (fan->yrot >= RAD(90, 1.5705462694168f)) {
+			fan->yrot -= RAD(90, 1.5705462694168f);
 		}
 
 		fan->yrotprev = fan->yrot;
@@ -8922,7 +8922,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	Mtxf *matrices = model->matrices;
 	union modelrodata *rodata;
 	struct coord sp4c;
-	f32 yrot = autogun->yrot + 1.5705462694168f;
+	f32 yrot = autogun->yrot + RAD(90, 1.5705462694168f);
 	f32 xrot = -autogun->xrot;
 	Mtxf *tmp;
 	struct modelnode *node2;
@@ -8952,7 +8952,7 @@ void autogunInitMatrices(struct prop *prop, Mtxf *mtx)
 	mtx4SetTranslation(&rodata->position.pos, &matrices[2]);
 	mtx00015be0(&matrices[1], &matrices[2]);
 
-	tmp = modelFindNodeMtx(model, node2, 0x100);
+	tmp = modelFindNodeMtx(model, node2, 256);
 
 	if (tmp != NULL) {
 		mtx4LoadZRotation(xrot * 0.5f, tmp);
@@ -9387,7 +9387,7 @@ void autogunTickShoot(struct prop *autogunprop)
 	}
 }
 
-u32 var80069cc0 = 0x00000000;
+u32 var80069cc0 = 0;
 
 void chopperInitMatrices(struct prop *prop)
 {
@@ -9401,7 +9401,7 @@ void chopperInitMatrices(struct prop *prop)
 
 	rodata = modelGetPartRodata(model->definition, MODELPART_CHOPPER_0001);
 	mtx4LoadZRotation(M_BADTAU - chopper->gunrotx, &sp68);
-	mtx4LoadYRotation(chopper->gunroty + 1.5707963705063f, &sp28);
+	mtx4LoadYRotation(chopper->gunroty + RAD(90, 1.5707963705063f), &sp28);
 	mtx00015be4(&sp28, &sp68, &spa8);
 
 	mtx4SetTranslation(&rodata->position.pos, &spa8);
@@ -9694,16 +9694,16 @@ void chopperIncrementBarrel(struct prop *chopperprop, bool firing)
 			anglev -= M_BADTAU;
 		}
 
-		if (chopper->barrelrotspeed < 0.34906584f) {
-			chopper->barrelrotspeed += 0.017453292f * LVUPDATE60FREAL();
+		if (chopper->barrelrotspeed < RAD(20, 0.34906584f)) {
+			chopper->barrelrotspeed += RAD(1, 0.017453292f) * LVUPDATE60FREAL();
 		} else {
-			chopper->barrelrotspeed = 0.34906584f;
+			chopper->barrelrotspeed = RAD(20, 0.34906584f);
 		}
 	} else {
 		speedmult = 0.125f;
 
 		if (chopper->barrelrotspeed > 0.0f) {
-			chopper->barrelrotspeed -= 0.017453292f;
+			chopper->barrelrotspeed -= RAD(1, 0.017453292f);
 		} else {
 			chopper->barrelrotspeed = 0.0f;
 		}
@@ -9928,7 +9928,7 @@ void chopperIncrementMovement(struct prop *prop, f32 goalroty, f32 goalrotx, str
 		angle = -(curroty - goalroty);
 	}
 
-	chopper->ontarget = angle < 0.1745f;
+	chopper->ontarget = angle < RAD(10, 0.1745f);
 
 	newpos.x = prop->pos.x + chopper->vx * g_Vars.lvupdate60freal;
 	newpos.y = prop->pos.y + chopper->vy * g_Vars.lvupdate60freal;
@@ -14441,7 +14441,7 @@ bool objDrop(struct prop *prop, bool lazy)
 
 			spa4 = RANDOMFRAC() * 13.333333015442f;
 			spa0 = atan2f(spe4.x, spe4.z);
-			spa0 += RANDOMFRAC() * 0.7852731347084f - 0.3926365673542f;
+			spa0 += RANDOMFRAC() * RAD(45, 0.7852731347084f) - RAD(22, 0.3926365673542f);
 
 			if (spa0 >= M_BADTAU) {
 				spa0 -= M_BADTAU;
@@ -15997,7 +15997,7 @@ bool objTestForInteract(struct prop *prop)
 				angle = M_BADTAU - angle;
 			}
 
-			if (angle <= 0.3926365673542f) {
+			if (angle <= RAD(22.5f, 0.3926365673542f)) {
 				if ((obj->flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0
 						|| cdTestLos06(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
 					g_InteractProp = prop;
@@ -16047,8 +16047,8 @@ bool currentPlayerTryMountHoverbike(struct prop *prop)
 			angle += M_BADTAU;
 		}
 
-		if ((angle > 0.3926365673542f && angle < 2.3558194637299f)
-				|| (angle < 5.8895483016968f && angle > 3.9263656139374f)) {
+		if ((angle > RAD(22, 0.3926365673542f) && angle < RAD(135, 2.3558194637299f))
+				|| (angle < RAD(337, 5.8895483016968f) && angle > RAD(225, 3.9263656139374f))) {
 			g_Vars.currentplayer->hoverbike = prop;
 			bmoveSetMode(MOVEMODE_BIKE);
 			return true;
@@ -17594,7 +17594,7 @@ s32 objTestForPickup(struct prop *prop)
 		}
 	}
 
-	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < -0.7852731347084f) {
+	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < RAD(-45, -0.7852731347084f)) {
 		if (g_Vars.currentplayer->magnetattracttime < 0) {
 			return TICKOP_NONE;
 		}
@@ -20444,7 +20444,7 @@ bool func0f08f968(struct doorobj *door, bool altcoordsystem)
 	f32 sp4c;
 	bool maybe;
 	struct prop *playerprop;
-	f32 limit = 0.34901028871536f;
+	f32 limit = RAD(20, 0.34901028871536f);
 
 	if (g_InteractProp == NULL) {
 		maybe = false;

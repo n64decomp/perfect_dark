@@ -1547,15 +1547,15 @@ f32 chrGetFlinchAmount(struct chrdata *chr)
 
 	if (chr->hidden2 & CHRH2FLAG_HEADSHOTTED) {
 		if (value < 4) {
-			value = sinf(value * 1.5705462694168f / 4);
+			value = sinf(value * RAD(90, 1.5705462694168f) / 4);
 		} else {
-			value = 1 - sinf((value - 4) * (PAL ? 0.07478791475296f : 0.060405626893044f));
+			value = 1 - sinf((value - 4) * (PAL ? RAD(4, 0.07478791475296f) : RAD(3, 0.060405626893044f)));
 		}
 	} else {
 		if (value < TICKS(10)) {
-			value = sinf(value * 1.5705462694168f / TICKS(10));
+			value = sinf(value * RAD(90, 1.5705462694168f) / TICKS(10));
 		} else {
-			value = 1 - sinf((value - TICKS(10)) * (PAL ? 0.098159141838551f : 0.078527316451073f));
+			value = 1 - sinf((value - TICKS(10)) * (PAL ? RAD(6, 0.098159141838551f) : RAD(4, 0.078527316451073f)));
 		}
 	}
 
@@ -1629,7 +1629,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			gunroty += M_BADTAU;
 		}
 
-		gunrot = M_BADTAU - theta + 1.5707963705063f;
+		gunrot = M_BADTAU - theta + RAD(90, 1.5707963705063f);
 
 		if (gunrot >= M_BADTAU) {
 			gunrot -= M_BADTAU;
@@ -1699,10 +1699,10 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				xrot = g_CurModelChr->aimupback;
 
 				if (g_CurModelChr->hidden2 & CHRH2FLAG_AUTOANIM) {
-					if (xrot > 1.0470308065414f) {
-						xrot -= 1.0470308065414f;
-					} else if (xrot < -0.87252569198608f) {
-						xrot += 0.87252569198608f;
+					if (xrot > RAD(60, 1.0470308065414f)) {
+						xrot -= RAD(60, 1.0470308065414f);
+					} else if (xrot < RAD(-50, -0.87252569198608f)) {
+						xrot += RAD(50, 0.87252569198608f);
 					} else {
 						xrot = 0.0f;
 					}
@@ -1721,10 +1721,10 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				if (g_CurModelChr->hidden2 & CHRH2FLAG_AUTOANIM) {
 					xrot = g_CurModelChr->aimupback;
 
-					if (xrot > 1.0470308065414f) {
-						xrot = 1.0470308065414f;
-					} else if (xrot < -0.87252569198608f) {
-						xrot = -0.87252569198608f;
+					if (xrot > RAD(60, 1.0470308065414f)) {
+						xrot = RAD(60, 1.0470308065414f);
+					} else if (xrot < RAD(-50, -0.87252569198608f)) {
+						xrot = RAD(-50, -0.87252569198608f);
 					}
 				} else if (g_CurModelChr->model->anim->flip) {
 					xrot = g_CurModelChr->aimuplshoulder;
@@ -1771,7 +1771,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 					}
 				} else if (joint == rshoulderjoint || joint == lshoulderjoint) {
 					s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
-					f32 flinchamount = chrGetFlinchAmount(g_CurModelChr) * 0.26175770163536f;
+					f32 flinchamount = chrGetFlinchAmount(g_CurModelChr) * RAD(15, 0.26175770163536f);
 
 					xrot -= flinchamount;
 
@@ -1787,18 +1787,18 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 					flinchamount = chrGetFlinchAmount(g_CurModelChr);
 					flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
 
-					xrot += flinchamount * 0.26175770163536f;
+					xrot += flinchamount * RAD(15, 0.26175770163536f);
 
 					if (flinchtype < 3) {
-						yrot += flinchamount * 0.26175770163536f;
+						yrot += flinchamount * RAD(15, 0.26175770163536f);
 					} else if (flinchtype >= 3 && flinchtype < 6) {
-						yrot -= flinchamount * 0.26175770163536f;
+						yrot -= flinchamount * RAD(15, 0.26175770163536f);
 					}
 
 					if (flinchtype == 2 || flinchtype == 5 || flinchtype == 7) {
-						zrot += flinchamount * 0.17450514435768f;
+						zrot += flinchamount * RAD(10, 0.17450514435768f);
 					} else if (flinchtype == 1 || flinchtype == 4 || flinchtype == 6) {
-						zrot -= flinchamount * 0.17450514435768f;
+						zrot -= flinchamount * RAD(10, 0.17450514435768f);
 					}
 				}
 			}
@@ -1974,8 +1974,8 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 			thing.unk00 = &sp80;
 		} else if (CHRRACE(chr) == RACE_SKEDAR) {
 			// The skedar hand position is rotated weirdly, so compensate for it
-			mtx4LoadYRotation(1.3192588090897f, &sp80);
-			mtx4LoadZRotation(1.5705462694168f, &sp40);
+			mtx4LoadYRotation(RAD(76, 1.3192588090897f), &sp80);
+			mtx4LoadZRotation(RAD(90, 1.5705462694168f), &sp40);
 			mtx4MultMtx4InPlace(&sp40, &sp80);
 			mtx4MultMtx4InPlace(sp104, &sp80);
 			thing.unk00 = &sp80;

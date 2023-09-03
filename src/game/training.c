@@ -1443,8 +1443,7 @@ bool frIsTargetFacingPos(struct prop *prop, struct coord *pos)
 
 			angle = frGetTargetAngleToPos(&prop->pos, g_FrData.targets[i].angle, pos);
 
-			//if (angle > DEG2RAD(90) && angle < DEG2RAD(270)) {
-			if (angle > 1.5707963705063f && angle < 4.7116389274597f) {
+			if (angle > RAD(90, 1.5707963705063f) && angle < RAD(270, 4.7116389274597f)) {
 				return false;
 			}
 
@@ -1470,7 +1469,9 @@ struct prop *frChooseAutogunTarget(struct coord *autogunpos)
 				&& g_FrData.targets[i].active) {
 			f32 angle = frGetTargetAngleToPos(&g_FrData.targets[i].prop->pos, g_FrData.targets[i].angle, autogunpos);
 
-			if (!(angle > 1.5707963705063f && angle < 4.7116389274597f)) {
+			if (angle > RAD(90, 1.5707963705063f) && angle < RAD(270, 4.7116389274597f)) {
+				// facing away
+			} else {
 				facingtargets[len++] = i;
 			}
 		}
@@ -1880,7 +1881,7 @@ void frTick(void)
 						-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			}
 
-			if (g_FrData.targets[i].angle > 2.2915925979614f && g_FrData.targets[i].angle < 3.9915928840637f) {
+			if (g_FrData.targets[i].angle > RAD(131, 2.2915925979614f) && g_FrData.targets[i].angle < RAD(229, 3.9915928840637f)) {
 				obj->damage = 0;
 			}
 

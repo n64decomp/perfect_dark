@@ -1416,11 +1416,11 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += 0.52359879016876f;
+		angle += RAD(30, 0.52359879016876f);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += 0.52359879016876f;
+		angle += RAD(30, 0.52359879016876f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1438,11 +1438,11 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += 0.17453293502331f;
+		angle += RAD(10, 0.17453293502331f);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += 0.099733099341393f;
+		angle += RAD(5.71428567f, 0.099733099341393f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1463,11 +1463,11 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += 0.17453293502331f;
+		angle += RAD(10, 0.17453293502331f);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += 0.099733099341393f;
+		angle += RAD(fake 5.71428567f, 0.099733099341393f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1524,8 +1524,8 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
 
 		x1 = 600.0f * sinf(angle);
 		y1 = 600.0f * cosf(angle);
-		x2 = 600.0f * sinf(angle + 0.78539818525314f);
-		y2 = 600.0f * cosf(angle + 0.78539818525314f);
+		x2 = 600.0f * sinf(angle + RAD(45, 0.78539818525314f));
+		y2 = 600.0f * cosf(angle + RAD(45, 0.78539818525314f));
 
 		x1 += 160;
 		x2 += 160;
@@ -1551,8 +1551,8 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
 
 		x1 = 600.0f * sinf(angle);
 		y1 = 600.0f * cosf(angle);
-		x2 = 600.0f * sinf(angle + 0.78539818525314f);
-		y2 = 600.0f * cosf(angle + 0.78539818525314f);
+		x2 = 600.0f * sinf(angle + RAD(45, 0.78539818525314f));
+		y2 = 600.0f * cosf(angle + RAD(45, 0.78539818525314f));
 
 		x1 += 160;
 		x2 += 160;
@@ -1649,11 +1649,11 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += 0.52359879016876f;
+		angle += RAD(30, 0.52359879016876f);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += 0.52359879016876f;
+		angle += RAD(30, 0.52359879016876f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1671,11 +1671,11 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += 0.17453293502331f;
+		angle += RAD(10, 0.17453293502331f);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += 0.099733099341393f;
+		angle += RAD(fake 5.71428567f, 0.099733099341393f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1696,11 +1696,11 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += 0.17453293502331f;
+		angle += RAD(10, 0.17453293502331f);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += 0.099733099341393f;
+		angle += RAD(fake 5.71428567f, 0.099733099341393f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 

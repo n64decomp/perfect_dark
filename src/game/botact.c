@@ -369,12 +369,9 @@ void botactThrow(struct chrdata *chr)
 
 		chrCalculateTrajectory(&prop->pos, 16.666666f, &sp56, &sp152);
 	} else {
-		// These numbers are about 2 billionths away from BADDEG2RAD(20),
-		// but tweaking the multiplier in BADDEG2RAD doesn't make this match
-		// without creating mismatches in other places :(
-		sp152.x = cosf(0.34901028871536f) * sinf(sp80);
-		sp152.y = sinf(0.34901028871536f);
-		sp152.z = cosf(0.34901028871536f) * cosf(sp80);
+		sp152.x = cosf(RAD(20, 0.34901028871536f)) * sinf(sp80);
+		sp152.y = sinf(RAD(20, 0.34901028871536f));
+		sp152.z = cosf(RAD(20, 0.34901028871536f)) * cosf(sp80);
 	}
 
 	mult = 16.666666f;
@@ -391,7 +388,7 @@ void botactThrow(struct chrdata *chr)
 		mtx4MultMtx4InPlace(&sp84, &sp164);
 	}
 
-	mtx4LoadXRotation(0.34901028871536f, &sp84);
+	mtx4LoadXRotation(RAD(20, 0.34901028871536f), &sp84);
 	mtx00015be0(&sp84, &sp164);
 	mtx4LoadYRotation(sp80, &sp84);
 	mtx00015be0(&sp84, &sp164);

@@ -67,7 +67,7 @@
 #define MASTERLOADSTATE_LOADED 4
 
 // Max downwards pitch when changing guns or reloading a classic gun
-#define MAX_PITCH 0.87252569198608f
+#define MAX_PITCH RAD(50, 0.87252569198608f)
 
 #if VERSION >= VERSION_PAL_BETA
 struct sndstate *g_CasingAudioHandles[2];
@@ -2095,7 +2095,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 
 		if (hand->stateflags & HANDSTATEFLAG_00000040) {
 			if (unk27 > frames - hand->statevar1) {
-				mult1 = cosf((f32)(unk27 - frames + hand->statevar1) * 1.5707963705063f / (f32)unk27) * 0.5f + 0.5f;
+				mult1 = cosf((f32)(unk27 - frames + hand->statevar1) * RAD(90, 1.5707963705063f) / (f32)unk27) * 0.5f + 0.5f;
 
 				hand->rotxoffset = modelTweenRotAxis(hand->rotxstart, hand->rotxend, mult1);
 				hand->useposrot = true;
@@ -2132,7 +2132,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 			hand->posend.z = (weapondef->posz - hand->aimpos.z) * recoildist / 1000.0f;
 
 			if (frames < unk24) {
-				mult2 = sinf(frames * 1.5707963705063f / (f32)unk24);
+				mult2 = sinf(frames * RAD(90, 1.5707963705063f) / (f32)unk24);
 			} else {
 				mult2 = cosf((f32)(frames - unk24) * M_PI / (f32)unk25) * 0.5f + 0.5f;
 			}
@@ -4487,8 +4487,8 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 	mtx4LoadIdentity(&sp1f4);
 
 	if (gset->weaponnum == WEAPON_COMBATKNIFE) {
-		mtx4LoadZRotation(4.711639f, &sp1f4);
-		mtx4LoadXRotation(3.1410925f, &sp190);
+		mtx4LoadZRotation(RAD(270, 4.711639f), &sp1f4);
+		mtx4LoadXRotation(RAD(180, 3.1410925f), &sp190);
 		mtx4MultMtx4InPlace(&sp190, &sp1f4);
 	}
 
@@ -4541,8 +4541,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 
 			radians = acosf(gundir.f[0] * sp140.f[0] + gundir.f[1] * sp140.f[1] + gundir.f[2] * sp140.f[2]);
 
-			// Check within 20 degrees
-			if (radians > 0.34901026f || radians < -0.34901026f) {
+			if (radians > RAD(20, 0.34901026f) || radians < RAD(-20, -0.34901026f)) {
 				mtx00016b58(&spf8, 0, 0, 0, gundir.x, gundir.y, gundir.z, 0, 1, 0);
 				mtx00016b58(&spb8, 0, 0, 0, sp140.x, sp140.y, sp140.z, 0, 1, 0);
 
@@ -4550,7 +4549,7 @@ void bgunCreateThrownProjectile(s32 handnum, struct gset *gset)
 				quaternion0f097044(&spb8, sp58);
 				quaternion0f0976c0(sp68, sp58);
 
-				frac = 0.34901025891304f / radians;
+				frac = RAD(20, 0.34901025891304f) / radians;
 
 				if (frac < 0.0f) {
 					frac = -frac;
@@ -4785,7 +4784,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 
 					radians = acosf(gundir.f[0] * sp1bc.f[0] + gundir.f[1] * sp1bc.f[1] + gundir.f[2] * sp1bc.f[2]);
 
-					if (radians > 0.17450513f || radians < -0.17450513f) {
+					if (radians > RAD(10, 0.17450513f) || radians < RAD(-10, -0.17450513f)) {
 						mtx00016b58(&sp174, 0.0f, 0.0f, 0.0f, gundir.x, gundir.y, gundir.z, 0.0f, 1.0f, 0.0f);
 						mtx00016b58(&sp134, 0.0f, 0.0f, 0.0f, sp1bc.x, sp1bc.y, sp1bc.z, 0.0f, 1.0f, 0.0f);
 
@@ -4793,7 +4792,7 @@ void bgunCreateFiredProjectile(s32 handnum)
 						quaternion0f097044(&sp134, spd4);
 						quaternion0f0976c0(spe4, spd4);
 
-						frac = 0.17450513f / radians;
+						frac = RAD(10, 0.17450513f) / radians;
 
 						if (frac < 0.0f) {
 							frac = -frac;

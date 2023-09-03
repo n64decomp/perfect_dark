@@ -192,14 +192,14 @@ void creditsMap4BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4
 	vertices[0].s = (sinf(arg4) + cosf(arg4)) * arg5 + a;
 	vertices[0].t = (cosf(arg4) - sinf(arg4)) * arg6 + b;
 
-	vertices[1].s = (sinf(arg4 + 1.5707963705063f) + cosf(arg4 + 1.5707963705063f)) * arg5 + a;
-	vertices[1].t = (cosf(arg4 + 1.5707963705063f) - sinf(arg4 + 1.5707963705063f)) * arg6 + b;
+	vertices[1].s = (sinf(arg4 + RAD(90, 1.5707963705063f)) + cosf(arg4 + RAD(90, 1.5707963705063f))) * arg5 + a;
+	vertices[1].t = (cosf(arg4 + RAD(90, 1.5707963705063f)) - sinf(arg4 + RAD(90, 1.5707963705063f))) * arg6 + b;
 
-	vertices[2].s = (sinf(arg4 + 3.1415927410126f) + cosf(arg4 + 3.1415927410126f)) * arg5 + a;
-	vertices[2].t = (cosf(arg4 + 3.1415927410126f) - sinf(arg4 + 3.1415927410126f)) * arg6 + b;
+	vertices[2].s = (sinf(arg4 + RAD(180, 3.1415927410126f)) + cosf(arg4 + RAD(180, 3.1415927410126f))) * arg5 + a;
+	vertices[2].t = (cosf(arg4 + RAD(180, 3.1415927410126f)) - sinf(arg4 + RAD(180, 3.1415927410126f))) * arg6 + b;
 
-	vertices[3].s = (sinf(arg4 + 4.7123889923096f) + cosf(arg4 + 4.7123889923096f)) * arg5 + a;
-	vertices[3].t = (cosf(arg4 + 4.7123889923096f) - sinf(arg4 + 4.7123889923096f)) * arg6 + b;
+	vertices[3].s = (sinf(arg4 + RAD(270, 4.7123889923096f)) + cosf(arg4 + RAD(270, 4.7123889923096f))) * arg5 + a;
+	vertices[3].t = (cosf(arg4 + RAD(270, 4.7123889923096f)) - sinf(arg4 + RAD(270, 4.7123889923096f))) * arg6 + b;
 }
 
 void creditsMap9BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
@@ -210,14 +210,14 @@ void creditsMap9BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4
 	vertices[0].s = (sinf(arg4) + cosf(arg4)) * arg5 + a;
 	vertices[0].t = (cosf(arg4) - sinf(arg4)) * arg6 + b;
 
-	vertices[2].s = (sinf(arg4 + 1.5707963705063f) + cosf(arg4 + 1.5707963705063f)) * arg5 + a;
-	vertices[2].t = (cosf(arg4 + 1.5707963705063f) - sinf(arg4 + 1.5707963705063f)) * arg6 + b;
+	vertices[2].s = (sinf(arg4 + RAD(90, 1.5707963705063f)) + cosf(arg4 + RAD(90, 1.5707963705063f))) * arg5 + a;
+	vertices[2].t = (cosf(arg4 + RAD(90, 1.5707963705063f)) - sinf(arg4 + RAD(90, 1.5707963705063f))) * arg6 + b;
 
-	vertices[8].s = (sinf(arg4 + 3.1415927410126f) + cosf(arg4 + 3.1415927410126f)) * arg5 + a;
-	vertices[8].t = (cosf(arg4 + 3.1415927410126f) - sinf(arg4 + 3.1415927410126f)) * arg6 + b;
+	vertices[8].s = (sinf(arg4 + RAD(180, 3.1415927410126f)) + cosf(arg4 + RAD(180, 3.1415927410126f))) * arg5 + a;
+	vertices[8].t = (cosf(arg4 + RAD(180, 3.1415927410126f)) - sinf(arg4 + RAD(180, 3.1415927410126f))) * arg6 + b;
 
-	vertices[6].s = (sinf(arg4 + 4.7123889923096f) + cosf(arg4 + 4.7123889923096f)) * arg5 + a;
-	vertices[6].t = (cosf(arg4 + 4.7123889923096f) - sinf(arg4 + 4.7123889923096f)) * arg6 + b;
+	vertices[6].s = (sinf(arg4 + RAD(270, 4.7123889923096f)) + cosf(arg4 + RAD(270, 4.7123889923096f))) * arg5 + a;
+	vertices[6].t = (cosf(arg4 + RAD(270, 4.7123889923096f)) - sinf(arg4 + RAD(270, 4.7123889923096f))) * arg6 + b;
 
 	vertices[1].s = (vertices[0].s + vertices[2].s) / 2;
 	vertices[1].t = (vertices[0].t + vertices[2].t) / 2;
@@ -1808,7 +1808,7 @@ Gfx *creditsDraw(Gfx *gdl)
 			g_CreditsData->menumodel.newroty = 0;
 			g_CreditsData->menumodel.curroty = 0;
 
-			g_CreditsData->menumodel.currotx = g_CreditsData->menumodel.newrotx = -0.26175770163536;
+			g_CreditsData->menumodel.currotx = g_CreditsData->menumodel.newrotx = RAD(-15, -0.26175770163536);
 			g_CreditsData->menumodel.currotz = g_CreditsData->menumodel.newrotz = 0;
 
 			g_CreditsData->menumodel.newposx = 833.0f - (scrolltimer240 / TICKS(14400.0f)) * 2413.0f;

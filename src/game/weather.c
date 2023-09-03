@@ -342,7 +342,7 @@ void weatherTickRain(struct weatherdata *weather)
 
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
 		// Force weather direction - but Air Base doesn't use rain...
-		weather->windanglerad = 1.5707963705063f;
+		weather->windanglerad = RAD(90, 1.5707963705063f);
 		weather->windspeedz = -weather->windspeed;
 		weather->windspeedx = 0;
 	} else if (weather->unk10 > 0) {
@@ -438,7 +438,7 @@ void weatherTickSnow(struct weatherdata *weather)
 	mainOverrideVariable("snowspeedxtra", &g_SnowSpeedExtra);
 
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
-		weather->windanglerad = 1.5707963705063f;
+		weather->windanglerad = RAD(90, 1.5707963705063f);
 		weather->windspeedz = -weather->windspeed;
 		weather->windspeedx = 0;
 	} else if (weather->unk10 > 0) {

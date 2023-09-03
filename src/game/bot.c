@@ -44,20 +44,20 @@ u8 g_BotCount = 0;
 
 struct botdifficulty g_BotDifficulties[] = {
 	//           shootdelay
-	//           |            unk04
-	//           |            |                  unk08
-	//           |            |                  |                  unk0c
-	//           |            |                  |                  |             unk10
-	//           |            |                  |                  |             |   unk14
-	//           |            |                  |                  |             |   |                 unk18
-	//           |            |                  |                  |             |   |                 |                  dizzyamount
-	//           |            |                  |                  |             |   |                 |                  |
-	/* meat */ { TICKS(90), 0.26175770163536,  0.52351540327072,  TICKS(600), 10, 0.69802051782608, 0.34901025891304,  TICKS(1000) },
-	/* easy */ { TICKS(60), 0.12215359508991,  0.24430719017982,  TICKS(360), 10, 0.49733963608742, 0.13960410654545,  TICKS(1000) },
-	/* norm */ { TICKS(30), 0.069802053272724, 0.13960410654545,  TICKS(180), 4,  0.34901025891304, 0.08725256472826,  TICKS(1500) },
-	/* hard */ { TICKS(15), 0.026175770908594, 0.069802053272724, TICKS(90),  2,  0.24430719017982, 0.034901026636362, TICKS(2500) },
-	/* perf */ { TICKS(0),  0,                 0.034901026636362, TICKS(45),  1,  0.17450512945652, 0,                 TICKS(4000) },
-	/* dark */ { TICKS(0),  0,                 0,                 TICKS(0),   0,  0.13960410654545, 0,                 TICKS(4000) },
+	//           |          unk04
+	//           |          |                             unk08
+	//           |          |                             |                           unk0c
+	//           |          |                             |                           |           unk10
+	//           |          |                             |                           |           |   unk14
+	//           |          |                             |                           |           |   |                             unk18
+	//           |          |                             |                           |           |   |                             |                           dizzyamount
+	//           |          |                             |                           |           |   |                             |                           |
+	/* meat */ { TICKS(90), RAD(15,   0.26175770163536),  RAD(30, 0.52351540327072),  TICKS(600), 10, RAD(40,    0.69802051782608), RAD(20, 0.34901025891304),  TICKS(1000) },
+	/* easy */ { TICKS(60), RAD(7,    0.12215359508991),  RAD(14, 0.24430719017982),  TICKS(360), 10, RAD(28.5f, 0.49733963608742), RAD(8,  0.13960410654545),  TICKS(1000) },
+	/* norm */ { TICKS(30), RAD(4,    0.069802053272724), RAD(8,  0.13960410654545),  TICKS(180), 4,  RAD(20,    0.34901025891304), RAD(5,  0.08725256472826),  TICKS(1500) },
+	/* hard */ { TICKS(15), RAD(1.5f, 0.026175770908594), RAD(4,  0.069802053272724), TICKS(90),  2,  RAD(14,    0.24430719017982), RAD(2,  0.034901026636362), TICKS(2500) },
+	/* perf */ { TICKS(0),  RAD(0,    0),                 RAD(2,  0.034901026636362), TICKS(45),  1,  RAD(10,    0.17450512945652), RAD(0,  0),                 TICKS(4000) },
+	/* dark */ { TICKS(0),  RAD(0,    0),                 RAD(0,  0),                 TICKS(0),   0,  RAD(8,     0.13960410654545), RAD(0,  0),                 TICKS(4000) },
 	{ 0 },
 };
 
@@ -838,11 +838,11 @@ bool botIsAboutToAttack(struct chrdata *chr, bool arg1)
 			}
 
 			if (chr->aibot->config->difficulty == BOTDIFF_MEAT) {
-				if (angle > 0.43626284599304f) {
+				if (angle > RAD(25, 0.43626284599304f)) {
 					result = false;
 				}
 			} else {
-				if (chr->aibot->config->difficulty == BOTDIFF_EASY && angle > 1.5705461502075f) {
+				if (chr->aibot->config->difficulty == BOTDIFF_EASY && angle > RAD(90, 1.5705461502075f)) {
 					result = false;
 				}
 			}

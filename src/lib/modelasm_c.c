@@ -608,7 +608,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 				}
 
 				f1 = sinf(yrot);
-				f0 = sinf(yrot + 1.570796251297f);
+				f0 = sinf(yrot + RAD(90, 1.570796251297f));
 
 				f2 = -f1;
 
@@ -1340,11 +1340,11 @@ static void modelasmPrepareRotMtx180(s32 t2, s32 t3, s32 t4)
 	f32 f6 = t2 * 0.000095873801910784f;
 
 	f5 = sinf(f8);
-	f4 = sinf(f8 + 1.570796251297f);
+	f4 = sinf(f8 + RAD(90, 1.570796251297f));
 	f3 = sinf(f7);
-	f2 = sinf(f7 + 1.570796251297f);
+	f2 = sinf(f7 + RAD(90, 1.570796251297f));
 	f1 = sinf(f6);
-	f0 = sinf(f6 + 1.570796251297f);
+	f0 = sinf(f6 + RAD(90, 1.570796251297f));
 }
 
 static void modelasmPrepareRotMtx360(s32 t2, s32 t3, s32 t4)
@@ -1355,11 +1355,11 @@ static void modelasmPrepareRotMtx360(s32 t2, s32 t3, s32 t4)
 	f32 f6 = t2 * 0.000047936900955392f;
 
 	f5 = sinf(f8);
-	f4 = sinf(f8 + 1.5707963705063f);
+	f4 = sinf(f8 + RAD(90, 1.5707963705063f));
 	f3 = sinf(f7);
-	f2 = sinf(f7 + 1.5707963705063f);
+	f2 = sinf(f7 + RAD(90, 1.5707963705063f));
 	f1 = sinf(f6);
-	f0 = sinf(f6 + 1.5707963705063f);
+	f0 = sinf(f6 + RAD(90, 1.5707963705063f));
 }
 
 /**
@@ -1579,7 +1579,7 @@ static f32 modelasmAcosOrAsin(f32 f6)
 
 f32 cosf(f32 radians)
 {
-	return sinf(radians + 1.570796251297f);
+	return sinf(radians + RAD(90, 1.570796251297f));
 }
 
 f32 sinf(f32 radians)

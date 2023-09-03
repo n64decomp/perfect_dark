@@ -2839,7 +2839,7 @@ void func0f14f510(s32 arg0)
 	for (i = 1; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
 			s32 v0 = j * 2 + 1;
-			f32 angle = v0 * 3.141592502594f * i / 16;
+			f32 angle = v0 * RAD(180, 3.141592502594f) * i / 16;
 
 			var800a45a0->unk17c[i][j] = sqrtf(0.25f) * cosf(angle);
 			var800a45a0->unk27c[j][i] = var800a45a0->unk17c[i][j];

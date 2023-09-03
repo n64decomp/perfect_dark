@@ -904,7 +904,7 @@ s32 g_PdLogoTitleStep = 0;
 bool g_PdLogoTitlePresenting = false;
 s32 g_PdLogoPointlessTimer = 0;
 s32 var80062804 = 1;
-f32 g_PdLogoUnusedRot = 1.5705462694168;
+f32 g_PdLogoUnusedRot = RAD(90, 1.5705462694168);
 bool g_PdLogoUnusedRotEnabled = false;
 bool g_PdLogoLightMoving = false;
 f32 g_PdLogoLightDirFrac = 0;
@@ -924,7 +924,7 @@ void titleSkipToPdTitle(void)
 	g_PdLogoScale = 0.35f;
 	g_PdLogoFrac = 1;
 	g_PdLogoTitleStepFrac = 0.63f;
-	g_PdLogoUnusedRot = 1.6443619728088f;
+	g_PdLogoUnusedRot = RAD(94, 1.6443619728088f);
 	g_PdLogoLightDirFrac = 0.19975f;
 	g_PdLogoEndYRot = 0;
 	g_PdLogoAmbientLightFrac = 0;
@@ -1038,7 +1038,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 		g_PdLogoTitleStep = -1;
 		g_PdLogoPointlessTimer = 0;
 		g_PdLogoUnusedRotEnabled = false;
-		g_PdLogoUnusedRot = 1.5705463f;
+		g_PdLogoUnusedRot = RAD(90, 1.5705463f);
 		g_PdLogoLightMoving = false;
 		g_PdLogoLightDirFrac = 0.0f;
 	}
@@ -1891,7 +1891,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 		sp9c.x = 0.0f;
 
 		if (fracdone < 0.4f) {
-			sp9c.x = (-cosf((1.0f - fracdone / .4f) * M_PI) * 0.5f + 0.5f) * 1.5707963705063f;
+			sp9c.x = (-cosf((1.0f - fracdone / .4f) * M_PI) * 0.5f + 0.5f) * RAD(90, 1.5707963705063f);
 		}
 
 		sp9c.y = (-cosf((1.0f - (fracdone / 1)) * M_PI) * 0.5f + .5f) * 0.35f;
@@ -2091,7 +2091,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 		tmp = 1 - fracdone * 1;
 
 		spb4.x = 0;
-		spb4.y = 1.5707963705063f * tmp;
+		spb4.y = RAD(90, 1.5707963705063f) * tmp;
 		spb4.z = 0;
 
 		mtx4LoadRotation(&spb4, &spc0);

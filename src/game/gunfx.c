@@ -153,7 +153,7 @@ void beamCreateForHand(s32 handnum)
 
 				radians = acosf(disttolast.f[0] * disttocur.f[0] + disttolast.f[1] * disttocur.f[1] + disttolast.f[2] * disttocur.f[2]);
 
-				if (!(radians > 0.08725257f) || weaponnum == -2) {
+				if (!(radians > RAD(5, 0.08725257f)) || weaponnum == -2) {
 					beamCreate(&g_Fireslots[chr->fireslots[handnum]].beam, weaponnum, &player->chrmuzzlelastpos[handnum], &hand->hitpos);
 
 					if (g_Fireslots[chr->fireslots[handnum]].beam.weaponnum == WEAPON_MAULER) {
