@@ -2536,7 +2536,7 @@ u8 func1002_objectives_failed_msg[] = {
 		if_controller_button_pressed(/*goto*/ 0x06) \
 	endloop(0x08)
 
-u8 func041b_intro_041b[] = {
+u8 func041b_intro_shot01_pitchup[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_01)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2583,7 +2583,7 @@ u8 func041b_intro_041b[] = {
 	endlist
 };
 
-u8 func041a_intro_041a[] = {
+u8 func041a_intro_shot02_flying[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_02)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2629,7 +2629,7 @@ u8 func041a_intro_041a[] = {
 	endlist
 };
 
-u8 func0419_intro_0419[] = {
+u8 func0419_intro_shot03_redthing[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_03)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2663,7 +2663,7 @@ u8 func0419_intro_0419[] = {
 	endlist
 };
 
-u8 func041c_intro_041c[] = {
+u8 func041c_intro_shot04_topdown[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_04)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2711,7 +2711,7 @@ u8 func041c_intro_041c[] = {
 /**
  * Part of the intro cutscene.
  */
-u8 func041d_intro_041d[] = {
+u8 func041d_intro_shot05_onboard[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_05)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2815,7 +2815,6 @@ u8 func0422_intro[] = {
 #else
 	play_temporary_track(MUSIC_DEFECTION_INTRO_SFX)
 
-	// No yield in this loop!
 	label(0x07)
 	if_music_event_queue_empty(16, /*goto*/ 0x2c)
 	configure_environment(0x0000, AIENVCMD_TICKMUSICQUEUE, 0)
@@ -2842,31 +2841,31 @@ u8 func0422_intro[] = {
 	endlist
 };
 
-u8 func041e_intro_041e[] = {
+u8 func041e_intro_invoke_041a_041f[] = {
 	set_returnlist(CHR_SELF, AILIST_INTRO_041F)
 	set_ailist(CHR_SELF, AILIST_INTRO_041A)
 	endlist
 };
 
-u8 func041f_intro_041f[] = {
+u8 func041f_intro_invoke_0419_0420[] = {
 	set_returnlist(CHR_SELF, AILIST_INTRO_0420)
 	set_ailist(CHR_SELF, AILIST_INTRO_0419)
 	endlist
 };
 
-u8 func0420_intro_0420[] = {
+u8 func0420_intro_invoke_041c_0421[] = {
 	set_returnlist(CHR_SELF, AILIST_INTRO_0421)
 	set_ailist(CHR_SELF, AILIST_INTRO_041C)
 	endlist
 };
 
-u8 func0421_intro_0421[] = {
+u8 func0421_intro_invoke_041d_0428[] = {
 	set_returnlist(CHR_SELF, 0x0428)
 	set_ailist(CHR_SELF, AILIST_INTRO_041D)
 	endlist
 };
 
-u8 func0422_intro_0423[] = {
+u8 func0423_intro_shot09_ascend[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_09)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2890,7 +2889,7 @@ u8 func0422_intro_0423[] = {
 	endlist
 };
 
-u8 func0422_intro_0424[] = {
+u8 func0424_intro_shot07_towerint[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_07)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2921,7 +2920,7 @@ u8 func0422_intro_0424[] = {
 	endlist
 };
 
-u8 func0422_intro_0425[] = {
+u8 func0425_intro_shot08_rooftop[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_08)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2947,7 +2946,7 @@ u8 func0422_intro_0425[] = {
 	endlist
 };
 
-u8 func0422_intro_0426[] = {
+u8 func0426_intro_shot10_helipad[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_10)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -2977,7 +2976,7 @@ u8 func0422_intro_0426[] = {
 	endlist
 };
 
-u8 func0422_intro_0427[] = {
+u8 func0427_intro_shot12_rope[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_12)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -3011,7 +3010,7 @@ u8 func0422_intro_0427[] = {
 	endlist
 };
 
-u8 func0422_intro_0428[] = {
+u8 func0428_intro_shot06_towerext[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_06)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -3053,7 +3052,7 @@ u8 func0422_intro_0428[] = {
 	endlist
 };
 
-u8 func0422_intro_0429[] = {
+u8 func0429_intro_shot11_door[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_11)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
@@ -3077,7 +3076,7 @@ u8 func0422_intro_0429[] = {
 	endlist
 };
 
-u8 func0422_intro_042a[] = {
+u8 func042a_intro_shot13_jojump[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_13)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
@@ -3105,7 +3104,7 @@ u8 func0422_intro_042a[] = {
 	endlist
 };
 
-u8 func0422_intro_042b[] = {
+u8 func042b_intro_shot14_jodescend[] = {
 	if_controller_button_pressed(/*goto*/ 0x36)
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_14)
 	set_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
@@ -3141,12 +3140,12 @@ u8 func0422_intro_042b[] = {
 	endlist
 };
 
-u8 func0422_intro_042c[] = {
+u8 func042c_intro_pointless[] = {
 	set_ailist(CHR_SELF, AILIST_INTRO_042D)
 	endlist
 };
 
-u8 func0422_intro_042d[] = {
+u8 func042d_intro_shot15_joland[] = {
 	camera_movement(ANIM_CUT_AME_INTRO_CAM_15)
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x36)
@@ -3195,7 +3194,7 @@ u8 func0422_intro_042d[] = {
 	endlist
 };
 
-u8 func0416_outro_from_menu[] = {
+u8 func0c01_outro[] = {
 	set_ailist(CHR_SELF, AILIST_OUTRO)
 	endlist
 };
@@ -3509,7 +3508,7 @@ u8 func1017_unlock_basement_door[] = {
 /**
  * Rare used stage flags to trigger the intro cutscene to restart.
  */
-u8 func0422_intro_speaking[] = {
+u8 func1418_intro_speaking[] = {
 	label(0xbe)
 	if_stage_flag_eq(STAGEFLAG_TRIGGER_INTRO, TRUE, /*goto*/ 0xbf)
 	yield
@@ -4077,27 +4076,27 @@ struct ailist ailists[] = {
 	{ func0413_c318,                     0x0413 },
 	{ func0414_programmer,               0x0414 },
 	{ func0415_set_idle,                 0x0415 },
-	{ func0419_intro_0419,               0x0419 },
-	{ func041a_intro_041a,               0x041a },
-	{ func041b_intro_041b,               0x041b },
-	{ func041c_intro_041c,               0x041c },
-	{ func041d_intro_041d,               0x041d },
-	{ func041e_intro_041e,               0x041e },
-	{ func041f_intro_041f,               0x041f },
-	{ func0420_intro_0420,               0x0420 },
-	{ func0421_intro_0421,               0x0421 },
+	{ func0419_intro_shot03_redthing,    0x0419 },
+	{ func041a_intro_shot02_flying,      0x041a },
+	{ func041b_intro_shot01_pitchup,     0x041b },
+	{ func041c_intro_shot04_topdown,     0x041c },
+	{ func041d_intro_shot05_onboard,     0x041d },
+	{ func041e_intro_invoke_041a_041f,   0x041e },
+	{ func041f_intro_invoke_0419_0420,   0x041f },
+	{ func0420_intro_invoke_041c_0421,   0x0420 },
+	{ func0421_intro_invoke_041d_0428,   0x0421 },
 	{ func0422_intro,                    0x0422 },
-	{ func0422_intro_0423,               0x0423 },
-	{ func0422_intro_0424,               0x0424 },
-	{ func0422_intro_0425,               0x0425 },
-	{ func0422_intro_0426,               0x0426 },
-	{ func0422_intro_0427,               0x0427 },
-	{ func0422_intro_0428,               0x0428 },
-	{ func0422_intro_0429,               0x0429 },
-	{ func0422_intro_042a,               0x042a },
-	{ func0422_intro_042b,               0x042b },
-	{ func0422_intro_042c,               0x042c },
-	{ func0422_intro_042d,               0x042d },
+	{ func0423_intro_shot09_ascend,      0x0423 },
+	{ func0424_intro_shot07_towerint,    0x0424 },
+	{ func0425_intro_shot08_rooftop,     0x0425 },
+	{ func0426_intro_shot10_helipad,     0x0426 },
+	{ func0427_intro_shot12_rope,        0x0427 },
+	{ func0428_intro_shot06_towerext,    0x0428 },
+	{ func0429_intro_shot11_door,        0x0429 },
+	{ func042a_intro_shot13_jojump,      0x042a },
+	{ func042b_intro_shot14_jodescend,   0x042b },
+	{ func042c_intro_pointless,          0x042c },
+	{ func042d_intro_shot15_joland,      0x042d },
 	{ func042e_init_surrendering_guard,  0x042e },
 	{ func042f_surrendering_guard,       0x042f },
 	{ func0430_init_falcon_guard,        0x0430 },
@@ -4128,7 +4127,7 @@ struct ailist ailists[] = {
 	{ func1015_msg_securityroom,         0x1015 },
 	{ func1016_msg_basementelevator,     0x1016 },
 	{ func1017_unlock_basement_door,     0x1017 },
-	{ func0422_intro_speaking,           0x1418 },
+	{ func1418_intro_speaking,           0x1418 },
 	{ func1019_toggle_guards,            0x1019 },
 	{ func101a_noop,                     0x101a },
 	{ func141c_start_lifts,              0x141c },
@@ -4138,8 +4137,8 @@ struct ailist ailists[] = {
 	{ func1420_setup_portals,            0x1420 },
 	{ func1421_setup_environment,        0x1421 },
 	{ func0422_intro,                    0x0c00 },
-	{ func0416_outro_from_menu,          0x0c01 },
-	{ NULL, 0 },
+	{ func0c01_outro,                    0x0c01 },
+	{ NULL,                              0      },
 };
 
 struct path paths[] = {
