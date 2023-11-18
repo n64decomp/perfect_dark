@@ -2436,7 +2436,7 @@ void chrAttackWalk(struct chrdata *chr, bool run)
 			}
 
 			if (weapon->weaponnum == WEAPON_ROCKETLAUNCHER
-					|| weapon->weaponnum == WEAPON_ROCKETLAUNCHER_34
+					|| weapon->weaponnum == WEAPON_KINGSCEPTRE
 					|| weapon->weaponnum == WEAPON_SLAYER
 					|| weapon->weaponnum == WEAPON_DEVASTATOR
 					|| (
@@ -2601,7 +2601,7 @@ void chrAttackRoll(struct chrdata *chr, bool toleft)
 			}
 
 			if (weapon->weaponnum == WEAPON_ROCKETLAUNCHER
-					|| weapon->weaponnum == WEAPON_ROCKETLAUNCHER_34
+					|| weapon->weaponnum == WEAPON_KINGSCEPTRE
 					|| weapon->weaponnum == WEAPON_SLAYER
 					|| weapon->weaponnum == WEAPON_DEVASTATOR
 					|| (
@@ -2854,7 +2854,7 @@ void chrAttack(struct chrdata *chr, struct attackanimgroup **animgroups, bool fl
 				// (Foster from the firing range) can fire multiple shots with
 				// the magnum.
 				if (weapon->weaponnum == WEAPON_ROCKETLAUNCHER
-						|| weapon->weaponnum == WEAPON_ROCKETLAUNCHER_34
+						|| weapon->weaponnum == WEAPON_KINGSCEPTRE
 						|| weapon->weaponnum == WEAPON_SLAYER
 						|| weapon->weaponnum == WEAPON_DEVASTATOR
 						|| (
@@ -6383,7 +6383,7 @@ bool chrHasLosToEntity(struct chrdata *chr, struct coord *chrpos, RoomNum *chrro
 
 			if (weapon->weaponnum == WEAPON_ROCKETLAUNCHER
 					|| weapon->weaponnum == WEAPON_SLAYER
-					|| weapon->weaponnum == WEAPON_ROCKETLAUNCHER_34) {
+					|| weapon->weaponnum == WEAPON_KINGSCEPTRE) {
 				types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_OBJSIMMUNETOEXPLOSIONS | CDTYPE_ALL;
 			} else {
 				types = CDTYPE_DOORSWITHOUTFLAG | CDTYPE_OBJSIMMUNETOGUNFIRE | CDTYPE_ALL;
@@ -10060,7 +10060,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 						|| (gset.weaponnum == WEAPON_SUPERDRAGON && gset.weaponfunc == FUNC_SECONDARY)
 						|| gset.weaponnum == WEAPON_DEVASTATOR
 						|| gset.weaponnum == WEAPON_CROSSBOW
-						|| gset.weaponnum == WEAPON_ROCKETLAUNCHER_34) {
+						|| gset.weaponnum == WEAPON_KINGSCEPTRE) {
 					makebeam = false;
 
 					// Solo chrs won't fire their projectile weapon
@@ -10078,7 +10078,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 						// Handle creating the projectile
 						if (gset.weaponnum == WEAPON_ROCKETLAUNCHER
-								|| gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
+								|| gset.weaponnum == WEAPON_KINGSCEPTRE
 								|| gset.weaponnum == WEAPON_SLAYER) {
 							s32 rocketweaponnum = WEAPON_ROCKET;
 
@@ -10125,7 +10125,7 @@ void chrTickShoot(struct chrdata *chr, s32 handnum)
 
 								if (gset.weaponfunc == FUNC_PRIMARY &&
 										(gset.weaponnum == WEAPON_ROCKETLAUNCHER
-										 || gset.weaponnum == WEAPON_ROCKETLAUNCHER_34
+										 || gset.weaponnum == WEAPON_KINGSCEPTRE
 										 || gset.weaponnum == WEAPON_SLAYER)) {
 									if (targetprop->type == PROPTYPE_CHR || targetprop->type == PROPTYPE_PLAYER) {
 										// Rockets - aim at target's feet

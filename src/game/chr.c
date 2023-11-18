@@ -580,7 +580,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 					// forceslowupdates is set when the bot is being saved from
 					// falling out of bounds due to high lag. It forces them to
 					// update in smaller increments, which gives a higher chance
-					// of their collision detecting working correctly.
+					// of their collision detection working correctly.
 					if (chr->prop->flags & PROPFLAG_ONANYSCREENPREVTICK) {
 						chr->aibot->forceslowupdates = 0;
 					} else {
@@ -600,9 +600,9 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 					lvupdate240 = 16;
 				}
 
-				bot0f1921f8(chr, move, lvupdate240, lvupdate60freal);
+				botUpdateLateral(chr, move, lvupdate240, lvupdate60freal);
 #else
-				bot0f1921f8(chr, move);
+				botUpdateLateral(chr, move);
 #endif
 			}
 

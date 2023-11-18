@@ -6070,7 +6070,7 @@ struct weapon invitem_keycard = {
 	WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
+struct weaponfunc_shootprojectile invfunc_kingsceptre_primary = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_000, // name
 	0, // unused
@@ -6101,7 +6101,7 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher34_primary = {
 	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
-struct inventory_ammo invammo_rocketlauncher34 = {
+struct inventory_ammo invammo_kingsceptre = {
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
@@ -6109,15 +6109,15 @@ struct inventory_ammo invammo_rocketlauncher34 = {
 	0, // flags
 };
 
-struct weapon invitem_rocketlauncher_34 = {
+struct weapon invitem_kingsceptre = {
 	FILE_GDYROCKET, // hi model
 	FILE_GROCKETLOD, // lo model
 	NULL, // equip animation
 	NULL, // unequip animation
 	NULL, // pritosec animation
 	NULL, // sectopri animation
-	{ &invfunc_rocketlauncher34_primary, NULL }, // functions
-	&invammo_rocketlauncher34, // pri ammo
+	{ &invfunc_kingsceptre_primary, NULL }, // functions
+	&invammo_kingsceptre, // pri ammo
 	NULL, // sec ammo
 	&invaimsettings_rocketlauncher,
 	1, // muzzlez
@@ -6247,7 +6247,7 @@ struct weapon *g_Weapons[] = {
 	&invitem_cloakingdevice,
 	&invitem_horizonscanner,
 	&invitem_tester,
-	&invitem_rocketlauncher_34,
+	&invitem_kingsceptre,
 	&invitem_ecmmine,
 	&invitem_datauplink,
 	&invitem_rtracker,

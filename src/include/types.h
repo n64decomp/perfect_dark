@@ -5538,11 +5538,11 @@ struct portalvertices {
 	struct coord vertices[1];
 };
 
-struct aibotweaponpreference {
-	u8 unk00;
-	u8 unk01;
-	u8 unk02;
-	u8 unk03;
+struct botweaponconfig {
+	u8 score1;
+	u8 score2;
+	u8 dualscore1;
+	u8 dualscore2;
 	u16 haspriammogoal : 1;
 	u16 hassecammogoal : 1;
 	u16 pridistconfig : 4;

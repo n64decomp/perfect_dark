@@ -3365,7 +3365,7 @@ u8 func100f_check_drcaroll_dead[] = {
 	endlist
 };
 
-u8 func040f_miniskedar_send_clones[] = {
+u8 func040d_miniskedar_send_clones[] = {
 	dprint 'D','E','T','E','C','T','E','D','\n',0,
 	set_self_chrflag(CHRCFLAG_CLONEABLE)
 	set_self_chrflag(CHRCFLAG_HIDDEN)
@@ -4893,7 +4893,7 @@ struct ailist ailists[] = {
 	{ func040e_init_miniskedar,                       0x040e },
 	{ func040f_miniskedar,                            0x040f },
 	{ func0c02_outro,                                 0x0410 },
-	{ func040f_miniskedar_send_clones,                0x040d },
+	{ func040d_miniskedar_send_clones,                0x040d },
 	{ func040c_blonde,                                0x040c },
 	{ func040b_init_elvis,                            0x040b },
 	{ func0402_elvis_follow_and_reactive_teleportals, 0x0402 },

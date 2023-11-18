@@ -18608,7 +18608,7 @@ struct weaponobj *weaponCreateProjectileFromGset(s32 modelnum, struct gset *gset
 		case WEAPON_TIMEDMINE:
 		case WEAPON_PROXIMITYMINE:
 		case WEAPON_REMOTEMINE:
-		case WEAPON_ROCKETLAUNCHER_34:
+		case WEAPON_KINGSCEPTRE:
 		default:
 			weapon->base.modelnum = modelnum;
 

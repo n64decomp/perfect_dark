@@ -1128,9 +1128,9 @@ f32 botCalculateMaxSpeed(struct chrdata *chr)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void bot0f1921f8(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
+void botUpdateLateral(struct chrdata *chr, f32 *move, s32 numupdates, f32 arg3)
 #else
-void bot0f1921f8(struct chrdata *chr, f32 *move)
+void botUpdateLateral(struct chrdata *chr, f32 *move)
 #endif
 {
 	s32 i;
@@ -1812,9 +1812,9 @@ s32 botFindTeammateToFollow(struct chrdata *chr, f32 range)
 
 void botScheduleReload(struct chrdata *chr, s32 handnum)
 {
-	chr->aibot->timeuntilreload60[handnum] = g_AibotWeaponPreferences[chr->aibot->weaponnum].reloaddelay * (PAL ? 50 : 60);
+	chr->aibot->timeuntilreload60[handnum] = g_BotWeaponConfigs[chr->aibot->weaponnum].reloaddelay * (PAL ? 50 : 60);
 
-	if (g_AibotWeaponPreferences[chr->aibot->weaponnum].allowpartialreloaddelay) {
+	if (g_BotWeaponConfigs[chr->aibot->weaponnum].allowpartialreloaddelay) {
 		s32 capacity = botactGetClipCapacityByFunction(chr->aibot->weaponnum, chr->aibot->gunfunc);
 
 		chr->aibot->timeuntilreload60[handnum] *= capacity - chr->aibot->loadedammo[handnum];
@@ -1822,8 +1822,8 @@ void botScheduleReload(struct chrdata *chr, s32 handnum)
 	}
 }
 
-#define HASENOUGHPRI(aibot, weaponnum, goal) (g_AibotWeaponPreferences[weaponnum].haspriammogoal && botactGetAmmoQuantityByWeapon(aibot, weaponnum, FUNC_PRIMARY, true) >= (goal))
-#define HASENOUGHSEC(aibot, weaponnum, goal) (g_AibotWeaponPreferences[weaponnum].hassecammogoal && botactGetAmmoQuantityByWeapon(aibot, weaponnum, FUNC_SECONDARY, true) >= (goal))
+#define HASENOUGHPRI(aibot, weaponnum, goal) (g_BotWeaponConfigs[weaponnum].haspriammogoal && botactGetAmmoQuantityByWeapon(aibot, weaponnum, FUNC_PRIMARY, true) >= (goal))
+#define HASENOUGHSEC(aibot, weaponnum, goal) (g_BotWeaponConfigs[weaponnum].hassecammogoal && botactGetAmmoQuantityByWeapon(aibot, weaponnum, FUNC_SECONDARY, true) >= (goal))
 
 /**
  * Find a prop for the bot to pick up.
@@ -2009,15 +2009,14 @@ struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
 	for (i = 0; i < ARRAYCOUNT(weaponnums); i++) {
 		if (1);
 		if ((botinvAllowsWeapon(chr, weaponnums[i], FUNC_PRIMARY) || botinvAllowsWeapon(chr, weaponnums[i], FUNC_SECONDARY))
-				&& (g_AibotWeaponPreferences[weaponnums[i]].haspriammogoal || g_AibotWeaponPreferences[weaponnums[i]].hassecammogoal)
+				&& (g_BotWeaponConfigs[weaponnums[i]].haspriammogoal || g_BotWeaponConfigs[weaponnums[i]].hassecammogoal)
 				&& scores1[i] > bestscore1) {
 			bestscore1 = scores1[i];
 		}
 	}
 
 	// Decide if the bot wants to find a shield, based on the amount of health
-	// and shield the bot currently has. This shield logic is done prior to
-	// weapons and ammo, so a shield takes precedence.
+	// and shield the bot currently has.
 	// Note that max health and shield is 8 each, and that the bot must be under
 	// BOTH the limits for a shield to be fetched.
 	for (i = 0; i < ARRAYCOUNT(weaponnums) && !done; i++) {
@@ -2120,8 +2119,8 @@ struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
 	for (i = 0; i < ARRAYCOUNT(weaponnums) && !done; i++) {
 		if (weaponnums[i] != WEAPON_MPSHIELD
 				&& invitems[i] != NULL
-				&& (g_AibotWeaponPreferences[weaponnums[i]].haspriammogoal
-					|| g_AibotWeaponPreferences[weaponnums[i]].hassecammogoal)
+				&& (g_BotWeaponConfigs[weaponnums[i]].haspriammogoal
+					|| g_BotWeaponConfigs[weaponnums[i]].hassecammogoal)
 				&& scores2[i] >= bestscore1) {
 			s32 desiredpriammo;
 			s32 desiredsecammo;
@@ -2145,13 +2144,13 @@ struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
 				// If the bot's team is only barely controlling the hill,
 				// don't leave it unless the bot is out of ammo, and even then
 				// just get one ammo pickup
-				desiredpriammo = g_AibotWeaponPreferences[weaponnums[i]].criticalammopri;
+				desiredpriammo = g_BotWeaponConfigs[weaponnums[i]].criticalammopri;
 
 				if (desiredpriammo > 1) {
 					desiredpriammo = 1;
 				}
 
-				desiredsecammo = g_AibotWeaponPreferences[weaponnums[i]].criticalammosec;
+				desiredsecammo = g_BotWeaponConfigs[weaponnums[i]].criticalammosec;
 
 				if (desiredsecammo > 1) {
 					desiredsecammo = 1;
@@ -2168,9 +2167,9 @@ struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
 				desiredsecammo = bgunGetCapacityByAmmotype(botactGetAmmoTypeByFunction(weaponnums[i], FUNC_SECONDARY));
 
 				// If bot has max ammo for both weapon's functions
-				if ((g_AibotWeaponPreferences[weaponnums[i]].haspriammogoal == false
+				if ((g_BotWeaponConfigs[weaponnums[i]].haspriammogoal == false
 							|| botactGetAmmoQuantityByWeapon(aibot, weaponnums[i], FUNC_PRIMARY, false) >= desiredpriammo)
-						&& (g_AibotWeaponPreferences[weaponnums[i]].hassecammogoal == false
+						&& (g_BotWeaponConfigs[weaponnums[i]].hassecammogoal == false
 							|| botactGetAmmoQuantityByWeapon(aibot, weaponnums[i], FUNC_SECONDARY, false) >= desiredsecammo)) {
 					// Consider next weapon
 					continue;
@@ -2179,8 +2178,8 @@ struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
 				include_equipped = false;
 			} else if (criteria == PICKUPCRITERIA_DEFAULT) {
 				// Default - use the target ammo amount
-				desiredpriammo = g_AibotWeaponPreferences[weaponnums[i]].targetammopri;
-				desiredsecammo = g_AibotWeaponPreferences[weaponnums[i]].targetammosec;
+				desiredpriammo = g_BotWeaponConfigs[weaponnums[i]].targetammopri;
+				desiredsecammo = g_BotWeaponConfigs[weaponnums[i]].targetammosec;
 
 				if (HASENOUGHPRI(aibot, weaponnums[i], desiredpriammo) || HASENOUGHSEC(aibot, weaponnums[i], desiredsecammo)) {
 					done = true;
@@ -2188,8 +2187,8 @@ struct prop *botFindPickup(struct chrdata *chr, s32 criteria)
 				}
 			} else if (criteria == PICKUPCRITERIA_CRITICAL) {
 				// Critical - use the critical ammo amount
-				desiredpriammo = g_AibotWeaponPreferences[weaponnums[i]].criticalammopri;
-				desiredsecammo = g_AibotWeaponPreferences[weaponnums[i]].criticalammosec;
+				desiredpriammo = g_BotWeaponConfigs[weaponnums[i]].criticalammopri;
+				desiredsecammo = g_BotWeaponConfigs[weaponnums[i]].criticalammosec;
 
 				if (HASENOUGHPRI(aibot, weaponnums[i], desiredpriammo) || HASENOUGHSEC(aibot, weaponnums[i], desiredsecammo)) {
 					done = true;
