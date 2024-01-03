@@ -3205,7 +3205,7 @@
 #define OBJTYPE_SAFE               0x2b
 #define OBJTYPE_SAFEITEM           0x2c
 #define OBJTYPE_TANK               0x2d
-#define OBJTYPE_CAMERAPOS          0x2e
+#define OBJTYPE_CAMERAPRESET          0x2e
 #define OBJTYPE_TINTEDGLASS        0x2f
 #define OBJTYPE_LIFT               0x30
 #define OBJTYPE_CONDITIONALSCENERY 0x31

@@ -2441,12 +2441,12 @@ u8 func101a_move_jo_to_training_room[] = {
 	if_chr_in_room(CHR_BOND, 0x00, 0x0018, /*goto*/ 0x2f)
 	if_chr_in_room(CHR_BOND, 0x00, 0x0019, /*goto*/ 0x2f)
 	if_chr_in_room(CHR_BOND, 0x00, 0x0014, /*goto*/ 0x2f)
-	enter_camera_and_move_to_pad(PAD_DISH_0151)
+	move_camera_to_pad(PAD_DISH_0151)
 	set_ailist(CHR_P1P2, AILIST_MOVE_TO_DEVICEROOM)
 	goto_next(0x06)
 
 	label(0x2f)
-	enter_camera_and_move_to_pad(PAD_DISH_020A)
+	move_camera_to_pad(PAD_DISH_020A)
 	set_ailist(CHR_P1P2, AILIST_MOVE_TO_HOLOROOM)
 
 	label(0x06)

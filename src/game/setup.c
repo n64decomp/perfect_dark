@@ -1991,14 +1991,14 @@ void setupCreateProps(s32 stagenum)
 						}
 					}
 					break;
-				case OBJTYPE_CAMERAPOS:
+				case OBJTYPE_CAMERAPRESET:
 					{
-						struct cameraposobj *camera = (struct cameraposobj *)obj;
-						camera->x = *(s32 *)&camera->x / 100.0f;
-						camera->y = *(s32 *)&camera->y / 100.0f;
-						camera->z = *(s32 *)&camera->z / 100.0f;
-						camera->theta = *(s32 *)&camera->theta / 65536.0f;
-						camera->verta = *(s32 *)&camera->verta / 65536.0f;
+						struct camerapresetobj *preset = (struct camerapresetobj *)obj;
+						preset->x = *(s32 *)&preset->x / 100.0f;
+						preset->y = *(s32 *)&preset->y / 100.0f;
+						preset->z = *(s32 *)&preset->z / 100.0f;
+						preset->theta = *(s32 *)&preset->theta / 65536.0f;
+						preset->verta = *(s32 *)&preset->verta / 65536.0f;
 					}
 					break;
 				case OBJTYPE_BEGINOBJECTIVE:

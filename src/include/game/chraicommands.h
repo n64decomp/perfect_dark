@@ -225,8 +225,8 @@
 /*0x00db*/ bool aiNoOp00db(void);
 /*0x00dc*/ bool aiEndLevel(void);
 /*0x00dd*/ bool ai00dd(void);
-/*0x00de*/ bool aiWarpJoToPad(void);
-/*0x00df*/ bool ai00df(void);
+/*0x00de*/ bool aiMoveCameraToPad(void);
+/*0x00df*/ bool aiMoveCameraToPreset(void);
 /*0x00e0*/ bool aiRevokeControl(void);
 /*0x00e1*/ bool aiGrantControl(void);
 /*0x00e2*/ bool aiChrMoveToPad(void);
@@ -245,7 +245,7 @@
 /*0x00f1*/ bool aiIfAttacking(void);
 /*0x00f2*/ bool aiSwitchToAltSky(void);
 /*0x00f3*/ bool aiChrSetInvincible(void);
-/*0x00f4*/ bool ai00f4(void);
+/*0x00f4*/ bool aiMoveCameraToPos(void);
 /*0x00f5*/ bool ai00f5(void);
 /*0x00f6*/ bool ai00f6(void);
 /*0x00f7*/ bool aiIfAllObjectivesComplete(void);

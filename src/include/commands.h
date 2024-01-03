@@ -2083,11 +2083,11 @@
 #define enter_firstperson \
 	mkshort(0x00dd),
 
-#define enter_camera_and_move_to_pad(pad) \
+#define move_camera_to_pad(pad) \
 	mkshort(0x00de), \
 	mkshort(pad),
 
-#define cmd00df(object, u1, u2) \
+#define move_camera_to_preset(object, u1, u2) \
 	mkshort(0x00df), \
 	object, \
 	mkshort(u1), \
@@ -2234,14 +2234,14 @@
 	mkshort(0x00f3), \
 	chr,
 
-#define cmd00f4(u1, u2, u3, u4, u5, u6) \
+#define move_camera_to_pos(range, height1, rotangle, padnum, height2, posangle) \
 	mkshort(0x00f4), \
-	mkshort(u1), \
-	mkshort(u2), \
-	mkshort(u3), \
-	mkshort(u4), \
-	mkshort(u5), \
-	mkshort(u6),
+	mkshort(range), \
+	mkshort(height1), \
+	mkshort(rotangle), \
+	mkshort(padnum), \
+	mkshort(height2), \
+	mkshort(posangle),
 
 #define cmd00f5 \
 	mkshort(0x00f5),

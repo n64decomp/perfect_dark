@@ -1781,7 +1781,7 @@ struct safeitemobj {
 	struct safeitemobj *next;
 };
 
-struct cameraposobj { // objtype 0x2e
+struct camerapresetobj { // objtype 0x2e
 	s32 type;
 	f32 x;
 	f32 y;
@@ -5616,13 +5616,6 @@ struct rdptask {
 	OSScTask sctask;
 	u16 *framebuffer;
 	u32 unk5c;
-};
-
-struct warpparams {
-	/*0x00*/ u32 unk00;
-	/*0x04*/ struct coord pos;
-	/*0x10*/ f32 look[2];
-	/*0x18*/ s32 pad;
 };
 
 struct hitthing {

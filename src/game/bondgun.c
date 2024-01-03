@@ -8485,7 +8485,7 @@ glabel var7f1aca90
 /*  f0a732c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0a7330:	14410008 */ 	bne	$v0,$at,.L0f0a7354
 /*  f0a7334:	00000000 */ 	nop
-/*  f0a7338:	0fc2f4d6 */ 	jal	player0f0bd358
+/*  f0a7338:	0fc2f4d6 */ 	jal	playerGetAspectRatio
 /*  f0a733c:	00000000 */ 	nop
 /*  f0a7340:	3c017f1b */ 	lui	$at,%hi(var7f1aca8c)
 /*  f0a7344:	c430ca8c */ 	lwc1	$f16,%lo(var7f1aca8c)($at)
@@ -8493,7 +8493,7 @@ glabel var7f1aca90
 /*  f0a734c:	10000005 */ 	b	.L0f0a7364
 /*  f0a7350:	44061000 */ 	mfc1	$a2,$f2
 .L0f0a7354:
-/*  f0a7354:	0fc2f4d6 */ 	jal	player0f0bd358
+/*  f0a7354:	0fc2f4d6 */ 	jal	playerGetAspectRatio
 /*  f0a7358:	00000000 */ 	nop
 /*  f0a735c:	46000086 */ 	mov.s	$f2,$f0
 /*  f0a7360:	44061000 */ 	mfc1	$a2,$f2
@@ -9326,7 +9326,7 @@ glabel var7f1aca90
 /*  f0a732c:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0a7330:	14410008 */ 	bne	$v0,$at,.L0f0a7354
 /*  f0a7334:	00000000 */ 	nop
-/*  f0a7338:	0fc2f4d6 */ 	jal	player0f0bd358
+/*  f0a7338:	0fc2f4d6 */ 	jal	playerGetAspectRatio
 /*  f0a733c:	00000000 */ 	nop
 /*  f0a7340:	3c017f1b */ 	lui	$at,%hi(var7f1aca8c)
 /*  f0a7344:	c430ca8c */ 	lwc1	$f16,%lo(var7f1aca8c)($at)
@@ -9334,7 +9334,7 @@ glabel var7f1aca90
 /*  f0a734c:	10000005 */ 	b	.L0f0a7364
 /*  f0a7350:	44061000 */ 	mfc1	$a2,$f2
 .L0f0a7354:
-/*  f0a7354:	0fc2f4d6 */ 	jal	player0f0bd358
+/*  f0a7354:	0fc2f4d6 */ 	jal	playerGetAspectRatio
 /*  f0a7358:	00000000 */ 	nop
 /*  f0a735c:	46000086 */ 	mov.s	$f2,$f0
 /*  f0a7360:	44061000 */ 	mfc1	$a2,$f2
@@ -10167,7 +10167,7 @@ glabel var7f1aca90
 /*  f0a5078:	24010001 */ 	addiu	$at,$zero,0x1
 /*  f0a507c:	14410008 */ 	bne	$v0,$at,.NB0f0a50a0
 /*  f0a5080:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f0a5084:	0fc2ebf0 */ 	jal	player0f0bd358
+/*  f0a5084:	0fc2ebf0 */ 	jal	playerGetAspectRatio
 /*  f0a5088:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a508c:	3c017f1a */ 	lui	$at,%hi(var7f1aca8c)
 /*  f0a5090:	c4306dd4 */ 	lwc1	$f16,%lo(var7f1aca8c)($at)
@@ -10175,7 +10175,7 @@ glabel var7f1aca90
 /*  f0a5098:	10000005 */ 	beqz	$zero,.NB0f0a50b0
 /*  f0a509c:	44061000 */ 	mfc1	$a2,$f2
 .NB0f0a50a0:
-/*  f0a50a0:	0fc2ebf0 */ 	jal	player0f0bd358
+/*  f0a50a0:	0fc2ebf0 */ 	jal	playerGetAspectRatio
 /*  f0a50a4:	00000000 */ 	sll	$zero,$zero,0x0
 /*  f0a50a8:	46000086 */ 	mov.s	$f2,$f0
 /*  f0a50ac:	44061000 */ 	mfc1	$a2,$f2
@@ -10894,9 +10894,9 @@ void bgunRender(Gfx **gdlptr)
 		f32 f2;
 
 		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-			f2 = player0f0bd358() * 1.3333334f;
+			f2 = playerGetAspectRatio() * 1.3333334f;
 		} else {
-			f2 = player0f0bd358();
+			f2 = playerGetAspectRatio();
 		}
 
 		gdl = vi0000b0e8(gdl, 60, f2);

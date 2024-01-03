@@ -68,7 +68,7 @@ u32 setupGetCmdLength(u32 *cmd)
 	case OBJTYPE_TRUCK:              return sizeof(struct truckobj) / sizeof(u32);
 	case OBJTYPE_HELI:               return sizeof(struct heliobj) / sizeof(u32);
 	case OBJTYPE_TANK:               return 32;
-	case OBJTYPE_CAMERAPOS:          return sizeof(struct cameraposobj) / sizeof(u32);
+	case OBJTYPE_CAMERAPRESET:          return sizeof(struct camerapresetobj) / sizeof(u32);
 	case OBJTYPE_LIFT:               return sizeof(struct liftobj) / sizeof(u32);
 	case OBJTYPE_CONDITIONALSCENERY: return sizeof(struct linksceneryobj) / sizeof(u32);
 	case OBJTYPE_BLOCKEDPATH:        return sizeof(struct blockedpathobj) / sizeof(u32);
@@ -270,7 +270,7 @@ struct defaultobj *setupGetObjByCmdIndex(u32 cmdindex)
 		case OBJTYPE_RENAMEOBJ:
 		case OBJTYPE_PADLOCKEDDOOR:
 		case OBJTYPE_SAFEITEM:
-		case OBJTYPE_CAMERAPOS:
+		case OBJTYPE_CAMERAPRESET:
 		case OBJTYPE_CONDITIONALSCENERY:
 		case OBJTYPE_BLOCKEDPATH:
 		case OBJTYPE_PADEFFECT:

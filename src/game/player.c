@@ -76,16 +76,16 @@ f32 g_MpSwirlRotateSpeed;
 f32 g_MpSwirlAngleDegrees;
 f32 g_MpSwirlForwardSpeed;
 f32 g_MpSwirlDistance;
-s16 g_WarpType1Pad;
-struct warpparams *g_WarpType2Params;
-f32 g_WarpType3PosAngle;
-f32 g_WarpType3RotAngle;
-f32 g_WarpType3Range;
-f32 g_WarpType3Height;
-f32 g_WarpType3MoreHeight;
-u32 g_WarpType3Pad;
-s32 g_WarpType2HasDirection;
-u32 g_WarpType2Arg2;
+s16 g_MoveCameraPad;
+struct camerapresetobj *g_MoveCameraPreset;
+f32 g_MoveCameraPosPosAngle;
+f32 g_MoveCameraPosRotAngle;
+f32 g_MoveCameraPosRange;
+f32 g_MoveCameraPosHeight;
+f32 g_MoveCameraPosMoreHeight;
+u32 g_MoveCameraPosPad;
+s32 g_MoveCameraDirection;
+u32 g_MoveCameraArg2;
 s32 g_CutsceneCurAnimFrame60;
 
 #if VERSION == VERSION_JPN_FINAL
@@ -544,7 +544,7 @@ void playerStartNewLife(void)
 	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
 	g_Vars.currentplayer->prop->rooms[1] = -1;
 
-	playerSetCamPropertiesWithRoom(&pos, &g_Vars.currentplayer->bond2.unk28,
+	playerSetCamPropertiesInBounds(&pos, &g_Vars.currentplayer->bond2.unk28,
 			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
 
 	if (g_Vars.coopplayernum >= 0) {
@@ -1624,7 +1624,7 @@ void playerTickMpSwirl(void)
 	look.y = g_Vars.currentplayer->bond2.unk10.y - pos.y;
 	look.z = g_Vars.currentplayer->bond2.unk10.z - pos.z;
 
-	player0f0c1840(&pos, &up, &look, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms);
+	playerMoveCameraFromPosRooms(&pos, &up, &look, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms);
 
 	if (g_MpSwirlDistance < 5.0f) {
 		playerEndCutscene();
@@ -1664,129 +1664,129 @@ void playerEndCutscene(void)
 	}
 }
 
-void playerPrepareWarpType1(s16 pad)
+void playerPrepareMoveCameraToPad(s16 pad)
 {
 	playerSetTickMode(TICKMODE_WARP);
 	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
 	playersClearMemCamRoom();
 
-	g_WarpType1Pad = pad;
+	g_MoveCameraPad = pad;
 }
 
-void playerPrepareWarpType2(struct warpparams *cmd, bool hasdir, s32 arg2)
+void playerPrepareMoveCameraToPreset(struct camerapresetobj *preset, bool hasdir, s32 arg2)
 {
 	playerSetTickMode(TICKMODE_WARP);
 	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
 	playersClearMemCamRoom();
 
-	g_WarpType1Pad = -1;
+	g_MoveCameraPad = -1;
 
-	g_WarpType2Params = cmd;
-	g_WarpType2HasDirection = hasdir;
-	g_WarpType2Arg2 = arg2;
+	g_MoveCameraPreset = preset;
+	g_MoveCameraDirection = hasdir;
+	g_MoveCameraArg2 = arg2;
 }
 
-void playerPrepareWarpType3(f32 posangle, f32 rotangle, f32 range, f32 height1, f32 height2, s32 padnum)
+void playerPrepareMoveCameraToPos(f32 posangle, f32 rotangle, f32 range, f32 height1, f32 height2, s32 padnum)
 {
 	playerSetTickMode(TICKMODE_WARP);
 	g_PlayerTriggerGeFadeIn = false;
 	bmoveSetModeForAllPlayers(MOVEMODE_CUTSCENE);
 	playersClearMemCamRoom();
 
-	g_WarpType1Pad = -1;
+	g_MoveCameraPad = -1;
 
-	g_WarpType2Params = NULL;
+	g_MoveCameraPreset = NULL;
 
-	g_WarpType3PosAngle = posangle;
-	g_WarpType3RotAngle = rotangle;
-	g_WarpType3Range = range;
-	g_WarpType3Height = height1;
-	g_WarpType3MoreHeight = height2;
-	g_WarpType3Pad = padnum;
+	g_MoveCameraPosPosAngle = posangle;
+	g_MoveCameraPosRotAngle = rotangle;
+	g_MoveCameraPosRange = range;
+	g_MoveCameraPosHeight = height1;
+	g_MoveCameraPosMoreHeight = height2;
+	g_MoveCameraPosPad = padnum;
 }
 
-void playerExecutePreparedWarp(void)
+void playerChangeCamera(void)
 {
 	struct pad pad;
 	struct coord pos = {0, 0, 0};
 	struct coord look = {0, 0, 1};
 	struct coord up = {0, 1, 0};
-	s32 room;
-	struct coord memcampos;
+	s32 fromroom;
+	struct coord frompos;
 
 	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
 
-	if (g_WarpType1Pad >= 0) {
-		// Warp to an exact position with a static direction of 0, 0, 1.
+	if (g_MoveCameraPad >= 0) {
+		// Move to an exact position with a static direction of 0, 0, 1.
 		// Used by device and holo training to warp player back to room,
 		// and Deep Sea teleports
-		padUnpack(g_WarpType1Pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+		padUnpack(g_MoveCameraPad, PADFIELD_POS | PADFIELD_ROOM, &pad);
 
-		memcampos.x = pad.pos.x;
-		memcampos.y = pad.pos.y;
-		memcampos.z = pad.pos.z;
+		frompos.x = pad.pos.x;
+		frompos.y = pad.pos.y;
+		frompos.z = pad.pos.z;
 
-		pos.x = memcampos.f[0];
-		pos.y = memcampos.f[1];
-		pos.z = memcampos.f[2];
+		pos.x = frompos.f[0];
+		pos.y = frompos.f[1];
+		pos.z = frompos.f[2];
 
-		room = pad.room;
-	} else if (g_WarpType2Params) {
-		// Warp to an exact position with an optional direction.
+		fromroom = pad.room;
+	} else if (g_MoveCameraPreset) {
+		// Move to an exact position with an optional direction.
 		// Used by AI command 00df, but that command is not used.
-		pos.x = g_WarpType2Params->pos.x;
-		pos.y = g_WarpType2Params->pos.y;
-		pos.z = g_WarpType2Params->pos.z;
+		pos.x = g_MoveCameraPreset->x;
+		pos.y = g_MoveCameraPreset->y;
+		pos.z = g_MoveCameraPreset->z;
 
-		padUnpack(g_WarpType2Params->pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+		padUnpack(g_MoveCameraPreset->pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
 
-		room = pad.room;
+		fromroom = pad.room;
 
-		memcampos.x = pad.pos.x;
-		memcampos.y = pad.pos.y;
-		memcampos.z = pad.pos.z;
+		frompos.x = pad.pos.x;
+		frompos.y = pad.pos.y;
+		frompos.z = pad.pos.z;
 
-		if (1);
-
-		if (g_WarpType2HasDirection != 1) {
-			look.x = cosf(g_WarpType2Params->look[1]) * sinf(g_WarpType2Params->look[0]);
-			look.y = sinf(g_WarpType2Params->look[1]);
-			look.z = cosf(g_WarpType2Params->look[1]) * cosf(g_WarpType2Params->look[0]);
+		if (g_MoveCameraDirection == 1) {
+			// In GE, this likely set look to Bond's position.
+		} else {
+			look.x = cosf(g_MoveCameraPreset->verta) * sinf(g_MoveCameraPreset->theta);
+			look.y = sinf(g_MoveCameraPreset->verta);
+			look.z = cosf(g_MoveCameraPreset->verta) * cosf(g_MoveCameraPreset->theta);
 		}
 	} else {
-		// Warp to a location within a specified range and angle of the pad,
+		// Move to a location within a specified range and angle of the pad,
 		// with options for the direction and height offset from the pad.
 		// Used by AI command 00f4, but that command is not used.
-		padUnpack(g_WarpType3Pad, PADFIELD_POS | PADFIELD_ROOM, &pad);
+		padUnpack(g_MoveCameraPosPad, PADFIELD_POS | PADFIELD_ROOM, &pad);
 
-		room = pad.room;
+		fromroom = pad.room;
 
-		memcampos.x = pad.pos.x;
-		memcampos.y = pad.pos.y;
-		memcampos.z = pad.pos.z;
+		frompos.x = pad.pos.x;
+		frompos.y = pad.pos.y;
+		frompos.z = pad.pos.z;
 
-		pos.x = memcampos.x + sinf(g_WarpType3PosAngle) * g_WarpType3Range + cosf(g_WarpType3PosAngle) * 0.0f;
-		pos.y = memcampos.y + g_WarpType3MoreHeight + g_WarpType3Height;
-		pos.z = memcampos.z + cosf(g_WarpType3PosAngle) * g_WarpType3Range + sinf(g_WarpType3PosAngle) * 0.0f;
+		pos.x = frompos.x + sinf(g_MoveCameraPosPosAngle) * g_MoveCameraPosRange + cosf(g_MoveCameraPosPosAngle) * 0.0f;
+		pos.y = frompos.y + g_MoveCameraPosMoreHeight + g_MoveCameraPosHeight;
+		pos.z = frompos.z + cosf(g_MoveCameraPosPosAngle) * g_MoveCameraPosRange + sinf(g_MoveCameraPosPosAngle) * 0.0f;
 
-		look.x = memcampos.x + cosf(g_WarpType3PosAngle) * 0.0f - pos.f[0];
-		look.y = memcampos.y + g_WarpType3MoreHeight - pos.f[1];
-		look.z = memcampos.z + sinf(g_WarpType3PosAngle) * 0.0f - pos.f[2];
+		look.x = frompos.x + cosf(g_MoveCameraPosPosAngle) * 0.0f - pos.f[0];
+		look.y = frompos.y + g_MoveCameraPosMoreHeight - pos.f[1];
+		look.z = frompos.z + sinf(g_MoveCameraPosPosAngle) * 0.0f - pos.f[2];
 
-		g_WarpType3PosAngle += g_WarpType3RotAngle * g_Vars.lvupdate60freal;
+		g_MoveCameraPosPosAngle += g_MoveCameraPosRotAngle * g_Vars.lvupdate60freal;
 
-		while (g_WarpType3PosAngle >= M_BADTAU) {
-			g_WarpType3PosAngle -= M_BADTAU;
+		while (g_MoveCameraPosPosAngle >= M_BADTAU) {
+			g_MoveCameraPosPosAngle -= M_BADTAU;
 		}
 
-		while (g_WarpType3PosAngle < 0) {
-			g_WarpType3PosAngle += M_BADTAU;
+		while (g_MoveCameraPosPosAngle < 0) {
+			g_MoveCameraPosPosAngle += M_BADTAU;
 		}
 	}
 
-	player0f0c1ba4(&pos, &up, &look, &memcampos, room);
+	playerMoveCameraFromPosRoom(&pos, &up, &look, &frompos, fromroom);
 }
 
 void playerStartCutscene2(void)
@@ -2000,7 +2000,7 @@ void playerTickCutscene(bool arg0)
 	}
 
 	playerSetCameraMode(CAMERAMODE_THIRDPERSON);
-	player0f0c1bd8(&pos, &up, &look);
+	playerMoveCamera(&pos, &up, &look);
 	playermgrSetFovY(fovy);
 	viSetFovY(fovy);
 
@@ -2986,7 +2986,7 @@ s16 playerGetViewportTop(void)
 	return top;
 }
 
-f32 player0f0bd358(void)
+f32 playerGetAspectRatio(void)
 {
 	f32 result;
 	s16 stack;
@@ -3104,7 +3104,7 @@ void playerTickTeleport(f32 *aspectratio)
 
 void playerConfigureVi(void)
 {
-	f32 ratio = player0f0bd358();
+	f32 ratio = playerGetAspectRatio();
 	g_ViRes = VIRES_LO;
 
 	text0f1531dc(false);
@@ -3153,9 +3153,9 @@ void playerTick(bool arg0)
 #endif
 
 	if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
-		aspectratio = player0f0bd358() * 1.33333333f;
+		aspectratio = playerGetAspectRatio() * 1.33333333f;
 	} else {
-		aspectratio = player0f0bd358();
+		aspectratio = playerGetAspectRatio();
 	}
 
 #if PAL
@@ -3334,17 +3334,17 @@ void playerTick(bool arg0)
 		bmoveTick(0, 0, 0, 1);
 		playerSetCameraMode(CAMERAMODE_EYESPY);
 #if VERSION >= VERSION_JPN_FINAL
-		player0f0c1840(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look,
+		playerMoveCameraFromPosRooms(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look,
 				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms);
 #else
-		player0f0c1bd8(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look);
+		playerMoveCamera(&sp308, &g_Vars.currentplayer->eyespy->up, &g_Vars.currentplayer->eyespy->look);
 #endif
 	} else if (g_Vars.currentplayer->teleportstate == TELEPORTSTATE_WHITE) {
 		// Deep Sea teleport
 		playerTickChrBody();
-		g_WarpType1Pad = g_Vars.currentplayer->teleportcamerapad;
+		g_MoveCameraPad = g_Vars.currentplayer->teleportcamerapad;
 		bmoveTick(0, 0, 0, 1);
-		playerExecutePreparedWarp();
+		playerChangeCamera();
 	} else if (g_Vars.currentplayer->visionmode == (u32)VISIONMODE_SLAYERROCKET) {
 		// Controlling a Slayer rocket
 		struct coord rocketpos = {0, 0, 0};
@@ -3623,9 +3623,9 @@ void playerTick(bool arg0)
 		g_Vars.currentplayer->waitforzrelease = true;
 
 		if (rocket && rocket->base.prop) {
-			player0f0c1840(&rocketpos, &sp2e4, &sp2f0, &rocket->base.prop->pos, rocket->base.prop->rooms);
+			playerMoveCameraFromPosRooms(&rocketpos, &sp2e4, &sp2f0, &rocket->base.prop->pos, rocket->base.prop->rooms);
 		} else {
-			player0f0c1840(&rocketpos, &sp2e4, &sp2f0, NULL, NULL);
+			playerMoveCameraFromPosRooms(&rocketpos, &sp2e4, &sp2f0, NULL, NULL);
 		}
 	} else if (g_Vars.tickmode == TICKMODE_NORMAL) {
 		// Normal movement
@@ -3656,7 +3656,7 @@ void playerTick(bool arg0)
 		spf4.y = b + spf4.y;
 		spf4.z = c + spf4.z;
 
-		player0f0c1840(&spf4,
+		playerMoveCameraFromPosRooms(&spf4,
 				&g_Vars.currentplayer->bond2.unk28,
 				&g_Vars.currentplayer->bond2.unk1c,
 				&g_Vars.currentplayer->prop->pos,
@@ -3923,7 +3923,7 @@ void playerTick(bool arg0)
 		bmoveTick(1, 1, arg0, 0);
 		playerUpdateShake();
 		playerSetCameraMode(CAMERAMODE_DEFAULT);
-		player0f0c1840(&g_Vars.currentplayer->bond2.unk10,
+		playerMoveCameraFromPosRooms(&g_Vars.currentplayer->bond2.unk10,
 				&g_Vars.currentplayer->bond2.unk28,
 				&g_Vars.currentplayer->bond2.unk1c,
 				&g_Vars.currentplayer->prop->pos,
@@ -3938,7 +3938,7 @@ void playerTick(bool arg0)
 		// to device room at the end of a training session
 		playerTickChrBody();
 		bmoveTick(0, 0, 0, 1);
-		playerExecutePreparedWarp();
+		playerChangeCamera();
 	} else if (g_Vars.tickmode == TICKMODE_AUTOWALK) {
 		// Extraction bodyguard room and Duel
 		f32 targetangle;
@@ -4036,7 +4036,7 @@ void playerTick(bool arg0)
 		bmoveTick(1, 1, 0, 1);
 		playerUpdateShake();
 		playerSetCameraMode(CAMERAMODE_DEFAULT);
-		player0f0c1840(&g_Vars.currentplayer->bond2.unk10,
+		playerMoveCameraFromPosRooms(&g_Vars.currentplayer->bond2.unk10,
 				&g_Vars.currentplayer->bond2.unk28,
 				&g_Vars.currentplayer->bond2.unk1c,
 				&g_Vars.currentplayer->prop->pos,
@@ -4921,55 +4921,67 @@ void playerSetCameraMode(s32 mode)
 	g_Vars.currentplayer->cameramode = mode;
 }
 
-void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, struct coord *pos2, RoomNum *rooms2)
+/**
+ * Set the player's camera to the given pos/look/up values.
+ *
+ * The room number should be found. Rooms can be overlapping in PD, so to help
+ * find it correctly the caller can provide a previous good position and room.
+ * If a valid room is found then the player's previous values (memcampos) are
+ * updated, otherwise they are invalidated. This is potentially buggy, because
+ * the function is assuming the previous values came from memcampos which is
+ * not the case when controlling the eyespy or a Slayer rocket.
+ */
+void playerMoveCameraFromPosRooms(struct coord *pos, struct coord *up, struct coord *look, struct coord *prevgoodpos, RoomNum *prevgoodrooms)
 {
 	bool done = false;
 	RoomNum inrooms[21];
 	RoomNum aboverooms[21];
-	RoomNum sp54[8];
+	RoomNum rooms[8];
 	RoomNum bestroom;
 	RoomNum tmp;
 	s32 i;
 	s32 room;
 
-	if (rooms2 != NULL && *rooms2 != -1) {
-		portal00018148(pos2, pos, rooms2, sp54, NULL, 0);
+	if (prevgoodrooms != NULL && *prevgoodrooms != -1) {
+		// Get rooms which are visible from the prevgoodpos+prevgoodroom?
+		portal00018148(prevgoodpos, pos, prevgoodrooms, rooms, NULL, 0);
 
-		// Remove values from sp54 (room numbers) if that room doesn't contain
-		// the coord, and shuffle the array back when removing values.
-		for (i = 0; sp54[i] != -1; i++) {
-			if (!bgRoomContainsCoord(pos, sp54[i])) {
+		// Remove values from rooms if that room doesn't contain the coord,
+		// and shuffle the array back when removing values.
+		for (i = 0; rooms[i] != -1; i++) {
+			if (!bgRoomContainsCoord(pos, rooms[i])) {
 				s32 j;
 
 #if VERSION >= VERSION_NTSC_1_0
-				for (j = i + 1; sp54[j] != -1; j++) {
-					sp54[j - 1] = sp54[j];
+				for (j = i + 1; rooms[j] != -1; j++) {
+					rooms[j - 1] = rooms[j];
 				}
 
-				sp54[j - 1] = -1;
+				rooms[j - 1] = -1;
 				i--;
 #else
 				// ntsc-beta corrupts the array by overwriting the first shifted
 				// value with -1, and leaving a duplicate at the end.
-				for (j = i + 1; sp54[j] != -1; j++) {
-					sp54[j - 1] = sp54[j];
+				for (j = i + 1; rooms[j] != -1; j++) {
+					rooms[j - 1] = rooms[j];
 				}
 
-				sp54[i] = -1;
+				rooms[i] = -1;
 #endif
 			}
 		}
 
-		if (sp54[0] != -1 && sp54[1] == -1) {
-			playerSetCamPropertiesWithRoom(pos, up, look, sp54[0]);
+		// In most cases there is one room containing the given pos
+		if (rooms[0] != -1 && rooms[1] == -1) {
+			playerSetCamPropertiesInBounds(pos, up, look, rooms[0]);
 			done = true;
 		}
 
 		if (!done) {
-			for (i = 0; sp54[i] != -1; i++) {
-				if ((g_Rooms[sp54[i]].flags & ROOMFLAG_COMPLICATEDPORTALS) == 0) {
-					if (bgTestPosInRoom(pos, sp54[i])) {
-						playerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
+			for (i = 0; rooms[i] != -1; i++) {
+				if ((g_Rooms[rooms[i]].flags & ROOMFLAG_COMPLICATEDPORTALS) == 0) {
+					if (bgTestPosInRoom(pos, rooms[i])) {
+						playerSetCamPropertiesInBounds(pos, up, look, rooms[i]);
 						done = true;
 						break;
 					}
@@ -4979,10 +4991,10 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 
 		// The same thing again but for rooms which have complicated portals
 		if (!done) {
-			for (i = 0; sp54[i] != -1; i++) {
-				if (g_Rooms[sp54[i]].flags & ROOMFLAG_COMPLICATEDPORTALS) {
-					if (bgTestPosInRoom(pos, sp54[i])) {
-						playerSetCamPropertiesWithRoom(pos, up, look, sp54[i]);
+			for (i = 0; rooms[i] != -1; i++) {
+				if (g_Rooms[rooms[i]].flags & ROOMFLAG_COMPLICATEDPORTALS) {
+					if (bgTestPosInRoom(pos, rooms[i])) {
+						playerSetCamPropertiesInBounds(pos, up, look, rooms[i]);
 						done = true;
 						break;
 					}
@@ -4998,47 +5010,47 @@ void player0f0c1840(struct coord *pos, struct coord *up, struct coord *look, str
 			tmp = room = cdFindFloorRoomAtPos(pos, inrooms);
 
 			if (room > 0) {
-				playerSetCamPropertiesWithRoom(pos, up, look, tmp);
+				playerSetCamPropertiesInBounds(pos, up, look, tmp);
 			} else {
-				playerSetCamPropertiesWithRoom(pos, up, look, inrooms[0]);
+				playerSetCamPropertiesInBounds(pos, up, look, inrooms[0]);
 			}
 		} else if (aboverooms[0] != -1) {
 			tmp = room = cdFindFloorRoomAtPos(pos, aboverooms);
 
 			if (room > 0) {
-				playerSetCamPropertiesWithoutRoom(pos, up, look, tmp);
+				playerSetCamPropertiesOutOfBounds(pos, up, look, tmp);
 			} else {
-				playerSetCamPropertiesWithoutRoom(pos, up, look, aboverooms[0]);
+				playerSetCamPropertiesOutOfBounds(pos, up, look, aboverooms[0]);
 			}
 		} else {
 			if (bestroom != -1) {
-				playerSetCamPropertiesWithoutRoom(pos, up, look, bestroom);
+				playerSetCamPropertiesOutOfBounds(pos, up, look, bestroom);
 			} else {
-				playerSetCamPropertiesWithoutRoom(pos, up, look, 1);
+				playerSetCamPropertiesOutOfBounds(pos, up, look, 1);
 			}
 		}
 	}
 }
 
-void player0f0c1ba4(struct coord *pos, struct coord *up, struct coord *look, struct coord *memcampos, s32 memcamroom)
+void playerMoveCameraFromPosRoom(struct coord *pos, struct coord *up, struct coord *look, struct coord *frompos, s32 fromroom)
 {
-	RoomNum rooms[2];
-	rooms[0] = memcamroom;
-	rooms[1] = -1;
+	RoomNum fromrooms[2];
+	fromrooms[0] = fromroom;
+	fromrooms[1] = -1;
 
-	player0f0c1840(pos, up, look, memcampos, rooms);
+	playerMoveCameraFromPosRooms(pos, up, look, frompos, fromrooms);
 }
 
-void player0f0c1bd8(struct coord *pos, struct coord *up, struct coord *look)
+void playerMoveCamera(struct coord *pos, struct coord *up, struct coord *look)
 {
 	if (g_Vars.currentplayer->memcamroom >= 0) {
-		player0f0c1ba4(pos, up, look, &g_Vars.currentplayer->memcampos, g_Vars.currentplayer->memcamroom);
+		playerMoveCameraFromPosRoom(pos, up, look, &g_Vars.currentplayer->memcampos, g_Vars.currentplayer->memcamroom);
 	} else {
-		player0f0c1840(pos, up, look, NULL, NULL);
+		playerMoveCameraFromPosRooms(pos, up, look, NULL, NULL);
 	}
 }
 
-void playerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+void playerSetCamPropertiesInBounds(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
 	g_Vars.currentplayer->memcampos.x = pos->x;
 	g_Vars.currentplayer->memcampos.y = pos->y;
@@ -5048,7 +5060,7 @@ void playerSetCamPropertiesWithRoom(struct coord *pos, struct coord *up, struct 
 	playerSetCamProperties(pos, up, look, room);
 }
 
-void playerSetCamPropertiesWithoutRoom(struct coord *pos, struct coord *up, struct coord *look, s32 room)
+void playerSetCamPropertiesOutOfBounds(struct coord *pos, struct coord *up, struct coord *look, s32 room)
 {
 	playerClearMemCamRoom();
 	playerSetCamProperties(pos, up, look, room);

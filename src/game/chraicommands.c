@@ -4840,11 +4840,12 @@ bool ai00dd(void)
 /**
  * @cmd 00de
  */
-bool aiWarpJoToPad(void)
+bool aiMoveCameraToPad(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
-	playerPrepareWarpType1(pad_id);
+
+	playerPrepareMoveCameraToPad(pad_id);
 
 	g_Vars.aioffset += 4;
 
@@ -5096,7 +5097,7 @@ bool aiDisableObj(void)
 /**
  * @cmd 00df
  */
-bool ai00df(void)
+bool aiMoveCameraToPreset(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct tag *tag = tagFindById(cmd[2]);
@@ -5105,8 +5106,8 @@ bool ai00df(void)
 		s32 cmdindex = setupGetCmdIndexByTag(tag);
 
 		if (cmdindex >= 0) {
-			struct warpparams *params = (struct warpparams *) setupGetCmdByIndex(cmdindex + tag->cmdoffset);
-			playerPrepareWarpType2(params, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
+			struct camerapresetobj *preset = (struct camerapresetobj *) setupGetCmdByIndex(cmdindex + tag->cmdoffset);
+			playerPrepareMoveCameraToPreset(preset, cmd[4] | (cmd[3] << 8), cmd[6] | (cmd[5] << 8));
 		}
 	}
 
@@ -5514,7 +5515,7 @@ bool aiChrSetInvincible(void)
 /**
  * @cmd 00f4
  */
-bool ai00f4(void)
+bool aiMoveCameraToPos(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
@@ -5525,7 +5526,7 @@ bool ai00f4(void)
 	s16 height2 = cmd[11] | (cmd[10] << 8);
 	s32 posangle = cmd[13] | (cmd[12] << 8);
 
-	playerPrepareWarpType3(posangle * M_BADTAU / 65536, rotangle * M_BADTAU / 65536, range, height1, height2, padnum);
+	playerPrepareMoveCameraToPos(posangle * M_BADTAU / 65536, rotangle * M_BADTAU / 65536, range, height1, height2, padnum);
 
 	g_Vars.aioffset += 14;
 
