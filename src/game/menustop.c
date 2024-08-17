@@ -27,12 +27,12 @@
 #include "data.h"
 #include "types.h"
 
-void menuStop(void)
+void menu_stop(void)
 {
 	if (var80062944) {
 		var80062944 = 0;
 		var80062948 = 0;
-		joySetDefaultPfsPollInterval();
+		joy_set_default_pfs_poll_interval();
 		func0f110bf8();
 	}
 }

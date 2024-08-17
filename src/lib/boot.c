@@ -54,7 +54,7 @@ extern u8 *_inflateSegmentRomStart;
 extern u8 *_inflateSegmentRomEnd;
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 bootGetMemSize(void)
+s32 boot_get_mem_size(void)
 {
 	return g_OsMemSize;
 }
@@ -124,10 +124,10 @@ void boot(void)
 	}
 
 	// Inflate compressed part of lib
-	segInflate((void *) libzipram, (void *) libram, (void *) 0x80300000);
+	seg_inflate((void *) libzipram, (void *) libram, (void *) 0x80300000);
 
 	// Inflate .data
-	segInflate((void *) datazipram, (void *) dataram, (void *) 0x80300000);
+	seg_inflate((void *) datazipram, (void *) dataram, (void *) 0x80300000);
 
 #if PIRACYCHECKS
 	if (IO_READ(0xa00002e8) != 0xc86e2000) {
@@ -135,7 +135,7 @@ void boot(void)
 	}
 #endif
 
-	vmUnmapRange(1, NTLBENTRIES);
+	vm_unmap_range(1, NTLBENTRIES);
 
 	// Clear the stack allocation pointers
 	for (i = 0; i < ARRAYCOUNT(g_StackLeftAddrs); i++) {
@@ -168,7 +168,7 @@ void boot(void)
 #endif
 
 	// Create and start the main thread
-	osCreateThread(&g_MainThread, THREAD_MAIN, bootCreateThreads, NULL, bootAllocateStack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
+	osCreateThread(&g_MainThread, THREAD_MAIN, boot_create_threads, NULL, boot_allocate_stack(THREAD_MAIN, STACKSIZE_MAIN), THREADPRI_MAIN);
 	osStartThread(&g_MainThread);
 }
 
@@ -187,7 +187,7 @@ void boot(void)
  * The stack is initialised with the thread's ID. This makes it easier to
  * identify in memory and detect when a stack overflow has occurred.
  */
-void *bootAllocateStack(s32 threadid, s32 size)
+void *boot_allocate_stack(s32 threadid, s32 size)
 {
 	u8 *ptr8;
 	u32 *ptr32;
@@ -221,7 +221,7 @@ void *bootAllocateStack(s32 threadid, s32 size)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-u8 *bootGetStackPos(void)
+u8 *boot_get_stack_pos(void)
 {
 	return g_StackAllocatedPos;
 }
@@ -240,50 +240,50 @@ void idleproc(void *data)
 	while (true);
 }
 
-void bootCreateIdleThread(void)
+void boot_create_idle_thread(void)
 {
-	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, bootAllocateStack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
+	osCreateThread(&g_IdleThread, THREAD_IDLE, idleproc, NULL, boot_allocate_stack(THREAD_IDLE, STACKSIZE_IDLE), THREADPRI_IDLE);
 	osStartThread(&g_IdleThread);
 }
 
-void bootCreateRmonThread(void)
+void boot_create_rmon_thread(void)
 {
-	osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, bootAllocateStack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
+	osCreateThread(&g_RmonThread, THREAD_RMON, rmonproc, NULL, boot_allocate_stack(THREAD_RMON, STACKSIZE_RMON), THREADPRI_RMON);
 	osStartThread(&g_RmonThread);
 }
 
-void bootCreateSchedThread(void)
+void boot_create_sched_thread(void)
 {
 	osCreateMesgQueue(&g_MainMesgQueue, g_MainMesgBuf, ARRAYCOUNT(g_MainMesgBuf));
 
 	if (osTvType == OS_TV_MPAL) {
-		osCreateScheduler(&g_Sched, &g_SchedThread, OS_VI_MPAL_LAN1, 1);
+		os_create_scheduler(&g_Sched, &g_SchedThread, OS_VI_MPAL_LAN1, 1);
 	} else {
-		osCreateScheduler(&g_Sched, &g_SchedThread, OS_VI_NTSC_LAN1, 1);
+		os_create_scheduler(&g_Sched, &g_SchedThread, OS_VI_NTSC_LAN1, 1);
 	}
 
 	osScAddClient(&g_Sched, &g_MainSchedClient, &g_MainMesgQueue, false);
 	g_SchedCmdQ = osScGetCmdQ(&g_Sched);
 }
 
-void bootCreateThreads(void *arg)
+void boot_create_threads(void *arg)
 {
-	bootCreateIdleThread();
-	videbugCreate();
-	pimgrCreate();
-	bootCreateRmonThread();
+	boot_create_idle_thread();
+	videbug_create();
+	pimgr_create();
+	boot_create_rmon_thread();
 
-	if (argsParseDebugArgs()) {
+	if (args_parse_debug_args()) {
 		osStopThread(NULL);
 	}
 
 	osSetThreadPri(0, THREADPRI_MAIN);
-	bootCreateSchedThread();
-	mainProc();
+	boot_create_sched_thread();
+	main_proc();
 }
 
 #if VERSION < VERSION_NTSC_1_0
-void bootCountUnusedStack(void)
+void boot_count_unused_stack(void)
 {
 	s32 threadid;
 
@@ -303,7 +303,7 @@ void bootCountUnusedStack(void)
 	}
 }
 
-void bootCheckStackOverflow(void)
+void boot_check_stack_overflow(void)
 {
 	s32 threadid;
 
@@ -316,10 +316,10 @@ void bootCheckStackOverflow(void)
 				if (*ptr != 0xdeadbabe) {
 					char message[128];
 
-					bootCountUnusedStack();
+					boot_count_unused_stack();
 
 					sprintf(message, "Stack overflow thread %d", threadid);
-					crashSetMessage(message);
+					crash_set_message(message);
 					CRASH();
 				}
 

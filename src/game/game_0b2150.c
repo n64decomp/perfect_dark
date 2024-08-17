@@ -69,8 +69,8 @@ void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32
 				yl = 0;
 			}
 
-			widthx4 = viGetWidth() * 4;
-			heightx4 = viGetHeight() * 4;
+			widthx4 = vi_get_width() * 4;
+			heightx4 = vi_get_height() * 4;
 
 			if (widthx4 < xh) {
 				xh = widthx4;

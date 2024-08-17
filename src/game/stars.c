@@ -70,7 +70,7 @@ void stars0f135c70(void)
 /**
  * Insert a star position *after* the given index.
  */
-void starInsert(s32 index, struct coord *arg1)
+void star_insert(s32 index, struct coord *arg1)
 {
 	s32 i;
 
@@ -94,7 +94,7 @@ void starInsert(s32 index, struct coord *arg1)
 
 #define ABS2(value) ((value) < 0 ? -(value) : (value))
 
-void starsReset(void)
+void stars_reset(void)
 {
 	s32 v0;
 	s32 v1;
@@ -132,7 +132,7 @@ void starsReset(void)
 		}
 
 		tmp = g_StarGridSize + 1;
-		g_StarPositions = mempAlloc(ALIGN64(g_StarCount * 3U + tmp * 72 * tmp + 6 * g_StarGridSize * g_StarGridSize * 4U + 4), MEMPOOL_STAGE);
+		g_StarPositions = memp_alloc(ALIGN64(g_StarCount * 3U + tmp * 72 * tmp + 6 * g_StarGridSize * g_StarGridSize * 4U + 4), MEMPOOL_STAGE);
 
 		if (g_StarPositions != NULL) {
 			g_StarPosIndexes = (s32 *)(g_StarPositions + g_StarCount * 3);
@@ -190,20 +190,20 @@ void starsReset(void)
 
 				tmp2 = v0 + g_StarGridSize * v1;
 
-				starInsert(spb0 * tmp1 + tmp2, &spd4);
+				star_insert(spb0 * tmp1 + tmp2, &spd4);
 			}
 		}
 	}
 }
 
-Gfx *starsRender(Gfx *gdl)
+Gfx *stars_render(Gfx *gdl)
 {
 	bool isddtower = false;
 	Mtxf mtx;
-	f32 viewleft = viGetViewLeft();
-	f32 viewright = viewleft + viGetViewWidth();
-	f32 viewtop = viGetViewTop();
-	f32 viewbottom = viewtop + viGetViewHeight();
+	f32 viewleft = vi_get_view_left();
+	f32 viewright = viewleft + vi_get_view_width();
+	f32 viewtop = vi_get_view_top();
+	f32 viewbottom = viewtop + vi_get_view_height();
 	s32 i;
 	f32 sp154;
 	struct coord sp148;
@@ -224,25 +224,25 @@ Gfx *starsRender(Gfx *gdl)
 		isddtower = true;
 	}
 
-	colours[0] = colourBlend(0xffffff7f, 0x7777777f, menuGetSinOscFrac(2) * 255);
-	colours[1] = colourBlend(0x0000aa7f, 0x2222ff7f, menuGetSinOscFrac(4) * 255);
-	colours[2] = colourBlend(0x0000ff7f, 0x5555ff7f, menuGetCosOscFrac(2) * 255);
-	colours[3] = colourBlend(0xaaaaff7f, 0x7777ff7f, menuGetCosOscFrac(4) * 255);
+	colours[0] = colour_blend(0xffffff7f, 0x7777777f, menu_get_sin_osc_frac(2) * 255);
+	colours[1] = colour_blend(0x0000aa7f, 0x2222ff7f, menu_get_sin_osc_frac(4) * 255);
+	colours[2] = colour_blend(0x0000ff7f, 0x5555ff7f, menu_get_cos_osc_frac(2) * 255);
+	colours[3] = colour_blend(0xaaaaff7f, 0x7777ff7f, menu_get_cos_osc_frac(4) * 255);
 
 	if (isddtower) {
 		for (i = 0; i < 3; i++) {
 			// Nothing is done with the return value here, so this has no
 			// effect. Maybe the original code incorrectly did a comparison
-			// instead of an assign? eg. colours[i] == colourBlend(...)
+			// instead of an assign? eg. colours[i] == colour_blend(...)
 			// Doing this would make the stars more transparent.
-			colourBlend(colours[i], colours[i] & 0xff, 0x5f);
+			colour_blend(colours[i], colours[i] & 0xff, 0x5f);
 		}
 	}
 
-	sp154 = cosf(0.017453199252486f * (90.0f - viGetFovY() / viGetAspect() * 0.5f));
+	sp154 = cosf(0.017453199252486f * (90.0f - vi_get_fov_y() / vi_get_aspect() * 0.5f));
 
-	mtx4LoadIdentity(&mtx);
-	mtx00015be0(camGetWorldToScreenMtxf(), &mtx);
+	mtx4_load_identity(&mtx);
+	mtx00015be0(cam_get_world_to_screen_mtxf(), &mtx);
 
 	mtx.m[3][0] = 0.0f;
 	mtx.m[3][1] = 0.0f;
@@ -262,7 +262,7 @@ Gfx *starsRender(Gfx *gdl)
 	sp148.f[1] = g_Vars.currentplayer->cam_look.f[1];
 	sp148.f[2] = g_Vars.currentplayer->cam_look.f[2];
 
-	gdl = textSetPrimColour(gdl, 0xffffffff);
+	gdl = text_set_prim_colour(gdl, 0xffffffff);
 
 	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
 

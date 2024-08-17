@@ -7,26 +7,26 @@
 #include "data.h"
 #include "types.h"
 
-u16 raceGetAnimSumAngleAsInt(s16 animnum, s32 frame, s32 endframe)
+u16 race_get_anim_sum_angle_as_int(s16 animnum, s32 frame, s32 endframe)
 {
 	s16 inttranslate[3];
 	u16 sumangle = 0;
 
 	while (frame < endframe) {
-		sumangle += animGetPosAngleAsInt(0, false, &g_SkelChr, animnum, frame, inttranslate, false);
+		sumangle += anim_get_pos_angle_as_int(0, false, &g_SkelChr, animnum, frame, inttranslate, false);
 		frame++;
 	}
 
 	return sumangle;
 }
 
-s32 raceGetAnimSumForwardAsInt(s16 animnum, s32 frame, s32 endframe)
+s32 race_get_anim_sum_forward_as_int(s16 animnum, s32 frame, s32 endframe)
 {
 	s32 sumforward = 0;
 	s16 inttranslate[3];
 
 	while (frame < endframe) {
-		animGetPosAngleAsInt(0, false, &g_SkelChr, animnum, frame, inttranslate, false);
+		anim_get_pos_angle_as_int(0, false, &g_SkelChr, animnum, frame, inttranslate, false);
 		sumforward += inttranslate[2];
 		frame++;
 	}
@@ -34,13 +34,13 @@ s32 raceGetAnimSumForwardAsInt(s16 animnum, s32 frame, s32 endframe)
 	return sumforward;
 }
 
-s32 raceInitAnimGroup(struct attackanimconfig *configs)
+s32 race_init_anim_group(struct attackanimconfig *configs)
 {
 	s32 count = 0;
 	struct attackanimconfig *config = configs;
 
 	while (config->animnum != 0) {
-		u16 angle = raceGetAnimSumAngleAsInt(config->animnum, 0, floor(config->unk04));
+		u16 angle = race_get_anim_sum_angle_as_int(config->animnum, 0, floor(config->unk04));
 
 		if (config->unk04 > 0) {
 			if (angle < 0x8000) {
@@ -59,18 +59,18 @@ s32 raceInitAnimGroup(struct attackanimconfig *configs)
 	return count;
 }
 
-void raceInitAnimGroups(struct attackanimgroup **groups)
+void race_init_anim_groups(struct attackanimgroup **groups)
 {
 	s32 i;
 
 	for (i = 0; i < 32; i++) {
 		if (groups[i]->len < 0) {
-			groups[i]->len = raceInitAnimGroup(groups[i]->animcfg);
+			groups[i]->len = race_init_anim_group(groups[i]->animcfg);
 		}
 	}
 }
 
-s32 raceCountAnims(struct animtablerow *rows)
+s32 race_count_anims(struct animtablerow *rows)
 {
 	s32 i;
 
@@ -81,14 +81,14 @@ s32 raceCountAnims(struct animtablerow *rows)
 
 f32 race0f0005c0(s16 animnum)
 {
-	f32 avgforward = raceGetAnimSumForwardAsInt(animnum, 0, animGetNumFrames(animnum) - 1) / (f32) animGetNumFrames(animnum);
+	f32 avgforward = race_get_anim_sum_forward_as_int(animnum, 0, anim_get_num_frames(animnum) - 1) / (f32) anim_get_num_frames(animnum);
 
 	var8005f014[animnum] = avgforward;
 
 	return avgforward * 0.1000000089407f;
 }
 
-void raceInitAnims(void)
+void race_init_anims(void)
 {
 	s32 race;
 	s32 i;
@@ -96,13 +96,13 @@ void raceInitAnims(void)
 	for (race = 0; race < ARRAYCOUNT(g_AnimTablesByRace); race++) {
 		for (i = 0; g_AnimTablesByRace[race][i].hitpart != -1; i++) {
 			if (g_AnimTablesByRace[race][i].deathanims) {
-				g_AnimTablesByRace[race][i].deathanimcount = raceCountAnims(g_AnimTablesByRace[race][i].deathanims);
+				g_AnimTablesByRace[race][i].deathanimcount = race_count_anims(g_AnimTablesByRace[race][i].deathanims);
 			} else {
 				g_AnimTablesByRace[race][i].deathanimcount = 0;
 			}
 
 			if (g_AnimTablesByRace[race][i].injuryanims) {
-				g_AnimTablesByRace[race][i].injuryanimcount = raceCountAnims(g_AnimTablesByRace[race][i].injuryanims);
+				g_AnimTablesByRace[race][i].injuryanimcount = race_count_anims(g_AnimTablesByRace[race][i].injuryanims);
 			} else {
 				g_AnimTablesByRace[race][i].injuryanimcount = 0;
 			}
@@ -113,17 +113,17 @@ void raceInitAnims(void)
 		}
 	}
 
-	raceCountAnims(g_AnimTableHumanSlumped);
+	race_count_anims(g_AnimTableHumanSlumped);
 
 	for (race = 0; race < 2; race++) {
-		raceInitAnimGroups(g_StandHeavyAttackAnims[race]);
-		raceInitAnimGroups(g_StandLightAttackAnims[race]);
-		raceInitAnimGroups(g_StandDualAttackAnims[race]);
-		raceInitAnimGroups(g_KneelHeavyAttackAnims[race]);
-		raceInitAnimGroups(g_KneelLightAttackAnims[race]);
-		raceInitAnimGroups(g_KneelDualAttackAnims[race]);
+		race_init_anim_groups(g_StandHeavyAttackAnims[race]);
+		race_init_anim_groups(g_StandLightAttackAnims[race]);
+		race_init_anim_groups(g_StandDualAttackAnims[race]);
+		race_init_anim_groups(g_KneelHeavyAttackAnims[race]);
+		race_init_anim_groups(g_KneelLightAttackAnims[race]);
+		race_init_anim_groups(g_KneelDualAttackAnims[race]);
 	}
 
-	raceInitAnimGroup(g_RollAttackAnims);
-	raceInitAnimGroup(g_WalkAttackAnims);
+	race_init_anim_group(g_RollAttackAnims);
+	race_init_anim_group(g_WalkAttackAnims);
 }

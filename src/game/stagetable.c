@@ -71,7 +71,7 @@ struct stagetableentry g_Stages[61] = {
 	/*0x3c*/ STAGE_TEST_MP20,     2, 255, 100, 100, 0, FILE_BG_MP20_SEG, FILE_BG_MP20_TILES, FILE_BG_MP20_PADS, FILE_USETUPMP20, FILE_UMP_SETUPMP20, 1,                0.5, 100,             0, 0, -1, 255, 0x3e19999a, -1,  400, 0,   1,
 };
 
-struct stagetableentry *stageGetCurrent(void)
+struct stagetableentry *stage_get_current(void)
 {
 	struct stagetableentry *stage = g_Stages;
 	struct stagetableentry *end = (struct stagetableentry *)(uintptr_t)stage + ARRAYCOUNT(g_Stages);
@@ -88,7 +88,7 @@ struct stagetableentry *stageGetCurrent(void)
 	return NULL;
 }
 
-s32 stageGetIndex(s32 stagenum)
+s32 stage_get_index(s32 stagenum)
 {
 	struct stagetableentry *stage = g_Stages;
 	struct stagetableentry *end = (struct stagetableentry *)(uintptr_t)stage + ARRAYCOUNT(g_Stages);

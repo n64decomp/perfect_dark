@@ -3,15 +3,15 @@
 #include <ultra64.h>
 #include "mp3.h"
 
-bool mp3decInit(void);
-bool mp3decSetSideInfo(struct asistream *stream);
-bool mp3decDecodeFrame(struct asistream *stream);
+bool mp3dec_init(void);
+bool mp3dec_set_side_info(struct asistream *stream);
+bool mp3dec_decode_frame(struct asistream *stream);
 
 s32 mp3main00043dd0(struct asistream *stream);
 
 f32 func00045ed0(f32 arg0, f32 arg1);
 
-s32 mp3utilGetBits(u8 *buffer, s32 *count, s32 numbits);
+s32 mp3util_get_bits(u8 *buffer, s32 *count, s32 numbits);
 s32 mp3util000462f8(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 **arg6, u8 **arg7);
 s32 mp3util000464a8(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s16 **arg5, u8 **arg6);
 

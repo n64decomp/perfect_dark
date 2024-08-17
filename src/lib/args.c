@@ -34,7 +34,7 @@ char *argv[17] = {
 /**
  * Split the given string into words and populate the argv array.
  */
-char *argParseString(char *str)
+char *arg_parse_string(char *str)
 {
 	argv[0] = "";
 	argc = 1;
@@ -56,13 +56,13 @@ char *argParseString(char *str)
 	return str;
 }
 
-void argSetString(char *string)
+void arg_set_string(char *string)
 {
 	strcpy((char *) g_ArgBuffer, string);
-	argParseString((char *) g_ArgBuffer);
+	arg_parse_string((char *) g_ArgBuffer);
 }
 
-bool argsParseDebugArgs(void)
+bool args_parse_debug_args(void)
 {
 	u32 devaddr;
 	u32 stack;
@@ -71,7 +71,7 @@ bool argsParseDebugArgs(void)
 
 	devaddr = 0x1ffff00;
 
-	if (rmonIsDisabled()) {
+	if (rmon_is_disabled()) {
 		g_ArgBuffer[0] = 0;
 	} else {
 		for (i = 0; i < ARRAYCOUNT(g_ArgBuffer); i++) {
@@ -80,20 +80,20 @@ bool argsParseDebugArgs(void)
 		}
 	}
 
-	argParseString((char *) g_ArgBuffer);
+	arg_parse_string((char *) g_ArgBuffer);
 
 	// I'm guessing the -d stands for debug. If set at boot, the main thread
 	// stops itself immediately after creating the rmon thread.
-	if (argFindByPrefix(1, "-d")) {
+	if (arg_find_by_prefix(1, "-d")) {
 		ret = true;
 	}
 
-	if (argFindByPrefix(1, "-s")) {
+	if (arg_find_by_prefix(1, "-s")) {
 		g_SndDisabled = true;
 	}
 
 #if VERSION < VERSION_JPN_FINAL
-	if (argFindByPrefix(1, "-j")) {
+	if (arg_find_by_prefix(1, "-j")) {
 		g_Jpn = true;
 	}
 #endif
@@ -108,7 +108,7 @@ bool argsParseDebugArgs(void)
  * Typically called with arguments such as 1, "-hard". In this example, if the
  * argument "-hard2" exists then it would return a pointer to "2".
  */
-char *argFindByPrefix(s32 occurrence, char *str)
+char *arg_find_by_prefix(s32 occurrence, char *str)
 {
 	s32 len = strlen(str);
 	s32 i;
@@ -126,9 +126,9 @@ char *argFindByPrefix(s32 occurrence, char *str)
 	return NULL;
 }
 
-void argGetLevel(s32 *stagenum)
+void arg_get_level(s32 *stagenum)
 {
-	char *ptr = argFindByPrefix(1, "-level_");
+	char *ptr = arg_find_by_prefix(1, "-level_");
 
 	if (ptr) {
 		*stagenum = ptr[0] * 10 + ptr[1] - 528;

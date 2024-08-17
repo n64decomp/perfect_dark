@@ -4,10 +4,10 @@
 #include "data.h"
 #include "types.h"
 
-bool bossfileLoadFull(void);
-u32 bossfileFindFileId(void);
-void bossfileLoad(void);
-void bossfileSave(void);
-void bossfileSetDefaults(void);
+bool bossfile_load_full(void);
+u32 bossfile_find_file_id(void);
+void bossfile_load(void);
+void bossfile_save(void);
+void bossfile_set_defaults(void);
 
 #endif

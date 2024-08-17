@@ -8,7 +8,7 @@
 s32 g_NumGlobalAilists = 0;
 s32 g_NumLvAilists = 0;
 
-u8 *ailistFindById(s32 ailistid)
+u8 *ailist_find_by_id(s32 ailistid)
 {
 	s32 lower;
 	s32 upper;

@@ -3,6 +3,6 @@
 #include <ultra64.h>
 
 void resetproc(void *data);
-void resetThreadCreate(void);
+void reset_thread_create(void);
 
 #endif

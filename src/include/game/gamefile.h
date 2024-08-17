@@ -4,14 +4,14 @@
 #include "data.h"
 #include "types.h"
 
-u32 gamefileHasFlag(u32 value);
-void gamefileSetFlag(u32 value);
-void gamefileUnsetFlag(u32 value);
-void gamefilePrintFlags(void);
-void gamefileApplyOptions(struct gamefile *file);
-void gamefileLoadDefaults(struct gamefile *file);
-s32 gamefileLoad(s32 device);
-s32 gamefileSave(s32 device, s32 filenum, u16 deviceserial);
-void gamefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time);
+u32 gamefile_has_flag(u32 value);
+void gamefile_set_flag(u32 value);
+void gamefile_unset_flag(u32 value);
+void gamefile_print_flags(void);
+void gamefile_apply_options(struct gamefile *file);
+void gamefile_load_defaults(struct gamefile *file);
+s32 gamefile_load(s32 device);
+s32 gamefile_save(s32 device, s32 filenum, u16 deviceserial);
+void gamefile_get_overview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time);
 
 #endif

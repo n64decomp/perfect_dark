@@ -10,7 +10,7 @@
 
 extern u32 g_BgunGunMemBaseSize4Mb2P;
 
-void bgunReset(void)
+void bgun_reset(void)
 {
 	s32 i;
 
@@ -144,10 +144,10 @@ void bgunReset(void)
 	if (IS4MB() && PLAYERCOUNT() == 2) {
 		i = ALIGN16(g_BgunGunMemBaseSize4Mb2P);
 	} else {
-		i = ALIGN16(bgunCalculateGunMemCapacity());
+		i = ALIGN16(bgun_calculate_gun_mem_capacity());
 	}
 
-	g_Vars.currentplayer->gunctrl.gunmem = mempAlloc(i, MEMPOOL_STAGE);
+	g_Vars.currentplayer->gunctrl.gunmem = memp_alloc(i, MEMPOOL_STAGE);
 	g_Vars.currentplayer->gunctrl.handfilenum = 0;
 	g_Vars.currentplayer->gunctrl.handmemloadptr = 0;
 	g_Vars.currentplayer->gunctrl.handmemloadremaining = 0;
@@ -230,12 +230,12 @@ void bgunReset(void)
 	g_Vars.currentplayer->cyclesum = 0;
 	g_Vars.currentplayer->gunampsum = 0;
 
-	bgunCalculateBlend(HAND_RIGHT);
-	bgunCalculateBlend(HAND_RIGHT);
-	bgunCalculateBlend(HAND_RIGHT);
-	bgunCalculateBlend(HAND_LEFT);
-	bgunCalculateBlend(HAND_LEFT);
-	bgunCalculateBlend(HAND_LEFT);
+	bgun_calculate_blend(HAND_RIGHT);
+	bgun_calculate_blend(HAND_RIGHT);
+	bgun_calculate_blend(HAND_RIGHT);
+	bgun_calculate_blend(HAND_LEFT);
+	bgun_calculate_blend(HAND_LEFT);
+	bgun_calculate_blend(HAND_LEFT);
 
 	g_Vars.currentplayer->gunammooff = 0;
 	g_Vars.currentplayer->gunsightoff = GUNSIGHTREASON_NOTAIMING;
@@ -243,12 +243,12 @@ void bgunReset(void)
 	g_Vars.currentplayer->gunzoomfovs[1] = 60;
 	g_Vars.currentplayer->gunzoomfovs[2] = 30;
 
-	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
+	if (stage_get_index(g_Vars.stagenum) == STAGEINDEX_AIRBASE) {
 		g_Weapons[WEAPON_EYESPY]->name = L_GUN_061; // "DrugSpy"
 		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_061; // "DrugSpy"
 		g_Weapons[WEAPON_EYESPY]->flags &= ~(WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN);
-	} else if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CHICAGO
-			|| (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_MBR)) {
+	} else if (stage_get_index(g_Vars.stagenum) == STAGEINDEX_CHICAGO
+			|| (stage_get_index(g_Vars.stagenum) == STAGEINDEX_MBR)) {
 		g_Weapons[WEAPON_EYESPY]->name = L_GUN_062; // "BombSpy"
 		g_Weapons[WEAPON_EYESPY]->shortname = L_GUN_062; // "BombSpy"
 		g_Weapons[WEAPON_EYESPY]->flags &= ~(WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN);
@@ -262,5 +262,5 @@ void bgunReset(void)
 		g_Weapons[WEAPON_EYESPY]->flags |= (WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN);
 	}
 
-	bgunInitHandAnims();
+	bgun_init_hand_anims();
 }

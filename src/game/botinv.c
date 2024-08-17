@@ -135,7 +135,7 @@ struct botweaponconfig g_BotWeaponConfigs[] = {
 /**
  * Remove all items from the bot's inventory.
  */
-void botinvClear(struct chrdata *chr)
+void botinv_clear(struct chrdata *chr)
 {
 	if (chr && chr->aibot) {
 		s32 i = 0;
@@ -155,7 +155,7 @@ void botinvClear(struct chrdata *chr)
  * weapons, and 4 are for scenario-specific items such as briefcases and the
  * data uplink.
  */
-struct invitem *botinvGetFreeSlot(struct chrdata *chr)
+struct invitem *botinv_get_free_slot(struct chrdata *chr)
 {
 	s32 i;
 
@@ -177,7 +177,7 @@ struct invitem *botinvGetFreeSlot(struct chrdata *chr)
 /**
  * Retrieve an inventory item from the bot's inventory.
  */
-struct invitem *botinvGetItem(struct chrdata *chr, s32 weaponnum)
+struct invitem *botinv_get_item(struct chrdata *chr, s32 weaponnum)
 {
 	s32 i;
 
@@ -205,7 +205,7 @@ struct invitem *botinvGetItem(struct chrdata *chr, s32 weaponnum)
 /**
  * Remove a weapon from the bot's inventory.
  */
-void botinvRemoveItem(struct chrdata *chr, s32 weaponnum)
+void botinv_remove_item(struct chrdata *chr, s32 weaponnum)
 {
 	s32 i;
 
@@ -234,7 +234,7 @@ void botinvRemoveItem(struct chrdata *chr, s32 weaponnum)
  *
  * See the INVITEMTYPE constants.
  */
-u32 botinvGetItemType(struct chrdata *chr, u32 weaponnum)
+u32 botinv_get_item_type(struct chrdata *chr, u32 weaponnum)
 {
 	struct invitem *item;
 
@@ -242,7 +242,7 @@ u32 botinvGetItemType(struct chrdata *chr, u32 weaponnum)
 		return 0;
 	}
 
-	item = botinvGetItem(chr, weaponnum);
+	item = botinv_get_item(chr, weaponnum);
 
 	if (item) {
 		return item->type;
@@ -256,14 +256,14 @@ u32 botinvGetItemType(struct chrdata *chr, u32 weaponnum)
  *
  * There is no pickup pad, so this is likely for dropped items.
  */
-bool botinvGiveSingleWeapon(struct chrdata *chr, u32 weaponnum)
+bool botinv_give_single_weapon(struct chrdata *chr, u32 weaponnum)
 {
 	if (!chr || !chr->aibot) {
 		return false;
 	}
 
-	if (!botinvGetItemType(chr, weaponnum)) {
-		struct invitem *item = botinvGetFreeSlot(chr);
+	if (!botinv_get_item_type(chr, weaponnum)) {
+		struct invitem *item = botinv_get_free_slot(chr);
 
 		if (item) {
 			item->type = INVITEMTYPE_WEAP;
@@ -287,9 +287,9 @@ bool botinvGiveSingleWeapon(struct chrdata *chr, u32 weaponnum)
  * inventory items for both single and dual and the player can choose which one
  * they want to use.
  */
-void botinvGiveDualWeapon(struct chrdata *chr, u32 weaponnum)
+void botinv_give_dual_weapon(struct chrdata *chr, u32 weaponnum)
 {
-	struct invitem *item = botinvGetItem(chr, weaponnum);
+	struct invitem *item = botinv_get_item(chr, weaponnum);
 
 	if (item) {
 		item->type = INVITEMTYPE_DUAL;
@@ -303,9 +303,9 @@ void botinvGiveDualWeapon(struct chrdata *chr, u32 weaponnum)
  * this does not happen if the second weapon is from the same pad as the first
  * (ie. is the first weapon respawned).
  */
-s16 botinvGetWeaponPad(struct chrdata *chr, u32 weaponnum)
+s16 botinv_get_weapon_pad(struct chrdata *chr, u32 weaponnum)
 {
-	struct invitem *item = botinvGetItem(chr, weaponnum);
+	struct invitem *item = botinv_get_item(chr, weaponnum);
 
 	if (item && item->type == INVITEMTYPE_WEAP) {
 		return item->type_weap.pickuppad;
@@ -319,7 +319,7 @@ s16 botinvGetWeaponPad(struct chrdata *chr, u32 weaponnum)
  *
  * This function does not give any ammo to the bot.
  */
-bool botinvGiveProp(struct chrdata *chr, struct prop *prop)
+bool botinv_give_prop(struct chrdata *chr, struct prop *prop)
 {
 	bool result = false;
 	struct defaultobj *obj;
@@ -335,10 +335,10 @@ bool botinvGiveProp(struct chrdata *chr, struct prop *prop)
 		if (obj->type == OBJTYPE_WEAPON) {
 			struct weaponobj *weapon = prop->weapon;
 			s32 weaponnum = weapon->weaponnum;
-			result = botinvGiveSingleWeapon(chr, weaponnum);
+			result = botinv_give_single_weapon(chr, weaponnum);
 
 			if (result) {
-				struct invitem *item = botinvGetItem(chr, weaponnum);
+				struct invitem *item = botinv_get_item(chr, weaponnum);
 				item->type_weap.pickuppad = obj->pad;
 			}
 		}
@@ -347,10 +347,10 @@ bool botinvGiveProp(struct chrdata *chr, struct prop *prop)
 
 		for (i = 0; i < 19; i++) {
 			if (multi->slots[i].quantity > 0) {
-				s32 weaponnum = botactGetWeaponByAmmoType(i + 1);
+				s32 weaponnum = botact_get_weapon_by_ammo_type(i + 1);
 
 				if (weaponnum > 0) {
-					botinvGiveSingleWeapon(chr, weaponnum);
+					botinv_give_single_weapon(chr, weaponnum);
 				}
 			}
 		}
@@ -368,7 +368,7 @@ void botinv0f198060(u32 arg0)
  * Score all weapons in the match's weaponset by themselves and write them to
  * the 3 array pointers, ordered by score1 descending.
  */
-void botinvScoreAllWeapons(struct chrdata *chr, s32 *weaponnums, s32 *scores1, s32 *scores2)
+void botinv_score_all_weapons(struct chrdata *chr, s32 *weaponnums, s32 *scores1, s32 *scores2)
 {
 	s32 i;
 	s32 pri1;
@@ -382,8 +382,8 @@ void botinvScoreAllWeapons(struct chrdata *chr, s32 *weaponnums, s32 *scores1, s
 		s32 weaponnum = g_MpWeapons[g_MpSetup.weapons[i]].weaponnum;
 		weaponnums[i] = weaponnum;
 
-		botinvScoreWeaponByItself(chr, weaponnum, FUNC_PRIMARY, -1, false, &pri1, &pri2);
-		botinvScoreWeaponByItself(chr, weaponnum, FUNC_SECONDARY, -1, false, &sec1, &sec2);
+		botinv_score_weapon_by_itself(chr, weaponnum, FUNC_PRIMARY, -1, false, &pri1, &pri2);
+		botinv_score_weapon_by_itself(chr, weaponnum, FUNC_SECONDARY, -1, false, &sec1, &sec2);
 
 		scores1[i] = pri1 >= sec1 ? pri1 : sec1;
 		scores2[i] = pri2 >= sec2 ? pri2 : sec2;
@@ -420,7 +420,7 @@ void botinvScoreAllWeapons(struct chrdata *chr, s32 *weaponnums, s32 *scores1, s
 /**
  * Return true if the match's weaponset contains a shield.
  */
-bool mpHasShield(void)
+bool mp_has_shield(void)
 {
 	s32 i;
 
@@ -438,7 +438,7 @@ bool mpHasShield(void)
 /**
  * Get the weapon slot (0 to 5) by weapon number.
  */
-s32 mpGetWeaponSlotByWeaponNum(s32 weaponnum)
+s32 mp_get_weapon_slot_by_weapon_num(s32 weaponnum)
 {
 	s32 result = -1;
 	s32 i;
@@ -460,7 +460,7 @@ s32 mpGetWeaponSlotByWeaponNum(s32 weaponnum)
  * Weapon scoring is used to determine if a weapon is better than another,
  * which affects whether the bot engages in combat or seeks a better weapon.
  */
-void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2, bool comparewithtarget, bool learn)
+void botinv_score_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2, bool comparewithtarget, bool learn)
 {
 	s32 score1 = 0;
 	s32 score2 = 0;
@@ -517,7 +517,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 	case WEAPON_UNARMED:
 		if (comparewithtarget && funcnum != FUNC_PRIMARY) {
 			if (chr->target != -1
-					&& botGetTargetsWeaponNum(chr) > WEAPON_UNARMED
+					&& bot_get_targets_weapon_num(chr) > WEAPON_UNARMED
 					&& chr->aibot->config->difficulty > BOTDIFF_MEAT) {
 				score1 = 26;
 				score2 = 26;
@@ -587,7 +587,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 		break;
 	case WEAPON_RCP120:
 		if (chr->aibot->cloakdeviceenabled == false
-				&& botactGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, FUNC_PRIMARY, true) > 500
+				&& botact_get_ammo_quantity_by_weapon(chr->aibot, WEAPON_RCP120, FUNC_PRIMARY, true) > 500
 				&& chr->aibot->config->difficulty > BOTDIFF_MEAT) {
 			score1 += chr->aibot->random1 % 10;
 			score2 += chr->aibot->random1 % 10;
@@ -639,7 +639,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 				if (chr->aibot->config->difficulty > BOTDIFF_MEAT) {
 					if (comparewithtarget) {
 						if (chr->target != -1
-								&& chr->aibot->chrsinsight[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] == 0
+								&& chr->aibot->chrsinsight[mp_player_get_index(chr_get_target_prop(chr)->chr)] == 0
 								&& (chr->aibot->random1 % 2) == 0) {
 							score1 += 10;
 						} else {
@@ -656,7 +656,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 				if (chr->aibot->config->difficulty >= BOTDIFF_NORMAL) {
 					if (comparewithtarget) {
 						if (chr->target != -1
-								&& chr->aibot->chrsinsight[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] == 0
+								&& chr->aibot->chrsinsight[mp_player_get_index(chr_get_target_prop(chr)->chr)] == 0
 								&& (chr->aibot->random1 % 2) == 0) {
 							score1 = 178;
 							score2 = 188;
@@ -688,7 +688,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 				score2 = 0;
 			}
 		} else {
-			if (comparewithtarget && chr->target != -1 && chrGetTargetProp(chr)->chr->blurdrugamount > TICKS(3500)) {
+			if (comparewithtarget && chr->target != -1 && chr_get_target_prop(chr)->chr->blurdrugamount > TICKS(3500)) {
 				score1 = 0;
 				score2 = 0;
 			} else {
@@ -702,7 +702,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 			s32 bluramount = 0;
 
 			if (chr->target != -1) {
-				bluramount = chrGetTargetProp(chr)->chr->blurdrugamount;
+				bluramount = chr_get_target_prop(chr)->chr->blurdrugamount;
 			}
 
 			if (funcnum != FUNC_PRIMARY) {
@@ -752,7 +752,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 		break;
 	case WEAPON_NBOMB:
 		if (comparewithtarget && chr->target != -1) {
-			botGetTargetsWeaponNum(chr);
+			bot_get_targets_weapon_num(chr);
 		}
 		break;
 	}
@@ -773,7 +773,7 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 			}
 		}
 
-		weaponindex = mpGetWeaponSlotByWeaponNum(weaponnum);
+		weaponindex = mp_get_weapon_slot_by_weapon_num(weaponnum);
 
 		if (weaponindex >= 0) {
 			float2 = ceilf(chr->aibot->equipdurations60[weaponindex][funcnum] * (1.0f / TICKS(3600.0f)));
@@ -813,21 +813,21 @@ void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifam
 	*dst2 = score2;
 }
 
-void botinvScoreWeaponAgainstTarget(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2)
+void botinv_score_weapon_against_target(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2)
 {
-	botinvScoreWeapon(chr, weaponnum, funcnum, ifammo, dual, dst1, dst2, true, true);
+	botinv_score_weapon(chr, weaponnum, funcnum, ifammo, dual, dst1, dst2, true, true);
 }
 
-void botinvScoreWeaponByItself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2)
+void botinv_score_weapon_by_itself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2)
 {
-	botinvScoreWeapon(chr, weaponnum, funcnum, ifammo, dual, dst1, dst2, false, true);
+	botinv_score_weapon(chr, weaponnum, funcnum, ifammo, dual, dst1, dst2, false, true);
 }
 
 /**
  * Return the aibot's distance configuration index for the given weapon and
  * function.
  */
-s32 botinvGetDistConfig(s32 weaponnum, s32 funcnum)
+s32 botinv_get_dist_config(s32 weaponnum, s32 funcnum)
 {
 	if (funcnum != FUNC_PRIMARY) {
 		return g_BotWeaponConfigs[weaponnum].secdistconfig;
@@ -840,7 +840,7 @@ s32 botinvGetDistConfig(s32 weaponnum, s32 funcnum)
  * Check if the bot's personality permits it to use the given weapon and
  * function.
  */
-bool botinvAllowsWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
+bool botinv_allows_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 {
 	bool allow = true;
 
@@ -864,7 +864,7 @@ bool botinvAllowsWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
  *
  * The logic for deciding when to switch weapons is here.
  */
-void botinvTick(struct chrdata *chr)
+void botinv_tick(struct chrdata *chr)
 {
 	s32 newweaponnum = WEAPON_UNARMED;
 	s32 newfuncnum = FUNC_PRIMARY;
@@ -878,7 +878,7 @@ void botinvTick(struct chrdata *chr)
 	}
 
 	aibot = chr->aibot;
-	weaponindex = mpGetWeaponSlotByWeaponNum(aibot->weaponnum);
+	weaponindex = mp_get_weapon_slot_by_weapon_num(aibot->weaponnum);
 
 	if (weaponindex >= 0) {
 		aibot->equipdurations60[weaponindex][aibot->gunfunc] += g_Vars.lvupdate60;
@@ -969,12 +969,12 @@ void botinvTick(struct chrdata *chr)
 							canuse = g_BotWeaponConfigs[weaponnum].haspriammogoal;
 						}
 
-						if (canuse && botinvAllowsWeapon(chr, weaponnum, j)) {
-							botinvScoreWeaponAgainstTarget(chr, weaponnum, j, 1, item && item->type == INVITEMTYPE_DUAL, &score1, &score2);
+						if (canuse && botinv_allows_weapon(chr, weaponnum, j)) {
+							botinv_score_weapon_against_target(chr, weaponnum, j, 1, item && item->type == INVITEMTYPE_DUAL, &score1, &score2);
 
 							if (score1 >= bestscore) {
-								if (!botactGetAmmoTypeByFunction(weaponnum, j)
-										|| botactGetAmmoQuantityByWeapon(aibot, weaponnum, j, true) > 0) {
+								if (!botact_get_ammo_type_by_function(weaponnum, j)
+										|| botact_get_ammo_quantity_by_weapon(aibot, weaponnum, j, true) > 0) {
 									bestscore = score1;
 									newweaponnum = weaponnum;
 									newfuncnum = j;
@@ -988,23 +988,23 @@ void botinvTick(struct chrdata *chr)
 
 		// Consider setting knives to secondary function (throw)
 		if (newweaponnum == WEAPON_COMBATKNIFE
-				&& botactGetAmmoQuantityByWeapon(aibot, WEAPON_COMBATKNIFE, FUNC_SECONDARY, true) >= 2
+				&& botact_get_ammo_quantity_by_weapon(aibot, WEAPON_COMBATKNIFE, FUNC_SECONDARY, true) >= 2
 				&& chr->target != -1
-				&& chr->aibot->chrdistances[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] > 200
-				&& chr->aibot->chrdistances[mpPlayerGetIndex(chrGetTargetProp(chr)->chr)] < 1500) {
+				&& chr->aibot->chrdistances[mp_player_get_index(chr_get_target_prop(chr)->chr)] > 200
+				&& chr->aibot->chrdistances[mp_player_get_index(chr_get_target_prop(chr)->chr)] < 1500) {
 			newfuncnum = FUNC_SECONDARY;
 		}
 
 		// Consider setting Phoenix and SuperDragon to their explosive functions
 		if (aibot->config->type == BOTTYPE_ROCKET) {
-			if (newweaponnum == WEAPON_PHOENIX && botactGetAmmoQuantityByWeapon(aibot, WEAPON_PHOENIX, FUNC_SECONDARY, true) > 0) {
+			if (newweaponnum == WEAPON_PHOENIX && botact_get_ammo_quantity_by_weapon(aibot, WEAPON_PHOENIX, FUNC_SECONDARY, true) > 0) {
 				newfuncnum = FUNC_SECONDARY;
-			} else if (newweaponnum == WEAPON_SUPERDRAGON && botactGetAmmoQuantityByWeapon(aibot, WEAPON_SUPERDRAGON, FUNC_SECONDARY, true) > 0) {
+			} else if (newweaponnum == WEAPON_SUPERDRAGON && botact_get_ammo_quantity_by_weapon(aibot, WEAPON_SUPERDRAGON, FUNC_SECONDARY, true) > 0) {
 				newfuncnum = FUNC_SECONDARY;
 			}
 		}
 
-		botinvSwitchToWeapon(chr, newweaponnum, newfuncnum);
+		botinv_switch_to_weapon(chr, newweaponnum, newfuncnum);
 	}
 }
 
@@ -1014,7 +1014,7 @@ void botinvTick(struct chrdata *chr)
  * The weapon must already exist in the bot's inventory,
  * otherwise unarmed will be equipped instead.
  */
-bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
+bool botinv_switch_to_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 {
 	struct invitem *item;
 	struct weaponfunc *func;
@@ -1037,7 +1037,7 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 	// If changing to anything other than unarmed, make sure the aibot has the
 	// weapon in their inventory. Otherwise make them switch to unarmed.
 	if (weaponnum != WEAPON_UNARMED) {
-		item = botinvGetItem(chr, weaponnum);
+		item = botinv_get_item(chr, weaponnum);
 
 		if (!item) {
 			weaponnum = WEAPON_UNARMED;
@@ -1067,7 +1067,7 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 	if (changingfunc || changinggun) {
 		for (i = 0; i < 2; i++) {
 			if (aibot->loadedammo[i] > 0) {
-				botactGiveAmmoByWeapon(aibot, aibot->weaponnum, aibot->gunfunc, aibot->loadedammo[i]);
+				botact_give_ammo_by_weapon(aibot, aibot->weaponnum, aibot->gunfunc, aibot->loadedammo[i]);
 				aibot->loadedammo[i] = 0;
 			}
 		}
@@ -1081,24 +1081,24 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 	if (changingfunc && !changinggun) {
 		for (i = 0; i < 2; i++) {
 			if (chr->weapons_held[i]) {
-				botactReload(chr, i, false);
+				botact_reload(chr, i, false);
 			}
 		}
 	}
 
 	if (!changinggun) {
-		modelnum = playermgrGetModelOfWeapon(weaponnum);
+		modelnum = playermgr_get_model_of_weapon(weaponnum);
 
 		// @dangerous: item is uninitialised if weaponnum is WEAPON_UNARMED.
-		// This function assumes playermgrGetModelOfWeapon returns a negative value for
+		// This function assumes playermgr_get_model_of_weapon returns a negative value for
 		// WEAPON_UNARMED which is a dangerous assumption to make, but correct.
 		if (modelnum >= 0 && item && item->type == INVITEMTYPE_DUAL && chr->weapons_held[HAND_LEFT] == NULL) {
-			chrGiveWeapon(chr, modelnum, weaponnum, OBJFLAG_WEAPON_LEFTHANDED);
-			botactReload(chr, HAND_LEFT, false);
+			chr_give_weapon(chr, modelnum, weaponnum, OBJFLAG_WEAPON_LEFTHANDED);
+			botact_reload(chr, HAND_LEFT, false);
 		}
 	}
 
-	func = weaponGetFunctionById(weaponnum, funcnum);
+	func = weapon_get_function_by_id(weaponnum, funcnum);
 
 	aibot->ismeleeweapon = func && func->type == INVENTORYFUNCTYPE_MELEE;
 
@@ -1117,7 +1117,7 @@ bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
  *
  * dropall is used when the bot is killed.
  */
-void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
+void botinv_drop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 {
 	s32 i;
 
@@ -1134,21 +1134,21 @@ void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 
 		if ((item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL)
 				&& (dropall || weaponnum == item->type_weap.weapon1)) {
-			if (!weaponHasFlag(item->type_weap.weapon1, WEAPONFLAG_UNDROPPABLE)
+			if (!weapon_has_flag(item->type_weap.weapon1, WEAPONFLAG_UNDROPPABLE)
 					|| (g_Vars.normmplayerisrunning
 						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 						&& item->type_weap.weapon1 == WEAPON_DATAUPLINK)) {
-				s32 modelnum = playermgrGetModelOfWeapon(item->type_weap.weapon1);
+				s32 modelnum = playermgr_get_model_of_weapon(item->type_weap.weapon1);
 
 				if (modelnum > 0) {
-					struct prop *prop = weaponCreateForChr(chr, modelnum, item->type_weap.weapon1, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
+					struct prop *prop = weapon_create_for_chr(chr, modelnum, item->type_weap.weapon1, OBJFLAG_WEAPON_AICANNOTUSE, NULL, NULL);
 
 					if (prop) {
-						objSetDropped(prop, DROPTYPE_DEFAULT);
-						objDrop(prop, true);
+						obj_set_dropped(prop, DROPTYPE_DEFAULT);
+						obj_drop(prop, true);
 
 						if (item->type_weap.weapon1 == WEAPON_BRIEFCASE2) {
-							scenarioHandleDroppedToken(chr, prop);
+							scenario_handle_dropped_token(chr, prop);
 						}
 					}
 				}
@@ -1158,22 +1158,22 @@ void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 
 	if ((dropall && weaponnum >= WEAPON_FALCON2)
 			|| (!dropall && weaponnum == chr->aibot->weaponnum)) {
-		botinvSwitchToWeapon(chr, WEAPON_UNARMED, FUNC_PRIMARY);
+		botinv_switch_to_weapon(chr, WEAPON_UNARMED, FUNC_PRIMARY);
 	}
 
 	chr->hidden |= CHRHFLAG_DROPPINGITEM;
 
 	if (!dropall) {
-		botinvRemoveItem(chr, weaponnum);
+		botinv_remove_item(chr, weaponnum);
 	}
 }
 
-void botinvDropAll(struct chrdata *chr, u32 weaponnum)
+void botinv_drop_all(struct chrdata *chr, u32 weaponnum)
 {
-	botinvDrop(chr, weaponnum, true);
+	botinv_drop(chr, weaponnum, true);
 }
 
-void botinvDropOne(struct chrdata *chr, u32 weaponnum)
+void botinv_drop_one(struct chrdata *chr, u32 weaponnum)
 {
-	botinvDrop(chr, weaponnum, false);
+	botinv_drop(chr, weaponnum, false);
 }

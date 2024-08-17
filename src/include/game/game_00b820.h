@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void resetSomeStageThings(void);
-void stageAllocateBgChrs(void);
+void reset_some_stage_things(void);
+void stage_allocate_bg_chrs(void);
 
 #endif

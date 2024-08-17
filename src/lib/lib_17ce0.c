@@ -12,7 +12,7 @@ u8 var8005ef20 = 254;
 
 u8 var8009a4e0[456][2];
 
-void portalGetAvgVertexPos(s32 portalnum, struct coord *avg)
+void portal_get_avg_vertex_pos(s32 portalnum, struct coord *avg)
 {
 	struct portalvertices *pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 	f32 f0;
@@ -86,7 +86,7 @@ void portal00017dc4(RoomNum *rooms, RoomNum roomnum)
  *
  * The portal's normal vector is the front.
  */
-s32 portalCalculateIntersection(s32 portalnum, struct coord *pos1, struct coord *pos2)
+s32 portal_calculate_intersection(s32 portalnum, struct coord *pos1, struct coord *pos2)
 {
 	s32 i;
 	struct coord sp60;
@@ -212,7 +212,7 @@ void portal00018148(struct coord *pos1, struct coord *pos2, RoomNum *rooms1, Roo
 
 				if (s1[0] != var8005ef20) {
 					s1[0] = var8005ef20;
-					s1[1] = portalCalculateIntersection(portalnum, pos1, pos2);
+					s1[1] = portal_calculate_intersection(portalnum, pos1, pos2);
 				}
 
 				if (s1[1] != PORTALINTERSECTION_NONE) {

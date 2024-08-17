@@ -4,22 +4,22 @@
 #include "data.h"
 #include "types.h"
 
-void playermgrInit(void);
-void playermgrReset(void);
-void playermgrAllocatePlayers(s32 count);
-void playermgrAllocatePlayer(s32 index);
-void playermgrCalculateAiBuddyNums(void);
-void setCurrentPlayerNum(s32 playernum);
-s32 playermgrGetPlayerNumByProp(struct prop *prop);
-void playermgrSetViewSize(s32 viewx, s32 viewy);
-void playermgrSetViewPosition(s32 viewleft, s32 viewtop);
-void playermgrSetFovY(f32 fovy);
-void playermgrSetAspectRatio(f32 aspect);
-s32 playermgrGetModelOfWeapon(s32 weapon);
-void playermgrDeleteWeapon(s32 hand);
-void playermgrCreateWeapon(s32 hand);
-void playermgrShuffle(void);
-s32 playermgrGetOrderOfPlayer(s32 playernum);
-s32 playermgrGetPlayerAtOrder(s32 ordernum);
+void playermgr_init(void);
+void playermgr_reset(void);
+void playermgr_allocate_players(s32 count);
+void playermgr_allocate_player(s32 index);
+void playermgr_calculate_ai_buddy_nums(void);
+void set_current_player_num(s32 playernum);
+s32 playermgr_get_player_num_by_prop(struct prop *prop);
+void playermgr_set_view_size(s32 viewx, s32 viewy);
+void playermgr_set_view_position(s32 viewleft, s32 viewtop);
+void playermgr_set_fov_y(f32 fovy);
+void playermgr_set_aspect_ratio(f32 aspect);
+s32 playermgr_get_model_of_weapon(s32 weapon);
+void playermgr_delete_weapon(s32 hand);
+void playermgr_create_weapon(s32 hand);
+void playermgr_shuffle(void);
+s32 playermgr_get_order_of_player(s32 playernum);
+s32 playermgr_get_player_at_order(s32 ordernum);
 
 #endif

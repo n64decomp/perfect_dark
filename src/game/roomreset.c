@@ -8,17 +8,17 @@
 #include "data.h"
 #include "types.h"
 
-void roomsReset(void)
+void rooms_reset(void)
 {
 	s32 i;
 
 	g_RoomMtxNumSlots = PLAYERCOUNT() >= 2 ? 200 : 120;
 
-	g_RoomMtxAges = mempAlloc(ALIGN16(g_RoomMtxNumSlots), MEMPOOL_STAGE);
-	g_RoomMtxLinkedRooms = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxLinkedRooms)), MEMPOOL_STAGE);
-	g_RoomMtxBaseRooms = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxBaseRooms)), MEMPOOL_STAGE);
-	g_RoomMtxScales = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxScales)), MEMPOOL_STAGE);
-	g_RoomMtxMatrices = mempAlloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxMatrices)), MEMPOOL_STAGE);
+	g_RoomMtxAges = memp_alloc(ALIGN16(g_RoomMtxNumSlots), MEMPOOL_STAGE);
+	g_RoomMtxLinkedRooms = memp_alloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxLinkedRooms)), MEMPOOL_STAGE);
+	g_RoomMtxBaseRooms = memp_alloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxBaseRooms)), MEMPOOL_STAGE);
+	g_RoomMtxScales = memp_alloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxScales)), MEMPOOL_STAGE);
+	g_RoomMtxMatrices = memp_alloc(ALIGN16(g_RoomMtxNumSlots * sizeof(*g_RoomMtxMatrices)), MEMPOOL_STAGE);
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
 		g_Vars.players[i]->lastroomforoffset = -1;

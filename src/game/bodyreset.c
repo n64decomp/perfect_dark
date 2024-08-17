@@ -12,7 +12,7 @@
 #include "data.h"
 #include "types.h"
 
-void bodiesReset(s32 stagenum)
+void bodies_reset(s32 stagenum)
 {
 	s32 *headsavailablelist;
 	s32 headsavailablelen;
@@ -51,7 +51,7 @@ void bodiesReset(s32 stagenum)
 	}
 
 	// Male heads
-	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
+	if (cheat_is_active(CHEAT_TEAMHEADSONLY)) {
 		if (whichteamlist) {
 			headsavailablelist = g_MaleGuardTeamHeads;
 			headsavailablelen = g_NumMaleGuardTeamHeads;
@@ -81,7 +81,7 @@ void bodiesReset(s32 stagenum)
 	}
 
 	// Female heads
-	if (cheatIsActive(CHEAT_TEAMHEADSONLY)) {
+	if (cheat_is_active(CHEAT_TEAMHEADSONLY)) {
 		if (whichteamlist) {
 			headsavailablelist = g_FemaleGuardTeamHeads;
 			headsavailablelen = g_NumFemaleGuardTeamHeads;

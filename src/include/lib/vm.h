@@ -8,7 +8,7 @@
 
 extern u8 g_VmShowStats;
 
-void vmInit(void);
+void vm_init(void);
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0

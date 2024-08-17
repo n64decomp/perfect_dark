@@ -4,10 +4,10 @@
 #include "data.h"
 #include "types.h"
 
-char *argParseString(char *str);
-void argSetString(char *string);
-s32 argsParseDebugArgs(void);
-char *argFindByPrefix(s32 occurrence, char *string);
-void argGetLevel(s32 *stagenum);
+char *arg_parse_string(char *str);
+void arg_set_string(char *string);
+s32 args_parse_debug_args(void);
+char *arg_find_by_prefix(s32 occurrence, char *string);
+void arg_get_level(s32 *stagenum);
 
 #endif

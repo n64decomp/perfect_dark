@@ -138,7 +138,7 @@ u16 g_LangFiles[] = {
 	/*68*/ FILE_LMP20E,
 };
 
-u32 langGetLangBankIndexFromStagenum(s32 stagenum)
+u32 lang_get_lang_bank_index_from_stagenum(s32 stagenum)
 {
 	u32 bank;
 
@@ -217,7 +217,7 @@ extern u8 _fontjpnSegmentRomStart;
 extern u8 _fontjpnsingleSegmentRomStart;
 extern u8 _fontjpnmultiSegmentRomStart;
 
-struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
+struct jpncharpixels *lang_get_jpn_char_pixels(s32 codepoint)
 {
 	s32 i;
 	s32 freeindexsingle = -1;
@@ -234,8 +234,8 @@ struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 	}
 
 #if VERSION == VERSION_JPN_FINAL
-	mainOverrideVariable("tmul", &tmul);
-	mainOverrideVariable("tload", &tload);
+	main_override_variable("tmul", &tmul);
+	main_override_variable("tload", &tload);
 
 	if (tload) {
 		codepoint = tload;
@@ -288,7 +288,7 @@ struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 		g_JpnCacheCacheItems[freeindexsingle].ttl = 2;
 		g_JpnCacheCacheItems[freeindexsingle].codepoint = codepoint;
 
-		dmaExec((u8 *) (freeindexsingle * (TMUL * 0x0c) + (romptr_t) &g_JpnCharCachePixels[0]),
+		dma_exec((u8 *) (freeindexsingle * (TMUL * 0x0c) + (romptr_t) &g_JpnCharCachePixels[0]),
 				(romptr_t) &_fontjpnSegmentRomStart + ((codepoint * TMUL) * 0xc + TMUL * (24 * 0xc)),
 				TMUL * 0x0c);
 
@@ -310,7 +310,7 @@ struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 		g_JpnCacheCacheItems[freeindexsingle].ttl = 2;
 		g_JpnCacheCacheItems[freeindexsingle].codepoint = codepoint >> 1;
 
-		dmaExec(&g_JpnCharCachePixels[freeindexsingle * 8], (romptr_t) &_fontjpnsingleSegmentRomStart + (codepoint >> SHIFTAMOUNT) * 0x60, 0x60);
+		dma_exec(&g_JpnCharCachePixels[freeindexsingle * 8], (romptr_t) &_fontjpnsingleSegmentRomStart + (codepoint >> SHIFTAMOUNT) * 0x60, 0x60);
 
 		return &g_JpnCharCachePixels[freeindexsingle * 8];
 	}
@@ -321,7 +321,7 @@ struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
 		g_JpnCacheCacheItems[freeindexmulti + 0].codepoint = codepoint >> 1;
 		g_JpnCacheCacheItems[freeindexmulti + 1].codepoint = codepoint >> 1;
 
-		dmaExec(&g_JpnCharCachePixels[freeindexmulti * 8], (romptr_t) &_fontjpnmultiSegmentRomStart + ((codepoint & 0x1fff) >> SHIFTAMOUNT) * 0x80, 0x80);
+		dma_exec(&g_JpnCharCachePixels[freeindexmulti * 8], (romptr_t) &_fontjpnmultiSegmentRomStart + ((codepoint & 0x1fff) >> SHIFTAMOUNT) * 0x80, 0x80);
 
 		return &g_JpnCharCachePixels[freeindexmulti * 8];
 	}
@@ -334,7 +334,7 @@ struct jpncharpixels *langGetJpnCharPixels(s32 codepoint)
  * NTSC only supports English, while PAL supports 4 languages and JPN has its
  * own. Each English file is followed immediately by the other translations.
  */
-s32 langGetFileNumOffset(void)
+s32 lang_get_file_num_offset(void)
 {
 #if PAL
 	s32 offset = g_LanguageId;
@@ -350,37 +350,37 @@ s32 langGetFileNumOffset(void)
 #endif
 }
 
-s32 langGetFileId(s32 bank)
+s32 lang_get_file_id(s32 bank)
 {
-	return g_LangFiles[bank] + langGetFileNumOffset();
+	return g_LangFiles[bank] + lang_get_file_num_offset();
 }
 
-void langLoad(s32 bank)
+void lang_load(s32 bank)
 {
 #if VERSION >= VERSION_PAL_BETA
-	s32 len = fileGetInflatedSize(langGetFileId(bank));
+	s32 len = file_get_inflated_size(lang_get_file_id(bank));
 
 	if ((s32)g_LangBuffer + len + g_LangBufferSize - (s32)g_LangBufferPos >= 0) {
 		s32 len2 = (s32)g_LangBuffer + g_LangBufferSize - (s32)g_LangBufferPos;
 		len2 = len2 / 32 * 32;
-		g_LangBanks[bank] = fileLoadToAddr(langGetFileId(bank), FILELOADMETHOD_DEFAULT, (u8 *)g_LangBufferPos, len2);
+		g_LangBanks[bank] = file_load_to_addr(lang_get_file_id(bank), FILELOADMETHOD_DEFAULT, (u8 *)g_LangBufferPos, len2);
 		g_LangBufferPos = (u8 *)(align32((s32)g_LangBufferPos + len));
 	} else {
 		CRASH();
 	}
 #else
-	s32 file_id = langGetFileId(bank);
-	g_LangBanks[bank] = fileLoadToNew(file_id, FILELOADMETHOD_DEFAULT);
+	s32 file_id = lang_get_file_id(bank);
+	g_LangBanks[bank] = file_load_to_new(file_id, FILELOADMETHOD_DEFAULT);
 #endif
 }
 
-void langLoadToAddr(s32 bank, u8 *dst, s32 size)
+void lang_load_to_addr(s32 bank, u8 *dst, s32 size)
 {
-	s32 file_id = langGetFileId(bank);
-	g_LangBanks[bank] = fileLoadToAddr(file_id, FILELOADMETHOD_DEFAULT, dst, size);
+	s32 file_id = lang_get_file_id(bank);
+	g_LangBanks[bank] = file_load_to_addr(file_id, FILELOADMETHOD_DEFAULT, dst, size);
 }
 
-void langClearBank(s32 bank)
+void lang_clear_bank(s32 bank)
 {
 	g_LangBanks[bank] = NULL;
 }
@@ -395,7 +395,7 @@ void langClearBank(s32 bank)
  * The language file data consists of a variable-length array of offsets into
  * the file. Not to be confused with pointers.
  */
-char *langGet(s32 textid)
+char *lang_get(s32 textid)
 {
 	s32 bankindex = textid >> 9;
 	s32 textindex = textid & 0x1ff;
@@ -412,7 +412,7 @@ char *langGet(s32 textid)
 }
 
 #if VERSION >= VERSION_PAL_BETA
-void langReload(void)
+void lang_reload(void)
 {
 	s32 i;
 
@@ -420,14 +420,14 @@ void langReload(void)
 
 	for (i = 0; i < ARRAYCOUNT(g_LangBanks); i++) {
 		if (g_LangBanks[i] != NULL) {
-			langLoad(i);
+			lang_load(i);
 		}
 	}
 }
 #endif
 
 #if VERSION >= VERSION_PAL_BETA
-void langSetEuropean(u32 arg0)
+void lang_set_european(u32 arg0)
 {
 	u8 teams;
 	bool hasoptionslang = false;
@@ -437,7 +437,7 @@ void langSetEuropean(u32 arg0)
 	}
 
 	if (hasoptionslang) {
-		mpGetTeamsWithDefaultName(&teams);
+		mp_get_teams_with_default_name(&teams);
 	}
 
 	switch (arg0) {
@@ -461,19 +461,19 @@ void langSetEuropean(u32 arg0)
 		break;
 	}
 
-	langReload();
+	lang_reload();
 
 	if (hasoptionslang) {
-		mpSetTeamNamesToDefault(teams);
+		mp_set_team_names_to_default(teams);
 	}
 }
 #endif
 
 #if VERSION == VERSION_JPN_FINAL
-void langSetJpnEnabled(bool enable)
+void lang_set_jpn_enabled(bool enable)
 {
 	g_Jpn = enable ? true : false;
 
-	langReload();
+	lang_reload();
 }
 #endif

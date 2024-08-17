@@ -10,7 +10,7 @@
 #include "data.h"
 #include "types.h"
 
-s32 texGetMask(s32 value)
+s32 tex_get_mask(s32 value)
 {
 	if (value < 2) {
 		return 0;
@@ -147,7 +147,7 @@ s32 tex0f0b3548(s32 width, s32 height, s32 lod)
 	return sum;
 }
 
-void texSetRenderMode(Gfx **gdlptr, s32 arg1, s32 numcycles, s32 arg3)
+void tex_set_render_mode(Gfx **gdlptr, s32 arg1, s32 numcycles, s32 arg3)
 {
 	Gfx *gdl = *gdlptr;
 
@@ -242,14 +242,14 @@ void texSetRenderMode(Gfx **gdlptr, s32 arg1, s32 numcycles, s32 arg3)
 	*gdlptr = gdl;
 }
 
-void texLoadFromConfig(struct textureconfig *config)
+void tex_load_from_config(struct textureconfig *config)
 {
 	if ((u32)config->texturenum < NUM_TEXTURES) {
-		texLoadFromConfigs(config, 1, NULL, 0);
+		tex_load_from_configs(config, 1, NULL, 0);
 	}
 }
 
-void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, u32 ulst, bool arg5, struct texpool *pool)
+void tex_select(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, u32 ulst, bool arg5, struct texpool *pool)
 {
 	struct tex *tex;
 	Gfx *gdl;
@@ -258,7 +258,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 	gdl = *gdlptr;
 
 	if (tconfig == NULL) {
-		texSetRenderMode(&gdl, arg2, 1, arg3);
+		tex_set_render_mode(&gdl, arg2, 1, arg3);
 
 		if (arg3 >= 2) {
 			gSPTextureL(gdl++, 0xffff, 0xffff, 0, arg3, G_TX_RENDERTILE, G_ON);
@@ -283,7 +283,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 		tex = NULL;
 
 		if ((u32)tconfig->texturenum < NUM_TEXTURES) {
-			texLoadFromConfigs(tconfig, 1, pool, 0);
+			tex_load_from_configs(tconfig, 1, pool, 0);
 		}
 
 		if (tconfig->unk0b == 1) {
@@ -310,7 +310,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			}
 
 			if (tex == NULL) {
-				tex = texFindInPool(texturenum, pool);
+				tex = tex_find_in_pool(texturenum, pool);
 
 				if (index >= 0 && index < g_TexNumConfigs) {
 					g_TexWords[index] = tex;
@@ -354,7 +354,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			}
 
 			if (arg5) {
-				texSetRenderMode(&gdl, arg2, 1, arg3);
+				tex_set_render_mode(&gdl, arg2, 1, arg3);
 
 				if (arg3 >= 2) {
 					gSPTextureL(gdl++, 0xffff, 0xffff, 0, arg3, G_TX_RENDERTILE, G_ON);
@@ -421,8 +421,8 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 			if (arg5) {
 				gDPSetTile(gdl++, format, depth, line, 0x0000, G_TX_RENDERTILE, 0,
-						tconfig->t, texGetMask(height), G_TX_NOLOD,
-						tconfig->s, texGetMask(width), G_TX_NOLOD);
+						tconfig->t, tex_get_mask(height), G_TX_NOLOD,
+						tconfig->s, tex_get_mask(width), G_TX_NOLOD);
 
 				gDPSetTileSize(gdl++, G_TX_RENDERTILE, ulst, ulst, ((width - 1) << 2) + ulst, ((height - 1) << 2) + ulst);
 			}
@@ -449,7 +449,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			}
 
 			if (tex && tex->hasloddata) {
-				texGetDepthAndSize(tex, &depth2, &lrs);
+				tex_get_depth_and_size(tex, &depth2, &lrs);
 			} else {
 				switch (depth) {
 				case G_IM_SIZ_32b:
@@ -472,7 +472,7 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 			}
 
 			if (arg5) {
-				texSetRenderMode(&gdl, arg2, 2, arg3);
+				tex_set_render_mode(&gdl, arg2, 2, arg3);
 
 				if (arg3 >= 2) {
 					gSPTextureL(gdl++, 0xffff, 0xffff, lod - 1, arg3, G_TX_RENDERTILE, G_ON);
@@ -542,8 +542,8 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 				if (tile > 0) {
 					if (tex && tex->hasloddata) {
-						width = texGetWidthAtLod(tex, tile);
-						height = texGetHeightAtLod(tex, tile);
+						width = tex_get_width_at_lod(tex, tile);
+						height = tex_get_height_at_lod(tex, tile);
 					} else {
 						if (width >= 2) {
 							width >>= 1;
@@ -574,8 +574,8 @@ void texSelect(Gfx **gdlptr, struct textureconfig *tconfig, u32 arg2, s32 arg3, 
 
 				if (arg5) {
 					gDPSetTile(gdl++, format, depth, line, tmem, tile, 0,
-							tconfig->t, texGetMask(height), tile,
-							tconfig->s, texGetMask(width), tile);
+							tconfig->t, tex_get_mask(height), tile,
+							tconfig->s, tex_get_mask(width), tile);
 
 					gDPSetTileSize(gdl++, tile, ulst, ulst, ((width - 1) << 2) + ulst, ((height - 1) << 2) + ulst);
 				}

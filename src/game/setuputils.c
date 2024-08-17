@@ -15,12 +15,12 @@
 struct stagesetup g_StageSetup;
 u8 *g_GeCreditsData;
 
-u32 setupGetCmdLength(u32 *cmd)
+u32 setup_get_cmd_length(u32 *cmd)
 {
 #if VERSION < VERSION_NTSC_1_0
 	static u32 crash1 = 0;
 
-	mainOverrideVariable("crash1", &crash1);
+	main_override_variable("crash1", &crash1);
 #endif
 
 	switch ((u8)cmd[0]) {
@@ -91,7 +91,7 @@ u32 setupGetCmdLength(u32 *cmd)
 	return 1;
 }
 
-u32 *setupGetCmdByIndex(s32 wantindex)
+u32 *setup_get_cmd_by_index(s32 wantindex)
 {
 	u32 *cmd = g_StageSetup.props;
 
@@ -103,7 +103,7 @@ u32 *setupGetCmdByIndex(s32 wantindex)
 				return cmd;
 			}
 
-			cmd = cmd + setupGetCmdLength(cmd);
+			cmd = cmd + setup_get_cmd_length(cmd);
 			cmdindex++;
 		}
 	}
@@ -111,7 +111,7 @@ u32 *setupGetCmdByIndex(s32 wantindex)
 	return NULL;
 }
 
-s32 setupGetCmdIndexByTag(struct tag *tag)
+s32 setup_get_cmd_index_by_tag(struct tag *tag)
 {
 	u32 *cmd = g_StageSetup.props;
 
@@ -123,7 +123,7 @@ s32 setupGetCmdIndexByTag(struct tag *tag)
 				return cmdindex;
 			}
 
-			cmd = cmd + setupGetCmdLength(cmd);
+			cmd = cmd + setup_get_cmd_length(cmd);
 			cmdindex++;
 		}
 	}
@@ -131,7 +131,7 @@ s32 setupGetCmdIndexByTag(struct tag *tag)
 	return -1;
 }
 
-u32 setupGetCmdIndexByProp(struct prop *prop)
+u32 setup_get_cmd_index_by_prop(struct prop *prop)
 {
 	u32 *cmd = g_StageSetup.props;
 
@@ -143,7 +143,7 @@ u32 setupGetCmdIndexByProp(struct prop *prop)
 				return cmdindex;
 			}
 
-			cmd = cmd + setupGetCmdLength(cmd);
+			cmd = cmd + setup_get_cmd_length(cmd);
 			cmdindex++;
 		}
 	}
@@ -151,29 +151,29 @@ u32 setupGetCmdIndexByProp(struct prop *prop)
 	return -1;
 }
 
-bool setupLoadModeldef(s32 modelnum)
+bool setup_load_modeldef(s32 modelnum)
 {
 	if (g_ModelStates[modelnum].modeldef == NULL) {
-		g_ModelStates[modelnum].modeldef = modeldefLoadToNew(g_ModelStates[modelnum].fileid);
-		modelAllocateRwData(g_ModelStates[modelnum].modeldef);
+		g_ModelStates[modelnum].modeldef = modeldef_load_to_new(g_ModelStates[modelnum].fileid);
+		model_allocate_rw_data(g_ModelStates[modelnum].modeldef);
 		return true;
 	}
 
 	return false;
 }
 
-bool setupGetObjBbox(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], struct coord *arg3, struct coord *arg4)
+bool setup_get_obj_bbox(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], struct coord *arg3, struct coord *arg4)
 {
-	struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
+	struct modelrodata_bbox *bbox = obj_find_bbox_rodata(obj);
 
 	if (bbox != NULL) {
-		arg3->x = pos->x + objGetRotatedLocalXMinByMtx3(bbox, realrot);
-		arg3->y = pos->y + objGetRotatedLocalYMinByMtx3(bbox, realrot);
-		arg3->z = pos->z + objGetRotatedLocalZMinByMtx3(bbox, realrot);
+		arg3->x = pos->x + obj_get_rotated_local_x_min_by_mtx3(bbox, realrot);
+		arg3->y = pos->y + obj_get_rotated_local_y_min_by_mtx3(bbox, realrot);
+		arg3->z = pos->z + obj_get_rotated_local_z_min_by_mtx3(bbox, realrot);
 
-		arg4->x = pos->x + objGetRotatedLocalXMaxByMtx3(bbox, realrot);
-		arg4->y = pos->y + objGetRotatedLocalYMaxByMtx3(bbox, realrot);
-		arg4->z = pos->z + objGetRotatedLocalZMaxByMtx3(bbox, realrot);
+		arg4->x = pos->x + obj_get_rotated_local_x_max_by_mtx3(bbox, realrot);
+		arg4->y = pos->y + obj_get_rotated_local_y_max_by_mtx3(bbox, realrot);
+		arg4->z = pos->z + obj_get_rotated_local_z_max_by_mtx3(bbox, realrot);
 
 		return true;
 	}
@@ -183,7 +183,7 @@ bool setupGetObjBbox(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3
 
 bool setup0f092304(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 {
-	return setupGetObjBbox(obj, &obj->prop->pos, obj->realrot, arg1, arg2);
+	return setup_get_obj_bbox(obj, &obj->prop->pos, obj->realrot, arg1, arg2);
 }
 
 void setup0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], RoomNum *rooms)
@@ -192,7 +192,7 @@ void setup0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3],
 	struct coord b;
 	u32 stack;
 
-	if (setupGetObjBbox(obj, pos, realrot, &a, &b)) {
+	if (setup_get_obj_bbox(obj, pos, realrot, &a, &b)) {
 		a.x -= 1;
 		a.y -= 1;
 		a.z -= 1;
@@ -200,20 +200,20 @@ void setup0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3],
 		b.y += 1;
 		b.z += 1;
 
-		bgFindEnteredRooms(&a, &b, rooms, 7, false);
+		bg_find_entered_rooms(&a, &b, rooms, 7, false);
 	}
 }
 
 void setup0f0923d4(struct defaultobj *obj)
 {
-	propDeregisterRooms(obj->prop);
+	prop_deregister_rooms(obj->prop);
 	setup0f09233c(obj, &obj->prop->pos, obj->realrot, obj->prop->rooms);
-	propRegisterRooms(obj->prop);
+	prop_register_rooms(obj->prop);
 }
 
-struct defaultobj *setupGetObjByCmdIndex(u32 cmdindex)
+struct defaultobj *setup_get_obj_by_cmd_index(u32 cmdindex)
 {
-	u32 *cmd = setupGetCmdByIndex(cmdindex);
+	u32 *cmd = setup_get_cmd_by_index(cmdindex);
 
 	if (cmd) {
 		switch ((u8)cmd[0]) {
@@ -301,7 +301,7 @@ struct defaultobj *setupGetObjByCmdIndex(u32 cmdindex)
  * hat caller is unreachable because hats don't exist in PD. So it's only used
  * for weapons which means the candidate logic isn't used.
  */
-struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscreenobjptr, struct defaultobj **anyobjptr, bool musthaveprop, bool musthavemodel, struct modeldef *modeldef)
+struct defaultobj *setup_find_obj_for_reuse(s32 wanttype, struct defaultobj **offscreenobjptr, struct defaultobj **anyobjptr, bool musthaveprop, bool musthavemodel, struct modeldef *modeldef)
 {
 	struct defaultobj *offscreenobj = NULL;
 	struct defaultobj *anyobj = NULL;
@@ -324,7 +324,7 @@ struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscr
 						&& (obj->flags & OBJFLAG_HELDROCKET) == 0
 #endif
 						&& obj->prop->parent == NULL
-						&& (!musthavemodel || modelmgrCanSlotFitRwdata(obj->model, modeldef))) {
+						&& (!musthavemodel || modelmgr_can_slot_fit_rwdata(obj->model, modeldef))) {
 					if (offscreenobj == NULL && (obj->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0) {
 						offscreenobj = obj;
 					}
@@ -335,7 +335,7 @@ struct defaultobj *setupFindObjForReuse(s32 wanttype, struct defaultobj **offscr
 				}
 			}
 
-			cmd = cmd + setupGetCmdLength(cmd);
+			cmd = cmd + setup_get_cmd_length(cmd);
 		}
 	}
 

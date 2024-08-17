@@ -64,7 +64,7 @@ bool g_ViIs16Bit = true;
 bool g_ViReconfigured = false;
 s32 g_ViSlot = 0;
 
-void viConfigureForLogos(void)
+void vi_configure_for_logos(void)
 {
 	g_ViFrontIndex = 0;
 	g_ViBackIndex = 1;
@@ -111,7 +111,7 @@ void viConfigureForLogos(void)
  *
  * Both textures are 507 x 48, but the framebuffer width is 576.
  */
-void viConfigureForCopyright(u16 *texturedata)
+void vi_configure_for_copyright(u16 *texturedata)
 {
 	s32 i;
 
@@ -140,7 +140,7 @@ void viConfigureForCopyright(u16 *texturedata)
  * It's also used for the "check controllers" message
  * if controller 1 is not connected.
  */
-void viConfigureForLegal(void)
+void vi_configure_for_legal(void)
 {
 	s32 i;
 
@@ -157,7 +157,7 @@ void viConfigureForLegal(void)
 	g_Vars.fourmeg2player = false;
 
 #if PAL
-	playerResetLoResIf4Mb();
+	player_reset_lo_res_if_4mb();
 #endif
 }
 
@@ -174,7 +174,7 @@ const s16 g_ViModeHeights[] = {FBALLOC_HEIGHT_LO, FBALLOC_HEIGHT_LO, (PAL ? 252 
  *
  * The same is probably true for wide and cinema modes.
  */
-void viReset(s32 stagenum)
+void vi_reset(s32 stagenum)
 {
 	s32 i;
 	s32 fbsize;
@@ -186,14 +186,14 @@ void viReset(s32 stagenum)
 
 	if (stagenum == STAGE_TITLE || stagenum == STAGE_TEST_OLD) {
 		if (IS4MB()) {
-			viSetMode(VIMODE_HI);
+			vi_set_mode(VIMODE_HI);
 			fbsize = (FBALLOC_WIDTH_LO * 2) * (FBALLOC_HEIGHT_LO * 2) * NUM_FRAMEBUFFERS;
 		} else {
-			viSetMode(VIMODE_HI);
+			vi_set_mode(VIMODE_HI);
 			fbsize = g_ViModeWidths[2] * g_ViModeHeights[2] * NUM_FRAMEBUFFERS;
 		}
 	} else {
-		viSetMode(VIMODE_LO);
+		vi_set_mode(VIMODE_LO);
 
 		if (1);
 
@@ -215,7 +215,7 @@ void viReset(s32 stagenum)
 		}
 	}
 
-	ptr = mempAlloc(fbsize * sizeof(u16) + 0x40, MEMPOOL_STAGE);
+	ptr = memp_alloc(fbsize * sizeof(u16) + 0x40, MEMPOOL_STAGE);
 
 	ptr = (u8 *)(((uintptr_t) ptr + 0x3f) & 0xffffffc0);
 
@@ -243,13 +243,13 @@ void viReset(s32 stagenum)
  * The g_ViUnblackTimer value only ticks down when it's 2 or less,
  * so passing true to this function makes it not tick.
  */
-void viBlack(bool black)
+void vi_black(bool black)
 {
 	black += NUM_FRAMEBUFFERS;
 	g_ViUnblackTimer = black;
 }
 
-void viHandleRetrace(void)
+void vi_handle_retrace(void)
 {
 	s32 prevmask;
 	s32 offset;
@@ -287,7 +287,7 @@ void viHandleRetrace(void)
 	osViSetSpecialFeatures(OS_VI_GAMMA_OFF | OS_VI_DITHER_FILTER_ON);
 }
 
-void viUpdateMode(void)
+void vi_update_mode(void)
 {
 	struct rend_vidat *prevdata;
 	f32 x;
@@ -446,11 +446,11 @@ void viUpdateMode(void)
 
 	if (g_ViReconfigured) {
 		g_ViReconfigured = false;
-		viBlack(false);
+		vi_black(false);
 	}
 }
 
-void viShake(f32 intensity)
+void vi_shake(f32 intensity)
 {
 	if (intensity > 14) {
 		intensity = 14;
@@ -464,7 +464,7 @@ void viShake(f32 intensity)
 	g_ViShakeTimer = 10;
 }
 
-void viSetMode(s32 mode)
+void vi_set_mode(s32 mode)
 {
 	g_ViBackData->mode = mode;
 
@@ -472,37 +472,37 @@ void viSetMode(s32 mode)
 	g_ViBackData->y = g_ViBackData->bufy = g_ViModeHeights[mode];
 }
 
-void viSet16Bit(void)
+void vi_set_16bit(void)
 {
 	g_ViIs16Bit = true;
 }
 
-void viSet32Bit(void)
+void vi_set_32bit(void)
 {
 	g_ViIs16Bit = false;
 }
 
-u16 *viGetBackBuffer(void)
+u16 *vi_get_back_buffer(void)
 {
 	return g_ViBackData->fb;
 }
 
-u16 *viGetFrontBuffer(void)
+u16 *vi_get_front_buffer(void)
 {
 	return g_ViFrontData->fb;
 }
 
-void viSetBackBuffer(u16 *fb)
+void vi_set_back_buffer(u16 *fb)
 {
 	g_ViBackData->fb = fb;
 }
 
-Vp *viGetCurrentPlayerViewport(void)
+Vp *vi_get_current_player_viewport(void)
 {
 	return &g_Vars.currentplayer->viewport[g_ViBackIndex];
 }
 
-u16 viGetPerspScale(void)
+u16 vi_get_persp_scale(void)
 {
 	return g_ViPerspScale;
 }
@@ -518,18 +518,18 @@ Gfx *vi0000ab78(Gfx *gdl)
 	u16 sp46;
 
 	guPerspectiveF(sp110.m, &sp46, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar + g_ViBackData->zfar, 1);
-	mtx4Copy(camGetWorldToScreenMtxf(), &sp90);
+	mtx4_copy(cam_get_world_to_screen_mtxf(), &sp90);
 
 	sp90.m[3][0] = 0;
 	sp90.m[3][1] = 0;
 	sp90.m[3][2] = 0;
 
-	mtx4MultMtx4(&sp110, &sp90, &spd0);
-	sp4c = gfxAllocateMatrix();
+	mtx4_mult_mtx4(&sp110, &sp90, &spd0);
+	sp4c = gfx_allocate_matrix();
 	guMtxF2L(spd0.m, sp4c);
 
-	mtx4LoadIdentity(&sp50);
-	sp48 = gfxAllocateMatrix();
+	mtx4_load_identity(&sp50);
+	sp48 = gfx_allocate_matrix();
 	guMtxF2L(sp50.m, sp48);
 
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(sp4c), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
@@ -543,7 +543,7 @@ Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar)
 {
 	u16 scale;
 	Mtxf tmp;
-	Mtx *mtx = gfxAllocateMatrix();
+	Mtx *mtx = gfx_allocate_matrix();
 
 	guPerspectiveF(tmp.m, &scale, g_ViBackData->fovy, g_ViBackData->aspect, znear, zfar, 1);
 	guMtxF2L(tmp.m, mtx);
@@ -564,15 +564,15 @@ Gfx *vi0000ad5c(Gfx *gdl, Vp *vp)
 
 	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(&vp[g_ViBackIndex]));
 
-	var80092870 = gfxAllocateMatrix();
+	var80092870 = gfx_allocate_matrix();
 	guPerspectiveF(var80092830.m, &g_ViPerspScale, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar, 1);
 	guMtxF2L(var80092830.m, var80092870);
 
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
-	camSetPerspectiveMtxL(var80092870);
-	camSetMtxF1754(&var80092830);
+	cam_set_perspective_mtxl(var80092870);
+	cam_set_mtxf1754(&var80092830);
 
 	return gdl;
 }
@@ -593,15 +593,15 @@ Gfx *vi0000af00(Gfx *gdl, Vp *vp)
 
 	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(&vp[g_ViBackIndex]));
 
-	var80092870 = gfxAllocateMatrix();
+	var80092870 = gfx_allocate_matrix();
 	guPerspectiveF(var80092830.m, &g_ViPerspScale, g_ViBackData->fovy, g_ViBackData->aspect, g_ViBackData->znear, g_ViBackData->zfar, 1);
 	guMtxF2L(var80092830.m, var80092870);
 
 	gSPMatrix(gdl++, OS_K0_TO_PHYSICAL(var80092870), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	gSPPerspNormalize(gdl++, g_ViPerspScale);
 
-	camSetPerspectiveMtxL(var80092870);
-	camSetMtxF1754(&var80092830);
+	cam_set_perspective_mtxl(var80092870);
+	cam_set_mtxf1754(&var80092830);
 
 	return gdl;
 }
@@ -609,7 +609,7 @@ Gfx *vi0000af00(Gfx *gdl, Vp *vp)
 Gfx *vi0000b0e8(Gfx *gdl, f32 fovy, f32 aspect)
 {
 	Mtxf tmp;
-	Mtx *mtx = gfxAllocateMatrix();
+	Mtx *mtx = gfx_allocate_matrix();
 
 	guPerspectiveF(tmp.m, &g_ViPerspScale, fovy, aspect, g_ViBackData->znear, g_ViBackData->zfar, 1);
 	guMtxF2L(tmp.m, mtx);
@@ -638,17 +638,17 @@ Gfx *vi0000b1d0(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *viPrepareZbuf(Gfx *gdl)
+Gfx *vi_prepare_zbuf(Gfx *gdl)
 {
 	if (g_ViBackData->usezbuf) {
-		gdl = zbufConfigureRdp(gdl);
-		gdl = zbufClear(gdl);
+		gdl = zbuf_configure_rdp(gdl);
+		gdl = zbuf_clear(gdl);
 	}
 
 	return gdl;
 }
 
-Gfx *viFillBuffer(Gfx *gdl)
+Gfx *vi_fill_buffer(Gfx *gdl)
 {
 	gDPSetCycleType(gdl++, G_CYC_FILL);
 	gDPFillRectangle(gdl++, 0, 0, g_ViBackData->bufx - 1, g_ViBackData->bufy - 1);
@@ -657,36 +657,36 @@ Gfx *viFillBuffer(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *viRenderViewportEdges(Gfx *gdl)
+Gfx *vi_render_viewport_edges(Gfx *gdl)
 {
 	gDPSetCycleType(gdl++, G_CYC_FILL);
-	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, vi_get_width(), vi_get_height());
 	gDPSetFillColor(gdl++, GPACK_RGBA5551(0, 0, 0, 1) << 16 | GPACK_RGBA5551(0, 0, 0, 1));
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (PLAYERCOUNT() == 1
 			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-				&& playerHasSharedViewport() && g_Vars.currentplayernum == 0))
+				&& player_has_shared_viewport() && g_Vars.currentplayernum == 0))
 #else
 	if (PLAYERCOUNT() == 1
 			|| ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 				&& (
-					(g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE
+					(g_InCutscene && !g_MainIsEndscreen) || menu_get_root() == MENUROOT_COOPCONTINUE
 					) && g_Vars.currentplayernum == 0))
 #endif
 	{
 		// Single viewport
-		if (viGetViewTop() > 0) {
+		if (vi_get_view_top() > 0) {
 			// Fill above
-			gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, viGetViewTop() - 1);
+			gDPFillRectangle(gdl++, 0, 0, vi_get_width() - 1, vi_get_view_top() - 1);
 			gDPPipeSync(gdl++);
 		}
 
-		if (viGetViewTop() + viGetViewHeight() < viGetHeight()) {
+		if (vi_get_view_top() + vi_get_view_height() < vi_get_height()) {
 			// Fill below
 			gDPFillRectangle(gdl++,
-					0, viGetViewTop() + viGetViewHeight(),
-					viGetWidth() - 1, viGetHeight() - 1);
+					0, vi_get_view_top() + vi_get_view_height(),
+					vi_get_width() - 1, vi_get_height() - 1);
 			gDPPipeSync(gdl++);
 		}
 	} else {
@@ -705,26 +705,26 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 
 			if (g_Vars.players[topplayernum]->viewtop > 0) {
 				// Fill above all viewports - full width
-				gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, g_Vars.players[topplayernum]->viewtop - 1);
+				gDPFillRectangle(gdl++, 0, 0, vi_get_width() - 1, g_Vars.players[topplayernum]->viewtop - 1);
 				gDPPipeSync(gdl++);
 			}
 
-			if (g_Vars.players[bottomplayernum]->viewtop + g_Vars.players[bottomplayernum]->viewheight < viGetHeight()) {
+			if (g_Vars.players[bottomplayernum]->viewtop + g_Vars.players[bottomplayernum]->viewheight < vi_get_height()) {
 				// Fill below all viewports - full width
 				gDPFillRectangle(gdl++,
 						0, g_Vars.players[bottomplayernum]->viewtop + g_Vars.players[bottomplayernum]->viewheight,
-						viGetWidth() - 1, viGetHeight() - 1);
+						vi_get_width() - 1, vi_get_height() - 1);
 				gDPPipeSync(gdl++);
 			}
 
 			// Horizontal middle line
 			gDPFillRectangle(gdl++,
 					0, g_Vars.players[tmpplayernum]->viewtop - 1,
-					viGetWidth() - 1, g_Vars.players[tmpplayernum]->viewtop - 1);
+					vi_get_width() - 1, g_Vars.players[tmpplayernum]->viewtop - 1);
 			gDPPipeSync(gdl++);
 
 			if (PLAYERCOUNT() >= 3 ||
-					(PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player))) {
+					(PLAYERCOUNT() == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || g_Vars.fourmeg2player))) {
 				if (PLAYERCOUNT() == 2) {
 					tmpplayernum = 0;
 				}
@@ -732,7 +732,7 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 				// Vertical middle line
 				gDPFillRectangle(gdl++,
 						g_Vars.players[tmpplayernum]->viewleft + g_Vars.players[tmpplayernum]->viewwidth, 0,
-						g_Vars.players[tmpplayernum]->viewleft + g_Vars.players[tmpplayernum]->viewwidth, viGetHeight() - 1);
+						g_Vars.players[tmpplayernum]->viewleft + g_Vars.players[tmpplayernum]->viewwidth, vi_get_height() - 1);
 				gDPPipeSync(gdl++);
 			}
 
@@ -740,7 +740,7 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 				// Blank square in P4 spot
 				gDPFillRectangle(gdl++,
 						g_Vars.players[tmpplayernum]->viewleft + g_Vars.players[tmpplayernum]->viewwidth + 1, g_Vars.players[tmpplayernum]->viewtop,
-						viGetWidth() - 1, viGetHeight() - 1);
+						vi_get_width() - 1, vi_get_height() - 1);
 				gDPPipeSync(gdl++);
 			}
 		}
@@ -750,155 +750,155 @@ Gfx *viRenderViewportEdges(Gfx *gdl)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-void viSetVStart(s32 vstart)
+void vi_set_v_start(s32 vstart)
 {
 	g_ViTargetVStart = vstart;
 }
 
-s32 viGetVStart(void)
+s32 vi_get_v_start(void)
 {
 	return g_ViTargetVStart;
 }
 
-void viSetHStart(s32 hstart)
+void vi_set_h_start(s32 hstart)
 {
 	g_ViTargetHStart = hstart;
 }
 
-s32 viGetHStart(void)
+s32 vi_get_h_start(void)
 {
 	return g_ViTargetHStart;
 }
 #endif
 
-void viSetBufSize(s16 width, s16 height)
+void vi_set_buf_size(s16 width, s16 height)
 {
 	g_ViBackData->bufx = width;
 	g_ViBackData->bufy = height;
 }
 
-s16 viGetBufWidth(void)
+s16 vi_get_buf_width(void)
 {
 	return g_ViBackData->bufx;
 }
 
-s16 viGetBufHeight(void)
+s16 vi_get_buf_height(void)
 {
 	return g_ViBackData->bufy;
 }
 
-void viSetSize(s16 width, s16 height)
+void vi_set_size(s16 width, s16 height)
 {
 	g_ViBackData->x = width;
 	g_ViBackData->y = height;
 }
 
-s16 viGetWidth(void)
+s16 vi_get_width(void)
 {
 	return g_ViBackData->x;
 }
 
-s16 viGetHeight(void)
+s16 vi_get_height(void)
 {
 	return g_ViBackData->y;
 }
 
-void viSetViewSize(s16 width, s16 height)
+void vi_set_view_size(s16 width, s16 height)
 {
 	g_ViBackData->viewx = width;
 	g_ViBackData->viewy = height;
 
-	camSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
-	camSetScale();
+	cam_set_screen_size(g_ViBackData->viewx, g_ViBackData->viewy);
+	cam_set_scale();
 }
 
-s16 viGetViewWidth(void)
+s16 vi_get_view_width(void)
 {
 	return g_ViBackData->viewx;
 }
 
-s16 viGetViewHeight(void)
+s16 vi_get_view_height(void)
 {
 	return g_ViBackData->viewy;
 }
 
-void viSetViewPosition(s16 left, s16 top)
+void vi_set_view_position(s16 left, s16 top)
 {
 	g_ViBackData->viewleft = left;
 	g_ViBackData->viewtop = top;
 
-	camSetScreenPosition(g_ViBackData->viewleft, g_ViBackData->viewtop);
+	cam_set_screen_position(g_ViBackData->viewleft, g_ViBackData->viewtop);
 }
 
-s16 viGetViewLeft(void)
+s16 vi_get_view_left(void)
 {
 	return g_ViBackData->viewleft;
 }
 
-s16 viGetViewTop(void)
+s16 vi_get_view_top(void)
 {
 	return g_ViBackData->viewtop;
 }
 
-void viSetUseZBuf(bool use)
+void vi_set_use_z_buf(bool use)
 {
 	g_ViBackData->usezbuf = use;
 }
 
-void viSetFovY(f32 fovy)
+void vi_set_fov_y(f32 fovy)
 {
 	g_ViBackData->fovy = fovy;
 
-	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
-	camSetScale();
+	cam_set_perspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
+	cam_set_scale();
 }
 
-void viSetAspect(f32 aspect)
+void vi_set_aspect(f32 aspect)
 {
 	g_ViBackData->aspect = aspect;
 
-	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
-	camSetScale();
+	cam_set_perspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
+	cam_set_scale();
 }
 
-f32 viGetAspect(void)
+f32 vi_get_aspect(void)
 {
 	return g_ViBackData->aspect;
 }
 
-void viSetFovAspectAndSize(f32 fovy, f32 aspect, s16 width, s16 height)
+void vi_set_fov_aspect_and_size(f32 fovy, f32 aspect, s16 width, s16 height)
 {
 	g_ViBackData->fovy = fovy;
 	g_ViBackData->aspect = aspect;
 	g_ViBackData->viewx = width;
 	g_ViBackData->viewy = height;
 
-	camSetScreenSize(g_ViBackData->viewx, g_ViBackData->viewy);
-	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
-	camSetScale();
+	cam_set_screen_size(g_ViBackData->viewx, g_ViBackData->viewy);
+	cam_set_perspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
+	cam_set_scale();
 }
 
-f32 viGetFovY(void)
+f32 vi_get_fov_y(void)
 {
 	return g_ViBackData->fovy;
 }
 
-void viSetZRange(f32 near, f32 far)
+void vi_set_z_range(f32 near, f32 far)
 {
 	g_ViBackData->znear = near;
 	g_ViBackData->zfar = far;
 
-	camSetPerspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
-	camSetScale();
+	cam_set_perspective(g_ViBackData->znear, g_ViBackData->fovy, g_ViBackData->aspect);
+	cam_set_scale();
 }
 
-void viGetZRange(struct zrange *zrange)
+void vi_get_z_range(struct zrange *zrange)
 {
 	zrange->near = g_ViBackData->znear;
 	zrange->far = g_ViBackData->zfar;
 }
 
-Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)
+Gfx *vi_set_fill_colour(Gfx *gdl, s32 r, s32 g, s32 b)
 {
 	if (g_ViIs16Bit) {
 		gDPSetFillColor(gdl++, (GPACK_RGBA5551(r, g, b, 1) << 16) | GPACK_RGBA5551(r, g, b, 1));
@@ -909,22 +909,22 @@ Gfx *viSetFillColour(Gfx *gdl, s32 r, s32 g, s32 b)
 	return gdl;
 }
 
-void viGrabJpg16(void)
+void vi_grab_jpg16(void)
 {
 	// empty
 }
 
-void viGrabJpg32(void)
+void vi_grab_jpg32(void)
 {
 	// empty
 }
 
-void viGrabRgb16(void)
+void vi_grab_rgb16(void)
 {
 	// empty
 }
 
-void viGrabRgb32(void)
+void vi_grab_rgb32(void)
 {
 	// empty
 }

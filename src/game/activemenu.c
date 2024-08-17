@@ -56,25 +56,25 @@ const u8 g_AmMapping[] = {
 	2, // unused
 };
 
-struct chrdata *currentPlayerGetCommandingAibot(void)
+struct chrdata *current_player_get_commanding_aibot(void)
 {
 	return g_Vars.currentplayer->commandingaibot;
 }
 
-void amOpenPickTarget(void)
+void am_open_pick_target(void)
 {
 	u32 prevplayernum = g_MpPlayerNum;
 
-	if (!mpIsPaused()) {
+	if (!mp_is_paused()) {
 		g_AmMenus[g_AmIndex].prevallbots = g_AmMenus[g_AmIndex].allbots;
 		g_Vars.currentplayer->activemenumode = AMMODE_CLOSED;
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
-		menuPushRootDialog(&g_AmPickTargetMenuDialog, MENUROOT_PICKTARGET);
+		menu_push_root_dialog(&g_AmPickTargetMenuDialog, MENUROOT_PICKTARGET);
 		g_MpPlayerNum = prevplayernum;
 	}
 }
 
-MenuItemHandlerResult amPickTargetMenuList(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult am_pick_target_menu_list(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	static u32 teamcolours[] = {
 		0xff666600,
@@ -139,13 +139,13 @@ MenuItemHandlerResult amPickTargetMenuList(s32 operation, struct menuitem *item,
 				g_AmMenus[g_AmIndex].prevallbots = false;
 
 				for (i = 0; i < g_Vars.currentplayer->numaibuddies; i++) {
-					botApplyAttack(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[i]], g_MpAllChrPtrs[chrindex]->prop);
+					bot_apply_attack(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[i]], g_MpAllChrPtrs[chrindex]->prop);
 				}
 			} else {
-				botApplyAttack(botchr, g_MpAllChrPtrs[chrindex]->prop);
+				bot_apply_attack(botchr, g_MpAllChrPtrs[chrindex]->prop);
 			}
 
-			menuPopDialog();
+			menu_pop_dialog();
 		}
 		break;
 	case MENUOP_GETSELECTEDINDEX:
@@ -180,15 +180,15 @@ MenuItemHandlerResult amPickTargetMenuList(s32 operation, struct menuitem *item,
 			colour = teamcolours[g_MpAllChrConfigPtrs[chrindex]->team] | (renderdata->colour & 0xff);
 
 			if (renderdata->unk10) {
-				u32 weight = menuGetSinOscFrac(40) * 255;
-				colour = colourBlend(renderdata->colour | 0xffffff00, colourBlend(colour, colour & 0xff, 0x7f), weight);
+				u32 weight = menu_get_sin_osc_frac(40) * 255;
+				colour = colour_blend(renderdata->colour | 0xffffff00, colour_blend(colour, colour & 0xff, 0x7f), weight);
 			}
 
 			x = renderdata->x + 10;
 			y = renderdata->y + 1;
 
 			gdl = text0f153628(gdl);
-			gdl = textRenderProjected(gdl, &x, &y, g_MpAllChrConfigPtrs[chrindex]->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = text_render_projected(gdl, &x, &y, g_MpAllChrConfigPtrs[chrindex]->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, vi_get_width(), vi_get_height(), 0, 0);
 			gdl = text0f153780(gdl);
 			return (s32)gdl;
 		}
@@ -200,7 +200,7 @@ MenuItemHandlerResult amPickTargetMenuList(s32 operation, struct menuitem *item,
 	return 0;
 }
 
-MenuDialogHandlerResult amPickTargetMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult am_pick_target_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -224,7 +224,7 @@ struct menuitem g_AmPickTargetMenuItems[] = {
 		MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0x0000005a,
 		0,
-		amPickTargetMenuList,
+		am_pick_target_menu_list,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -233,12 +233,12 @@ struct menudialogdef g_AmPickTargetMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_OPTIONS_492, // "Pick Target"
 	g_AmPickTargetMenuItems,
-	amPickTargetMenuDialog,
+	am_pick_target_menu_dialog,
 	0,
 	NULL,
 };
 
-void amSetAiBuddyTemperament(bool aggressive)
+void am_set_ai_buddy_temperament(bool aggressive)
 {
 	s32 i;
 
@@ -258,7 +258,7 @@ void amSetAiBuddyTemperament(bool aggressive)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void amSetAiBuddyStealth(void)
+void am_set_ai_buddy_stealth(void)
 {
 	s32 i;
 
@@ -267,13 +267,13 @@ void amSetAiBuddyStealth(void)
 			struct chrdata *chr = g_Vars.aibuddies[i]->chr;
 
 			if (chr && chr->prop
-					&& !chrIsDead(chr)
-					&& chr->ailist != ailistFindById(GAILIST_BUDDY_STEALTH)
+					&& !chr_is_dead(chr)
+					&& chr->ailist != ailist_find_by_id(GAILIST_BUDDY_STEALTH)
 					&& chr->actiontype != ACT_DRUGGEDDROP
 					&& chr->actiontype != ACT_DRUGGEDKO
 					&& chr->actiontype != ACT_DRUGGEDCOMINGUP) {
-				chrStopFiring(chr);
-				chr->ailist = ailistFindById(GAILIST_BUDDY_STEALTH);
+				chr_stop_firing(chr);
+				chr->ailist = ailist_find_by_id(GAILIST_BUDDY_STEALTH);
 				chr->aioffset = 0;
 			}
 		}
@@ -281,7 +281,7 @@ void amSetAiBuddyStealth(void)
 }
 #endif
 
-s32 amGetFirstBuddyIndex(void)
+s32 am_get_first_buddy_index(void)
 {
 	s32 i;
 
@@ -301,7 +301,7 @@ s32 amGetFirstBuddyIndex(void)
 	return -1;
 }
 
-void amApply(s32 slot)
+void am_apply(s32 slot)
 {
 	s32 numinvitems;
 	s32 invindex;
@@ -317,22 +317,22 @@ void amApply(s32 slot)
 		}
 
 		invindex = g_AmMenus[g_AmIndex].invindexes[slot];
-		numinvitems = invGetCount();
+		numinvitems = inv_get_count();
 
 		if (invindex < numinvitems) {
-			weaponnum = invGetWeaponNumByIndex(invindex);
+			weaponnum = inv_get_weapon_num_by_index(invindex);
 			pass = true;
 
 			if (weaponnum) {
-				state = currentPlayerGetDeviceState(weaponnum);
+				state = current_player_get_device_state(weaponnum);
 
 				if (state != DEVICESTATE_UNEQUIPPED) {
 					pass = false;
 
 					if (state == DEVICESTATE_INACTIVE) {
-						currentPlayerSetDeviceActive(weaponnum, true);
+						current_player_set_device_active(weaponnum, true);
 					} else {
-						currentPlayerSetDeviceActive(weaponnum, false);
+						current_player_set_device_active(weaponnum, false);
 					}
 				}
 			}
@@ -341,7 +341,7 @@ void amApply(s32 slot)
 				pass = true;
 
 				if (g_FrIsValidWeapon) {
-					s32 weaponnum = frGetWeaponBySlot(frGetSlot());
+					s32 weaponnum = fr_get_weapon_by_slot(fr_get_slot());
 
 					if (g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum == weaponnum) {
 						pass = false;
@@ -349,23 +349,23 @@ void amApply(s32 slot)
 				}
 
 				if (pass) {
-					invSetCurrentIndex(invindex);
+					inv_set_current_index(invindex);
 
-					if (invHasDoubleWeaponIncAllGuns(weaponnum, weaponnum)) {
-						if (bgunGetWeaponNum(HAND_RIGHT) != weaponnum) {
-							bgunEquipWeapon2(HAND_RIGHT, weaponnum);
+					if (inv_has_double_weapon_inc_all_guns(weaponnum, weaponnum)) {
+						if (bgun_get_weapon_num(HAND_RIGHT) != weaponnum) {
+							bgun_equip_weapon2(HAND_RIGHT, weaponnum);
 						}
 
-						if (bgunGetWeaponNum(HAND_LEFT) != weaponnum) {
-							bgunEquipWeapon2(HAND_LEFT, weaponnum);
+						if (bgun_get_weapon_num(HAND_LEFT) != weaponnum) {
+							bgun_equip_weapon2(HAND_LEFT, weaponnum);
 						}
 					} else {
-						if (bgunGetWeaponNum(HAND_RIGHT) != weaponnum) {
-							bgunEquipWeapon2(HAND_RIGHT, weaponnum);
+						if (bgun_get_weapon_num(HAND_RIGHT) != weaponnum) {
+							bgun_equip_weapon2(HAND_RIGHT, weaponnum);
 						}
 
-						if (bgunGetWeaponNum(HAND_LEFT) != WEAPON_NONE) {
-							bgunEquipWeapon2(HAND_LEFT, WEAPON_NONE);
+						if (bgun_get_weapon_num(HAND_LEFT) != WEAPON_NONE) {
+							bgun_equip_weapon2(HAND_LEFT, WEAPON_NONE);
 						}
 					}
 				}
@@ -387,30 +387,30 @@ void amApply(s32 slot)
 		break;
 	default:
 		if (g_MissionConfig.iscoop) {
-			if (amGetFirstBuddyIndex() > -1) {
+			if (am_get_first_buddy_index() > -1) {
 				if (slot == 1) {
-					amSetAiBuddyTemperament(true); // aggressive
+					am_set_ai_buddy_temperament(true); // aggressive
 				} else if (slot == 7) {
-					amSetAiBuddyTemperament(false); // passive
+					am_set_ai_buddy_temperament(false); // passive
 #if VERSION >= VERSION_NTSC_1_0
 				} else if (slot == 3) {
-					amSetAiBuddyStealth();
+					am_set_ai_buddy_stealth();
 #endif
 				}
 			}
 		} else if (g_Vars.normmplayerisrunning) {
 			if (g_AmMenus[g_AmIndex].allbots) {
 				for (i = 0; i < g_Vars.currentplayer->numaibuddies; i++) {
-					botcmdApply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[i]], g_AmBotCommands[slot]);
+					botcmd_apply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[i]], g_AmBotCommands[slot]);
 				}
 			} else {
-				botcmdApply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]], g_AmBotCommands[slot]);
+				botcmd_apply(g_MpAllChrPtrs[g_Vars.currentplayer->aibuddynums[g_AmMenus[g_AmIndex].screenindex - 2]], g_AmBotCommands[slot]);
 			}
 		}
 	}
 }
 
-void amGetSlotDetails(s32 slot, u32 *flags, char *label)
+void am_get_slot_details(s32 slot, u32 *flags, char *label)
 {
 	u32 weaponnum;
 	s32 qty;
@@ -422,7 +422,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 	switch (g_AmMenus[g_AmIndex].screenindex) {
 	case 0: // Weapon screen
 		if (slot == 4) {
-			strcpy(label, langGet(L_MISC_170)); // "Weapon"
+			strcpy(label, lang_get(L_MISC_170)); // "Weapon"
 			return;
 		}
 
@@ -430,33 +430,33 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 			slot--;
 		}
 
-		if (invGetCurrentIndex() == g_AmMenus[g_AmIndex].invindexes[slot]) {
+		if (inv_get_current_index() == g_AmMenus[g_AmIndex].invindexes[slot]) {
 			*flags |= AMSLOTFLAG_CURRENT;
 		}
 
-		if (g_AmMenus[g_AmIndex].invindexes[slot] >= invGetCount()) {
+		if (g_AmMenus[g_AmIndex].invindexes[slot] >= inv_get_count()) {
 			strcpy(label, "");
 		} else {
-			if (invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
+			if (inv_get_weapon_num_by_index(g_AmMenus[g_AmIndex].invindexes[slot]) == WEAPON_CLOAKINGDEVICE) {
 				// Special case: "Cloak %d"
-				qty = bgunGetReservedAmmoCount(AMMOTYPE_CLOAK);
+				qty = bgun_get_reserved_ammo_count(AMMOTYPE_CLOAK);
 				secs = qty / TICKS(60);
 				modulo = (qty - (secs * TICKS(60))) * 100 / TICKS(60);
-				sprintf(label, langGet(L_OPTIONS_491), secs + (modulo > 0 ? 1 : 0)); // "cloak %d"
+				sprintf(label, lang_get(L_OPTIONS_491), secs + (modulo > 0 ? 1 : 0)); // "cloak %d"
 			} else {
-				strcpy(label, invGetShortNameByIndex(g_AmMenus[g_AmIndex].invindexes[slot]));
+				strcpy(label, inv_get_short_name_by_index(g_AmMenus[g_AmIndex].invindexes[slot]));
 			}
 		}
 
-		weaponnum = invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
+		weaponnum = inv_get_weapon_num_by_index(g_AmMenus[g_AmIndex].invindexes[slot]);
 
-		if (currentPlayerGetDeviceState(weaponnum) == DEVICESTATE_ACTIVE) {
+		if (current_player_get_device_state(weaponnum) == DEVICESTATE_ACTIVE) {
 			*flags |= AMSLOTFLAG_ACTIVE;
 		}
 
-		weaponnum = invGetWeaponNumByIndex(g_AmMenus[g_AmIndex].invindexes[slot]);
+		weaponnum = inv_get_weapon_num_by_index(g_AmMenus[g_AmIndex].invindexes[slot]);
 
-		if (!bgunHasAmmoForWeapon(weaponnum)) {
+		if (!bgun_has_ammo_for_weapon(weaponnum)) {
 			*flags |= AMSLOTFLAG_NOAMMO;
 		}
 		break;
@@ -464,10 +464,10 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 		strcpy(label, "");
 
 		if (slot == 4) {
-			strcpy(label, langGet(L_MISC_171)); // "Function"
+			strcpy(label, lang_get(L_MISC_171)); // "Function"
 		} else if (slot == 1 || slot == 7) {
-			prifunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_PRIMARY);
-			secfunc = weaponGetFunction(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_SECONDARY);
+			prifunc = weapon_get_function(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_PRIMARY);
+			secfunc = weapon_get_function(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_SECONDARY);
 
 			if (slot == 1) {
 				if (!secfunc || !FUNCISSEC()) {
@@ -475,7 +475,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 				}
 
 				if (prifunc) {
-					strcpy(label, langGet(prifunc->name));
+					strcpy(label, lang_get(prifunc->name));
 				}
 			} else {
 				if (!prifunc || FUNCISSEC()) {
@@ -483,7 +483,7 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 				}
 
 				if (secfunc) {
-					strcpy(label, langGet(secfunc->name));
+					strcpy(label, lang_get(secfunc->name));
 				}
 			}
 		}
@@ -493,28 +493,28 @@ void amGetSlotDetails(s32 slot, u32 *flags, char *label)
 
 		if (g_MissionConfig.iscoop) {
 			if (slot == 4) {
-				strcpy(label, langGet(L_MISC_474)); // "Perfect Buddies"
+				strcpy(label, lang_get(L_MISC_474)); // "Perfect Buddies"
 			} else if (slot == 1) {
-				strcpy(label, langGet(L_MISC_472)); // "Aggressive"
+				strcpy(label, lang_get(L_MISC_472)); // "Aggressive"
 			} else if (slot == 7) {
-				strcpy(label, langGet(L_MISC_473)); // "Passive"
+				strcpy(label, lang_get(L_MISC_473)); // "Passive"
 #if VERSION >= VERSION_NTSC_1_0
 			} else if (slot == 3) {
-				strcpy(label, langGet(L_MISC_475)); // "Stealth"
+				strcpy(label, lang_get(L_MISC_475)); // "Stealth"
 #endif
 			}
 		} else {
 			if (slot == 4) {
-				strcpy(label, langGet(L_MISC_172)); // "Orders"
+				strcpy(label, lang_get(L_MISC_172)); // "Orders"
 			} else {
-				strcpy(label, botGetCommandName(g_AmBotCommands[slot]));
+				strcpy(label, bot_get_command_name(g_AmBotCommands[slot]));
 			}
 		}
 		break;
 	}
 }
 
-void amReset(void)
+void am_reset(void)
 {
 	s32 i;
 	s32 j;
@@ -568,7 +568,7 @@ void amReset(void)
 	g_AmIndex = 0;
 }
 
-s16 amCalculateSlotWidth(void)
+s16 am_calculate_slot_width(void)
 {
 	s32 textheight;
 	s32 textwidth;
@@ -578,8 +578,8 @@ s16 amCalculateSlotWidth(void)
 	char text[32];
 
 	for (i = 0; i < ARRAYCOUNT(g_AmBotCommands); i++) {
-		amGetSlotDetails(i, &flags, text);
-		textMeasure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
+		am_get_slot_details(i, &flags, text);
+		text_measure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
 
 		if (textwidth > max) {
 			max = textwidth;
@@ -599,7 +599,7 @@ s16 amCalculateSlotWidth(void)
 	return max;
 }
 
-void amChangeScreen(s32 step)
+void am_change_screen(s32 step)
 {
 	s32 maxscreenindex;
 
@@ -624,7 +624,7 @@ void amChangeScreen(s32 step)
 		}
 	} else {
 		// Solo missions, or MP with no teams
-		if (g_MissionConfig.iscoop && amGetFirstBuddyIndex() >= 0) {
+		if (g_MissionConfig.iscoop && am_get_first_buddy_index() >= 0) {
 			// Weapon selection, second function and AI buddy commands
 			maxscreenindex = 2;
 		} else {
@@ -647,12 +647,12 @@ void amChangeScreen(s32 step)
 	g_AmMenus[g_AmIndex].returntimer = 0;
 	g_AmMenus[g_AmIndex].cornertimer = 0;
 	g_AmMenus[g_AmIndex].alphafrac = 0;
-	g_AmMenus[g_AmIndex].slotwidth = amCalculateSlotWidth();
+	g_AmMenus[g_AmIndex].slotwidth = am_calculate_slot_width();
 }
 
-void amAssignWeaponSlots(void)
+void am_assign_weapon_slots(void)
 {
-	s32 numitems = invGetCount();
+	s32 numitems = inv_get_count();
 	u8 weaponnum;
 	s32 i;
 	s32 j;
@@ -667,7 +667,7 @@ void amAssignWeaponSlots(void)
 
 	// Assign favourites
 	for (i = 0; i < numitems; i++) {
-		weaponnum = invGetWeaponNumByIndex(i);
+		weaponnum = inv_get_weapon_num_by_index(i);
 
 		if ((weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_DISGUISE41)
 				|| weaponnum == WEAPON_SUICIDEPILL
@@ -698,7 +698,7 @@ void amAssignWeaponSlots(void)
 		}
 
 		if (!isfavourited) {
-			weaponnum = invGetWeaponNumByIndex(i);
+			weaponnum = inv_get_weapon_num_by_index(i);
 
 			if ((weaponnum >= WEAPON_UNARMED && weaponnum <= WEAPON_DISGUISE41)
 					|| weaponnum == WEAPON_SUICIDEPILL
@@ -739,7 +739,7 @@ void amAssignWeaponSlots(void)
 	}
 }
 
-void amOpen(void)
+void am_open(void)
 {
 	if (g_Vars.currentplayer->gunctrl.passivemode == false) {
 		g_AmIndex = g_Vars.currentplayernum;
@@ -747,8 +747,8 @@ void amOpen(void)
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
 		g_AmMenus[g_AmIndex].screenindex = 0;
 		g_AmMenus[g_AmIndex].selpulse = 0;
-		amAssignWeaponSlots();
-		amChangeScreen(0);
+		am_assign_weapon_slots();
+		am_change_screen(0);
 		g_AmMenus[g_AmIndex].xradius = g_AmMenus[g_AmIndex].slotwidth + 5;
 		g_AmMenus[g_AmIndex].alphafrac = 0.3;
 		g_AmMenus[g_AmIndex].origscreennum = 0;
@@ -757,10 +757,10 @@ void amOpen(void)
 	}
 }
 
-void amClose(void)
+void am_close(void)
 {
 	if (g_AmMenus[g_AmIndex].slotnum != 4) {
-		amApply(g_AmMenus[g_AmIndex].slotnum);
+		am_apply(g_AmMenus[g_AmIndex].slotnum);
 	}
 
 	g_Vars.currentplayer->activemenumode = AMMODE_CLOSED;
@@ -768,7 +768,7 @@ void amClose(void)
 	g_PlayersWithControl[g_Vars.currentplayernum] = 1;
 }
 
-bool amIsCramped(void)
+bool am_is_cramped(void)
 {
 #if VERSION == VERSION_JPN_FINAL
 	if (PLAYERCOUNT() >= 3 && g_AmMenus[g_AmIndex].screenindex != 1) {
@@ -779,7 +779,7 @@ bool amIsCramped(void)
 		return true;
 	}
 
-	if (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL
+	if (options_get_screen_split() == SCREENSPLIT_VERTICAL
 			&& PLAYERCOUNT() == 2
 			&& g_AmMenus[g_AmIndex].screenindex != 1) {
 		return true;
@@ -789,11 +789,11 @@ bool amIsCramped(void)
 #else
 	return (g_AmMenus[g_AmIndex].screenindex == 0 && PLAYERCOUNT() >= 3)
 		|| (IS4MB() && PLAYERCOUNT() == 2)
-		|| (PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL);
+		|| (PLAYERCOUNT() == 2 && options_get_screen_split() == SCREENSPLIT_VERTICAL);
 #endif
 }
 
-void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
+void am_calculate_slot_position(s16 column, s16 row, s16 *x, s16 *y)
 {
 #if VERSION == VERSION_JPN_FINAL
 	s32 playercount = PLAYERCOUNT();
@@ -806,7 +806,7 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		*y = *y / 2;
 	}
 
-	if (amIsCramped()) {
+	if (am_is_cramped()) {
 		s32 offset = 1;
 
 		if (row == 1) {
@@ -820,11 +820,11 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		}
 	} else {
 		if (playercount >= 2) {
-			if (row == 1 && !amIsCramped()) {
+			if (row == 1 && !am_is_cramped()) {
 				*x = (*x * 6) / 7;
 			}
 		} else {
-			if (playercount >= 3 && row == 1 && !amIsCramped()) {
+			if (playercount >= 3 && row == 1 && !am_is_cramped()) {
 				*x = (*x * 6) / 14;
 			}
 		}
@@ -834,14 +834,14 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		*y = (*y * 7) / 10;
 	}
 
-	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
-	*y += viGetViewTop() + viGetViewHeight() / 2;
+	*x += vi_get_view_left() / g_ScaleX + vi_get_view_width() / (g_ScaleX * 2);
+	*y += vi_get_view_top() + vi_get_view_height() / 2;
 
 	if (playercount >= 2) {
 		*y += 4;
 	}
 
-	if ((playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))
+	if ((playercount == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || IS4MB()))
 			|| playercount >= 3) {
 		if ((g_Vars.currentplayernum % 2) == 0) {
 			*x += 8;
@@ -860,7 +860,7 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		*y = *y / 2;
 	}
 
-	if (amIsCramped()) {
+	if (am_is_cramped()) {
 		s32 offset = 1;
 
 		if (row == 1) {
@@ -874,11 +874,11 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		}
 	} else {
 		if (playercount >= 2) {
-			if (row == 1 && !amIsCramped()) {
+			if (row == 1 && !am_is_cramped()) {
 				*x = (*x * 6) / 7;
 			}
 		} else {
-			if (playercount >= 3 && row == 1 && !amIsCramped()) {
+			if (playercount >= 3 && row == 1 && !am_is_cramped()) {
 				*x = (*x * 6) / 14;
 			}
 		}
@@ -890,10 +890,10 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		*y = (*y * 3) / 5;
 	}
 
-	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
-	*y += viGetViewTop() + viGetViewHeight() / 2;
+	*x += vi_get_view_left() / g_ScaleX + vi_get_view_width() / (g_ScaleX * 2);
+	*y += vi_get_view_top() + vi_get_view_height() / 2;
 
-	if ((playercount == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB()))
+	if ((playercount == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || IS4MB()))
 			|| playercount >= 3) {
 		if ((g_Vars.currentplayernum % 2) == 0) {
 			*x += 8;
@@ -914,7 +914,7 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 		if (1);
 	}
 
-	if (row == 1 && amIsCramped() && column != 1) {
+	if (row == 1 && am_is_cramped() && column != 1) {
 		*x = *x / 2;
 
 		if (*x < 0) {
@@ -925,23 +925,23 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 	}
 
 	if (playercount >= 2) {
-		if (row == 1 && !amIsCramped()) {
+		if (row == 1 && !am_is_cramped()) {
 			*x = (*x * 6) / 7;
 		}
 
 		*y = (*y * 3) / 5;
 	} else if (playercount >= 3) {
-		if (row == 1 && !amIsCramped()) {
+		if (row == 1 && !am_is_cramped()) {
 			*x = (*x * 6) / 14;
 		}
 
 		*y = (*y * 3) / 5;
 	}
 
-	*x += viGetViewLeft() / g_ScaleX + viGetViewWidth() / (g_ScaleX * 2);
-	*y += viGetViewTop() + viGetViewHeight() / 2;
+	*x += vi_get_view_left() / g_ScaleX + vi_get_view_width() / (g_ScaleX * 2);
+	*y += vi_get_view_top() + vi_get_view_height() / 2;
 
-	if ((playercount == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || playercount >= 3) {
+	if ((playercount == 2 && options_get_screen_split() == SCREENSPLIT_VERTICAL) || playercount >= 3) {
 		if ((g_Vars.currentplayernum % 2) == 0) {
 			*x += 8;
 		} else {
@@ -951,23 +951,23 @@ void amCalculateSlotPosition(s16 column, s16 row, s16 *x, s16 *y)
 #endif
 }
 
-Gfx *amRenderText(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
+Gfx *am_render_text(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
 {
 	s32 x;
 	s32 y;
 	s32 textwidth;
 	s32 textheight;
 
-	textMeasure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
+	text_measure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
 
 	x = left - (textwidth / 2);
 	y = top - 4;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_AmFont1, g_AmFont2, colour, SCREEN_320, SCREEN_240, 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text, g_AmFont1, g_AmFont2, colour, SCREEN_320, SCREEN_240, 0, 0);
 
 	return gdl;
 }
 
-Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
+Gfx *am_render_aibot_info(Gfx *gdl, s32 buddynum)
 {
 	s32 x;
 	s32 y;
@@ -982,15 +982,15 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (PLAYERCOUNT() == 1 && optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
+	if (PLAYERCOUNT() == 1 && options_get_effective_screen_size() != SCREENSIZE_FULL) {
 		wide = true;
 	}
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-	if ((PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) || PLAYERCOUNT() >= 3)
+	if ((PLAYERCOUNT() == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || IS4MB())) || PLAYERCOUNT() >= 3)
 #else
-	if ((PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3)
+	if ((PLAYERCOUNT() == 2 && options_get_screen_split() == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3)
 #endif
 	{
 		if ((g_Vars.currentplayernum % 2) == 0) {
@@ -1011,27 +1011,27 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		}
 
 		if (weaponnum < WEAPON_FALCON2 || weaponnum > WEAPON_HORIZONSCANNER) {
-			weaponname = langGet(L_MISC_173); // "No Weapon"
+			weaponname = lang_get(L_MISC_173); // "No Weapon"
 		} else {
-			weaponname = bgunGetShortName(weaponnum);
+			weaponname = bgun_get_short_name(weaponnum);
 		}
 
-		textMeasure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
+		text_measure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScaleX
-			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
+		x = vi_get_view_left() / g_ScaleX
+			+ (s32)(vi_get_view_width() / g_ScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 		if (PLAYERCOUNT() >= 2) {
-			y = viGetViewTop() + 5;
+			y = vi_get_view_top() + 5;
 		} else {
-			y = viGetViewTop() + 10;
+			y = vi_get_view_top() + 10;
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (wide) {
-			x = viGetViewLeft() / g_ScaleX + 32;
+			x = vi_get_view_left() / g_ScaleX + 32;
 		}
 #endif
 
@@ -1041,47 +1041,47 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
 #else
-		gdl = textRender(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
+		gdl = text_render(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
-		textMeasure(&textheight, &textwidth, weaponname, g_AmFont1, g_AmFont2, 0);
+		text_measure(&textheight, &textwidth, weaponname, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScaleX
-			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
+		x = vi_get_view_left() / g_ScaleX
+			+ (s32)(vi_get_view_width() / g_ScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (wide) {
-			x = viGetViewLeft() / g_ScaleX + 32;
+			x = vi_get_view_left() / g_ScaleX + 32;
 		}
 #endif
 
-		gdl = textRender(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
+		gdl = text_render(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 #endif
 
 		g_Vars.currentplayer->commandingaibot = g_MpAllChrPtrs[buddynum];
 	} else {
-		char *title = langGet(L_MISC_215); // "All Simulants"
+		char *title = lang_get(L_MISC_215); // "All Simulants"
 
-		textMeasure(&textheight, &textwidth, title, g_AmFont1, g_AmFont2, 0);
+		text_measure(&textheight, &textwidth, title, g_AmFont1, g_AmFont2, 0);
 
-		x = viGetViewLeft() / g_ScaleX
-			+ (s32)(viGetViewWidth() / g_ScaleX * 0.5f)
+		x = vi_get_view_left() / g_ScaleX
+			+ (s32)(vi_get_view_width() / g_ScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 		if (PLAYERCOUNT() >= 2) {
-			y = viGetViewTop() + 5;
+			y = vi_get_view_top() + 5;
 		} else {
-			y = viGetViewTop() + 10;
+			y = vi_get_view_top() + 10;
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (wide) {
-			x = viGetViewLeft() / g_ScaleX + 32;
+			x = vi_get_view_left() / g_ScaleX + 32;
 		}
 #endif
 
@@ -1089,7 +1089,7 @@ Gfx *amRenderAibotInfo(Gfx *gdl, s32 buddynum)
 		gdl = func0f1574d0jf(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 #else
-		gdl = textRender(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
+		gdl = text_render(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 #endif
 	}
@@ -1112,7 +1112,7 @@ const char var7f1b2c34[] = "FAV: Added gun %d to slot %d\n";
 
 u8 var800719a0[][3] = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8} };
 
-Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
+Gfx *am_render_slot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 {
 	static u32 obcol = 0xff00004f; // outer border
 	static u32 ibcol = VERSION >= VERSION_NTSC_1_0 ? 0x3f00008f : 0x3f00006f; // inner background
@@ -1142,12 +1142,12 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 		return gdl;
 	}
 
-	mainOverrideVariable("obcol", &obcol);
-	mainOverrideVariable("ibcol", &ibcol);
-	mainOverrideVariable("defcol", &defcol);
-	mainOverrideVariable("favcol", &favcol);
-	mainOverrideVariable("pickcol", &pickcol);
-	mainOverrideVariable("pickcol2", &pickcol2);
+	main_override_variable("obcol", &obcol);
+	main_override_variable("ibcol", &ibcol);
+	main_override_variable("defcol", &defcol);
+	main_override_variable("favcol", &favcol);
+	main_override_variable("pickcol", &pickcol);
+	main_override_variable("pickcol2", &pickcol2);
 
 	// Render background colour
 	colour = (u32)(g_AmMenus[g_AmIndex].alphafrac * (ibcol & 0xff)) | (ibcol & 0xffffff00);
@@ -1168,7 +1168,7 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 		colour = 0x0000006f;
 	}
 
-	gdl = textSetPrimColour(gdl, colour);
+	gdl = text_set_prim_colour(gdl, colour);
 
 	gDPFillRectangleScaled(gdl++,
 			x - g_AmMenus[g_AmIndex].slotwidth / 2 + 1,
@@ -1195,7 +1195,7 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 		colour = 0x4f4f4f7f;
 	}
 
-	gdl = textSetPrimColour(gdl, colour);
+	gdl = text_set_prim_colour(gdl, colour);
 
 	// Top border
 	gDPFillRectangleScaled(gdl++,
@@ -1235,7 +1235,7 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 	}
 
 	if (flags & AMSLOTFLAG_ACTIVE) {
-		colour = colourBlend(0xffaf8fff, colour, menuGetCosOscFrac(10) * 255.0f);
+		colour = colour_blend(0xffaf8fff, colour, menu_get_cos_osc_frac(10) * 255.0f);
 	}
 
 	colour = (u32)(g_AmMenus[g_AmIndex].alphafrac * (colour & 0xff)) | (colour & 0xffffff00);
@@ -1244,12 +1244,12 @@ Gfx *amRenderSlot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 		colour = 0x4f4f4f7f;
 	}
 
-	gdl = amRenderText(gdl, text, colour, x, y);
+	gdl = am_render_text(gdl, text, colour, x, y);
 
 	return gdl;
 }
 
-Gfx *amRender(Gfx *gdl)
+Gfx *am_render(Gfx *gdl)
 {
 	struct chrdata *chr;
 	u32 flags;
@@ -1283,7 +1283,7 @@ Gfx *amRender(Gfx *gdl)
 		}
 
 		if (g_AmMenus[g_AmIndex].dstx == -123) {
-			amCalculateSlotPosition(
+			am_calculate_slot_position(
 					g_AmMenus[g_AmIndex].slotnum % 3,
 					g_AmMenus[g_AmIndex].slotnum / 3,
 					&g_AmMenus[g_AmIndex].selx,
@@ -1291,7 +1291,7 @@ Gfx *amRender(Gfx *gdl)
 			g_AmMenus[g_AmIndex].dstx = g_AmMenus[g_AmIndex].selx;
 			g_AmMenus[g_AmIndex].dsty = g_AmMenus[g_AmIndex].sely;
 		} else {
-			amCalculateSlotPosition(
+			am_calculate_slot_position(
 					g_AmMenus[g_AmIndex].slotnum % 3,
 					g_AmMenus[g_AmIndex].slotnum / 3,
 					&g_AmMenus[g_AmIndex].dstx,
@@ -1300,8 +1300,8 @@ Gfx *amRender(Gfx *gdl)
 
 		gdl = func0f0d479c(gdl);
 
-		colours = gfxAllocateColours(2);
-		vertices = gfxAllocateVertices(8);
+		colours = gfx_allocate_colours(2);
+		vertices = gfx_allocate_vertices(8);
 
 		gDPPipeSync(gdl++);
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -1310,33 +1310,33 @@ Gfx *amRender(Gfx *gdl)
 		gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-		texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
+		tex_select(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
 		// Top
-		amCalculateSlotPosition(1, 0, &slotx, &sloty);
+		am_calculate_slot_position(1, 0, &slotx, &sloty);
 
 		vertices[0].x = slotx * 10;
 		vertices[0].y = sloty * 10;
 		vertices[0].z = -10;
 
 		// Right
-		amCalculateSlotPosition(2, 1, &slotx, &sloty);
+		am_calculate_slot_position(2, 1, &slotx, &sloty);
 
 		vertices[1].x = slotx * 10;
 		vertices[1].y = sloty * 10;
 		vertices[1].z = -10;
 
 		// Bottom
-		amCalculateSlotPosition(1, 2, &slotx, &sloty);
+		am_calculate_slot_position(1, 2, &slotx, &sloty);
 
 		vertices[2].x = slotx * 10;
 		vertices[2].y = sloty * 10;
 		vertices[2].z = -10;
 
 		// Left
-		amCalculateSlotPosition(0, 1, &slotx, &sloty);
+		am_calculate_slot_position(0, 1, &slotx, &sloty);
 
 		vertices[3].x = slotx * 10;
 		vertices[3].y = sloty * 10;
@@ -1390,14 +1390,14 @@ Gfx *amRender(Gfx *gdl)
 				s32 buddynum;
 
 				mode = AMSLOTMODE_DEFAULT;
-				amCalculateSlotPosition(column, row, &slotx, &sloty);
+				am_calculate_slot_position(column, row, &slotx, &sloty);
 				flags = 0;
 
 				if (column + row * 3 == g_AmMenus[g_AmIndex].slotnum) {
 					mode = AMSLOTMODE_FOCUSED;
 				}
 
-				if (g_MissionConfig.iscoop && (buddynum = amGetFirstBuddyIndex(), buddynum >= 0)) {
+				if (g_MissionConfig.iscoop && (buddynum = am_get_first_buddy_index(), buddynum >= 0)) {
 					if (mode == AMSLOTMODE_DEFAULT && g_AmMenus[g_AmIndex].screenindex >= 2) {
 						struct chrdata *chr = g_Vars.aibuddies[buddynum]->chr;
 
@@ -1442,14 +1442,14 @@ Gfx *amRender(Gfx *gdl)
 					colour = 0x4f4f4f7f;
 				}
 
-				amGetSlotDetails(column + row * 3, &flags, text);
+				am_get_slot_details(column + row * 3, &flags, text);
 
 				if (column == 1 && row == 1) {
-					if (!amIsCramped()) {
-						gdl = amRenderText(gdl, text, colour, slotx, sloty);
+					if (!am_is_cramped()) {
+						gdl = am_render_text(gdl, text, colour, slotx, sloty);
 					}
 				} else {
-					gdl = amRenderSlot(gdl, text, slotx, sloty, mode, flags);
+					gdl = am_render_slot(gdl, text, slotx, sloty, mode, flags);
 				}
 			}
 		}
@@ -1459,16 +1459,16 @@ Gfx *amRender(Gfx *gdl)
 			struct g_vars *vars = &g_Vars;
 
 #if VERSION >= VERSION_JPN_FINAL
-			if (!(g_MissionConfig.iscoop && amGetFirstBuddyIndex() >= 0)
+			if (!(g_MissionConfig.iscoop && am_get_first_buddy_index() >= 0)
 					&& g_Vars.normmplayerisrunning
 					&& g_AmMenus[g_AmIndex].screenindex >= 2) {
-				gdl = amRenderAibotInfo(gdl, g_AmMenus[g_AmIndex].screenindex - 2);
+				gdl = am_render_aibot_info(gdl, g_AmMenus[g_AmIndex].screenindex - 2);
 			}
 #else
-			if (!(g_MissionConfig.iscoop && amGetFirstBuddyIndex() >= 0)
+			if (!(g_MissionConfig.iscoop && am_get_first_buddy_index() >= 0)
 					&& vars->normmplayerisrunning
 					&& g_AmMenus[g_AmIndex].screenindex >= 2) {
-				gdl = amRenderAibotInfo(gdl, g_AmMenus[g_AmIndex].screenindex - 2);
+				gdl = am_render_aibot_info(gdl, g_AmMenus[g_AmIndex].screenindex - 2);
 			}
 #endif
 		}
@@ -1502,13 +1502,13 @@ Gfx *amRender(Gfx *gdl)
 				colour = 0x4f4f4f7f;
 			}
 
-			gdl = textSetPrimColour(gdl, colour);
+			gdl = text_set_prim_colour(gdl, colour);
 
 			halfwidth = g_AmMenus[g_AmIndex].slotwidth / 2;
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (g_AmMenus[g_AmIndex].slotnum == 4) {
-				if (amIsCramped()) {
+				if (am_is_cramped()) {
 					halfwidth = 1;
 					above = 2;
 					below = 0;
@@ -1518,14 +1518,14 @@ Gfx *amRender(Gfx *gdl)
 					char text[32];
 					u32 flags;
 
-					amGetSlotDetails(4, &flags, text);
-					textMeasure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
+					am_get_slot_details(4, &flags, text);
+					text_measure(&textheight, &textwidth, text, g_AmFont1, g_AmFont2, 0);
 
 					halfwidth = textwidth / 2 + 2;
 				}
 			}
 #else
-			if (g_AmMenus[g_AmIndex].slotnum == 4 && amIsCramped()) {
+			if (g_AmMenus[g_AmIndex].slotnum == 4 && am_is_cramped()) {
 				halfwidth = 4;
 			}
 #endif
@@ -1599,25 +1599,25 @@ Gfx *amRender(Gfx *gdl)
 		xoffset = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
-		if ((PLAYERCOUNT() == 2 && (optionsGetScreenSplit() == SCREENSPLIT_VERTICAL || IS4MB())) || PLAYERCOUNT() >= 3) {
+		if ((PLAYERCOUNT() == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || IS4MB())) || PLAYERCOUNT() >= 3) {
 			xoffset = (g_Vars.currentplayernum & 1) == 0 ? 8 : -8;
 		}
 
-		if (PLAYERCOUNT() == 1 && optionsGetEffectiveScreenSize() != SCREENSIZE_FULL) {
-			part1left = viGetViewLeft() / g_ScaleX + 32;
+		if (PLAYERCOUNT() == 1 && options_get_effective_screen_size() != SCREENSIZE_FULL) {
+			part1left = vi_get_view_left() / g_ScaleX + 32;
 		} else {
-			part1left = (s32) ((viGetViewWidth() / g_ScaleX) * 0.5f)
-				+ (s32) (viGetViewLeft() / g_ScaleX)
+			part1left = (s32) ((vi_get_view_width() / g_ScaleX) * 0.5f)
+				+ (s32) (vi_get_view_left() / g_ScaleX)
 				- (s32) (barwidth * 0.5f)
 				+ xoffset;
 		}
 #else
-		if ((PLAYERCOUNT() == 2 && optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3) {
+		if ((PLAYERCOUNT() == 2 && options_get_screen_split() == SCREENSPLIT_VERTICAL) || PLAYERCOUNT() >= 3) {
 			xoffset = (g_Vars.currentplayernum & 1) == 0 ? 8 : -8;
 		}
 
-		part1left = (s32) ((viGetViewWidth() / g_ScaleX) * 0.5f)
-			+ (s32) (viGetViewLeft() / g_ScaleX)
+		part1left = (s32) ((vi_get_view_width() / g_ScaleX) * 0.5f)
+			+ (s32) (vi_get_view_left() / g_ScaleX)
 			- (s32) (barwidth * 0.5f)
 			+ xoffset;
 #endif
@@ -1638,7 +1638,7 @@ Gfx *amRender(Gfx *gdl)
 		gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 		gDPSetCombineMode(gdl++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
 
-		y = viGetViewTop() + viGetViewHeight() - (PLAYERCOUNT() >= 2 ? 19 : 34);
+		y = vi_get_view_top() + vi_get_view_height() - (PLAYERCOUNT() >= 2 ? 19 : 34);
 
 		// NTSC beta doesn't scale the health bar when hi-res is on,
 		// and it only matches if part2left is an inline expression

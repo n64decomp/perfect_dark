@@ -868,7 +868,7 @@ extern u8 _seqctlSegmentRomEnd;
 extern u8 _seqtblSegmentRomStart;
 extern u8 _sequencesSegmentRomStart;
 
-bool sndIsPlayingMp3(void)
+bool snd_is_playing_mp3(void)
 {
 	return g_SndCurMp3.playing;
 }
@@ -890,7 +890,7 @@ u16 snd0000e9dc(void)
 #endif
 }
 
-void sndSetSfxVolume(u16 volume)
+void snd_set_sfx_volume(u16 volume)
 {
 	u8 i;
 
@@ -922,7 +922,7 @@ void snd0000ea80(u16 volume)
 	}
 }
 
-void sndResetCurMp3(void)
+void snd_reset_cur_mp3(void)
 {
 	g_SndCurMp3.sfxref.id = 0;
 	g_SndCurMp3.sfxref.mp3priority = 0;
@@ -936,7 +936,7 @@ void sndResetCurMp3(void)
 	g_SndCurMp3.prevgreeting = -1;
 }
 
-void sndLoadSfxCtl(void)
+void snd_load_sfx_ctl(void)
 {
 	s32 i;
 	u8 unalignedbuffer[256 + 16];
@@ -951,21 +951,21 @@ void sndLoadSfxCtl(void)
 
 	// Load the first 256 bytes of the ctl file.
 	size = 256;
-	dmaExec(buffer, (romptr_t) &_sfxctlSegmentRomStart, size);
+	dma_exec(buffer, (romptr_t) &_sfxctlSegmentRomStart, size);
 
 	// Get the ROM address of the first (and only) bank,
 	// then load the first 256 bytes of the bank.
 	file = (ALBankFile *) buffer;
 	romaddr = (romptr_t)&_sfxctlSegmentRomStart;
 	romaddr += (u32)file->bankArray[0];
-	dmaExec(buffer, romaddr, size);
+	dma_exec(buffer, romaddr, size);
 
 	// Get the ROM address of the first (and only) instrument,
 	// then load the first 256 bytes of the instrument.
 	bank = (ALBank *) buffer;
 	romaddr = (romptr_t)&_sfxctlSegmentRomStart;
 	romaddr += (u32)bank->instArray[0];
-	dmaExec(buffer, romaddr, size);
+	dma_exec(buffer, romaddr, size);
 
 	// Get the soundCount (spoiler: there's 1545+1).
 	// The final one might be a null terminator?
@@ -978,7 +978,7 @@ void sndLoadSfxCtl(void)
 	size = g_NumSounds * 4 + 20;
 	size = ALIGN16(size);
 	g_ALSoundRomOffsets = alHeapAlloc(&g_SndHeap, 1, size);
-	dmaExec(g_ALSoundRomOffsets, romaddr, size);
+	dma_exec(g_ALSoundRomOffsets, romaddr, size);
 
 	*(u32 *)&g_ALSoundRomOffsets += 0x10;
 
@@ -1006,7 +1006,7 @@ void sndLoadSfxCtl(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void sndIncrementAges(void)
+void snd_increment_ages(void)
 {
 	s32 i;
 
@@ -1018,7 +1018,7 @@ void sndIncrementAges(void)
 }
 #endif
 
-ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
+ALEnvelope *snd_load_envelope(u32 offset, u16 cacheindex)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
@@ -1032,14 +1032,14 @@ ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
-		dmaExecHighPriority(s2, offset, 0x40);
+		dma_exec_high_priority(s2, offset, 0x40);
 		sum1 = 0;
 
 		for (i = 0; i < 16U; i++) {
 			sum1 += ((u32 *)s2)[i];
 		}
 
-		dmaExecHighPriority(s1, offset, 0x40);
+		dma_exec_high_priority(s1, offset, 0x40);
 		sum2 = 0;
 
 		for (i = 0; i < 16U; i++) {
@@ -1054,7 +1054,7 @@ ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
-	dmaExecHighPriority(s1, offset, 0x40);
+	dma_exec_high_priority(s1, offset, 0x40);
 #endif
 
 	g_SndCache.envelopes[cacheindex] = *s1;
@@ -1065,7 +1065,7 @@ ALEnvelope *sndLoadEnvelope(u32 offset, u16 cacheindex)
 	return s1;
 }
 
-ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
+ALKeyMap *snd_load_keymap(u32 offset, u16 cacheindex)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
@@ -1079,14 +1079,14 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
-		dmaExecHighPriority(s2, offset, 0x40);
+		dma_exec_high_priority(s2, offset, 0x40);
 		sum1 = 0;
 
 		for (i = 0; i < 16U; i++) {
 			sum1 += ((u32 *)s2)[i];
 		}
 
-		dmaExecHighPriority(s1, offset, 0x40);
+		dma_exec_high_priority(s1, offset, 0x40);
 		sum2 = 0;
 
 		for (i = 0; i < 16U; i++) {
@@ -1101,7 +1101,7 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
-	dmaExecHighPriority(s1, offset, 0x40);
+	dma_exec_high_priority(s1, offset, 0x40);
 #endif
 
 	g_SndCache.keymaps[cacheindex] = *s1;
@@ -1112,7 +1112,7 @@ ALKeyMap *sndLoadKeymap(u32 offset, u16 cacheindex)
 	return s1;
 }
 
-ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
+ALADPCMBook *snd_load_adpcm_book(u32 offset, u16 cacheindex)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x150];
@@ -1126,14 +1126,14 @@ ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
-		dmaExecHighPriority(s2, offset, 0x140);
+		dma_exec_high_priority(s2, offset, 0x140);
 		sum1 = 0;
 
 		for (i = 0; i < 80U; i++) {
 			sum1 += ((u32 *)s2)[i];
 		}
 
-		dmaExecHighPriority(s1, offset, 0x140);
+		dma_exec_high_priority(s1, offset, 0x140);
 		sum2 = 0;
 
 		for (i = 0; i < 80U; i++) {
@@ -1148,7 +1148,7 @@ ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
-	dmaExecHighPriority(s1, offset, 0x140);
+	dma_exec_high_priority(s1, offset, 0x140);
 #endif
 
 	g_SndCache.books[cacheindex] = *s1;
@@ -1159,7 +1159,7 @@ ALADPCMBook *sndLoadAdpcmBook(u32 offset, u16 cacheindex)
 	return s1;
 }
 
-ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
+ALADPCMloop *snd_load_adpcm_loop(u32 offset, u16 cacheindex)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
@@ -1177,14 +1177,14 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
-		dmaExecHighPriority(s2, offset, 0x40);
+		dma_exec_high_priority(s2, offset, 0x40);
 		sum1 = 0;
 
 		for (i = 0; i < 16U; i++) {
 			sum1 += ((u32 *)s2)[i];
 		}
 
-		dmaExecHighPriority(s1, offset, 0x40);
+		dma_exec_high_priority(s1, offset, 0x40);
 		sum2 = 0;
 
 		for (i = 0; i < 16U; i++) {
@@ -1203,7 +1203,7 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
-	dmaExecHighPriority(s1, offset, 0x40);
+	dma_exec_high_priority(s1, offset, 0x40);
 #endif
 
 	g_SndCache.loops[cacheindex] = *s1;
@@ -1214,7 +1214,7 @@ ALADPCMloop *sndLoadAdpcmLoop(u32 offset, u16 cacheindex)
 	return s1;
 }
 
-ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
+ALWaveTable *snd_load_wavetable(u32 offset, u16 cacheindex)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	u8 spaf[0x50];
@@ -1229,14 +1229,14 @@ ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
 	do {
-		dmaExecHighPriority(s2, offset, 0x40);
+		dma_exec_high_priority(s2, offset, 0x40);
 		sum1 = 0;
 
 		for (i = 0; i < 16U; i++) {
 			sum1 += ((u32 *)s2)[i];
 		}
 
-		dmaExecHighPriority(s1, offset, 0x40);
+		dma_exec_high_priority(s1, offset, 0x40);
 		sum2 = 0;
 
 		for (i = 0; i < 16U; i++) {
@@ -1252,7 +1252,7 @@ ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 
 	offset += (romptr_t)&_sfxctlSegmentRomStart;
 
-	dmaExecHighPriority(s1, offset, 0x40);
+	dma_exec_high_priority(s1, offset, 0x40);
 #endif
 
 	tmp = &g_SndCache.wavetables[cacheindex];
@@ -1262,14 +1262,14 @@ ALWaveTable *sndLoadWavetable(u32 offset, u16 cacheindex)
 	tmp->base += (romptr_t)&_sfxtblSegmentRomStart;
 
 	if (tmp->type == AL_ADPCM_WAVE) {
-		tmp->waveInfo.adpcmWave.book = sndLoadAdpcmBook((uintptr_t)tmp->waveInfo.adpcmWave.book, cacheindex);
-		tmp->waveInfo.adpcmWave.loop = sndLoadAdpcmLoop((uintptr_t)tmp->waveInfo.adpcmWave.loop, cacheindex);
+		tmp->waveInfo.adpcmWave.book = snd_load_adpcm_book((uintptr_t)tmp->waveInfo.adpcmWave.book, cacheindex);
+		tmp->waveInfo.adpcmWave.loop = snd_load_adpcm_loop((uintptr_t)tmp->waveInfo.adpcmWave.loop, cacheindex);
 	}
 
 	return tmp;
 }
 
-void sndSetSoundMode(s32 mode)
+void snd_set_sound_mode(s32 mode)
 {
 	s32 i;
 
@@ -1277,16 +1277,16 @@ void sndSetSoundMode(s32 mode)
 
 	switch (mode) {
 	case SOUNDMODE_MONO:
-		speakersSetMode(SPEAKERMODE_MONO);
+		speakers_set_mode(SPEAKERMODE_MONO);
 		break;
 	case SOUNDMODE_STEREO:
-		speakersSetMode(SPEAKERMODE_STEREO);
+		speakers_set_mode(SPEAKERMODE_STEREO);
 		break;
 	case SOUNDMODE_HEADPHONE:
-		speakersSetMode(SPEAKERMODE_HEADPHONE);
+		speakers_set_mode(SPEAKERMODE_HEADPHONE);
 		break;
 	case SOUNDMODE_SURROUND:
-		speakersSetMode(SPEAKERMODE_SURROUND);
+		speakers_set_mode(SPEAKERMODE_SURROUND);
 		break;
 	}
 
@@ -1303,7 +1303,7 @@ void sndSetSoundMode(s32 mode)
 	}
 }
 
-ALSound *sndLoadSound(s16 soundnum)
+ALSound *snd_load_sound(s16 soundnum)
 {
 	union soundnumhack tmp;
 	u16 cacheindex;
@@ -1320,7 +1320,7 @@ ALSound *sndLoadSound(s16 soundnum)
 	tmp.packed = soundnum;
 	sfxnum = tmp.id;
 
-	if (sndIsMp3(tmp.packed)) {
+	if (snd_is_mp3(tmp.packed)) {
 		return NULL;
 	}
 
@@ -1364,12 +1364,12 @@ ALSound *sndLoadSound(s16 soundnum)
 		}
 
 		// DMA the ALSound data
-		dmaExecHighPriority(sound, g_ALSoundRomOffsets[sfxnum - 1], 0x40);
+		dma_exec_high_priority(sound, g_ALSoundRomOffsets[sfxnum - 1], 0x40);
 
 		// Promote segment offsets to pointers and load their child data
-		sound->envelope = sndLoadEnvelope((uintptr_t)sound->envelope, cacheindex);
-		sound->wavetable = sndLoadWavetable((uintptr_t)sound->wavetable, cacheindex);
-		sound->keyMap = sndLoadKeymap((uintptr_t)sound->keyMap, cacheindex);
+		sound->envelope = snd_load_envelope((uintptr_t)sound->envelope, cacheindex);
+		sound->wavetable = snd_load_wavetable((uintptr_t)sound->wavetable, cacheindex);
+		sound->keyMap = snd_load_keymap((uintptr_t)sound->keyMap, cacheindex);
 
 		// Save the ALSound into the cache
 		g_SndCache.sounds[cacheindex] = *sound;
@@ -1387,7 +1387,7 @@ ALSound *sndLoadSound(s16 soundnum)
 	return &g_SndCache.sounds[cacheindex];
 }
 
-void seqInit(struct seqinstance *seq)
+void seq_init(struct seqinstance *seq)
 {
 	u32 stack;
 	ALSeqpConfig config;
@@ -1414,7 +1414,7 @@ void seqInit(struct seqinstance *seq)
 	n_alCSPSetBank(seq->seqp, var80095204);
 }
 
-void sndAddRef(ALSound *sound)
+void snd_add_ref(ALSound *sound)
 {
 	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[NUM_CACHE_SLOTS - 1]) {
 		s32 cacheindex = sound - g_SndCache.sounds;
@@ -1422,7 +1422,7 @@ void sndAddRef(ALSound *sound)
 	}
 }
 
-void sndRemoveRef(ALSound *sound)
+void snd_remove_ref(ALSound *sound)
 {
 	if (sound >= &g_SndCache.sounds[0] && sound <= &g_SndCache.sounds[NUM_CACHE_SLOTS - 1]) {
 		s32 cacheindex = sound - g_SndCache.sounds;
@@ -1430,7 +1430,7 @@ void sndRemoveRef(ALSound *sound)
 	}
 }
 
-void sndInit(void)
+void snd_init(void)
 {
 	ALSndpConfig sndpconfig;
 	ALSynConfig synconfig;
@@ -1463,7 +1463,7 @@ void sndInit(void)
 		g_SndMp3Enabled = true;
 		g_SndMaxFxBusses = 2;
 
-		if (argFindByPrefix(1, "-nomp3")) {
+		if (arg_find_by_prefix(1, "-nomp3")) {
 			g_SndMp3Enabled = false;
 		}
 	}
@@ -1472,7 +1472,7 @@ void sndInit(void)
 		// Allocate memory for the audio heap,
 		// clear it and give it to the audio library
 		u32 len = &_seqctlSegmentRomEnd - &_seqctlSegmentRomStart;
-		u8 *ptr = mempAlloc(heaplen, MEMPOOL_PERMANENT);
+		u8 *ptr = memp_alloc(heaplen, MEMPOOL_PERMANENT);
 		s32 i;
 		u8 *heapstart = ptr;
 		u8 *end = heapstart + heaplen;
@@ -1491,12 +1491,12 @@ void sndInit(void)
 		strcpy(g_SndGuardStringPtr, g_SndGuardString);
 
 		// Load sfx.ctl
-		sndLoadSfxCtl();
+		snd_load_sfx_ctl();
 
 		// Load seq.ctl
 		var80095200 = 0xffffffff;
 		bankfile = alHeapAlloc(&g_SndHeap, 1, len);
-		dmaExec(bankfile, (romptr_t) &_seqctlSegmentRomStart, len);
+		dma_exec(bankfile, (romptr_t) &_seqctlSegmentRomStart, len);
 
 		// Load seq.tbl
 		alBnkfNew(bankfile, &_seqtblSegmentRomStart);
@@ -1506,11 +1506,11 @@ void sndInit(void)
 		// enough space for the table and load it.
 		var80095204 = bankfile->bankArray[0];
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, 0x10);
-		dmaExec(g_SeqTable, (romptr_t) &_sequencesSegmentRomStart, 0x10);
+		dma_exec(g_SeqTable, (romptr_t) &_sequencesSegmentRomStart, 0x10);
 
 		len = g_SeqTable->count * sizeof(struct seqtableentry) + 4;
 		g_SeqTable = alHeapDBAlloc(0, 0, &g_SndHeap, 1, len);
-		dmaExec(g_SeqTable, (romptr_t) &_sequencesSegmentRomStart, (len + 0xf) & ~0xf);
+		dma_exec(g_SeqTable, (romptr_t) &_sequencesSegmentRomStart, (len + 0xf) & ~0xf);
 
 		// Promote segment-relative offsets to ROM addresses
 		for (i = 0; i < g_SeqTable->count; i++) {
@@ -1540,15 +1540,15 @@ void sndInit(void)
 		settings[1] = 1;
 		settings[2] = 2000;
 
-		amgrCreate(&synconfig, settings);
+		amgr_create(&synconfig, settings);
 #else
-		amgrCreate(&synconfig);
+		amgr_create(&synconfig);
 #endif
 
 		if (g_SndMp3Enabled) {
 			osSyncPrintf("RWI : Initialising the new and improved MP3 player\n");
 
-			mp3Init(&g_SndHeap);
+			mp3_init(&g_SndHeap);
 			func00037f08(0x7fff, 1);
 			func00037f5c(0, true);
 
@@ -1556,7 +1556,7 @@ void sndInit(void)
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
-			seqInit(&g_SeqInstances[i]);
+			seq_init(&g_SeqInstances[i]);
 		}
 
 		osSyncPrintf("gsSndpNew\n");
@@ -1565,16 +1565,16 @@ void sndInit(void)
 
 		osSyncPrintf("Set the sample callbacks\n");
 
-		sndpSetAddRefCallback(sndAddRef);
-		sndpSetRemoveRefCallback(sndRemoveRef);
+		sndpSetAddRefCallback(snd_add_ref);
+		sndpSetRemoveRefCallback(snd_remove_ref);
 
-		amgrStartThread();
+		amgr_start_thread();
 
-		sndSetSoundMode(g_SoundMode);
+		snd_set_sound_mode(g_SoundMode);
 	}
 }
 
-bool sndIsMp3(s16 soundnum)
+bool snd_is_mp3(s16 soundnum)
 {
 	union soundnumhack tmp;
 	tmp.packed = soundnum;
@@ -1582,7 +1582,7 @@ bool sndIsMp3(s16 soundnum)
 	return tmp.mp3priority != 0;
 }
 
-bool sndStopMp3(s16 arg0)
+bool snd_stop_mp3(s16 arg0)
 {
 	if (!g_SndDisabled && g_SndMp3Enabled) {
 		if (func00037ea4() && g_SndCurMp3.unk08 != 0) {
@@ -1603,7 +1603,7 @@ void snd0000fc40(s32 arg0)
 	// empty
 }
 
-bool seqPlay(struct seqinstance *seq, s32 tracknum)
+bool seq_play(struct seqinstance *seq, s32 tracknum)
 {
 	u32 stack;
 	s32 binlen;
@@ -1643,9 +1643,9 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 	binstart = seq->data;
 	zipstart = binstart + binlen - ziplen;
 
-	dmaExec(zipstart, g_SeqTable->entries[seq->tracknum].romaddr, ziplen);
+	dma_exec(zipstart, g_SeqTable->entries[seq->tracknum].romaddr, ziplen);
 
-	ziplen = rzipInflate(zipstart, binstart, scratch);
+	ziplen = rzip_inflate(zipstart, binstart, scratch);
 
 #if VERSION < VERSION_NTSC_1_0
 	if (ziplen == 0) {
@@ -1656,7 +1656,7 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 				zipstart[4], zipstart[5], zipstart[6], zipstart[7],
 				zipstart[8], zipstart[9], zipstart[10], zipstart[11],
 				zipstart[12], zipstart[13], zipstart[14], zipstart[15]);
-		crashSetMessage(message);
+		crash_set_message(message);
 		CRASH();
 	}
 #endif
@@ -1671,18 +1671,18 @@ bool seqPlay(struct seqinstance *seq, s32 tracknum)
 
 	n_alCSeqNew(&seq->seq, seq->data);
 	n_alCSPSetSeq(seq->seqp, &seq->seq);
-	seqSetVolume(seq, seqGetVolume(seq));
+	seq_set_volume(seq, seq_get_volume(seq));
 	n_alCSPPlay(seq->seqp);
 
 	return true;
 }
 
-u16 seqGetVolume(struct seqinstance *seq)
+u16 seq_get_volume(struct seqinstance *seq)
 {
 	return g_SndDisabled ? AL_VOL_FULL : seq->volume;
 }
 
-void seqSetVolume(struct seqinstance *seq, u16 volume)
+void seq_set_volume(struct seqinstance *seq, u16 volume)
 {
 	if (!g_SndDisabled) {
 		u32 tmp = var8005ecf8[seq->tracknum] * volume;
@@ -1698,7 +1698,7 @@ void seqSetVolume(struct seqinstance *seq, u16 volume)
 	}
 }
 
-void sndHandleRetrace(void)
+void snd_handle_retrace(void)
 {
 	// empty
 }
@@ -1722,7 +1722,7 @@ void snd0000fe80(void)
 	// empty
 }
 
-void sndTick(void)
+void snd_tick(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	struct sndstate *stateptrs[64];
@@ -1740,7 +1740,7 @@ void sndTick(void)
 #if VERSION >= VERSION_NTSC_1_0
 	static s32 g_SndMostEverPlaying2 = -1;
 
-	sndIncrementAges();
+	snd_increment_ages();
 
 	prevpri = osGetThreadPri(NULL);
 	osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
@@ -1783,13 +1783,13 @@ void sndTick(void)
 
 	if (!g_SndDisabled && g_SndMp3Enabled) {
 		if (g_Vars.stagenum == STAGE_AIRFORCEONE) {
-			sndTickNosedive();
+			snd_tick_nosedive();
 		} else if (g_Vars.stagenum == STAGE_ESCAPE) {
-			sndTickUfo();
+			snd_tick_ufo();
 		}
 
 		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-			s0 = musicGetVolume() > g_SfxVolume ? musicGetVolume() : g_SfxVolume;
+			s0 = music_get_volume() > g_SfxVolume ? music_get_volume() : g_SfxVolume;
 
 			if (s0 != snd0000e9dc()) {
 				snd0000ea80(s0);
@@ -1803,7 +1803,7 @@ void sndTick(void)
 		if (g_SndGuardStringPtr != NULL) {
 			if (strcmp(g_SndGuardStringPtr, g_SndGuardString) != 0) {
 #if VERSION < VERSION_NTSC_1_0
-				crashSetMessage("Snd Heap Check FAILED");
+				crash_set_message("Snd Heap Check FAILED");
 				CRASH();
 #endif
 			}
@@ -1811,7 +1811,7 @@ void sndTick(void)
 
 		if (func00037ea4() == 0 && g_SndCurMp3.playing) {
 			if (g_SndCurMp3.unk08) {
-				mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
+				mp3_play_file(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
 				return;
 			}
 
@@ -1875,7 +1875,7 @@ void sndTick(void)
 				}
 
 				g_SndCurMp3.responsetimer240 = -1;
-				sndStart(0, sp50.packed, 0, -1, -1, -1.0f, -1, -1);
+				snd_start(0, sp50.packed, 0, -1, -1, -1.0f, -1, -1);
 			}
 		}
 	}
@@ -1893,12 +1893,12 @@ s16 snd0001034c(s16 sfxnum)
 	return sfxnum;
 }
 
-bool sndIsDisabled(void)
+bool snd_is_disabled(void)
 {
 	return g_SndDisabled;
 }
 
-void sndStartMp3ByFilenum(u32 filenum)
+void snd_start_mp3_by_filenum(u32 filenum)
 {
 	union soundnumhack sfxref;
 
@@ -1908,7 +1908,7 @@ void sndStartMp3ByFilenum(u32 filenum)
 		sfxref.mp3priority = 1; // high priority
 		sfxref.id = filenum;
 
-		sndStart(0, sfxref.packed, NULL, -1, -1, -1, -1, -1);
+		snd_start(0, sfxref.packed, NULL, -1, -1, -1, -1, -1);
 	}
 }
 
@@ -1916,7 +1916,7 @@ void sndStartMp3ByFilenum(u32 filenum)
  * Return true if the player has the language filter enabled
  * and the given audio ID is one that should be filtered out.
  */
-bool sndIsFiltered(s32 audio_id)
+bool snd_is_filtered(s32 audio_id)
 {
 	if (g_Vars.langfilteron) {
 		union soundnumhack sfxref;
@@ -1946,7 +1946,7 @@ bool sndIsFiltered(s32 audio_id)
 	return false;
 }
 
-void sndAdjust(struct sndstate **handle, bool ismp3, s32 vol, s32 pan, s32 soundnum, f32 pitch, s32 fxbus, s32 fxmixarg, bool forcefxmix)
+void snd_adjust(struct sndstate **handle, bool ismp3, s32 vol, s32 pan, s32 soundnum, f32 pitch, s32 fxbus, s32 fxmixarg, bool forcefxmix)
 {
 	s32 fxmix = -1;
 	union soundnumhack sp20;
@@ -2084,14 +2084,14 @@ struct sndstate *snd00010718(struct sndstate **handle, s32 flags, s32 volume, s3
 		}
 	}
 
-	state = sndStart(var80095200, soundnum, handle, volume, pan, pitch, fxbus, fxmix);
+	state = snd_start(var80095200, soundnum, handle, volume, pan, pitch, fxbus, fxmix);
 
 	osSetThreadPri(0, prevpri);
 
 	return state;
 }
 
-struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 volumearg, s32 panarg, f32 pitcharg, s32 fxbusarg, s32 fxmixarg)
+struct sndstate *snd_start(s32 arg0, s16 sound, struct sndstate **handle, s32 volumearg, s32 panarg, f32 pitcharg, s32 fxbusarg, s32 fxmixarg)
 {
 	union soundnumhack sp44;
 	union soundnumhack sp40;
@@ -2119,8 +2119,8 @@ struct sndstate *sndStart(s32 arg0, s16 sound, struct sndstate **handle, s32 vol
 		return NULL;
 	}
 
-	if (sndIsMp3(sp40.packed)) {
-		sndStartMp3(sp40.packed, volume, pan, 0);
+	if (snd_is_mp3(sp40.packed)) {
+		snd_start_mp3(sp40.packed, volume, pan, 0);
 
 		if (handle != NULL) {
 			*handle = NULL;
@@ -2150,7 +2150,7 @@ const char var70053c10[] = "Snd_Play_Mpeg : SYSTEM IS DISABLED\n";
 const char var70053c34[] = "Snd_Play_Mpeg  : Lib called -> Adr=%x\n";
 const char var70053c5c[] = "Snd_Play_Mpeg  : Chunk size -> Adr=%x\n";
 
-void sndStartMp3(s16 soundnum, s32 volume, s32 pan, s32 responseflags)
+void snd_start_mp3(s16 soundnum, s32 volume, s32 pan, s32 responseflags)
 {
 	union soundnumhack sp24;
 	union soundnumhack sp20;
@@ -2189,13 +2189,13 @@ void sndStartMp3(s16 soundnum, s32 volume, s32 pan, s32 responseflags)
 
 			volume = volume * snd0000e9dc() / AL_VOL_FULL;
 
-			g_SndCurMp3.romaddr = fileGetRomAddress(sp20.id);
-			g_SndCurMp3.romsize = fileGetRomSize(sp20.id);
+			g_SndCurMp3.romaddr = file_get_rom_address(sp20.id);
+			g_SndCurMp3.romsize = file_get_rom_size(sp20.id);
 
 			func00037f08(volume, true);
 			func00037f5c(pan, true);
 
-			mp3PlayFile(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
+			mp3_play_file(g_SndCurMp3.romaddr, g_SndCurMp3.romsize);
 
 			func00037f08(volume, true);
 			func00037f5c(pan, true);
@@ -2218,7 +2218,7 @@ void sndStartMp3(s16 soundnum, s32 volume, s32 pan, s32 responseflags)
 	}
 }
 
-void sndPlayNosedive(s32 seconds)
+void snd_play_nosedive(s32 seconds)
 {
 	g_SndNosediveDuration240 = seconds * TICKS(240);
 	g_SndNosediveAge240 = 0;
@@ -2226,14 +2226,14 @@ void sndPlayNosedive(s32 seconds)
 	g_SndNosediveHandle = NULL;
 }
 
-void sndStopNosedive(void)
+void snd_stop_nosedive(void)
 {
 	if (g_SndNosediveAge240 != -1) {
 		g_SndNosediveAge240 = g_SndNosediveDuration240 + 1;
 	}
 }
 
-void sndTickNosedive(void)
+void snd_tick_nosedive(void)
 {
 	f32 percentage;
 
@@ -2245,7 +2245,7 @@ void sndTickNosedive(void)
 		if (percentage < 1.0f) { // less than 100% complete
 			percentage += 0.44f;
 
-			if (lvIsPaused()) {
+			if (lv_is_paused()) {
 				// Fade out volume during pause instead of stopping abruptly
 				if (g_SndNosediveVolume > 0) {
 					g_SndNosediveVolume -= g_Vars.diffframe240 * PALUP(80);
@@ -2256,7 +2256,7 @@ void sndTickNosedive(void)
 				}
 
 				if (g_SndNosediveVolume) {
-					sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
+					snd_adjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 				} else if (g_SndNosediveHandle != NULL) {
 					audioStop(g_SndNosediveHandle);
 					g_SndNosediveHandle = NULL;
@@ -2264,7 +2264,7 @@ void sndTickNosedive(void)
 			} else {
 				// Not paused
 				if (g_SndNosediveHandle == NULL) {
-					sndStart(var80095200, SFX_NOSEDIVE, &g_SndNosediveHandle, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFX_NOSEDIVE, &g_SndNosediveHandle, -1, -1, -1, -1, -1);
 				}
 
 				// Fade in over about 2 seconds
@@ -2276,7 +2276,7 @@ void sndTickNosedive(void)
 					}
 				}
 
-				sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
+				snd_adjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 			}
 		} else {
 			// Reached the configured fade out point
@@ -2289,7 +2289,7 @@ void sndTickNosedive(void)
 			}
 
 			if (g_SndNosediveVolume) {
-				sndAdjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, -1, 0, -1, 1);
+				snd_adjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, -1, 0, -1, 1);
 			} else if (g_SndNosediveHandle != NULL) {
 				audioStop(g_SndNosediveHandle);
 				g_SndNosediveHandle = NULL;
@@ -2298,7 +2298,7 @@ void sndTickNosedive(void)
 	}
 }
 
-void sndPlayUfo(s32 seconds)
+void snd_play_ufo(s32 seconds)
 {
 	g_SndUfoDuration240 = seconds * TICKS(240);
 	g_SndUfoAge240 = 0;
@@ -2306,14 +2306,14 @@ void sndPlayUfo(s32 seconds)
 	g_SndUfoHandle = NULL;
 }
 
-void sndStopUfo(void)
+void snd_stop_ufo(void)
 {
 	if (g_SndUfoAge240 != -1) {
 		g_SndUfoAge240 = g_SndUfoDuration240 + 1;
 	}
 }
 
-void sndTickUfo(void)
+void snd_tick_ufo(void)
 {
 	f32 percentage;
 
@@ -2329,7 +2329,7 @@ void sndTickUfo(void)
 				percentage = (percentage - 0.65f) / 0.35f * 0.8f + 1.0f;
 			}
 
-			if (lvIsPaused()) {
+			if (lv_is_paused()) {
 				// Fade out volume during pause instead of stopping abruptly
 				if (g_SndUfoVolume > 0) {
 					g_SndUfoVolume -= g_Vars.diffframe240 * PALUP(120);
@@ -2340,7 +2340,7 @@ void sndTickUfo(void)
 				}
 
 				if (g_SndUfoVolume) {
-					sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
+					snd_adjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 				} else if (g_SndUfoHandle != NULL) {
 					audioStop(g_SndUfoHandle);
 					g_SndUfoHandle = NULL;
@@ -2348,7 +2348,7 @@ void sndTickUfo(void)
 			} else {
 				// Not paused
 				if (g_SndUfoHandle == NULL) {
-					sndStart(var80095200, SFX_UFOHUM, &g_SndUfoHandle, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFX_UFOHUM, &g_SndUfoHandle, -1, -1, -1, -1, -1);
 				}
 
 				// Fade in over about 2.4 seconds
@@ -2360,7 +2360,7 @@ void sndTickUfo(void)
 					}
 				}
 
-				sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
+				snd_adjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 			}
 		} else {
 			// Reached the configured fade out point
@@ -2373,7 +2373,7 @@ void sndTickUfo(void)
 			}
 
 			if (g_SndUfoVolume) {
-				sndAdjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, -1, 0, -1, 1);
+				snd_adjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, -1, 0, -1, 1);
 			} else if (g_SndUfoHandle != NULL) {
 				audioStop(g_SndUfoHandle);
 				g_SndUfoHandle = NULL;

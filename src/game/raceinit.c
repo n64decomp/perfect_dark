@@ -7,8 +7,8 @@
 #include "data.h"
 #include "types.h"
 
-void racesInit(void)
+void races_init(void)
 {
-	modelSetVtxAllocatorFunc(&chrAllocateVertices);
-	raceInitAnims();
+	model_set_vtx_allocator_func(&chr_allocate_vertices);
+	race_init_anims();
 }

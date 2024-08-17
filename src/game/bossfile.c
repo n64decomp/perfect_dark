@@ -25,23 +25,23 @@ u8 var800a22d0[0x5b];
 u8 g_AltTitleUnlocked;
 u8 g_AltTitleEnabled;
 
-void bossfileSetDefaults2(void)
+void bossfile_set_defaults2(void)
 {
-	bossfileSetDefaults();
+	bossfile_set_defaults();
 }
 
-void bossfileSetAndSaveDefaults(void)
+void bossfile_set_and_save_defaults(void)
 {
-	bossfileSetDefaults();
-	bossfileSave();
+	bossfile_set_defaults();
+	bossfile_save();
 }
 
-bool bossfileLoadFull(void)
+bool bossfile_load_full(void)
 {
-	bossfileLoad();
+	bossfile_load();
 
 #if VERSION >= VERSION_PAL_BETA
-	langSetEuropean(g_Vars.language);
+	lang_set_european(g_Vars.language);
 #endif
 
 	return true;
@@ -57,16 +57,16 @@ void func0f1106f4(u8 *dst)
 	bcopy(var800a22d0, dst, sizeof(var800a22d0));
 }
 
-u32 bossfileFindFileId(void)
+u32 bossfile_find_file_id(void)
 {
 	struct pakfileheader header;
 	u32 fileids[513];
 	u32 candidate = 0;
 	s32 i;
 
-	if (pakGetFileIdsByType(SAVEDEVICE_GAMEPAK, PAKFILETYPE_BOSS, fileids) == 0) {
+	if (pak_get_file_ids_by_type(SAVEDEVICE_GAMEPAK, PAKFILETYPE_BOSS, fileids) == 0) {
 		for (i = 0; fileids[i] != 0; i++) {
-			pakFindFile(SAVEDEVICE_GAMEPAK, fileids[i], &header);
+			pak_find_file(SAVEDEVICE_GAMEPAK, fileids[i], &header);
 
 			if (!header.occupied) {
 				candidate = fileids[i];
@@ -75,7 +75,7 @@ u32 bossfileFindFileId(void)
 		}
 
 		for (i = 0; fileids[i] != 0; i++) {
-			pakFindFile(SAVEDEVICE_GAMEPAK, fileids[i], &header);
+			pak_find_file(SAVEDEVICE_GAMEPAK, fileids[i], &header);
 
 			if (header.occupied) {
 				candidate = fileids[i];
@@ -87,7 +87,7 @@ u32 bossfileFindFileId(void)
 	return candidate;
 }
 
-void bossfileLoad(void)
+void bossfile_load(void)
 {
 	bool failed = false;
 	struct savebuffer buffer;
@@ -95,14 +95,14 @@ void bossfileLoad(void)
 	s32 fileid;
 	struct fileguid guid;
 
-	fileid = bossfileFindFileId();
+	fileid = bossfile_find_file_id();
 
 	if (fileid == 0) {
 		failed = true;
 	} else {
-		savebufferClear(&buffer);
+		savebuffer_clear(&buffer);
 
-		if (pakReadBodyAtGuid(SAVEDEVICE_GAMEPAK, fileid, buffer.bytes, 0) != 0) {
+		if (pak_read_body_at_guid(SAVEDEVICE_GAMEPAK, fileid, buffer.bytes, 0) != 0) {
 			failed = true;
 		}
 	}
@@ -110,20 +110,20 @@ void bossfileLoad(void)
 	if (!failed) {
 		u8 tracknum;
 
-		savebufferReadGuid(&buffer, &guid);
+		savebuffer_read_guid(&buffer, &guid);
 
 		g_Vars.bossfileid = guid.fileid;
 		g_Vars.bossdeviceserial = guid.deviceserial;
 
-		g_BossFile.unk89 = savebufferReadBits(&buffer, 1);
+		g_BossFile.unk89 = savebuffer_read_bits(&buffer, 1);
 
-		g_Vars.language = savebufferReadBits(&buffer, 4);
+		g_Vars.language = savebuffer_read_bits(&buffer, 4);
 
 		for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
-			savebufferReadString(&buffer, g_BossFile.teamnames[i], 1);
+			savebuffer_read_string(&buffer, g_BossFile.teamnames[i], 1);
 		}
 
-		tracknum = savebufferReadBits(&buffer, 8);
+		tracknum = savebuffer_read_bits(&buffer, 8);
 
 		if (tracknum == 0xff) {
 			g_BossFile.tracknum = -1;
@@ -132,23 +132,23 @@ void bossfileLoad(void)
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_BossFile.multipletracknums); i++) {
-			g_BossFile.multipletracknums[i] = savebufferReadBits(&buffer, 8);
+			g_BossFile.multipletracknums[i] = savebuffer_read_bits(&buffer, 8);
 		}
 
-		g_BossFile.usingmultipletunes = savebufferReadBits(&buffer, 1);
-		g_AltTitleUnlocked = savebufferReadBits(&buffer, 1);
-		g_AltTitleEnabled = savebufferReadBits(&buffer, 1);
+		g_BossFile.usingmultipletunes = savebuffer_read_bits(&buffer, 1);
+		g_AltTitleUnlocked = savebuffer_read_bits(&buffer, 1);
+		g_AltTitleEnabled = savebuffer_read_bits(&buffer, 1);
 
 		func0f0d54c4(&buffer);
 	}
 
 	if (failed) {
-		bossfileSetDefaults();
-		bossfileSave();
+		bossfile_set_defaults();
+		bossfile_save();
 	}
 }
 
-void bossfileSave(void)
+void bossfile_save(void)
 {
 	volatile bool sp12c = false;
 	struct savebuffer buffer;
@@ -157,48 +157,48 @@ void bossfileSave(void)
 	s32 i;
 	s32 fileid;
 
-	savebufferClear(&buffer);
+	savebuffer_clear(&buffer);
 
 	guid.fileid = g_Vars.bossfileid;
 	guid.deviceserial = g_Vars.bossdeviceserial;
 
-	savebufferWriteGuid(&buffer, &guid);
+	savebuffer_write_guid(&buffer, &guid);
 
-	savebufferOr(&buffer, g_BossFile.unk89, 1);
-	savebufferOr(&buffer, g_Vars.language, 4);
+	savebuffer_or(&buffer, g_BossFile.unk89, 1);
+	savebuffer_or(&buffer, g_Vars.language, 4);
 
 	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
 		func0f0d55a4(&buffer, g_BossFile.teamnames[i]);
 	}
 
 	if (g_BossFile.tracknum == -1) {
-		savebufferOr(&buffer, 0xff, 8);
+		savebuffer_or(&buffer, 0xff, 8);
 	} else {
-		savebufferOr(&buffer, g_BossFile.tracknum, 8);
+		savebuffer_or(&buffer, g_BossFile.tracknum, 8);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_BossFile.multipletracknums); i++) {
-		savebufferOr(&buffer, g_BossFile.multipletracknums[i], 8);
+		savebuffer_or(&buffer, g_BossFile.multipletracknums[i], 8);
 	}
 
-	savebufferOr(&buffer, g_BossFile.usingmultipletunes, 1);
-	savebufferOr(&buffer, g_AltTitleUnlocked, 1);
-	savebufferOr(&buffer, g_AltTitleEnabled, 1);
+	savebuffer_or(&buffer, g_BossFile.usingmultipletunes, 1);
+	savebuffer_or(&buffer, g_AltTitleUnlocked, 1);
+	savebuffer_or(&buffer, g_AltTitleEnabled, 1);
 
 	func0f0d54c4(&buffer);
 
-	fileid = bossfileFindFileId();
+	fileid = bossfile_find_file_id();
 
 	if (fileid == 0) {
-		faultAssert("fileGuid", "bossfile.c", VERSION >= VERSION_PAL_BETA ? 377 : 375);
+		fault_assert("fileGuid", "bossfile.c", VERSION >= VERSION_PAL_BETA ? 377 : 375);
 	}
 
-	if (pakSaveAtGuid(SAVEDEVICE_GAMEPAK, fileid, PAKFILETYPE_BOSS, buffer.bytes, NULL, 0) != 0) {
+	if (pak_save_at_guid(SAVEDEVICE_GAMEPAK, fileid, PAKFILETYPE_BOSS, buffer.bytes, NULL, 0) != 0) {
 		sp12c = true;
 	}
 }
 
-void bossfileSetDefaults(void)
+void bossfile_set_defaults(void)
 {
 	g_BossFile.teamnames[0][0] = '\0';
 	g_BossFile.teamnames[1][0] = '\0';
@@ -210,7 +210,7 @@ void bossfileSetDefaults(void)
 	g_BossFile.teamnames[7][0] = '\0';
 
 	g_BossFile.tracknum = -1;
-	mpEnableAllMultiTracks();
+	mp_enable_all_multi_tracks();
 	g_BossFile.usingmultipletunes = false;
 	g_BossFile.unk89 = 0;
 	g_BossFile.locktype = MPLOCKTYPE_NONE;
@@ -220,5 +220,5 @@ void bossfileSetDefaults(void)
 	g_AltTitleUnlocked = 0;
 	g_AltTitleEnabled = false;
 
-	bossfileSave();
+	bossfile_save();
 }

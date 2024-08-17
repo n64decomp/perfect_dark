@@ -291,7 +291,7 @@ char *g_DebugMenuLabels[] = {
 	"-", // "cameras"
 	"-", // "ai print"
 	"-", // "eye spy"
-	"-", // "aiEndLevel off"
+	"-", // "ai_end_level off"
 	"-", // "bot wzone"
 
 	"-", // "show patrols"
@@ -472,13 +472,13 @@ f32 var80075dd0 = 0;
 f32 var80075dd4 = 0;
 f32 var80075dd8 = 1;
 
-void debugUpdateMenu(void)
+void debug_update_menu(void)
 {
 #ifdef DEBUG
 	s32 i;
 
 	if (g_DebugCurMenu == DEBUGMENU_MAIN) {
-		dmenuSetMenu(g_DebugMenuLabels, g_DebugMenuPositions, g_DebugMenuOffsets);
+		dmenu_set_menu(g_DebugMenuLabels, g_DebugMenuPositions, g_DebugMenuOffsets);
 	} else if (g_DebugCurMenu == DEBUGMENU_CUTSCENE) {
 		for (i = 0; i < ARRAYCOUNT(g_DebugCutsceneLabelPtrs); i++) {
 			g_DebugCutsceneLabelPtrs[i] = g_DebugCutsceneLabelBuffers[i];
@@ -490,7 +490,7 @@ void debugUpdateMenu(void)
 		g_DebugCutsceneOffsets[0]++;
 
 		for (i = 0; ; i++) {
-			if (ailistFindById(0xc00 + i) == NULL) {
+			if (ailist_find_by_id(0xc00 + i) == NULL) {
 				break;
 			}
 
@@ -498,17 +498,17 @@ void debugUpdateMenu(void)
 			g_DebugCutsceneOffsets[0]++;
 		}
 
-		dmenuSetMenu(g_DebugCutsceneLabelPtrs, g_DebugCutscenePositions, g_DebugCutsceneOffsets);
+		dmenu_set_menu(g_DebugCutsceneLabelPtrs, g_DebugCutscenePositions, g_DebugCutsceneOffsets);
 	}
 
-	dmenuSetSelectedOption(g_DebugSelectedOptionsByMenu[g_DebugCurMenu]);
+	dmenu_set_selected_option(g_DebugSelectedOptionsByMenu[g_DebugCurMenu]);
 #endif
 }
 
 #ifdef DEBUG
-void debugSaveSelectedOption(void)
+void debug_save_selected_option(void)
 {
-	g_DebugSelectedOptionsByMenu[g_DebugCurMenu] = dmenuGetSelectedOption();
+	g_DebugSelectedOptionsByMenu[g_DebugCurMenu] = dmenu_get_selected_option();
 }
 
 void debug0f1193e4nb(void) // not called
@@ -538,22 +538,22 @@ void debug0f11944cnb(void) // not called
 }
 #endif
 
-bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
+bool debug_process_input(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 {
 #ifdef DEBUG
 	s32 i;
 	s32 prev;
 	s32 tmp = 3;
 
-	debugUpdateMenu();
+	debug_update_menu();
 
 	if (g_DebugScreenshotRgb) {
 		prev = g_DebugScreenshotRgb++;
 
 		if (tmp == prev) {
-			viGrabRgb32();
+			vi_grab_rgb32();
 			g_DebugScreenshotRgb = 0;
-			viSet16Bit();
+			vi_set_16bit();
 			osViBlack(false);
 		}
 	}
@@ -562,9 +562,9 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 		prev = g_DebugScreenshotJpg++;
 
 		if (tmp == prev) {
-			viGrabJpg32();
+			vi_grab_jpg32();
 			g_DebugScreenshotJpg = 0;
-			viSet16Bit();
+			vi_set_16bit();
 			osViBlack(false);
 		}
 	}
@@ -581,37 +581,37 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 	}
 
 	if (buttonsthisframe & L_JPAD) {
-		dmenuNavigateLeft();
+		dmenu_navigate_left();
 		var80075d68 = -2;
 	}
 
 	if (buttonsthisframe & R_JPAD) {
-		dmenuNavigateRight();
+		dmenu_navigate_right();
 		var80075d68 = -2;
 	}
 
 	if (buttonsthisframe & U_JPAD) {
-		dmenuNavigateUp();
+		dmenu_navigate_up();
 		var80075d68 = -2;
 	}
 
 	if (buttonsthisframe & D_JPAD) {
-		dmenuNavigateDown();
+		dmenu_navigate_down();
 		var80075d68 = -2;
 	}
 
 	if (buttonsthisframe & (A_BUTTON | START_BUTTON)) {
 		if (g_DebugCurMenu == DEBUGMENU_CUTSCENE) {
-			if (dmenuGetSelectedOption() == 0) {
+			if (dmenu_get_selected_option() == 0) {
 				// Selected "main" from cutscene menu
 				g_DebugCurMenu = DEBUGMENU_MAIN;
-				dhudClear();
-				debugUpdateMenu();
+				dhud_clear();
+				debug_update_menu();
 			} else {
-				cutsceneStart(0xc00 + dmenuGetSelectedOption() - 1);
+				cutscene_start(0xc00 + dmenu_get_selected_option() - 1);
 			}
 		} else if (g_DebugCurMenu == DEBUGMENU_MAIN) {
-			switch (dmenuGetSelectedOption()) {
+			switch (dmenu_get_selected_option()) {
 #if VERSION == VERSION_PAL_BETA
 			case DEBUGOPT_MANPOS:
 				g_DebugManPos ^= 1;
@@ -639,7 +639,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 				break;
 			case DEBUGOPT_ALLCHALLENGES:
 				g_DebugAllChallenges ^= 1;
-				challengeDetermineUnlockedFeatures();
+				challenge_determine_unlocked_features();
 				break;
 			case DEBUGOPT_ALLTRAINING:
 				g_DebugAllTraining ^= 1;
@@ -648,16 +648,16 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 					g_GameFile.firingrangescores[i] = 0xff;
 				}
 
-				gamefileSetFlag(GAMEFILEFLAG_CI_CLOAK_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_DISGUISE_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_XRAY_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_IR_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_RTRACKER_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_DOORDECODER_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_NIGHTVISION_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_CAMSPY_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_ECMMINE_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_UPLINK_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_CLOAK_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_DISGUISE_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_XRAY_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_IR_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_RTRACKER_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_DOORDECODER_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_NIGHTVISION_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_CAMSPY_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_ECMMINE_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_UPLINK_DONE);
 				break;
 #else
 			case DEBUGOPT_MANPOS:
@@ -680,7 +680,7 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 				break;
 			case DEBUGOPT_ALLCHALLENGES:
 				g_DebugAllChallenges ^= 1;
-				challengeDetermineUnlockedFeatures();
+				challenge_determine_unlocked_features();
 				break;
 			case DEBUGOPT_ALLBUDDIES:
 				g_DebugAllBuddies ^= 1;
@@ -692,16 +692,16 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 					g_GameFile.firingrangescores[i] = 0xff;
 				}
 
-				gamefileSetFlag(GAMEFILEFLAG_CI_CLOAK_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_DISGUISE_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_XRAY_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_IR_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_RTRACKER_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_DOORDECODER_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_NIGHTVISION_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_CAMSPY_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_ECMMINE_DONE);
-				gamefileSetFlag(GAMEFILEFLAG_CI_UPLINK_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_CLOAK_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_DISGUISE_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_XRAY_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_IR_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_RTRACKER_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_DOORDECODER_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_NIGHTVISION_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_CAMSPY_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_ECMMINE_DONE);
+				gamefile_set_flag(GAMEFILEFLAG_CI_UPLINK_DONE);
 				break;
 			case DEBUGOPT_CUTDEBUG:
 				g_DebugCutDebug ^= 1;
@@ -725,13 +725,13 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 
 	if (buttonsthisframe & START_BUTTON) {
 		if (g_DebugIsMenuOpen == true) {
-			dhudClear();
+			dhud_clear();
 		}
 
 		g_DebugIsMenuOpen = false;
 	}
 
-	debugSaveSelectedOption();
+	debug_save_selected_option();
 
 	return g_DebugIsMenuOpen;
 #else
@@ -739,17 +739,17 @@ bool debugProcessInput(s8 stickx, s8 sticky, u16 buttons, u16 buttonsthisframe)
 #endif
 }
 
-s32 debugGetProfileMode(void)
+s32 debug_get_profile_mode(void)
 {
 	return DEBUG_VALUE(g_DebugProfileMode, 0);
 }
 
-bool debugIsBgRenderingEnabled(void)
+bool debug_is_bg_rendering_enabled(void)
 {
 	return DEBUG_VALUE(g_DebugRenderBg, true);
 }
 
-bool debugIsPropRenderingEnabled(void)
+bool debug_is_prop_rendering_enabled(void)
 {
 	return DEBUG_VALUE(g_DebugRenderProps, true);
 }
@@ -759,12 +759,12 @@ bool debug0f11ed88(void)
 	return DEBUG_VALUE(var80078708nb, false);
 }
 
-bool debugIsManPosEnabled(void)
+bool debug_is_man_pos_enabled(void)
 {
 	return DEBUG_VALUE(g_DebugManPos, false);
 }
 
-void debugSetManPos(bool enabled)
+void debug_set_man_pos(bool enabled)
 {
 #ifdef DEBUG
 	g_DebugManPos = enabled;
@@ -781,27 +781,27 @@ bool debug0f11eda8(void) // not called
 	return DEBUG_VALUE(var80078714nb, false);
 }
 
-bool debugIsRoomGfxExtraMemEnabled(void)
+bool debug_is_room_gfx_extra_mem_enabled(void)
 {
 	return DEBUG_VALUE(g_DebugRoomGfxExtraMem, false);
 }
 
-bool debugIsObjDeformDebugEnabled(void)
+bool debug_is_obj_deform_debug_enabled(void)
 {
 	return DEBUG_VALUE(g_DebugObjDeform, false);
 }
 
-bool debugIsRoomStateDebugEnabled(void)
+bool debug_is_room_state_debug_enabled(void)
 {
 	return DEBUG_VALUE(g_DebugRoomState, false);
 }
 
-bool debugIsLineModeEnabled(void)
+bool debug_is_line_mode_enabled(void)
 {
 	return g_DebugLineMode;
 }
 
-void debugSetLineModeEnabled(bool enabled)
+void debug_set_line_mode_enabled(bool enabled)
 {
 	g_DebugLineMode = enabled;
 }
@@ -833,22 +833,22 @@ void debug0f11ee00(void) // not called
 }
 #endif
 
-bool debugIsTurboModeEnabled(void)
+bool debug_is_turbo_mode_enabled(void)
 {
 	return g_DebugTurboMode;
 }
 
-void debugSetTurboMode(bool enabled)
+void debug_set_turbo_mode(bool enabled)
 {
 	g_DebugTurboMode = enabled;
 }
 
-bool debugForceAllObjectivesComplete(void)
+bool debug_force_all_objectives_complete(void)
 {
 	return DEBUG_VALUE(g_DebugObjectives, false);
 }
 
-bool debugIsZBufferDisabled(void)
+bool debug_is_z_buffer_disabled(void)
 {
 	return DEBUG_VALUE(g_DebugZBufferDisabled, false);
 }
@@ -941,7 +941,7 @@ bool debug0f11ee68(void) // not called
 
 //------------------------------------------------------------------------------
 
-s32 debugGetSlowMotion(void)
+s32 debug_get_slow_motion(void)
 {
 	return DEBUG_VALUE(g_DebugSlowMotion, SLOWMOTION_OFF);
 }
@@ -956,12 +956,12 @@ bool debug0f11ee80(void) // not called
 	return DEBUG_VALUE(var80078760nb, false);
 }
 
-s32 debugGetTilesDebugMode(void)
+s32 debug_get_tiles_debug_mode(void)
 {
 	return DEBUG_VALUE(g_DebugTiles, 0);
 }
 
-s32 debugGetPadsDebugMode(void)
+s32 debug_get_pads_debug_mode(void)
 {
 	return DEBUG_VALUE(g_DebugPads, 0);
 }
@@ -995,7 +995,7 @@ bool debug0f119aa4nb(void)
 }
 #endif
 
-bool debugDangerousProps(void)
+bool debug_dangerous_props(void)
 {
 	return DEBUG_VALUE(var800787ecnb, false);
 }
@@ -1043,7 +1043,7 @@ bool debug0f11eed0(void) // not called
 
 //------------------------------------------------------------------------------
 
-s32 debugGetMotionBlur(void)
+s32 debug_get_motion_blur(void)
 {
 	return DEBUG_VALUE(var80078784nb, 0);
 }
@@ -1067,7 +1067,7 @@ bool debug0f119b00nb(void) // not called
 	return var800787c0nb;
 }
 
-bool debugAllowEndLevel(void)
+bool debug_allow_end_level(void)
 {
 	return var800787c4nb;
 }
@@ -1092,34 +1092,34 @@ bool debug0f119b3cnb(void) // not called
 	return var800787d4nb;
 }
 
-bool debugIsFootstepsEnabled(void)
+bool debug_is_footsteps_enabled(void)
 {
 	return g_DebugFootsteps;
 }
 
-bool debugIsAllChallengesEnabled(void)
+bool debug_is_all_challenges_enabled(void)
 {
 	return g_DebugAllChallenges;
 }
 
-bool debugIsAllBuddiesEnabled(void)
+bool debug_is_all_buddies_enabled(void)
 {
 	return g_DebugAllBuddies;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool debugIsSetCompleteEnabled(void)
+bool debug_is_set_complete_enabled(void)
 {
 	return g_DebugSetComplete;
 }
 #endif
 
-bool debugIsAllTrainingEnabled(void)
+bool debug_is_all_training_enabled(void)
 {
 	return g_DebugAllTraining;
 }
 
-bool debugGetCutDebug(void) // not called
+bool debug_get_cut_debug(void) // not called
 {
 	return g_DebugCutDebug;
 }
@@ -1129,7 +1129,7 @@ bool debug0f119b84nb(void) // not called
 	return var800787a8nb;
 }
 
-bool debugIsMemInfoEnabled(void)
+bool debug_is_mem_info_enabled(void)
 {
 	return g_DebugMemInfo;
 }
@@ -1144,7 +1144,7 @@ bool debug0f119ba8nb(void) // not called
 	return var800787bcnb;
 }
 
-bool debugIsChrStatsEnabled(void)
+bool debug_is_chr_stats_enabled(void)
 {
 	return g_DebugChrStats;
 }
@@ -1169,7 +1169,7 @@ bool debug0f11eef0(void) // not called
 	return false;
 }
 
-bool debugIsFootstepsEnabled(void)
+bool debug_is_footsteps_enabled(void)
 {
 	return true;
 }
@@ -1219,7 +1219,7 @@ bool debug0f11ef40(void) // not called
 	return false;
 }
 
-bool debugAllowEndLevel(void)
+bool debug_allow_end_level(void)
 {
 	return true;
 }
@@ -1249,7 +1249,7 @@ bool debug0f11ef70(void) // not called
 	return false;
 }
 
-bool debugIsChrStatsEnabled(void)
+bool debug_is_chr_stats_enabled(void)
 {
 	return false;
 }

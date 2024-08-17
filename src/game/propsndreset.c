@@ -5,11 +5,11 @@
 #include "data.h"
 #include "types.h"
 
-void psReset(void)
+void ps_reset(void)
 {
 	s32 i;
 
-	g_PsChannels = mempAlloc(ALIGN16((IS4MB() ? 30 : 40) * sizeof(struct pschannel)), MEMPOOL_STAGE);
+	g_PsChannels = memp_alloc(ALIGN16((IS4MB() ? 30 : 40) * sizeof(struct pschannel)), MEMPOOL_STAGE);
 
 	for (i = 0; i < (IS4MB() ? 30 : 40); i++) {
 		g_PsChannels[i].flags = PSFLAG_FREE;

@@ -24,7 +24,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Writes 40 bytes of 0xff to 0x80095210. This appears to be related to sound effects but has no obvious effect.
 
-### cheatMenuHandleDialog
+### cheat_menu_handle_dialog
 
 **When Called:** When the Cheats menu dialog is opened.
 
@@ -34,7 +34,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ---
 
-### doorFinishClose
+### door_finish_close
 
 **When Called:** When a door finishes closing.
 
@@ -42,25 +42,25 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Rewrites the start of `func0f08f968` so it immediately returns false. This makes it impossible to open doors.
 
-### botPickupProp
+### bot_pickup_prop
 
 **When Called:** When a simulant in multiplayer picks up an item.
 
-**What It Checks:** Checksums `doorFinishClose` to make sure it hasn't been modified.
+**What It Checks:** Checksums `door_finish_close` to make sure it hasn't been modified.
 
-**Payload:** Rewrites the start of `chrCheckCanSeeTarget` so it immediately returns true. This makes all guards able to see Jo through walls.
+**Payload:** Rewrites the start of `chr_check_can_see_target` so it immediately returns true. This makes all guards able to see Jo through walls.
 
-### chrUncloak
+### chr_uncloak
 
 **When Called:** When a guard uncloaks.
 
-**What It Checks:** Checksums `botPickupProp` to make sure it hasn't been modified.
+**What It Checks:** Checksums `bot_pickup_prop` to make sure it hasn't been modified.
 
-**Payload:** Disables the ability for the player and other characters to go up or down slopes. This is done by nopping the `jr ra` instruction in `cdFindGroundInfoAtCyl`, which causes it to flow into the following function, which unconditionally returns false and only exists for this purpose.
+**Payload:** Disables the ability for the player and other characters to go up or down slopes. This is done by nopping the `jr ra` instruction in `cd_find_ground_info_at_cyl`, which causes it to flow into the following function, which unconditionally returns false and only exists for this purpose.
 
 ---
 
-### chrsCheckForNoise
+### chrs_check_for_noise
 
 **When Called:** When a guard hears you.
 
@@ -70,7 +70,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 ---
 
-### lvGetSlowMotionType
+### lv_get_slow_motion_type
 
 **When Called:** On each tick when unpaused.
 
@@ -78,25 +78,25 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Corrupts the rspboot microcode, causing a crash.
 
-### lvReset
+### lv_reset
 
 **When Called:** When loading any stage (including title screen).
 
-**What It Checks:** Checksums `lvGetSlowMotionType` to make sure it hasn't been modified.
+**What It Checks:** Checksums `lv_get_slow_motion_type` to make sure it hasn't been modified.
 
 **Payload:** Writes a filesystem terminator file to the start of EEPROM. This disables the cartridge's save data, removing the ability to read existing files and create new ones.
 
-### bodyAllocateEyespy
+### body_allocate_eyespy
 
 **When Called:** When loading any stage that uses the eyespy.
 
-**What It Checks:** Checksums `lvReset` to make sure it hasn't been modified.
+**What It Checks:** Checksums `lv_reset` to make sure it hasn't been modified.
 
-**Payload:** Nops `_memaFree` entirely, so any time that function is called it'll flow into the following function, which just returns. The effect this has is that the system is unable to free individual mema allocations which makes it unable to load rooms as you move throughout the level.
+**Payload:** Nops `_mema_free` entirely, so any time that function is called it'll flow into the following function, which just returns. The effect this has is that the system is unable to free individual mema allocations which makes it unable to load rooms as you move throughout the level.
 
 ---
 
-### bgReset
+### bg_reset
 
 **When Called:** When loading a normal stage (eg. CI Training).
 
@@ -104,53 +104,53 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Copies 64 bytes from a random location in ROM to a random location in RAM.
 
-### chrConsiderGrenadeThrow
+### chr_consider_grenade_throw
 
 **When Called:** When a chr decides to throw a grenade.
 
-**What It Checks:** Checksums `bgReset` to make sure it hasn't been modified.
+**What It Checks:** Checksums `bg_reset` to make sure it hasn't been modified.
 
 **Payload:** Surrounds the player in infinite explosions.
 
 ---
 
-### tagsReset
+### tags_reset
 
 **When Called:** When loading a normal stage (eg. CI Training).
 
-**What It Checks:** Calls `mtxGetObfuscatedRomBase` to get the value of `osRomBase` then compares it with a known value.
+**What It Checks:** Calls `mtx_get_obfuscated_rom_base` to get the value of `osRomBase` then compares it with a known value.
 
 **Payload:** Copies 4KB from a random location in ROM to a random location in RAM.
 
-### bgunTickGunLoad
+### bgun_tick_gun_load
 
 **When Called:** When equipping any weapon.
 
-**What It Checks:** Checksums `tagsReset` to make sure it hasn't been modified.
+**What It Checks:** Checksums `tags_reset` to make sure it hasn't been modified.
 
-**Payload:** Corrupts `tagsReset` by writing 4 bytes of 0xff.
+**Payload:** Corrupts `tags_reset` by writing 4 bytes of 0xff.
 
 ---
 
-### menuTickTimers
+### menu_tick_timers
 
 **When Called:** On every frame except credits.
 
-**What It Checks:** Checksums `mtxGetObfuscatedRomBase` to make sure it hasn't been modified.
+**What It Checks:** Checksums `mtx_get_obfuscated_rom_base` to make sure it hasn't been modified.
 
-**Payload:** Corrupts `bgReset` by writing 16 bytes of 0x12 to a random address within that function.
+**Payload:** Corrupts `bg_reset` by writing 16 bytes of 0x12 to a random address within that function.
 
-### bgTickCounter
+### bg_tick_counter
 
 **When Called:** On every frame.
 
-**What It Checks:** Checksums `menuTickTimers` to make sure it hasn't been modified.
+**What It Checks:** Checksums `menu_tick_timers` to make sure it hasn't been modified.
 
-**Payload:** Corrupts `bgBuildTables` by adding a fixed amount to 16 bytes within that function.
+**Payload:** Corrupts `bg_build_tables` by adding a fixed amount to 16 bytes within that function.
 
 ---
 
-### glassDestroy
+### glass_destroy
 
 **When Called:** When the player breaks glass.
 
@@ -158,10 +158,10 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Sets the audio frequency to a high value which makes everyone sound like chipmunks.
 
-### explosionAlertChrs
+### explosion_alert_chrs
 
 **When Called:** When there's an explosion.
 
-**What It Checks:** Checksums `glassDestroy` to make sure it hasn't been modified.
+**What It Checks:** Checksums `glass_destroy` to make sure it hasn't been modified.
 
 **Payload:** Makes all explosions huge.

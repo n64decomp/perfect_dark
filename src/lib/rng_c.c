@@ -21,7 +21,7 @@ u32 random(void)
 /**
  * Set the given seed as the RNG seed. Add 1 to make sure it isn't 0.
  */
-void rngSetSeed(u64 seed)
+void rng_set_seed(u64 seed)
 {
 	g_RngSeed = seed + 1;
 }
@@ -32,7 +32,7 @@ void rngSetSeed(u64 seed)
  * Store the new 64-bit seed at the pointed address and return the same seed
  * cast as a u32.
  */
-u32 rngRotateSeed(u64 *seed)
+u32 rng_rotate_seed(u64 *seed)
 {
 	*seed = ((*seed << 63) >> 31 | (*seed << 31) >> 32) ^ (*seed << 44) >> 32;
 	*seed = ((*seed >> 20) & 0xfff) ^ *seed;

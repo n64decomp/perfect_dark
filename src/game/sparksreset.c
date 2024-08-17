@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void sparksReset(void)
+void sparks_reset(void)
 {
 	s32 i;
 	g_NextSparkIndex = 0;

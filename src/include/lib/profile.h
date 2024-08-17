@@ -4,11 +4,11 @@
 #include "data.h"
 #include "types.h"
 
-void profileInit(void);
-void profileTick(void);
-void profileReset(void);
+void profile_init(void);
+void profile_tick(void);
+void profile_reset(void);
 void profile00009a98(void);
-void profileSetMarker(u32 arg0);
-Gfx *profileRender(Gfx *gdl);
+void profile_set_marker(u32 arg0);
+Gfx *profile_render(Gfx *gdl);
 
 #endif

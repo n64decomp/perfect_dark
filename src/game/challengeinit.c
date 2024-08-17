@@ -6,7 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-void challengesInit(void)
+void challenges_init(void)
 {
 	struct mpconfigfull *mpconfig;
 	u8 buffer[0x1ca];
@@ -19,14 +19,14 @@ void challengesInit(void)
 		g_MpChallenges[i].completions[2] = 0;
 		g_MpChallenges[i].completions[3] = 0;
 
-		mpconfig = challengeLoad(i, buffer, 0x1ca);
-		challengeForceUnlockConfigFeatures(&mpconfig->config, g_MpChallenges[i].unlockfeatures, 16, i);
+		mpconfig = challenge_load(i, buffer, 0x1ca);
+		challenge_force_unlock_config_features(&mpconfig->config, g_MpChallenges[i].unlockfeatures, 16, i);
 	}
 
-	for (i = 0; i < mpGetNumPresets(); i++) {
-		mpconfig = challengeLoadConfig(g_MpPresets[i].confignum, buffer, 0x1ca);
-		challengeForceUnlockConfigFeatures(&mpconfig->config, g_MpPresets[i].requirefeatures, 16, -1);
+	for (i = 0; i < mp_get_num_presets(); i++) {
+		mpconfig = challenge_load_config(g_MpPresets[i].confignum, buffer, 0x1ca);
+		challenge_force_unlock_config_features(&mpconfig->config, g_MpPresets[i].requirefeatures, 16, -1);
 	}
 
-	challengeDetermineUnlockedFeatures();
+	challenge_determine_unlocked_features();
 }

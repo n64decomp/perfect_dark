@@ -44,7 +44,7 @@
 #include "data.h"
 #include "types.h"
 
-void propsTick(void)
+void props_tick(void)
 {
 	s32 i;
 	struct prop *prop;
@@ -59,8 +59,8 @@ void propsTick(void)
 		g_Vars.players[i]->bondextrapos.z = 0;
 	}
 
-	shieldhitsTick();
-	chraTickBg();
+	shieldhits_tick();
+	chra_tick_bg();
 
 	prop = g_Vars.activeprops;
 
@@ -70,15 +70,15 @@ void propsTick(void)
 		tickop = TICKOP_NONE;
 
 		if (prop->type == PROPTYPE_CHR) {
-			tickop = chrTickBeams(prop);
+			tickop = chr_tick_beams(prop);
 		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-			tickop = objTick(prop);
+			tickop = obj_tick(prop);
 		} else if (prop->type == PROPTYPE_EXPLOSION) {
-			tickop = explosionTick(prop);
+			tickop = explosion_tick(prop);
 		} else if (prop->type == PROPTYPE_SMOKE) {
-			tickop = smokeTick(prop);
+			tickop = smoke_tick(prop);
 		} else if (prop->type == PROPTYPE_PLAYER) {
-			tickop = playerTickBeams(prop);
+			tickop = player_tick_beams(prop);
 		}
 
 		if (tickop == TICKOP_CHANGEDLIST) {
@@ -88,15 +88,15 @@ void propsTick(void)
 			done = next2 == g_Vars.pausedprops;
 
 			if (tickop == TICKOP_RETICK) {
-				propDelist(prop);
-				propActivateThisFrame(prop);
+				prop_delist(prop);
+				prop_activate_this_frame(prop);
 
 				if (done) {
 					next2 = prop;
 					done = false;
 				}
 			} else {
-				propExecuteTickOperation(prop, tickop);
+				prop_execute_tick_operation(prop, tickop);
 			}
 		}
 

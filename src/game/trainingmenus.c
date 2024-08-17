@@ -30,7 +30,7 @@ struct menudialogdef g_BioTextMenuDialog;
 struct menudialogdef g_HangarLocationDetailsMenuDialog;
 struct menudialogdef g_HangarVehicleDetailsMenuDialog;
 
-MenuItemHandlerResult frDetailsOkMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fr_details_ok_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 i;
 
@@ -38,21 +38,21 @@ MenuItemHandlerResult frDetailsOkMenuHandler(s32 operation, struct menuitem *ite
 	case MENUOP_CHECKPREFOCUSED:
 		return true;
 	case MENUOP_SET:
-		if (frIsInTraining() == false) {
-			s32 weapon = frGetWeaponBySlot(frGetSlot());
+		if (fr_is_in_training() == false) {
+			s32 weapon = fr_get_weapon_by_slot(fr_get_slot());
 
 			if (g_FrWeaponNum != WEAPON_UNARMED) {
-				invRemoveItemByNum(g_FrWeaponNum);
+				inv_remove_item_by_num(g_FrWeaponNum);
 			}
 
 			if (weapon != WEAPON_UNARMED) {
-				invGiveSingleWeapon(weapon);
+				inv_give_single_weapon(weapon);
 			}
 
-			invSetCurrentIndex(1);
+			inv_set_current_index(1);
 
-			if (bgunGetWeaponNum(HAND_RIGHT) != weapon) {
-				bgunEquipWeapon2(HAND_RIGHT, weapon);
+			if (bgun_get_weapon_num(HAND_RIGHT) != weapon) {
+				bgun_equip_weapon2(HAND_RIGHT, weapon);
 			}
 
 			g_FrWeaponNum = weapon;
@@ -62,7 +62,7 @@ MenuItemHandlerResult frDetailsOkMenuHandler(s32 operation, struct menuitem *ite
 				g_Vars.currentplayer->hands[1].gunroundsspent[i] = 0;
 			}
 
-			frBeginSession(weapon);
+			fr_begin_session(weapon);
 		}
 
 		func0f0f8120();
@@ -72,11 +72,11 @@ MenuItemHandlerResult frDetailsOkMenuHandler(s32 operation, struct menuitem *ite
 	return 0;
 }
 
-MenuItemHandlerResult frAbortMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fr_abort_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		if (frIsInTraining()) {
-			frEndSession(true);
+		if (fr_is_in_training()) {
+			fr_end_session(true);
 		}
 	}
 
@@ -85,7 +85,7 @@ MenuItemHandlerResult frAbortMenuHandler(s32 operation, struct menuitem *item, u
 
 struct menudialogdef g_FrDifficultyMenuDialog;
 
-MenuItemHandlerResult frWeaponListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 weaponnum;
 	s32 score;
@@ -111,40 +111,40 @@ MenuItemHandlerResult frWeaponListMenuHandler(s32 operation, struct menuitem *it
 		data->list.groupstartindex = 0;
 		break;
 	case MENUOP_GETOPTIONCOUNT:
-		data->list.value = frGetNumWeaponsAvailable();
+		data->list.value = fr_get_num_weapons_available();
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		return 0;
 	case MENUOP_SET:
-		weaponnum = frGetWeaponBySlot(data->list.value);
-		score = ciGetFiringRangeScore(frGetWeaponIndexByWeapon(weaponnum));
+		weaponnum = fr_get_weapon_by_slot(data->list.value);
+		score = ci_get_firing_range_score(fr_get_weapon_index_by_weapon(weaponnum));
 
 #if VERSION < VERSION_NTSC_1_0
 		if (g_Menus[g_MpPlayerNum].layers[g_Menus[g_MpPlayerNum].depth - 1].numsiblings > 1) {
-			menuCloseDialog();
-			menuPushDialog(&g_FrWeaponListMenuDialog);
+			menu_close_dialog();
+			menu_push_dialog(&g_FrWeaponListMenuDialog);
 		}
 #endif
 
-		frLoadData();
-		frSetSlot(data->list.value);
+		fr_load_data();
+		fr_set_slot(data->list.value);
 
 		if (score) {
-			frSetDifficulty(ciGetFiringRangeScore(frGetWeaponIndexByWeapon(weaponnum)));
-			menuPushDialog(&g_FrDifficultyMenuDialog);
+			fr_set_difficulty(ci_get_firing_range_score(fr_get_weapon_index_by_weapon(weaponnum)));
+			menu_push_dialog(&g_FrDifficultyMenuDialog);
 		} else {
-			frSetDifficulty(FRDIFFICULTY_BRONZE);
-			menuPushDialog(&g_FrTrainingInfoPreGameMenuDialog);
+			fr_set_difficulty(FRDIFFICULTY_BRONZE);
+			menu_push_dialog(&g_FrTrainingInfoPreGameMenuDialog);
 		}
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		data->list.value = frGetSlot();
+		data->list.value = fr_get_slot();
 		break;
 	case MENUOP_RENDER:
 		gdl = data->type19.gdl;
 		renderdata = data->type19.renderdata2;
-		weaponnum2 = frGetWeaponBySlot(data->type19.unk04);
-		score2 = ciGetFiringRangeScore(frGetWeaponIndexByWeapon(weaponnum2));
+		weaponnum2 = fr_get_weapon_by_slot(data->type19.unk04);
+		score2 = ci_get_firing_range_score(fr_get_weapon_index_by_weapon(weaponnum2));
 
 		// Render weapon name
 		x = renderdata->x + 10;
@@ -155,7 +155,7 @@ MenuItemHandlerResult frWeaponListMenuHandler(s32 operation, struct menuitem *it
 #endif
 
 		gdl = text0f153628(gdl);
-		gdl = textRenderProjected(gdl, &x, &y, bgunGetName(weaponnum2), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, bgun_get_name(weaponnum2), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 		gdl = text0f153780(gdl);
 
 		// Prepare the star texture for the difficulties
@@ -166,7 +166,7 @@ MenuItemHandlerResult frWeaponListMenuHandler(s32 operation, struct menuitem *it
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		texSelect(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -212,19 +212,19 @@ MenuItemHandlerResult frWeaponListMenuHandler(s32 operation, struct menuitem *it
 	return 0;
 }
 
-MenuDialogHandlerResult frTrainingInfoMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult fr_training_info_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	u32 stack;
 	s32 weaponnum;
 
 	switch (operation) {
 	case MENUOP_OPEN:
-		weaponnum = frGetWeaponBySlot(frGetSlot());
+		weaponnum = fr_get_weapon_by_slot(fr_get_slot());
 		g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
 		func0f105948(weaponnum);
 
-		if (!frIsInTraining()) {
-			frInitAmmo(weaponnum);
+		if (!fr_is_in_training()) {
+			fr_init_ammo(weaponnum);
 		}
 		break;
 	case MENUOP_TICK:
@@ -235,8 +235,8 @@ MenuDialogHandlerResult frTrainingInfoMenuDialog(s32 operation, struct menudialo
 		}
 		break;
 	case MENUOP_CLOSE:
-		if (!frIsInTraining()) {
-			frEndSession(true);
+		if (!fr_is_in_training()) {
+			fr_end_session(true);
 		}
 		break;
 	}
@@ -244,11 +244,11 @@ MenuDialogHandlerResult frTrainingInfoMenuDialog(s32 operation, struct menudialo
 	return 0;
 }
 
-MenuDialogHandlerResult frTrainingStatsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult fr_training_stats_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
-		if (frIsInTraining() == false) {
-			frEndSession(true);
+		if (fr_is_in_training() == false) {
+			fr_end_session(true);
 		}
 	}
 
@@ -259,7 +259,7 @@ MenuDialogHandlerResult frTrainingStatsMenuDialog(s32 operation, struct menudial
  * This is an unused menu handler which implements the difficulty selection
  * using a dropdown.
  */
-MenuItemHandlerResult frDifficultyDropdownMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fr_difficulty_dropdown_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 names[] = {
 		L_MPMENU_439, // "Bronze"
@@ -269,40 +269,40 @@ MenuItemHandlerResult frDifficultyDropdownMenuHandler(s32 operation, struct menu
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->dropdown.value = ciGetFiringRangeScore(frGetSlot()) + 1;
+		data->dropdown.value = ci_get_firing_range_score(fr_get_slot()) + 1;
 
 		if (data->dropdown.value > 3) {
 			data->dropdown.value = 3;
 		}
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) langGet(names[data->dropdown.value]);
+		return (s32) lang_get(names[data->dropdown.value]);
 	case MENUOP_SET:
-		frSetDifficulty(data->dropdown.value);
-		menuPushDialog(&g_FrTrainingInfoPreGameMenuDialog);
+		fr_set_difficulty(data->dropdown.value);
+		menu_push_dialog(&g_FrTrainingInfoPreGameMenuDialog);
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		data->dropdown.value = frGetDifficulty();
+		data->dropdown.value = fr_get_difficulty();
 		break;
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult frDifficultyMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fr_difficulty_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
-		if (ciGetFiringRangeScore(frGetWeaponIndexByWeapon(frGetWeaponBySlot(frGetSlot()))) < item->param) {
+		if (ci_get_firing_range_score(fr_get_weapon_index_by_weapon(fr_get_weapon_by_slot(fr_get_slot()))) < item->param) {
 			return true;
 		}
 		break;
 	case MENUOP_SET:
-		frSetDifficulty(item->param);
-		menuPushDialog(&g_FrTrainingInfoPreGameMenuDialog);
+		fr_set_difficulty(item->param);
+		menu_push_dialog(&g_FrTrainingInfoPreGameMenuDialog);
 		break;
 	case MENUOP_CHECKPREFOCUSED:
-		if (ciGetFiringRangeScore(frGetWeaponIndexByWeapon(frGetWeaponBySlot(frGetSlot()))) >= item->param) {
+		if (ci_get_firing_range_score(fr_get_weapon_index_by_weapon(fr_get_weapon_by_slot(fr_get_slot()))) >= item->param) {
 			return true;
 		}
 		break;
@@ -311,29 +311,29 @@ MenuItemHandlerResult frDifficultyMenuHandler(s32 operation, struct menuitem *it
 	return 0;
 }
 
-char *frPrimaryFunctionMenuText(struct menuitem *item)
+char *fr_primary_function_menu_text(struct menuitem *item)
 {
-	struct weaponfunc *func = weaponGetFunctionById(frGetWeaponBySlot(frGetSlot()), FUNC_PRIMARY);
+	struct weaponfunc *func = weapon_get_function_by_id(fr_get_weapon_by_slot(fr_get_slot()), FUNC_PRIMARY);
 
 	if (func) {
-		return langGet(func->name);
+		return lang_get(func->name);
 	}
 
 	return "\n";
 }
 
-char *frSecondaryFunctionMenuText(struct menuitem *item)
+char *fr_secondary_function_menu_text(struct menuitem *item)
 {
-	struct weaponfunc *func = weaponGetFunctionById(frGetWeaponBySlot(frGetSlot()), FUNC_SECONDARY);
+	struct weaponfunc *func = weapon_get_function_by_id(fr_get_weapon_by_slot(fr_get_slot()), FUNC_SECONDARY);
 
 	if (func) {
-		return langGet(func->name);
+		return lang_get(func->name);
 	}
 
 	return "\n";
 }
 
-char *frMenuTextFailReason(struct menuitem *item)
+char *fr_menu_text_fail_reason(struct menuitem *item)
 {
 	u16 reasons[] = {
 		L_MPMENU_456, // "Not Failed"
@@ -343,12 +343,12 @@ char *frMenuTextFailReason(struct menuitem *item)
 		L_MPMENU_460, // "Too Inaccurate"
 	};
 
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
-	return langGet(reasons[frdata->failreason]);
+	return lang_get(reasons[frdata->failreason]);
 }
 
-char *frMenuTextDifficultyName(struct menuitem *item)
+char *fr_menu_text_difficulty_name(struct menuitem *item)
 {
 	u16 names[] = {
 		L_MPMENU_439, // "Bronze"
@@ -356,14 +356,14 @@ char *frMenuTextDifficultyName(struct menuitem *item)
 		L_MPMENU_441, // "Gold"
 	};
 
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
-	return langGet(names[frdata->difficulty]);
+	return lang_get(names[frdata->difficulty]);
 }
 
-char *frMenuTextTimeTakenValue(struct menuitem *item)
+char *fr_menu_text_time_taken_value(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 	f32 secs = frdata->timetaken / (PAL ? 50.0f : 60.0f);
 
 	if (secs > frdata->timelimit) {
@@ -387,37 +387,37 @@ char *frMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextScoreValue(struct menuitem *item)
+char *fr_menu_text_score_value(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	sprintf(g_StringPointer, "%d\n", frdata->score);
 	return g_StringPointer;
 }
 
-char *frMenuTextGoalScoreValueUnconditional(struct menuitem *item)
+char *fr_menu_text_goal_score_value_unconditional(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 	sprintf(g_StringPointer, "%d\n", frdata->goalscore);
 	return g_StringPointer;
 }
 
-char *frMenuTextWeaponName(struct menuitem *item)
+char *fr_menu_text_weapon_name(struct menuitem *item)
 {
-	return bgunGetName(frGetWeaponBySlot(frGetSlot()));
+	return bgun_get_name(fr_get_weapon_by_slot(fr_get_slot()));
 }
 
-char *frMenuTextTargetsDestroyedValue(struct menuitem *item)
+char *fr_menu_text_targets_destroyed_value(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	sprintf(g_StringPointer, "%d\n", frdata->targetsdestroyed);
 	return g_StringPointer;
 }
 
-char *frMenuTextAccuracyValue(struct menuitem *item)
+char *fr_menu_text_accuracy_value(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 	f32 totalhits = (frdata->numhitsring3 + frdata->numhitsbullseye + frdata->numhitsring1 + frdata->numhitsring2) * 100.0f;
 	f32 accuracy = 0;
 
@@ -433,21 +433,21 @@ char *frMenuTextAccuracyValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextGoalScoreLabel(struct menuitem *item)
+char *fr_menu_text_goal_score_label(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	if (frdata->goalscore > 0) {
-		sprintf(g_StringPointer, "%s", langGet(L_MPMENU_475)); // "Goal Score:"
+		sprintf(g_StringPointer, "%s", lang_get(L_MPMENU_475)); // "Goal Score:"
 		return g_StringPointer;
 	}
 
 	return NULL;
 }
 
-char *frMenuTextGoalScoreValue(struct menuitem *item)
+char *fr_menu_text_goal_score_value(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	if (frdata->goalscore > 0) {
 		sprintf(g_StringPointer2, "%d\n", frdata->goalscore);
@@ -457,14 +457,14 @@ char *frMenuTextGoalScoreValue(struct menuitem *item)
 	return NULL;
 }
 
-char *frMenuTextMinAccuracyOrTargetsLabel(struct menuitem *item)
+char *fr_menu_text_min_accuracy_or_targets_label(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	if (frdata->goalaccuracy > 0) {
-		sprintf(g_StringPointer, "%s", langGet(L_MPMENU_473)); // "Min Accuracy:"
+		sprintf(g_StringPointer, "%s", lang_get(L_MPMENU_473)); // "Min Accuracy:"
 	} else if (frdata->goaltargets != 255) {
-		sprintf(g_StringPointer, "%s", langGet(L_MPMENU_474)); // "Goal Targets:"
+		sprintf(g_StringPointer, "%s", lang_get(L_MPMENU_474)); // "Goal Targets:"
 	} else {
 		return NULL;
 	}
@@ -472,9 +472,9 @@ char *frMenuTextMinAccuracyOrTargetsLabel(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextMinAccuracyOrTargetsValue(struct menuitem *item)
+char *fr_menu_text_min_accuracy_or_targets_value(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	if (frdata->goalaccuracy > 0) {
 		sprintf(g_StringPointer2, "%d%%\n", frdata->goalaccuracy);
@@ -487,12 +487,12 @@ char *frMenuTextMinAccuracyOrTargetsValue(struct menuitem *item)
 	return g_StringPointer2;
 }
 
-char *frMenuTextTimeLimitLabel(struct menuitem *item)
+char *fr_menu_text_time_limit_label(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	if (frdata->timelimit != 255) {
-		sprintf(g_StringPointer, "%s", langGet(L_MPMENU_472)); // "Time Limit:"
+		sprintf(g_StringPointer, "%s", lang_get(L_MPMENU_472)); // "Time Limit:"
 	} else {
 		return NULL;
 	}
@@ -500,9 +500,9 @@ char *frMenuTextTimeLimitLabel(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextTimeLimitValue(struct menuitem *item)
+char *fr_menu_text_time_limit_value(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	if (frdata->timelimit != 255) {
 		s32 secs = frdata->timelimit;
@@ -525,12 +525,12 @@ char *frMenuTextTimeLimitValue(struct menuitem *item)
 	return g_StringPointer2;
 }
 
-char *frMenuTextAmmoLimitLabel(struct menuitem *item)
+char *fr_menu_text_ammo_limit_label(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 
 	if (frdata->ammolimit != 255) {
-		sprintf(g_StringPointer, "%s", langGet(L_MPMENU_471)); // "Ammo Limit:"
+		sprintf(g_StringPointer, "%s", lang_get(L_MPMENU_471)); // "Ammo Limit:"
 	} else {
 		return NULL;
 	}
@@ -538,14 +538,14 @@ char *frMenuTextAmmoLimitLabel(struct menuitem *item)
 	return g_StringPointer;
 }
 
-char *frMenuTextAmmoLimitValue(struct menuitem *item)
+char *fr_menu_text_ammo_limit_value(struct menuitem *item)
 {
-	struct frdata *frdata = frGetData();
+	struct frdata *frdata = fr_get_data();
 	char suffix[16];
 	s32 weaponnum;
 
 	if (frdata->ammolimit != 255) {
-		weaponnum = frGetWeaponBySlot(frdata->slot);
+		weaponnum = fr_get_weapon_by_slot(frdata->slot);
 
 		if (weaponnum == WEAPON_SUPERDRAGON && frdata->sdgrenadelimit != 255) {
 			sprintf(suffix, "/%d", frdata->sdgrenadelimit);
@@ -568,7 +568,7 @@ char *frMenuTextAmmoLimitValue(struct menuitem *item)
  * as well as the player's score chart. There are lines leading from
  * the score chart to the diagram.
  */
-MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult fr_scoring_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_RENDER) {
 		Gfx *gdl = data->type19.gdl;
@@ -578,7 +578,7 @@ MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item,
 		s32 textheight;
 		s32 textwidth;
 		struct textureconfig *tconfig = &g_TexGeneralConfigs[50];
-		struct frdata *frdata = frGetData();
+		struct frdata *frdata = fr_get_data();
 		char text[128];
 		bool failed = frdata->menutype == FRMENUTYPE_FAILED;
 #if VERSION >= VERSION_JPN_FINAL
@@ -610,14 +610,14 @@ MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item,
 		linecolourtex = (linecolourtex & 0xffffff00) | ((linecolourtex & 0xff) * (renderdata->colour & 0xff) >> 8);
 #endif
 
-		mainOverrideVariable("x1", &x1);
-		mainOverrideVariable("x2", &x2);
-		mainOverrideVariable("y1", &y1);
-		mainOverrideVariable("y2", &y2);
-		mainOverrideVariable("x3", &x3);
-		mainOverrideVariable("x4", &x4);
-		mainOverrideVariable("y3", &y3);
-		mainOverrideVariable("y4", &y4);
+		main_override_variable("x1", &x1);
+		main_override_variable("x2", &x2);
+		main_override_variable("y1", &y1);
+		main_override_variable("y2", &y2);
+		main_override_variable("x3", &x3);
+		main_override_variable("x4", &x4);
+		main_override_variable("y3", &y3);
+		main_override_variable("y4", &y4);
 
 		gDPPipeSync(gdl++);
 		gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -626,7 +626,7 @@ MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item,
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		texSelect(&gdl, tconfig, 2, 0, 2, 1, NULL);
+		tex_select(&gdl, tconfig, 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -668,10 +668,10 @@ MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item,
 				G_TX_RENDERTILE, 16, 1024, -1024 / g_ScaleX, 1024);
 
 #if VERSION >= VERSION_NTSC_1_0
-		gdl = textSetPrimColour(gdl, ((failed ? 0xff000055 : 0x00ff0055) & 0xffffff00) | (((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8));
+		gdl = text_set_prim_colour(gdl, ((failed ? 0xff000055 : 0x00ff0055) & 0xffffff00) | (((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8));
 		colour = ((failed ? 0xff6969aa : renderdata->colour) & 0xffffff00) | ((((failed ? 0xff6969aa : renderdata->colour) & 0xff) * (renderdata->colour & 0xff)) >> 8);
 #else
-		gdl = textSetPrimColour(gdl, failed ? 0xff000055 : 0x00ff0055);
+		gdl = text_set_prim_colour(gdl, failed ? 0xff000055 : 0x00ff0055);
 #endif
 
 		// NTSC beta uses a static alpha channel, while newer versions take the
@@ -692,92 +692,92 @@ MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item,
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Bull's-eye"
-		sprintf(text, langGet(L_MPMENU_461));
+		sprintf(text, lang_get(L_MPMENU_461));
 		x = renderdata->x + 122;
 		y = renderdata->y + 14;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Bull's-eye score
 		sprintf(text, "%d\n", frdata->numhitsbullseye * 10);
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 1 count
 		sprintf(text, "%d\n", frdata->numhitsring1);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Zone 1"
-		sprintf(text, langGet(L_MPMENU_462));
+		sprintf(text, lang_get(L_MPMENU_462));
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 26 : 25);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 1 score
 		sprintf(text, "%d\n", frdata->numhitsring1 * 5);
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 2 count
 		sprintf(text, "%d\n", frdata->numhitsring2);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Zone 2"
-		sprintf(text, langGet(L_MPMENU_463));
+		sprintf(text, lang_get(L_MPMENU_463));
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 38 : 36);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 2 score
 		sprintf(text, "%d\n", frdata->numhitsring2 * 2);
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 3 count
 		sprintf(text, "%d\n", frdata->numhitsring3);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Zone 3"
 		// Note: developers forgot to remove last argument when copy/pasting
-		sprintf(text, langGet(L_MPMENU_464), frdata->numhitsring3);
+		sprintf(text, lang_get(L_MPMENU_464), frdata->numhitsring3);
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 50 : 47);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 3 score
 		sprintf(text, "%d\n", frdata->numhitsring3);
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Hit total"
-		sprintf(text, langGet(L_MPMENU_465));
+		sprintf(text, lang_get(L_MPMENU_465));
 		x = renderdata->x + 133;
 		y = renderdata->y + 63;
 
@@ -787,11 +787,11 @@ MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item,
 #endif
 
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Hit total count
 		sprintf(text, "%d\n", frdata->numhitsring3 + frdata->numhitsbullseye + frdata->numhitsring1 + frdata->numhitsring2);
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + 188;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 64 : 63);
 
@@ -801,76 +801,76 @@ MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item,
 #endif
 
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Scoring"
-		sprintf(text, langGet(L_MPMENU_466));
+		sprintf(text, lang_get(L_MPMENU_466));
 		x = renderdata->x + 83;
 		y = renderdata->y + 1;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "10"
-		sprintf(text, langGet(L_MPMENU_467));
+		sprintf(text, lang_get(L_MPMENU_467));
 		x = renderdata->x + 38;
 		y = renderdata->y + 35;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "5"
-		sprintf(text, langGet(L_MPMENU_468));
+		sprintf(text, lang_get(L_MPMENU_468));
 		x = renderdata->x + 32;
 		y = renderdata->y + 26;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "2"
-		sprintf(text, langGet(L_MPMENU_469));
+		sprintf(text, lang_get(L_MPMENU_469));
 		x = renderdata->x + 24;
 		y = renderdata->y + 16;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "1"
-		sprintf(text, langGet(L_MPMENU_470));
+		sprintf(text, lang_get(L_MPMENU_470));
 		x = renderdata->x + 14;
 		y = renderdata->y + 4;
 		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
 
 		gdl = text0f153838(gdl);
 
 		// Render lines between the score table and the target texture
 
 		// Horizontal lines - bottom left
-		gdl = menugfxDrawFilledRect(gdl, renderdata->x + 45, renderdata->y + 36, renderdata->x + 81, renderdata->y + 37, linecolourtex, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 52, renderdata->y + 44, renderdata->x + 84, renderdata->y + 45, linecolourtex, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 62, renderdata->y + 50, renderdata->x + 87, renderdata->y + 51, linecolourtex, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 70, renderdata->y + 60, renderdata->x + 90, renderdata->y + 61, linecolourtex, linecolourmid);
+		gdl = menugfx_draw_filled_rect(gdl, renderdata->x + 45, renderdata->y + 36, renderdata->x + 81, renderdata->y + 37, linecolourtex, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 52, renderdata->y + 44, renderdata->x + 84, renderdata->y + 45, linecolourtex, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 62, renderdata->y + 50, renderdata->x + 87, renderdata->y + 51, linecolourtex, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 70, renderdata->y + 60, renderdata->x + 90, renderdata->y + 61, linecolourtex, linecolourmid);
 
 #if VERSION >= VERSION_JPN_FINAL
 		// Vertical lines
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 82, renderdata->y + 37, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 29, renderdata->x + 85, renderdata->y + 45, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 41, renderdata->x + 88, renderdata->y + 51, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 53, renderdata->x + 91, renderdata->y + 61, linecolourmid, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 82, renderdata->y + 37, linecolourmid, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 84, renderdata->y + 29, renderdata->x + 85, renderdata->y + 45, linecolourmid, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 87, renderdata->y + 41, renderdata->x + 88, renderdata->y + 51, linecolourmid, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 90, renderdata->y + 53, renderdata->x + 91, renderdata->y + 61, linecolourmid, linecolourmid);
 
 		// Horizontal lines - top right
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 96, renderdata->y + 18, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 29, renderdata->x + 96, renderdata->y + 30, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 41, renderdata->x + 96, renderdata->y + 42, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 53, renderdata->x + 96, renderdata->y + 54, linecolourmid, linecolourfig);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 96, renderdata->y + 18, linecolourmid, linecolourfig);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 84, renderdata->y + 29, renderdata->x + 96, renderdata->y + 30, linecolourmid, linecolourfig);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 87, renderdata->y + 41, renderdata->x + 96, renderdata->y + 42, linecolourmid, linecolourfig);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 90, renderdata->y + 53, renderdata->x + 96, renderdata->y + 54, linecolourmid, linecolourfig);
 #else
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 82, renderdata->y + 37, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 28, renderdata->x + 85, renderdata->y + 45, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 39, renderdata->x + 88, renderdata->y + 51, linecolourmid, linecolourmid);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 50, renderdata->x + 91, renderdata->y + 61, linecolourmid, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 82, renderdata->y + 37, linecolourmid, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 84, renderdata->y + 28, renderdata->x + 85, renderdata->y + 45, linecolourmid, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 87, renderdata->y + 39, renderdata->x + 88, renderdata->y + 51, linecolourmid, linecolourmid);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 90, renderdata->y + 50, renderdata->x + 91, renderdata->y + 61, linecolourmid, linecolourmid);
 
 		// Horizontal lines - top right
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 96, renderdata->y + 18, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 84, renderdata->y + 28, renderdata->x + 96, renderdata->y + 29, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 87, renderdata->y + 39, renderdata->x + 96, renderdata->y + 40, linecolourmid, linecolourfig);
-		gdl = menugfxDrawDialogBorderLine(gdl, renderdata->x + 90, renderdata->y + 50, renderdata->x + 96, renderdata->y + 51, linecolourmid, linecolourfig);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 81, renderdata->y + 17, renderdata->x + 96, renderdata->y + 18, linecolourmid, linecolourfig);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 84, renderdata->y + 28, renderdata->x + 96, renderdata->y + 29, linecolourmid, linecolourfig);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 87, renderdata->y + 39, renderdata->x + 96, renderdata->y + 40, linecolourmid, linecolourfig);
+		gdl = menugfx_draw_dialog_border_line(gdl, renderdata->x + 90, renderdata->y + 50, renderdata->x + 96, renderdata->y + 51, linecolourmid, linecolourfig);
 #endif
 
 		return (s32)gdl;
@@ -880,13 +880,13 @@ MenuItemHandlerResult frScoringMenuHandler(s32 operation, struct menuitem *item,
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-MenuItemHandlerResult menuhandlerFrFailedContinue(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_fr_failed_continue(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.currentplayer->prop->rooms[0] == 0xa) {
 			func0f0f3704(&g_FrWeaponListMenuDialog);
 		} else {
-			menuPopDialog();
+			menu_pop_dialog();
 		}
 	}
 
@@ -909,7 +909,7 @@ struct menuitem g_FrDifficultyMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPMENU_439, // "Bronze"
 		L_OPTIONS_003, // ""
-		frDifficultyMenuHandler,
+		fr_difficulty_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -917,7 +917,7 @@ struct menuitem g_FrDifficultyMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPMENU_440, // "Silver"
 		L_OPTIONS_003, // ""
-		frDifficultyMenuHandler,
+		fr_difficulty_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -925,7 +925,7 @@ struct menuitem g_FrDifficultyMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPMENU_441, // "Gold"
 		L_OPTIONS_003, // ""
-		frDifficultyMenuHandler,
+		fr_difficulty_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -962,7 +962,7 @@ struct menuitem g_FrWeaponListMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0x000000aa,
 		0,
-		frWeaponListMenuHandler,
+		fr_weapon_list_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -982,39 +982,39 @@ struct menuitem g_FrTrainingInfoInGameMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_443, // "Difficulty:"
-		(uintptr_t)&frMenuTextDifficultyName,
+		(uintptr_t)&fr_menu_text_difficulty_name,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(uintptr_t)&frMenuTextGoalScoreLabel,
-		(uintptr_t)&frMenuTextGoalScoreValue,
+		(uintptr_t)&fr_menu_text_goal_score_label,
+		(uintptr_t)&fr_menu_text_goal_score_value,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(uintptr_t)&frMenuTextMinAccuracyOrTargetsLabel,
-		(uintptr_t)&frMenuTextMinAccuracyOrTargetsValue,
+		(uintptr_t)&fr_menu_text_min_accuracy_or_targets_label,
+		(uintptr_t)&fr_menu_text_min_accuracy_or_targets_value,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(uintptr_t)&frMenuTextTimeLimitLabel,
-		(uintptr_t)&frMenuTextTimeLimitValue,
+		(uintptr_t)&fr_menu_text_time_limit_label,
+		(uintptr_t)&fr_menu_text_time_limit_value,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(uintptr_t)&frMenuTextAmmoLimitLabel,
-		(uintptr_t)&frMenuTextAmmoLimitValue,
+		(uintptr_t)&fr_menu_text_ammo_limit_label,
+		(uintptr_t)&fr_menu_text_ammo_limit_value,
 		NULL,
 	},
 	{
@@ -1047,7 +1047,7 @@ struct menuitem g_FrTrainingInfoInGameMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_003, // ""
 		L_MPMENU_428, // "Resume"
-		frDetailsOkMenuHandler,
+		fr_details_ok_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -1055,7 +1055,7 @@ struct menuitem g_FrTrainingInfoInGameMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_003, // ""
 		L_MPMENU_430, // "Abort"
-		frAbortMenuHandler,
+		fr_abort_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -1064,7 +1064,7 @@ struct menudialogdef g_FrTrainingInfoInGameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_447, // "Training Info"
 	g_FrTrainingInfoInGameMenuItems,
-	frTrainingInfoMenuDialog,
+	fr_training_info_menu_dialog,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
 	NULL,
 };
@@ -1075,39 +1075,39 @@ struct menuitem g_FrTrainingInfoPreGameMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_443, // "Difficulty:"
-		(uintptr_t)&frMenuTextDifficultyName,
+		(uintptr_t)&fr_menu_text_difficulty_name,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(uintptr_t)&frMenuTextGoalScoreLabel,
-		(uintptr_t)&frMenuTextGoalScoreValue,
+		(uintptr_t)&fr_menu_text_goal_score_label,
+		(uintptr_t)&fr_menu_text_goal_score_value,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(uintptr_t)&frMenuTextMinAccuracyOrTargetsLabel,
-		(uintptr_t)&frMenuTextMinAccuracyOrTargetsValue,
+		(uintptr_t)&fr_menu_text_min_accuracy_or_targets_label,
+		(uintptr_t)&fr_menu_text_min_accuracy_or_targets_value,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(uintptr_t)&frMenuTextTimeLimitLabel,
-		(uintptr_t)&frMenuTextTimeLimitValue,
+		(uintptr_t)&fr_menu_text_time_limit_label,
+		(uintptr_t)&fr_menu_text_time_limit_value,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_00000002,
-		(uintptr_t)&frMenuTextAmmoLimitLabel,
-		(uintptr_t)&frMenuTextAmmoLimitValue,
+		(uintptr_t)&fr_menu_text_ammo_limit_label,
+		(uintptr_t)&fr_menu_text_ammo_limit_value,
 		NULL,
 	},
 	{
@@ -1140,7 +1140,7 @@ struct menuitem g_FrTrainingInfoPreGameMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_003, // ""
 		L_MPMENU_427, // "Ok"
-		frDetailsOkMenuHandler,
+		fr_details_ok_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -1148,7 +1148,7 @@ struct menuitem g_FrTrainingInfoPreGameMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG | MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_003, // ""
 		L_MPMENU_429, // "Cancel"
-		frAbortMenuHandler,
+		fr_abort_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -1157,7 +1157,7 @@ struct menudialogdef g_FrTrainingInfoPreGameMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_447, // "Training Info"
 	g_FrTrainingInfoPreGameMenuItems,
-	frTrainingInfoMenuDialog,
+	fr_training_info_menu_dialog,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
 	NULL,
 };
@@ -1186,7 +1186,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_450, // "Score:"
-		(uintptr_t)&frMenuTextScoreValue,
+		(uintptr_t)&fr_menu_text_score_value,
 		NULL,
 	},
 	{
@@ -1194,7 +1194,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_451, // "Targets Destroyed:"
-		(uintptr_t)&frMenuTextTargetsDestroyedValue,
+		(uintptr_t)&fr_menu_text_targets_destroyed_value,
 		NULL,
 	},
 	{
@@ -1210,7 +1210,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_452, // "Difficulty:"
-		(uintptr_t)&frMenuTextDifficultyName,
+		(uintptr_t)&fr_menu_text_difficulty_name,
 		NULL,
 	},
 	{
@@ -1218,7 +1218,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_453, // "Time Taken:"
-		(uintptr_t)&frMenuTextTimeTakenValue,
+		(uintptr_t)&fr_menu_text_time_taken_value,
 		NULL,
 	},
 	{
@@ -1234,7 +1234,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_454, // "Weapon:"
-		(uintptr_t)&frMenuTextWeaponName,
+		(uintptr_t)&fr_menu_text_weapon_name,
 		NULL,
 	},
 	{
@@ -1242,7 +1242,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_455, // "Accuracy:"
-		(uintptr_t)&frMenuTextAccuracyValue,
+		(uintptr_t)&fr_menu_text_accuracy_value,
 		NULL,
 	},
 	{
@@ -1259,7 +1259,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		MENUITEMFLAG_00000002 | MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0x000000d2,
 		0x00000050,
-		frScoringMenuHandler,
+		fr_scoring_menu_handler,
 	},
 #if VERSION >= VERSION_NTSC_1_0
 	{
@@ -1268,7 +1268,7 @@ struct menuitem g_FrCompletedMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPWEAPONS_252, // "Continue"
 		0,
-		menuhandlerFrFailedContinue,
+		menuhandler_fr_failed_continue,
 	},
 #endif
 	{ MENUITEMTYPE_END },
@@ -1278,7 +1278,7 @@ struct menudialogdef g_FrCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU_448, // "Training Stats"
 	g_FrCompletedMenuItems,
-	frTrainingStatsMenuDialog,
+	fr_training_stats_menu_dialog,
 #if VERSION >= VERSION_NTSC_1_0
 	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
@@ -1293,7 +1293,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_SELECTABLE_CENTRE,
-		(uintptr_t)&frMenuTextFailReason,
+		(uintptr_t)&fr_menu_text_fail_reason,
 		0,
 		NULL,
 	},
@@ -1312,7 +1312,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_450, // "Score:"
-		(uintptr_t)&frMenuTextScoreValue,
+		(uintptr_t)&fr_menu_text_score_value,
 		NULL,
 	},
 	{
@@ -1320,7 +1320,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_451, // "Targets Destroyed:"
-		(uintptr_t)&frMenuTextTargetsDestroyedValue,
+		(uintptr_t)&fr_menu_text_targets_destroyed_value,
 		NULL,
 	},
 	{
@@ -1336,7 +1336,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_452, // "Difficulty:"
-		(uintptr_t)&frMenuTextDifficultyName,
+		(uintptr_t)&fr_menu_text_difficulty_name,
 		NULL,
 	},
 	{
@@ -1344,7 +1344,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_453, // "Time Taken:"
-		(uintptr_t)&frMenuTextTimeTakenValue,
+		(uintptr_t)&fr_menu_text_time_taken_value,
 		NULL,
 	},
 	{
@@ -1360,7 +1360,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_454, // "Weapon:"
-		(uintptr_t)&frMenuTextWeaponName,
+		(uintptr_t)&fr_menu_text_weapon_name,
 		NULL,
 	},
 	{
@@ -1368,7 +1368,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_455, // "Accuracy:"
-		(uintptr_t)&frMenuTextAccuracyValue,
+		(uintptr_t)&fr_menu_text_accuracy_value,
 		NULL,
 	},
 	{
@@ -1385,7 +1385,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		MENUITEMFLAG_00000002 | MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0x000000d2,
 		0x00000050,
-		frScoringMenuHandler,
+		fr_scoring_menu_handler,
 	},
 #if VERSION >= VERSION_NTSC_1_0
 	{
@@ -1394,7 +1394,7 @@ struct menuitem g_FrFailedMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPWEAPONS_252, // "Continue"
 		0,
-		menuhandlerFrFailedContinue,
+		menuhandler_fr_failed_continue,
 	},
 #endif
 	{ MENUITEMTYPE_END },
@@ -1404,7 +1404,7 @@ struct menudialogdef g_FrFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU_448, // "Training Stats"
 	g_FrFailedMenuItems,
-	frTrainingStatsMenuDialog,
+	fr_training_stats_menu_dialog,
 #if VERSION >= VERSION_NTSC_1_0
 	MENUDIALOGFLAG_STARTSELECTS,
 	NULL,
@@ -1414,15 +1414,15 @@ struct menudialogdef g_FrFailedMenuDialog = {
 #endif
 };
 
-MenuItemHandlerResult ciOfficeInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult ci_office_information_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct optiongroup groups[2] = {
 		{ 0, L_MPMENU_421 }, // "Character Profiles"
 		{ 0, L_MPMENU_422 }, // "Other Information"
 	};
 
-	s32 numunlockedchrbios = ciGetNumUnlockedChrBios();
-	s32 numunlockedmiscbios = ciGetNumUnlockedMiscBios();
+	s32 numunlockedchrbios = ci_get_num_unlocked_chr_bios();
+	s32 numunlockedmiscbios = ci_get_num_unlocked_misc_bios();
 	struct chrbio *chrbio;
 	struct miscbio *miscbio;
 
@@ -1434,19 +1434,19 @@ MenuItemHandlerResult ciOfficeInformationMenuHandler(s32 operation, struct menui
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		if (data->list.value < numunlockedchrbios) {
-			chrbio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(data->list.value));
-			return (s32) langGet(chrbio->name);
+			chrbio = ci_get_chr_bio_by_bodynum(ci_get_chr_bio_bodynum_by_slot(data->list.value));
+			return (s32) lang_get(chrbio->name);
 		} else {
-			miscbio = ciGetMiscBio(ciGetMiscBioIndexBySlot(data->list.value - numunlockedchrbios));
-			return (s32) langGet(miscbio->name);
+			miscbio = ci_get_misc_bio(ci_get_misc_bio_index_by_slot(data->list.value - numunlockedchrbios));
+			return (s32) lang_get(miscbio->name);
 		}
 		break;
 	case MENUOP_SET:
 		g_ChrBioSlot = data->list.value;
 		if (g_ChrBioSlot < numunlockedchrbios) {
-			menuPushDialog(&g_BioProfileMenuDialog);
+			menu_push_dialog(&g_BioProfileMenuDialog);
 		} else {
-			menuPushDialog(&g_BioTextMenuDialog);
+			menu_push_dialog(&g_BioTextMenuDialog);
 		}
 		break;
 	case MENUOP_GETSELECTEDINDEX:
@@ -1456,7 +1456,7 @@ MenuItemHandlerResult ciOfficeInformationMenuHandler(s32 operation, struct menui
 		data->list.value = 2;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(groups[data->list.value].name);
+		return (s32) lang_get(groups[data->list.value].name);
 	case MENUOP_GETGROUPSTARTINDEX:
 		data->list.groupstartindex = data->list.value == 0 ? 0 : numunlockedchrbios;
 		break;
@@ -1472,7 +1472,7 @@ struct menuitem g_BioListMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
 		0x000000c8,
 		0,
-		ciOfficeInformationMenuHandler,
+		ci_office_information_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -1523,11 +1523,11 @@ struct menudialogdef g_NowSafeMenuDialog = {
 	NULL,
 };
 
-MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult ci_character_profile_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	u32 bodynum = ciGetChrBioBodynumBySlot(g_ChrBioSlot);
-	u32 mpbodynum = mpGetMpbodynumByBodynum(bodynum);
-	u32 mpheadnum = mpGetMpheadnumByMpbodynum(mpbodynum);
+	u32 bodynum = ci_get_chr_bio_bodynum_by_slot(g_ChrBioSlot);
+	u32 mpbodynum = mp_get_mpbodynum_by_bodynum(bodynum);
+	u32 mpheadnum = mp_get_mpheadnum_by_mpbodynum(mpbodynum);
 	f32 x;
 	f32 y;
 	f32 scale;
@@ -1549,26 +1549,26 @@ MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menud
 		if (g_ViRes != VIRES_HI) {
 			x = -117;
 
-			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+			if (options_get_screen_ratio() == SCREENRATIO_16_9) {
 				x = -87;
 			}
 		} else {
 			x = -177;
 
-			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+			if (options_get_screen_ratio() == SCREENRATIO_16_9) {
 				x = -127;
 			}
 		}
 #elif VERSION == VERSION_PAL_BETA
 		x = -117;
 
-		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+		if (options_get_screen_ratio() == SCREENRATIO_16_9) {
 			x = -87;
 		}
 #else
 		x = -130;
 
-		if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+		if (options_get_screen_ratio() == SCREENRATIO_16_9) {
 			x = -100;
 		}
 #endif
@@ -1583,7 +1583,7 @@ MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menud
 			scale = 0.8f;
 		}
 
-		menuConfigureModel(&g_Menus[g_MpPlayerNum].menumodel, x, y, 0, 0, 0, 0, scale,
+		menu_configure_model(&g_Menus[g_MpPlayerNum].menumodel, x, y, 0, 0, 0, 0, scale,
 				MENUMODELFLAG_HASSCALE | MENUMODELFLAG_HASPOSITION | MENUMODELFLAG_HASROTATION);
 
 		g_Menus[g_MpPlayerNum].menumodel.curposx = 8.2f;
@@ -1646,50 +1646,50 @@ MenuDialogHandlerResult ciCharacterProfileMenuDialog(s32 operation, struct menud
 	return 0;
 }
 
-char *ciMenuTextChrBioName(struct menuitem *item)
+char *ci_menu_text_chr_bio_name(struct menuitem *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
-	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
+	struct chrbio *bio = ci_get_chr_bio_by_bodynum(ci_get_chr_bio_bodynum_by_slot(g_ChrBioSlot));
+	sprintf(g_StringPointer, "%s\n", lang_get(bio->name));
 
 	return g_StringPointer;
 }
 
-char *ciMenuTextChrBioAge(struct menuitem *item)
+char *ci_menu_text_chr_bio_age(struct menuitem *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
-	sprintf(g_StringPointer, "%s\n", langGet(bio->age));
+	struct chrbio *bio = ci_get_chr_bio_by_bodynum(ci_get_chr_bio_bodynum_by_slot(g_ChrBioSlot));
+	sprintf(g_StringPointer, "%s\n", lang_get(bio->age));
 
 	return g_StringPointer;
 }
 
-char *ciMenuTextChrBioRace(struct menuitem *item)
+char *ci_menu_text_chr_bio_race(struct menuitem *item)
 {
-	struct chrbio *bio = ciGetChrBioByBodynum(ciGetChrBioBodynumBySlot(g_ChrBioSlot));
-	sprintf(g_StringPointer, "%s\n", langGet(bio->race));
+	struct chrbio *bio = ci_get_chr_bio_by_bodynum(ci_get_chr_bio_bodynum_by_slot(g_ChrBioSlot));
+	sprintf(g_StringPointer, "%s\n", lang_get(bio->race));
 
 	return g_StringPointer;
 }
 
-char *ciMenuTextMiscBioName(struct menuitem *item)
+char *ci_menu_text_misc_bio_name(struct menuitem *item)
 {
-	struct miscbio *bio = ciGetMiscBio(ciGetMiscBioIndexBySlot(g_ChrBioSlot - ciGetNumUnlockedChrBios()));
+	struct miscbio *bio = ci_get_misc_bio(ci_get_misc_bio_index_by_slot(g_ChrBioSlot - ci_get_num_unlocked_chr_bios()));
 
-	sprintf(g_StringPointer, "%s\n", langGet(bio->name));
+	sprintf(g_StringPointer, "%s\n", lang_get(bio->name));
 
 	return g_StringPointer;
 }
 
-MenuItemHandlerResult dtDeviceListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult dt_device_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->list.value = dtGetNumAvailable();
+		data->list.value = dt_get_num_available();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) bgunGetName(dtGetWeaponByDeviceIndex(dtGetIndexBySlot(data->list.value)));
+		return (s32) bgun_get_name(dt_get_weapon_by_device_index(dt_get_index_by_slot(data->list.value)));
 	case MENUOP_SET:
 		g_DtSlot = data->list.value;
-		menuPushDialog(&g_DtDetailsMenuDialog);
+		menu_push_dialog(&g_DtDetailsMenuDialog);
 		break;
 	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = g_DtSlot;
@@ -1707,19 +1707,19 @@ MenuItemHandlerResult dtDeviceListMenuHandler(s32 operation, struct menuitem *it
 	return 0;
 }
 
-char *dtMenuTextName(struct menuitem *item)
+char *dt_menu_text_name(struct menuitem *item)
 {
-	u32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
+	u32 weaponnum = dt_get_weapon_by_device_index(dt_get_index_by_slot(g_DtSlot));
 
-	return bgunGetName(weaponnum);
+	return bgun_get_name(weaponnum);
 }
 
-MenuItemHandlerResult menuhandlerDtOkOrResume(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_dt_ok_or_resume(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		// @bug: dtBegin() should not be called if training is already in
+		// @bug: dt_begin() should not be called if training is already in
 		// progress. Doing this resets the training timer.
-		dtBegin();
+		dt_begin();
 		func0f0f8120();
 	}
 
@@ -1729,7 +1729,7 @@ MenuItemHandlerResult menuhandlerDtOkOrResume(s32 operation, struct menuitem *it
 MenuItemHandlerResult menuhandler001a6514(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		dtEnd();
+		dt_end();
 	}
 
 	return 0;
@@ -1749,7 +1749,7 @@ struct menuitem g_BioProfileMenuItems[] = {
 		0,
 		MENUITEMFLAG_NEWCOLUMN | MENUITEMFLAG_00000002,
 		L_MPMENU_432, // "Name:"
-		(uintptr_t)&ciMenuTextChrBioName,
+		(uintptr_t)&ci_menu_text_chr_bio_name,
 		NULL,
 	},
 	{
@@ -1757,7 +1757,7 @@ struct menuitem g_BioProfileMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_433, // "Age:"
-		(uintptr_t)&ciMenuTextChrBioAge,
+		(uintptr_t)&ci_menu_text_chr_bio_age,
 		NULL,
 	},
 	{
@@ -1765,7 +1765,7 @@ struct menuitem g_BioProfileMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_434, // "Race:"
-		(uintptr_t)&ciMenuTextChrBioRace,
+		(uintptr_t)&ci_menu_text_chr_bio_race,
 		NULL,
 	},
 	{
@@ -1807,7 +1807,7 @@ struct menudialogdef g_BioProfileMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_431, // "Character Profile"
 	g_BioProfileMenuItems,
-	ciCharacterProfileMenuDialog,
+	ci_character_profile_menu_dialog,
 	MENUDIALOGFLAG_0002,
 	NULL,
 };
@@ -1842,7 +1842,7 @@ struct menuitem g_BioTextMenuItems[] = {
 
 struct menudialogdef g_BioTextMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(uintptr_t)&ciMenuTextMiscBioName,
+	(uintptr_t)&ci_menu_text_misc_bio_name,
 	g_BioTextMenuItems,
 	NULL,
 	MENUDIALOGFLAG_DISABLERESIZE,
@@ -1856,7 +1856,7 @@ struct menuitem g_DtListMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
 		0x000000a0,
 		0,
-		dtDeviceListMenuHandler,
+		dt_device_list_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -1870,12 +1870,12 @@ struct menudialogdef g_DtListMenuDialog = {
 	NULL,
 };
 
-MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult dt_training_details_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
 		{
-			s32 weaponnum = dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot));
+			s32 weaponnum = dt_get_weapon_by_device_index(dt_get_index_by_slot(g_DtSlot));
 			u16 unused[] = {64250, 38500, 25650, 25700, 12950};
 			func0f1a1ac0();
 			g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
@@ -1883,7 +1883,7 @@ MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudi
 
 #if VERSION == VERSION_PAL_FINAL
 			if (g_ViRes == VIRES_HI) {
-				if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+				if (options_get_screen_ratio() == SCREENRATIO_16_9) {
 					g_Menus[g_MpPlayerNum].menumodel.newposx = 84;
 					g_Menus[g_MpPlayerNum].menumodel.curposx = 84;
 				} else {
@@ -1891,7 +1891,7 @@ MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudi
 					g_Menus[g_MpPlayerNum].menumodel.curposx = 104;
 				}
 			} else {
-				if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+				if (options_get_screen_ratio() == SCREENRATIO_16_9) {
 					g_Menus[g_MpPlayerNum].menumodel.newposx = 64;
 					g_Menus[g_MpPlayerNum].menumodel.curposx = 64;
 				} else {
@@ -1900,7 +1900,7 @@ MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudi
 				}
 			}
 #elif VERSION == VERSION_PAL_BETA
-			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+			if (options_get_screen_ratio() == SCREENRATIO_16_9) {
 				g_Menus[g_MpPlayerNum].menumodel.newposx = 64;
 				g_Menus[g_MpPlayerNum].menumodel.curposx = 64;
 			} else {
@@ -1908,7 +1908,7 @@ MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudi
 				g_Menus[g_MpPlayerNum].menumodel.curposx = 84;
 			}
 #else
-			if (optionsGetScreenRatio() == SCREENRATIO_16_9) {
+			if (options_get_screen_ratio() == SCREENRATIO_16_9) {
 				g_Menus[g_MpPlayerNum].menumodel.newposx = 70;
 				g_Menus[g_MpPlayerNum].menumodel.curposx = 70;
 			} else {
@@ -1924,7 +1924,7 @@ MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudi
 		break;
 	case MENUOP_TICK:
 		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
-			if (dtGetWeaponByDeviceIndex(dtGetIndexBySlot(g_DtSlot)) == WEAPON_DISGUISE41) {
+			if (dt_get_weapon_by_device_index(dt_get_index_by_slot(g_DtSlot)) == WEAPON_DISGUISE41) {
 				g_Menus[g_MpPlayerNum].menumodel.newanimnum = ANIM_006A;
 				g_Menus[g_MpPlayerNum].menumodel.rottimer60 = TICKS(60);
 				g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 = TICKS(120);
@@ -1939,31 +1939,31 @@ MenuDialogHandlerResult dtTrainingDetailsMenuDialog(s32 operation, struct menudi
 	return 0;
 }
 
-char *dtMenuTextOkOrResume(struct menuitem *item)
+char *dt_menu_text_ok_or_resume(struct menuitem *item)
 {
-	struct trainingdata *data = dtGetData();
+	struct trainingdata *data = dt_get_data();
 
 	if (data->intraining) {
-		return langGet(L_MPMENU_428); // "Resume"
+		return lang_get(L_MPMENU_428); // "Resume"
 	}
 
-	return langGet(L_MPMENU_427); // "Ok"
+	return lang_get(L_MPMENU_427); // "Ok"
 }
 
-char *dtMenuTextCancelOrAbort(struct menuitem *item)
+char *dt_menu_text_cancel_or_abort(struct menuitem *item)
 {
-	struct trainingdata *data = dtGetData();
+	struct trainingdata *data = dt_get_data();
 
 	if (data->intraining) {
-		return langGet(L_MPMENU_430); // "Abort"
+		return lang_get(L_MPMENU_430); // "Abort"
 	}
 
-	return langGet(L_MPMENU_429); // "Cancel"
+	return lang_get(L_MPMENU_429); // "Cancel"
 }
 
-char *dtMenuTextTimeTakenValue(struct menuitem *item)
+char *dt_menu_text_time_taken_value(struct menuitem *item)
 {
-	struct trainingdata *data = dtGetData();
+	struct trainingdata *data = dt_get_data();
 	f32 secs = data->timetaken / (PAL ? 50.0f : 60.0f);
 
 	if (secs >= 60.0f) {
@@ -1983,26 +1983,26 @@ char *dtMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-MenuDialogHandlerResult menudialogDeviceTrainingResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult menudialog_device_training_results(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
-		chrSetStageFlag(NULL, 0x08000000);
+		chr_set_stage_flag(NULL, 0x08000000);
 	}
 
 	return false;
 }
 
-MenuItemHandlerResult htHoloListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult ht_holo_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->list.value = htGetNumUnlocked();
+		data->list.value = ht_get_num_unlocked();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32) htGetName(htGetIndexBySlot(data->list.value));
+		return (s32) ht_get_name(ht_get_index_by_slot(data->list.value));
 	case MENUOP_SET:
 		var80088bb4 = data->list.value;
-		menuPushDialog(&g_HtDetailsMenuDialog);
+		menu_push_dialog(&g_HtDetailsMenuDialog);
 		break;
 	case MENUOP_GETSELECTEDINDEX:
 		data->list.value = var80088bb4;
@@ -2020,15 +2020,15 @@ MenuItemHandlerResult htHoloListMenuHandler(s32 operation, struct menuitem *item
 	return 0;
 }
 
-char *htMenuTextName(struct menuitem *item)
+char *ht_menu_text_name(struct menuitem *item)
 {
-	return htGetName(htGetIndexBySlot(var80088bb4));
+	return ht_get_name(ht_get_index_by_slot(var80088bb4));
 }
 
 MenuItemHandlerResult menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		htBegin();
+		ht_begin();
 		func0f0f8120();
 	}
 
@@ -2038,7 +2038,7 @@ MenuItemHandlerResult menuhandler001a6a34(s32 operation, struct menuitem *item, 
 MenuItemHandlerResult menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		htEnd();
+		ht_end();
 	}
 
 	return 0;
@@ -2057,31 +2057,31 @@ MenuDialogHandlerResult menudialog001a6aa4(s32 operation, struct menudialogdef *
 	return false;
 }
 
-char *htMenuTextOkOrResume(struct menuitem *item)
+char *ht_menu_text_ok_or_resume(struct menuitem *item)
 {
-	struct trainingdata *data = getHoloTrainingData();
+	struct trainingdata *data = get_holo_training_data();
 
 	if (data->intraining) {
-		return langGet(L_MPMENU_428); // "Resume"
+		return lang_get(L_MPMENU_428); // "Resume"
 	}
 
-	return langGet(L_MPMENU_427); // "Ok"
+	return lang_get(L_MPMENU_427); // "Ok"
 }
 
-char *htMenuTextCancelOrAbort(struct menuitem *item)
+char *ht_menu_text_cancel_or_abort(struct menuitem *item)
 {
-	struct trainingdata *data = getHoloTrainingData();
+	struct trainingdata *data = get_holo_training_data();
 
 	if (data->intraining) {
-		return langGet(L_MPMENU_430); // "Abort"
+		return lang_get(L_MPMENU_430); // "Abort"
 	}
 
-	return langGet(L_MPMENU_429); // "Cancel"
+	return lang_get(L_MPMENU_429); // "Cancel"
 }
 
-char *htMenuTextTimeTakenValue(struct menuitem *item)
+char *ht_menu_text_time_taken_value(struct menuitem *item)
 {
-	struct trainingdata *data = getHoloTrainingData();
+	struct trainingdata *data = get_holo_training_data();
 	f32 secs = data->timetaken / (PAL ? 50.0f : 60.0f);
 
 	if (secs >= 60.0f) {
@@ -2101,31 +2101,31 @@ char *htMenuTextTimeTakenValue(struct menuitem *item)
 	return g_StringPointer;
 }
 
-MenuDialogHandlerResult menudialogFiringRangeResults(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult menudialog_firing_range_results(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
-		chrSetStageFlag(NULL, 0x08000000);
+		chr_set_stage_flag(NULL, 0x08000000);
 	}
 
 	return false;
 }
 
-char *bioMenuTextName(struct menuitem *item)
+char *bio_menu_text_name(struct menuitem *item)
 {
-	struct hangarbio *bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(g_HangarBioSlot));
+	struct hangarbio *bio = ci_get_hangar_bio(ci_get_hangar_bio_index_by_slot(g_HangarBioSlot));
 
-	return langGet(bio->name);
+	return lang_get(bio->name);
 }
 
 /**
  * The subheading is stored in the same string as the name, separated by a pipe.
  * eg. "Lucerne Tower\0|Global headquarters\n"
  */
-char *ciMenuTextHangarBioSubheading(struct menuitem *item)
+char *ci_menu_text_hangar_bio_subheading(struct menuitem *item)
 {
 	s32 index = 0;
-	struct hangarbio *bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(g_HangarBioSlot));
-	char *name = langGet(bio->name);
+	struct hangarbio *bio = ci_get_hangar_bio(ci_get_hangar_bio_index_by_slot(g_HangarBioSlot));
+	char *name = lang_get(bio->name);
 
 	while (name[index] != '|') {
 		index++;
@@ -2165,15 +2165,15 @@ struct menuitem g_DtDetailsMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		(uintptr_t)&dtMenuTextOkOrResume,
+		(uintptr_t)&dt_menu_text_ok_or_resume,
 		0,
-		menuhandlerDtOkOrResume,
+		menuhandler_dt_ok_or_resume,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		(uintptr_t)&dtMenuTextCancelOrAbort,
+		(uintptr_t)&dt_menu_text_cancel_or_abort,
 		0,
 		menuhandler001a6514,
 	},
@@ -2182,9 +2182,9 @@ struct menuitem g_DtDetailsMenuItems[] = {
 
 struct menudialogdef g_DtDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(uintptr_t)&dtMenuTextName,
+	(uintptr_t)&dt_menu_text_name,
 	g_DtDetailsMenuItems,
-	dtTrainingDetailsMenuDialog,
+	dt_training_details_menu_dialog,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
@@ -2211,7 +2211,7 @@ struct menuitem g_DtFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_424, // "Time Taken:"
-		(uintptr_t)&dtMenuTextTimeTakenValue,
+		(uintptr_t)&dt_menu_text_time_taken_value,
 		NULL,
 	},
 	{
@@ -2237,7 +2237,7 @@ struct menudialogdef g_DtFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU_423, // "Training Stats"
 	g_DtFailedMenuItems,
-	menudialogDeviceTrainingResults,
+	menudialog_device_training_results,
 	MENUDIALOGFLAG_DISABLERESIZE,
 	&g_DtListMenuDialog,
 };
@@ -2264,7 +2264,7 @@ struct menuitem g_DtCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_424, // "Time Taken:"
-		(uintptr_t)&dtMenuTextTimeTakenValue,
+		(uintptr_t)&dt_menu_text_time_taken_value,
 		NULL,
 	},
 	{
@@ -2290,7 +2290,7 @@ struct menudialogdef g_DtCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU_423, // "Training Stats"
 	g_DtCompletedMenuItems,
-	menudialogDeviceTrainingResults,
+	menudialog_device_training_results,
 	MENUDIALOGFLAG_DISABLERESIZE,
 	&g_DtListMenuDialog,
 };
@@ -2302,7 +2302,7 @@ struct menuitem g_HtListMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
 		0x000000a0,
 		0,
-		htHoloListMenuHandler,
+		ht_holo_list_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -2345,7 +2345,7 @@ struct menuitem g_HtDetailsMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		(uintptr_t)&htMenuTextOkOrResume,
+		(uintptr_t)&ht_menu_text_ok_or_resume,
 		0,
 		menuhandler001a6a34,
 	},
@@ -2353,7 +2353,7 @@ struct menuitem g_HtDetailsMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		0,
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
-		(uintptr_t)&htMenuTextCancelOrAbort,
+		(uintptr_t)&ht_menu_text_cancel_or_abort,
 		0,
 		menuhandler001a6a70,
 	},
@@ -2362,7 +2362,7 @@ struct menuitem g_HtDetailsMenuItems[] = {
 
 struct menudialogdef g_HtDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(uintptr_t)&htMenuTextName,
+	(uintptr_t)&ht_menu_text_name,
 	g_HtDetailsMenuItems,
 	menudialog001a6aa4,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
@@ -2391,7 +2391,7 @@ struct menuitem g_HtFailedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_424, // "Time Taken:"
-		(uintptr_t)&htMenuTextTimeTakenValue,
+		(uintptr_t)&ht_menu_text_time_taken_value,
 		NULL,
 	},
 	{
@@ -2423,7 +2423,7 @@ struct menudialogdef g_HtFailedMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
 	L_MPMENU_423, // "Training Stats"
 	g_HtFailedMenuItems,
-	menudialogFiringRangeResults,
+	menudialog_firing_range_results,
 	MENUDIALOGFLAG_DISABLERESIZE,
 	&g_HtListMenuDialog,
 };
@@ -2450,7 +2450,7 @@ struct menuitem g_HtCompletedMenuItems[] = {
 		0,
 		MENUITEMFLAG_00000002,
 		L_MPMENU_424, // "Time Taken:"
-		(uintptr_t)&htMenuTextTimeTakenValue,
+		(uintptr_t)&ht_menu_text_time_taken_value,
 		NULL,
 	},
 	{
@@ -2482,12 +2482,12 @@ struct menudialogdef g_HtCompletedMenuDialog = {
 	MENUDIALOGTYPE_SUCCESS,
 	L_MPMENU_423, // "Training Stats"
 	g_HtCompletedMenuItems,
-	menudialogFiringRangeResults,
+	menudialog_firing_range_results,
 	MENUDIALOGFLAG_DISABLERESIZE,
 	&g_HtListMenuDialog,
 };
 
-MenuItemHandlerResult ciHangarInformationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult ci_hangar_information_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct optiongroup groups[2] = {
 		{ 0, L_MPMENU_419 }, // "Locations"
@@ -2497,23 +2497,23 @@ MenuItemHandlerResult ciHangarInformationMenuHandler(s32 operation, struct menui
 	s32 bioindex;
 	struct hangarbio *bio;
 
-	groups[1].offset = ciGetNumUnlockedLocationBios();
+	groups[1].offset = ci_get_num_unlocked_location_bios();
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->list.value = ciGetNumUnlockedHangarBios();
+		data->list.value = ci_get_num_unlocked_hangar_bios();
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		bio = ciGetHangarBio(ciGetHangarBioIndexBySlot(data->list.value));
-		return (s32) langGet(bio->name);
+		bio = ci_get_hangar_bio(ci_get_hangar_bio_index_by_slot(data->list.value));
+		return (s32) lang_get(bio->name);
 	case MENUOP_SET:
 		g_HangarBioSlot = data->list.value;
-		bioindex = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
+		bioindex = ci_get_hangar_bio_index_by_slot(g_HangarBioSlot);
 
 		if (bioindex <= HANGARBIO_SKEDARRUINS) {
-			menuPushDialog(&g_HangarLocationDetailsMenuDialog);
+			menu_push_dialog(&g_HangarLocationDetailsMenuDialog);
 		} else {
-			menuPushDialog(&g_HangarVehicleDetailsMenuDialog);
+			menu_push_dialog(&g_HangarVehicleDetailsMenuDialog);
 		}
 		break;
 	case MENUOP_GETSELECTEDINDEX:
@@ -2523,7 +2523,7 @@ MenuItemHandlerResult ciHangarInformationMenuHandler(s32 operation, struct menui
 		data->list.value = 2;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32) langGet(groups[data->list.value].name);
+		return (s32) lang_get(groups[data->list.value].name);
 	case MENUOP_GETGROUPSTARTINDEX:
 		data->list.groupstartindex = data->list.value == 0 ? 0 : groups[1].offset;
 		break;
@@ -2532,7 +2532,7 @@ MenuItemHandlerResult ciHangarInformationMenuHandler(s32 operation, struct menui
 	return 0;
 }
 
-MenuItemHandlerResult ciHangarTitleMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult ci_hangar_title_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_RENDER) {
 		Gfx *gdl = data->type19.gdl;
@@ -2541,7 +2541,7 @@ MenuItemHandlerResult ciHangarTitleMenuHandler(s32 operation, struct menuitem *i
 		s32 textheight;
 		s32 leftmargin;
 		char *text;
-		s32 index = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
+		s32 index = ci_get_hangar_bio_index_by_slot(g_HangarBioSlot);
 
 		if (index < NUM_BIO_LOCATIONS) {
 			// Location bio - render texture
@@ -2554,7 +2554,7 @@ MenuItemHandlerResult ciHangarTitleMenuHandler(s32 operation, struct menuitem *i
 			gDPSetTextureLOD(gdl++, G_TL_TILE);
 			gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-			texSelect(&gdl, &g_TexGeneralConfigs[texturenum], 1, 0, 2, 1, NULL);
+			tex_select(&gdl, &g_TexGeneralConfigs[texturenum], 1, 0, 2, 1, NULL);
 
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 			gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -2578,8 +2578,8 @@ MenuItemHandlerResult ciHangarTitleMenuHandler(s32 operation, struct menuitem *i
 		gdl = text0f153628(gdl);
 
 		// Render title
-		text = bioMenuTextName(NULL);
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, 0);
+		text = bio_menu_text_name(NULL);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, 0);
 
 		if (leftmargin == -1) {
 			textwidth = renderdata->x + 64;
@@ -2588,11 +2588,11 @@ MenuItemHandlerResult ciHangarTitleMenuHandler(s32 operation, struct menuitem *i
 		}
 
 		textheight = renderdata->y + 8;
-		gdl = textRenderProjected(gdl, &textwidth, &textheight, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &textwidth, &textheight, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
 		// Render subheading
-		text = ciMenuTextHangarBioSubheading(NULL);
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text = ci_menu_text_hangar_bio_subheading(NULL);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 		if (leftmargin == -1) {
 			textwidth = renderdata->x + 64;
@@ -2601,7 +2601,7 @@ MenuItemHandlerResult ciHangarTitleMenuHandler(s32 operation, struct menuitem *i
 		}
 
 		textheight = renderdata->y + 25;
-		gdl = textRenderProjected(gdl, &textwidth, &textheight, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &textwidth, &textheight, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
 		gdl = text0f153780(gdl);
 
@@ -2624,9 +2624,9 @@ struct modelpartvisibility g_BioPartVisibility[] = {
 	{ 255 },
 };
 
-MenuDialogHandlerResult ciHangarHolographMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult ci_hangar_holograph_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	s32 index = ciGetHangarBioIndexBySlot(g_HangarBioSlot);
+	s32 index = ci_get_hangar_bio_index_by_slot(g_HangarBioSlot);
 
 	if (index >= NUM_BIO_LOCATIONS) {
 		struct biovehicleitem items[] = {
@@ -2715,7 +2715,7 @@ MenuDialogHandlerResult ciHangarHolographMenuDialog(s32 operation, struct menudi
 	return 0;
 }
 
-struct menudialogdef *ciGetFrWeaponListMenuDialog(void)
+struct menudialogdef *ci_get_fr_weapon_list_menu_dialog(void)
 {
 	return &g_FrWeaponListMenuDialog;
 }
@@ -2727,7 +2727,7 @@ struct menuitem g_HangarDetailsMenuItems[] = {
 		MENUITEMFLAG_00000002 | MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0x00000104,
 		0x0000002c,
-		ciHangarTitleMenuHandler,
+		ci_hangar_title_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -2796,14 +2796,14 @@ struct menudialogdef g_HangarVehicleHolographMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MISC_471, // "Holograph"
 	g_HangarVehicleHolographMenuItems,
-	ciHangarHolographMenuDialog,
+	ci_hangar_holograph_menu_dialog,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
 struct menudialogdef g_HangarVehicleDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(uintptr_t)&bioMenuTextName,
+	(uintptr_t)&bio_menu_text_name,
 	g_HangarDetailsMenuItems,
 	NULL,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
@@ -2812,7 +2812,7 @@ struct menudialogdef g_HangarVehicleDetailsMenuDialog = {
 
 struct menudialogdef g_HangarLocationDetailsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(uintptr_t)&bioMenuTextName,
+	(uintptr_t)&bio_menu_text_name,
 	g_HangarDetailsMenuItems,
 	NULL,
 	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
@@ -2826,7 +2826,7 @@ struct menuitem g_HangarListMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CLOSESDIALOG,
 		0x000000a0,
 		0,
-		ciHangarInformationMenuHandler,
+		ci_hangar_information_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };

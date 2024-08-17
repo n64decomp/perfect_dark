@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-void surfaceReset(void)
+void surface_reset(void)
 {
 	g_TexCacheCount = 0;
 

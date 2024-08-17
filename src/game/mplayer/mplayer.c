@@ -106,7 +106,7 @@ struct mpweapon g_MpWeapons[NUM_MPWEAPONS] = {
  * value 127 will return 1
  * value 255 will return 10
  */
-f32 mpHandicapToDamageScale(u8 value)
+f32 mp_handicap_to_damage_scale(u8 value)
 {
 	f32 tmp;
 
@@ -136,19 +136,19 @@ void func0f187838(struct mpchrconfig *mpchr)
 	mpchr->unk40 = 0;
 }
 
-void mpStartMatch(void)
+void mp_start_match(void)
 {
 	s32 i;
 	s32 numplayers = 0;
 	s32 stagenum;
 
-	mpConfigureQuickTeamSimulants();
+	mp_configure_quick_team_simulants();
 
-	if (!challengeIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
+	if (!challenge_is_feature_unlocked(MPFEATURE_ONEHITKILLS)) {
 		g_MpSetup.options &= ~MPOPTION_ONEHITKILLS;
 	}
 
-	if (!challengeIsFeatureUnlocked(MPFEATURE_SLOWMOTION)) {
+	if (!challenge_is_feature_unlocked(MPFEATURE_SLOWMOTION)) {
 		g_MpSetup.options &= ~(MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART);
 	}
 
@@ -161,18 +161,18 @@ void mpStartMatch(void)
 	stagenum = g_MpSetup.stagenum;
 
 	if (g_MpSetup.stagenum == STAGE_MP_RANDOM) {
-		stagenum = mpChooseRandomStage();
+		stagenum = mp_choose_random_stage();
 	}
 
-	titleSetNextStage(stagenum);
-	mainChangeToStage(stagenum);
-	setNumPlayers(numplayers);
-	titleSetNextMode(TITLEMODE_SKIP);
+	title_set_next_stage(stagenum);
+	main_change_to_stage(stagenum);
+	set_num_players(numplayers);
+	title_set_next_mode(TITLEMODE_SKIP);
 
 	g_Vars.perfectbuddynum = 1;
 }
 
-void mpReset(void)
+void mp_reset(void)
 {
 	s32 i;
 	s32 mpindex = 0;
@@ -188,7 +188,7 @@ void mpReset(void)
 
 	g_Vars.perfectbuddynum = 0;
 
-	if (mpHasSimulants()) {
+	if (mp_has_simulants()) {
 		g_Vars.lvmpbotlevel = true;
 	}
 
@@ -238,7 +238,7 @@ void mpReset(void)
 				g_PlayerConfigsArray[i].contpad1 = i;
 				g_PlayerConfigsArray[i].contpad2 = 0;
 
-				mpCalculatePlayerTitle(&g_PlayerConfigsArray[i]);
+				mp_calculate_player_title(&g_PlayerConfigsArray[i]);
 
 				g_PlayerConfigsArray[i].newtitle = g_PlayerConfigsArray[i].title;
 				g_MpNumChrs++;
@@ -262,13 +262,13 @@ void mpReset(void)
 	g_MpEnableMusicSwitching = false;
 
 	if (g_Vars.normmplayerisrunning) {
-		if (mpGetUsingMultipleTunes()) {
+		if (mp_get_using_multiple_tunes()) {
 			s32 i = 0;
 			s32 count = 0;
-			s32 numtracks = mpGetNumUnlockedTracks();
+			s32 numtracks = mp_get_num_unlocked_tracks();
 
 			for (i; i < numtracks && count < 2; i++) {
-				if (mpIsMultiTrackSlotEnabled(i)) {
+				if (mp_is_multi_track_slot_enabled(i)) {
 					count++;
 				}
 			}
@@ -325,7 +325,7 @@ void mpReset(void)
 	}
 }
 
-void mpCalculateTeamIsOnlyAi(void)
+void mp_calculate_team_is_only_ai(void)
 {
 	s32 playercount = PLAYERCOUNT();
 	s32 i;
@@ -365,7 +365,7 @@ void func0f187fec(void)
 	g_MpSetup.teamscorelimit = 19;
 }
 
-void mpPlayerSetDefaults(s32 playernum, bool autonames)
+void mp_player_set_defaults(s32 playernum, bool autonames)
 {
 	s32 i;
 	s32 j;
@@ -402,14 +402,14 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 		break;
 	}
 
-	g_PlayerConfigsArray[playernum].base.mpheadnum = mpGetMpheadnumByMpbodynum(g_PlayerConfigsArray[playernum].base.mpbodynum);
+	g_PlayerConfigsArray[playernum].base.mpheadnum = mp_get_mpheadnum_by_mpbodynum(g_PlayerConfigsArray[playernum].base.mpbodynum);
 	g_PlayerConfigsArray[playernum].base.displayoptions = MPDISPLAYOPTION_RADAR | MPDISPLAYOPTION_HIGHLIGHTTEAMS;
 	g_PlayerConfigsArray[playernum].fileguid.fileid = 0;
 	g_PlayerConfigsArray[playernum].fileguid.deviceserial = 0;
 
 	if (autonames) {
 		// "Player 1" etc
-		sprintf(g_PlayerConfigsArray[playernum].base.name, "%s %d\n", langGet(L_MISC_437), playernum + 1);
+		sprintf(g_PlayerConfigsArray[playernum].base.name, "%s %d\n", lang_get(L_MISC_437), playernum + 1);
 	} else {
 		g_PlayerConfigsArray[playernum].base.name[0] = '\0';
 	}
@@ -435,11 +435,11 @@ void mpPlayerSetDefaults(s32 playernum, bool autonames)
 	if (playernum < MAX_PLAYERS) {
 		for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 			for (j = 1; j <= MAX_PLAYERS; j++) {
-				challengeSetCompletedByPlayerWithNumPlayers(playernum, i, j, false);
+				challenge_set_completed_by_player_with_num_players(playernum, i, j, false);
 			}
 		}
 
-		challengeDetermineUnlockedFeatures();
+		challenge_determine_unlocked_features();
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_PlayerConfigsArray); i++) {
@@ -456,7 +456,7 @@ void func0f1881d4(s32 index)
 	g_BotConfigsArray[index].difficulty = BOTDIFF_DISABLED;
 }
 
-void mpInit(void)
+void mp_init(void)
 {
 	s32 i;
 	s32 j;
@@ -486,18 +486,18 @@ void mpInit(void)
 	strcpy(g_MpSetup.name, "");
 
 	for (i = 0; i < ARRAYCOUNT(g_PlayerConfigsArray); i++) {
-		mpPlayerSetDefaults(i, false);
+		mp_player_set_defaults(i, false);
 	}
 
 	for (i = 0; i < MAX_BOTS; i++) {
 		func0f1881d4(i);
 	}
 
-	if (argFindByPrefix(1, "-mpwpnset")) {
-		char *value = argFindByPrefix(1, "-mpwpnset");
-		mpSetWeaponSet(*value - '0');
+	if (arg_find_by_prefix(1, "-mpwpnset")) {
+		char *value = arg_find_by_prefix(1, "-mpwpnset");
+		mp_set_weapon_set(*value - '0');
 	} else {
-		mpSetWeaponSet(0);
+		mp_set_weapon_set(0);
 	}
 
 	g_Vars.mplayerisrunning = false;
@@ -510,7 +510,7 @@ void mpInit(void)
 	g_MpLockInfo.unk03 = -1;
 	g_MpLockInfo.unk04 = -1;
 
-	challengeForceUnlockBotFeatures();
+	challenge_force_unlock_bot_features();
 
 	for (i = 0; i < ARRAYCOUNT(g_PlayerConfigsArray); i++) {
 		for (j = 0; j < ARRAYCOUNT(g_PlayerConfigsArray[i].gunfuncs); j++) {
@@ -522,14 +522,14 @@ void mpInit(void)
 }
 
 #if VERSION >= VERSION_PAL_BETA
-void mpGetTeamsWithDefaultName(u8 *mask)
+void mp_get_teams_with_default_name(u8 *mask)
 {
 	s32 i;
 
 	*mask = 0;
 
 	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
-		if (strcmp(g_BossFile.teamnames[i], langGet(L_OPTIONS_008 + i)) == 0) {
+		if (strcmp(g_BossFile.teamnames[i], lang_get(L_OPTIONS_008 + i)) == 0) {
 			*mask |= 1 << i;
 		}
 	}
@@ -537,43 +537,43 @@ void mpGetTeamsWithDefaultName(u8 *mask)
 #endif
 
 #if VERSION >= VERSION_PAL_BETA
-void mpSetTeamNamesToDefault(u8 mask)
+void mp_set_team_names_to_default(u8 mask)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
 		if (mask & (1 << i)) {
-			strcpy(g_BossFile.teamnames[i], langGet(L_OPTIONS_008 + i));
+			strcpy(g_BossFile.teamnames[i], lang_get(L_OPTIONS_008 + i));
 		}
 	}
 }
 #endif
 
-void mpSetDefaultNamesIfEmpty(void)
+void mp_set_default_names_if_empty(void)
 {
 	s32 i;
 
 	// Setup file name
 	if (g_MpSetup.name[0] == '\0') {
-		strcpy(g_MpSetup.name, langGet(L_MISC_438)); // empty string
+		strcpy(g_MpSetup.name, lang_get(L_MISC_438)); // empty string
 	}
 
 	// Team names
 	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
 		if (g_BossFile.teamnames[i][0] == '\0') {
-			strcpy(g_BossFile.teamnames[i], langGet(L_OPTIONS_008 + i)); // "Red", "Yellow" etc
+			strcpy(g_BossFile.teamnames[i], lang_get(L_OPTIONS_008 + i)); // "Red", "Yellow" etc
 		}
 	}
 
 	// Player names
 	for (i = 0; i < MAX_PLAYERS; i++) {
 		if (g_PlayerConfigsArray[i].base.name[0] == '\0') {
-			sprintf(g_PlayerConfigsArray[i].base.name, "%s %d\n", langGet(L_MISC_437), i + 1); // "Player 1" etc
+			sprintf(g_PlayerConfigsArray[i].base.name, "%s %d\n", lang_get(L_MISC_437), i + 1); // "Player 1" etc
 		}
 	}
 }
 
-s32 mpCalculateTeamScoreLimit(void)
+s32 mp_calculate_team_score_limit(void)
 {
 	s32 limit = g_MpSetup.teamscorelimit;
 	s32 i;
@@ -607,24 +607,24 @@ s32 mpCalculateTeamScoreLimit(void)
 	return limit;
 }
 
-void mpApplyLimits(void)
+void mp_apply_limits(void)
 {
 	if (g_MpSetup.timelimit >= 60) {
-		lvSetMpTimeLimit60(0);
+		lv_set_mp_time_limit60(0);
 	} else {
-		lvSetMpTimeLimit60(SECSTOTIME60((g_MpSetup.timelimit + 1) * 60));
+		lv_set_mp_time_limit60(SECSTOTIME60((g_MpSetup.timelimit + 1) * 60));
 	}
 
 	if (g_MpSetup.scorelimit >= 100) {
-		lvSetMpScoreLimit(0);
+		lv_set_mp_score_limit(0);
 	} else {
-		lvSetMpScoreLimit(g_MpSetup.scorelimit + 1);
+		lv_set_mp_score_limit(g_MpSetup.scorelimit + 1);
 	}
 
 	if (g_MpSetup.teamscorelimit >= 400) {
-		lvSetMpTeamScoreLimit(0);
+		lv_set_mp_team_score_limit(0);
 	} else {
-		lvSetMpTeamScoreLimit(mpCalculateTeamScoreLimit() + 1);
+		lv_set_mp_team_score_limit(mp_calculate_team_score_limit() + 1);
 	}
 }
 
@@ -635,7 +635,7 @@ void mpApplyLimits(void)
  * The function also populates the placement an rankablescore values in the
  * mpchr structs and calculates the last winner and loser for the lock settings.
  */
-s32 mpGetPlayerRankings(struct ranking *rankings)
+s32 mp_get_player_rankings(struct ranking *rankings)
 {
 	s32 i;
 	s32 scores[MAX_MPCHRS];
@@ -656,7 +656,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 	s32 j;
 
 	if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-		numteams = mpGetTeamRankings(teamrankings);
+		numteams = mp_get_team_rankings(teamrankings);
 	}
 
 	// Populate 4 arrays with player info, sorted by highest score descending
@@ -664,7 +664,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 		if (g_MpSetup.chrslots & (1 << i)) {
 			mpchr = MPCHR(i);
 
-			scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
+			scenario_calculate_player_score(mpchr, i, &score, &deaths);
 
 			rankablescore = (score + 0x8000) << 16 | (0xffff - deaths);
 			dstindex = 0;
@@ -753,7 +753,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
 	g_MpLockInfo.lastloser = loser;
 
 	if (g_BossFile.locktype == MPLOCKTYPE_RANDOM) {
-		g_MpLockInfo.lockedplayernum = mpChooseRandomLockPlayer();
+		g_MpLockInfo.lockedplayernum = mp_choose_random_lock_player();
 	}
 
 	return count;
@@ -768,7 +768,7 @@ s32 mpGetPlayerRankings(struct ranking *rankings)
  * - The rankable score, which is the returned value. The rankable score is
  *   similar to the team score but uses the number of deaths as a tie breaker.
  */
-s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
+s32 mp_calculate_team_score(s32 teamnum, s32 *result)
 {
 	struct mpchrconfig *mpchr;
 	s32 teamscore = 0;
@@ -784,7 +784,7 @@ s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
 			mpchr = MPCHR(i);
 
 			if (mpchr->team == teamnum) {
-				scenarioCalculatePlayerScore(mpchr, i, &score, &deaths);
+				scenario_calculate_player_score(mpchr, i, &score, &deaths);
 				teamexists = true;
 				teamscore += score;
 				teamdeaths += deaths;
@@ -805,7 +805,7 @@ s32 mpCalculateTeamScore(s32 teamnum, s32 *result)
  * with the winning team first, losing team last. Return the number of rows
  * (teams).
  */
-s32 mpGetTeamRankings(struct ranking *rankings)
+s32 mp_get_team_rankings(struct ranking *rankings)
 {
 	s32 i;
 	s32 count;
@@ -819,7 +819,7 @@ s32 mpGetTeamRankings(struct ranking *rankings)
 	// Calculate scores for each team
 	for (i = 0; i < MAX_TEAMS; i++) {
 		apparentscores[i] = -8000;
-		rankablescores[i] = mpCalculateTeamScore(i, &apparentscores[i]);
+		rankablescores[i] = mp_calculate_team_score(i, &apparentscores[i]);
 	}
 
 	// Iterate each slot and determine which team belongs in it.
@@ -859,13 +859,13 @@ s32 func0f188bcc(void)
 	return NUM_MPWEAPONS;
 }
 
-s32 mpGetNumWeaponOptions(void)
+s32 mp_get_num_weapon_options(void)
 {
 	s32 count = 0;
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpWeapons); i++) {
-		if (challengeIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
+		if (challenge_is_feature_unlocked(g_MpWeapons[i].unlockfeature)) {
 			count++;
 		}
 	}
@@ -873,26 +873,26 @@ s32 mpGetNumWeaponOptions(void)
 	return count;
 }
 
-char *mpGetWeaponLabel(s32 weaponnum)
+char *mp_get_weapon_label(s32 weaponnum)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpWeapons); i++) {
-		if (challengeIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
+		if (challenge_is_feature_unlocked(g_MpWeapons[i].unlockfeature)) {
 			if (weaponnum == 0) {
 				if (g_MpWeapons[i].weaponnum == WEAPON_NONE) {
-					return langGet(L_MPWEAPONS_058); // "Nothing"
+					return lang_get(L_MPWEAPONS_058); // "Nothing"
 				}
 
 				if (g_MpWeapons[i].weaponnum == WEAPON_MPSHIELD) {
-					return langGet(L_MPWEAPONS_059); // "Shield"
+					return lang_get(L_MPWEAPONS_059); // "Shield"
 				}
 
 				if (g_MpWeapons[i].weaponnum == WEAPON_DISABLED) {
-					return langGet(L_MPWEAPONS_060); // "Disabled"
+					return lang_get(L_MPWEAPONS_060); // "Disabled"
 				}
 
-				return bgunGetName(g_MpWeapons[i].weaponnum);
+				return bgun_get_name(g_MpWeapons[i].weaponnum);
 			}
 
 			weaponnum--;
@@ -907,13 +907,13 @@ const char var7f1b8a5c[] = "Gun index %d -> slot %d = gun %d\n\n";
 const char var7f1b8a80[] = "HOLDER: selecting weapon set %d\n";
 #endif
 
-void mpSetWeaponSlot(s32 slot, s32 mpweaponnum)
+void mp_set_weapon_slot(s32 slot, s32 mpweaponnum)
 {
 	s32 optionindex = mpweaponnum;
 	s32 i;
 
 	for (i = 0; i <= mpweaponnum; i++) {
-		if (challengeIsFeatureUnlocked(g_MpWeapons[i].unlockfeature) == 0) {
+		if (challenge_is_feature_unlocked(g_MpWeapons[i].unlockfeature) == 0) {
 			mpweaponnum++;
 		}
 
@@ -923,13 +923,13 @@ void mpSetWeaponSlot(s32 slot, s32 mpweaponnum)
 	g_MpSetup.weapons[slot] = optionindex;
 }
 
-s32 mpGetWeaponSlot(s32 slot)
+s32 mp_get_weapon_slot(s32 slot)
 {
 	s32 count = 0;
 	s32 i;
 
 	for (i = 0; i < g_MpSetup.weapons[slot]; i++) {
-		if (challengeIsFeatureUnlocked(g_MpWeapons[i].unlockfeature)) {
+		if (challenge_is_feature_unlocked(g_MpWeapons[i].unlockfeature)) {
 			count++;
 		}
 	}
@@ -937,7 +937,7 @@ s32 mpGetWeaponSlot(s32 slot)
 	return count;
 }
 
-struct mpweapon *mpGetMpWeaponByLocation(s32 locationindex)
+struct mpweapon *mp_get_mp_weapon_by_location(s32 locationindex)
 {
 	s32 v0 = locationindex + 1;
 	s32 slot = 0;
@@ -970,7 +970,7 @@ struct mpweapon *mpGetMpWeaponByLocation(s32 locationindex)
 	return &g_MpWeapons[mpweaponnum];
 }
 
-s32 mpCountWeaponSetThing(s32 weaponsetindex)
+s32 mp_count_weapon_set_thing(s32 weaponsetindex)
 {
 	s32 i;
 	s32 count = 0;
@@ -981,10 +981,10 @@ s32 mpCountWeaponSetThing(s32 weaponsetindex)
 	}
 
 	for (i = 0; i < weaponsetindex; i++) {
-		if ((challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3])) || g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
+		if ((challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[0])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[1])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[2])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[3])) || g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
 			count++;
 		}
 	}
@@ -998,10 +998,10 @@ s32 func0f188f9c(s32 arg0)
 
 	for (i = 0; i < ARRAYCOUNT(g_MpWeaponSets); i++) {
 		// @bug? Shouldn't the disabled check be == WEAPON_DISABLED?
-		if ((challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
-					&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
-					&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
-					&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3]))
+		if ((challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[0])
+					&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[1])
+					&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[2])
+					&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[3]))
 				|| g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
 			if (arg0 == 0) {
 				break;
@@ -1016,31 +1016,31 @@ s32 func0f188f9c(s32 arg0)
 
 s32 func0f189058(bool full)
 {
-	return mpCountWeaponSetThing(full ? ARRAYCOUNT(g_MpWeaponSets) + 3 : ARRAYCOUNT(g_MpWeaponSets));
+	return mp_count_weapon_set_thing(full ? ARRAYCOUNT(g_MpWeaponSets) + 3 : ARRAYCOUNT(g_MpWeaponSets));
 }
 
 s32 func0f189088(void)
 {
-	return mpCountWeaponSetThing(ARRAYCOUNT(g_MpWeaponSets) + 2);
+	return mp_count_weapon_set_thing(ARRAYCOUNT(g_MpWeaponSets) + 2);
 }
 
-char *mpGetWeaponSetName(s32 index)
+char *mp_get_weapon_set_name(s32 index)
 {
 	index = func0f188f9c(index);
 
 	if (index < 0 || index >= ARRAYCOUNT(g_MpWeaponSets) + 2) {
-		return langGet(L_MPWEAPONS_041); // "Custom"
+		return lang_get(L_MPWEAPONS_041); // "Custom"
 	}
 
 	if (index == ARRAYCOUNT(g_MpWeaponSets) + 1) {
-		return langGet(L_MPWEAPONS_042); // "Random"
+		return lang_get(L_MPWEAPONS_042); // "Random"
 	}
 
 	if (index == ARRAYCOUNT(g_MpWeaponSets)) {
-		return langGet(L_MPWEAPONS_043); // "Random Five"
+		return lang_get(L_MPWEAPONS_043); // "Random Five"
 	}
 
-	return langGet(g_MpWeaponSets[index].name);
+	return lang_get(g_MpWeaponSets[index].name);
 }
 
 void func0f18913c(void)
@@ -1051,10 +1051,10 @@ void func0f18913c(void)
 	s32 j;
 
 	for (i = 0; !done && i < ARRAYCOUNT(g_MpWeaponSets); i++) {
-		if (challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[0])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[1])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[2])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[i].requirefeatures[3])) {
+		if (challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[0])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[1])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[2])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[3])) {
 			ptr = &g_MpWeaponSets[i].slots[0];
 		} else if (g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
 			ptr = &g_MpWeaponSets[i].unk0c;
@@ -1069,7 +1069,7 @@ void func0f18913c(void)
 				s32 weaponnum = ptr[j];
 
 				if (weaponnum == WEAPON_MPSHIELD) {
-					if (!challengeIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
+					if (!challenge_is_feature_unlocked(MPFEATURE_WEAPON_SHIELD)) {
 						weaponnum = 0;
 					}
 				}
@@ -1091,16 +1091,16 @@ void func0f18913c(void)
 	}
 }
 
-void mpApplyWeaponSet(void)
+void mp_apply_weapon_set(void)
 {
 	s32 i;
 	u8 *ptr;
 
 	if (g_MpWeaponSetNum >= 0 && g_MpWeaponSetNum < ARRAYCOUNT(g_MpWeaponSets)) {
-		if (challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[0])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[1])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[2])
-				&& challengeIsFeatureUnlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[3])) {
+		if (challenge_is_feature_unlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[0])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[1])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[2])
+				&& challenge_is_feature_unlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[3])) {
 			ptr = &g_MpWeaponSets[g_MpWeaponSetNum].slots[0];
 		} else if (g_MpWeaponSets[g_MpWeaponSetNum].unk0c != WEAPON_DISABLED) {
 			ptr = &g_MpWeaponSets[g_MpWeaponSetNum].unk0c;
@@ -1115,7 +1115,7 @@ void mpApplyWeaponSet(void)
 				s32 mpweaponnum = MPWEAPON_NONE;
 				s32 weaponnum = ptr[i];
 
-				if (weaponnum == WEAPON_MPSHIELD && !challengeIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
+				if (weaponnum == WEAPON_MPSHIELD && !challenge_is_feature_unlocked(MPFEATURE_WEAPON_SHIELD)) {
 					weaponnum = 0;
 				}
 
@@ -1132,41 +1132,41 @@ void mpApplyWeaponSet(void)
 			}
 		}
 	} else if (g_MpWeaponSetNum == WEAPONSET_RANDOM) {
-		s32 numoptions = mpGetNumWeaponOptions();
+		s32 numoptions = mp_get_num_weapon_options();
 
 		for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
-			mpSetWeaponSlot(i, random() % numoptions);
+			mp_set_weapon_slot(i, random() % numoptions);
 		}
 	} else if (g_MpWeaponSetNum == WEAPONSET_RANDOMFIVE) {
-		s32 numoptions = mpGetNumWeaponOptions() - 2;
+		s32 numoptions = mp_get_num_weapon_options() - 2;
 
 		for (i = 0; i < 5; i++) {
-			mpSetWeaponSlot(i, random() % numoptions + 1);
+			mp_set_weapon_slot(i, random() % numoptions + 1);
 		}
 
-		mpSetWeaponSlot(i, mpGetNumWeaponOptions() - 1);
+		mp_set_weapon_slot(i, mp_get_num_weapon_options() - 1);
 	}
 }
 
-void mpSetWeaponSet(s32 weaponsetnum)
+void mp_set_weapon_set(s32 weaponsetnum)
 {
 	g_MpWeaponSetNum = func0f188f9c(weaponsetnum);
-	mpApplyWeaponSet();
+	mp_apply_weapon_set();
 }
 
 void func0f1895e8(void)
 {
 	if (g_MpWeaponSetNum < ARRAYCOUNT(g_MpWeaponSets)) {
-		mpApplyWeaponSet();
+		mp_apply_weapon_set();
 	}
 }
 
-s32 mpGetWeaponSet(void)
+s32 mp_get_weapon_set(void)
 {
-	return mpCountWeaponSetThing(g_MpWeaponSetNum);
+	return mp_count_weapon_set_thing(g_MpWeaponSetNum);
 }
 
-bool mpIsPaused(void)
+bool mp_is_paused(void)
 {
 	if (PLAYERCOUNT() == 1
 			&& g_Vars.mplayerisrunning
@@ -1181,7 +1181,7 @@ bool mpIsPaused(void)
 	return true;
 }
 
-void mpSetPaused(u8 mode)
+void mp_set_paused(u8 mode)
 {
 	g_MpSetup.paused = mode;
 }
@@ -1190,12 +1190,12 @@ void mpSetPaused(u8 mode)
  * Render "Paused" in the middle of the viewport if paused,
  * or "Press START" if player has finished their death animation.
  *
- * @bug: When calling textRender(), viGetWidth() is used twice but it should be
- * viGetViewWidth() and viGetViewHeight(). These arguments to textRender() set
+ * @bug: When calling text_render(), vi_get_width() is used twice but it should be
+ * vi_get_view_width() and vi_get_view_height(). These arguments to text_render() set
  * the crop box for the text, but the text doesn't extend past the box anyway
  * so it has no effect.
  */
-Gfx *mpRenderModalText(Gfx *gdl)
+Gfx *mp_render_modal_text(Gfx *gdl)
 {
 	s32 textwidth;
 	s32 textheight;
@@ -1214,9 +1214,9 @@ Gfx *mpRenderModalText(Gfx *gdl)
 
 		gdl = text0f153628(gdl);
 
-		strcpy(text, langGet(L_MPWEAPONS_040)); // "Paused"
+		strcpy(text, lang_get(L_MPWEAPONS_040)); // "Paused"
 
-		x = viGetViewLeft() + viGetViewWidth() / 2;
+		x = vi_get_view_left() + vi_get_view_width() / 2;
 
 #if VERSION >= VERSION_JPN_FINAL
 		x = x / g_ScaleX;
@@ -1228,27 +1228,27 @@ Gfx *mpRenderModalText(Gfx *gdl)
 		if (g_Menus[g_Vars.currentplayernum].curdialog)
 #endif
 		{
-			y = viGetViewTop() + 10;
+			y = vi_get_view_top() + 10;
 		} else {
-			y = viGetViewTop() + viGetViewHeight() / 2;
+			y = vi_get_view_top() + vi_get_view_height() / 2;
 		}
 
 #if VERSION >= VERSION_JPN_FINAL
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 #elif PAL
 		// Use smaller fonts
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 #else
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, 0);
 #endif
 		x -= textwidth / 2;
 
 #if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, (red << 24) | 0x00ff00ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, (red << 24) | 0x00ff00ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #elif PAL
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, (red << 24) | 0x00ff00ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, (red << 24) | 0x00ff00ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #else
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, (red << 24) | 0x00ff00ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, (red << 24) | 0x00ff00ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #endif
 
 		gdl = text0f153780(gdl);
@@ -1263,43 +1263,43 @@ Gfx *mpRenderModalText(Gfx *gdl)
 		// Render "Press START" text
 		gdl = text0f153628(gdl);
 
-		strcpy(text, langGet(L_MPWEAPONS_039));
+		strcpy(text, lang_get(L_MPWEAPONS_039));
 
-		x = viGetViewLeft() + viGetViewWidth() / 2;
+		x = vi_get_view_left() + vi_get_view_width() / 2;
 
 #if VERSION >= VERSION_JPN_FINAL
 		x = x / g_ScaleX;
 #endif
 
-		y = viGetViewTop() + viGetViewHeight() / 2;
+		y = vi_get_view_top() + vi_get_view_height() / 2;
 
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x -= textwidth / 2;
 
 #if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #else
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #endif
 
 		if (g_Vars.currentplayer->deadtimer > 0) {
 			// Render countdown timer
-			s32 countdowny = viGetViewTop() + viGetViewHeight() / 2 + textheight + 2;
-			s32 countdownx = viGetViewLeft() + viGetViewWidth() / 2;
+			s32 countdowny = vi_get_view_top() + vi_get_view_height() / 2 + textheight + 2;
+			s32 countdownx = vi_get_view_left() + vi_get_view_width() / 2;
 
 #if VERSION >= VERSION_JPN_FINAL
 			countdownx = countdownx / g_ScaleX;
 #endif
 			sprintf(text, "%d\n", (g_Vars.currentplayer->deadtimer + TICKS(60) - 1) / TICKS(60));
 
-			textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+			text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 			x = countdownx - textwidth / 2;
 			y = countdowny;
 
 #if VERSION >= VERSION_JPN_FINAL
-			gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+			gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #else
-			gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, viGetWidth(), viGetWidth(), 0, 0);
+			gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #endif
 		}
 
@@ -1315,7 +1315,7 @@ Gfx *mpRenderModalText(Gfx *gdl)
 	return gdl;
 }
 
-s32 mpFindMaxInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
+s32 mp_find_max_int(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 {
 	s32 bestvalue = val0;
 	s32 bestplayer = 0;
@@ -1346,7 +1346,7 @@ s32 mpFindMaxInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 	return bestplayer;
 }
 
-s32 mpFindMinInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
+s32 mp_find_min_int(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 {
 	s32 bestvalue = val0;
 	s32 bestplayer = 0;
@@ -1377,7 +1377,7 @@ s32 mpFindMinInt(s32 numplayers, s32 val0, s32 val1, s32 val2, s32 val3)
 	return bestplayer;
 }
 
-s32 mpFindMaxFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
+s32 mp_find_max_float(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
 {
 	// @bug: bestvalue should be an f32. Any value saved into here will be
 	// rounded down which may cause the function to return an incorrect result.
@@ -1410,7 +1410,7 @@ s32 mpFindMaxFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
 	return bestplayer;
 }
 
-s32 mpFindMinFloat(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
+s32 mp_find_min_float(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
 {
 	// @bug: bestvalue should be an f32. Any value saved into here will be
 	// rounded down which may cause the function to return an incorrect result.
@@ -1486,7 +1486,7 @@ u16 g_AwardNames[] = {
 	L_MPMENU_016, // "Quad Kill"
 };
 
-void mpCalculatePlayerTitle(struct mpplayerconfig *mpplayer)
+void mp_calculate_player_title(struct mpplayerconfig *mpplayer)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	const u32 tiers[] = { 2, 4, 8, 16, 28, 60, 100, 150, 210, 300 };
@@ -1911,7 +1911,7 @@ u32 g_MpFemaleHeads[] = {
 /**
  * Calculate player awards, medals, and update character statistics.
  */
-void mpCalculateAwards(void)
+void mp_calculate_awards(void)
 {
 	s32 playercount;
 	s32 i;
@@ -1921,7 +1921,7 @@ void mpCalculateAwards(void)
 	struct awardmetrics metrics[MAX_PLAYERS];
 
 	// @bug: playerrankings should have 12 elements. Because it's too small,
-	// overflow occurs in mpGetPlayerRankings. The overflow writes into the
+	// overflow occurs in mp_get_player_rankings. The overflow writes into the
 	// metrics array (above) which is yet to be initialised, so this bug has
 	// no effect on IDO.
 #ifdef AVOID_UB
@@ -1941,13 +1941,13 @@ void mpCalculateAwards(void)
 
 	playercount = PLAYERCOUNT();
 
-	duration60 = playerGetMissionTime();
+	duration60 = player_get_mission_time();
 
 	func00033dd8();
 
-	numchrs = mpGetPlayerRankings(playerrankings);
+	numchrs = mp_get_player_rankings(playerrankings);
 #if VERSION >= VERSION_NTSC_1_0
-	numteams = (g_MpSetup.options & MPOPTION_TEAMSENABLED) ? mpGetTeamRankings(teamrankings) : 0;
+	numteams = (g_MpSetup.options & MPOPTION_TEAMSENABLED) ? mp_get_team_rankings(teamrankings) : 0;
 #endif
 
 	prevplayernum = g_Vars.currentplayernum;
@@ -1956,22 +1956,22 @@ void mpCalculateAwards(void)
 	// At the same time, populate the metrics array
 	// which is a temporary array for award calculation.
 	for (i = 0; i < playercount; i++) {
-		struct mpchrconfig *mpchr = mpGetChrConfigBySlotNum(i);
+		struct mpchrconfig *mpchr = mp_get_chr_config_by_slot_num(i);
 		struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)mpchr;
 #if VERSION >= VERSION_NTSC_1_0
-		s32 chrnum = mpGetChrIndexBySlotNum(i);
+		s32 chrnum = mp_get_chr_index_by_slot_num(i);
 #else
 		s32 chrnum = i;
 #endif
 		s32 sum;
 
-		setCurrentPlayerNum(i);
+		set_current_player_num(i);
 
 		g_Vars.currentplayer->award1 = NULL;
 		g_Vars.currentplayer->award2 = NULL;
 
-		metrics[i].numshots = mpstatsGetPlayerShotCountByRegion(SHOTREGION_TOTAL);
-		metrics[i].numheadshots = mpstatsGetPlayerShotCountByRegion(SHOTREGION_HEAD);
+		metrics[i].numshots = mpstats_get_player_shot_count_by_region(SHOTREGION_TOTAL);
+		metrics[i].numheadshots = mpstats_get_player_shot_count_by_region(SHOTREGION_HEAD);
 		metrics[i].numkills = 0;
 		metrics[i].numdeaths = 0;
 		metrics[i].numsuicides = 0;
@@ -2008,12 +2008,12 @@ void mpCalculateAwards(void)
 		metrics[i].longestlife = g_Vars.playerstats[i].longestlife;
 		metrics[i].shortestlife = g_Vars.playerstats[i].shortestlife;
 
-		sum = mpstatsGetPlayerShotCountByRegion(SHOTREGION_HEAD)
-			+ mpstatsGetPlayerShotCountByRegion(SHOTREGION_BODY)
-			+ mpstatsGetPlayerShotCountByRegion(SHOTREGION_LIMB)
-			+ mpstatsGetPlayerShotCountByRegion(SHOTREGION_GUN)
-			+ mpstatsGetPlayerShotCountByRegion(SHOTREGION_HAT)
-			+ mpstatsGetPlayerShotCountByRegion(SHOTREGION_OBJECT);
+		sum = mpstats_get_player_shot_count_by_region(SHOTREGION_HEAD)
+			+ mpstats_get_player_shot_count_by_region(SHOTREGION_BODY)
+			+ mpstats_get_player_shot_count_by_region(SHOTREGION_LIMB)
+			+ mpstats_get_player_shot_count_by_region(SHOTREGION_GUN)
+			+ mpstats_get_player_shot_count_by_region(SHOTREGION_HAT)
+			+ mpstats_get_player_shot_count_by_region(SHOTREGION_OBJECT);
 
 		if (metrics[i].numshots > 0) {
 			metrics[i].accuracyfrac = sum / (f32)metrics[i].numshots;
@@ -2117,85 +2117,85 @@ void mpCalculateAwards(void)
 		}
 	}
 
-	setCurrentPlayerNum(prevplayernum);
+	set_current_player_num(prevplayernum);
 
 	// Choose which players are eligible for which awards
-	i = mpFindMaxInt(playercount, metrics[0].numsuicides, metrics[1].numsuicides, metrics[2].numsuicides, metrics[3].numsuicides);
+	i = mp_find_max_int(playercount, metrics[0].numsuicides, metrics[1].numsuicides, metrics[2].numsuicides, metrics[3].numsuicides);
 
 	if (metrics[i].numsuicides > 0) {
 		metrics[i].awards |= AWARD_MOSTSUICIDAL;
 	}
 
-	i = mpFindMinInt(playercount, metrics[0].numshots, metrics[1].numshots, metrics[2].numshots, metrics[3].numshots);
+	i = mp_find_min_int(playercount, metrics[0].numshots, metrics[1].numshots, metrics[2].numshots, metrics[3].numshots);
 
 	if (metrics[i].numshots < 100) {
 		metrics[i].awards |= AWARD_WHONEEDSAMMO;
 	}
 
-	i = mpFindMinFloat(playercount, metrics[0].armourcount, metrics[1].armourcount, metrics[2].armourcount, metrics[3].armourcount);
+	i = mp_find_min_float(playercount, metrics[0].armourcount, metrics[1].armourcount, metrics[2].armourcount, metrics[3].armourcount);
 
 	if (metrics[i].armourcount <= 2.0f) {
 		metrics[i].awards |= AWARD_LEASTSHIELDED;
 	}
 
-	i = mpFindMaxFloat(playercount, metrics[0].armourcount, metrics[1].armourcount, metrics[2].armourcount, metrics[3].armourcount);
+	i = mp_find_max_float(playercount, metrics[0].armourcount, metrics[1].armourcount, metrics[2].armourcount, metrics[3].armourcount);
 
 	if (metrics[i].armourcount > 6.0f) {
 		metrics[i].awards |= AWARD_BESTPROTECTED;
 	}
 
-	i = mpFindMaxInt(playercount, metrics[0].numheadshots, metrics[1].numheadshots, metrics[2].numheadshots, metrics[3].numheadshots);
+	i = mp_find_max_int(playercount, metrics[0].numheadshots, metrics[1].numheadshots, metrics[2].numheadshots, metrics[3].numheadshots);
 
 	if (metrics[i].numheadshots > 0) {
 		metrics[i].awards |= AWARD_MARKSMANSHIP;
 	}
 
-	i = mpFindMaxFloat(playercount, metrics[0].ksratio, metrics[1].ksratio, metrics[2].ksratio, metrics[3].ksratio);
+	i = mp_find_max_float(playercount, metrics[0].ksratio, metrics[1].ksratio, metrics[2].ksratio, metrics[3].ksratio);
 
 	if (metrics[i].ksratio > 0.0f) {
 		metrics[i].awards |= AWARD_MOSTPROFESSIONAL;
 	}
 
-	i = mpFindMaxFloat(playercount, metrics[0].kdratio, metrics[1].kdratio, metrics[2].kdratio, metrics[3].kdratio);
+	i = mp_find_max_float(playercount, metrics[0].kdratio, metrics[1].kdratio, metrics[2].kdratio, metrics[3].kdratio);
 
 	if (metrics[i].kdratio > 0.0f) {
 		metrics[i].awards |= AWARD_MOSTDEADLY;
 	}
 
-	i = mpFindMinFloat(playercount, metrics[0].kdratio, metrics[1].kdratio, metrics[2].kdratio, metrics[3].kdratio);
+	i = mp_find_min_float(playercount, metrics[0].kdratio, metrics[1].kdratio, metrics[2].kdratio, metrics[3].kdratio);
 
 	if (PLAYERCOUNT() >= 2) {
 		metrics[i].awards |= AWARD_MOSTHARMLESS;
 	}
 
-	i = mpFindMinInt(playercount, metrics[0].drawplayercount, metrics[1].drawplayercount, metrics[2].drawplayercount, metrics[3].drawplayercount);
+	i = mp_find_min_int(playercount, metrics[0].drawplayercount, metrics[1].drawplayercount, metrics[2].drawplayercount, metrics[3].drawplayercount);
 
 	if (PLAYERCOUNT() >= 2) {
 		metrics[i].awards |= AWARD_MOSTCOWARDLY;
 	}
 
-	i = mpFindMaxFloat(playercount, metrics[0].avgkmperhour, metrics[1].avgkmperhour, metrics[2].avgkmperhour, metrics[3].avgkmperhour);
+	i = mp_find_max_float(playercount, metrics[0].avgkmperhour, metrics[1].avgkmperhour, metrics[2].avgkmperhour, metrics[3].avgkmperhour);
 
 	if (metrics[i].avgkmperhour > 10.0f) {
 		metrics[i].awards |= AWARD_MOSTFRANTIC;
 	}
 
-	i = mpFindMinInt(playercount, metrics[0].backshotcount, metrics[1].backshotcount, metrics[2].backshotcount, metrics[3].backshotcount);
+	i = mp_find_min_int(playercount, metrics[0].backshotcount, metrics[1].backshotcount, metrics[2].backshotcount, metrics[3].backshotcount);
 	metrics[i].awards |= AWARD_MOSTHONORABLE;
 
-	i = mpFindMaxInt(playercount, metrics[0].backshotcount, metrics[1].backshotcount, metrics[2].backshotcount, metrics[3].backshotcount);
+	i = mp_find_max_int(playercount, metrics[0].backshotcount, metrics[1].backshotcount, metrics[2].backshotcount, metrics[3].backshotcount);
 
 	if (metrics[i].backshotcount > 0 && (metrics[i].awards & AWARD_MOSTHONORABLE) == 0) {
 		metrics[i].awards |= AWARD_MOSTDISHONORABLE;
 	}
 
-	i = mpFindMaxInt(playercount, metrics[0].longestlife, metrics[1].longestlife, metrics[2].longestlife, metrics[3].longestlife);
+	i = mp_find_max_int(playercount, metrics[0].longestlife, metrics[1].longestlife, metrics[2].longestlife, metrics[3].longestlife);
 
 	if (metrics[i].longestlife > 0) {
 		metrics[i].awards |= AWARD_LONGESTLIFE;
 	}
 
-	i = mpFindMinInt(playercount, metrics[0].shortestlife, metrics[1].shortestlife, metrics[2].shortestlife, metrics[3].shortestlife);
+	i = mp_find_min_int(playercount, metrics[0].shortestlife, metrics[1].shortestlife, metrics[2].shortestlife, metrics[3].shortestlife);
 
 	if (metrics[i].shortestlife > 0 && metrics[i].numdeaths > 0) {
 		metrics[i].awards |= AWARD_SHORTESTLIFE;
@@ -2243,7 +2243,7 @@ void mpCalculateAwards(void)
 		while (numdone == 0) {
 			if (metrics[i].awards & (1 << awardindex)) {
 				metrics[i].awards &= ~(1 << awardindex);
-				g_Vars.players[i]->award1 = langGet(g_AwardNames[awardindex]);
+				g_Vars.players[i]->award1 = lang_get(g_AwardNames[awardindex]);
 				numdone = 1;
 			}
 
@@ -2259,7 +2259,7 @@ void mpCalculateAwards(void)
 
 			if (metrics[i].awards & (1 << awardindex)) {
 				metrics[i].awards &= ~(1 << awardindex);
-				g_Vars.players[i]->award2 = langGet(g_AwardNames[awardindex]);
+				g_Vars.players[i]->award2 = lang_get(g_AwardNames[awardindex]);
 				numdone = 2;
 			}
 
@@ -2356,13 +2356,13 @@ void mpCalculateAwards(void)
 		}
 
 		if (mostheadshotplayer >= 0) {
-			struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)mpGetChrConfigBySlotNum(mostheadshotplayer);
+			struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)mp_get_chr_config_by_slot_num(mostheadshotplayer);
 			mpplayer->medals |= MEDAL_HEADSHOT;
 			mpplayer->headshotmedals++;
 		}
 
 		if (mostaccurateplayer >= 0) {
-			struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)mpGetChrConfigBySlotNum(mostaccurateplayer);
+			struct mpplayerconfig *mpplayer = (struct mpplayerconfig *)mp_get_chr_config_by_slot_num(mostaccurateplayer);
 			mpplayer->medals |= MEDAL_ACCURACY;
 			mpplayer->accuracymedals++;
 		}
@@ -2370,25 +2370,25 @@ void mpCalculateAwards(void)
 
 	// Recalculate title for all players
 	for (i = 0; i < playercount; i++) {
-		struct mpplayerconfig *mpchr = (struct mpplayerconfig *)mpGetChrConfigBySlotNum(i);
-		mpCalculatePlayerTitle(mpchr);
+		struct mpplayerconfig *mpchr = (struct mpplayerconfig *)mp_get_chr_config_by_slot_num(i);
+		mp_calculate_player_title(mpchr);
 	}
 }
 
-void mpEndMatch(void)
+void mp_end_match(void)
 {
 	s32 stack;
 	s32 playercount = PLAYERCOUNT();
 	s32 prevplayernum;
 	s32 i;
 
-	musicStartMenu();
-	mpSetPaused(MPPAUSEMODE_GAMEOVER);
+	music_start_menu();
+	mp_set_paused(MPPAUSEMODE_GAMEOVER);
 
 	prevplayernum = g_Vars.currentplayernum;
 
 	for (i = 0; i < playercount; i++) {
-		setCurrentPlayerNum(i);
+		set_current_player_num(i);
 
 		g_Vars.currentplayer->award1 = NULL;
 		g_Vars.currentplayer->award2 = NULL;
@@ -2398,52 +2398,52 @@ void mpEndMatch(void)
 		}
 	}
 
-	setCurrentPlayerNum(prevplayernum);
-	mpCalculateAwards();
+	set_current_player_num(prevplayernum);
+	mp_calculate_awards();
 
 	if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
-		challengeConsiderMarkingComplete();
+		challenge_consider_marking_complete();
 	}
 
 	func0f0f820c(NULL, -6);
 }
 
-s32 mpGetNumHeads2(void)
+s32 mp_get_num_heads2(void)
 {
 	return ARRAYCOUNT(g_MpHeads);
 }
 
-s32 mpGetNumHeads(void)
+s32 mp_get_num_heads(void)
 {
 	return ARRAYCOUNT(g_MpHeads);
 }
 
-s32 mpGetHeadId(u8 headnum)
+s32 mp_get_head_id(u8 headnum)
 {
 	return g_MpHeads[headnum].headnum;
 }
 
-s32 mpGetHeadRequiredFeature(u8 headnum)
+s32 mp_get_head_required_feature(u8 headnum)
 {
 	return g_MpHeads[headnum].requirefeature;
 }
 
-s32 mpGetBeauHeadId(u8 headnum)
+s32 mp_get_beau_head_id(u8 headnum)
 {
 	return g_MpBeauHeads[headnum].headnum;
 }
 
-s32 mpGetNumBeauHeads(void)
+s32 mp_get_num_beau_heads(void)
 {
 	return ARRAYCOUNT(g_MpBeauHeads);
 }
 
-u32 mpGetNumBodies(void)
+u32 mp_get_num_bodies(void)
 {
 	return ARRAYCOUNT(g_MpBodies);
 }
 
-s32 mpGetBodyId(u8 bodynum)
+s32 mp_get_body_id(u8 bodynum)
 {
 	/**
 	 * @bug: bodynum 61 (0x3d) would cause an array overflow.
@@ -2460,7 +2460,7 @@ s32 mpGetBodyId(u8 bodynum)
 	return g_MpBodies[bodynum].bodynum;
 }
 
-s32 mpGetMpbodynumByBodynum(u16 bodynum)
+s32 mp_get_mpbodynum_by_bodynum(u16 bodynum)
 {
 	s32 i;
 
@@ -2477,17 +2477,17 @@ s32 mpGetMpbodynumByBodynum(u16 bodynum)
 	return g_MpBodies[0].bodynum;
 }
 
-char *mpGetBodyName(u8 mpbodynum)
+char *mp_get_body_name(u8 mpbodynum)
 {
 	// @bug: This should be >=
 	if (mpbodynum > ARRAYCOUNT(g_MpBodies)) {
 		mpbodynum = 0;
 	}
 
-	return langGet(g_MpBodies[mpbodynum].name);
+	return lang_get(g_MpBodies[mpbodynum].name);
 }
 
-u8 mpGetBodyRequiredFeature(u8 mpbodynum)
+u8 mp_get_body_required_feature(u8 mpbodynum)
 {
 	// @bug: This should be >=
 	if (mpbodynum > ARRAYCOUNT(g_MpBodies)) {
@@ -2497,7 +2497,7 @@ u8 mpGetBodyRequiredFeature(u8 mpbodynum)
 	return g_MpBodies[mpbodynum].requirefeature;
 }
 
-s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
+s32 mp_get_mpheadnum_by_mpbodynum(s32 mpbodynum)
 {
 	s32 headnum;
 	s32 index = 0;
@@ -2526,7 +2526,7 @@ s32 mpGetMpheadnumByMpbodynum(s32 mpbodynum)
 	return index;
 }
 
-void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
+void mp_find_unused_head_and_body(u8 *mpheadnum, u8 *mpbodynum)
 {
 	struct mpchrconfig *mpchr;
 	bool available;
@@ -2560,7 +2560,7 @@ void mpFindUnusedHeadAndBody(u8 *mpheadnum, u8 *mpbodynum)
 	*mpbodynum = trympbodynum;
 }
 
-s32 mpChooseRandomLockPlayer(void)
+s32 mp_choose_random_lock_player(void)
 {
 	s32 start = random() % 4;
 	s32 i;
@@ -2574,12 +2574,12 @@ s32 mpChooseRandomLockPlayer(void)
 	return i;
 }
 
-bool mpSetLock(s32 locktype, s32 playernum)
+bool mp_set_lock(s32 locktype, s32 playernum)
 {
 	g_BossFile.locktype = locktype;
 
 	if (g_BossFile.locktype == MPLOCKTYPE_RANDOM) {
-		g_MpLockInfo.lockedplayernum = mpChooseRandomLockPlayer();
+		g_MpLockInfo.lockedplayernum = mp_choose_random_lock_player();
 	} else {
 		g_MpLockInfo.lockedplayernum = playernum;
 	}
@@ -2587,17 +2587,17 @@ bool mpSetLock(s32 locktype, s32 playernum)
 	return true;
 }
 
-s32 mpGetLockType(void)
+s32 mp_get_lock_type(void)
 {
 	return g_BossFile.locktype;
 }
 
-u32 mpGetLockPlayerNum(void)
+u32 mp_get_lock_player_num(void)
 {
 	return g_MpLockInfo.lockedplayernum;
 }
 
-bool mpIsPlayerLockedOut(s32 playernum)
+bool mp_is_player_locked_out(s32 playernum)
 {
 	if (g_BossFile.locktype == MPLOCKTYPE_NONE) {
 		return false;
@@ -2610,7 +2610,7 @@ bool mpIsPlayerLockedOut(s32 playernum)
 	return true;
 }
 
-void mpCalculateLockIfLastWinnerOrLoser(void)
+void mp_calculate_lock_if_last_winner_or_loser(void)
 {
 	if (g_BossFile.locktype == MPLOCKTYPE_LASTWINNER && g_MpLockInfo.lastwinner >= 0) {
 		g_MpLockInfo.lockedplayernum = g_MpLockInfo.lastwinner;
@@ -2624,7 +2624,7 @@ void mpCalculateLockIfLastWinnerOrLoser(void)
 			&& g_BossFile.locktype != MPLOCKTYPE_CHALLENGE
 			&& (g_MpSetup.chrslots & (1 << g_MpLockInfo.lockedplayernum)) == 0) {
 		g_MpLockInfo.lastwinner = g_MpLockInfo.lastloser = -1;
-		g_MpLockInfo.lockedplayernum = mpChooseRandomLockPlayer();
+		g_MpLockInfo.lockedplayernum = mp_choose_random_lock_player();
 	}
 }
 
@@ -2674,7 +2674,7 @@ struct mptrack g_MpTracks[] = {
 	/*0x29*/ { MUSIC_CREDITS,         120, L_MISC_165, SOLOSTAGEINDEX_SKEDARRUINS }, // "End Credits"
 };
 
-bool mpIsTrackUnlocked(s32 tracknum)
+bool mp_is_track_unlocked(s32 tracknum)
 {
 	s16 stageindex = g_MpTracks[tracknum].unlockstage;
 	bool unlocked = false;
@@ -2694,13 +2694,13 @@ bool mpIsTrackUnlocked(s32 tracknum)
 	return unlocked;
 }
 
-s32 mpGetTrackSlotIndex(s32 tracknum)
+s32 mp_get_track_slot_index(s32 tracknum)
 {
 	s32 i;
 	s32 slotindex = 0;
 
 	for (i = 0; i < tracknum; i++) {
-		if (mpIsTrackUnlocked(i)) {
+		if (mp_is_track_unlocked(i)) {
 			slotindex++;
 		}
 	}
@@ -2708,13 +2708,13 @@ s32 mpGetTrackSlotIndex(s32 tracknum)
 	return slotindex;
 }
 
-s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
+s32 mp_get_track_num_at_slot_index(s32 slotindex)
 {
 	s32 i;
 	s32 numunlocked = 0;
 
 	for (i = 0; i != ARRAYCOUNT(g_MpTracks); i++) {
-		if (mpIsTrackUnlocked(i)) {
+		if (mp_is_track_unlocked(i)) {
 			if (numunlocked == slotindex) {
 				break;
 			}
@@ -2726,38 +2726,38 @@ s32 mpGetTrackNumAtSlotIndex(s32 slotindex)
 	return i;
 }
 
-s32 mpGetNumUnlockedTracks(void)
+s32 mp_get_num_unlocked_tracks(void)
 {
-	return mpGetTrackSlotIndex(ARRAYCOUNT(g_MpTracks));
+	return mp_get_track_slot_index(ARRAYCOUNT(g_MpTracks));
 }
 
-s32 mpGetTrackMusicNum(s32 slotindex)
+s32 mp_get_track_music_num(s32 slotindex)
 {
-	s32 tracknum = mpGetTrackNumAtSlotIndex(slotindex);
+	s32 tracknum = mp_get_track_num_at_slot_index(slotindex);
 
 	return g_MpTracks[tracknum].musicnum;
 }
 
-char *mpGetTrackName(s32 slotindex)
+char *mp_get_track_name(s32 slotindex)
 {
-	s32 tracknum = mpGetTrackNumAtSlotIndex(slotindex);
+	s32 tracknum = mp_get_track_num_at_slot_index(slotindex);
 
-	return langGet(g_MpTracks[tracknum].name);
+	return lang_get(g_MpTracks[tracknum].name);
 }
 
-void mpSetUsingMultipleTunes(bool enable)
+void mp_set_using_multiple_tunes(bool enable)
 {
 	g_BossFile.usingmultipletunes = enable;
 }
 
-bool mpGetUsingMultipleTunes(void)
+bool mp_get_using_multiple_tunes(void)
 {
 	return g_BossFile.usingmultipletunes;
 }
 
-bool mpIsMultiTrackSlotEnabled(s32 slot)
+bool mp_is_multi_track_slot_enabled(s32 slot)
 {
-	s32 tracknum = mpGetTrackNumAtSlotIndex(slot);
+	s32 tracknum = mp_get_track_num_at_slot_index(slot);
 	u8 index = tracknum >> 3;
 	u8 value = 1 << (tracknum & 7);
 
@@ -2768,9 +2768,9 @@ bool mpIsMultiTrackSlotEnabled(s32 slot)
 	return true;
 }
 
-void mpSetMultiTrackSlotEnabled(s32 slot, bool enable)
+void mp_set_multi_track_slot_enabled(s32 slot, bool enable)
 {
-	s32 tracknum = mpGetTrackNumAtSlotIndex(slot);
+	s32 tracknum = mp_get_track_num_at_slot_index(slot);
 	u8 value = 1 << (tracknum & 7);
 	u8 index = tracknum >> 3;
 
@@ -2781,16 +2781,16 @@ void mpSetMultiTrackSlotEnabled(s32 slot, bool enable)
 	}
 }
 
-void mpSetTrackSlotEnabled(s32 slot)
+void mp_set_track_slot_enabled(s32 slot)
 {
-	if (mpGetUsingMultipleTunes()) {
-		mpSetMultiTrackSlotEnabled(slot, 1 - mpIsMultiTrackSlotEnabled(slot));
+	if (mp_get_using_multiple_tunes()) {
+		mp_set_multi_track_slot_enabled(slot, 1 - mp_is_multi_track_slot_enabled(slot));
 	} else {
-		g_BossFile.tracknum = mpGetTrackNumAtSlotIndex(slot);
+		g_BossFile.tracknum = mp_get_track_num_at_slot_index(slot);
 	}
 }
 
-void mpEnableAllMultiTracks(void)
+void mp_enable_all_multi_tracks(void)
 {
 	s32 i;
 
@@ -2799,7 +2799,7 @@ void mpEnableAllMultiTracks(void)
 	}
 }
 
-void mpDisableAllMultiTracks(void)
+void mp_disable_all_multi_tracks(void)
 {
 	s32 i;
 
@@ -2808,7 +2808,7 @@ void mpDisableAllMultiTracks(void)
 	}
 }
 
-void mpRandomiseMultiTracks(void)
+void mp_randomise_multi_tracks(void)
 {
 	s32 i;
 
@@ -2817,38 +2817,38 @@ void mpRandomiseMultiTracks(void)
 	}
 }
 
-void mpSetTrackToRandom(void)
+void mp_set_track_to_random(void)
 {
 	g_BossFile.tracknum = -1;
 }
 
-s32 mpGetCurrentTrackSlotNum(void)
+s32 mp_get_current_track_slot_num(void)
 {
 	if (g_BossFile.tracknum < 0) {
 		return g_BossFile.tracknum;
 	}
 
-	return mpGetTrackSlotIndex(g_BossFile.tracknum);
+	return mp_get_track_slot_index(g_BossFile.tracknum);
 }
 
-s32 mpChooseTrack(void)
+s32 mp_choose_track(void)
 {
 	s32 i;
 	s32 tracknum;
 
-	if (mpGetUsingMultipleTunes()) {
-		s32 numunlocked = mpGetNumUnlockedTracks();
+	if (mp_get_using_multiple_tunes()) {
+		s32 numunlocked = mp_get_num_unlocked_tracks();
 		s32 numselected = 0;
 
 		for (i = 0; i < numunlocked; i++) {
-			if (mpIsMultiTrackSlotEnabled(i)) {
+			if (mp_is_multi_track_slot_enabled(i)) {
 				numselected++;
 			}
 		}
 
 		if (numselected == 0) {
 			do {
-				tracknum = mpGetTrackNumAtSlotIndex(random() % numunlocked);
+				tracknum = mp_get_track_num_at_slot_index(random() % numunlocked);
 			} while (tracknum == g_MpLockInfo.unk04);
 
 			g_MpLockInfo.unk04 = tracknum;
@@ -2863,7 +2863,7 @@ s32 mpChooseTrack(void)
 			tracknum = -1;
 
 			for (i = 0; i < numunlocked; i++) {
-				if (mpIsMultiTrackSlotEnabled(i)) {
+				if (mp_is_multi_track_slot_enabled(i)) {
 					if (selectionindex == selectioncount) {
 						tracknum = i;
 					}
@@ -2877,7 +2877,7 @@ s32 mpChooseTrack(void)
 				return g_MpTracks[0].musicnum;
 			}
 
-			tracknum = mpGetTrackNumAtSlotIndex(tracknum);
+			tracknum = mp_get_track_num_at_slot_index(tracknum);
 		} while (numselected > 1 && tracknum == g_MpLockInfo.unk04);
 
 		g_MpLockInfo.unk04 = tracknum;
@@ -2886,13 +2886,13 @@ s32 mpChooseTrack(void)
 		return g_MpTracks[tracknum].musicnum;
 	}
 
-	tracknum = mpGetCurrentTrackSlotNum();
+	tracknum = mp_get_current_track_slot_num();
 
 	if (tracknum < 0) {
-		s32 numunlocked = mpGetNumUnlockedTracks();
+		s32 numunlocked = mp_get_num_unlocked_tracks();
 
 		do {
-			tracknum = mpGetTrackNumAtSlotIndex(random() % numunlocked);
+			tracknum = mp_get_track_num_at_slot_index(random() % numunlocked);
 		} while (tracknum == g_MpLockInfo.unk04);
 
 		g_MpLockInfo.unk04 = tracknum;
@@ -2900,14 +2900,14 @@ s32 mpChooseTrack(void)
 		return g_MpTracks[tracknum].musicnum;
 	}
 
-	tracknum = mpGetTrackNumAtSlotIndex(tracknum);
+	tracknum = mp_get_track_num_at_slot_index(tracknum);
 	g_MpLockInfo.unk04 = tracknum;
 	g_MusicLife60 = g_MpTracks[tracknum].duration * TICKS(60);
 
 	return g_MpTracks[tracknum].musicnum;
 }
 
-struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot)
+struct mpchrconfig *mp_get_chr_config_by_slot_num(s32 slot)
 {
 	s32 count = 0;
 	struct mpchrconfig *result = NULL;
@@ -2928,7 +2928,7 @@ struct mpchrconfig *mpGetChrConfigBySlotNum(s32 slot)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 mpGetChrIndexBySlotNum(s32 slot)
+s32 mp_get_chr_index_by_slot_num(s32 slot)
 {
 	s32 count = 0;
 	s32 result = 0;
@@ -2949,7 +2949,7 @@ s32 mpGetChrIndexBySlotNum(s32 slot)
 }
 #endif
 
-s32 mpGetNumChrs(void)
+s32 mp_get_num_chrs(void)
 {
 	s32 count = 0;
 	s32 i;
@@ -2963,7 +2963,7 @@ s32 mpGetNumChrs(void)
 	return count;
 }
 
-u8 mpFindUnusedTeamNum(void)
+u8 mp_find_unused_team_num(void)
 {
 	u8 teamnum = 0;
 	bool available = false;
@@ -2994,10 +2994,10 @@ u8 mpFindUnusedTeamNum(void)
 	return teamnum;
 }
 
-void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
+void mp_create_bot_from_profile(s32 botnum, u8 profilenum)
 {
 	s32 headnum = 0;
-	u8 team = mpFindUnusedTeamNum();
+	u8 team = mp_find_unused_team_num();
 	bool available = false;
 	s32 i;
 
@@ -3031,7 +3031,7 @@ void mpCreateBotFromProfile(s32 botnum, u8 profilenum)
 	g_BotConfigsArray[botnum].base.mpbodynum = g_BotProfiles[profilenum].body;
 }
 
-void mpSetBotDifficulty(s32 botnum, s32 difficulty)
+void mp_set_bot_difficulty(s32 botnum, s32 difficulty)
 {
 	s32 i;
 
@@ -3047,7 +3047,7 @@ void mpSetBotDifficulty(s32 botnum, s32 difficulty)
  *
  * This is used for the quick team feature.
  */
-s32 mpGetSlotForNewBot(void)
+s32 mp_get_slot_for_new_bot(void)
 {
 	s32 i = 0;
 
@@ -3058,15 +3058,15 @@ s32 mpGetSlotForNewBot(void)
 	return i;
 }
 
-void mpRemoveSimulant(s32 index)
+void mp_remove_simulant(s32 index)
 {
 	g_MpSetup.chrslots &= ~(1 << (index + 4));
 	g_BotConfigsArray[index].base.name[0] = '\0';
 	func0f1881d4(index);
-	mpGenerateBotNames();
+	mp_generate_bot_names();
 }
 
-bool mpHasSimulants(void)
+bool mp_has_simulants(void)
 {
 	if ((g_MpSetup.chrslots & 0xfff0) != 0) {
 		return true;
@@ -3075,9 +3075,9 @@ bool mpHasSimulants(void)
 	return false;
 }
 
-bool mpHasUnusedBotSlots(void)
+bool mp_has_unused_bot_slots(void)
 {
-	s32 numvacant = challengeIsFeatureUnlocked(MPFEATURE_8BOTS) ? MAX_BOTS : 4;
+	s32 numvacant = challenge_is_feature_unlocked(MPFEATURE_8BOTS) ? MAX_BOTS : 4;
 	s32 i;
 
 	for (i = 4; i < MAX_MPCHRS; i++) {
@@ -3093,7 +3093,7 @@ bool mpHasUnusedBotSlots(void)
 	return false;
 }
 
-bool mpIsSimSlotEnabled(s32 slot)
+bool mp_is_sim_slot_enabled(s32 slot)
 {
 	s32 numfree = MAX_BOTS;
 	s32 i;
@@ -3115,7 +3115,7 @@ bool mpIsSimSlotEnabled(s32 slot)
 	return true;
 }
 
-s32 mpFindBotProfile(s32 type, s32 difficulty)
+s32 mp_find_bot_profile(s32 type, s32 difficulty)
 {
 	s32 i;
 
@@ -3140,7 +3140,7 @@ s32 mpFindBotProfile(s32 type, s32 difficulty)
 	return i;
 }
 
-void mpGenerateBotNames(void)
+void mp_generate_bot_names(void)
 {
 	s32 counts[ARRAYCOUNT(g_BotProfiles)];
 	s32 profilenum;
@@ -3154,7 +3154,7 @@ void mpGenerateBotNames(void)
 	// Count the number of bots using each profile (MeatSim, TurtleSim etc)
 	for (i = 4; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
-			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
+			profilenum = mp_find_bot_profile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
 
 			if (profilenum >= 0 && profilenum < ARRAYCOUNT(g_BotProfiles)) {
 				counts[profilenum]++;
@@ -3175,17 +3175,17 @@ void mpGenerateBotNames(void)
 
 	for (i = 4; i < MAX_MPCHRS; i++) {
 		if (g_MpSetup.chrslots & (1 << i)) {
-			profilenum = mpFindBotProfile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
+			profilenum = mp_find_bot_profile(g_BotConfigsArray[i - 4].type, g_BotConfigsArray[i - 4].difficulty);
 
 			if (profilenum >= 0 && profilenum < ARRAYCOUNT(g_BotProfiles)) {
 				if (counts[profilenum] >= 0) {
 					// Multiple bots using this profile - append the number
 					counts[profilenum]++;
-					sprintf(name, "%s:%d\n", langGet(g_BotProfiles[profilenum].name), counts[profilenum]);
+					sprintf(name, "%s:%d\n", lang_get(g_BotProfiles[profilenum].name), counts[profilenum]);
 					strcpy(g_BotConfigsArray[i - 4].base.name, name);
 				} else {
 					// One bots using this profile - just use the profile name
-					sprintf(name, "%s\n", langGet(g_BotProfiles[profilenum].name));
+					sprintf(name, "%s\n", lang_get(g_BotProfiles[profilenum].name));
 					strcpy(g_BotConfigsArray[i - 4].base.name, name);
 				}
 			}
@@ -3201,7 +3201,7 @@ const char var7f1b8c04[] = "PakId for player %d: %d\n";
 const char var7f1b8c20[] = "Load Player - Result: %d\n";
 #endif
 
-s32 mpPlayerGetIndex(struct chrdata *chr)
+s32 mp_player_get_index(struct chrdata *chr)
 {
 	s32 i;
 
@@ -3214,7 +3214,7 @@ s32 mpPlayerGetIndex(struct chrdata *chr)
 	return -1;
 }
 
-struct chrdata *mpGetChrFromPlayerIndex(s32 index)
+struct chrdata *mp_get_chr_from_player_index(s32 index)
 {
 	if (index >= 0 && index < g_MpNumChrs) {
 		return g_MpAllChrPtrs[index];
@@ -3263,7 +3263,7 @@ s32 func0f18d0e8(s32 arg0)
 	return -1;
 }
 
-void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
+void mpplayerfile_load_gun_funcs(struct savebuffer *buffer, s32 playernum)
 {
 	s32 bitsremaining = 35;
 	s32 i = 0;
@@ -3275,14 +3275,14 @@ void mpplayerfileLoadGunFuncs(struct savebuffer *buffer, s32 playernum)
 			numbits = 8;
 		}
 
-		g_PlayerConfigsArray[playernum].gunfuncs[i] = savebufferReadBits(buffer, numbits);
+		g_PlayerConfigsArray[playernum].gunfuncs[i] = savebuffer_read_bits(buffer, numbits);
 
 		bitsremaining -= 8;
 		i++;
 	}
 }
 
-void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum)
+void mpplayerfile_save_gun_funcs(struct savebuffer *buffer, s32 playernum)
 {
 	s32 bitsremaining = 35;
 	s32 i = 0;
@@ -3294,30 +3294,30 @@ void mpplayerfileSaveGunFuncs(struct savebuffer *buffer, s32 playernum)
 			numbits = 8;
 		}
 
-		savebufferOr(buffer, g_PlayerConfigsArray[playernum].gunfuncs[i], numbits);
+		savebuffer_or(buffer, g_PlayerConfigsArray[playernum].gunfuncs[i], numbits);
 
 		bitsremaining -= 8;
 		i++;
 	}
 }
 
-void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
+void mpplayerfile_load_wad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 {
 	struct fileguid guid;
 	u32 stack;
 	s32 i;
 	s32 j;
 
-	savebufferReadString(buffer, g_PlayerConfigsArray[playernum].base.name, 1);
-	g_PlayerConfigsArray[playernum].time = savebufferReadBits(buffer, 28);
+	savebuffer_read_string(buffer, g_PlayerConfigsArray[playernum].base.name, 1);
+	g_PlayerConfigsArray[playernum].time = savebuffer_read_bits(buffer, 28);
 
 	if (arg2 != 0) {
-		g_PlayerConfigsArray[playernum].base.mpheadnum = savebufferReadBits(buffer, 7);
-		g_PlayerConfigsArray[playernum].base.mpbodynum = savebufferReadBits(buffer, 7);
+		g_PlayerConfigsArray[playernum].base.mpheadnum = savebuffer_read_bits(buffer, 7);
+		g_PlayerConfigsArray[playernum].base.mpbodynum = savebuffer_read_bits(buffer, 7);
 
-		savebufferReadGuid(buffer, &guid);
+		savebuffer_read_guid(buffer, &guid);
 
-		if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mpGetNumHeads2()) {
+		if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mp_get_num_heads2()) {
 			if (guid.fileid != 0 && guid.deviceserial != 0) {
 				if (g_MenuData.unk668 < 11) {
 					g_MenuData.unk668++;
@@ -3331,42 +3331,42 @@ void mpplayerfileLoadWad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 			}
 		}
 	} else {
-		savebufferReadBits(buffer, 7);
-		savebufferReadBits(buffer, 7);
-		savebufferReadGuid(buffer, &guid);
+		savebuffer_read_bits(buffer, 7);
+		savebuffer_read_bits(buffer, 7);
+		savebuffer_read_guid(buffer, &guid);
 	}
 
-	g_PlayerConfigsArray[playernum].base.displayoptions = savebufferReadBits(buffer, 8);
-	g_PlayerConfigsArray[playernum].kills = savebufferReadBits(buffer, 20);
-	g_PlayerConfigsArray[playernum].deaths = savebufferReadBits(buffer, 20);
-	g_PlayerConfigsArray[playernum].gamesplayed = savebufferReadBits(buffer, 19);
-	g_PlayerConfigsArray[playernum].gameswon = savebufferReadBits(buffer, 19);
-	g_PlayerConfigsArray[playernum].gameslost = savebufferReadBits(buffer, 19);
-	g_PlayerConfigsArray[playernum].distance = savebufferReadBits(buffer, 25);
-	g_PlayerConfigsArray[playernum].accuracy = savebufferReadBits(buffer, 10);
-	g_PlayerConfigsArray[playernum].damagedealt = savebufferReadBits(buffer, 26);
-	g_PlayerConfigsArray[playernum].painreceived = savebufferReadBits(buffer, 26);
-	g_PlayerConfigsArray[playernum].headshots = savebufferReadBits(buffer, 20);
-	g_PlayerConfigsArray[playernum].ammoused = savebufferReadBits(buffer, 30);
-	g_PlayerConfigsArray[playernum].accuracymedals = savebufferReadBits(buffer, 18);
-	g_PlayerConfigsArray[playernum].headshotmedals = savebufferReadBits(buffer, 18);
-	g_PlayerConfigsArray[playernum].killmastermedals = savebufferReadBits(buffer, 18);
-	g_PlayerConfigsArray[playernum].survivormedals = savebufferReadBits(buffer, 16);
-	g_PlayerConfigsArray[playernum].controlmode = savebufferReadBits(buffer, 2);
-	g_PlayerConfigsArray[playernum].options = savebufferReadBits(buffer, 12);
+	g_PlayerConfigsArray[playernum].base.displayoptions = savebuffer_read_bits(buffer, 8);
+	g_PlayerConfigsArray[playernum].kills = savebuffer_read_bits(buffer, 20);
+	g_PlayerConfigsArray[playernum].deaths = savebuffer_read_bits(buffer, 20);
+	g_PlayerConfigsArray[playernum].gamesplayed = savebuffer_read_bits(buffer, 19);
+	g_PlayerConfigsArray[playernum].gameswon = savebuffer_read_bits(buffer, 19);
+	g_PlayerConfigsArray[playernum].gameslost = savebuffer_read_bits(buffer, 19);
+	g_PlayerConfigsArray[playernum].distance = savebuffer_read_bits(buffer, 25);
+	g_PlayerConfigsArray[playernum].accuracy = savebuffer_read_bits(buffer, 10);
+	g_PlayerConfigsArray[playernum].damagedealt = savebuffer_read_bits(buffer, 26);
+	g_PlayerConfigsArray[playernum].painreceived = savebuffer_read_bits(buffer, 26);
+	g_PlayerConfigsArray[playernum].headshots = savebuffer_read_bits(buffer, 20);
+	g_PlayerConfigsArray[playernum].ammoused = savebuffer_read_bits(buffer, 30);
+	g_PlayerConfigsArray[playernum].accuracymedals = savebuffer_read_bits(buffer, 18);
+	g_PlayerConfigsArray[playernum].headshotmedals = savebuffer_read_bits(buffer, 18);
+	g_PlayerConfigsArray[playernum].killmastermedals = savebuffer_read_bits(buffer, 18);
+	g_PlayerConfigsArray[playernum].survivormedals = savebuffer_read_bits(buffer, 16);
+	g_PlayerConfigsArray[playernum].controlmode = savebuffer_read_bits(buffer, 2);
+	g_PlayerConfigsArray[playernum].options = savebuffer_read_bits(buffer, 12);
 
 	for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 		for (j = 1; j < MAX_PLAYERS + 1; j++) {
-			challengeSetCompletedByPlayerWithNumPlayers(playernum, i, j, savebufferReadBits(buffer, 1));
+			challenge_set_completed_by_player_with_num_players(playernum, i, j, savebuffer_read_bits(buffer, 1));
 		}
 	}
 
-	challengeDetermineUnlockedFeatures();
-	mpCalculatePlayerTitle(&g_PlayerConfigsArray[playernum]);
-	mpplayerfileLoadGunFuncs(buffer, playernum);
+	challenge_determine_unlocked_features();
+	mp_calculate_player_title(&g_PlayerConfigsArray[playernum]);
+	mpplayerfile_load_gun_funcs(buffer, playernum);
 }
 
-void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
+void mpplayerfile_save_wad(s32 playernum, struct savebuffer *buffer)
 {
 	s32 i;
 	s32 j;
@@ -3378,149 +3378,149 @@ void mpplayerfileSaveWad(s32 playernum, struct savebuffer *buffer)
 		g_PlayerConfigsArray[playernum].time = 0x0fffffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].time, 28);
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.mpheadnum, 7);
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.mpbodynum, 7);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].time, 28);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].base.mpheadnum, 7);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].base.mpbodynum, 7);
 
-	if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mpGetNumHeads2()) {
+	if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mp_get_num_heads2()) {
 		struct fileguid guid;
-		phGetGuid(g_PlayerConfigsArray[playernum].base.mpheadnum - mpGetNumHeads2(), &guid);
-		savebufferWriteGuid(buffer, &guid);
+		ph_get_guid(g_PlayerConfigsArray[playernum].base.mpheadnum - mp_get_num_heads2(), &guid);
+		savebuffer_write_guid(buffer, &guid);
 	} else {
 		struct fileguid guid;
 		guid.deviceserial = 0;
 		guid.fileid = 0;
-		savebufferWriteGuid(buffer, &guid);
+		savebuffer_write_guid(buffer, &guid);
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].base.displayoptions, 8);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].base.displayoptions, 8);
 
 	if (g_PlayerConfigsArray[playernum].kills > 0xfffff) { // 1,048,575
 		g_PlayerConfigsArray[playernum].kills = 0xfffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].kills, 20);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].kills, 20);
 
 	if (g_PlayerConfigsArray[playernum].deaths > 0xfffff) { // 1,048,575
 		g_PlayerConfigsArray[playernum].deaths = 0xfffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].deaths, 20);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].deaths, 20);
 
 	if (g_PlayerConfigsArray[playernum].gamesplayed > 0x7ffff) { // 524,287
 		g_PlayerConfigsArray[playernum].gamesplayed = 0x7ffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].gamesplayed, 19);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].gamesplayed, 19);
 
 	if (g_PlayerConfigsArray[playernum].gameswon > 0x7ffff) { // 524,287
 		g_PlayerConfigsArray[playernum].gameswon = 0x7ffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].gameswon, 19);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].gameswon, 19);
 
 	if (g_PlayerConfigsArray[playernum].gameslost > 0x7ffff) { // 524,287
 		g_PlayerConfigsArray[playernum].gameslost = 0x7ffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].gameslost, 19);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].gameslost, 19);
 
 	if (g_PlayerConfigsArray[playernum].distance > 0x1ffffff) { // 33,554,431
 		g_PlayerConfigsArray[playernum].distance = 0x1ffffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].distance, 25);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].distance, 25);
 
 	if (g_PlayerConfigsArray[playernum].accuracy > 0x3ff) { // 1023
 		g_PlayerConfigsArray[playernum].accuracy = 0x3ff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].accuracy, 10);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].accuracy, 10);
 
 	if (g_PlayerConfigsArray[playernum].damagedealt > 0x3ffffff) { // 67,108,863
 		g_PlayerConfigsArray[playernum].damagedealt = 0x3ffffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].damagedealt, 26);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].damagedealt, 26);
 
 	if (g_PlayerConfigsArray[playernum].painreceived > 0x3ffffff) { // 67,108,863
 		g_PlayerConfigsArray[playernum].painreceived = 0x3ffffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].painreceived, 26);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].painreceived, 26);
 
 	if (g_PlayerConfigsArray[playernum].headshots > 0xfffff) { // 1,048,575
 		g_PlayerConfigsArray[playernum].headshots = 0xfffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].headshots, 20);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].headshots, 20);
 
 	if (g_PlayerConfigsArray[playernum].ammoused > 0x3fffffff) { // 1,073,741,823
 		g_PlayerConfigsArray[playernum].ammoused = 0x3fffffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].ammoused, 30);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].ammoused, 30);
 
 	if (g_PlayerConfigsArray[playernum].accuracymedals > 0x3ffff) { // 262,143
 		g_PlayerConfigsArray[playernum].accuracymedals = 0x3ffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].accuracymedals, 18);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].accuracymedals, 18);
 
 	if (g_PlayerConfigsArray[playernum].headshotmedals > 0x3ffff) { // 262,143
 		g_PlayerConfigsArray[playernum].headshotmedals = 0x3ffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].headshotmedals, 18);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].headshotmedals, 18);
 
 	if (g_PlayerConfigsArray[playernum].killmastermedals > 0x3ffff) { // 262,143
 		g_PlayerConfigsArray[playernum].killmastermedals = 0x3ffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].killmastermedals, 18);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].killmastermedals, 18);
 
 	if (g_PlayerConfigsArray[playernum].survivormedals > 0xffff) { // 65,535
 		g_PlayerConfigsArray[playernum].survivormedals = 0xffff;
 	}
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].survivormedals, 16);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].survivormedals, 16);
 
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].controlmode, 2);
-	savebufferOr(buffer, g_PlayerConfigsArray[playernum].options, 12);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].controlmode, 2);
+	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].options, 12);
 
 	for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 		for (j = 1; j < MAX_PLAYERS + 1; j++) {
-			savebufferOr(buffer, challengeIsCompletedByPlayerWithNumPlayers(playernum, i, j), 1);
+			savebuffer_or(buffer, challenge_is_completed_by_player_with_num_players(playernum, i, j), 1);
 		}
 	}
 
-	mpplayerfileSaveGunFuncs(buffer, playernum);
+	mpplayerfile_save_gun_funcs(buffer, playernum);
 }
 
-void mpplayerfileGetOverview(char *arg0, char *name, u32 *playtime)
+void mpplayerfile_get_overview(char *arg0, char *name, u32 *playtime)
 {
 	struct savebuffer buffer;
 
 	func0f0d5484(&buffer, arg0, 15);
 
-	savebufferReadString(&buffer, name, 0);
-	*playtime = savebufferReadBits(&buffer, 28);
+	savebuffer_read_string(&buffer, name, 0);
+	*playtime = savebuffer_read_bits(&buffer, 28);
 }
 
-s32 mpplayerfileSave(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
+s32 mpplayerfile_save(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 {
 	s32 ret;
 	s32 newfileid;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
-		savebufferClear(&buffer);
-		mpplayerfileSaveWad(playernum, &buffer);
+		savebuffer_clear(&buffer);
+		mpplayerfile_save_wad(playernum, &buffer);
 		func0f0d54c4(&buffer);
 
 		var80075bd0[2] = true;
 
-		ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_MPPLAYER, buffer.bytes, &newfileid, 0);
+		ret = pak_save_at_guid(device, fileid, PAKFILETYPE_MPPLAYER, buffer.bytes, &newfileid, 0);
 
 		if (ret == 0) {
 			g_PlayerConfigsArray[playernum].fileguid.fileid = newfileid;
@@ -3535,21 +3535,21 @@ s32 mpplayerfileSave(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 	return -1;
 }
 
-s32 mpplayerfileLoad(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
+s32 mpplayerfile_load(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 {
 	s32 ret;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
-		savebufferClear(&buffer);
+		savebuffer_clear(&buffer);
 
-		ret = pakReadBodyAtGuid(device, fileid, buffer.bytes, 0);
+		ret = pak_read_body_at_guid(device, fileid, buffer.bytes, 0);
 
 		if (ret == 0) {
 			g_PlayerConfigsArray[playernum].fileguid.fileid = fileid;
 			g_PlayerConfigsArray[playernum].fileguid.deviceserial = deviceserial;
 
-			mpplayerfileLoadWad(playernum, &buffer, 1);
+			mpplayerfile_load_wad(playernum, &buffer, 1);
 			func0f0d54c4(&buffer);
 
 			g_PlayerConfigsArray[playernum].handicap = 0x80;
@@ -3580,17 +3580,17 @@ struct mppreset g_MpPresets[] = {
 	{ L_MPWEAPONS_038, MPCONFIG_SLOWMO     }, // "Slow Motion"
 };
 
-s32 mpGetNumPresets(void)
+s32 mp_get_num_presets(void)
 {
 	return ARRAYCOUNT(g_MpPresets);
 }
 
-bool mpIsPresetUnlocked(s32 presetnum)
+bool mp_is_preset_unlocked(s32 presetnum)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpPresets[presetnum].requirefeatures); i++) {
-		if (!challengeIsFeatureUnlocked(g_MpPresets[presetnum].requirefeatures[i]) &&
+		if (!challenge_is_feature_unlocked(g_MpPresets[presetnum].requirefeatures[i]) &&
 				g_MpPresets[presetnum].requirefeatures[i] != MPFEATURE_WEAPON_SHIELD) {
 			return false;
 		}
@@ -3599,13 +3599,13 @@ bool mpIsPresetUnlocked(s32 presetnum)
 	return true;
 }
 
-s32 mpGetNumUnlockedPresets(void)
+s32 mp_get_num_unlocked_presets(void)
 {
 	s32 numunlocked = 0;
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpPresets); i++) {
-		if (mpIsPresetUnlocked(i)) {
+		if (mp_is_preset_unlocked(i)) {
 			numunlocked++;
 		}
 	}
@@ -3613,14 +3613,14 @@ s32 mpGetNumUnlockedPresets(void)
 	return numunlocked;
 }
 
-char *mpGetPresetNameBySlot(s32 slot)
+char *mp_get_preset_name_by_slot(s32 slot)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpPresets); i++) {
-		if (mpIsPresetUnlocked(i)) {
+		if (mp_is_preset_unlocked(i)) {
 			if (slot == 0) {
-				return langGet(g_MpPresets[i].name);
+				return lang_get(g_MpPresets[i].name);
 			}
 
 			slot--;
@@ -3655,7 +3655,7 @@ const char var7f1b8d20[] = "LoadGame Result: %d\n";
 const char var7f1b8d38[] = "GBCHead: Call to create head for slot %d (gbcheadobjs[slotno]=%x)\n";
 #endif // >= VERSION_NTSC_1_0
 
-void mpApplyConfig(struct mpconfigfull *config)
+void mp_apply_config(struct mpconfigfull *config)
 {
 	s32 i;
 	s32 j;
@@ -3667,7 +3667,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 	chrslots = g_MpSetup.chrslots;
 #endif
 
-	scenarioInit();
+	scenario_init();
 
 	g_MpSetup = config->config.setup;
 
@@ -3687,7 +3687,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 #if VERSION >= VERSION_NTSC_1_0
 		if (IS4MB()) {
 			// "ShockSim:%d"
-			sprintf(g_BotConfigsArray[i].base.name, langGet(L_MPWEAPONS_241), i + 1);
+			sprintf(g_BotConfigsArray[i].base.name, lang_get(L_MPWEAPONS_241), i + 1);
 		} else {
 			strcpy(g_BotConfigsArray[i].base.name, config->strings.aibotnames[i]);
 		}
@@ -3700,7 +3700,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 		g_BotConfigsArray[i].base.team = config->config.simulants[i].team;
 	}
 
-	if (!challengeIsFeatureUnlocked(MPFEATURE_WEAPON_SHIELD)) {
+	if (!challenge_is_feature_unlocked(MPFEATURE_WEAPON_SHIELD)) {
 		for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
 			if (g_MpSetup.weapons[i] == MPWEAPON_SHIELD) {
 				g_MpSetup.weapons[i] = MPWEAPON_NONE;
@@ -3709,7 +3709,7 @@ void mpApplyConfig(struct mpconfigfull *config)
 	}
 
 	func0f18913c();
-	challengeRemoveForceUnlocks();
+	challenge_remove_force_unlocks();
 }
 
 void mp0f18dec4(s32 slot)
@@ -3720,7 +3720,7 @@ void mp0f18dec4(s32 slot)
 	u32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpPresets); i++) {
-		if (mpIsPresetUnlocked(i)) {
+		if (mp_is_preset_unlocked(i)) {
 			if (slot == 0) {
 				confignum = g_MpPresets[i].confignum;
 				break;
@@ -3730,9 +3730,9 @@ void mp0f18dec4(s32 slot)
 		}
 	}
 
-	config = challengeLoadConfig(confignum, buffer, sizeof(buffer));
+	config = challenge_load_config(confignum, buffer, sizeof(buffer));
 
-	mpApplyConfig(config);
+	mp_apply_config(config);
 
 #if VERSION >= VERSION_JPN_FINAL
 	g_MpSetup.chrslots &= 0x0f;
@@ -3745,27 +3745,27 @@ void mp0f18dec4(s32 slot)
 #endif
 }
 
-void mpsetupfileLoadWad(struct savebuffer *buffer)
+void mpsetupfile_load_wad(struct savebuffer *buffer)
 {
 	s32 i;
 	s32 j;
 
-	savebufferReadString(buffer, g_MpSetup.name, false);
-	savebufferReadBits(buffer, 4);
+	savebuffer_read_string(buffer, g_MpSetup.name, false);
+	savebuffer_read_bits(buffer, 4);
 
-	g_MpSetup.stagenum = savebufferReadBits(buffer, 7);
-	g_MpSetup.scenario = savebufferReadBits(buffer, 3);
+	g_MpSetup.stagenum = savebuffer_read_bits(buffer, 7);
+	g_MpSetup.scenario = savebuffer_read_bits(buffer, 3);
 
-	scenarioInit();
-	scenarioReadSave(buffer);
+	scenario_init();
+	scenario_read_save(buffer);
 
-	g_MpSetup.options = savebufferReadBits(buffer, 21);
+	g_MpSetup.options = savebuffer_read_bits(buffer, 21);
 	g_MpSetup.chrslots &= 0x000f;
 
 	for (i = 0; i < MAX_BOTS; i++) {
 		g_BotConfigsArray[i].base.name[0] = '\0';
-		g_BotConfigsArray[i].type = savebufferReadBits(buffer, 5);
-		g_BotConfigsArray[i].difficulty = savebufferReadBits(buffer, 3);
+		g_BotConfigsArray[i].type = savebuffer_read_bits(buffer, 5);
+		g_BotConfigsArray[i].difficulty = savebuffer_read_bits(buffer, 3);
 
 		for (j = 0; j < MAX_PLAYERS; j++) {
 			g_MpSimulantDifficultiesPerNumPlayers[i][j] = g_BotConfigsArray[i].difficulty;
@@ -3775,31 +3775,31 @@ void mpsetupfileLoadWad(struct savebuffer *buffer)
 			g_MpSetup.chrslots |= 1 << (i + 4);
 		}
 
-		g_BotConfigsArray[i].base.mpheadnum = savebufferReadBits(buffer, 7);
-		g_BotConfigsArray[i].base.mpbodynum = savebufferReadBits(buffer, 7);
-		g_BotConfigsArray[i].base.team = savebufferReadBits(buffer, 3);
+		g_BotConfigsArray[i].base.mpheadnum = savebuffer_read_bits(buffer, 7);
+		g_BotConfigsArray[i].base.mpbodynum = savebuffer_read_bits(buffer, 7);
+		g_BotConfigsArray[i].base.team = savebuffer_read_bits(buffer, 3);
 	}
 
-	mpGenerateBotNames();
+	mp_generate_bot_names();
 
 	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
-		g_MpSetup.weapons[i] = savebufferReadBits(buffer, 7);
+		g_MpSetup.weapons[i] = savebuffer_read_bits(buffer, 7);
 	}
 
 	func0f18913c();
 
-	g_MpSetup.timelimit = savebufferReadBits(buffer, 6);
-	g_MpSetup.scorelimit = savebufferReadBits(buffer, 7);
-	g_MpSetup.teamscorelimit = savebufferReadBits(buffer, 9);
+	g_MpSetup.timelimit = savebuffer_read_bits(buffer, 6);
+	g_MpSetup.scorelimit = savebuffer_read_bits(buffer, 7);
+	g_MpSetup.teamscorelimit = savebuffer_read_bits(buffer, 9);
 
 	for (i = 0; i < MAX_PLAYERS; i++) {
-		g_PlayerConfigsArray[i].base.team = savebufferReadBits(buffer, 3);
+		g_PlayerConfigsArray[i].base.team = savebuffer_read_bits(buffer, 3);
 	}
 
-	challengeForceUnlockBotFeatures();
+	challenge_force_unlock_bot_features();
 }
 
-void mpsetupfileSaveWad(struct savebuffer *buffer)
+void mpsetupfile_save_wad(struct savebuffer *buffer)
 {
 	s32 numsims = 0;
 	s32 mpbodynum;
@@ -3813,27 +3813,27 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 		}
 	}
 
-	savebufferOr(buffer, numsims, 4);
-	savebufferOr(buffer, g_MpSetup.stagenum, 7);
-	savebufferOr(buffer, g_MpSetup.scenario, 3);
+	savebuffer_or(buffer, numsims, 4);
+	savebuffer_or(buffer, g_MpSetup.stagenum, 7);
+	savebuffer_or(buffer, g_MpSetup.scenario, 3);
 
-	scenarioWriteSave(buffer);
+	scenario_write_save(buffer);
 
-	savebufferOr(buffer, g_MpSetup.options, 21);
+	savebuffer_or(buffer, g_MpSetup.options, 21);
 
 	for (i = 0; i < MAX_BOTS; i++) {
-		savebufferOr(buffer, g_BotConfigsArray[i].type, 5);
+		savebuffer_or(buffer, g_BotConfigsArray[i].type, 5);
 
 		if (g_MpSetup.chrslots & (1 << (i + 4))) {
-			savebufferOr(buffer, g_BotConfigsArray[i].difficulty, 3);
+			savebuffer_or(buffer, g_BotConfigsArray[i].difficulty, 3);
 		} else {
-			savebufferOr(buffer, BOTDIFF_DISABLED, 3);
+			savebuffer_or(buffer, BOTDIFF_DISABLED, 3);
 		}
 
-		savebufferOr(buffer, g_BotConfigsArray[i].base.mpheadnum, 7);
+		savebuffer_or(buffer, g_BotConfigsArray[i].base.mpheadnum, 7);
 
 		if (g_BotConfigsArray[i].base.mpbodynum == 0xff) {
-			s32 profilenum = mpFindBotProfile(g_BotConfigsArray[i].type, g_BotConfigsArray[i].difficulty);
+			s32 profilenum = mp_find_bot_profile(g_BotConfigsArray[i].type, g_BotConfigsArray[i].difficulty);
 
 			if (profilenum < 0 || profilenum >= ARRAYCOUNT(g_BotProfiles)) {
 				profilenum = 0;
@@ -3844,48 +3844,48 @@ void mpsetupfileSaveWad(struct savebuffer *buffer)
 			mpbodynum = g_BotConfigsArray[i].base.mpbodynum;
 		}
 
-		savebufferOr(buffer, mpbodynum, 7);
-		savebufferOr(buffer, g_BotConfigsArray[i].base.team, 3);
+		savebuffer_or(buffer, mpbodynum, 7);
+		savebuffer_or(buffer, g_BotConfigsArray[i].base.team, 3);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
-		savebufferOr(buffer, g_MpSetup.weapons[i], 7);
+		savebuffer_or(buffer, g_MpSetup.weapons[i], 7);
 	}
 
-	savebufferOr(buffer, g_MpSetup.timelimit, 6);
-	savebufferOr(buffer, g_MpSetup.scorelimit, 7);
-	savebufferOr(buffer, g_MpSetup.teamscorelimit, 9);
+	savebuffer_or(buffer, g_MpSetup.timelimit, 6);
+	savebuffer_or(buffer, g_MpSetup.scorelimit, 7);
+	savebuffer_or(buffer, g_MpSetup.teamscorelimit, 9);
 
 	for (i = 0; i < MAX_PLAYERS; i++) {
-		savebufferOr(buffer, g_PlayerConfigsArray[i].base.team, 3);
+		savebuffer_or(buffer, g_PlayerConfigsArray[i].base.team, 3);
 	}
 }
 
-void mpsetupfileGetOverview(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum)
+void mpsetupfile_get_overview(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum)
 {
 	struct savebuffer buffer;
 
 	func0f0d5484(&buffer, arg0, 15);
 
-	savebufferReadString(&buffer, filename, 0);
+	savebuffer_read_string(&buffer, filename, 0);
 
-	*numsims = savebufferReadBits(&buffer, 4);
-	*stagenum = savebufferReadBits(&buffer, 7);
-	*scenarionum = savebufferReadBits(&buffer, 3);
+	*numsims = savebuffer_read_bits(&buffer, 4);
+	*stagenum = savebuffer_read_bits(&buffer, 7);
+	*scenarionum = savebuffer_read_bits(&buffer, 3);
 }
 
-s32 mpsetupfileSave(s32 device, s32 fileid, u16 deviceserial)
+s32 mpsetupfile_save(s32 device, s32 fileid, u16 deviceserial)
 {
 	s32 ret;
 	s32 newfileid;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
-		savebufferClear(&buffer);
-		mpsetupfileSaveWad(&buffer);
+		savebuffer_clear(&buffer);
+		mpsetupfile_save_wad(&buffer);
 		func0f0d54c4(&buffer);
 
-		ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_MPSETUP, buffer.bytes, &newfileid, 0);
+		ret = pak_save_at_guid(device, fileid, PAKFILETYPE_MPSETUP, buffer.bytes, &newfileid, 0);
 		var80075bd0[1] = true;
 
 		if (ret == 0) {
@@ -3901,20 +3901,20 @@ s32 mpsetupfileSave(s32 device, s32 fileid, u16 deviceserial)
 	return -1;
 }
 
-s32 mpsetupfileLoad(s32 device, s32 fileid, u16 deviceserial)
+s32 mpsetupfile_load(s32 device, s32 fileid, u16 deviceserial)
 {
 	s32 ret;
 	struct savebuffer buffer;
 
 	if (device >= 0) {
-		savebufferClear(&buffer);
-		ret = pakReadBodyAtGuid(device, fileid, buffer.bytes, 0);
+		savebuffer_clear(&buffer);
+		ret = pak_read_body_at_guid(device, fileid, buffer.bytes, 0);
 
 		if (ret == 0) {
 			g_MpSetup.fileguid.fileid = fileid;
 			g_MpSetup.fileguid.deviceserial = deviceserial;
 
-			mpsetupfileLoadWad(&buffer);
+			mpsetupfile_load_wad(&buffer);
 			func0f0d54c4(&buffer);
 
 			return 0;

@@ -7,8 +7,8 @@
 #include "data.h"
 #include "types.h"
 
-void propsStop(void)
+void props_stop(void)
 {
-	alarmDeactivate();
-	gasStopAudio();
+	alarm_deactivate();
+	gas_stop_audio();
 }

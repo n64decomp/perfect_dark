@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-struct stagetableentry *stageGetCurrent(void);
-s32 stageGetIndex(s32 stagenum);
+struct stagetableentry *stage_get_current(void);
+s32 stage_get_index(s32 stagenum);
 
 #endif

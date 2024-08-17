@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void shardsTick(void)
+void shards_tick(void)
 {
 	f32 lvupdate;
 	s32 i;

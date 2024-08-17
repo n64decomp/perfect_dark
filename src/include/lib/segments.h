@@ -2,11 +2,11 @@
 #define _IN_BOOT_SEGMENTS_H
 #include <ultra64.h>
 
-void *segGetDataStart(void);
-void *segGetDatazipRomStart(void);
-void *segGetInflateRomStart(void);
-void *segGetInflateRomStart2(void);
-void *segGetGamezipsRomStart(void);
-void segInflate(void *src, void *dst, void *scratch);
+void *seg_get_data_start(void);
+void *seg_get_datazip_rom_start(void);
+void *seg_get_inflate_rom_start(void);
+void *seg_get_inflate_rom_start2(void);
+void *seg_get_gamezips_rom_start(void);
+void seg_inflate(void *src, void *dst, void *scratch);
 
 #endif

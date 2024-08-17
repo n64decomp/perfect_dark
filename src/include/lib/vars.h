@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-void varsInit(void);
+void vars_init(void);
 
-void varsReset(void);
+void vars_reset(void);
 
 #endif

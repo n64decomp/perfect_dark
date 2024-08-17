@@ -17,7 +17,7 @@ u8 var8009c344[2];
 u8 var8009c346[2];
 u8 var8009c348[4];
 
-void speakersSetMode(u8 mode)
+void speakers_set_mode(u8 mode)
 {
 	s32 i;
 

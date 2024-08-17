@@ -48,7 +48,7 @@
 #include "gbiex.h"
 #include "types.h"
 
-void rng2SetSeed(u32 seed);
+void rng2_set_seed(u32 seed);
 
 void *var8009ccc0[20];
 s32 g_NumChrs;
@@ -71,12 +71,12 @@ struct chrdata *g_ChrSlots = NULL;
 
 s32 g_NumChrSlots = 0;
 
-s32 chrsGetNumSlots(void)
+s32 chrs_get_num_slots(void)
 {
 	return g_NumChrSlots;
 }
 
-void chrSetChrnum(struct chrdata *chr, s16 chrnum)
+void chr_set_chrnum(struct chrdata *chr, s16 chrnum)
 {
 	s32 i;
 	bool modified;
@@ -113,7 +113,7 @@ void chrSetChrnum(struct chrdata *chr, s16 chrnum)
 	} while (modified);
 }
 
-void chrRegister(s32 chrnum, s32 chrindex)
+void chr_register(s32 chrnum, s32 chrindex)
 {
 	s32 i;
 	s16 tmp;
@@ -135,7 +135,7 @@ void chrRegister(s32 chrnum, s32 chrindex)
 	g_NumChrs++;
 }
 
-void chrDeregister(s32 chrnum)
+void chr_deregister(s32 chrnum)
 {
 	s32 i;
 
@@ -156,32 +156,32 @@ void chrDeregister(s32 chrnum)
 	}
 }
 
-Vtx *chrAllocateVertices(s32 numvertices)
+Vtx *chr_allocate_vertices(s32 numvertices)
 {
-	return (Vtx *) gfxAllocate(numvertices * sizeof(Vtx));
+	return (Vtx *) gfx_allocate(numvertices * sizeof(Vtx));
 }
 
-void chrsSetVar8006297c(u32 arg0)
+void chrs_set_var8006297c(u32 arg0)
 {
 	var8006297c = arg0;
 }
 
-u32 chrsGetVar8006297c(void)
+u32 chrs_get_var8006297c(void)
 {
 	return var8006297c;
 }
 
-void chrsSetVar80062980(u32 arg0)
+void chrs_set_var80062980(u32 arg0)
 {
 	var80062980 = arg0;
 }
 
-u32 chrsGetVar80062980(void)
+u32 chrs_get_var80062980(void)
 {
 	return var80062980;
 }
 
-void chrSetPerimEnabled(struct chrdata *chr, bool enable)
+void chr_set_perim_enabled(struct chrdata *chr, bool enable)
 {
 	if (chr) {
 		if (enable) {
@@ -197,7 +197,7 @@ void chrSetPerimEnabled(struct chrdata *chr, bool enable)
  * pos and rooms for the chr. It does collision checks and updates dstpos and
  * dstrooms to valid ones if needed.
  */
-void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dstrooms, bool arg3)
+void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *dstrooms, bool arg3)
 {
 	f32 ymax;
 	f32 ymin;
@@ -228,21 +228,21 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dst
 
 	// The eyespy can't be pushed
 	if (CHRRACE(chr) == RACE_EYESPY) {
-		roomsCopy(prop->rooms, dstrooms);
-		chrSetPerimEnabled(chr, true);
+		rooms_copy(prop->rooms, dstrooms);
+		chr_set_perim_enabled(chr, true);
 		return;
 	}
 
-	chrGetBbox(prop, &radius, &ymax, &ymin);
+	chr_get_bbox(prop, &radius, &ymax, &ymin);
 	halfradius = radius * 0.5f;
-	chrSetPerimEnabled(chr, false);
+	chr_set_perim_enabled(chr, false);
 
 	// myspecial is the chr's chair
 	if (chr->myspecial != -1) {
-		chair = objFindByTagId(chr->myspecial);
+		chair = obj_find_by_tag_id(chr->myspecial);
 
 		if (chair && chair->prop) {
-			objSetPerimEnabled(chair->prop, false);
+			obj_set_perim_enabled(chair->prop, false);
 		}
 	}
 
@@ -264,13 +264,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dst
 	movez = dstpos->z - prop->pos.z;
 
 	if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-		cdresult = cdExamCylMove05(&prop->pos, prop->rooms, dstpos, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+		cdresult = cd_exam_cyl_move05(&prop->pos, prop->rooms, dstpos, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
 
 		if (cdresult == CDRESULT_NOCOLLISION) {
-			cdresult = cdExamCylMove01(&prop->pos, dstpos, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+			cdresult = cd_exam_cyl_move01(&prop->pos, dstpos, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 		}
 	} else {
-		cdresult = cdExamCylMove01(&prop->pos, dstpos, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+		cdresult = cd_exam_cyl_move01(&prop->pos, dstpos, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 	}
 
 	if (cdresult != CDRESULT_ERROR) {
@@ -284,13 +284,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dst
 			moveok = true;
 		} else {
 #if VERSION >= VERSION_PAL_FINAL
-			cdGetEdge(&sp78, &sp6c, 453, "chr/chr.c");
+			cd_get_edge(&sp78, &sp6c, 453, "chr/chr.c");
 #elif VERSION >= VERSION_PAL_BETA
-			cdGetEdge(&sp78, &sp6c, 453, "chr.c");
+			cd_get_edge(&sp78, &sp6c, 453, "chr.c");
 #elif VERSION >= VERSION_NTSC_1_0
-			cdGetEdge(&sp78, &sp6c, 453, "chr/chr.c");
+			cd_get_edge(&sp78, &sp6c, 453, "chr/chr.c");
 #else
-			cdGetEdge(&sp78, &sp6c, 451, "chr.c");
+			cd_get_edge(&sp78, &sp6c, 451, "chr.c");
 #endif
 
 			// Attempt to find a valid position - method #1
@@ -330,13 +330,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dst
 				movez = sp44.z - prop->pos.z;
 
 				if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-					cdresult = cdTestCylMove02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
+					cdresult = cd_test_cyl_move02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
 
 					if (cdresult == CDRESULT_NOCOLLISION) {
-						cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+						cdresult = cd_test_volume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 					}
 				} else {
-					cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+					cdresult = cd_test_volume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 				}
 
 				if (cdresult == CDRESULT_NOCOLLISION) {
@@ -386,13 +386,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dst
 						movez = sp44.z - prop->pos.z;
 
 						if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-							cdresult = cdTestCylMove02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
+							cdresult = cd_test_cyl_move02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
 
 							if (cdresult == CDRESULT_NOCOLLISION) {
-								cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cd_test_volume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 							}
 						} else {
-							cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+							cdresult = cd_test_volume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 						}
 
 						if (cdresult == CDRESULT_NOCOLLISION) {
@@ -440,13 +440,13 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dst
 							movez = sp44.z - prop->pos.z;
 
 							if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-								cdresult = cdTestCylMove02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cd_test_cyl_move02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
 
 								if (cdresult == CDRESULT_NOCOLLISION) {
-									cdresult = cdTestVolume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+									cdresult = cd_test_volume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 								}
 							} else {
-								cdresult = cdTestVolume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cd_test_volume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 							}
 
 							if (cdresult == CDRESULT_NOCOLLISION) {
@@ -466,14 +466,14 @@ void chrCalculatePushPos(struct chrdata *chr, struct coord *dstpos, RoomNum *dst
 		// Keep chr where they are
 		dstpos->x = prop->pos.x;
 		dstpos->z = prop->pos.z;
-		roomsCopy(prop->rooms, dstrooms);
+		rooms_copy(prop->rooms, dstrooms);
 		chr->invalidmove = 1;
 	}
 
-	chrSetPerimEnabled(chr, true);
+	chr_set_perim_enabled(chr, true);
 
 	if (chair && chair->prop) {
-		objSetPerimEnabled(chair->prop, true);
+		obj_set_perim_enabled(chair->prop, true);
 	}
 }
 
@@ -494,19 +494,19 @@ bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg
 	newpos.y = pos->y + arg3;
 	newpos.z = pos->z;
 
-	chrGetBbox(chr->prop, &radius, &ymax, &ymin);
+	chr_get_bbox(chr->prop, &radius, &ymax, &ymin);
 	func0f065e74(pos, rooms, &newpos, newrooms);
 	chr0f021fa8(chr, &newpos, newrooms);
-	chrSetPerimEnabled(chr, false);
-	result = cdTestVolume(&newpos, radius, newrooms, CDTYPE_ALL, CHECKVERTICAL_YES,
+	chr_set_perim_enabled(chr, false);
+	result = cd_test_volume(&newpos, radius, newrooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 			ymax - chr->prop->pos.y,
 			ymin - chr->prop->pos.y);
-	chrSetPerimEnabled(chr, true);
+	chr_set_perim_enabled(chr, true);
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (result == true && arg4) {
 		pos->y = newpos.y;
-		roomsCopy(newrooms, rooms);
+		rooms_copy(newrooms, rooms);
 	}
 #endif
 
@@ -554,7 +554,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			func0f065e74(&prop->pos, prop->rooms, arg2, spfc);
 		}
 
-		ground = cdFindGroundInfoAtCyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
+		ground = cd_find_ground_info_at_cyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
 		if (ground < -1000000) {
 			ground = 0.0f;
@@ -600,9 +600,9 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 					lvupdate240 = 16;
 				}
 
-				botUpdateLateral(chr, move, lvupdate240, lvupdate60freal);
+				bot_update_lateral(chr, move, lvupdate240, lvupdate60freal);
 #else
-				botUpdateLateral(chr, move);
+				bot_update_lateral(chr, move);
 #endif
 			}
 
@@ -611,7 +611,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		}
 
 		if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
-			chr->onladder = cdFindLadder(&chr->prop->pos, chr->radius * 2.5f,
+			chr->onladder = cd_find_ladder(&chr->prop->pos, chr->radius * 2.5f,
 					chr->manground + chr->height - chr->prop->pos.y,
 					chr->manground + 1.0f - chr->prop->pos.y,
 					chr->prop->rooms, GEOFLAG_LADDER, &chr->laddernormal);
@@ -626,12 +626,12 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				chr->height = 135.0f;
 			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_CROUCH)) {
 				chr->height = 90.0f;
-			} else if (cd0002a13c(&chr->prop->pos, chr->radius * 1.1f,
+			} else if (cd_0002a13c(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 185.0f - chr->prop->pos.y,
 						chr->manground - 10.0f - chr->prop->pos.y,
 						chr->prop->rooms, GEOFLAG_AIBOTDUCK)) {
 				chr->height = 135.0f;
-			} else if (cd0002a13c(&chr->prop->pos, chr->radius * 1.1f,
+			} else if (cd_0002a13c(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 135.0f - chr->prop->pos.y,
 						chr->manground - 10.0f - chr->prop->pos.y,
 						chr->prop->rooms, GEOFLAG_AIBOTCROUCH)) {
@@ -703,7 +703,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		arg2->z += chr->fallspeed.z * VAR(lvupdate60freal);
 
 		if (race == RACE_EYESPY) {
-			struct eyespy *eyespy = chrToEyespy(chr);
+			struct eyespy *eyespy = chr_to_eyespy(chr);
 
 			if (eyespy && eyespy->deployed) {
 				arg2->x = chr->prop->pos.x;
@@ -742,7 +742,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			arg2->x = prop->pos.x;
 			arg2->z = prop->pos.z;
 
-			roomsCopy(prop->rooms, spfc);
+			rooms_copy(prop->rooms, spfc);
 
 			chr->invalidmove = 0;
 			chr->lastmoveok60 = g_Vars.lvframe60;
@@ -752,7 +752,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				arg2->z = arg1->z;
 			}
 
-			chrCalculatePushPos(chr, arg2, spfc, true);
+			chr_calculate_push_pos(chr, arg2, spfc, true);
 		}
 
 		if (chr->actiontype == ACT_SKJUMP
@@ -803,7 +803,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				if (race == RACE_EYESPY) {
 					ground = chr->manground;
 				} else if (prop->type == PROPTYPE_PLAYER) {
-					struct player *player = g_Vars.players[playermgrGetPlayerNumByProp(prop)];
+					struct player *player = g_Vars.players[playermgr_get_player_num_by_prop(prop)];
 					ground = player->vv_manground;
 					chr->floorcol = player->floorcol;
 					chr->floortype = player->floortype;
@@ -823,7 +823,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						sp94 = spfc;
 					}
 
-					ground = cdFindGroundInfoAtCyl(sp98, chr->radius, sp94,
+					ground = cd_find_ground_info_at_cyl(sp98, chr->radius, sp94,
 							&chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -842,11 +842,11 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						arg2->y = prop->pos.y;
 						arg2->z = prop->pos.z;
 
-						roomsCopy(prop->rooms, spfc);
+						rooms_copy(prop->rooms, spfc);
 
 						lvupdate60freal = 0.0f;
 
-						ground = cdFindGroundInfoAtCyl(arg2, chr->radius, spfc,
+						ground = cd_find_ground_info_at_cyl(arg2, chr->radius, spfc,
 								&chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 					}
 #endif
@@ -879,7 +879,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 					manground = chr->manground;
 
 					if (nodetype == MODELNODETYPE_CHRINFO) {
-						union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+						union modelrwdata *rwdata = model_get_node_rw_data(model, node);
 						rwdata->chrinfo.unk34.y = rwdata->chrinfo.unk24.y;
 					}
 				} else {
@@ -921,10 +921,10 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 								if (chr->lastshooter >= 0 && chr->timeshooter > 0) {
 									shooter = chr->lastshooter;
 								} else {
-									shooter = mpPlayerGetIndex(chr);
+									shooter = mp_player_get_index(chr);
 								}
 
-								chrDie(chr, shooter);
+								chr_die(chr, shooter);
 							} else {
 								chr->hidden |= CHRHFLAG_DELETING;
 							}
@@ -957,7 +957,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						spd0.y = arg2->y;
 						spd0.z = arg2->z;
 
-						roomsCopy(spfc, spc0);
+						rooms_copy(spfc, spc0);
 
 						arg2->y += chr->manground - manground;
 
@@ -995,14 +995,14 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 		}
 	}
 
-	propDeregisterRooms(prop);
-	roomsCopy(spfc, prop->rooms);
+	prop_deregister_rooms(prop);
+	rooms_copy(spfc, prop->rooms);
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (prop->type == PROPTYPE_CHR) {
 		for (i = 0; prop->rooms[i] != -1; i++) {
 			if (chr->floorroom == prop->rooms[i]) {
-				propDeregisterRooms(prop);
+				prop_deregister_rooms(prop);
 				prop->rooms[0] = chr->floorroom;
 				prop->rooms[1] = -1;
 				break;
@@ -1012,12 +1012,12 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 #endif
 
 	chr0f0220ac(chr);
-	propCalculateShadeColour(prop, chr->nextcol, chr->floorcol);
+	prop_calculate_shade_colour(prop, chr->nextcol, chr->floorcol);
 
 	return true;
 }
 
-s32 chrsGetNumFree(void)
+s32 chrs_get_num_free(void)
 {
 	s32 count = 0;
 	s32 i;
@@ -1031,22 +1031,22 @@ s32 chrsGetNumFree(void)
 	return count;
 }
 
-void chrSetMaxDamage(struct chrdata *chr, f32 maxdamage)
+void chr_set_max_damage(struct chrdata *chr, f32 maxdamage)
 {
 	chr->maxdamage = maxdamage;
 }
 
-f32 chrGetMaxDamage(struct chrdata *chr)
+f32 chr_get_max_damage(struct chrdata *chr)
 {
 	return chr->maxdamage;
 }
 
-void chrAddHealth(struct chrdata *chr, f32 health)
+void chr_add_health(struct chrdata *chr, f32 health)
 {
 	chr->damage -= health;
 }
 
-f32 chrGetArmor(struct chrdata *chr)
+f32 chr_get_armor(struct chrdata *chr)
 {
 	if (chr->damage < 0) {
 		return -chr->damage;
@@ -1055,7 +1055,7 @@ f32 chrGetArmor(struct chrdata *chr)
 	return 0;
 }
 
-s16 chrsGetNextUnusedChrnum(void)
+s16 chrs_get_next_unused_chrnum(void)
 {
 	s32 chrnum;
 	struct chrdata *chr;
@@ -1067,13 +1067,13 @@ s16 chrsGetNextUnusedChrnum(void)
 			chrnum = g_NextChrnum = 5000;
 		}
 
-		chr = chrFindByLiteralId((s16)chrnum);
+		chr = chr_find_by_literal_id((s16)chrnum);
 	} while (chr);
 
 	return chrnum;
 }
 
-void chrInit(struct prop *prop, u8 *ailist)
+void chr_init(struct prop *prop, u8 *ailist)
 {
 	s32 i;
 	struct chrdata *chr = NULL;
@@ -1086,8 +1086,8 @@ void chrInit(struct prop *prop, u8 *ailist)
 	}
 
 	prop->chr = chr;
-	chr->chrnum = chrsGetNextUnusedChrnum();
-	chrRegister(chr->chrnum, i);
+	chr->chrnum = chrs_get_next_unused_chrnum();
+	chr_register(chr->chrnum, i);
 
 	chr->headnum = 0;
 	chr->bodynum = 0;
@@ -1099,7 +1099,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->lastmoveok60 = g_Vars.lvframe60;
 	chr->visionrange = 250;
 
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
+	if (cheat_is_active(CHEAT_PERFECTDARKNESS)) {
 		chr->visionrange = 4;
 	}
 
@@ -1201,7 +1201,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 
 	chr->path = -1;
 	chr->team = TEAM_01;
-	chrSetShield(chr, 0);
+	chr_set_shield(chr, 0);
 	chr->cmnum = 0;
 	chr->cmnum2 = 0;
 	chr->cmnum3 = 0;
@@ -1286,7 +1286,7 @@ void chrInit(struct prop *prop, u8 *ailist)
 	chr->goposhitcount = 0;
 #endif
 
-	splatResetChr(chr);
+	splat_reset_chr(chr);
 }
 
 struct prop *chr0f020b14(struct prop *prop, struct model *model,
@@ -1300,23 +1300,23 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	prop->type = PROPTYPE_CHR;
 
 	if (prop->chr == NULL) {
-		chrInit(prop, ailist);
+		chr_init(prop, ailist);
 	}
 
 	chr = prop->chr;
 
-	modelSetAnim70(model, chr0f01f378);
+	model_set_anim70(model, chr0f01f378);
 	model->chr = chr;
 	model->unk01 = 1;
 	chr->model = model;
-	chrSetLookAngle(chr, faceangle);
-	modelSetAnimPlaySpeed(model, PALUPF(var80062968), 0);
+	chr_set_look_angle(chr, faceangle);
+	model_set_anim_play_speed(model, PALUPF(var80062968), 0);
 
 	testpos.x = pos->x;
 	testpos.y = pos->y + 100;
 	testpos.z = pos->z;
 
-	chr->ground = chr->manground = ground = cdFindGroundInfoAtCyl(&testpos, chr->radius, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
+	chr->ground = chr->manground = ground = cd_find_ground_info_at_cyl(&testpos, chr->radius, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
 	chr->sumground = ground * (PAL ? 8.4175090789795f : 9.999998f);
 
@@ -1324,15 +1324,15 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	prop->pos.y = ground + 100;
 	prop->pos.z = testpos.z;
 
-	propDeregisterRooms(prop);
-	roomsCopy(rooms, prop->rooms);
+	prop_deregister_rooms(prop);
+	rooms_copy(rooms, prop->rooms);
 	chr0f0220ac(chr);
-	modelSetRootPosition(model, &prop->pos);
+	model_set_root_position(model, &prop->pos);
 
 	nodetype = chr->model->definition->rootnode->type;
 
 	if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
-		union modelrwdata *rwdata = modelGetNodeRwData(chr->model, chr->model->definition->rootnode);
+		union modelrwdata *rwdata = model_get_node_rw_data(chr->model, chr->model->definition->rootnode);
 		rwdata->chrinfo.ground = ground;
 	}
 
@@ -1340,20 +1340,20 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	chr->prevpos.y = prop->pos.y;
 	chr->prevpos.z = prop->pos.z;
 
-	propCalculateShadeColour(prop, chr->nextcol, chr->floorcol);
+	prop_calculate_shade_colour(prop, chr->nextcol, chr->floorcol);
 
 	return prop;
 }
 
-struct prop *chrAllocate(struct model *model, struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist)
+struct prop *chr_allocate(struct model *model, struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist)
 {
-	struct prop *prop = propAllocate();
+	struct prop *prop = prop_allocate();
 
 	if (prop) {
 		prop = chr0f020b14(prop, model, pos, rooms, faceangle, ailist);
 
-		if (cheatIsActive(CHEAT_ENEMYSHIELDS)) {
-			chrSetShield(prop->chr, 8);
+		if (cheat_is_active(CHEAT_ENEMYSHIELDS)) {
+			chr_set_shield(prop->chr, 8);
 		}
 	}
 
@@ -1363,7 +1363,7 @@ struct prop *chrAllocate(struct model *model, struct coord *pos, RoomNum *rooms,
 /**
  * Removes a chr. If free is true, free the chr.
  */
-void chrRemove(struct prop *prop, bool free)
+void chr_remove(struct prop *prop, bool free)
 {
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
@@ -1371,8 +1371,8 @@ void chrRemove(struct prop *prop, bool free)
 	struct prop *child;
 	u32 stack[2];
 
-	bgunFreeFireslotWrapper(chr->fireslots[0]);
-	bgunFreeFireslotWrapper(chr->fireslots[1]);
+	bgun_free_fireslot_wrapper(chr->fireslots[0]);
+	bgun_free_fireslot_wrapper(chr->fireslots[1]);
 
 	if (chr->proppreset1 >= 0) {
 		struct prop *proppreset = &g_Vars.props[chr->proppreset1];
@@ -1380,14 +1380,14 @@ void chrRemove(struct prop *prop, bool free)
 		chair->hidden &= ~OBJHFLAG_OCCUPIEDCHAIR;
 	}
 
-	wallhitFadeSplatsForRemovedChr(prop);
-	psStopSound(prop, PSTYPE_GENERAL, 0xffff);
-	shieldhitsRemoveByProp(prop);
-	modelFreeVertices(VTXSTORETYPE_CHRVTX, model);
-	propDeregisterRooms(prop);
+	wallhit_fade_splats_for_removed_chr(prop);
+	ps_stop_sound(prop, PSTYPE_GENERAL, 0xffff);
+	shieldhits_remove_by_prop(prop);
+	model_free_vertices(VTXSTORETYPE_CHRVTX, model);
+	prop_deregister_rooms(prop);
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
-		eyespyobj = objFindByTagId(0x26);
+		eyespyobj = obj_find_by_tag_id(0x26);
 	}
 
 	child = prop->child;
@@ -1399,26 +1399,26 @@ void chrRemove(struct prop *prop, bool free)
 		if ((obj->hidden & OBJHFLAG_HASTEXTOVERRIDE) == 0
 				&& obj != eyespyobj
 				&& (prop->type != PROPTYPE_PLAYER || (obj->flags3 & OBJFLAG3_PLAYERUNDROPPABLE) == 0)) {
-			objDetach(child);
-			objFreePermanently(obj, true);
+			obj_detach(child);
+			obj_free_permanently(obj, true);
 		}
 
 		child = next;
 	}
 
-	modelmgrFreeModel(model);
+	modelmgr_free_model(model);
 	chr->model = NULL;
 
 	if (free) {
-		chrDeregister(chr->chrnum);
+		chr_deregister(chr->chrnum);
 
 		if (chr->cover != -1) {
-			coverSetInUse(chr->cover, false);
+			cover_set_in_use(chr->cover, false);
 			chr->cover = -1;
 		}
 
-		chrClearReferences(prop - g_Vars.props);
-		projectilesUnrefOwner(prop);
+		chr_clear_references(prop - g_Vars.props);
+		projectiles_unref_owner(prop);
 
 		if (g_Vars.normmplayerisrunning == false && g_MissionConfig.iscoop) {
 			s32 i;
@@ -1432,12 +1432,12 @@ void chrRemove(struct prop *prop, bool free)
 
 		chr->chrnum = -1;
 
-		rebuildTeams();
-		rebuildSquadrons();
+		rebuild_teams();
+		rebuild_squadrons();
 	}
 }
 
-void chrClearReferences(s32 propnum)
+void chr_clear_references(s32 propnum)
 {
 	s32 i;
 	s32 j;
@@ -1445,7 +1445,7 @@ void chrClearReferences(s32 propnum)
 
 	for (i = 0; i < g_NumChrSlots; i++) {
 		if (g_ChrSlots[i].target == propnum) {
-			if (propGetIndexByChrId(&g_ChrSlots[i], g_ChrSlots[i].chrpreset1) == propnum) {
+			if (prop_get_index_by_chr_id(&g_ChrSlots[i], g_ChrSlots[i].chrpreset1) == propnum) {
 				g_ChrSlots[i].chrpreset1 = -1;
 			}
 
@@ -1474,7 +1474,7 @@ void chr0f0211a8(f32 arg0)
 
 	for (i = 0; i < g_NumChrSlots; i++) {
 		if (g_ChrSlots[i].model) {
-			modelSetAnimPlaySpeed(g_ChrSlots[i].model, PALUPF(var80062968), 600);
+			model_set_anim_play_speed(g_ChrSlots[i].model, PALUPF(var80062968), 600);
 		}
 	}
 }
@@ -1484,7 +1484,7 @@ f32 chr0f02124c(void)
 	return var80062968;
 }
 
-void chrUpdateAimProperties(struct chrdata *chr)
+void chr_update_aim_properties(struct chrdata *chr)
 {
 	if (chr->aimendcount >= 2) {
 		f32 mult = g_Vars.lvupdate60f / chr->aimendcount;
@@ -1507,7 +1507,7 @@ void chrUpdateAimProperties(struct chrdata *chr)
 	}
 }
 
-void chrFlinchBody(struct chrdata *chr)
+void chr_flinch_body(struct chrdata *chr)
 {
 	if (chr->actiontype != ACT_DEAD && chr->flinchcnt < 0) {
 		chr->flinchcnt = 1;
@@ -1516,7 +1516,7 @@ void chrFlinchBody(struct chrdata *chr)
 	}
 }
 
-void chrFlinchHead(struct chrdata *chr, f32 arg1)
+void chr_flinch_head(struct chrdata *chr, f32 arg1)
 {
 	s32 value;
 
@@ -1541,7 +1541,7 @@ void chrFlinchHead(struct chrdata *chr, f32 arg1)
 	chr->hidden2 |= value << 13;
 }
 
-f32 chrGetFlinchAmount(struct chrdata *chr)
+f32 chr_get_flinch_amount(struct chrdata *chr)
 {
 	f32 value = chr->flinchcnt;
 
@@ -1577,7 +1577,7 @@ f32 chrGetFlinchAmount(struct chrdata *chr)
  * - Body flinching when shot
  * - Chrs aiming up, down, left and right
  */
-void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
+void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 {
 	f32 scale = 1.0f;
 	s32 lshoulderjoint;
@@ -1599,7 +1599,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 
 	if (g_CurModelChr->model->definition->skel == &g_SkelRobot) {
 		// Handle Chicago robot guns
-		theta = chrGetInverseTheta(g_CurModelChr);
+		theta = chr_get_inverse_theta(g_CurModelChr);
 
 		if (joint == 1) {
 			gunrotx = g_CurModelChr->gunrotx[0];
@@ -1611,7 +1611,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			return;
 		}
 
-		mtx00015be0(camGetProjectionMtxF(), mtx);
+		mtx00015be0(cam_get_projection_mtxf(), mtx);
 
 		sp138.x = mtx->m[3][0];
 		sp138.y = mtx->m[3][1];
@@ -1635,9 +1635,9 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			gunrot -= M_BADTAU;
 		}
 
-		mtx4LoadYRotation(gunrot, &spb8);
+		mtx4_load_y_rotation(gunrot, &spb8);
 		mtx00015be0(&spb8, mtx);
-		mtx4LoadXRotation(gunrotx, &spf8);
+		mtx4_load_x_rotation(gunrotx, &spf8);
 		mtx00015be0(&spf8, mtx);
 
 		gunrot = gunroty + theta;
@@ -1646,7 +1646,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			gunrot -= M_BADTAU;
 		}
 
-		mtx4LoadYRotation(gunrot, &spb8);
+		mtx4_load_y_rotation(gunrot, &spb8);
 		mtx00015be0(&spb8, mtx);
 
 		if (scale != 1.0f) {
@@ -1657,7 +1657,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 		mtx->m[3][1] = sp138.y;
 		mtx->m[3][2] = sp138.z;
 
-		mtx00015be0(camGetWorldToScreenMtxf(), mtx);
+		mtx00015be0(cam_get_world_to_screen_mtxf(), mtx);
 	} else {
 		if (g_CurModelChr->model->definition->skel == &g_SkelChr) {
 			lshoulderjoint = 2;
@@ -1676,7 +1676,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 			neckjoint = -1;
 		}
 
-		if (cheatIsActive(CHEAT_DKMODE) && CHRRACE(g_CurModelChr) == RACE_HUMAN) {
+		if (cheat_is_active(CHEAT_DKMODE) && CHRRACE(g_CurModelChr) == RACE_HUMAN) {
 			if (joint == neckjoint) {
 				scale = 4.0f;
 			} else if (joint == lshoulderjoint || joint == rshoulderjoint) {
@@ -1714,7 +1714,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				if (g_CurModelChr->aibot) {
 					yrot += g_CurModelChr->aibot->angleoffset;
 				} else if (g_CurModelChr->prop->type == PROPTYPE_PLAYER) {
-					yrot += g_Vars.players[playermgrGetPlayerNumByProp(g_CurModelChr->prop)]->angleoffset;
+					yrot += g_Vars.players[playermgr_get_player_num_by_prop(g_CurModelChr->prop)]->angleoffset;
 				}
 			} else if (joint == neckjoint) {
 				// Head up/down
@@ -1749,7 +1749,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 
 				if (g_CurModelChr->hidden2 & CHRH2FLAG_HEADSHOTTED) {
 					if (joint == neckjoint) {
-						f32 flinchamount = chrGetFlinchAmount(g_CurModelChr);
+						f32 flinchamount = chr_get_flinch_amount(g_CurModelChr);
 						s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
 						f32 mult = isskedar ? 25.0f : 60.0f;
 
@@ -1771,7 +1771,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 					}
 				} else if (joint == rshoulderjoint || joint == lshoulderjoint) {
 					s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
-					f32 flinchamount = chrGetFlinchAmount(g_CurModelChr) * RAD(15, 0.26175770163536f);
+					f32 flinchamount = chr_get_flinch_amount(g_CurModelChr) * RAD(15, 0.26175770163536f);
 
 					xrot -= flinchamount;
 
@@ -1784,7 +1784,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 					f32 flinchamount;
 					s32 flinchtype;
 
-					flinchamount = chrGetFlinchAmount(g_CurModelChr);
+					flinchamount = chr_get_flinch_amount(g_CurModelChr);
 					flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
 
 					xrot += flinchamount * RAD(15, 0.26175770163536f);
@@ -1808,7 +1808,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				f32 aimangle;
 				Mtxf tmpmtx;
 
-				aimangle = chrGetAimAngle(g_CurModelChr);
+				aimangle = chr_get_aim_angle(g_CurModelChr);
 
 				if (xrot < 0.0f) {
 					xrot = -xrot;
@@ -1820,7 +1820,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 					yrot += M_BADTAU;
 				}
 
-				mtx00015be0(camGetProjectionMtxF(), mtx);
+				mtx00015be0(cam_get_projection_mtxf(), mtx);
 
 				sp70.x = mtx->m[3][0];
 				sp70.y = mtx->m[3][1];
@@ -1837,23 +1837,23 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 						yrot += M_BADTAU;
 					}
 
-					mtx4LoadYRotation(yrot, &tmpmtx);
+					mtx4_load_y_rotation(yrot, &tmpmtx);
 					mtx00015be0(&tmpmtx, mtx);
 
 					if (xrot != 0.0f) {
-						mtx4LoadXRotation(xrot, &tmpmtx);
+						mtx4_load_x_rotation(xrot, &tmpmtx);
 						mtx00015be0(&tmpmtx, mtx);
 					}
 
 					if (zrot != 0.0f) {
-						mtx4LoadZRotation(zrot, &tmpmtx);
+						mtx4_load_z_rotation(zrot, &tmpmtx);
 						mtx00015be0(&tmpmtx, mtx);
 					}
 
-					mtx4LoadYRotation(aimangle, &tmpmtx);
+					mtx4_load_y_rotation(aimangle, &tmpmtx);
 					mtx00015be0(&tmpmtx, mtx);
 				} else {
-					mtx4LoadYRotation(yrot, &tmpmtx);
+					mtx4_load_y_rotation(yrot, &tmpmtx);
 					mtx00015be0(&tmpmtx, mtx);
 				}
 
@@ -1865,7 +1865,7 @@ void chrHandleJointPositioned(s32 joint, Mtxf *mtx)
 				mtx->m[3][1] = sp70.y;
 				mtx->m[3][2] = sp70.z;
 
-				mtx00015be0(camGetWorldToScreenMtxf(), mtx);
+				mtx00015be0(cam_get_world_to_screen_mtxf(), mtx);
 			}
 		}
 	}
@@ -1884,7 +1884,7 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 			chr->race == RACE_EYESPY
 #endif
 			) {
-		struct eyespy *eyespy = chrToEyespy(chr);
+		struct eyespy *eyespy = chr_to_eyespy(chr);
 
 		if (eyespy) {
 			height = eyespy->height + 30.0f;
@@ -1901,7 +1901,7 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 	upper.y = pos->y + height;
 	upper.z = pos->z + 50.0f;
 
-	bgFindEnteredRooms(&lower, &upper, rooms, 7, true);
+	bg_find_entered_rooms(&lower, &upper, rooms, 7, true);
 }
 
 void chr0f022084(struct chrdata *chr, RoomNum *room)
@@ -1911,9 +1911,9 @@ void chr0f022084(struct chrdata *chr, RoomNum *room)
 
 void chr0f0220ac(struct chrdata *chr)
 {
-	propDeregisterRooms(chr->prop);
+	prop_deregister_rooms(chr->prop);
 	chr0f022084(chr, chr->prop->rooms);
-	propRegisterRooms(chr->prop);
+	prop_register_rooms(chr->prop);
 }
 
 void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2)
@@ -1937,12 +1937,12 @@ void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2)
 		chr->chrflags &= ~CHRCFLAG_DELAYANIM;
 	} else if (arg2) {
 		if ((chr->hidden & CHRHFLAG_00000800) == 0) {
-			modelGetRootPosition(model, &chr->prevpos);
-			modelTickAnimQuarterSpeed(model, lvupdate240, true);
-			modelUpdateInfo(model);
+			model_get_root_position(model, &chr->prevpos);
+			model_tick_anim_quarter_speed(model, lvupdate240, true);
+			model_update_info(model);
 		}
 	} else {
-		modelTickAnimQuarterSpeed(model, lvupdate240, false);
+		model_tick_anim_quarter_speed(model, lvupdate240, false);
 	}
 }
 
@@ -1954,14 +1954,14 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 	struct prop *next;
 
 	if (obj->hidden & OBJHFLAG_DELETING) {
-		objFree(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
+		obj_free(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		return;
 	}
 
 	if (model->attachedtomodel && model->attachedtonode
 			&& (obj->hidden & OBJHFLAG_GONE) == 0
 			&& (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
-		Mtxf *sp104 = modelFindNodeMtx(model->attachedtomodel, model->attachedtonode, 0);
+		Mtxf *sp104 = model_find_node_mtx(model->attachedtomodel, model->attachedtonode, 0);
 		struct modelrenderdata thing = {NULL, 1, 3};
 		u32 stack;
 		Mtxf sp80;
@@ -1974,22 +1974,22 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 			thing.unk00 = &sp80;
 		} else if (CHRRACE(chr) == RACE_SKEDAR) {
 			// The skedar hand position is rotated weirdly, so compensate for it
-			mtx4LoadYRotation(RAD(76, 1.3192588090897f), &sp80);
-			mtx4LoadZRotation(RAD(90, 1.5705462694168f), &sp40);
-			mtx4MultMtx4InPlace(&sp40, &sp80);
-			mtx4MultMtx4InPlace(sp104, &sp80);
+			mtx4_load_y_rotation(RAD(76, 1.3192588090897f), &sp80);
+			mtx4_load_z_rotation(RAD(90, 1.5705462694168f), &sp40);
+			mtx4_mult_mtx4_in_place(&sp40, &sp80);
+			mtx4_mult_mtx4_in_place(sp104, &sp80);
 			thing.unk00 = &sp80;
 		} else if (prop == chr->weapons_held[HAND_LEFT]) {
 			// Flip the model
-			mtx4LoadZRotation(M_BADPI, &sp80);
-			mtx4MultMtx4InPlace(sp104, &sp80);
+			mtx4_load_z_rotation(M_BADPI, &sp80);
+			mtx4_mult_mtx4_in_place(sp104, &sp80);
 			thing.unk00 = &sp80;
 		} else {
 			thing.unk00 = sp104;
 		}
 
-		thing.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
-		modelSetMatrices(&thing, model);
+		thing.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
+		model_set_matrices(&thing, model);
 
 		func0f07063c(prop, fulltick);
 
@@ -2018,31 +2018,31 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 	}
 }
 
-void chrCloak(struct chrdata *chr, bool value)
+void chr_cloak(struct chrdata *chr, bool value)
 {
-	if (!chrIsDead(chr)) {
+	if (!chr_is_dead(chr)) {
 		chr->hidden |= CHRHFLAG_CLOAKED;
 
 		if (value) {
-			psCreate(0, chr->prop, SFX_CLOAK_ON, -1, -1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+			ps_create(0, chr->prop, SFX_CLOAK_ON, -1, -1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		}
 	}
 }
 
-void chrUncloak(struct chrdata *chr, bool value)
+void chr_uncloak(struct chrdata *chr, bool value)
 {
 	if (chr->hidden & CHRHFLAG_CLOAKED) {
 		chr->hidden &= ~CHRHFLAG_CLOAKED;
 
 		if (value) {
-			psCreate(0, chr->prop, SFX_CLOAK_OFF, -1, -1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+			ps_create(0, chr->prop, SFX_CLOAK_OFF, -1, -1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		}
 
 #if PIRACYCHECKS
 		{
 			u32 checksum = 0;
-			u32 *i = (u32 *)&botPickupProp;
-			u32 *end = (u32 *)&botTestPropForPickup;
+			u32 *i = (u32 *)&bot_pickup_prop;
+			u32 *end = (u32 *)&bot_test_prop_for_pickup;
 
 			while (i < end) {
 				checksum += ~*i;
@@ -2050,20 +2050,20 @@ void chrUncloak(struct chrdata *chr, bool value)
 			}
 
 			if (checksum != CHECKSUM_PLACEHOLDER) {
-				((u32 *)&cdReturnZero)[-2] = 0;
+				((u32 *)&cd_return_zero)[-2] = 0;
 			}
 		}
 #endif
 	}
 }
 
-void chrUncloakTemporarily(struct chrdata *chr)
+void chr_uncloak_temporarily(struct chrdata *chr)
 {
-	chrUncloak(chr, true);
+	chr_uncloak(chr, true);
 	chr->cloakpause = TICKS(120);
 }
 
-void chrUpdateCloak(struct chrdata *chr)
+void chr_update_cloak(struct chrdata *chr)
 {
 	s32 qty;
 	s32 ammotype;
@@ -2085,7 +2085,7 @@ void chrUpdateCloak(struct chrdata *chr)
 		if (chr->aibot->cloakdeviceenabled) {
 			qty = chr->aibot->ammoheld[AMMOTYPE_CLOAK];
 
-			if (qty > 0 && !chrIsDead(chr)) {
+			if (qty > 0 && !chr_is_dead(chr)) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
 					qty -= g_Vars.lvupdate60;
 
@@ -2100,8 +2100,8 @@ void chrUpdateCloak(struct chrdata *chr)
 			}
 		} else if (chr->aibot->rcp120cloakenabled) {
 			if (chr->aibot->weaponnum == WEAPON_RCP120
-					&& !chrIsDead(chr)
-					&& botactGetAmmoQuantityByWeapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
+					&& !chr_is_dead(chr)
+					&& botact_get_ammo_quantity_by_weapon(chr->aibot, WEAPON_RCP120, 0, 1) > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
 					chr->aibot->rcpcloaktimer60 += LVUPDATE60FREAL() * 0.4f;
 
@@ -2116,7 +2116,7 @@ void chrUpdateCloak(struct chrdata *chr)
 								chr->aibot->loadedammo[0] = 0;
 							}
 						} else {
-							ammotype = botactGetAmmoTypeByFunction(WEAPON_RCP120, 0);
+							ammotype = botact_get_ammo_type_by_function(WEAPON_RCP120, 0);
 
 							if (chr->aibot->ammoheld[ammotype] > 0) {
 								chr->aibot->ammoheld[ammotype] -= qty;
@@ -2136,19 +2136,19 @@ void chrUpdateCloak(struct chrdata *chr)
 		if (chr->aibot->cloakdeviceenabled || chr->aibot->rcp120cloakenabled) {
 			if ((chr->hidden & CHRHFLAG_CLOAKED) == 0) {
 				if (chr->cloakpause < 1) {
-					chrCloak(chr, true);
+					chr_cloak(chr, true);
 				}
 			}
 		} else if (chr->hidden & CHRHFLAG_CLOAKED) {
-			chrUncloak(chr, true);
+			chr_uncloak(chr, true);
 		}
 	} else if (chr->prop->type == PROPTYPE_PLAYER) {
 		prevplayernum = g_Vars.currentplayernum;
-		setCurrentPlayerNum(playermgrGetPlayerNumByProp(chr->prop));
+		set_current_player_num(playermgr_get_player_num_by_prop(chr->prop));
 
 		if (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE) {
 			// Cloak is active - but may or may not be in effect due to recent shooting
-			s32 qty = bgunGetReservedAmmoCount(AMMOTYPE_CLOAK);
+			s32 qty = bgun_get_reserved_ammo_count(AMMOTYPE_CLOAK);
 
 			if (qty > 0) {
 				if (chr->hidden & CHRHFLAG_CLOAKED) {
@@ -2159,7 +2159,7 @@ void chrUpdateCloak(struct chrdata *chr)
 						qty = 0;
 					}
 
-					bgunSetAmmoQuantity(AMMOTYPE_CLOAK, qty);
+					bgun_set_ammo_quantity(AMMOTYPE_CLOAK, qty);
 				}
 			} else {
 				// Out of cloak ammo - turn off cloak
@@ -2172,16 +2172,16 @@ void chrUpdateCloak(struct chrdata *chr)
 				|| (g_Vars.currentplayer->gunctrl.weaponnum == WEAPON_RCP120
 					&& (g_Vars.currentplayer->devicesactive & DEVICE_CLOAKRCP120))) {
 			if ((chr->hidden & CHRHFLAG_CLOAKED) == 0 && chr->cloakpause < 1) {
-				chrCloak(chr, true);
+				chr_cloak(chr, true);
 			}
 		} else {
 			if ((g_Vars.currentplayer->devicesactive & DEVICE_CLOAKDEVICE) == false
 					&& (chr->hidden & CHRHFLAG_CLOAKED)) {
-				chrUncloak(chr, true);
+				chr_uncloak(chr, true);
 			}
 		}
 
-		setCurrentPlayerNum(prevplayernum);
+		set_current_player_num(prevplayernum);
 	}
 
 	// Update cloakfade
@@ -2219,7 +2219,7 @@ void chrUpdateCloak(struct chrdata *chr)
 	}
 }
 
-s32 chrGetCloakAlpha(struct chrdata *chr)
+s32 chr_get_cloak_alpha(struct chrdata *chr)
 {
 	s32 alpha = 255;
 
@@ -2239,13 +2239,13 @@ s32 chrGetCloakAlpha(struct chrdata *chr)
 	return alpha;
 }
 
-void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop)
+void chr_set_poisoned(struct chrdata *chr, struct prop *poisonprop)
 {
 	if (chr->actiontype != ACT_DEAD
 			&& chr->actiontype != ACT_DIE
 			&& chr->prop->type == PROPTYPE_PLAYER) {
 		// This was probably used in a debug print
-		playermgrGetPlayerNumByProp(chr->prop);
+		playermgr_get_player_num_by_prop(chr->prop);
 	}
 
 	if (g_Vars.normmplayerisrunning) {
@@ -2257,7 +2257,7 @@ void chrSetPoisoned(struct chrdata *chr, struct prop *poisonprop)
 	}
 }
 
-void chrTickPoisoned(struct chrdata *chr)
+void chr_tick_poisoned(struct chrdata *chr)
 {
 	if (chr->poisoncounter > 0) {
 		struct coord coord = {0, 0, 0};
@@ -2278,7 +2278,7 @@ void chrTickPoisoned(struct chrdata *chr)
 				}
 			}
 		} else if (chr->prop->type == PROPTYPE_PLAYER
-				&& g_Vars.players[playermgrGetPlayerNumByProp(chr->prop)]->bondhealth < 0.001f) {
+				&& g_Vars.players[playermgr_get_player_num_by_prop(chr->prop)]->bondhealth < 0.001f) {
 			// Player who's alive but on almost zero health
 			if (g_Vars.normmplayerisrunning) {
 				if (chr->poisoncounter > TICKS(3600)) {
@@ -2295,8 +2295,8 @@ void chrTickPoisoned(struct chrdata *chr)
 
 			if (chr->poisoncounter <= 0) {
 				if (!g_Vars.normmplayerisrunning) {
-					chrDamageByMisc(chr, 100, &coord, &gset, chr->poisonprop);
-					chrFlinchHead(chr, M_PI);
+					chr_damage_by_misc(chr, 100, &coord, &gset, chr->poisonprop);
+					chr_flinch_head(chr, M_PI);
 				}
 
 				chr->poisoncounter = 0;
@@ -2306,7 +2306,7 @@ void chrTickPoisoned(struct chrdata *chr)
 
 			if (g_Vars.normmplayerisrunning) {
 				if (chr->poisoncounter / TICKS(720) != (chr->poisoncounter + g_Vars.lvupdate240) / TICKS(720)) {
-					chrDamageByMisc(chr, 1.3f, &coord, &gset, chr->poisonprop);
+					chr_damage_by_misc(chr, 1.3f, &coord, &gset, chr->poisonprop);
 				}
 			}
 		}
@@ -2319,16 +2319,16 @@ u32 var800629f0 = 0x00000000;
 u32 var800629f4 = 0x00000000;
 u32 var800629f8 = 0x00000000;
 
-bool chrTickBeams(struct prop *prop)
+bool chr_tick_beams(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;
 
 	if (chr->fireslots[0] >= 0) {
-		beamTick(&g_Fireslots[chr->fireslots[0]].beam);
+		beam_tick(&g_Fireslots[chr->fireslots[0]].beam);
 	}
 
 	if (chr->fireslots[1] >= 0) {
-		beamTick(&g_Fireslots[chr->fireslots[1]].beam);
+		beam_tick(&g_Fireslots[chr->fireslots[1]].beam);
 	}
 
 	if (chr->aibot && chr->aibot->fadeintimer60 > 0) {
@@ -2350,7 +2350,7 @@ bool chrTickBeams(struct prop *prop)
  * much of the logic is skipped, and only the logic specific to the current
  * player is executed.
  */
-s32 chrTick(struct prop *prop)
+s32 chr_tick(struct prop *prop)
 {
 	struct modelrenderdata sp210 = {0, 1, 3};
 	struct chrdata *chr = prop->chr;
@@ -2419,18 +2419,18 @@ s32 chrTick(struct prop *prop)
 			}
 		}
 
-		chrUpdateCloak(chr);
-		chrTickPoisoned(chr);
+		chr_update_cloak(chr);
+		chr_tick_poisoned(chr);
 
 		if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 || (chr->chrflags & CHRCFLAG_NEVERSLEEP)) {
 			if (var8006296c) {
-				if (animHasFrames(g_SelectedAnimNum)) {
-					if (modelGetAnimNum(model) != g_SelectedAnimNum || !animHasFrames(modelGetAnimNum(model))) {
-						modelSetAnimation(model, g_SelectedAnimNum, 0, 0.0f, 0.5f, 0.0f);
+				if (anim_has_frames(g_SelectedAnimNum)) {
+					if (model_get_anim_num(model) != g_SelectedAnimNum || !anim_has_frames(model_get_anim_num(model))) {
+						model_set_animation(model, g_SelectedAnimNum, 0, 0.0f, 0.5f, 0.0f);
 					}
 				}
 			} else {
-				chraTick(chr);
+				chra_tick(chr);
 
 				if (chr->model == NULL) {
 					return TICKOP_FREE;
@@ -2448,22 +2448,22 @@ s32 chrTick(struct prop *prop)
 
 		if (chr->hidden & CHRHFLAG_DELETING) {
 			if (chr->hidden & CHRHFLAG_DROPPINGITEM) {
-				objDropRecursively(prop, true);
+				obj_drop_recursively(prop, true);
 			}
 
-			chrRemove(prop, true);
+			chr_remove(prop, true);
 			return TICKOP_FREE;
 		}
 	}
 
 	if (race == RACE_EYESPY) {
-		struct eyespy *eyespy = chrToEyespy(chr);
+		struct eyespy *eyespy = chr_to_eyespy(chr);
 
 		if (eyespy && eyespy->deployed) {
 			if (eyespy == g_Vars.currentplayer->eyespy && eyespy->active) {
 				needsupdate = false;
 			} else {
-				needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+				needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 			}
 
 			if (fulltick) {
@@ -2476,7 +2476,7 @@ s32 chrTick(struct prop *prop)
 		needsupdate = false;
 	} else if ((chr->chrflags & CHRCFLAG_UNPLAYABLE)
 			|| (prop->type == PROPTYPE_PLAYER
-				&& g_Vars.currentplayer == (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)])
+				&& g_Vars.currentplayer == (player = g_Vars.players[playermgr_get_player_num_by_prop(prop)])
 				&& player->cameramode == CAMERAMODE_THIRDPERSON
 				&& player->visionmode != VISIONMODE_SLAYERROCKET)) {
 		// Cutscene chr?
@@ -2493,34 +2493,34 @@ s32 chrTick(struct prop *prop)
 		}
 
 		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREPEATFRAMES)) {
-			animLoadHeader(chr->model->anim->animnum);
+			anim_load_header(chr->model->anim->animnum);
 
-			isrepeatframe = animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->framea) < 0
-				|| (animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->frameb) < 0
+			isrepeatframe = anim_get_remapped_frame(chr->model->anim->animnum, chr->model->anim->framea) < 0
+				|| (anim_get_remapped_frame(chr->model->anim->animnum, chr->model->anim->frameb) < 0
 						&& chr->model->anim->frac != 0.0f);
 		}
 
 		if (isrepeatframe) {
 			needsupdate = false;
 		} else {
-			needsupdate = posIsInDrawDistance(&prop->pos);
+			needsupdate = pos_is_in_draw_distance(&prop->pos);
 		}
 	} else if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
 		if ((chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_MAGIC)
 				|| (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_MAGIC)) {
-			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 
 			if (needsupdate) {
 				model->anim->average = false;
-				modelGetRootPosition(model, &chr->prevpos);
-				modelUpdateInfo(model);
+				model_get_root_position(model, &chr->prevpos);
+				model_update_info(model);
 			}
 		} else {
 			if (fulltick) {
 				chr0f0220ec(chr, lvupdate240, true);
 			}
 
-			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 
 			if (needsupdate) {
 				if (chr->actiontype == ACT_PATROL) {
@@ -2534,7 +2534,7 @@ s32 chrTick(struct prop *prop)
 				&& !((prop->flags & (PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) != 0);
 		}
 	} else if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis) {
-		needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+		needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 
 		if (fulltick) {
 			model->anim->average = false;
@@ -2550,9 +2550,9 @@ s32 chrTick(struct prop *prop)
 
 		if (chr->chrflags & CHRCFLAG_FORCETOGROUND) {
 			chr0f0220ec(chr, lvupdate240, true);
-			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 		} else {
-			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 
 			if (g_Vars.mplayerisrunning) {
 				if (fulltick) {
@@ -2577,14 +2577,14 @@ s32 chrTick(struct prop *prop)
 			}
 		}
 	} else if (chr->actiontype == ACT_DEAD) {
-		needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+		needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 	} else if (prop->type == PROPTYPE_PLAYER
 			&& (g_Vars.mplayerisrunning
-				|| (player = g_Vars.players[playermgrGetPlayerNumByProp(prop)], player->cameramode == CAMERAMODE_EYESPY)
+				|| (player = g_Vars.players[playermgr_get_player_num_by_prop(prop)], player->cameramode == CAMERAMODE_EYESPY)
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		model->anim->average = false;
 		chr0f0220ec(chr, lvupdate240, true);
-		needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+		needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 	} else {
 		isrepeatframe2 = false;
 
@@ -2594,17 +2594,17 @@ s32 chrTick(struct prop *prop)
 		}
 
 		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREPEATFRAMES)) {
-			animLoadHeader(chr->model->anim->animnum);
+			anim_load_header(chr->model->anim->animnum);
 
-			isrepeatframe2 = animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->framea) < 0
-				|| (animGetRemappedFrame(chr->model->anim->animnum, chr->model->anim->frameb) < 0
+			isrepeatframe2 = anim_get_remapped_frame(chr->model->anim->animnum, chr->model->anim->framea) < 0
+				|| (anim_get_remapped_frame(chr->model->anim->animnum, chr->model->anim->frameb) < 0
 						&& chr->model->anim->frac != 0.0f);
 		}
 
 		if (isrepeatframe2) {
 			needsupdate = false;
 		} else {
-			needsupdate = func0f08e8ac(prop, &prop->pos, modelGetEffectiveScale(model), true);
+			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 		}
 	}
 
@@ -2617,7 +2617,7 @@ s32 chrTick(struct prop *prop)
 #endif
 		}
 
-		chrUpdateAimProperties(chr);
+		chr_update_aim_properties(chr);
 	}
 
 	if (prop->pos.y < -65536) {
@@ -2632,7 +2632,7 @@ s32 chrTick(struct prop *prop)
 
 			if (var8009cdac > 10) {
 				needsupdate = false;
-				chrDropItemsForOwnerReap(chr);
+				chr_drop_items_for_owner_reap(chr);
 				chr->hidden |= CHRHFLAG_DELETING;
 			}
 		} else {
@@ -2657,30 +2657,30 @@ s32 chrTick(struct prop *prop)
 			chr->hidden |= CHRHFLAG_ONBONDSSCREEN;
 		}
 
-		if (cheatIsActive(CHEAT_DKMODE)) {
-			modelSetDistanceScale(0.3125f);
+		if (cheat_is_active(CHEAT_DKMODE)) {
+			model_set_distance_scale(0.3125f);
 		}
 
-		g_ModelJointPositionedFunc = &chrHandleJointPositioned;
+		g_ModelJointPositionedFunc = &chr_handle_joint_positioned;
 		g_CurModelChr = chr;
 
 		if (CHRRACE(chr) == RACE_DRCAROLL && g_Vars.tickmode != TICKMODE_CUTSCENE) {
-			angle = chrGetInverseTheta(chr);
+			angle = chr_get_inverse_theta(chr);
 
 			sp190.x = sinf(angle) * 19;
 			sp190.y = 0.0f;
 			sp190.z = cosf(angle) * 19;
 
-			mtx4LoadTranslation(&sp190, &sp1a8);
-			mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
+			mtx4_load_translation(&sp190, &sp1a8);
+			mtx4_mult_mtx4_in_place(cam_get_world_to_screen_mtxf(), &sp1a8);
 			sp210.unk00 = &sp1a8;
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			u8 stack[0x14];
 			f32 sp130;
-			player = g_Vars.players[playermgrGetPlayerNumByProp(prop)];
+			player = g_Vars.players[playermgr_get_player_num_by_prop(prop)];
 
 			if (player->bondmovemode == MOVEMODE_BIKE) {
-				sp178 = chrGetInverseTheta(chr);
+				sp178 = chr_get_inverse_theta(chr);
 				bike = (struct hoverbikeobj *)player->hoverbike->obj;
 				sp130 = bike->w * 1000;
 
@@ -2688,17 +2688,17 @@ s32 chrTick(struct prop *prop)
 				sp17c.y = ABS(bike->w) * 200 + 25;
 				sp17c.z = sinf(-sp178) * sp130;
 
-				mtx4LoadTranslation(&sp17c, &sp1a8);
-				mtx4MultMtx4InPlace(camGetWorldToScreenMtxf(), &sp1a8);
+				mtx4_load_translation(&sp17c, &sp1a8);
+				mtx4_mult_mtx4_in_place(cam_get_world_to_screen_mtxf(), &sp1a8);
 				sp210.unk00 = &sp1a8;
 			} else {
-				sp210.unk00 = camGetWorldToScreenMtxf();
+				sp210.unk00 = cam_get_world_to_screen_mtxf();
 			}
 		} else {
-			sp210.unk00 = camGetWorldToScreenMtxf();
+			sp210.unk00 = cam_get_world_to_screen_mtxf();
 		}
 
-		sp210.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
+		sp210.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
 
 		if (fulltick && g_CurModelChr->flinchcnt >= 0) {
 			g_CurModelChr->flinchcnt += g_Vars.lvupdate60;
@@ -2715,7 +2715,7 @@ s32 chrTick(struct prop *prop)
 			f32 xdiff;
 			f32 ydiff;
 			f32 zdiff;
-			f32 sp114 = camGetLodScaleZ();
+			f32 sp114 = cam_get_lod_scale_z();
 			bool restore = false;
 			f32 prevfrac;
 			s32 prevframea;
@@ -2729,7 +2729,7 @@ s32 chrTick(struct prop *prop)
 					limit = 700 * 700;
 				}
 			} else {
-				if (debugGetSlowMotion() != SLOWMOTION_OFF) {
+				if (debug_get_slow_motion() != SLOWMOTION_OFF) {
 					limit = 2000 * 2000;
 				} else {
 					limit = 700 * 700;
@@ -2768,7 +2768,7 @@ s32 chrTick(struct prop *prop)
 				}
 			}
 
-			modelSetMatricesWithAnim(&sp210, model);
+			model_set_matrices_with_anim(&sp210, model);
 
 			if (restore) {
 				anim->frac = prevfrac;
@@ -2778,13 +2778,13 @@ s32 chrTick(struct prop *prop)
 			}
 
 			g_ModelJointPositionedFunc = NULL;
-			modelSetDistanceScale(var800629e8);
+			model_set_distance_scale(var800629e8);
 
 			if (fulltick) {
-				colourTween(chr->shadecol, chr->nextcol);
+				colour_tween(chr->shadecol, chr->nextcol);
 			}
 
-			prop->z = modelGetScreenDistance(model);
+			prop->z = model_get_screen_distance(model);
 			child = prop->child;
 
 			while (child) {
@@ -2805,7 +2805,7 @@ s32 chrTick(struct prop *prop)
 					f32 spdc;
 					Mtxf sp9c;
 					Mtxf sp5c;
-					s32 hattype = hatGetType(chr->weapons_held[2]);
+					s32 hattype = hat_get_type(chr->weapons_held[2]);
 					u8 stack[0x0c];
 
 					index = chr->headnum - HEAD_SHAUN;
@@ -2818,12 +2818,12 @@ s32 chrTick(struct prop *prop)
 					spe0 = var8007dae4[index][hattype].unk10;
 					spdc = var8007dae4[index][hattype].unk14;
 
-					mtx4LoadTranslation(&hatpos, &sp9c);
+					mtx4_load_translation(&hatpos, &sp9c);
 					mtx00015e24(spe4, &sp9c);
 					mtx00015e80(spe0, &sp9c);
 					mtx00015edc(spdc, &sp9c);
 					mtx00015be4(hatmodel->matrices, &sp9c, &sp5c);
-					mtx4Copy(&sp5c, hatmodel->matrices);
+					mtx4_copy(&sp5c, hatmodel->matrices);
 
 					if (hattype == HATTYPE_2) {
 						hatvisible = false;
@@ -2832,16 +2832,16 @@ s32 chrTick(struct prop *prop)
 			}
 
 			if (model->definition->skel == &g_SkelChr) {
-				struct modelnode *headspotnode = modelGetPart(model->definition, MODELPART_CHR_HEADSPOT);
+				struct modelnode *headspotnode = model_get_part(model->definition, MODELPART_CHR_HEADSPOT);
 
 				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
-					union modelrwdata *rwdata = modelGetNodeRwData(model, headspotnode);
+					union modelrwdata *rwdata = model_get_node_rw_data(model, headspotnode);
 
 					if (rwdata->headspot.headmodeldef != NULL) {
-						struct modelnode *hatnode = modelGetPart(rwdata->headspot.headmodeldef, MODELPART_HEAD_HAT);
+						struct modelnode *hatnode = model_get_part(rwdata->headspot.headmodeldef, MODELPART_HEAD_HAT);
 
 						if (hatnode != NULL) {
-							union modelrwdata *hatrwdata = modelGetNodeRwData(model, hatnode);
+							union modelrwdata *hatrwdata = model_get_node_rw_data(model, hatnode);
 							hatrwdata->toggle.visible = hatvisible;
 						}
 					}
@@ -2872,7 +2872,7 @@ s32 chrTick(struct prop *prop)
 
 	if (fulltick && (chr->chrflags & CHRCFLAG_HIDDEN) == 0) {
 		if (chr->hidden & CHRHFLAG_DROPPINGITEM) {
-			objDropRecursively(prop, false);
+			obj_drop_recursively(prop, false);
 			chr->hidden &= ~CHRHFLAG_DROPPINGITEM;
 		}
 
@@ -2882,7 +2882,7 @@ s32 chrTick(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-void chrDropConcealedItems(struct chrdata *chr)
+void chr_drop_concealed_items(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop->child;
 
@@ -2892,7 +2892,7 @@ void chrDropConcealedItems(struct chrdata *chr)
 				&& prop != chr->weapons_held[0]
 				&& (prop->obj->hidden & OBJHFLAG_EMBEDDED) == 0
 				&& (prop->obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-			objSetDropped(prop, DROPTYPE_DEFAULT);
+			obj_set_dropped(prop, DROPTYPE_DEFAULT);
 		}
 
 		prop = prop->next;
@@ -2901,21 +2901,21 @@ void chrDropConcealedItems(struct chrdata *chr)
 	chr->hidden |= CHRHFLAG_DROPPINGITEM;
 }
 
-void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
+void chr_set_hudpiece_visible(struct chrdata *chr, bool visible)
 {
 	struct modeldef *modeldef = chr->model->definition;
 
 	if (modeldef->skel == &g_SkelChr) {
-		struct modelnode *headspotnode = modelGetPart(modeldef, MODELPART_CHR_HEADSPOT);
+		struct modelnode *headspotnode = model_get_part(modeldef, MODELPART_CHR_HEADSPOT);
 
 		if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
-			union modelrwdata *rwdata = modelGetNodeRwData(chr->model, headspotnode);
+			union modelrwdata *rwdata = model_get_node_rw_data(chr->model, headspotnode);
 
 			if (rwdata->headspot.headmodeldef) {
-				struct modelnode *hudpiecenode = modelGetPart(rwdata->headspot.headmodeldef, MODELPART_HEAD_HUDPIECE);
+				struct modelnode *hudpiecenode = model_get_part(rwdata->headspot.headmodeldef, MODELPART_HEAD_HUDPIECE);
 
 				if (hudpiecenode) {
-					union modelrwdata *rwdata2 = modelGetNodeRwData(chr->model, hudpiecenode);
+					union modelrwdata *rwdata2 = model_get_node_rw_data(chr->model, hudpiecenode);
 					rwdata2->toggle.visible = visible;
 				}
 			}
@@ -2923,7 +2923,7 @@ void chrSetHudpieceVisible(struct chrdata *chr, bool visible)
 	}
 }
 
-void chrDropItemsForOwnerReap(struct chrdata *chr)
+void chr_drop_items_for_owner_reap(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop->child;
 
@@ -2933,7 +2933,7 @@ void chrDropItemsForOwnerReap(struct chrdata *chr)
 			struct defaultobj *obj = prop->obj;
 
 			if ((obj->flags & OBJFLAG_AIUNDROPPABLE) == 0) {
-				objSetDropped(prop, DROPTYPE_OWNERREAP);
+				obj_set_dropped(prop, DROPTYPE_OWNERREAP);
 			}
 		}
 
@@ -2977,7 +2977,7 @@ bool chr0f024738(struct chrdata *chr)
 		var80062960[i].unk004 = 0;
 	}
 
-	roomGetProps(chr->prop->rooms, propnums, 256);
+	room_get_props(chr->prop->rooms, propnums, 256);
 	propnumptr = propnums;
 
 	while (*propnumptr >= 0) {
@@ -3020,11 +3020,11 @@ bool chr0f024738(struct chrdata *chr)
 					}
 
 					if (!thing->unk00c) {
-						struct modelrodata_bbox *bbox = objFindBboxRodata(obj);
+						struct modelrodata_bbox *bbox = obj_find_bbox_rodata(obj);
 						thing->bbox = *bbox;
 
-						mtx3ToMtx4(obj->realrot, &thing->unk02c);
-						mtx4SetTranslation(&obj->prop->pos, &thing->unk02c);
+						mtx3_to_mtx4(obj->realrot, &thing->unk02c);
+						mtx4_set_translation(&obj->prop->pos, &thing->unk02c);
 						mtx000172f0(thing->unk02c.m, thing->unk06c.m);
 
 						campos = &g_Vars.currentplayer->cam_pos;
@@ -3034,11 +3034,11 @@ bool chr0f024738(struct chrdata *chr)
 								+ thing->unk06c.m[1][2] * campos->f[1]
 								+ thing->unk06c.m[2][2] * campos->f[2]) + thing->unk06c.m[3][2];
 
-						mtx00015be4(&thing->unk06c, camGetProjectionMtxF(), &thing->unk0ac);
+						mtx00015be4(&thing->unk06c, cam_get_projection_mtxf(), &thing->unk0ac);
 						thing->unk00c = true;
 					}
 
-					modelGetRootPosition(chr->model, &pos);
+					model_get_root_position(chr->model, &pos);
 
 					thing->unk008 = (
 							thing->unk06c.m[0][2] * pos.f[0] +
@@ -3104,7 +3104,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 
 		if (bboxnode) {
 			bbox = &bboxnode->rodata->bbox;
-			mtx = modelFindNodeMtx(model, node, 0);
+			mtx = model_find_node_mtx(model, node, 0);
 
 			for (i = 0; i < var80062964; i++) {
 				if (var80062960[i].unk004) {
@@ -3142,12 +3142,12 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 							sp88.z = thing->bbox.zmin;
 						}
 
-						mtx00015be4(camGetWorldToScreenMtxf(), &thing->unk02c, &thing->unk0ec);
-						mtx4TransformVec(&thing->unk0ec, &spa0, &sp70);
+						mtx00015be4(cam_get_world_to_screen_mtxf(), &thing->unk02c, &thing->unk0ec);
+						mtx4_transform_vec(&thing->unk0ec, &spa0, &sp70);
 						cam0f0b4dec(&sp70, thing->unk134);
-						mtx4TransformVec(&thing->unk0ec, &sp94, &sp70);
+						mtx4_transform_vec(&thing->unk0ec, &sp94, &sp70);
 						cam0f0b4dec(&sp70, thing->unk13c);
-						mtx4TransformVec(&thing->unk0ec, &sp88, &sp70);
+						mtx4_transform_vec(&thing->unk0ec, &sp88, &sp70);
 						cam0f0b4dec(&sp70, thing->unk144);
 
 						thing->unk130 = 1;
@@ -3201,7 +3201,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 							break;
 						}
 
-						mtx4TransformVec(mtx, &sp64, &sp70);
+						mtx4_transform_vec(mtx, &sp64, &sp70);
 						cam0f0b4dec(&sp70, sp80);
 
 						value = thing->unk14c * sp80[0] + thing->unk150 * sp80[1] - thing->unk154;
@@ -3213,7 +3213,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 						}
 
 						if (!done) {
-							mtx4TransformVec(&spb4, &sp64, &sp70);
+							mtx4_transform_vec(&spb4, &sp64, &sp70);
 
 							if (sp70.x >= thing->bbox.xmin
 									&& sp70.x <= thing->bbox.xmax
@@ -3244,7 +3244,7 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
  * This function is recursive. The chr's gun can have mines placed on it, and
  * mines can also have further mines placed on them.
  */
-void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderdata, bool xlupass, struct chrdata *chr)
+void chr_render_attached_object(struct prop *prop, struct modelrenderdata *renderdata, bool xlupass, struct chrdata *chr)
 {
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		u32 stack;
@@ -3252,28 +3252,28 @@ void chrRenderAttachedObject(struct prop *prop, struct modelrenderdata *renderda
 		struct model *model = obj->model;
 		struct prop *child;
 
-		modelRender(renderdata, model);
+		model_render(renderdata, model);
 
 		// Note: OBJH2FLAG_HASOPA << 1 is OBJH2FLAG_HASXLU
 		// so this is just checking if the appropriate flag is enabled
 		if (obj->hidden2 & (OBJH2FLAG_HASOPA << xlupass)) {
-			renderdata->gdl = wallhitRenderPropHits(renderdata->gdl, prop, xlupass);
+			renderdata->gdl = wallhit_render_prop_hits(renderdata->gdl, prop, xlupass);
 		}
 
 		child = prop->child;
 
 		while (child) {
-			chrRenderAttachedObject(child, renderdata, xlupass, chr);
+			chr_render_attached_object(child, renderdata, xlupass, chr);
 			child = child->next;
 		}
 
 		if (xlupass) {
-			mtxF2LBulk(model->matrices, model->definition->nummatrices);
+			mtx_f2l_bulk(model->matrices, model->definition->nummatrices);
 		}
 	}
 }
 
-void chrGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
+void chr_get_blood_colour(s16 bodynum, u8 *colour1, u32 *colour2)
 {
 	switch (bodynum) {
 	case BODY_ELVIS1:
@@ -3334,7 +3334,7 @@ void chrGetBloodColour(s16 bodynum, u8 *colour1, u32 *colour2)
 	}
 }
 
-Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
+Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
@@ -3350,7 +3350,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 	// Don't render the eyespy if we're the one controlling it
 	if (CHRRACE(chr) == RACE_EYESPY) {
-		eyespy = chrToEyespy(chr);
+		eyespy = chr_to_eyespy(chr);
 
 		if (eyespy) {
 			if (!eyespy->deployed) {
@@ -3373,9 +3373,9 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		alpha = (f32)alpha * (TICKS(120) - chr->aibot->fadeintimer60) * (1.0f / TICKS(120));
 	}
 
-	chrGetBloodColour(chr->bodynum, spec, NULL);
+	chr_get_blood_colour(chr->bodynum, spec, NULL);
 	chr0f0246e4(spec);
-	alpha *= objCalculateFadeDistOpacityFrac(prop, modelGetEffectiveScale(model));
+	alpha *= obj_calculate_fade_dist_opacity_frac(prop, model_get_effective_scale(model));
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		f32 fadedist;
@@ -3400,7 +3400,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	}
 
 	if (!USINGDEVICE(DEVICE_IRSCANNER)) {
-		alpha = chrGetCloakAlpha(chr) * alpha * 0.0039215688593686f;
+		alpha = chr_get_cloak_alpha(chr) * alpha * 0.0039215688593686f;
 	}
 
 	if (alpha < 0xff) {
@@ -3417,10 +3417,10 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 	}
 
-	shademode = envGetObjShadeMode(prop, shadecolourfracs);
+	shademode = env_get_obj_shade_mode(prop, shadecolourfracs);
 
 	if (chr->unk32c_18) {
-		propCalculateShadeColour(chr->prop, chr->nextcol, chr->floorcol);
+		prop_calculate_shade_colour(chr->prop, chr->nextcol, chr->floorcol);
 		chr->unk32c_18 = false;
 	}
 
@@ -3431,13 +3431,13 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		u32 stack;
 
 		if (xlupass && chr->cloakfadefrac > 0 && !chr->cloakfadefinished) {
-			gdl = chrRenderCloak(gdl, chr->prop, chr->prop);
+			gdl = chr_render_cloak(gdl, chr->prop, chr->prop);
 		}
 
 		if (func0f08e5a8(prop->rooms, &screenbox) > 0 && (chr->chrflags & CHRCFLAG_UNPLAYABLE) == 0) {
-			gdl = bgScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
+			gdl = bg_scissor_within_viewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
-			gdl = bgScissorToViewport(gdl);
+			gdl = bg_scissor_to_viewport(gdl);
 		}
 
 		renderdata.flags = sp100;
@@ -3458,7 +3458,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		if (g_Vars.normmplayerisrunning) {
-			speb = scenarioHighlightProp(prop, colour);
+			speb = scenario_highlight_prop(prop, colour);
 		}
 
 		if (!speb) {
@@ -3473,7 +3473,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			}
 		}
 
-		objMergeColourFracs(colour, shademode, shadecolourfracs);
+		obj_merge_colour_fracs(colour, shademode, shadecolourfracs);
 
 		// Configure colours for night vision if in use
 		if (USINGDEVICE(DEVICE_NIGHTVISION)) {
@@ -3503,12 +3503,12 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 		// Set Skedar eyes open or closed
 		if (model->definition->skel == &g_SkelSkedar) {
-			struct modelnode *node1 = modelGetPart(model->definition, MODELPART_SKEDAR_EYESOPEN);
-			struct modelnode *node2 = modelGetPart(model->definition, MODELPART_SKEDAR_EYESCLOSED);
+			struct modelnode *node1 = model_get_part(model->definition, MODELPART_SKEDAR_EYESOPEN);
+			struct modelnode *node2 = model_get_part(model->definition, MODELPART_SKEDAR_EYESCLOSED);
 
 			if (node1 && node2) {
-				union modelrwdata *data1 = modelGetNodeRwData(model, node1);
-				union modelrwdata *data2 = modelGetNodeRwData(model, node2);
+				union modelrwdata *data1 = model_get_node_rw_data(model, node1);
+				union modelrwdata *data2 = model_get_node_rw_data(model, node2);
 
 				data2->toggle.visible = chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD;
 				data1->toggle.visible = !data2->toggle.visible;
@@ -3521,18 +3521,18 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 				|| chr->headnum == HEAD_MAIAN_S
 				|| chr->headnum == HEAD_ELVIS_GOGS) {
 			if (model->definition->skel == &g_SkelChr) {
-				struct modelnode *headspotnode = modelGetPart(model->definition, MODELPART_CHR_HEADSPOT);
+				struct modelnode *headspotnode = model_get_part(model->definition, MODELPART_CHR_HEADSPOT);
 
 				if (headspotnode && headspotnode->type == MODELNODETYPE_HEADSPOT) {
-					union modelrwdata *headrwdata = modelGetNodeRwData(model, headspotnode);
+					union modelrwdata *headrwdata = model_get_node_rw_data(model, headspotnode);
 
 					if (headrwdata->headspot.headmodeldef) {
-						struct modelnode *node1 = modelGetPart(headrwdata->headspot.headmodeldef, MODELPART_HEAD_EYESOPEN);
-						struct modelnode *node2 = modelGetPart(headrwdata->headspot.headmodeldef, MODELPART_HEAD_EYESCLOSED);
+						struct modelnode *node1 = model_get_part(headrwdata->headspot.headmodeldef, MODELPART_HEAD_EYESOPEN);
+						struct modelnode *node2 = model_get_part(headrwdata->headspot.headmodeldef, MODELPART_HEAD_EYESCLOSED);
 
 						if (node1 && node2) {
-							union modelrwdata *data1 = modelGetNodeRwData(model, node1);
-							union modelrwdata *data2 = modelGetNodeRwData(model, node2);
+							union modelrwdata *data1 = model_get_node_rw_data(model, node1);
+							union modelrwdata *data2 = model_get_node_rw_data(model, node2);
 
 							data2->toggle.visible = chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD;
 							data1->toggle.visible = !data2->toggle.visible;
@@ -3543,7 +3543,7 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		if (chr->race == RACE_DRCAROLL) {
-			chrSetDrCarollImages(chr, chr->drcarollimage_left, chr->drcarollimage_right);
+			chr_set_dr_caroll_images(chr, chr->drcarollimage_left, chr->drcarollimage_right);
 		}
 
 		g_Vars.currentplayerstats->drawplayercount++;
@@ -3553,13 +3553,13 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		// Render the chr's model
-		modelRender(&renderdata, model);
+		model_render(&renderdata, model);
 
 		// Render attached props (eg. held guns and attached mines/knives/bolts)
 		child = prop->child;
 
 		while (child) {
-			chrRenderAttachedObject(child, &renderdata, xlupass, chr);
+			chr_render_attached_object(child, &renderdata, xlupass, chr);
 			child = child->next;
 		}
 
@@ -3610,21 +3610,21 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 							shadowalpha = shadowalpha * (400 - gaptoground) * 0.004f;
 						}
 
-						if (cheatIsActive(CHEAT_SMALLCHARACTERS)) {
+						if (cheat_is_active(CHEAT_SMALLCHARACTERS)) {
 							radius *= 0.4f;
 						}
 
-						gdl = gfxRenderRadialShadow(gdl, prop->pos.x, chr->ground, prop->pos.z, chrGetInverseTheta(chr), radius, 0xffffff00 | shadowalpha);
+						gdl = gfx_render_radial_shadow(gdl, prop->pos.x, chr->ground, prop->pos.z, chr_get_inverse_theta(chr), radius, 0xffffff00 | shadowalpha);
 					}
 				}
 			}
 
-			mtxF2LBulk(model->matrices, model->definition->nummatrices);
+			mtx_f2l_bulk(model->matrices, model->definition->nummatrices);
 
 			if (USINGDEVICE(DEVICE_IRSCANNER)) {
-				gdl = chrRenderShield(gdl, chr, 0x80);
+				gdl = chr_render_shield(gdl, chr, 0x80);
 			} else {
-				gdl = chrRenderShield(gdl, chr, alpha);
+				gdl = chr_render_shield(gdl, chr, alpha);
 			}
 		}
 	}
@@ -3634,18 +3634,18 @@ Gfx *chrRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 struct shieldhit *g_ShieldHits = NULL;
 
-void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
+void chr_emit_sparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct coord *coord, struct coord *coord2, struct chrdata *chr2)
 {
 	struct prop *chrprop = chr->prop;
 	s32 race;
 
-	if (chrIsUsingPaintball(chr2)) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_PAINT);
+	if (chr_is_using_paintball(chr2)) {
+		sparks_create(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_PAINT);
 		return;
 	}
 
-	if (chrGetShield(chr) > 0.0f) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_DEFAULT);
+	if (chr_get_shield(chr) > 0.0f) {
+		sparks_create(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_DEFAULT);
 		return;
 	}
 
@@ -3654,14 +3654,14 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 			|| prop->type == PROPTYPE_DOOR
 			|| hitpart == HITPART_GUN
 			|| hitpart == HITPART_HAT) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_DEFAULT);
+		sparks_create(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_DEFAULT);
 		return;
 	}
 
 	race = CHRRACE(chr);
 
 	if (race == RACE_DRCAROLL || race == RACE_ROBOT || race == RACE_EYESPY) {
-		sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_ELECTRICAL);
+		sparks_create(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_ELECTRICAL);
 		return;
 	}
 
@@ -3675,12 +3675,12 @@ void chrEmitSparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct c
 		coord3.y = coord2->y * 42.0f + coord->y;
 		coord3.z = coord2->z * 42.0f + coord->z;
 
-		sparksCreate(chrprop->rooms[0], chrprop, &coord3, coord2, 0, SPARKTYPE_FLESH_LARGE);
+		sparks_create(chrprop->rooms[0], chrprop, &coord3, coord2, 0, SPARKTYPE_FLESH_LARGE);
 	}
 
 #if VERSION < VERSION_JPN_FINAL
-	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_BLOOD);
-	sparksCreate(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_FLESH);
+	sparks_create(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_BLOOD);
+	sparks_create(chrprop->rooms[0], chrprop, coord, coord2, 0, SPARKTYPE_FLESH);
 #endif
 }
 
@@ -3705,7 +3705,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 	s32 op;
 	s32 nodetype;
 
-	modelNodeGetModelRelativePosition(model, modelNodeFindMtxNode(node), &relpos);
+	model_node_get_model_relative_position(model, model_node_find_mtx_node(node), &relpos);
 
 	spc8.f[0] = arg3->x - relpos.x;
 	spc8.f[1] = arg3->y - relpos.y;
@@ -3720,7 +3720,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 		switch (nodetype) {
 		case MODELNODETYPE_DL:
 			rodata = &curnode->rodata->dl;
-			rwdata = modelGetNodeRwData(model, curnode);
+			rwdata = model_get_node_rw_data(model, curnode);
 
 			if (rwdata->gdl == NULL) {
 				break;
@@ -3786,8 +3786,8 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 						}
 					} else if (op == G_MTX) {
 						u32 addr = gdlptr->words.w1 & 0xffffff;
-						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
-						modelNodeGetModelRelativePosition(model, posnode, &spd4);
+						posnode = model_find_node_by_mtx_index(model, addr / sizeof(Mtxf));
+						model_node_get_model_relative_position(model, posnode, &spd4);
 
 						spbc[0] = spd4.x + spc8.x;
 						spbc[1] = spd4.y + spc8.y;
@@ -3799,13 +3799,13 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			modelApplyDistanceRelations(model, curnode);
+			model_apply_distance_relations(model, curnode);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			modelApplyToggleRelations(model, curnode);
+			model_apply_toggle_relations(model, curnode);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelApplyHeadRelations(model, curnode);
+			model_apply_head_relations(model, curnode);
 			break;
 		}
 
@@ -3843,7 +3843,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 		switch (nodetype) {
 		case MODELNODETYPE_DL:
 			rodata = &curnode->rodata->dl;
-			rwdata = modelGetNodeRwData(model, curnode);
+			rwdata = model_get_node_rw_data(model, curnode);
 
 			if (rwdata->gdl == NULL) {
 				break;
@@ -3891,7 +3891,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 
 								if (x == bestcoords[0] && y == bestcoords[1] && z == bestcoords[2]) {
 									if ((uintptr_t)rwdata->colours == ALIGN8((uintptr_t)rodata->vertices + rodata->numvertices * sizeof(Vtx))) {
-										Col *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
+										Col *colours = vtxstore_allocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
 										s32 j;
 
 										if (colours) {
@@ -3916,8 +3916,8 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 						}
 					} else if (op == G_MTX) {
 						u32 addr = gdlptr->words.w1 & 0xffffff;
-						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
-						modelNodeGetModelRelativePosition(model, posnode, &spd4);
+						posnode = model_find_node_by_mtx_index(model, addr / sizeof(Mtxf));
+						model_node_get_model_relative_position(model, posnode, &spd4);
 					} else if (op == G_COL) {
 						spac = gdlptr->words.w1 & 0xffffff;
 					}
@@ -3927,13 +3927,13 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			modelApplyDistanceRelations(model, curnode);
+			model_apply_distance_relations(model, curnode);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			modelApplyToggleRelations(model, curnode);
+			model_apply_toggle_relations(model, curnode);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelApplyHeadRelations(model, curnode);
+			model_apply_head_relations(model, curnode);
 			break;
 		}
 
@@ -3958,7 +3958,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
  * This happens when the chr is shot, which creates the illusion of blood
  * soaking through their clothing.
  */
-void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
+void chr_bruise(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
 {
 	struct modelnode *bestnode = NULL;
 	bool ok;
@@ -3980,7 +3980,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 	struct modelrwdata_dl *rwdata;
 	s32 spac = 0;
 
-	modelNodeGetModelRelativePosition(model, modelNodeFindMtxNode(node), &relpos);
+	model_node_get_model_relative_position(model, model_node_find_mtx_node(node), &relpos);
 
 	spc8.f[0] = arg3->f[0] - relpos.f[0];
 	spc8.f[1] = arg3->f[1] - relpos.f[1];
@@ -3995,7 +3995,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 		switch (nodetype) {
 		case MODELNODETYPE_DL:
 			rodata = &curnode->rodata->dl;
-			rwdata = modelGetNodeRwData(model, curnode);
+			rwdata = model_get_node_rw_data(model, curnode);
 
 			if (rwdata->gdl == NULL) {
 				break;
@@ -4061,8 +4061,8 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 						}
 					} else if (op == G_MTX) {
 						u32 addr = gdlptr->words.w1 & 0xffffff;
-						posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
-						modelNodeGetModelRelativePosition(model, posnode, &spd4);
+						posnode = model_find_node_by_mtx_index(model, addr / sizeof(Mtxf));
+						model_node_get_model_relative_position(model, posnode, &spd4);
 
 						spbc[0] = spd4.x + spc8.x;
 						spbc[1] = spd4.y + spc8.y;
@@ -4074,13 +4074,13 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			modelApplyDistanceRelations(model, curnode);
+			model_apply_distance_relations(model, curnode);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			modelApplyToggleRelations(model, curnode);
+			model_apply_toggle_relations(model, curnode);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelApplyHeadRelations(model, curnode);
+			model_apply_head_relations(model, curnode);
 			break;
 		}
 
@@ -4137,7 +4137,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 		case MODELNODETYPE_DL:
 			if (ok) {
 				rodata = &curnode->rodata->dl;
-				rwdata = modelGetNodeRwData(model, curnode);
+				rwdata = model_get_node_rw_data(model, curnode);
 
 				if (rwdata->gdl == NULL) {
 					break;
@@ -4189,7 +4189,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 
 											if (coordinate == bestcoords[2]) {
 												if ((uintptr_t)rwdata->colours == ALIGN8((u32)rodata->vertices + rodata->numvertices * sizeof(Vtx))) {
-													Col *colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
+													Col *colours = vtxstore_allocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
 													s32 j;
 
 													if (colours) {
@@ -4214,8 +4214,8 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 							}
 						} else if (op == G_MTX) {
 							u32 addr = gdlptr->words.w1 & 0xffffff;
-							posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
-							modelNodeGetModelRelativePosition(model, posnode, &spd4);
+							posnode = model_find_node_by_mtx_index(model, addr / sizeof(Mtxf));
+							model_node_get_model_relative_position(model, posnode, &spd4);
 						} else if (op == G_COL) {
 							spac = gdlptr->words.w1 & 0xffffff;
 						}
@@ -4226,13 +4226,13 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			modelApplyDistanceRelations(model, curnode);
+			model_apply_distance_relations(model, curnode);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			modelApplyToggleRelations(model, curnode);
+			model_apply_toggle_relations(model, curnode);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelApplyHeadRelations(model, curnode);
+			model_apply_head_relations(model, curnode);
 			break;
 		}
 
@@ -4266,7 +4266,7 @@ void chrBruise(struct model *model, s32 hitpart, struct modelnode *node, struct 
  * each pointer found, the vertices at that offset in the table are adjusted
  * randomly. Lastly, every colour in the node's colour table is darkened.
  */
-void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
+void chr_disfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 {
 	struct modelnode *node;
 	struct modelrodata_dl *rodata;
@@ -4284,7 +4284,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 
 	u32 rand = random();
 
-	if (g_Vars.mplayerisrunning || !chrIsDead(chr)) {
+	if (g_Vars.mplayerisrunning || !chr_is_dead(chr)) {
 		return;
 	}
 
@@ -4295,7 +4295,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 		switch (node->type & 0xff) {
 		case MODELNODETYPE_DL:
 			rodata = &node->rodata->dl;
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 
 			if (rwdata->gdl == NULL) {
 				break;
@@ -4306,7 +4306,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 			if (rwdata->vertices == rodata->vertices) {
 				// Copy the vertices from the modeldef to the vtxstore
 				if (rwdata->vertices == rodata->vertices) {
-					Vtx *vertices = vtxstoreAllocate(rodata->numvertices, VTXSTORETYPE_CHRVTX, 0, 0);
+					Vtx *vertices = vtxstore_allocate(rodata->numvertices, VTXSTORETYPE_CHRVTX, 0, 0);
 
 					if (vertices) {
 						for (i = 0; i < rodata->numvertices; i++) {
@@ -4319,7 +4319,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 
 				// Copy the colours from the modeldef to the vtxstore
 				if ((uintptr_t)rwdata->colours == ALIGN8((uintptr_t)&rodata->vertices[rodata->numvertices])) {
-					colours = vtxstoreAllocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
+					colours = vtxstore_allocate(rodata->numcolours, VTXSTORETYPE_CHRCOL, 0, 0);
 
 					if (colours) {
 						for (i = 0; i < rodata->numcolours; i++) {
@@ -4373,7 +4373,7 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 
 								if (posnode) {
 									for (i = 0; i < numverts; i++) {
-										rng2SetSeed(rand + vertices[i].x + vertices[i].y + vertices[i].z + (u32)pos.f[0] + (u32)pos.f[1] + (u32)pos.f[2]);
+										rng2_set_seed(rand + vertices[i].x + vertices[i].y + vertices[i].z + (u32)pos.f[0] + (u32)pos.f[1] + (u32)pos.f[2]);
 
 										if (vertices[i].x > 0) {
 											vertices[i].x -= (s16)(random2() % 20);
@@ -4398,8 +4398,8 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 							} else if (op == G_MTX) {
 								// Get the position of the node relative to the model
 								u32 addr = gdlptr->words.w1 & 0xffffff;
-								posnode = modelFindNodeByMtxIndex(model, addr / sizeof(Mtxf));
-								modelNodeGetModelRelativePosition(model, posnode, &pos);
+								posnode = model_find_node_by_mtx_index(model, addr / sizeof(Mtxf));
+								model_node_get_model_relative_position(model, posnode, &pos);
 							}
 
 							gdlptr++;
@@ -4423,13 +4423,13 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			modelApplyDistanceRelations(model, node);
+			model_apply_distance_relations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			modelApplyToggleRelations(model, node);
+			model_apply_toggle_relations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelApplyHeadRelations(model, node);
+			model_apply_head_relations(model, node);
 			break;
 		}
 
@@ -4449,19 +4449,19 @@ void chrDisfigure(struct chrdata *chr, struct coord *exppos, f32 damageradius)
 	}
 }
 
-f32 chrGetHitRadius(struct chrdata *chr)
+f32 chr_get_hit_radius(struct chrdata *chr)
 {
 	s32 i;
 	f32 result;
 	f32 highest = 0;
 
 	if (chr->model) {
-		result = modelGetEffectiveScale(chr->model);
+		result = model_get_effective_scale(chr->model);
 
 		for (i = 0; i < 2; i++) {
 			if (chr->weapons_held[i]) {
 				struct defaultobj *obj = chr->weapons_held[i]->obj;
-				f32 value = modelGetEffectiveScale(obj->model) * chr->model->scale;
+				f32 value = model_get_effective_scale(obj->model) * chr->model->scale;
 
 				if (value > highest) {
 					highest = value;
@@ -4471,7 +4471,7 @@ f32 chrGetHitRadius(struct chrdata *chr)
 
 		result += highest;
 
-		if (chrGetShield(chr) > 0) {
+		if (chr_get_shield(chr) > 0) {
 			result += 10;
 		}
 	} else {
@@ -4481,14 +4481,14 @@ f32 chrGetHitRadius(struct chrdata *chr)
 	return result;
 }
 
-void chrTestHit(struct prop *prop, struct shotdata *shotdata, bool isshooting, bool cheap)
+void chr_test_hit(struct prop *prop, struct shotdata *shotdata, bool isshooting, bool cheap)
 {
 	struct coord spdc;
 	struct coord spd0;
 	struct chrdata *chr = prop->chr;
 
 	if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
-		f32 radius = chrGetHitRadius(chr);
+		f32 radius = chr_get_hit_radius(chr);
 
 		if (prop->z - radius < shotdata->distance) {
 			struct model *model = chr->model;
@@ -4498,7 +4498,7 @@ void chrTestHit(struct prop *prop, struct shotdata *shotdata, bool isshooting, b
 			struct hitthing sp88;
 			s32 sp84 = 0;
 			struct modelnode *sp80 = NULL;
-			Mtxf *rootmtx = modelGetRootMtx(model);
+			Mtxf *rootmtx = model_get_root_mtx(model);
 			struct prop *next;
 			struct prop *child;
 			f32 sp70;
@@ -4511,7 +4511,7 @@ void chrTestHit(struct prop *prop, struct shotdata *shotdata, bool isshooting, b
 			}
 
 			if (hitpart) {
-				if (chrGetShield(chr) > 0.0f) {
+				if (chr_get_shield(chr) > 0.0f) {
 					var8005efc0 = 10.0f / model->scale;
 				}
 
@@ -4524,27 +4524,27 @@ void chrTestHit(struct prop *prop, struct shotdata *shotdata, bool isshooting, b
 				}
 
 				if (cheap || var8005efc0 > 0.0f) {
-					hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
+					hitpart = model_test_for_hit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
 
 					while (hitpart > 0) {
 						if (func0f084594(model, node, &shotdata->gunpos2d, &shotdata->gundir2d, &sp88, &sp84, &sp80)) {
-							mtx4TransformVec(&model->matrices[sp84], &sp88.pos, &spdc);
-							mtx4TransformVecInPlace(camGetProjectionMtxF(), &spdc);
-							mtx4RotateVec(&model->matrices[sp84], &sp88.unk0c, &spd0);
-							mtx4RotateVecInPlace(camGetProjectionMtxF(), &spd0);
+							mtx4_transform_vec(&model->matrices[sp84], &sp88.pos, &spdc);
+							mtx4_transform_vec_in_place(cam_get_projection_mtxf(), &spdc);
+							mtx4_rotate_vec(&model->matrices[sp84], &sp88.unk0c, &spd0);
+							mtx4_rotate_vec_in_place(cam_get_projection_mtxf(), &spd0);
 							break;
 						}
 
-						hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
+						hitpart = model_test_for_hit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
 					}
 				} else {
-					hitpart = modelTestForHit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
+					hitpart = model_test_for_hit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
 
 					if (hitpart > 0) {
 						if (func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, &shotdata->gunpos2d,
 									&shotdata->gundir2d, &sp88.pos, &sp70, &node, &hitpart, &sp84, &sp80)) {
-							mtx4TransformVec(camGetProjectionMtxF(), &sp88.pos, &spdc);
-							mtx4RotateVec(camGetProjectionMtxF(), &sp88.unk0c, &spd0);
+							mtx4_transform_vec(cam_get_projection_mtxf(), &sp88.pos, &spdc);
+							mtx4_rotate_vec(cam_get_projection_mtxf(), &sp88.unk0c, &spd0);
 						} else {
 							hitpart = 0;
 						}
@@ -4557,17 +4557,17 @@ void chrTestHit(struct prop *prop, struct shotdata *shotdata, bool isshooting, b
 			}
 
 			if (hitpart > 0) {
-				mtx = camGetWorldToScreenMtxf();
+				mtx = cam_get_world_to_screen_mtxf();
 				sp68 = spdc.x * mtx->m[0][2] + spdc.y * mtx->m[1][2] + spdc.z * mtx->m[2][2] + mtx->m[3][2];
 				sp68 = -sp68;
 
 				if (sp68 < shotdata->distance) {
-					hitCreate(shotdata, prop, sp68, hitpart, node, &sp88, sp84, sp80, model, true, chrGetShield(chr) > 0.0f, &spdc, &spd0);
+					hit_create(shotdata, prop, sp68, hitpart, node, &sp88, sp84, sp80, model, true, chr_get_shield(chr) > 0.0f, &spdc, &spd0);
 				}
 			}
 
 			if (spb8 && hitpart <= 0 && prop->z <= shotdata->distance && isshooting) {
-				if (chrGetTargetProp(chr) == g_Vars.currentplayer->prop) {
+				if (chr_get_target_prop(chr) == g_Vars.currentplayer->prop) {
 					chr->chrflags |= CHRCFLAG_NEAR_MISS;
 				}
 
@@ -4580,7 +4580,7 @@ void chrTestHit(struct prop *prop, struct shotdata *shotdata, bool isshooting, b
 /**
  * Handle a chr being shot.
  */
-void chrHit(struct shotdata *shotdata, struct hit *hit)
+void chr_hit(struct shotdata *shotdata, struct hit *hit)
 {
 	struct prop *prop;
 	struct chrdata *chr;
@@ -4589,7 +4589,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 	struct coord sp98;
 	s16 sp90[3];
 	u8 ismelee = false;
-	struct weaponfunc *func = gsetGetWeaponFunction(&shotdata->gset);
+	struct weaponfunc *func = gset_get_weapon_function(&shotdata->gset);
 	f32 shield;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
@@ -4611,19 +4611,19 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 		sp98.y = shotdata->gunpos2d.y - (hit->distance * shotdata->gundir2d.y) / shotdata->gundir2d.z;
 		sp98.z = shotdata->gunpos2d.z - hit->distance;
 
-		mtx4TransformVec(camGetProjectionMtxF(), &sp98, &hitpos);
-		bgunSetHitPos(&hitpos);
-		bgunPlayPropHitSound(&shotdata->gset, hit->prop, -1);
+		mtx4_transform_vec(cam_get_projection_mtxf(), &sp98, &hitpos);
+		bgun_set_hit_pos(&hitpos);
+		bgun_play_prop_hit_sound(&shotdata->gset, hit->prop, -1);
 
-		chrEmitSparks(chr, hit->prop, hit->hitpart, &hitpos, &shotdata->gundir3d, g_Vars.currentplayer->prop->chr);
+		chr_emit_sparks(chr, hit->prop, hit->hitpart, &hitpos, &shotdata->gundir3d, g_Vars.currentplayer->prop->chr);
 
 		sp90[0] = hit->hitthing.pos.x;
 		sp90[1] = hit->hitthing.pos.y;
 		sp90[2] = hit->hitthing.pos.z;
 
-		shield = chrGetShield(chr);
+		shield = chr_get_shield(chr);
 
-		func0f0341dc(chr, gsetGetDamage(&shotdata->gset), &shotdata->gundir3d, &shotdata->gset,
+		func0f0341dc(chr, gset_get_damage(&shotdata->gset), &shotdata->gundir3d, &shotdata->gset,
 				g_Vars.currentplayer->prop, hit->hitpart, hit->prop, hit->bboxnode,
 				hit->model, hit->hitthing.unk28 / 2, sp90);
 
@@ -4659,9 +4659,9 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						|| weapon->weaponnum == WEAPON_TIMEDMINE
 						|| weapon->weaponnum == WEAPON_REMOTEMINE
 						|| weapon->weaponnum == WEAPON_PROXIMITYMINE) {
-					objSetDropped(hit->prop, DROPTYPE_DEFAULT);
+					obj_set_dropped(hit->prop, DROPTYPE_DEFAULT);
 					chr->hidden |= CHRHFLAG_DROPPINGITEM;
-					objDamage(&weapon->base, gsetGetDamage(&shotdata->gset), &sp98, shotdata->gset.weaponnum, g_Vars.currentplayernum);
+					obj_damage(&weapon->base, gset_get_damage(&shotdata->gset), &sp98, shotdata->gset.weaponnum, g_Vars.currentplayernum);
 					return;
 				}
 
@@ -4678,7 +4678,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 					if (type->numwallhittexes > 0) {
 						index = random() % type->numwallhittexes;
 
-						wallhitCreate(
+						wallhit_create(
 								&hit->hitthing.pos,
 								&hit->hitthing.unk0c,
 								&shotdata->gunpos3d,
@@ -4697,7 +4697,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				// Drop gun
 				if (chr->aibot == NULL && (chr->flags & CHRFLAG0_CANLOSEGUN)) {
 					chr->gunprop = hit->prop;
-					objSetDropped(hit->prop, DROPTYPE_DEFAULT);
+					obj_set_dropped(hit->prop, DROPTYPE_DEFAULT);
 					chr->hidden |= CHRHFLAG_DROPPINGITEM;
 				}
 			} else if (hit->hitpart == HITPART_HAT) {
@@ -4714,7 +4714,7 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 
 				index = random() % type->numwallhittexes;
 
-				wallhitCreate(
+				wallhit_create(
 						&hit->hitthing.pos,
 						&hit->hitthing.unk0c,
 						&shotdata->gunpos3d,
@@ -4731,11 +4731,11 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 				// Shot a chr in the flesh
 				s32 race = CHRRACE(chr);
 				struct coord sp5c;
-				Mtxf *sp58 = modelFindNodeMtx(hit->model, hit->bboxnode, 0);
+				Mtxf *sp58 = model_find_node_mtx(hit->model, hit->bboxnode, 0);
 
 				// Create blood
 				mtx0001719c(sp58->m, spb0.m);
-				mtx4TransformVec(&spb0, &sp98, &sp5c);
+				mtx4_transform_vec(&spb0, &sp98, &sp5c);
 
 #if VERSION >= VERSION_NTSC_1_0
 				if (!chr->noblood
@@ -4752,16 +4752,16 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						darker = false;
 					}
 
-					if (!chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)) {
-						chrBruise(hit->model, hit->hitpart, hit->bboxnode, &sp5c);
+					if (!chr_is_using_paintball(g_Vars.currentplayer->prop->chr)) {
+						chr_bruise(hit->model, hit->hitpart, hit->bboxnode, &sp5c);
 					}
 
-					splatsCreateForChrHit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
+					splats_create_for_chr_hit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}
 #else
 				// NTSC beta wraps all the blood logic in this paintball check.
 				// If paintball is enabled, neither blood nor paint is created.
-				if (!chrIsUsingPaintball(g_Vars.currentplayer->prop->chr)
+				if (!chr_is_using_paintball(g_Vars.currentplayer->prop->chr)
 						&& !chr->noblood
 						&& race != RACE_DRCAROLL
 						&& race != RACE_ROBOT
@@ -4776,9 +4776,9 @@ void chrHit(struct shotdata *shotdata, struct hit *hit)
 						darker = false;
 					}
 
-					chrBruise(hit->model, hit->hitpart, hit->bboxnode, &sp5c);
+					chr_bruise(hit->model, hit->hitpart, hit->bboxnode, &sp5c);
 
-					splatsCreateForChrHit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
+					splats_create_for_chr_hit(prop, shotdata, &sp98, &hitpos, darker, 0, g_Vars.currentplayer->prop->chr);
 				}
 #endif
 			}
@@ -4802,7 +4802,7 @@ void chr0f0284ac(s32 arg0)
 	g_SelectedAnimNum -= arg0;
 
 	if (g_SelectedAnimNum <= 0) {
-		g_SelectedAnimNum = animGetNumAnimations() - 1;
+		g_SelectedAnimNum = anim_get_num_animations() - 1;
 	}
 }
 
@@ -4810,7 +4810,7 @@ void chr0f0284f4(s32 arg0)
 {
 	g_SelectedAnimNum += arg0;
 
-	if (g_SelectedAnimNum >= animGetNumAnimations()) {
+	if (g_SelectedAnimNum >= anim_get_num_animations()) {
 		g_SelectedAnimNum = 1;
 	}
 }
@@ -4824,10 +4824,10 @@ void chr0f02855c(s32 arg0)
 {
 	var80062978 = arg0;
 
-	mainOverrideVariable("selectanimnum", &g_SelectedAnimNum);
+	main_override_variable("selectanimnum", &g_SelectedAnimNum);
 }
 
-void chrsCheckForNoise(f32 noiseradius)
+void chrs_check_for_noise(f32 noiseradius)
 {
 	s32 i;
 	f32 add = 0.075f;
@@ -4837,9 +4837,9 @@ void chrsCheckForNoise(f32 noiseradius)
 			struct prop *prop = g_ChrSlots[i].prop;
 
 			if (prop && prop->type == PROPTYPE_CHR &&
-					chrGetTargetProp(&g_ChrSlots[i]) == g_Vars.currentplayer->prop) {
+					chr_get_target_prop(&g_ChrSlots[i]) == g_Vars.currentplayer->prop) {
 
-				f32 distance = chrGetDistanceToCurrentPlayer(&g_ChrSlots[i]);
+				f32 distance = chr_get_distance_to_current_player(&g_ChrSlots[i]);
 
 				if (distance == 0) {
 					distance = 2;
@@ -4848,7 +4848,7 @@ void chrsCheckForNoise(f32 noiseradius)
 				}
 
 				if (distance > 1.0f) {
-					chrRecordLastHearTargetTime(&g_ChrSlots[i]);
+					chr_record_last_hear_target_time(&g_ChrSlots[i]);
 #if PIRACYCHECKS
 					{
 						s32 *i = (s32 *)&__scHandleRetrace;
@@ -4872,7 +4872,7 @@ void chrsCheckForNoise(f32 noiseradius)
 	}
 }
 
-struct chrdata *chrFindByLiteralId(s32 chrnum)
+struct chrdata *chr_find_by_literal_id(s32 chrnum)
 {
 	s32 lower = 0;
 	s32 upper = g_NumChrs;
@@ -4895,19 +4895,19 @@ struct chrdata *chrFindByLiteralId(s32 chrnum)
 	return NULL;
 }
 
-struct prop *chrGetHeldProp(struct chrdata *chr, s32 hand)
+struct prop *chr_get_held_prop(struct chrdata *chr, s32 hand)
 {
 	return chr->weapons_held[hand];
 }
 
-struct prop *chrGetHeldUsableProp(struct chrdata *chr, s32 hand)
+struct prop *chr_get_held_usable_prop(struct chrdata *chr, s32 hand)
 {
 	struct prop *prop = chr->weapons_held[hand];
 
 	if (prop) {
 		struct weaponobj *weapon = prop->weapon;
 
-		if (!weaponHasFlag(weapon->weaponnum, WEAPONFLAG_AICANUSE)) {
+		if (!weapon_has_flag(weapon->weaponnum, WEAPONFLAG_AICANUSE)) {
 			prop = NULL;
 		}
 	}
@@ -4915,7 +4915,7 @@ struct prop *chrGetHeldUsableProp(struct chrdata *chr, s32 hand)
 	return prop;
 }
 
-struct prop *chrGetTargetProp(struct chrdata *chr)
+struct prop *chr_get_target_prop(struct chrdata *chr)
 {
 	struct prop *ret;
 
@@ -4928,7 +4928,7 @@ struct prop *chrGetTargetProp(struct chrdata *chr)
 	return ret;
 }
 
-bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
+bool chr_update_geometry(struct prop *prop, u8 **start, u8 **end)
 {
 	struct chrdata *chr = prop->chr;
 
@@ -4973,7 +4973,7 @@ bool chrUpdateGeometry(struct prop *prop, u8 **start, u8 **end)
 	return false;
 }
 
-void chrGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
+void chr_get_bbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 {
 	struct chrdata *chr = prop->chr;
 
@@ -4986,13 +4986,13 @@ void chrGetBbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 	}
 }
 
-f32 chrGetGround(struct prop *prop)
+f32 chr_get_ground(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;
 	return chr->ground;
 }
 
-bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
+bool chr_calculate_auto_aim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
 {
 	struct chrdata *chr = prop->chr;
 
@@ -5004,7 +5004,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 			&& chr->actiontype != ACT_DEAD
 			&& (chr->chrflags & CHRCFLAG_NOAUTOAIM) == 0
 			&& ((chr->hidden & CHRHFLAG_CLOAKED) == 0 || USINGDEVICE(DEVICE_IRSCANNER))
-			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[playermgrGetPlayerNumByProp(prop)]->isdead)
+			&& !(prop->type == PROPTYPE_PLAYER && g_Vars.players[playermgr_get_player_num_by_prop(prop)]->isdead)
 			&& !(g_Vars.coopplayernum >= 0 && (prop == g_Vars.bond->prop || prop == g_Vars.coop->prop))) {
 		struct model *model = chr->model;
 		Mtxf *mtx1;
@@ -5054,7 +5054,7 @@ bool chrCalculateAutoAim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *
 bool chr0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *total)
 {
 	if (arg1 == arg0) {
-		*total += modelFindNodeMtxIndex(node, 0);
+		*total += model_find_node_mtx_index(node, 0);
 		return true;
 	}
 
@@ -5110,7 +5110,7 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 			}
 		} else {
 			*propptr = prop;
-			*nodeptr = modelFindNodeByMtxIndex(model, arg0);
+			*nodeptr = model_find_node_by_mtx_index(model, arg0);
 			*modelptr = model;
 			result = true;
 		}
@@ -5119,7 +5119,7 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 	}
 }
 
-void shieldhitCreate(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6)
+void shieldhit_create(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6)
 {
 	struct shieldhit *shieldhit = NULL;
 	s32 i;
@@ -5208,7 +5208,7 @@ void shieldhitCreate(struct prop *prop, f32 shield, struct prop *arg2, struct mo
 	g_ShieldHitActive = true;
 }
 
-void shieldhitRemove(struct shieldhit *shieldhit)
+void shieldhit_remove(struct shieldhit *shieldhit)
 {
 	s32 exists = false;
 	s32 i;
@@ -5247,13 +5247,13 @@ void shieldhitRemove(struct shieldhit *shieldhit)
 	}
 }
 
-void shieldhitsRemoveByProp(struct prop *prop)
+void shieldhits_remove_by_prop(struct prop *prop)
 {
 	s32 i;
 
 	for (i = 0; i < 20; i++) {
 		if (prop == g_ShieldHits[i].prop) {
-			shieldhitRemove(&g_ShieldHits[i]);
+			shieldhit_remove(&g_ShieldHits[i]);
 		}
 	}
 }
@@ -5267,7 +5267,7 @@ s32 chr0f02932c(struct prop *prop, s32 arg1)
 	struct model *model;
 
 	if (chr0f028e6c(arg1, prop, &prop2, &node, &model) && node) {
-		node2 = modelNodeFindParentMtxNode(node);
+		node2 = model_node_find_parent_mtx_node(node);
 
 		if (node2) {
 			result = chr0f028e18(prop2, node2, model, prop);
@@ -5288,7 +5288,7 @@ s32 chr0f0293ec(struct prop *prop, s32 cmnum)
 	struct model *model;
 
 	if (chr0f028e6c(cmnum, prop, &prop2, &node, &model) && node) {
-		node2 = modelNodeFindChildMtxNode(node);
+		node2 = model_node_find_child_mtx_node(node);
 
 		if (node2) {
 			result = chr0f028e18(prop2, node2, model, prop);
@@ -5322,11 +5322,11 @@ s32 chr0f0294cc(struct prop *prop, s32 arg1)
 	struct model *model2;
 
 	if (chr0f028e6c(arg1, prop, &prop2, &node2, &model2) && node2) {
-		struct modelnode *node3 = modelNodeFindChildOrParentMtxNode(node2);
+		struct modelnode *node3 = model_node_find_child_or_parent_mtx_node(node2);
 
 		if (node3) {
 			result = chr0f028e18(prop2, node3, model2, prop);
-		} else if (modelNodeFindParentMtxNode(node2) == NULL && prop2->parent) {
+		} else if (model_node_find_parent_mtx_node(node2) == NULL && prop2->parent) {
 			child = prop2->parent->child;
 
 			while (child && child != prop2) {
@@ -5390,12 +5390,12 @@ void chr0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
 	*arg3 = 0;
 }
 
-f32 propGetShieldThing(struct prop **propptr)
+f32 prop_get_shield_thing(struct prop **propptr)
 {
 	struct prop *prop = *propptr;
 
 	if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
-		return chrGetShield(prop->chr);
+		return chr_get_shield(prop->chr);
 	}
 
 	if (prop->type == PROPTYPE_OBJ
@@ -5415,7 +5415,7 @@ f32 propGetShieldThing(struct prop **propptr)
 
 bool g_ShieldHitActive = false;
 
-Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop, struct model *model,
+Gfx *chr_render_shield_component(Gfx *gdl, struct shieldhit *hit, struct prop *prop, struct model *model,
 		struct modelnode *node, s32 side, s32 arg6, s32 arg7, s32 alpha)
 {
 	struct modelrodata_bbox *bbox = &node->rodata->bbox;
@@ -5467,7 +5467,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 	if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
 		struct chrdata *chr = prop->chr;
 		gap = 10.0f / chr->model->scale;
-		shieldamount = chrGetShield(chr);
+		shieldamount = chr_get_shield(chr);
 		cloakfade = chr->cloakfadefrac;
 		cmcount = chr->cmcount;
 	} else {
@@ -5478,7 +5478,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 		shieldamount = (obj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4.0f : 8.0f;
 	}
 
-	mtxindex = modelFindNodeMtxIndex(node, 0);
+	mtxindex = model_find_node_mtx_index(node, 0);
 	modelmtx = &model->matrices[mtxindex];
 
 	xmin = bbox->xmin - gap;
@@ -5523,7 +5523,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 	gSPMatrix(gdl++, osVirtualToPhysical(modelmtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	if (side == -7) {
-		colours = gfxAllocateColours(1);
+		colours = gfx_allocate_colours(1);
 
 		gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 
@@ -5537,7 +5537,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 			colours[0].a = (s32) ((127 - cloakfade) * (f32) alpha * (1.0f / 85.0f));
 		}
 
-		vertices = gfxAllocateVertices(24);
+		vertices = gfx_allocate_vertices(24);
 
 		for (i = 0; i < ARRAYCOUNT(sp104); i++) {
 			for (j = 0; j < ARRAYCOUNT(sp104[i]); j++) {
@@ -5566,7 +5566,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 	} else {
 		f32 shield;
 
-		texSelect(&gdl, &g_TexShieldConfigs[0], 4, 1, 2, true, NULL);
+		tex_select(&gdl, &g_TexShieldConfigs[0], 4, 1, 2, true, NULL);
 
 		if (side >= 0) {
 			shield = hit->shield;
@@ -5622,7 +5622,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 		st4 = st2 + 512;
 
 		if (side == -3 || side == -4 || side == -5 || side == -6) {
-			colours = gfxAllocateColours(1);
+			colours = gfx_allocate_colours(1);
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 
@@ -5649,7 +5649,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 				}
 			}
 
-			vertices = gfxAllocateVertices(24);
+			vertices = gfx_allocate_vertices(24);
 
 			if ((prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR)
 					&& (prop->obj->flags3 & OBJFLAG3_SHOWSHIELD)) {
@@ -5710,7 +5710,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 				alpha3 = 0.0f;
 			}
 
-			colours = gfxAllocateColours(3);
+			colours = gfx_allocate_colours(3);
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 
@@ -5723,7 +5723,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 			colours[0].a = (s32) alpha3;
 			colours[1].a = 0;
 
-			vertices = gfxAllocateVertices(30);
+			vertices = gfx_allocate_vertices(30);
 
 			for (i = 0; i < ARRAYCOUNT(sp104); i++) {
 				for (j = 0; j < ARRAYCOUNT(sp104[i]); j++) {
@@ -5758,7 +5758,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 				vertices += 5;
 			}
 		} else if (side < 0) {
-			vertices = gfxAllocateVertices(12);
+			vertices = gfx_allocate_vertices(12);
 
 			if (side == -1) {
 				if (g_Vars.lvframe60 - hit->lvframe60 <= TICKS(80)) {
@@ -5770,7 +5770,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 					alpha1 = 0;
 				}
 
-				colours = gfxAllocateColours(1);
+				colours = gfx_allocate_colours(1);
 
 				gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 
@@ -5795,7 +5795,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 					alpha4 = 0.0f;
 				}
 
-				colours = gfxAllocateColours(1);
+				colours = gfx_allocate_colours(1);
 
 				gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 
@@ -5893,7 +5893,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 				alpha2 = 0;
 			}
 
-			colours = gfxAllocateColours(5);
+			colours = gfx_allocate_colours(5);
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 5);
 
@@ -5964,7 +5964,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
 
 			colours[4].a = alpha1;
 
-			vertices = gfxAllocateVertices(30);
+			vertices = gfx_allocate_vertices(30);
 
 			for (j = 0; j < ARRAYCOUNT(sp104[side]); j++) {
 				vertices[j] = vtxtemplate;
@@ -6143,7 +6143,7 @@ Gfx *chrRenderShieldComponent(Gfx *gdl, struct shieldhit *hit, struct prop *prop
  * Objects can have a specific model part for the shield area (eg. hoverbed).
  * If not specified, every bbox node in the object will be used.
  */
-Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha,
+Gfx *shieldhit_render(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha,
 		bool arg4, s32 cmnum1, s32 cmnum2, s32 cmnum3, s32 cmnum4)
 {
 	u32 stack[4];
@@ -6158,7 +6158,7 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 			model = chr->model;
 		} else {
 			model = prop2->obj->model;
-			specificnode = modelGetPart(model->definition, MODELPART_BASIC_0067);
+			specificnode = model_get_part(model->definition, MODELPART_BASIC_0067);
 		}
 
 		node = model->definition->rootnode;
@@ -6197,11 +6197,11 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 					}
 
 					if (s0) {
-						gdl = chrRenderShieldComponent(gdl, s0, prop1, s0->model, s0->node, s0->side, -1, -1, 255);
+						gdl = chr_render_shield_component(gdl, s0, prop1, s0->model, s0->node, s0->side, -1, -1, 255);
 					} else if (s1) {
-						gdl = chrRenderShieldComponent(gdl, s1, prop1, model, node, -1, -1, -1, 255);
+						gdl = chr_render_shield_component(gdl, s1, prop1, model, node, -1, -1, -1, 255);
 					} else if (s2) {
-						gdl = chrRenderShieldComponent(gdl, s2, prop1, model, node, -2, s2->unk018[index], s2->unk038[index], 255);
+						gdl = chr_render_shield_component(gdl, s2, prop1, model, node, -2, s2->unk018[index], s2->unk038[index], 255);
 					} else {
 						if (arg4) {
 							if (specificnode) {
@@ -6222,16 +6222,16 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 							gDPSetTextureFilter(gdl++, G_TF_BILERP);
 							gDPSetColorDither(gdl++, G_CD_BAYER);
 
-							gdl = chrRenderShieldComponent(gdl, NULL, prop1, model, node, -7, -1, -1, 255);
+							gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -7, -1, -1, 255);
 						} else {
 							if (index == cmnum1) {
-								gdl = chrRenderShieldComponent(gdl, NULL, prop1, model, node, -3, -1, -1, alpha);
+								gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -3, -1, -1, alpha);
 							} else if (index == cmnum2) {
-								gdl = chrRenderShieldComponent(gdl, NULL, prop1, model, node, -4, -1, -1, alpha);
+								gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -4, -1, -1, alpha);
 							} else if (index == cmnum3) {
-								gdl = chrRenderShieldComponent(gdl, NULL, prop1, model, node, -5, -1, -1, alpha);
+								gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -5, -1, -1, alpha);
 							} else if (index == cmnum4) {
-								gdl = chrRenderShieldComponent(gdl, NULL, prop1, model, node, -6, -1, -1, alpha);
+								gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -6, -1, -1, alpha);
 							}
 						}
 					}
@@ -6256,7 +6256,7 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
 			struct prop *child;
 
 			for (child = prop2->child; child != NULL; child = child->next) {
-				gdl = shieldhitRender(gdl, prop1, child, alpha, arg4, cmnum1, cmnum2, cmnum3, cmnum4);
+				gdl = shieldhit_render(gdl, prop1, child, alpha, arg4, cmnum1, cmnum2, cmnum3, cmnum4);
 			}
 		}
 	}
@@ -6272,7 +6272,7 @@ Gfx *shieldhitRender(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alpha
  * The function iterates the child props and calls itself recursively, setting
  * thisprop to the current child being iterated.
  */
-Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
+Gfx *chr_render_cloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 {
 	struct model *model;
 	struct modelnode *bbox = NULL;
@@ -6283,7 +6283,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 			model = thisprop->chr->model;
 		} else {
 			model = thisprop->obj->model;
-			bbox = modelGetPart(model->definition, MODELPART_BASIC_0067);
+			bbox = model_get_part(model->definition, MODELPART_BASIC_0067);
 		}
 
 		if (thisprop->parent == NULL) {
@@ -6324,7 +6324,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 					}
 
 					if (index <= 19) {
-						Mtxf *mtx = modelFindNodeMtx(model, modelNodeFindMtxNode(node), 0);
+						Mtxf *mtx = model_find_node_mtx(model, model_node_find_mtx_node(node), 0);
 						s32 uls; // upper left s coordinate
 						s32 ult; // upper left t coordinate
 						struct coord coord;
@@ -6342,35 +6342,35 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 							screenpos[0] = 0.0f;
 						}
 
-						if (screenpos[0] > viGetWidth()) {
-							screenpos[0] = viGetWidth();
+						if (screenpos[0] > vi_get_width()) {
+							screenpos[0] = vi_get_width();
 						}
 
 						if (screenpos[1] < 0.0f) {
 							screenpos[1] = 0.0f;
 						}
 
-						if (screenpos[1] > viGetHeight()) {
-							screenpos[1] = viGetHeight();
+						if (screenpos[1] > vi_get_height()) {
+							screenpos[1] = vi_get_height();
 						}
 
 						uls = (s32)screenpos[0] - 8;
 						ult = (s32)screenpos[1] - 8;
 
-						if (uls < viGetViewLeft()) {
-							uls = viGetViewLeft();
+						if (uls < vi_get_view_left()) {
+							uls = vi_get_view_left();
 						}
 
-						if (uls > viGetViewLeft() + viGetViewWidth() - 16) {
-							uls = viGetViewLeft() + viGetViewWidth() - 16;
+						if (uls > vi_get_view_left() + vi_get_view_width() - 16) {
+							uls = vi_get_view_left() + vi_get_view_width() - 16;
 						}
 
-						if (ult < viGetViewTop()) {
-							ult = viGetViewTop();
+						if (ult < vi_get_view_top()) {
+							ult = vi_get_view_top();
 						}
 
-						if (ult > viGetViewTop() + viGetViewHeight() - 16) {
-							ult = viGetViewTop() + viGetViewHeight() - 16;
+						if (ult > vi_get_view_top() + vi_get_view_height() - 16) {
+							ult = vi_get_view_top() + vi_get_view_height() - 16;
 						}
 
 						lrs = uls + 15;
@@ -6379,8 +6379,8 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 						gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, OS_K0_TO_PHYSICAL(var8009ccc0[index]));
 						gDPTileSync(gdl++);
 
-						gDPLoadTextureTile(gdl++, viGetBackBuffer(), G_IM_FMT_RGBA, G_IM_SIZ_16b,
-								viGetWidth(), 0, uls, ult, lrs, lrt,
+						gDPLoadTextureTile(gdl++, vi_get_back_buffer(), G_IM_FMT_RGBA, G_IM_SIZ_16b,
+								vi_get_width(), 0, uls, ult, lrs, lrt,
 								0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP,
 								4, 4, G_TX_NOLOD, G_TX_NOLOD);
 
@@ -6409,7 +6409,7 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 			struct prop *child;
 
 			for (child = thisprop->child; child != NULL; child = child->next) {
-				gdl = chrRenderCloak(gdl, chrprop, child);
+				gdl = chr_render_cloak(gdl, chrprop, child);
 			}
 		}
 
@@ -6418,8 +6418,8 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 			gDPPipeSync(gdl++);
 			gDPLoadSync(gdl++);
 			gDPTileSync(gdl++);
-			gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_K0_TO_PHYSICAL(viGetBackBuffer()));
-			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
+			gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, vi_get_buf_width(), OS_K0_TO_PHYSICAL(vi_get_back_buffer()));
+			gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, vi_get_width(), vi_get_height());
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 			gDPSetRenderMode(gdl++, G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2);
 			gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
@@ -6432,9 +6432,9 @@ Gfx *chrRenderCloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 	return gdl;
 }
 
-Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
+Gfx *chr_render_shield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 {
-	if (chrGetShield(chr) > 0 && g_Vars.lvupdate240 > 0) {
+	if (chr_get_shield(chr) > 0 && g_Vars.lvupdate240 > 0) {
 		chr->cmcount++;
 
 		if (chr->cmcount > 300) {
@@ -6443,9 +6443,9 @@ Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 	}
 
 	if ((chr->hidden2 & CHRH2FLAG_SHIELDHIT)
-			|| (chrGetShield(chr) > 0 && chr->cmcount < 10)
+			|| (chr_get_shield(chr) > 0 && chr->cmcount < 10)
 			|| (chr->cloakfadefrac > 0 && !chr->cloakfadefinished)) {
-		if (chrGetShield(chr) > 0 && g_Vars.lvupdate240 > 0) {
+		if (chr_get_shield(chr) > 0 && g_Vars.lvupdate240 > 0) {
 			s32 numiterations = (random() % 4) + 1;
 			s32 newcmnum = chr->cmnum2;
 			s32 candidate;
@@ -6508,7 +6508,7 @@ Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 
 		gSPSetGeometryMode(gdl++, G_CULL_BACK);
 
-		gdl = shieldhitRender(gdl, chr->prop, chr->prop, alpha,
+		gdl = shieldhit_render(gdl, chr->prop, chr->prop, alpha,
 				chr->cloakfadefrac > 0 && !chr->cloakfadefinished,
 				chr->cmnum, chr->cmnum2, chr->cmnum3, chr->cmnum4);
 
@@ -6521,7 +6521,7 @@ Gfx *chrRenderShield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 /**
  * This ticks the shield damage effect when you shoot a shielded chr.
  */
-void shieldhitsTick(void)
+void shieldhits_tick(void)
 {
 	s32 index;
 	bool changed = false;
@@ -6534,7 +6534,7 @@ void shieldhitsTick(void)
 			if (g_ShieldHits[i].prop) {
 				if (g_ShieldHits[i].lvframe60 >= g_Vars.lvframe60 - TICKS(80)) {
 					changed = true;
-					g_ShieldHits[i].shield += (propGetShieldThing(&g_ShieldHits[i].prop) - g_ShieldHits[i].shield) * g_Vars.lvupdate60f * (PAL ? 0.0151515156f : 0.0125f);
+					g_ShieldHits[i].shield += (prop_get_shield_thing(&g_ShieldHits[i].prop) - g_ShieldHits[i].shield) * g_Vars.lvupdate60f * (PAL ? 0.0151515156f : 0.0125f);
 				}
 
 				for (j = 0; j < 32; j++) {
@@ -6581,14 +6581,14 @@ void shieldhitsTick(void)
 				}
 
 				if (!changed) {
-					shieldhitRemove(&g_ShieldHits[i]);
+					shieldhit_remove(&g_ShieldHits[i]);
 				}
 			}
 		}
 	}
 }
 
-void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
+void chr_set_dr_caroll_images(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
 {
 	if (drcaroll
 			&& imageleft >= DRCAROLLIMAGE_EYESDEFAULT && imageleft <= DRCAROLLIMAGE_BINARY
@@ -6604,12 +6604,12 @@ void chrSetDrCarollImages(struct chrdata *drcaroll, s32 imageleft, s32 imagerigh
 		// Parts 0-5 are the left image
 		// Parts 6-11 are the right image
 		for (i = 0; i < 6; i++) {
-			nodes[0] = modelGetPart(model->definition, i);
-			nodes[1] = modelGetPart(model->definition, i + 6);
+			nodes[0] = model_get_part(model->definition, i);
+			nodes[1] = model_get_part(model->definition, i + 6);
 
 			for (j = 0; j < ARRAYCOUNT(nodes); j++) {
 				if (nodes[j]) {
-					rwdata = modelGetNodeRwData(model, nodes[j]);
+					rwdata = model_get_node_rw_data(model, nodes[j]);
 
 					if (j == 0) {
 						rwdata->toggle.visible = (imageleft == i) ? true : false;

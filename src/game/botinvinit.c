@@ -6,7 +6,7 @@
 #include "lib/memp.h"
 #include "types.h"
 
-void botinvInit(struct chrdata *chr, s32 maxitems)
+void botinv_init(struct chrdata *chr, s32 maxitems)
 {
 	if (chr && chr->aibot && maxitems > 0) {
 		if (maxitems > 255) {
@@ -14,8 +14,8 @@ void botinvInit(struct chrdata *chr, s32 maxitems)
 		}
 
 		chr->aibot->maxitems = maxitems;
-		chr->aibot->items = mempAlloc(ALIGN16(maxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
+		chr->aibot->items = memp_alloc(ALIGN16(maxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
 
-		botinvClear(chr);
+		botinv_clear(chr);
 	}
 }

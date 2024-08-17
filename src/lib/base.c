@@ -7,7 +7,7 @@
 const char lower[] = "0123456789abcdefghijklmnopqrstuvwxyz";
 const char upper[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-char *baseEncode(u64 value, char *buffer, u32 base, bool uppercase)
+char *base_encode(u64 value, char *buffer, u32 base, bool uppercase)
 {
 	const char *digits = uppercase ? upper : lower;
 	char *ptr = buffer;

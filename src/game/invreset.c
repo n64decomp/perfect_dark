@@ -8,12 +8,12 @@
 #include "data.h"
 #include "types.h"
 
-void invReset(void)
+void inv_reset(void)
 {
 	s32 i;
 
 	if (PLAYERCOUNT() == 1 && g_Vars.normmplayerisrunning == false) {
-		g_Vars.currentplayer->equipallguns = cheatIsActive(CHEAT_ALLGUNS);
+		g_Vars.currentplayer->equipallguns = cheat_is_active(CHEAT_ALLGUNS);
 	} else {
 		g_Vars.currentplayer->equipallguns = false;
 	}
@@ -23,9 +23,9 @@ void invReset(void)
 	}
 }
 
-void invInit(s32 numdoubles)
+void inv_init(s32 numdoubles)
 {
 	g_Vars.currentplayer->equipmaxitems = numdoubles + 30;
-	g_Vars.currentplayer->equipment = mempAlloc(ALIGN16(g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
-	invClear();
+	g_Vars.currentplayer->equipment = memp_alloc(ALIGN16(g_Vars.currentplayer->equipmaxitems * sizeof(struct invitem)), MEMPOOL_STAGE);
+	inv_clear();
 }

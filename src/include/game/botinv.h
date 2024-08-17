@@ -4,27 +4,27 @@
 #include "data.h"
 #include "types.h"
 
-void botinvClear(struct chrdata *chr);
-struct invitem *botinvGetFreeSlot(struct chrdata *chr);
-struct invitem *botinvGetItem(struct chrdata *chr, s32 weaponnum);
-void botinvRemoveItem(struct chrdata *chr, s32 weaponnum);
-u32 botinvGetItemType(struct chrdata *chr, u32 weaponnum);
-bool botinvGiveSingleWeapon(struct chrdata *chr, u32 weaponnum);
-void botinvGiveDualWeapon(struct chrdata *chr, u32 weaponnum);
-s16 botinvGetWeaponPad(struct chrdata *chr, u32 weaponnum);
-bool botinvGiveProp(struct chrdata *chr, struct prop *prop);
-void botinvScoreAllWeapons(struct chrdata *chr, s32 *weaponnums, s32 *scores1, s32 *scores2);
-bool mpHasShield(void);
-s32 mpGetWeaponSlotByWeaponNum(s32 weaponnum);
-void botinvScoreWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2, bool arg7, bool learn);
-void botinvScoreWeaponAgainstTarget(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2);
-void botinvScoreWeaponByItself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2);
-s32 botinvGetDistConfig(s32 weaponnum, s32 funcnum);
-bool botinvAllowsWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum);
-void botinvTick(struct chrdata *chr);
-bool botinvSwitchToWeapon(struct chrdata *chr, s32 weaponnum, s32 funcnum);
-void botinvDrop(struct chrdata *chr, s32 weaponnum, u8 dropall);
-void botinvDropAll(struct chrdata *chr, u32 weaponnum);
-void botinvDropOne(struct chrdata *chr, u32 weaponnum);
+void botinv_clear(struct chrdata *chr);
+struct invitem *botinv_get_free_slot(struct chrdata *chr);
+struct invitem *botinv_get_item(struct chrdata *chr, s32 weaponnum);
+void botinv_remove_item(struct chrdata *chr, s32 weaponnum);
+u32 botinv_get_item_type(struct chrdata *chr, u32 weaponnum);
+bool botinv_give_single_weapon(struct chrdata *chr, u32 weaponnum);
+void botinv_give_dual_weapon(struct chrdata *chr, u32 weaponnum);
+s16 botinv_get_weapon_pad(struct chrdata *chr, u32 weaponnum);
+bool botinv_give_prop(struct chrdata *chr, struct prop *prop);
+void botinv_score_all_weapons(struct chrdata *chr, s32 *weaponnums, s32 *scores1, s32 *scores2);
+bool mp_has_shield(void);
+s32 mp_get_weapon_slot_by_weapon_num(s32 weaponnum);
+void botinv_score_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2, bool arg7, bool learn);
+void botinv_score_weapon_against_target(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2);
+void botinv_score_weapon_by_itself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2);
+s32 botinv_get_dist_config(s32 weaponnum, s32 funcnum);
+bool botinv_allows_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum);
+void botinv_tick(struct chrdata *chr);
+bool botinv_switch_to_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum);
+void botinv_drop(struct chrdata *chr, s32 weaponnum, u8 dropall);
+void botinv_drop_all(struct chrdata *chr, u32 weaponnum);
+void botinv_drop_one(struct chrdata *chr, u32 weaponnum);
 
 #endif

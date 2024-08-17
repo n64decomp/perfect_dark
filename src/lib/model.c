@@ -98,17 +98,17 @@ bool var8005efd8_2 = false;
 Vtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices) = NULL;
 void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx) = NULL;
 
-void modelSetDistanceChecksDisabled(bool disabled)
+void model_set_distance_checks_disabled(bool disabled)
 {
 	g_ModelDistanceDisabled = disabled;
 }
 
-void modelSetDistanceScale(f32 scale)
+void model_set_distance_scale(f32 scale)
 {
 	g_ModelDistanceScale = scale;
 }
 
-void modelSetVtxAllocatorFunc(Vtx *(*fn)(s32 numvertices))
+void model_set_vtx_allocator_func(Vtx *(*fn)(s32 numvertices))
 {
 	g_ModelVtxAllocatorFunc = fn;
 }
@@ -120,7 +120,7 @@ void modelSetVtxAllocatorFunc(Vtx *(*fn)(s32 numvertices))
  * Position nodes support up to 3 matrices. In this case the desired one can be
  * specified with arg1.
  */
-s32 modelFindNodeMtxIndex(struct modelnode *node, s32 arg1)
+s32 model_find_node_mtx_index(struct modelnode *node, s32 arg1)
 {
 	s32 index;
 	union modelrodata *rodata1;
@@ -146,9 +146,9 @@ s32 modelFindNodeMtxIndex(struct modelnode *node, s32 arg1)
 	return -1;
 }
 
-Mtxf *modelFindNodeMtx(struct model *model, struct modelnode *node, s32 arg2)
+Mtxf *model_find_node_mtx(struct model *model, struct modelnode *node, s32 arg2)
 {
-	s32 index = modelFindNodeMtxIndex(node, arg2);
+	s32 index = model_find_node_mtx_index(node, arg2);
 
 	if (index >= 0) {
 		return &model->matrices[index];
@@ -157,12 +157,12 @@ Mtxf *modelFindNodeMtx(struct model *model, struct modelnode *node, s32 arg2)
 	return NULL;
 }
 
-Mtxf *modelGetRootMtx(struct model *model)
+Mtxf *model_get_root_mtx(struct model *model)
 {
-	return modelFindNodeMtx(model, model->definition->rootnode, 0);
+	return model_find_node_mtx(model, model->definition->rootnode, 0);
 }
 
-struct modelnode *modelFindNodeByMtxIndex(struct model *model, s32 mtxindex)
+struct modelnode *model_find_node_by_mtx_index(struct model *model, s32 mtxindex)
 {
 	struct modelnode *node = model->definition->rootnode;
 	union modelrodata *rodata1;
@@ -210,7 +210,7 @@ struct modelnode *modelFindNodeByMtxIndex(struct model *model, s32 mtxindex)
 	return NULL;
 }
 
-struct modelnode *modelNodeFindMtxNode(struct modelnode *node)
+struct modelnode *model_node_find_mtx_node(struct modelnode *node)
 {
 	while (node) {
 		u32 type = node->type & 0xff;
@@ -227,7 +227,7 @@ struct modelnode *modelNodeFindMtxNode(struct modelnode *node)
 	return node;
 }
 
-struct modelnode *modelNodeFindParentMtxNode(struct modelnode *node)
+struct modelnode *model_node_find_parent_mtx_node(struct modelnode *node)
 {
 	while ((node = node->parent)) {
 		u32 type = node->type & 0xff;
@@ -242,7 +242,7 @@ struct modelnode *modelNodeFindParentMtxNode(struct modelnode *node)
 	return node;
 }
 
-struct modelnode *modelNodeFindChildMtxNode(struct modelnode *basenode)
+struct modelnode *model_node_find_child_mtx_node(struct modelnode *basenode)
 {
 	struct modelnode *node = basenode->child;
 
@@ -277,7 +277,7 @@ struct modelnode *modelNodeFindChildMtxNode(struct modelnode *basenode)
 	return node;
 }
 
-struct modelnode *modelNodeFindChildOrParentMtxNode(struct modelnode *basenode)
+struct modelnode *model_node_find_child_or_parent_mtx_node(struct modelnode *basenode)
 {
 	struct modelnode *node = basenode;
 	struct modelnode *next;
@@ -324,7 +324,7 @@ struct modelnode *modelNodeFindChildOrParentMtxNode(struct modelnode *basenode)
 	return node;
 }
 
-struct modelnode *modelGetPart(struct modeldef *modeldef, s32 partnum)
+struct modelnode *model_get_part(struct modeldef *modeldef, s32 partnum)
 {
 	s32 upper;
 	s32 lower;
@@ -356,9 +356,9 @@ struct modelnode *modelGetPart(struct modeldef *modeldef, s32 partnum)
 	return NULL;
 }
 
-void *modelGetPartRodata(struct modeldef *modeldef, s32 partnum)
+void *model_get_part_rodata(struct modeldef *modeldef, s32 partnum)
 {
-	struct modelnode *node = modelGetPart(modeldef, partnum);
+	struct modelnode *node = model_get_part(modeldef, partnum);
 
 	if (node) {
 		return node->rodata;
@@ -367,9 +367,9 @@ void *modelGetPartRodata(struct modeldef *modeldef, s32 partnum)
 	return NULL;
 }
 
-f32 modelGetScreenDistance(struct model *model)
+f32 model_get_screen_distance(struct model *model)
 {
-	Mtxf *mtx = modelGetRootMtx(model);
+	Mtxf *mtx = model_get_root_mtx(model);
 
 	if (mtx) {
 		return -mtx->m[3][2];
@@ -380,7 +380,7 @@ f32 modelGetScreenDistance(struct model *model)
 
 #if VERSION >= VERSION_NTSC_1_0
 // ntsc-beta has this function in another file
-void *modelGetNodeRwData(struct model *model, struct modelnode *node)
+void *model_get_node_rw_data(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
 	u32 *rwdatas = model->rwdatas;
@@ -416,7 +416,7 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 		node = node->parent;
 
 		if ((node->type & 0xff) == MODELNODETYPE_HEADSPOT) {
-			struct modelrwdata_headspot *tmp = modelGetNodeRwData(model, node);
+			struct modelrwdata_headspot *tmp = model_get_node_rw_data(model, node);
 			rwdatas = tmp->rwdatas;
 			break;
 		}
@@ -426,12 +426,12 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 }
 #endif
 
-void modelNodeGetPosition(struct model *model, struct modelnode *node, struct coord *pos)
+void model_node_get_position(struct model *model, struct modelnode *node, struct coord *pos)
 {
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_CHRINFO:
 		{
-			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
+			struct modelrwdata_chrinfo *rwdata = model_get_node_rw_data(model, node);
 			pos->x = rwdata->pos.x;
 			pos->y = rwdata->pos.y;
 			pos->z = rwdata->pos.z;
@@ -461,12 +461,12 @@ void modelNodeGetPosition(struct model *model, struct modelnode *node, struct co
 	}
 }
 
-void modelNodeSetPosition(struct model *model, struct modelnode *node, struct coord *pos)
+void model_node_set_position(struct model *model, struct modelnode *node, struct coord *pos)
 {
 	switch (node->type & 0xff) {
 	case MODELNODETYPE_CHRINFO:
 		{
-			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
+			struct modelrwdata_chrinfo *rwdata = model_get_node_rw_data(model, node);
 			struct coord diff[1];
 
 			diff[0].x = pos->x - rwdata->pos.x;
@@ -501,17 +501,17 @@ void modelNodeSetPosition(struct model *model, struct modelnode *node, struct co
 	}
 }
 
-void modelGetRootPosition(struct model *model, struct coord *pos)
+void model_get_root_position(struct model *model, struct coord *pos)
 {
-	modelNodeGetPosition(model, model->definition->rootnode, pos);
+	model_node_get_position(model, model->definition->rootnode, pos);
 }
 
-void modelSetRootPosition(struct model *model, struct coord *pos)
+void model_set_root_position(struct model *model, struct coord *pos)
 {
-	modelNodeSetPosition(model, model->definition->rootnode, pos);
+	model_node_set_position(model, model->definition->rootnode, pos);
 }
 
-void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *node, struct coord *pos)
+void model_node_get_model_relative_position(struct model *model, struct modelnode *node, struct coord *pos)
 {
 	pos->x = 0;
 	pos->y = 0;
@@ -524,7 +524,7 @@ void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *no
 		if (type == MODELNODETYPE_CHRINFO
 				|| type == MODELNODETYPE_POSITION
 				|| type == MODELNODETYPE_POSITIONHELD) {
-			modelNodeGetPosition(model, node, &nodepos);
+			model_node_get_position(model, node, &nodepos);
 			pos->x += nodepos.x;
 			pos->y += nodepos.y;
 			pos->z += nodepos.z;
@@ -534,20 +534,20 @@ void modelNodeGetModelRelativePosition(struct model *model, struct modelnode *no
 	}
 }
 
-f32 modelGetChrRotY(struct model *model)
+f32 model_get_chr_rot_y(struct model *model)
 {
 	if ((model->definition->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
-		union modelrwdata *rwdata = modelGetNodeRwData(model, model->definition->rootnode);
+		union modelrwdata *rwdata = model_get_node_rw_data(model, model->definition->rootnode);
 		return rwdata->chrinfo.yrot;
 	}
 
 	return 0;
 }
 
-void modelSetChrRotY(struct model *model, f32 angle)
+void model_set_chr_rot_y(struct model *model, f32 angle)
 {
 	if ((model->definition->rootnode->type & 0xff) == MODELNODETYPE_CHRINFO) {
-		struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, model->definition->rootnode);
+		struct modelrwdata_chrinfo *rwdata = model_get_node_rw_data(model, model->definition->rootnode);
 		f32 diff = angle - rwdata->yrot;
 
 		if (diff < 0) {
@@ -570,31 +570,31 @@ void modelSetChrRotY(struct model *model, f32 angle)
 	}
 }
 
-void modelSetScale(struct model *model, f32 scale)
+void model_set_scale(struct model *model, f32 scale)
 {
 	model->scale = scale;
 }
 
-void modelSetAnimScale(struct model *model, f32 scale)
+void model_set_anim_scale(struct model *model, f32 scale)
 {
 	if (model->anim) {
 		model->anim->animscale = scale;
 	}
 }
 
-f32 modelGetEffectiveScale(struct model *model)
+f32 model_get_effective_scale(struct model *model)
 {
 	return model->definition->scale * model->scale;
 }
 
-void modelTweenPos(struct coord *curpos, struct coord *goalpos, f32 frac)
+void model_tween_pos(struct coord *curpos, struct coord *goalpos, f32 frac)
 {
 	curpos->x += (goalpos->x - curpos->x) * frac;
 	curpos->y += (goalpos->y - curpos->y) * frac;
 	curpos->z += (goalpos->z - curpos->z) * frac;
 }
 
-f32 modelTweenRotAxis(f32 curangle, f32 goalangle, f32 mult)
+f32 model_tween_rot_axis(f32 curangle, f32 goalangle, f32 mult)
 {
 	f32 diff = goalangle - curangle;
 
@@ -619,14 +619,14 @@ f32 modelTweenRotAxis(f32 curangle, f32 goalangle, f32 mult)
 	return curangle;
 }
 
-void modelTweenRot(struct coord *currot, struct coord *goalrot, f32 mult)
+void model_tween_rot(struct coord *currot, struct coord *goalrot, f32 mult)
 {
-	currot->x = modelTweenRotAxis(currot->x, goalrot->x, mult);
-	currot->y = modelTweenRotAxis(currot->y, goalrot->y, mult);
-	currot->z = modelTweenRotAxis(currot->z, goalrot->z, mult);
+	currot->x = model_tween_rot_axis(currot->x, goalrot->x, mult);
+	currot->y = model_tween_rot_axis(currot->y, goalrot->y, mult);
+	currot->z = model_tween_rot_axis(currot->z, goalrot->z, mult);
 }
 
-void modelUpdateChrInfo(struct model *model, struct modelnode *node)
+void model_update_chr_info(struct model *model, struct modelnode *node)
 {
 	union modelrwdata *rwdata;
 	struct anim *anim = model->anim;
@@ -638,7 +638,7 @@ void modelUpdateChrInfo(struct model *model, struct modelnode *node)
 		return;
 	}
 
-	rwdata = modelGetNodeRwData(model, node);
+	rwdata = model_get_node_rw_data(model, node);
 
 	if (rwdata->chrinfo.unk00) {
 		return;
@@ -661,9 +661,9 @@ void modelUpdateChrInfo(struct model *model, struct modelnode *node)
 	}
 
 	if (frac != 0.0f && rwdata->chrinfo.unk01) {
-		modelTweenPos(&sp34, &rwdata->chrinfo.unk24, frac);
+		model_tween_pos(&sp34, &rwdata->chrinfo.unk24, frac);
 
-		rwdata->chrinfo.yrot = modelTweenRotAxis(rwdata->chrinfo.unk30, rwdata->chrinfo.unk20, frac);
+		rwdata->chrinfo.yrot = model_tween_rot_axis(rwdata->chrinfo.unk30, rwdata->chrinfo.unk20, frac);
 	}
 
 	if (anim->animnum2 || anim->fracmerge) {
@@ -714,20 +714,20 @@ void modelUpdateChrInfo(struct model *model, struct modelnode *node)
 	}
 }
 
-void modelUpdateInfo(struct model *model)
+void model_update_info(struct model *model)
 {
 	struct modelnode *node = model->definition->rootnode;
 
 	if (node && (node->type & 0xff) == MODELNODETYPE_CHRINFO) {
-		modelUpdateChrInfo(model, node);
+		model_update_chr_info(model, node);
 	}
 }
 
-void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
+void model_update_chr_node_mtx(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
 {
 	struct anim *anim = model->anim;
 	union modelrodata *rodata = node->rodata;
-	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+	union modelrwdata *rwdata = model_get_node_rw_data(model, node);
 	f32 scale = model->scale;
 	struct coord *sp254 = &rwdata->chrinfo.pos;
 	f32 sp250 = rwdata->chrinfo.yrot;
@@ -761,12 +761,12 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 	if (rodata->chrinfo.mtxindex);
 
 	if (node->parent) {
-		sp24c = modelFindNodeMtx(model, node->parent, 0);
+		sp24c = model_find_node_mtx(model, node->parent, 0);
 	} else {
 		sp24c = arg0->unk00;
 	}
 
-	animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
+	anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
 
 	if (g_Vars.in_cutscene && anim->speed > 0) {
 #if VERSION >= VERSION_PAL_BETA
@@ -779,21 +779,21 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 	}
 
 	if (sp154 != 0.0f) {
-		animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot2, &rot2, &translate2, &scale2);
-		modelTweenRot(&rot1, &rot2, sp154);
+		anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, anim->frameslot2, &rot2, &translate2, &scale2);
+		model_tween_rot(&rot1, &rot2, sp154);
 	}
 
 	if (anim->fracmerge != 0.0f) {
-		animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot3, &rot3, &translate3, &scale3);
+		anim_get_rot_translate_scale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot3, &rot3, &translate3, &scale3);
 
 		if (anim->frac2 != 0.0f) {
-			animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot4, &rot4, &translate4, &scale4);
-			modelTweenRot(&rot3, &rot4, anim->frac2);
+			anim_get_rot_translate_scale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot4, &rot4, &translate4, &scale4);
+			model_tween_rot(&rot3, &rot4, anim->frac2);
 		}
 
 		if ((g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) && (g_Anims[anim->animnum2].flags & ANIMFLAG_ABSOLUTETRANSLATION) == 0) {
-			mtx4LoadYRotation(rwdata->chrinfo.yrot, &sp78);
-			mtx4LoadRotation(&rot3, &sp38);
+			mtx4_load_y_rotation(rwdata->chrinfo.yrot, &sp78);
+			mtx4_load_rotation(&rot3, &sp38);
 			mtx00015be0(&sp78, &sp38);
 			quaternion0f097044(&sp38, spec);
 		} else {
@@ -802,20 +802,20 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 
 		quaternion0f096ca0(&rot1, spfc);
 		quaternion0f0976c0(spfc, spec);
-		quaternionSlerp(spfc, spec, anim->fracmerge, spdc);
-		quaternionToMtx(spdc, &sp1d8);
+		quaternion_slerp(spfc, spec, anim->fracmerge, spdc);
+		quaternion_to_mtx(spdc, &sp1d8);
 	} else {
-		mtx4LoadRotation(&rot1, &sp1d8);
+		mtx4_load_rotation(&rot1, &sp1d8);
 	}
 
 	if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
-		mtx4LoadTranslation(sp254, &sp198);
+		mtx4_load_translation(sp254, &sp198);
 	} else {
 		if (rwdata->chrinfo.unk18 != 0.0f) {
-			sp250 = modelTweenRotAxis(sp250, rwdata->chrinfo.unk1c, rwdata->chrinfo.unk18);
+			sp250 = model_tween_rot_axis(sp250, rwdata->chrinfo.unk1c, rwdata->chrinfo.unk18);
 		}
 
-		mtx4LoadYRotationWithTranslation(sp254, sp250, &sp198);
+		mtx4_load_y_rotation_with_translation(sp254, sp250, &sp198);
 	}
 
 	mtx00015be4(&sp198, &sp1d8, &sp158);
@@ -827,11 +827,11 @@ void modelUpdateChrNodeMtx(struct modelrenderdata *arg0, struct model *model, st
 	if (sp24c) {
 		mtx00015be4(sp24c, &sp158, mtx);
 	} else {
-		mtx4Copy(&sp158, mtx);
+		mtx4_copy(&sp158, mtx);
 	}
 }
 
-void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, struct coord *rot, struct coord *pos, bool allowscale, struct coord *arg6)
+void model_position_joint_using_vec_rot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, struct coord *rot, struct coord *pos, bool allowscale, struct coord *arg6)
 {
 	s32 nodetype = node->type;
 	struct modelrodata_position *rodata = &node->rodata->position;
@@ -844,7 +844,7 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 	Mtxf *matrices = model->matrices;
 
 	if (node->parent != NULL) {
-		rendermtx = modelFindNodeMtx(model, node->parent, 0);
+		rendermtx = model_find_node_mtx(model, node->parent, 0);
 	} else {
 		rendermtx = renderdata->unk00;
 	}
@@ -852,7 +852,7 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 	if (rendermtx != NULL) {
 		Mtxf *nodemtx = &matrices[mtxindex0];
 
-		mtx4LoadRotationAndTranslation(pos, rot, &mtx68);
+		mtx4_load_rotation_and_translation(pos, rot, &mtx68);
 
 		if (allowscale && model->scale != 1.0f) {
 			mtx00015f04(model->scale, &mtx68);
@@ -878,7 +878,7 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 	} else {
 		Mtxf *nodemtx = &matrices[mtxindex0];
 
-		mtx4LoadRotationAndTranslation(pos, rot, nodemtx);
+		mtx4_load_rotation_and_translation(pos, rot, nodemtx);
 
 		if (allowscale && model->scale != 1.0f) {
 			mtx00015f04(model->scale, nodemtx);
@@ -906,10 +906,10 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 		quaternion0f097518(sp3c, 0.5f, sp2c);
 
 		if (rendermtx != NULL) {
-			quaternionToTransformMtx(pos, sp2c, &mtx68);
+			quaternion_to_transform_mtx(pos, sp2c, &mtx68);
 			mtx00015be4(rendermtx, &mtx68, nodemtx);
 		} else {
-			quaternionToTransformMtx(pos, sp2c, nodemtx);
+			quaternion_to_transform_mtx(pos, sp2c, nodemtx);
 		}
 	}
 
@@ -923,7 +923,7 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 			roty = M_BADTAU - (M_BADTAU - roty) * 0.5f;
 		}
 
-		mtx4LoadYRotation(roty, finalmtx);
+		mtx4_load_y_rotation(roty, finalmtx);
 
 		if (roty >= M_PI) {
 			roty = M_BADTAU - roty;
@@ -936,7 +936,7 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 		}
 
 		mtx00015edc(roty, finalmtx);
-		mtx4SetTranslation(pos, finalmtx);
+		mtx4_set_translation(pos, finalmtx);
 
 		if (rendermtx != NULL) {
 			Mtxf *nodemtx = &matrices[mtxindex2];
@@ -945,7 +945,7 @@ void modelPositionJointUsingVecRot(struct modelrenderdata *renderdata, struct mo
 	}
 }
 
-void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, f32 rot[4], struct coord *pos, struct coord *arg5)
+void model_position_joint_using_quat_rot(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node, f32 rot[4], struct coord *pos, struct coord *arg5)
 {
 	s32 nodetype = node->type;
 	struct modelrodata_position *rodata = &node->rodata->position;
@@ -958,7 +958,7 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 	Mtxf *matrices = model->matrices;
 
 	if (node->parent != NULL) {
-		rendermtx = modelFindNodeMtx(model, node->parent, 0);
+		rendermtx = model_find_node_mtx(model, node->parent, 0);
 	} else {
 		rendermtx = renderdata->unk00;
 	}
@@ -966,7 +966,7 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 	if (rendermtx != NULL) {
 		Mtxf *nodemtx = &matrices[mtxindex0];
 
-		quaternionToTransformMtx(pos, rot, &mtx58);
+		quaternion_to_transform_mtx(pos, rot, &mtx58);
 
 		if (arg5->x != 1.0f) {
 			mtx00015df0(arg5->x, &mtx58);
@@ -988,7 +988,7 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 	} else {
 		Mtxf *nodemtx = &matrices[mtxindex0];
 
-		quaternionToTransformMtx(pos, rot, nodemtx);
+		quaternion_to_transform_mtx(pos, rot, nodemtx);
 
 		if (arg5->x != 1.0f) {
 			mtx00015df0(arg5->x, nodemtx);
@@ -1010,10 +1010,10 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 		quaternion0f097518(rot, 0.5f, sp2c);
 
 		if (rendermtx != NULL) {
-			quaternionToTransformMtx(pos, sp2c, &mtx58);
+			quaternion_to_transform_mtx(pos, sp2c, &mtx58);
 			mtx00015be4(rendermtx, &mtx58, nodemtx);
 		} else {
-			quaternionToTransformMtx(pos, sp2c, nodemtx);
+			quaternion_to_transform_mtx(pos, sp2c, nodemtx);
 		}
 	}
 
@@ -1027,7 +1027,7 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 			roty = M_BADTAU - (M_BADTAU - roty) * 0.5f;
 		}
 
-		mtx4LoadYRotation(roty, finalmtx);
+		mtx4_load_y_rotation(roty, finalmtx);
 
 		if (roty >= M_PI) {
 			roty = M_BADTAU - roty;
@@ -1040,7 +1040,7 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 		}
 
 		mtx00015edc(roty, finalmtx);
-		mtx4SetTranslation(pos, finalmtx);
+		mtx4_set_translation(pos, finalmtx);
 
 		if (rendermtx != NULL) {
 			Mtxf *nodemtx = &matrices[mtxindex2];
@@ -1049,7 +1049,7 @@ void modelPositionJointUsingQuatRot(struct modelrenderdata *renderdata, struct m
 	}
 }
 
-void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+void model_update_position_node_mtx(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	struct anim *anim;
 	struct modelrodata_position *rodata = &node->rodata->position;
@@ -1084,7 +1084,7 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 		if (anim->animnum != 0) {
 			sp128 = (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) && node == model->definition->rootnode;
 
-			animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
+			anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
 
 			if (g_Vars.in_cutscene && anim->speed > 0.0f) {
 #if VERSION >= VERSION_PAL_BETA
@@ -1097,8 +1097,8 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 			}
 
 			if (spe0 != 0.0f) {
-				animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, anim->frameslot2, &rot2, &translate2, &scale2);
-				modelTweenRot(&rot1, &rot2, spe0);
+				anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, anim->frameslot2, &rot2, &translate2, &scale2);
+				model_tween_rot(&rot1, &rot2, spe0);
 
 #if VERSION >= VERSION_PAL_BETA
 				if (sp128 || var8005efd8_2)
@@ -1106,7 +1106,7 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 				if (sp128)
 #endif
 				{
-					modelTweenPos(&translate1, &translate2, spe0);
+					model_tween_pos(&translate1, &translate2, spe0);
 				}
 			}
 		} else {
@@ -1118,17 +1118,17 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 		}
 
 		if (anim->fracmerge != 0.0f) {
-			animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot3, &rot3, &translate3, &scale3);
+			anim_get_rot_translate_scale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot3, &rot3, &translate3, &scale3);
 
 			if (anim->frac2 != 0.0f) {
-				animGetRotTranslateScale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot4, &rot4, &translate4, &scale4);
-				modelTweenRot(&rot3, &rot4, anim->frac2);
+				anim_get_rot_translate_scale(animpart, anim->flip2, skel, anim->animnum2, anim->frameslot4, &rot4, &translate4, &scale4);
+				model_tween_rot(&rot3, &rot4, anim->frac2);
 			}
 
 			quaternion0f096ca0(&rot1, sp88);
 			quaternion0f096ca0(&rot3, sp78);
 			quaternion0f0976c0(sp88, sp78);
-			quaternionSlerp(sp88, sp78, anim->fracmerge, sp68);
+			quaternion_slerp(sp88, sp78, anim->fracmerge, sp68);
 
 			if (translate1.f[0] != 0.0f || translate1.f[1] != 0.0f || translate1.f[2] != 0.0f) {
 				translate1.x *= anim->animscale;
@@ -1141,20 +1141,20 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 					translate1.z += rodata->pos.z;
 				}
 
-				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &translate1, &scale1);
+				model_position_joint_using_quat_rot(renderdata, model, node, sp68, &translate1, &scale1);
 			} else if (node != model->definition->rootnode) {
-				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &rodata->pos, &scale1);
+				model_position_joint_using_quat_rot(renderdata, model, node, sp68, &rodata->pos, &scale1);
 			} else {
-				modelPositionJointUsingQuatRot(renderdata, model, node, sp68, &translate1, &scale1);
+				model_position_joint_using_quat_rot(renderdata, model, node, sp68, &translate1, &scale1);
 			}
 		} else if (sp128) {
-			f32 mult = bgGetStageTranslationThing();
+			f32 mult = bg_get_stage_translation_thing();
 
 			translate1.x *= mult;
 			translate1.y *= mult;
 			translate1.z *= mult;
 
-			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, true, &scale1);
+			model_position_joint_using_vec_rot(renderdata, model, node, &rot1, &translate1, true, &scale1);
 		} else if (translate1.f[0] != 0.0f || translate1.f[1] != 0.0f || translate1.f[2] != 0.0f) {
 			translate1.x *= anim->animscale;
 			translate1.y *= anim->animscale;
@@ -1166,29 +1166,29 @@ void modelUpdatePositionNodeMtx(struct modelrenderdata *renderdata, struct model
 				translate1.z += rodata->pos.z;
 			}
 
-			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, false, &scale1);
+			model_position_joint_using_vec_rot(renderdata, model, node, &rot1, &translate1, false, &scale1);
 		} else if (node != model->definition->rootnode) {
-			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &rodata->pos, false, &scale1);
+			model_position_joint_using_vec_rot(renderdata, model, node, &rot1, &rodata->pos, false, &scale1);
 		} else {
-			modelPositionJointUsingVecRot(renderdata, model, node, &rot1, &translate1, false, &scale1);
+			model_position_joint_using_vec_rot(renderdata, model, node, &rot1, &translate1, false, &scale1);
 		}
 	} else {
 		if (node->parent) {
-			mtx = modelFindNodeMtx(model, node->parent, 0);
+			mtx = model_find_node_mtx(model, node->parent, 0);
 		} else {
 			mtx = renderdata->unk00;
 		}
 
 		if (mtx) {
-			mtx4LoadTranslation(&rodata->pos, &spe8);
+			mtx4_load_translation(&rodata->pos, &spe8);
 			mtx00015be4(mtx, &spe8, &model->matrices[rodata->mtxindex0]);
 		} else {
-			mtx4LoadTranslation(&rodata->pos, &model->matrices[rodata->mtxindex0]);
+			mtx4_load_translation(&rodata->pos, &model->matrices[rodata->mtxindex0]);
 		}
 	}
 }
 
-void modelUpdatePositionHeldNodeMtx(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
+void model_update_position_held_node_mtx(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 	Mtxf *sp68;
@@ -1197,33 +1197,33 @@ void modelUpdatePositionHeldNodeMtx(struct modelrenderdata *arg0, struct model *
 	Mtxf *matrices = model->matrices;
 
 	if (node->parent) {
-		sp68 = modelFindNodeMtx(model, node->parent, 0);
+		sp68 = model_find_node_mtx(model, node->parent, 0);
 	} else {
 		sp68 = arg0->unk00;
 	}
 
 	if (sp68) {
-		mtx4LoadTranslation(&rodata->positionheld.pos, &sp28);
+		mtx4_load_translation(&rodata->positionheld.pos, &sp28);
 		mtx00015be4(sp68, &sp28, &matrices[mtxindex]);
 	} else {
-		mtx4LoadTranslation(&rodata->positionheld.pos, &matrices[mtxindex]);
+		mtx4_load_translation(&rodata->positionheld.pos, &matrices[mtxindex]);
 	}
 }
 
 /**
  * For a distance node, set its target to visible based on distance.
  */
-void modelUpdateDistanceRelations(struct model *model, struct modelnode *node)
+void model_update_distance_relations(struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
-	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
-	Mtxf *mtx = modelFindNodeMtx(model, node, 0);
+	union modelrwdata *rwdata = model_get_node_rw_data(model, node);
+	Mtxf *mtx = model_find_node_mtx(model, node, 0);
 	f32 distance;
 
 	if (g_ModelDistanceDisabled || !mtx) {
 		distance = 0;
 	} else {
-		distance = -mtx->m[3][2] * camGetLodScaleZ();
+		distance = -mtx->m[3][2] * cam_get_lod_scale_z();
 
 		if (g_ModelDistanceScale != 1) {
 			distance *= g_ModelDistanceScale;
@@ -1242,10 +1242,10 @@ void modelUpdateDistanceRelations(struct model *model, struct modelnode *node)
 	node->child = NULL;
 }
 
-void modelApplyDistanceRelations(struct model *model, struct modelnode *node)
+void model_apply_distance_relations(struct model *model, struct modelnode *node)
 {
 	struct modelrodata_distance *rodata = &node->rodata->distance;
-	struct modelrwdata_distance *rwdata = modelGetNodeRwData(model, node);
+	struct modelrwdata_distance *rwdata = model_get_node_rw_data(model, node);
 
 	if (rwdata->visible) {
 		node->child = rodata->target;
@@ -1254,10 +1254,10 @@ void modelApplyDistanceRelations(struct model *model, struct modelnode *node)
 	}
 }
 
-void modelApplyToggleRelations(struct model *model, struct modelnode *node)
+void model_apply_toggle_relations(struct model *model, struct modelnode *node)
 {
 	struct modelrodata_toggle *rodata = &node->rodata->toggle;
-	struct modelrwdata_toggle *rwdata = modelGetNodeRwData(model, node);
+	struct modelrwdata_toggle *rwdata = model_get_node_rw_data(model, node);
 
 	if (rwdata->visible) {
 		node->child = rodata->target;
@@ -1271,9 +1271,9 @@ void modelApplyToggleRelations(struct model *model, struct modelnode *node)
  *
  * The given modelnode is assumed to be of type MODELNODETYPE_HEADSPOT.
  */
-void modelApplyHeadRelations(struct model *model, struct modelnode *bodynode)
+void model_apply_head_relations(struct model *model, struct modelnode *bodynode)
 {
-	struct modelrwdata_headspot *rwdata = modelGetNodeRwData(model, bodynode);
+	struct modelrwdata_headspot *rwdata = model_get_node_rw_data(model, bodynode);
 
 	if (rwdata->headmodeldef) {
 		struct modelnode *headnode = rwdata->headmodeldef->rootnode;
@@ -1287,7 +1287,7 @@ void modelApplyHeadRelations(struct model *model, struct modelnode *bodynode)
 	}
 }
 
-void modelApplyReorderRelationsByArg(struct modelnode *basenode, bool reverse)
+void model_apply_reorder_relations_by_arg(struct modelnode *basenode, bool reverse)
 {
 	union modelrodata *rodata = basenode->rodata;
 	struct modelnode *node1;
@@ -1341,18 +1341,18 @@ void modelApplyReorderRelationsByArg(struct modelnode *basenode, bool reverse)
 	}
 }
 
-void modelApplyReorderRelations(struct model *model, struct modelnode *node)
+void model_apply_reorder_relations(struct model *model, struct modelnode *node)
 {
-	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+	union modelrwdata *rwdata = model_get_node_rw_data(model, node);
 
-	modelApplyReorderRelationsByArg(node, rwdata->reorder.reverse);
+	model_apply_reorder_relations_by_arg(node, rwdata->reorder.reverse);
 }
 
-void modelUpdateReorderRelations(struct model *model, struct modelnode *node)
+void model_update_reorder_relations(struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
-	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
-	Mtxf *mtx = modelFindNodeMtx(model, node, 0);
+	union modelrwdata *rwdata = model_get_node_rw_data(model, node);
+	Mtxf *mtx = model_find_node_mtx(model, node, 0);
 	struct coord sp38;
 	struct coord sp2c;
 	f32 tmp;
@@ -1361,7 +1361,7 @@ void modelUpdateReorderRelations(struct model *model, struct modelnode *node)
 		sp38.x = rodata->reorder.unk0c[0];
 		sp38.y = rodata->reorder.unk0c[1];
 		sp38.z = rodata->reorder.unk0c[2];
-		mtx4RotateVecInPlace(mtx, &sp38);
+		mtx4_rotate_vec_in_place(mtx, &sp38);
 	} else if (rodata->reorder.side == 2) {
 		sp38.x = mtx->m[1][0] * rodata->reorder.unk0c[1];
 		sp38.y = mtx->m[1][1] * rodata->reorder.unk0c[1];
@@ -1380,7 +1380,7 @@ void modelUpdateReorderRelations(struct model *model, struct modelnode *node)
 	sp2c.y = rodata->reorder.unk04;
 	sp2c.z = rodata->reorder.unk08;
 
-	mtx4TransformVecInPlace(mtx, &sp2c);
+	mtx4_transform_vec_in_place(mtx, &sp2c);
 
 	tmp = sp38.f[0] * sp2c.f[0] + sp38.f[1] * sp2c.f[1] + sp38.f[2] * sp2c.f[2];
 
@@ -1390,7 +1390,7 @@ void modelUpdateReorderRelations(struct model *model, struct modelnode *node)
 		rwdata->reorder.reverse = false;
 	}
 
-	modelApplyReorderRelations(model, node);
+	model_apply_reorder_relations(model, node);
 }
 
 /**
@@ -1400,7 +1400,7 @@ void modelUpdateReorderRelations(struct model *model, struct modelnode *node)
  * However, several node types are not descended into, and toggle nodes are not
  * applied to the model definition.
  */
-void modelUpdateRelationsQuick(struct model *model, struct modelnode *parent)
+void model_update_relations_quick(struct model *model, struct modelnode *parent)
 {
 	struct modelnode *node = parent->child;
 
@@ -1422,13 +1422,13 @@ void modelUpdateRelationsQuick(struct model *model, struct modelnode *parent)
 			dochildren = false;
 			break;
 		case MODELNODETYPE_DISTANCE:
-			modelUpdateDistanceRelations(model, node);
+			model_update_distance_relations(model, node);
 			break;
 		case MODELNODETYPE_REORDER:
-			modelUpdateReorderRelations(model, node);
+			model_update_reorder_relations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelApplyHeadRelations(model, node);
+			model_apply_head_relations(model, node);
 			break;
 		case MODELNODETYPE_DL:
 			break;
@@ -1458,7 +1458,7 @@ void modelUpdateRelationsQuick(struct model *model, struct modelnode *parent)
  * Update a model definition's node relations based on the rwdata from the given
  * model instance, recalculating the rwdata where possible.
  */
-void modelUpdateRelations(struct model *model)
+void model_update_relations(struct model *model)
 {
 	struct modelnode *node = model->definition->rootnode;
 
@@ -1467,16 +1467,16 @@ void modelUpdateRelations(struct model *model)
 
 		switch (type) {
 		case MODELNODETYPE_DISTANCE:
-			modelUpdateDistanceRelations(model, node);
+			model_update_distance_relations(model, node);
 			break;
 		case MODELNODETYPE_REORDER:
-			modelUpdateReorderRelations(model, node);
+			model_update_reorder_relations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			modelApplyToggleRelations(model, node);
+			model_apply_toggle_relations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelApplyHeadRelations(model, node);
+			model_apply_head_relations(model, node);
 			break;
 		case MODELNODETYPE_CHRINFO:
 		case MODELNODETYPE_DL:
@@ -1499,7 +1499,7 @@ void modelUpdateRelations(struct model *model)
 	}
 }
 
-void modelUpdateMatrices(struct modelrenderdata *arg0, struct model *model)
+void model_update_matrices(struct modelrenderdata *arg0, struct model *model)
 {
 	struct modelnode *node = model->definition->rootnode;
 
@@ -1508,25 +1508,25 @@ void modelUpdateMatrices(struct modelrenderdata *arg0, struct model *model)
 
 		switch (type) {
 		case MODELNODETYPE_CHRINFO:
-			modelUpdateChrNodeMtx(arg0, model, node);
+			model_update_chr_node_mtx(arg0, model, node);
 			break;
 		case MODELNODETYPE_POSITION:
-			modelUpdatePositionNodeMtx(arg0, model, node);
+			model_update_position_node_mtx(arg0, model, node);
 			break;
 		case MODELNODETYPE_POSITIONHELD:
-			modelUpdatePositionHeldNodeMtx(arg0, model, node);
+			model_update_position_held_node_mtx(arg0, model, node);
 			break;
 		case MODELNODETYPE_DISTANCE:
-			modelUpdateDistanceRelations(model, node);
+			model_update_distance_relations(model, node);
 			break;
 		case MODELNODETYPE_REORDER:
-			modelUpdateReorderRelations(model, node);
+			model_update_reorder_relations(model, node);
 			break;
 		case MODELNODETYPE_TOGGLE:
-			modelApplyToggleRelations(model, node);
+			model_apply_toggle_relations(model, node);
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			modelApplyHeadRelations(model, node);
+			model_apply_head_relations(model, node);
 			break;
 		case MODELNODETYPE_DL:
 		default:
@@ -1548,7 +1548,7 @@ void modelUpdateMatrices(struct modelrenderdata *arg0, struct model *model)
 	}
 }
 
-void modelSetMatrices(struct modelrenderdata *renderdata, struct model *model)
+void model_set_matrices(struct modelrenderdata *renderdata, struct model *model)
 {
 	model->matrices = renderdata->unk10;
 
@@ -1556,16 +1556,16 @@ void modelSetMatrices(struct modelrenderdata *renderdata, struct model *model)
 
 #if VERSION >= VERSION_PAL_BETA
 	if (var8005efb0_2 || !modelasm00018680(renderdata, model)) {
-		modelUpdateMatrices(renderdata, model);
+		model_update_matrices(renderdata, model);
 	}
 #else
 	if (!modelasm00018680(renderdata, model)) {
-		modelUpdateMatrices(renderdata, model);
+		model_update_matrices(renderdata, model);
 	}
 #endif
 }
 
-void modelSetMatricesWithAnim(struct modelrenderdata *renderdata, struct model *model)
+void model_set_matrices_with_anim(struct modelrenderdata *renderdata, struct model *model)
 {
 	struct anim *anim = model->anim;
 	f32 speed;
@@ -1588,26 +1588,26 @@ void modelSetMatricesWithAnim(struct modelrenderdata *renderdata, struct model *
 			}
 		}
 
-		animLoadHeader(anim->animnum);
-		anim->frameslot1 = animLoadFrame(anim->animnum, anim->framea);
+		anim_load_header(anim->animnum);
+		anim->frameslot1 = anim_load_frame(anim->animnum, anim->framea);
 
 		if (anim->frac != 0) {
-			anim->frameslot2 = animLoadFrame(anim->animnum, anim->frameb);
+			anim->frameslot2 = anim_load_frame(anim->animnum, anim->frameb);
 		}
 
 		if (anim->animnum2) {
-			animLoadHeader(anim->animnum2);
-			anim->frameslot3 = animLoadFrame(anim->animnum2, anim->frame2a);
+			anim_load_header(anim->animnum2);
+			anim->frameslot3 = anim_load_frame(anim->animnum2, anim->frame2a);
 
 			if (anim->frac2 != 0) {
-				anim->frameslot4 = animLoadFrame(anim->animnum2, anim->frame2b);
+				anim->frameslot4 = anim_load_frame(anim->animnum2, anim->frame2b);
 			}
 		}
 
-		animForgetFrameBirths();
+		anim_forget_frame_births();
 	}
 
-	modelSetMatrices(renderdata, model);
+	model_set_matrices(renderdata, model);
 
 	if (PLAYERCOUNT() >= 2 && anim && anim->animnum) {
 		anim->frac = frac;
@@ -1615,7 +1615,7 @@ void modelSetMatricesWithAnim(struct modelrenderdata *renderdata, struct model *
 	}
 }
 
-s16 modelGetAnimNum(struct model *model)
+s16 model_get_anim_num(struct model *model)
 {
 	if (model->anim) {
 		return model->anim->animnum;
@@ -1624,7 +1624,7 @@ s16 modelGetAnimNum(struct model *model)
 	return 0;
 }
 
-bool modelIsFlipped(struct model *model)
+bool model_is_flipped(struct model *model)
 {
 	if (model->anim) {
 		return model->anim->flip;
@@ -1633,7 +1633,7 @@ bool modelIsFlipped(struct model *model)
 	return false;
 }
 
-f32 modelGetCurAnimFrame(struct model *model)
+f32 model_get_cur_anim_frame(struct model *model)
 {
 	if (model->anim) {
 		return model->anim->frame;
@@ -1642,7 +1642,7 @@ f32 modelGetCurAnimFrame(struct model *model)
 	return 0;
 }
 
-f32 modelGetAnimEndFrame(struct model *model)
+f32 model_get_anim_end_frame(struct model *model)
 {
 	struct anim *anim = model->anim;
 
@@ -1652,7 +1652,7 @@ f32 modelGetAnimEndFrame(struct model *model)
 		}
 
 		if (anim->animnum) {
-			return animGetNumFrames(anim->animnum) - 1;
+			return anim_get_num_frames(anim->animnum) - 1;
 		} else {
 			return 0;
 		}
@@ -1661,16 +1661,16 @@ f32 modelGetAnimEndFrame(struct model *model)
 	return 0;
 }
 
-s32 modelGetNumAnimFrames(struct model *model)
+s32 model_get_num_anim_frames(struct model *model)
 {
 	if (model->anim) {
-		return animGetNumFrames(modelGetAnimNum(model));
+		return anim_get_num_frames(model_get_anim_num(model));
 	}
 
 	return 0;
 }
 
-f32 modelGetAnimSpeed(struct model *model)
+f32 model_get_anim_speed(struct model *model)
 {
 	if (model->anim) {
 		return model->anim->speed;
@@ -1679,7 +1679,7 @@ f32 modelGetAnimSpeed(struct model *model)
 	return 1;
 }
 
-f32 modelGetAbsAnimSpeed(struct model *model)
+f32 model_get_abs_anim_speed(struct model *model)
 {
 	f32 speed;
 
@@ -1696,10 +1696,10 @@ f32 modelGetAbsAnimSpeed(struct model *model)
 	return 1;
 }
 
-f32 modelGetEffectiveAnimSpeed(struct model *model)
+f32 model_get_effective_anim_speed(struct model *model)
 {
 	if (model->anim) {
-		return modelGetAnimSpeed(model) * model->anim->playspeed;
+		return model_get_anim_speed(model) * model->anim->playspeed;
 	}
 
 	return 1;
@@ -1709,28 +1709,28 @@ f32 modelGetEffectiveAnimSpeed(struct model *model)
  * Constrain the given frame number to the bounds of the animation, unless the
  * animation is looping in which case wrap it to the other side.
  */
-s32 modelConstrainOrWrapAnimFrame(s32 frame, s16 animnum, f32 endframe)
+s32 model_constrain_or_wrap_anim_frame(s32 frame, s16 animnum, f32 endframe)
 {
 	if (frame < 0) {
 		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
-			frame = animGetNumFrames(animnum) - (-frame % animGetNumFrames(animnum));
+			frame = anim_get_num_frames(animnum) - (-frame % anim_get_num_frames(animnum));
 		} else {
 			frame = 0;
 		}
 	} else if (endframe >= 0 && frame > (s32)endframe) {
 		frame = ceil(endframe);
-	} else if (frame >= animGetNumFrames(animnum)) {
+	} else if (frame >= anim_get_num_frames(animnum)) {
 		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
-			frame = frame % animGetNumFrames(animnum);
+			frame = frame % anim_get_num_frames(animnum);
 		} else {
-			frame = animGetNumFrames(animnum) - 1;
+			frame = anim_get_num_frames(animnum) - 1;
 		}
 	}
 
 	return frame;
 }
 
-void modelCopyAnimForMerge(struct model *model, f32 merge)
+void model_copy_anim_for_merge(struct model *model, f32 merge)
 {
 	struct anim *anim = model->anim;
 	struct modelnode *node;
@@ -1759,7 +1759,7 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 			anim->endframe2 = anim->endframe;
 
 			if (nodetype == MODELNODETYPE_CHRINFO) {
-				struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, node);
+				struct modelrwdata_chrinfo *rwdata = model_get_node_rw_data(model, node);
 				rwdata->unk02 = 1;
 				rwdata->unk4c.x = rwdata->unk34.x;
 				rwdata->unk4c.y = rwdata->unk34.y;
@@ -1774,7 +1774,7 @@ void modelCopyAnimForMerge(struct model *model, f32 merge)
 	}
 }
 
-void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 merge)
+void model_set_animation2(struct model *model, s16 animnum, s32 flip, f32 fstartframe, f32 speed, f32 merge)
 {
 	struct anim *anim = model->anim;
 
@@ -1797,7 +1797,7 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 		anim->speed = speed;
 		anim->timespeed = 0;
 
-		modelSetAnimFrame(model, fstartframe);
+		model_set_anim_frame(model, fstartframe);
 
 		anim->looping = false;
 
@@ -1806,7 +1806,7 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 		if (type == MODELNODETYPE_CHRINFO) {
 			u32 stack;
 			struct modelrodata_chrinfo *rodata = &model->definition->rootnode->rodata->chrinfo;
-			struct modelrwdata_chrinfo *rwdata = (struct modelrwdata_chrinfo *) modelGetNodeRwData(model, model->definition->rootnode);
+			struct modelrwdata_chrinfo *rwdata = (struct modelrwdata_chrinfo *) model_get_node_rw_data(model, model->definition->rootnode);
 			s32 animpart = rodata->animpart;
 			struct skeleton *skel = model->definition->skel;
 			f32 scale;
@@ -1826,11 +1826,11 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 			f32 z;
 
 			if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
-				sp64 = bgGetStageTranslationThing();
-				animLoadHeader(anim->animnum);
-				frameslot = animLoadFrame(anim->animnum, anim->framea);
-				animForgetFrameBirths();
-				animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
+				sp64 = bg_get_stage_translation_thing();
+				anim_load_header(anim->animnum);
+				frameslot = anim_load_frame(anim->animnum, anim->framea);
+				anim_forget_frame_births();
+				anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
 
 				rwdata->unk34.x = translate.x * sp64;
 				rwdata->unk34.y = translate.y * sp64;
@@ -1840,10 +1840,10 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 				if (anim->frac == 0) {
 					rwdata->unk01 = 0;
 				} else {
-					animLoadHeader(anim->animnum);
-					frameslot = animLoadFrame(anim->animnum, anim->frameb);
-					animForgetFrameBirths();
-					animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
+					anim_load_header(anim->animnum);
+					frameslot = anim_load_frame(anim->animnum, anim->frameb);
+					anim_forget_frame_births();
+					anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
 
 					rwdata->unk24.x = translate.x * sp64;
 					rwdata->unk24.y = translate.y * sp64;
@@ -1853,7 +1853,7 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 					rwdata->unk01 = 1;
 				}
 			} else {
-				sp84 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, anim->frameb, &translate, anim->average);
+				sp84 = anim_get_translate_angle(animpart, anim->flip, skel, anim->animnum, anim->frameb, &translate, anim->average);
 				scale = model->scale * anim->animscale;
 
 				if (scale != 1) {
@@ -1916,7 +1916,7 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 						angle += M_BADTAU;
 					}
 
-					rwdata->unk30 = modelTweenRotAxis(rwdata->yrot, angle, anim->frac);
+					rwdata->unk30 = model_tween_rot_axis(rwdata->yrot, angle, anim->frac);
 
 					if (rwdata->unk18 == 0) {
 						rwdata->unk20 = rwdata->unk30 + sp84;
@@ -1937,7 +1937,7 @@ void modelSetAnimation2(struct model *model, s16 animnum, s32 flip, f32 fstartfr
 	}
 }
 
-bool modelIsAnimMerging(struct model *model)
+bool model_is_anim_merging(struct model *model)
 {
 	if (model && model->anim && model->anim->animnum2
 			&& model->anim->fracmerge != 0 && model->anim->fracmerge != 1) {
@@ -1947,7 +1947,7 @@ bool modelIsAnimMerging(struct model *model)
 	return false;
 }
 
-void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 timemerge, bool domerge)
+void model_set_animation_with_merge(struct model *model, s16 animnum, u32 flip, f32 startframe, f32 speed, f32 timemerge, bool domerge)
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
@@ -1957,14 +1957,14 @@ void modelSetAnimationWithMerge(struct model *model, s16 animnum, u32 flip, f32 
 		}
 
 		if (domerge) {
-			modelCopyAnimForMerge(model, timemerge);
+			model_copy_anim_for_merge(model, timemerge);
 		}
 
-		modelSetAnimation2(model, animnum, flip, startframe, speed, timemerge);
+		model_set_animation2(model, animnum, flip, startframe, speed, timemerge);
 	}
 }
 
-void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startframe, f32 speed, f32 merge)
+void model_set_animation(struct model *model, s16 animnum, s32 flip, f32 startframe, f32 speed, f32 merge)
 {
 	if (model) {
 		if (model->anim && model->anim->animnum
@@ -1973,19 +1973,19 @@ void modelSetAnimation(struct model *model, s16 animnum, s32 flip, f32 startfram
 			merge = 0;
 		}
 
-		modelCopyAnimForMerge(model, merge);
-		modelSetAnimation2(model, animnum, flip, startframe, speed, merge);
+		model_copy_anim_for_merge(model, merge);
+		model_set_animation2(model, animnum, flip, startframe, speed, merge);
 	}
 }
 
-void modelCopyAnimData(struct model *src, struct model *dst)
+void model_copy_anim_data(struct model *src, struct model *dst)
 {
 	if (src->anim && dst->anim) {
 		*dst->anim = *src->anim;
 	}
 }
 
-void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge)
+void model_set_anim_looping(struct model *model, f32 loopframe, f32 loopmerge)
 {
 	if (model->anim) {
 		model->anim->looping = true;
@@ -1994,12 +1994,12 @@ void modelSetAnimLooping(struct model *model, f32 loopframe, f32 loopmerge)
 	}
 }
 
-void modelSetAnimEndFrame(struct model *model, f32 endframe)
+void model_set_anim_end_frame(struct model *model, f32 endframe)
 {
 	struct anim *anim = model->anim;
 
 	if (anim) {
-		if (anim->animnum && endframe < animGetNumFrames(anim->animnum) - 1) {
+		if (anim->animnum && endframe < anim_get_num_frames(anim->animnum) - 1) {
 			anim->endframe = endframe;
 		} else {
 			anim->endframe = -1;
@@ -2007,7 +2007,7 @@ void modelSetAnimEndFrame(struct model *model, f32 endframe)
 	}
 }
 
-void modelSetAnimFlipFunction(struct model *model, void *callback)
+void model_set_anim_flip_function(struct model *model, void *callback)
 {
 	if (model->anim) {
 		model->anim->flipfunc = callback;
@@ -2015,7 +2015,7 @@ void modelSetAnimFlipFunction(struct model *model, void *callback)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-void modelSetAnimUnk6c(struct model *model, s32 value)
+void model_set_anim_unk6c(struct model *model, s32 value)
 {
 	if (model->anim) {
 		model->anim->unk6c = value;
@@ -2023,7 +2023,7 @@ void modelSetAnimUnk6c(struct model *model, s32 value)
 }
 #endif
 
-void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
+void model_set_anim_speed(struct model *model, f32 speed, f32 startframe)
 {
 	struct anim *anim = model->anim;
 
@@ -2040,7 +2040,7 @@ void modelSetAnimSpeed(struct model *model, f32 speed, f32 startframe)
 	}
 }
 
-void modelSetAnimSpeedAuto(struct model *model, f32 arg1, f32 startframe)
+void model_set_anim_speed_auto(struct model *model, f32 arg1, f32 startframe)
 {
 	struct anim *anim = model->anim;
 	f32 tmp;
@@ -2050,16 +2050,16 @@ void modelSetAnimSpeedAuto(struct model *model, f32 arg1, f32 startframe)
 		if (anim->frame <= arg1) {
 			tmp = arg1 - anim->frame;
 		} else {
-			tmp = animGetNumFrames(anim->animnum) - anim->frame + arg1;
+			tmp = anim_get_num_frames(anim->animnum) - anim->frame + arg1;
 		}
 
 		speed = anim->speed + (tmp + tmp) / startframe;
 
-		modelSetAnimSpeed(model, speed, startframe);
+		model_set_anim_speed(model, speed, startframe);
 	}
 }
 
-void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 startframe)
+void model_set_anim_play_speed(struct model *model, f32 speed, f32 startframe)
 {
 	struct anim *anim = model->anim;
 
@@ -2076,14 +2076,14 @@ void modelSetAnimPlaySpeed(struct model *model, f32 speed, f32 startframe)
 	}
 }
 
-void modelSetAnim70(struct model *model, void *callback)
+void model_set_anim70(struct model *model, void *callback)
 {
 	if (model->anim) {
 		model->anim->unk70 = callback;
 	}
 }
 
-void modelSetAnimFrame(struct model *model, f32 frame)
+void model_set_anim_frame(struct model *model, f32 frame)
 {
 	s32 framea;
 	s32 frameb;
@@ -2096,8 +2096,8 @@ void modelSetAnimFrame(struct model *model, f32 frame)
 
 		frameb = (forwards ? framea + 1 : framea - 1);
 
-		anim->framea = modelConstrainOrWrapAnimFrame(framea, anim->animnum, anim->endframe);
-		anim->frameb = modelConstrainOrWrapAnimFrame(frameb, anim->animnum, anim->endframe);
+		anim->framea = model_constrain_or_wrap_anim_frame(framea, anim->animnum, anim->endframe);
+		anim->frameb = model_constrain_or_wrap_anim_frame(frameb, anim->animnum, anim->endframe);
 
 		if (anim->framea == anim->frameb) {
 			anim->frac = 0;
@@ -2112,12 +2112,12 @@ void modelSetAnimFrame(struct model *model, f32 frame)
 	}
 }
 
-void modelSetAnimFrame2(struct model *model, f32 frame1, f32 frame2)
+void model_set_anim_frame2(struct model *model, f32 frame1, f32 frame2)
 {
 	struct anim *anim = model->anim;
 
 	if (anim) {
-		modelSetAnimFrame(model, frame1);
+		model_set_anim_frame(model, frame1);
 
 		if (anim->animnum2) {
 			s32 framea = floor(frame2);
@@ -2126,8 +2126,8 @@ void modelSetAnimFrame2(struct model *model, f32 frame1, f32 frame2)
 
 			frameb = (forwards ? framea + 1 : framea - 1);
 
-			anim->frame2a = modelConstrainOrWrapAnimFrame(framea, anim->animnum2, anim->endframe2);
-			anim->frame2b = modelConstrainOrWrapAnimFrame(frameb, anim->animnum2, anim->endframe2);
+			anim->frame2a = model_constrain_or_wrap_anim_frame(framea, anim->animnum2, anim->endframe2);
+			anim->frame2b = model_constrain_or_wrap_anim_frame(frameb, anim->animnum2, anim->endframe2);
 
 			if (anim->frame2a == anim->frame2b) {
 				anim->frac2 = 0;
@@ -2145,17 +2145,17 @@ void modelSetAnimFrame2(struct model *model, f32 frame1, f32 frame2)
 
 bool g_ModelAnimMergingEnabled = true;
 
-void modelSetAnimMergingEnabled(bool value)
+void model_set_anim_merging_enabled(bool value)
 {
 	g_ModelAnimMergingEnabled = value;
 }
 
-bool modelIsAnimMergingEnabled(void)
+bool model_is_anim_merging_enabled(void)
 {
 	return g_ModelAnimMergingEnabled;
 }
 
-void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endframe, f32 curframe2, f32 endframe2)
+void model_set_anim_frame2_with_chr_stuff(struct model *model, f32 curframe, f32 endframe, f32 curframe2, f32 endframe2)
 {
 	struct anim *anim = model->anim;
 
@@ -2165,7 +2165,7 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 
 		if ((nodetype & 0xff) == MODELNODETYPE_CHRINFO) {
 			struct modelrodata_chrinfo *rodata = &rootnode->rodata->chrinfo;
-			struct modelrwdata_chrinfo *rwdata = modelGetNodeRwData(model, rootnode);
+			struct modelrwdata_chrinfo *rwdata = model_get_node_rw_data(model, rootnode);
 
 			if (rwdata->unk00 == 0) {
 				s32 animpart = rodata->animpart;
@@ -2233,10 +2233,10 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 				}
 
 				if (g_Anims[anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
-					f20 = bgGetStageTranslationThing();
+					f20 = bg_get_stage_translation_thing();
 
 					if (floorend != anim->framea) {
-						s0frame = modelConstrainOrWrapAnimFrame(floorend, anim->animnum, anim->endframe);
+						s0frame = model_constrain_or_wrap_anim_frame(floorend, anim->animnum, anim->endframe);
 
 						anim->framea = s0frame;
 
@@ -2245,10 +2245,10 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							spe0.y = spd0.y;
 							spe0.z = spd0.z;
 						} else {
-							animLoadHeader(anim->animnum);
-							frameslot = animLoadFrame(anim->animnum, s0frame);
-							animForgetFrameBirths();
-							animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
+							anim_load_header(anim->animnum);
+							frameslot = anim_load_frame(anim->animnum, s0frame);
+							anim_forget_frame_births();
+							anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
 
 							spe0.x = translate.x * f20;
 							spe0.y = translate.y * f20;
@@ -2263,14 +2263,14 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							floorcur--;
 						}
 
-						s0frame = modelConstrainOrWrapAnimFrame(floorcur, anim->animnum, anim->endframe);
+						s0frame = model_constrain_or_wrap_anim_frame(floorcur, anim->animnum, anim->endframe);
 						anim->frameb = s0frame;
 
-						animLoadHeader(anim->animnum);
-						frameslot = animLoadFrame(anim->animnum, s0frame);
+						anim_load_header(anim->animnum);
+						frameslot = anim_load_frame(anim->animnum, s0frame);
 
-						animForgetFrameBirths();
-						animGetRotTranslateScale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
+						anim_forget_frame_births();
+						anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, frameslot, &rot1, &translate, &scale1);
 
 						spc8 = true;
 
@@ -2290,7 +2290,7 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							}
 						}
 
-						s0frame = modelConstrainOrWrapAnimFrame(floorcur, anim->animnum, anim->endframe);
+						s0frame = model_constrain_or_wrap_anim_frame(floorcur, anim->animnum, anim->endframe);
 
 						anim->framea = s0frame;
 
@@ -2303,7 +2303,7 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 								f30 = spcc;
 							}
 						} else {
-							f22 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, s0frame, &translate, anim->average);
+							f22 = anim_get_translate_angle(animpart, anim->flip, skel, anim->animnum, s0frame, &translate, anim->average);
 
 							if (scale != 1.0f) {
 								translate.x *= scale;
@@ -2346,11 +2346,11 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							floorcur--;
 						}
 
-						s0frame = modelConstrainOrWrapAnimFrame(floorcur, anim->animnum, anim->endframe);
+						s0frame = model_constrain_or_wrap_anim_frame(floorcur, anim->animnum, anim->endframe);
 						anim->frameb = s0frame;
 
 						if (anim->frameb != anim->framea) {
-							f22 = animGetTranslateAngle(animpart, anim->flip, skel, anim->animnum, s0frame, &translate, anim->average);
+							f22 = anim_get_translate_angle(animpart, anim->flip, skel, anim->animnum, s0frame, &translate, anim->average);
 
 							spc8 = true;
 
@@ -2474,12 +2474,12 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 							rwdata->unk4c.f[1] = rwdata->unk34.f[1];
 						}
 
-						anim->frame2a = modelConstrainOrWrapAnimFrame(floorend2, anim->animnum2, anim->endframe2);
+						anim->frame2a = model_constrain_or_wrap_anim_frame(floorend2, anim->animnum2, anim->endframe2);
 
-						s0frame = modelConstrainOrWrapAnimFrame(floorend2 + 1, anim->animnum2, anim->endframe2);
+						s0frame = model_constrain_or_wrap_anim_frame(floorend2 + 1, anim->animnum2, anim->endframe2);
 						anim->frame2b = s0frame;
 
-						animGetTranslateAngle(animpart, anim->flip2, skel, anim->animnum2, s0frame, &translate, anim->average);
+						anim_get_translate_angle(animpart, anim->flip2, skel, anim->animnum2, s0frame, &translate, anim->average);
 
 						if (scale != 1.0f) {
 							translate.y *= scale;
@@ -2504,15 +2504,15 @@ void modelSetAnimFrame2WithChrStuff(struct model *model, f32 curframe, f32 endfr
 					rwdata->unk02 = 0;
 				}
 			} else {
-				modelSetAnimFrame2(model, endframe, endframe2);
+				model_set_anim_frame2(model, endframe, endframe2);
 			}
 		} else {
-			modelSetAnimFrame2(model, endframe, endframe2);
+			model_set_anim_frame2(model, endframe, endframe2);
 		}
 	}
 }
 
-void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
+void model_tick_anim_quarter_speed(struct model *model, s32 lvupdate240, bool arg2)
 {
 	f32 frame;
 	f32 frame2;
@@ -2589,7 +2589,7 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 				realendframe = anim->endframe;
 
 				if (speed >= 0) {
-					endframe = animGetNumFrames(anim->animnum) - 1;
+					endframe = anim_get_num_frames(anim->animnum) - 1;
 					startframe = anim->loopframe;
 
 					if (realendframe >= 0 && endframe > realendframe) {
@@ -2597,7 +2597,7 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 					}
 				} else {
 					endframe = anim->loopframe;
-					startframe = animGetNumFrames(anim->animnum) - 1;
+					startframe = anim_get_num_frames(anim->animnum) - 1;
 
 					if (realendframe >= 0 && startframe > realendframe) {
 						startframe = realendframe;
@@ -2611,12 +2611,12 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 					f32 prevelapsespeed = anim->elapsespeed;
 
 					if (arg2) {
-						modelSetAnimFrame2WithChrStuff(model, anim->frame, endframe, 0, 0);
+						model_set_anim_frame2_with_chr_stuff(model, anim->frame, endframe, 0, 0);
 					} else {
-						modelSetAnimFrame2(model, endframe, 0);
+						model_set_anim_frame2(model, endframe, 0);
 					}
 
-					modelSetAnimation(model, anim->animnum, anim->flip, startframe, anim->speed, anim->loopmerge);
+					model_set_animation(model, anim->animnum, anim->flip, startframe, anim->speed, anim->loopmerge);
 
 					anim->looping = true;
 					anim->endframe = realendframe;
@@ -2638,15 +2638,15 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 
 		if (arg2) {
 			if (anim->animnum2) {
-				modelSetAnimFrame2WithChrStuff(model, anim->frame, frame, anim->frame2, frame2);
+				model_set_anim_frame2_with_chr_stuff(model, anim->frame, frame, anim->frame2, frame2);
 			} else {
-				modelSetAnimFrame2WithChrStuff(model, anim->frame, frame, 0, 0);
+				model_set_anim_frame2_with_chr_stuff(model, anim->frame, frame, 0, 0);
 			}
 		} else {
 			if (anim->animnum2) {
-				modelSetAnimFrame2(model, frame, frame2);
+				model_set_anim_frame2(model, frame, frame2);
 			} else {
-				modelSetAnimFrame2(model, frame, 0);
+				model_set_anim_frame2(model, frame, 0);
 			}
 		}
 	}
@@ -2656,7 +2656,7 @@ void modelTickAnimQuarterSpeed(struct model *model, s32 lvupdate240, bool arg2)
 /**
  * This is identical to the above function but removes the 0.25f multipliers.
  */
-void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
+void model_tick_anim(struct model *model, s32 lvupdate240, bool arg2)
 {
 	f32 frame;
 	f32 frame2;
@@ -2733,7 +2733,7 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 				realendframe = anim->endframe;
 
 				if (speed >= 0) {
-					endframe = animGetNumFrames(anim->animnum) - 1;
+					endframe = anim_get_num_frames(anim->animnum) - 1;
 					startframe = anim->loopframe;
 
 					if (realendframe >= 0 && endframe > realendframe) {
@@ -2741,7 +2741,7 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 					}
 				} else {
 					endframe = anim->loopframe;
-					startframe = animGetNumFrames(anim->animnum) - 1;
+					startframe = anim_get_num_frames(anim->animnum) - 1;
 
 					if (realendframe >= 0 && startframe > realendframe) {
 						startframe = realendframe;
@@ -2755,12 +2755,12 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 					f32 prevelapsespeed = anim->elapsespeed;
 
 					if (arg2) {
-						modelSetAnimFrame2WithChrStuff(model, anim->frame, endframe, 0, 0);
+						model_set_anim_frame2_with_chr_stuff(model, anim->frame, endframe, 0, 0);
 					} else {
-						modelSetAnimFrame2(model, endframe, 0);
+						model_set_anim_frame2(model, endframe, 0);
 					}
 
-					modelSetAnimation(model, anim->animnum, anim->flip, startframe, anim->speed, anim->loopmerge);
+					model_set_animation(model, anim->animnum, anim->flip, startframe, anim->speed, anim->loopmerge);
 
 					anim->looping = true;
 					anim->endframe = realendframe;
@@ -2782,22 +2782,22 @@ void modelTickAnim(struct model *model, s32 lvupdate240, bool arg2)
 
 		if (arg2) {
 			if (anim->animnum2) {
-				modelSetAnimFrame2WithChrStuff(model, anim->frame, frame, anim->frame2, frame2);
+				model_set_anim_frame2_with_chr_stuff(model, anim->frame, frame, anim->frame2, frame2);
 			} else {
-				modelSetAnimFrame2WithChrStuff(model, anim->frame, frame, 0, 0);
+				model_set_anim_frame2_with_chr_stuff(model, anim->frame, frame, 0, 0);
 			}
 		} else {
 			if (anim->animnum2) {
-				modelSetAnimFrame2(model, frame, frame2);
+				model_set_anim_frame2(model, frame, frame2);
 			} else {
-				modelSetAnimFrame2(model, frame, 0);
+				model_set_anim_frame2(model, frame, 0);
 			}
 		}
 	}
 }
 #endif
 
-void modelApplyRenderModeType1(struct modelrenderdata *renderdata)
+void model_apply_render_mode_type1(struct modelrenderdata *renderdata)
 {
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_1CYCLE);
@@ -2811,7 +2811,7 @@ void modelApplyRenderModeType1(struct modelrenderdata *renderdata)
 	gDPSetCombineMode(renderdata->gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 }
 
-void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
+void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1)
 {
 	if (renderdata->unk30 == 7) {
 		if (arg1) {
@@ -2969,7 +2969,7 @@ void modelApplyRenderModeType3(struct modelrenderdata *renderdata, bool arg1)
 	}
 }
 
-void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
+void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1)
 {
 	if (renderdata->unk30 == 7) {
 		gDPPipeSync(renderdata->gdl++);
@@ -3124,7 +3124,7 @@ void modelApplyRenderModeType4(struct modelrenderdata *renderdata, bool arg1)
 	}
 }
 
-void modelApplyRenderModeType2(struct modelrenderdata *renderdata)
+void model_apply_render_mode_type2(struct modelrenderdata *renderdata)
 {
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
@@ -3138,7 +3138,7 @@ void modelApplyRenderModeType2(struct modelrenderdata *renderdata)
 	gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 }
 
-void modelApplyCullMode(struct modelrenderdata *renderdata)
+void model_apply_cull_mode(struct modelrenderdata *renderdata)
 {
 	if (renderdata->cullmode == CULLMODE_NONE) {
 		gSPClearGeometryMode(renderdata->gdl++, G_CULL_BOTH);
@@ -3149,7 +3149,7 @@ void modelApplyCullMode(struct modelrenderdata *renderdata)
 	}
 }
 
-void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+void model_render_node_gundl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	struct modelrodata_gundl *rodata = &node->rodata->gundl;
 
@@ -3161,28 +3161,28 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
-			modelApplyCullMode(renderdata);
+			model_apply_cull_mode(renderdata);
 		}
 
 		switch (rodata->unk12) {
 		case 1:
-			modelApplyRenderModeType1(renderdata);
+			model_apply_render_mode_type1(renderdata);
 			break;
 		case 3:
-			modelApplyRenderModeType3(renderdata, true);
+			model_apply_render_mode_type3(renderdata, true);
 			break;
 		case 4:
-			modelApplyRenderModeType4(renderdata, true);
+			model_apply_render_mode_type4(renderdata, true);
 			break;
 		case 2:
-			modelApplyRenderModeType2(renderdata);
+			model_apply_render_mode_type2(renderdata);
 			break;
 		}
 
 		gSPDisplayList(renderdata->gdl++, rodata->opagdl);
 
 		if (rodata->unk12 == 3 && rodata->xlugdl) {
-			modelApplyRenderModeType3(renderdata, false);
+			model_apply_render_mode_type3(renderdata, false);
 
 			gSPDisplayList(renderdata->gdl++, rodata->xlugdl);
 		}
@@ -3192,16 +3192,16 @@ void modelRenderNodeGundl(struct modelrenderdata *renderdata, struct model *mode
 		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
-			modelApplyCullMode(renderdata);
+			model_apply_cull_mode(renderdata);
 		}
 
-		modelApplyRenderModeType4(renderdata, false);
+		model_apply_render_mode_type4(renderdata, false);
 
 		gSPDisplayList(renderdata->gdl++, rodata->xlugdl);
 	}
 }
 
-void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+void model_render_node_dl(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
 
@@ -3210,27 +3210,27 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 	}
 
 	if (renderdata->flags & MODELRENDERFLAG_OPA) {
-		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+		union modelrwdata *rwdata = model_get_node_rw_data(model, node);
 
 		if (rwdata->dl.gdl) {
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colours));
 
 			if (renderdata->cullmode) {
-				modelApplyCullMode(renderdata);
+				model_apply_cull_mode(renderdata);
 			}
 
 			switch (rodata->dl.mcount) {
 			case 1:
-				modelApplyRenderModeType1(renderdata);
+				model_apply_render_mode_type1(renderdata);
 				break;
 			case 3:
-				modelApplyRenderModeType3(renderdata, true);
+				model_apply_render_mode_type3(renderdata, true);
 				break;
 			case 4:
-				modelApplyRenderModeType4(renderdata, true);
+				model_apply_render_mode_type4(renderdata, true);
 				break;
 			case 2:
-				modelApplyRenderModeType2(renderdata);
+				model_apply_render_mode_type2(renderdata);
 				break;
 			}
 
@@ -3240,7 +3240,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 			gSPDisplayList(renderdata->gdl++, rwdata->dl.gdl);
 
 			if (rodata->dl.mcount == 3 && rodata->dl.xlugdl) {
-				modelApplyRenderModeType3(renderdata, false);
+				model_apply_render_mode_type3(renderdata, false);
 
 				gSPDisplayList(renderdata->gdl++, rodata->dl.xlugdl);
 			}
@@ -3248,19 +3248,19 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
 	}
 
 	if (renderdata->flags & MODELRENDERFLAG_XLU) {
-		union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+		union modelrwdata *rwdata = model_get_node_rw_data(model, node);
 
 		if (rwdata->dl.gdl && rodata->dl.mcount == 4 && rodata->dl.xlugdl) {
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colours));
 
 			if (renderdata->cullmode) {
-				modelApplyCullMode(renderdata);
+				model_apply_cull_mode(renderdata);
 			}
 
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(rwdata->dl.vertices));
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL2, osVirtualToPhysical(rwdata->dl.colours));
 
-			modelApplyRenderModeType4(renderdata, false);
+			model_apply_render_mode_type4(renderdata, false);
 
 			gSPDisplayList(renderdata->gdl++, rodata->dl.xlugdl);
 		}
@@ -3278,7 +3278,7 @@ void modelRenderNodeDl(struct modelrenderdata *renderdata, struct model *model, 
  * writes them to a newly allocated vertices table and queues the node's
  * displaylist to the renderdata's DL.
  */
-void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct modelnode *node)
+void model_render_node_star_gunfire(struct modelrenderdata *renderdata, struct modelnode *node)
 {
 	if (renderdata->flags & MODELRENDERFLAG_XLU) {
 		struct modelrodata_stargunfire *rodata = &node->rodata->stargunfire;
@@ -3342,17 +3342,17 @@ void modelRenderNodeStarGunfire(struct modelrenderdata *renderdata, struct model
 	}
 }
 
-void modelSelectTexture(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
+void model_select_texture(struct modelrenderdata *renderdata, struct textureconfig *tconfig, s32 arg2)
 {
-	texSelect(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
+	tex_select(&renderdata->gdl, tconfig, arg2, renderdata->zbufferenabled, 2, 1, NULL);
 }
 
-void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
+void model_render_node_chr_gunfire(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	u32 stack[3];
 	f32 negspc0;
 	struct modelrodata_chrgunfire *rodata = &node->rodata->chrgunfire;
-	union modelrwdata *rwdata = modelGetNodeRwData(model, node);
+	union modelrwdata *rwdata = model_get_node_rw_data(model, node);
 	Vtx *vertices;
 	f32 spf0;
 	f32 spec;
@@ -3380,7 +3380,7 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 	f32 distance;
 
 	if ((renderdata->flags & MODELRENDERFLAG_XLU) && rwdata->chrgunfire.visible) {
-		s32 index = modelFindNodeMtxIndex(node, 0);
+		s32 index = model_find_node_mtx_index(node, 0);
 		mtx = &model->matrices[index];
 
 		spe0.x = -(rodata->pos.f[0] * mtx->m[0][0] + rodata->pos.f[1] * mtx->m[1][0] + rodata->pos.f[2] * mtx->m[2][0] + mtx->m[3][0]);
@@ -3437,7 +3437,7 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 
 		vertices = g_ModelVtxAllocatorFunc(4);
 
-		colours = (Col *) gfxAllocateColours(1);
+		colours = (Col *) gfx_allocate_colours(1);
 
 		vertices[0] = vtxtemplate;
 		vertices[1] = vtxtemplate;
@@ -3484,9 +3484,9 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 			vertices[3].s = centre - sp58;
 			vertices[3].t = centre + sp5c;
 
-			modelSelectTexture(renderdata, tconfig, 4);
+			model_select_texture(renderdata, tconfig, 4);
 		} else {
-			modelSelectTexture(renderdata, NULL, 1);
+			model_select_texture(renderdata, NULL, 1);
 		}
 
 		gSPSetGeometryMode(renderdata->gdl++, G_CULL_BACK);
@@ -3497,7 +3497,7 @@ void modelRenderNodeChrGunfire(struct modelrenderdata *renderdata, struct model 
 	}
 }
 
-void modelRender(struct modelrenderdata *renderdata, struct model *model)
+void model_render(struct modelrenderdata *renderdata, struct model *model)
 {
 	union modelrodata *rodata;
 	union modelrwdata *rwdata;
@@ -3513,7 +3513,7 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 		case MODELNODETYPE_DISTANCE:
 		case MODELNODETYPE_TOGGLE:
 			rodata = node->rodata;
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 
 			switch (type) {
 			case MODELNODETYPE_DISTANCE:
@@ -3525,7 +3525,7 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 			}
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 
 			if (rwdata->headspot.headmodeldef) {
 				struct modelnode *loopnode = rwdata->headspot.headmodeldef->rootnode;
@@ -3538,19 +3538,19 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 			}
 			break;
 		case MODELNODETYPE_REORDER:
-			modelApplyReorderRelations(model, node);
+			model_apply_reorder_relations(model, node);
 			break;
 		case MODELNODETYPE_CHRGUNFIRE:
-			modelRenderNodeChrGunfire(renderdata, model, node);
+			model_render_node_chr_gunfire(renderdata, model, node);
 			break;
 		case MODELNODETYPE_GUNDL:
-			modelRenderNodeGundl(renderdata, model, node);
+			model_render_node_gundl(renderdata, model, node);
 			break;
 		case MODELNODETYPE_DL:
-			modelRenderNodeDl(renderdata, model, node);
+			model_render_node_dl(renderdata, model, node);
 			break;
 		case MODELNODETYPE_STARGUNFIRE:
-			modelRenderNodeStarGunfire(renderdata, node);
+			model_render_node_star_gunfire(renderdata, node);
 			break;
 		case MODELNODETYPE_CHRINFO:
 		default:
@@ -3572,7 +3572,7 @@ void modelRender(struct modelrenderdata *renderdata, struct model *model)
 	}
 }
 
-bool modelTestBboxNodeForHit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct coord *arg2, struct coord *arg3)
+bool model_test_bbox_node_for_hit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct coord *arg2, struct coord *arg3)
 {
 	f32 xthingx;
 	f32 xthingy;
@@ -3764,7 +3764,7 @@ bool modelTestBboxNodeForHit(struct modelrodata_bbox *bbox, Mtxf *mtx, struct co
  * This is okay for most objects as well as shielded chrs.
  * For non-shielded chrs, an accurate polygon test is done elsewhere.
  */
-s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2, struct modelnode **startnode)
+s32 model_test_for_hit(struct model *model, struct coord *arg1, struct coord *arg2, struct modelnode **startnode)
 {
 	struct modelnode *node;
 	bool dochildren = true;
@@ -3806,9 +3806,9 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 		switch (type) {
 		case MODELNODETYPE_BBOX:
 			rodata = node->rodata;
-			mtx = modelFindNodeMtx(model, node, 0);
+			mtx = model_find_node_mtx(model, node, 0);
 
-			if (modelTestBboxNodeForHit(&rodata->bbox, mtx, arg1, arg2)) {
+			if (model_test_bbox_node_for_hit(&rodata->bbox, mtx, arg1, arg2)) {
 				*startnode = node;
 				return rodata->bbox.hitpart;
 			}
@@ -3817,16 +3817,16 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 			break;
 		case MODELNODETYPE_DISTANCE:
 			rodata = node->rodata;
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			node->child = rwdata->distance.visible ? rodata->distance.target : NULL;
 			break;
 		case MODELNODETYPE_TOGGLE:
 			rodata = node->rodata;
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			node->child = rwdata->toggle.visible ? rodata->toggle.target : NULL;
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 
 			if (rwdata->headspot.headmodeldef) {
 				struct modelnode *loopnode = rwdata->headspot.headmodeldef->rootnode;
@@ -3853,7 +3853,7 @@ s32 modelTestForHit(struct model *model, struct coord *arg1, struct coord *arg2,
 	if (var) \
 		var = (void *)((uintptr_t)var + diff)
 
-void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 fileramaddr)
+void model_promote_node_offsets_to_pointers(struct modelnode *node, u32 vma, u32 fileramaddr)
 {
 	union modelrodata *rodata;
 	s32 diff = fileramaddr - vma;
@@ -3947,7 +3947,7 @@ void modelPromoteNodeOffsetsToPointers(struct modelnode *node, u32 vma, u32 file
  * Offsets in model files are based from virtual memory address 0x0f000000.
  * This vma address is specified as an argument to the function.
  */
-void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, uintptr_t fileramaddr)
+void model_promote_offsets_to_pointers(struct modeldef *modeldef, u32 vma, uintptr_t fileramaddr)
 {
 	s32 diff = fileramaddr - vma;
 	s32 i;
@@ -3961,7 +3961,7 @@ void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, uintptr_t
 		PROMOTE(modeldef->parts[i]);
 	}
 
-	modelPromoteNodeOffsetsToPointers(modeldef->rootnode, vma, fileramaddr);
+	model_promote_node_offsets_to_pointers(modeldef->rootnode, vma, fileramaddr);
 
 	// Sort parts by part number so they can be bisected during lookup
 	partnums = (s16 *)&modeldef->parts[modeldef->numparts];
@@ -3991,7 +3991,7 @@ void modelPromoteOffsetsToPointers(struct modeldef *modeldef, u32 vma, uintptr_t
 	}
 }
 
-s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
+s32 model_calculate_rw_data_indexes(struct modelnode *basenode)
 {
 	u16 len = 0;
 	struct modelnode *node = basenode;
@@ -4028,7 +4028,7 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 			rodata = node->rodata;
 			rodata->reorder.rwdataindex = len;
 			len += sizeof(struct modelrwdata_reorder) / 4;
-			modelApplyReorderRelationsByArg(node, false);
+			model_apply_reorder_relations_by_arg(node, false);
 			break;
 		case MODELNODETYPE_0B:
 			rodata = node->rodata;
@@ -4071,12 +4071,12 @@ s32 modelCalculateRwDataIndexes(struct modelnode *basenode)
 	return len;
 }
 
-void modelAllocateRwData(struct modeldef *modeldef)
+void model_allocate_rw_data(struct modeldef *modeldef)
 {
-	modeldef->rwdatalen = modelCalculateRwDataIndexes(modeldef->rootnode);
+	modeldef->rwdatalen = model_calculate_rw_data_indexes(modeldef->rootnode);
 }
 
-void modelInitRwData(struct model *model, struct modelnode *startnode)
+void model_init_rw_data(struct model *model, struct modelnode *startnode)
 {
 	struct modelnode *node = startnode;
 	union modelrodata *rodata;
@@ -4087,7 +4087,7 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 
 		switch (type) {
 		case MODELNODETYPE_CHRINFO:
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 
 			rwdata->chrinfo.unk00 = 0;
 			rwdata->chrinfo.ground = 0;
@@ -4119,37 +4119,37 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 			break;
 		case MODELNODETYPE_DISTANCE:
 			rodata = node->rodata;
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			rwdata->distance.visible = false;
 			node->child = rodata->distance.target;
 			break;
 		case MODELNODETYPE_TOGGLE:
 			rodata = node->rodata;
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			rwdata->toggle.visible = true;
 			node->child = rodata->toggle.target;
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			rwdata->headspot.headmodeldef = NULL;
 			rwdata->headspot.rwdatas = NULL;
 			break;
 		case MODELNODETYPE_REORDER:
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			rwdata->reorder.reverse = false;
-			modelApplyReorderRelations(model, node);
+			model_apply_reorder_relations(model, node);
 			break;
 		case MODELNODETYPE_0B:
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			rwdata->type0b.unk00 = 0;
 			break;
 		case MODELNODETYPE_CHRGUNFIRE:
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			rwdata->chrgunfire.visible = false;
 			break;
 		case MODELNODETYPE_DL:
 			rodata = node->rodata;
-			rwdata = modelGetNodeRwData(model, node);
+			rwdata = model_get_node_rw_data(model, node);
 			rwdata->dl.vertices = rodata->dl.vertices;
 			rwdata->dl.gdl = rodata->dl.opagdl;
 			rwdata->dl.colours = (void *) ALIGN8((uintptr_t)(rodata->dl.vertices + rodata->dl.numvertices));
@@ -4181,7 +4181,7 @@ void modelInitRwData(struct model *model, struct modelnode *startnode)
 	}
 }
 
-void modelInit(struct model *model, struct modeldef *modeldef, u32 *rwdatas, bool resetanim)
+void model_init(struct model *model, struct modeldef *modeldef, u32 *rwdatas, bool resetanim)
 {
 	struct modelnode *node;
 
@@ -4222,7 +4222,7 @@ void modelInit(struct model *model, struct modeldef *modeldef, u32 *rwdatas, boo
 	}
 
 	if (rwdatas != NULL) {
-		modelInitRwData(model, modeldef->rootnode);
+		model_init_rw_data(model, modeldef->rootnode);
 	}
 
 	if (resetanim) {
@@ -4230,7 +4230,7 @@ void modelInit(struct model *model, struct modeldef *modeldef, u32 *rwdatas, boo
 	}
 }
 
-void animInit(struct anim *anim)
+void anim_init(struct anim *anim)
 {
 	anim->animnum = 0;
 	anim->animnum2 = 0;
@@ -4254,9 +4254,9 @@ void animInit(struct anim *anim)
 	anim->animscale = 1;
 }
 
-void modelAttachHead(struct model *bodymode, struct modeldef *bodymodeldef, struct modelnode *headspotnode, struct modeldef *headmodeldef)
+void model_attach_head(struct model *bodymode, struct modeldef *bodymodeldef, struct modelnode *headspotnode, struct modeldef *headmodeldef)
 {
-	struct modelrwdata_headspot *rwdata = modelGetNodeRwData(bodymode, headspotnode);
+	struct modelrwdata_headspot *rwdata = model_get_node_rw_data(bodymode, headspotnode);
 	struct modelnode *node;
 
 	rwdata->headmodeldef = headmodeldef;
@@ -4271,7 +4271,7 @@ void modelAttachHead(struct model *bodymode, struct modeldef *bodymodeldef, stru
 		node = node->next;
 	}
 
-	bodymodeldef->rwdatalen += modelCalculateRwDataIndexes(headspotnode->child);
+	bodymodeldef->rwdatalen += model_calculate_rw_data_indexes(headspotnode->child);
 }
 
 /**
@@ -4286,7 +4286,7 @@ void modelAttachHead(struct model *bodymode, struct modeldef *bodymodeldef, stru
  * Note that some node types support multiple display lists, so the function
  * may return the same node while it iterates the display lists for that node.
  */
-void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **nodeptr, Gfx **gdlptr)
+void model_iterate_display_lists(struct modeldef *modeldef, struct modelnode **nodeptr, Gfx **gdlptr)
 {
 	struct modelnode *node = *nodeptr;
 	union modelrodata *rodata;
@@ -4334,7 +4334,7 @@ void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **node
 			node->child = rodata->toggle.target;
 			break;
 		case MODELNODETYPE_REORDER:
-			modelApplyReorderRelationsByArg(node, true);
+			model_apply_reorder_relations_by_arg(node, true);
 			break;
 		}
 
@@ -4360,7 +4360,7 @@ void modelIterateDisplayLists(struct modeldef *modeldef, struct modelnode **node
 	*nodeptr = node;
 }
 
-void modelNodeReplaceGdl(struct modeldef *modeldef, struct modelnode *node, Gfx *find, Gfx *replacement)
+void model_node_replace_gdl(struct modeldef *modeldef, struct modelnode *node, Gfx *find, Gfx *replacement)
 {
 	union modelrodata *rodata;
 	u32 type = node->type & 0xff;

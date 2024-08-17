@@ -36,11 +36,11 @@ glabel random
 	dsra32  $v0, $v0, 0
 
 /**
- * void rngSetSeed(u64 seed)
+ * void rng_set_seed(u64 seed)
  *
  * Set the given seed as the RNG seed. Add 1 to make sure it isn't 0.
  */
-glabel rngSetSeed
+glabel rng_set_seed
 	daddiu  $a0, $a0, 1
 	lui     $at, %hi(g_RngSeed)
 	sd      $a0, %lo(g_RngSeed)($at)
@@ -48,14 +48,14 @@ glabel rngSetSeed
 	li      $a0, 0
 
 /**
- * u32 rngRotateSeed(u64 *value);
+ * u32 rng_rotate_seed(u64 *value);
  *
  * Rotate the given seed using the same algorithm as random().
  *
  * Store the new 64-bit seed at the pointed address and return the same seed
  * cast as a u32.
  */
-glabel rngRotateSeed
+glabel rng_rotate_seed
 	ld      $a3, 0($a0)
 	dsll32  $a2, $a3, 31
 	dsll    $a1, $a3, 31

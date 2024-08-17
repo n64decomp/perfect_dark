@@ -19,23 +19,23 @@
 
 u32 var80070590 = 0x00000000;
 
-void mpstatsIncrementPlayerShotCount(struct gset *gset, s32 region)
+void mpstats_increment_player_shot_count(struct gset *gset, s32 region)
 {
-	if (!weaponHasFlag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
+	if (!weapon_has_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
 		g_Vars.currentplayerstats->shotcount[region]++;
 	}
 }
 
-void mpstatsIncrementPlayerShotCount2(struct gset *gset, s32 region)
+void mpstats_increment_player_shot_count2(struct gset *gset, s32 region)
 {
 	if (region == 0) {
-		if (!weaponHasFlag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
+		if (!weapon_has_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
 			var80070590 = 1;
 			g_Vars.currentplayerstats->shotcount[region]++;
 		}
 	} else {
 		if (var80070590) {
-			if (!weaponHasFlag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
+			if (!weapon_has_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
 				g_Vars.currentplayerstats->shotcount[region]++;
 			}
 
@@ -49,37 +49,37 @@ void mpstats0f0b0520(void)
 	var80070590 = 0;
 }
 
-s32 mpstatsGetPlayerShotCountByRegion(u32 type)
+s32 mpstats_get_player_shot_count_by_region(u32 type)
 {
 	return g_Vars.currentplayerstats->shotcount[type];
 }
 
-void mpstatsIncrementTotalKillCount(void)
+void mpstats_increment_total_kill_count(void)
 {
 	g_Vars.killcount++;
 }
 
-void mpstatsIncrementTotalKnockoutCount(void)
+void mpstats_increment_total_knockout_count(void)
 {
 	g_Vars.knockoutcount++;
 }
 
-void mpstatsDecrementTotalKnockoutCount(void)
+void mpstats_decrement_total_knockout_count(void)
 {
 	g_Vars.knockoutcount--;
 }
 
-u8 mpstatsGetTotalKnockoutCount(void)
+u8 mpstats_get_total_knockout_count(void)
 {
 	return g_Vars.knockoutcount;
 }
 
-u32 mpstatsGetTotalKillCount(void)
+u32 mpstats_get_total_kill_count(void)
 {
 	return g_Vars.killcount;
 }
 
-void mpstatsRecordPlayerKill(void)
+void mpstats_record_player_kill(void)
 {
 	char text[256];
 	s32 simulkills;
@@ -90,12 +90,12 @@ void mpstatsRecordPlayerKill(void)
 	g_Vars.currentplayer->killsthislife++;
 
 	if (g_Vars.normmplayerisrunning) {
-		time = playerGetMissionTime();
+		time = player_get_mission_time();
 
 		// Show HUD message
 		// "Kill count: %d"
-		sprintf(text, "%s: %d\n", langGet(L_GUN_001), g_Vars.currentplayerstats->killcount);
-		hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
+		sprintf(text, "%s: %d\n", lang_get(L_GUN_001), g_Vars.currentplayerstats->killcount);
+		hudmsg_create(text, HUDMSGTYPE_DEFAULT);
 
 		// Update slowest/fastest two kills
 		if (g_Vars.currentplayerstats->killcount > 1) {
@@ -136,17 +136,17 @@ void mpstatsRecordPlayerKill(void)
 	}
 }
 
-s32 mpstatsGetPlayerKillCount(void)
+s32 mpstats_get_player_kill_count(void)
 {
 	return g_Vars.currentplayerstats->killcount;
 }
 
-void mpstatsIncrementPlayerGgKillCount(void)
+void mpstats_increment_player_gg_kill_count(void)
 {
 	g_Vars.currentplayerstats->ggkillcount++;
 }
 
-void mpstatsRecordPlayerDeath(void)
+void mpstats_record_player_death(void)
 {
 	char buffer[256];
 
@@ -154,19 +154,19 @@ void mpstatsRecordPlayerDeath(void)
 
 	if (g_Vars.normmplayerisrunning) {
 		if (g_Vars.currentplayer->deathcount == 1) {
-			sprintf(buffer, langGet(L_GUN_002)); // "Died once"
+			sprintf(buffer, lang_get(L_GUN_002)); // "Died once"
 		} else {
 			sprintf(buffer, "%s %d %s\n",
-					langGet(L_GUN_003), // "Died"
+					lang_get(L_GUN_003), // "Died"
 					g_Vars.currentplayer->deathcount,
-					langGet(L_GUN_004)); // "times"
+					lang_get(L_GUN_004)); // "times"
 		}
 
-		hudmsgCreate(buffer, HUDMSGTYPE_DEFAULT);
+		hudmsg_create(buffer, HUDMSGTYPE_DEFAULT);
 	}
 }
 
-void mpstatsRecordPlayerSuicide(void)
+void mpstats_record_player_suicide(void)
 {
 	char text[256];
 	s32 simulkills;
@@ -176,15 +176,15 @@ void mpstatsRecordPlayerSuicide(void)
 	struct mpchrconfig *mpchr;
 
 	if (g_Vars.normmplayerisrunning) {
-		time = playerGetMissionTime();
+		time = player_get_mission_time();
 		mpindex = g_Vars.currentplayerstats->mpindex;
 
 		mpchr = MPCHR(mpindex);
 
 		// Show HUD message
 		// "Suicide count: %d"
-		sprintf(text, "%s: %d\n", langGet(L_GUN_005), mpchr->killcounts[mpindex]);
-		hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
+		sprintf(text, "%s: %d\n", lang_get(L_GUN_005), mpchr->killcounts[mpindex]);
+		hudmsg_create(text, HUDMSGTYPE_DEFAULT);
 
 		// Update slowest/fastest two kills
 		if (g_Vars.currentplayerstats->killcount > 1) {
@@ -225,7 +225,7 @@ void mpstatsRecordPlayerSuicide(void)
 	}
 }
 
-void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
+void mpstats_record_death(s32 aplayernum, s32 vplayernum)
 {
 	s32 vmpindex = -1;
 	struct mpchrconfig *vmpchr = NULL;
@@ -235,7 +235,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 	char text[256];
 
 	if (g_Vars.normmplayerisrunning && g_MpSetup.scenario == MPSCENARIO_POPACAP) {
-		pacHandleDeath(aplayernum, vplayernum);
+		pac_handle_death(aplayernum, vplayernum);
 	}
 
 	// Find attacker and victim mpchrs
@@ -264,9 +264,9 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 
 		if (vplayernum < PLAYERCOUNT()) {
 			prevplayernum = g_Vars.currentplayernum;
-			setCurrentPlayerNum(vplayernum);
-			mpstatsRecordPlayerSuicide();
-			setCurrentPlayerNum(prevplayernum);
+			set_current_player_num(vplayernum);
+			mpstats_record_player_suicide();
+			set_current_player_num(prevplayernum);
 		}
 	} else {
 		// Normal kill
@@ -278,16 +278,16 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 			if (vplayernum < PLAYERCOUNT()) {
 				// Victim was a player
 				prevplayernum = g_Vars.currentplayernum;
-				setCurrentPlayerNum(vplayernum);
+				set_current_player_num(vplayernum);
 
 				if (g_Vars.normmplayerisrunning && aplayernum >= 0) {
 					// "Killed by %s"
-					sprintf(text, "%s %s", langGet(L_MISC_183), g_MpAllChrConfigPtrs[aplayernum]->name);
-					hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
+					sprintf(text, "%s %s", lang_get(L_MISC_183), g_MpAllChrConfigPtrs[aplayernum]->name);
+					hudmsg_create(text, HUDMSGTYPE_DEFAULT);
 				}
 
-				mpstatsRecordPlayerDeath();
-				setCurrentPlayerNum(prevplayernum);
+				mpstats_record_player_death();
+				set_current_player_num(prevplayernum);
 			}
 		}
 
@@ -298,16 +298,16 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 		if (aplayernum >= 0 && aplayernum < PLAYERCOUNT()) {
 			// Attacker was a player
 			prevplayernum = g_Vars.currentplayernum;
-			setCurrentPlayerNum(aplayernum);
+			set_current_player_num(aplayernum);
 
 			if (g_Vars.normmplayerisrunning && vplayernum >= 0) {
 				// "Killed %s"
-				sprintf(text, "%s %s", langGet(L_MISC_184), g_MpAllChrConfigPtrs[vplayernum]->name);
-				hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
+				sprintf(text, "%s %s", lang_get(L_MISC_184), g_MpAllChrConfigPtrs[vplayernum]->name);
+				hudmsg_create(text, HUDMSGTYPE_DEFAULT);
 			}
 
-			mpstatsRecordPlayerKill();
-			setCurrentPlayerNum(prevplayernum);
+			mpstats_record_player_kill();
+			set_current_player_num(prevplayernum);
 		}
 
 		// If someone killed an aibot
@@ -320,7 +320,7 @@ void mpstatsRecordDeath(s32 aplayernum, s32 vplayernum)
 	}
 
 	if (g_Vars.normmplayerisrunning && aplayernum >= 0 && g_MpAllChrPtrs[aplayernum]->aibot) {
-		s32 index = mpGetWeaponSlotByWeaponNum(g_MpAllChrPtrs[aplayernum]->aibot->weaponnum);
+		s32 index = mp_get_weapon_slot_by_weapon_num(g_MpAllChrPtrs[aplayernum]->aibot->weaponnum);
 
 		if (index >= 0) {
 			if (aplayernum == vplayernum) {

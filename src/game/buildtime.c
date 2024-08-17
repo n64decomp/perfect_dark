@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-char *buildGetTimestamp(void)
+char *build_get_timestamp(void)
 {
 #if VERSION >= VERSION_JPN_FINAL
 	return "Jul 19 2000 09:43:24";

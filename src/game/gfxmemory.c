@@ -65,18 +65,18 @@ u32 g_GfxNumSwaps = 2;
  * Comments in this function are strings that appear in an XBLA debug build.
  * They were likely in the N64 version but ifdeffed out.
  */
-void gfxReset(void)
+void gfx_reset(void)
 {
 	s32 stack;
 
-	if (argFindByPrefix(1, "-mgfx")) {
+	if (arg_find_by_prefix(1, "-mgfx")) {
 		// Argument specified master_dl_size\n
 		s32 gfx;
 		s32 gfxtra = 0;
 
-		gfx = strtol(argFindByPrefix(1, "-mgfx"), NULL, 0) * 1024;
+		gfx = strtol(arg_find_by_prefix(1, "-mgfx"), NULL, 0) * 1024;
 
-		if (argFindByPrefix(1, "-mgfxtra")) {
+		if (arg_find_by_prefix(1, "-mgfxtra")) {
 			// ******** Extra specified but are we in the correct game mode I wonder???\n
 			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) && PLAYERCOUNT() == 2) {
 				// ******** Extra Display List Memeory Required\n
@@ -84,7 +84,7 @@ void gfxReset(void)
 				// ******** If you try and run hi-res then\n
 				// ******** you're gonna shafted up the arse\n
 				// ******** so don't blame me\n
-				gfxtra = strtol(argFindByPrefix(1, "-mgfxtra"), NULL, 0) * 1024;
+				gfxtra = strtol(arg_find_by_prefix(1, "-mgfxtra"), NULL, 0) * 1024;
 			} else {
 				// ******** No we're not so there\n
 			}
@@ -96,18 +96,18 @@ void gfxReset(void)
 		g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] = gfx + gfxtra;
 	}
 
-	if (argFindByPrefix(1, "-mvtx")) {
+	if (arg_find_by_prefix(1, "-mvtx")) {
 		// Argument specified mtxvtx_size\n
-		g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] = strtol(argFindByPrefix(1, "-mvtx"), NULL, 0) * 1024;
+		g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] = strtol(arg_find_by_prefix(1, "-mvtx"), NULL, 0) * 1024;
 	}
 
 	// %d Players : Allocating %d bytes for master dl's\n
-	g_GfxBuffers[0] = mempAlloc(g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] * NUM_GFXTASKS, MEMPOOL_STAGE);
+	g_GfxBuffers[0] = memp_alloc(g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1] * NUM_GFXTASKS, MEMPOOL_STAGE);
 	g_GfxBuffers[1] = g_GfxBuffers[0] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 	g_GfxBuffers[2] = g_GfxBuffers[1] + g_GfxSizesByPlayerCount[PLAYERCOUNT() - 1];
 
 	// Allocating %d bytes for mtxvtx space\n
-	g_VtxBuffers[0] = mempAlloc(g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] * NUM_GFXTASKS, MEMPOOL_STAGE);
+	g_VtxBuffers[0] = memp_alloc(g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1] * NUM_GFXTASKS, MEMPOOL_STAGE);
 	g_VtxBuffers[1] = g_VtxBuffers[0] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
 	g_VtxBuffers[2] = g_VtxBuffers[1] + g_VtxSizesByPlayerCount[PLAYERCOUNT() - 1];
 
@@ -116,14 +116,14 @@ void gfxReset(void)
 	g_GfxMemPos = g_VtxBuffers[0];
 }
 
-Gfx *gfxGetMasterDisplayList(void)
+Gfx *gfx_get_master_display_list(void)
 {
 	g_GfxRequestedDisplayList = true;
 
 	return (Gfx *)g_GfxBuffers[g_GfxActiveBufferIndex];
 }
 
-Vtx *gfxAllocateVertices(u32 count)
+Vtx *gfx_allocate_vertices(u32 count)
 {
 	void *ptr = g_GfxMemPos;
 	g_GfxMemPos += count * sizeof(Vtx);
@@ -132,7 +132,7 @@ Vtx *gfxAllocateVertices(u32 count)
 	return ptr;
 }
 
-void *gfxAllocateMatrix(void)
+void *gfx_allocate_matrix(void)
 {
 	void *ptr = g_GfxMemPos;
 	g_GfxMemPos += sizeof(Mtx);
@@ -145,7 +145,7 @@ void *gfxAllocateMatrix(void)
  * The function allocates 0x8 for every count, so it could be allocating lights
  * instead, however it's only used for LookAts so it's named as LookAt.
  */
-LookAt *gfxAllocateLookAt(s32 count)
+LookAt *gfx_allocate_look_at(s32 count)
 {
 	void *ptr = g_GfxMemPos;
 	g_GfxMemPos += count * (sizeof(LookAt) / 2);
@@ -153,7 +153,7 @@ LookAt *gfxAllocateLookAt(s32 count)
 	return ptr;
 }
 
-Col *gfxAllocateColours(s32 count)
+Col *gfx_allocate_colours(s32 count)
 {
 	void *ptr = g_GfxMemPos;
 	count = ALIGN16(count * sizeof(Col));
@@ -162,7 +162,7 @@ Col *gfxAllocateColours(s32 count)
 	return ptr;
 }
 
-void *gfxAllocate(u32 size)
+void *gfx_allocate(u32 size)
 {
 	void *ptr = g_GfxMemPos;
 	size = ALIGN16(size);
@@ -171,7 +171,7 @@ void *gfxAllocate(u32 size)
 	return ptr;
 }
 
-void gfxSwapBuffers(void)
+void gfx_swap_buffers(void)
 {
 	g_GfxActiveBufferIndex ^= 1;
 	g_GfxRequestedDisplayList = false;
@@ -184,12 +184,12 @@ void gfxSwapBuffers(void)
 	}
 }
 
-s32 gfxGetFreeGfx(Gfx *gdl)
+s32 gfx_get_free_gfx(Gfx *gdl)
 {
 	return (Gfx *)g_GfxBuffers[g_GfxActiveBufferIndex + 1] - gdl;
 }
 
-u32 gfxGetFreeVtx(void)
+u32 gfx_get_free_vtx(void)
 {
 	return g_VtxBuffers[g_GfxActiveBufferIndex + 1] - g_GfxMemPos;
 }

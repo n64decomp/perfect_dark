@@ -11,7 +11,7 @@ glabel var8005ef10
 
 .text
 
-glabel mtx4LoadIdentity
+glabel mtx4_load_identity
 	lui    $at, 0x3f80
 	mtc1   $at, $f0
 	sw     $zero, 0x4($a0)
@@ -32,10 +32,10 @@ glabel mtx4LoadIdentity
 	jr     $ra
 	swc1   $f0, 0x3c($a0)
 
-glabel mtx4MultMtx4InPlace
+glabel mtx4_mult_mtx4_in_place
 	add    $a2, $a1, $zero
 
-glabel mtx4MultMtx4
+glabel mtx4_mult_mtx4
 	mfc1   $t1, $f20
 	mfc1   $t2, $f21
 	mfc1   $t3, $f22
@@ -106,10 +106,10 @@ glabel mtx4MultMtx4
 	jr     $ra
 	mtc1   $t5, $f24
 
-glabel mtx4RotateVecInPlace
+glabel mtx4_rotate_vec_in_place
 	add    $a2, $a1, $zero
 
-glabel mtx4RotateVec
+glabel mtx4_rotate_vec
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
@@ -132,10 +132,10 @@ glabel mtx4RotateVec
 	jr     $ra
  	nop
 
-glabel mtx4TransformVecInPlace
+glabel mtx4_transform_vec_in_place
 	add    $a2, $a1, $zero
 
-glabel mtx4TransformVec
+glabel mtx4_transform_vec
 	lwc1   $f0, 0x0($a1)
 	lwc1   $f1, 0x4($a1)
 	lwc1   $f2, 0x8($a1)
@@ -235,7 +235,7 @@ glabel mtx00015be4
 	jr     $ra
 	mtc1   $t4, $f23
 
-glabel mtx3Copy
+glabel mtx3_copy
 	li     $t0, 0x2
 .L00015cdc:
 	lw     $t1, 0x0($a0)
@@ -254,7 +254,7 @@ glabel mtx3Copy
 	jr     $ra
 	sw     $t0, 0x0($a1)
 
-glabel mtx4Copy
+glabel mtx4_copy
 	li     $t0, 0x4
 .L00015d1c:
 	lw     $t1, 0x0($a0)
@@ -272,7 +272,7 @@ glabel mtx4Copy
 	jr     $ra
  	nop
 
-glabel mtx3ToMtx4
+glabel mtx3_to_mtx4
 	li     $t0, 0x3
 	lui    $at, 0x3f80
 	mtc1   $at, $f4
@@ -294,7 +294,7 @@ glabel mtx3ToMtx4
 	jr     $ra
 	swc1   $f4, 0xc($a1)
 
-glabel mtx4ToMtx3
+glabel mtx4_to_mtx3
 	li     $t0, 0x3
 .L00015da4:
 	lw     $t1, 0x0($a0)
@@ -310,7 +310,7 @@ glabel mtx4ToMtx3
 	jr     $ra
  	nop
 
-glabel mtx4SetTranslation
+glabel mtx4_set_translation
 	lw     $t0, 0x0($a0)
 	lw     $t1, 0x4($a0)
 	lw     $t2, 0x8($a0)
@@ -464,7 +464,7 @@ glabel mtx00015f88
  * Wait for the PI to be idle, then read the osRomBase variable, use it to read
  * the word at ROM offset 0xa5c and return it.
  */
-glabel mtxGetObfuscatedRomBase
+glabel mtx_get_obfuscated_rom_base
 	addiu  $sp, $sp, -0x20
 	sw     $ra, 0x14($sp)
 	lui    $a0, %hi(__osPiAccessQueue)
@@ -500,7 +500,7 @@ glabel mtxGetObfuscatedRomBase
 	jr     $ra
 	addiu  $sp, $sp, 0x20
 
-glabel mtxF2L
+glabel mtx_f2l
 	lui    $t2, %hi(var8005ef10)
 	addiu  $t2, $t2, %lo(var8005ef10)
 	li     $t0, 0x4

@@ -4,28 +4,28 @@
 #include "data.h"
 #include "types.h"
 
-void navSetSeed(u32 upper, u32 lower);
-struct waypoint *waypointFindClosestToPos(struct coord *pos, RoomNum *rooms);
-struct waygroup *waygroupChooseNeighbour(s32 *groupnums, s32 step, u32 ignoremask);
-void waygroupSetStepIfUndiscovered(s32 *groupnums, s32 step, u32 ignoremask);
-bool waygroupDiscoverOneStep(struct waygroup *group, s32 step, u32 ignoremask);
-bool waygroupDiscoverSteps(struct waygroup *from, struct waygroup *to, struct waygroup *groups, bool discoverall, u32 ignoremask);
-bool waygroupFindRoute(struct waygroup *from, struct waygroup *to, struct waygroup *groups);
-struct waypoint *waypointChooseNeighbour(s32 *pointnums, s32 step, s32 groupnum, u32 ignoremask);
-void waypointSetStepIfUndiscovered(s32 *pointnums, s32 value, s32 groupnum, u32 ignoremask);
-bool waypointDiscoverOneStep(s32 *pointnums, s32 step, s32 groupnum, u32 ignoremask);
-void waypointDiscoverSteps(struct waypoint *from, struct waypoint *to, bool discoverall, u32 ignoremask);
-void waypointFindRoute(struct waypoint *from, struct waypoint *to);
-s32 waypointCollectLocal(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen);
-void waypointFindSegmentIntoGroup(struct waygroup *fromgroup, struct waygroup *togroup, struct waypoint **frompoint, struct waypoint **topoint);
-s32 navFindRoute(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen);
-void waypointResetAllSteps(void);
-struct waypoint *waypointFindRandomAtStep(s32 *pointnums, s32 step);
-struct waygroup *waygroupFindRandomAtStep(s32 *groupnums, s32 step);
-struct waypoint *navChooseRetreatPoint(struct waypoint *chrpoint, struct waypoint *targetpoint);
-void navDisableSegmentInDirection(struct waypoint *a, struct waypoint *b);
-void navEnableSegmentInDirection(struct waypoint *a, struct waypoint *b);
-void navDisableSegment(struct waypoint *a, struct waypoint *b);
-void navEnableSegment(struct waypoint *a, struct waypoint *b);
+void nav_set_seed(u32 upper, u32 lower);
+struct waypoint *waypoint_find_closest_to_pos(struct coord *pos, RoomNum *rooms);
+struct waygroup *waygroup_choose_neighbour(s32 *groupnums, s32 step, u32 ignoremask);
+void waygroup_set_step_if_undiscovered(s32 *groupnums, s32 step, u32 ignoremask);
+bool waygroup_discover_one_step(struct waygroup *group, s32 step, u32 ignoremask);
+bool waygroup_discover_steps(struct waygroup *from, struct waygroup *to, struct waygroup *groups, bool discoverall, u32 ignoremask);
+bool waygroup_find_route(struct waygroup *from, struct waygroup *to, struct waygroup *groups);
+struct waypoint *waypoint_choose_neighbour(s32 *pointnums, s32 step, s32 groupnum, u32 ignoremask);
+void waypoint_set_step_if_undiscovered(s32 *pointnums, s32 value, s32 groupnum, u32 ignoremask);
+bool waypoint_discover_one_step(s32 *pointnums, s32 step, s32 groupnum, u32 ignoremask);
+void waypoint_discover_steps(struct waypoint *from, struct waypoint *to, bool discoverall, u32 ignoremask);
+void waypoint_find_route(struct waypoint *from, struct waypoint *to);
+s32 waypoint_collect_local(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen);
+void waypoint_find_segment_into_group(struct waygroup *fromgroup, struct waygroup *togroup, struct waypoint **frompoint, struct waypoint **topoint);
+s32 nav_find_route(struct waypoint *from, struct waypoint *to, struct waypoint **arr, s32 arrlen);
+void waypoint_reset_all_steps(void);
+struct waypoint *waypoint_find_random_at_step(s32 *pointnums, s32 step);
+struct waygroup *waygroup_find_random_at_step(s32 *groupnums, s32 step);
+struct waypoint *nav_choose_retreat_point(struct waypoint *chrpoint, struct waypoint *targetpoint);
+void nav_disable_segment_in_direction(struct waypoint *a, struct waypoint *b);
+void nav_enable_segment_in_direction(struct waypoint *a, struct waypoint *b);
+void nav_disable_segment(struct waypoint *a, struct waypoint *b);
+void nav_enable_segment(struct waypoint *a, struct waypoint *b);
 
 #endif

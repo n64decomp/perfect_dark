@@ -6,7 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-void setupLoadWaypoints(void)
+void setup_load_waypoints(void)
 {
 	struct waypoint *waypoints;
 	s32 numwaypoints;
@@ -32,20 +32,20 @@ void setupLoadWaypoints(void)
 	waypoints = g_StageSetup.waypoints;
 
 	// Allocate memory for the waypoint numbers array
-	g_Vars.waypointnums = mempAlloc(ALIGN16(numwaypoints * sizeof(s16)), MEMPOOL_STAGE);
+	g_Vars.waypointnums = memp_alloc(ALIGN16(numwaypoints * sizeof(s16)), MEMPOOL_STAGE);
 
 	numinserted = 0;
 
 	// Populate g_Vars.waypointnums, ordering them by roomnum asc, padnum asc
 	for (i = 0; i < numwaypoints; i++) {
 		waypoint = &waypoints[i];
-		padUnpack(waypoint->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
+		pad_unpack(waypoint->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
 
 		// Iterate previously processed waypoints and bail if the outer loop's
 		// waypoint should be inserted prior to this one
 		for (j = 0; j < numinserted; j++) {
 			waypoint2 = &waypoints[g_Vars.waypointnums[j]];
-			padUnpack(waypoint2->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad2);
+			pad_unpack(waypoint2->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad2);
 
 			if (pad.room < pad2.room) {
 				break;
@@ -78,7 +78,7 @@ void setupLoadWaypoints(void)
 
 	for (i = 0; i < numwaypoints; i++) {
 		waypoint = &g_StageSetup.waypoints[g_Vars.waypointnums[i]];
-		padUnpack(waypoint->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
+		pad_unpack(waypoint->padnum, PADFIELD_ROOM | PADFIELD_FLAGS, &pad);
 
 		if (pad.room != currentroom) {
 			currentroom = pad.room;

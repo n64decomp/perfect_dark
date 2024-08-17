@@ -78,17 +78,17 @@ u32 align32(u32 arg0)
 	return arg0;
 }
 
-void utilsInit(void)
+void utils_init(void)
 {
 	s32 i;
 	u32 stack;
 	u32 slotssize = 0x1900;
 	u32 allocsize;
 
-	var800ac0d0 = mempAlloc(10000, MEMPOOL_8);
+	var800ac0d0 = memp_alloc(10000, MEMPOOL_8);
 
 	allocsize = align16(0x3900);
-	var800ac0e8[0] = mempAlloc(allocsize, MEMPOOL_8);
+	var800ac0e8[0] = memp_alloc(allocsize, MEMPOOL_8);
 
 	if (var800ac0e8[0] != NULL) {
 		for (i = 0; i < ARRAYCOUNT(var800ac0e8); i++) {
@@ -247,7 +247,7 @@ bool func0f1773c8(struct coord *a, struct coord *b)
 	return false;
 }
 
-f32 coordsGetDistance(struct coord *a, struct coord *b)
+f32 coords_get_distance(struct coord *a, struct coord *b)
 {
 	f32 xdiff = b->x - a->x;
 	f32 ydiff = b->y - a->y;
@@ -363,7 +363,7 @@ bool func0f1777b8(struct coord *a, struct coord *b, struct coord *c, struct coor
 	return true;
 }
 
-void utilsReset(void)
+void utils_reset(void)
 {
 	s32 i;
 

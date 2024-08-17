@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void faultInit(void);
-void faultAssert(char *msg, char *file, s32 line);
+void fault_init(void);
+void fault_assert(char *msg, char *file, s32 line);
 
 #endif

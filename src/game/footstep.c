@@ -67,7 +67,7 @@ struct footstepframe g_FootstepAnims[] = {
 	{ ANIM_SKEDAR_RUNNING,     0x00, 0x00 },
 };
 
-bool footstepIsRunning(s32 animnum)
+bool footstep_is_running(s32 animnum)
 {
 	switch (animnum) {
 	case ANIM_001D:
@@ -97,7 +97,7 @@ bool footstepIsRunning(s32 animnum)
 	return false;
 }
 
-s32 footstepChooseSound(struct chrdata *chr, s32 footstepindex)
+s32 footstep_choose_sound(struct chrdata *chr, s32 footstepindex)
 {
 	s32 floortype;
 	s32 running;
@@ -135,7 +135,7 @@ s32 footstepChooseSound(struct chrdata *chr, s32 footstepindex)
 		return result;
 	}
 
-	running = footstepIsRunning(g_FootstepAnims[footstepindex].animnum);
+	running = footstep_is_running(g_FootstepAnims[footstepindex].animnum);
 
 	do {
 		rand = random() % 8;
@@ -152,9 +152,9 @@ s32 footstepChooseSound(struct chrdata *chr, s32 footstepindex)
  *
  * It is assumed that the chr is moving normally and not via magic.
  */
-void footstepCheckDefault(struct chrdata *chr)
+void footstep_check_default(struct chrdata *chr)
 {
-	if (debugIsFootstepsEnabled() && PLAYERCOUNT() == 1 && chr) {
+	if (debug_is_footsteps_enabled() && PLAYERCOUNT() == 1 && chr) {
 		chr->footstep = 0;
 		chr->magicanim = -1;
 		chr->magicframe = 0;
@@ -168,7 +168,7 @@ void footstepCheckDefault(struct chrdata *chr)
 			chr->oldframe = frame;
 
 			for (i = 0; i < ARRAYCOUNT(g_FootstepAnims); i++) {
-				if (modelGetAnimNum(chr->model) == g_FootstepAnims[i].animnum) {
+				if (model_get_anim_num(chr->model) == g_FootstepAnims[i].animnum) {
 					if (CHRRACE(chr) == RACE_SKEDAR && g_FootstepAnims[i].animnum == ANIM_SKEDAR_RUNNING) {
 						if ((frame >= 2 && prevframe < 2) || (frame >= 17 && prevframe < 17)) { \
 							chr->footstep = 1;
@@ -183,13 +183,13 @@ void footstepCheckDefault(struct chrdata *chr)
 						}
 					}
 
-					soundnum = footstepChooseSound(chr, i);
+					soundnum = footstep_choose_sound(chr, i);
 
 					if (soundnum != -1 && chr->footstep != 0) {
 #if VERSION >= VERSION_NTSC_1_0
-						psCreate(NULL, chr->prop, soundnum, -1, -1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
+						ps_create(NULL, chr->prop, soundnum, -1, -1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
 #else
-						psCreate(NULL, chr->prop, soundnum, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
+						ps_create(NULL, chr->prop, soundnum, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 #endif
 					}
 
@@ -213,7 +213,7 @@ void footstepCheckDefault(struct chrdata *chr)
  * The "magic" method of movement applies when the chr is off-screen.
  * It uses a computationally simple approach to movement.
  */
-void footstepCheckMagic(struct chrdata *chr)
+void footstep_check_magic(struct chrdata *chr)
 {
 	s32 index;
 	f32 frame;
@@ -224,7 +224,7 @@ void footstepCheckMagic(struct chrdata *chr)
 	f32 zdiff;
 	s32 soundnum;
 
-	if (debugIsFootstepsEnabled() && PLAYERCOUNT() == 1 && chr->magicanim >= 0) {
+	if (debug_is_footsteps_enabled() && PLAYERCOUNT() == 1 && chr->magicanim >= 0) {
 #if VERSION >= VERSION_PAL_BETA
 		chr->magicframe += g_Vars.lvupdate60freal * chr->magicspeed;
 #else
@@ -263,20 +263,20 @@ void footstepCheckMagic(struct chrdata *chr)
 					}
 				}
 
-				soundnum = footstepChooseSound(chr, index);
+				soundnum = footstep_choose_sound(chr, index);
 
 				if (soundnum != -1 && chr->footstep != 0) {
 #if VERSION >= VERSION_NTSC_1_0
-					psCreate(NULL, chr->prop, soundnum, -1,
+					ps_create(NULL, chr->prop, soundnum, -1,
 							-1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
 #else
-					psCreate(NULL, chr->prop, soundnum, -1,
+					ps_create(NULL, chr->prop, soundnum, -1,
 							-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 #endif
 				}
 			}
 
-			if (footstepIsRunning(g_FootstepAnims[index].animnum)) {
+			if (footstep_is_running(g_FootstepAnims[index].animnum)) {
 				if (chr->magicframe > 22) {
 					chr->magicframe -= 22;
 				}

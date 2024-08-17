@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-void smokeReset(void)
+void smoke_reset(void)
 {
 	s32 i;
 	s32 j;
@@ -19,7 +19,7 @@ void smokeReset(void)
 	if (g_MaxSmokes == 0) {
 		g_Smokes = NULL;
 	} else {
-		g_Smokes = mempAlloc(g_MaxSmokes * sizeof(struct smoke), MEMPOOL_STAGE);
+		g_Smokes = memp_alloc(g_MaxSmokes * sizeof(struct smoke), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_MaxSmokes; i++) {
 			g_Smokes[i].prop = NULL;

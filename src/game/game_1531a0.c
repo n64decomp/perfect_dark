@@ -141,7 +141,7 @@ u32 var8007fbbc = 0x0000003c;
 u32 var8007fbc0 = 0x44444400;
 u32 var8007fbc4 = 0xffffff00;
 
-void textInit(void)
+void text_init(void)
 {
 	// empty
 }
@@ -151,12 +151,12 @@ void text0f1531a8(s32 arg0)
 	var8007fac4 = -arg0;
 }
 
-void textSetRotation90(bool rotated)
+void text_set_rotation90(bool rotated)
 {
 	g_TextRotated90 = rotated;
 }
 
-void textSetWrapIndent(s32 count)
+void text_set_wrap_indent(s32 count)
 {
 	g_WrapIndentCount = count;
 }
@@ -179,7 +179,7 @@ void text0f1531dc(bool arg0)
 #endif
 }
 
-void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace)
+void text_load_font(u8 *romstart, u8 *romend, struct font **fontptr, struct fontchar **charsptr, bool monospace)
 {
 	extern u8 _fonthandelgothicsmSegmentRomStart;
 	extern u8 _fonthandelgothicxsSegmentRomStart;
@@ -208,10 +208,10 @@ void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontch
 #endif
 
 	len = (romptr_t)romend - (romptr_t)romstart;
-	font = mempAlloc(len, MEMPOOL_STAGE);
+	font = memp_alloc(len, MEMPOOL_STAGE);
 	chars = font->chars;
 
-	dmaExec(font, (romptr_t) romstart, len);
+	dma_exec(font, (romptr_t) romstart, len);
 
 	// Convert pointers
 	for (i = 0; i < NUMCHARS(); i++) {
@@ -259,7 +259,7 @@ void textLoadFont(u8 *romstart, u8 *romend, struct font **fontptr, struct fontch
 #endif
 }
 
-void textReset(void)
+void text_reset(void)
 {
 	extern u8 _fontbankgothicSegmentRomStart,     _fontbankgothicSegmentRomEnd;
 	extern u8 _fontzurichSegmentRomStart,         _fontzurichSegmentRomEnd;
@@ -305,17 +305,17 @@ void textReset(void)
 	var8007fae8 = 0;
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
-		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
-		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
-		textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+		text_load_font(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		text_load_font(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		text_load_font(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
-		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
-		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
-		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
-		textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+		text_load_font(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		text_load_font(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		text_load_font(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		text_load_font(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 	} else {
 #if VERSION >= VERSION_JPN_FINAL
-		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
+		text_load_font(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
 
 		if (g_Vars.normmplayerisrunning) {
 			if (IS4MB()) {
@@ -330,40 +330,40 @@ void textReset(void)
 			}
 		}
 
-		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		text_load_font(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
 
 		if (!g_Vars.normmplayerisrunning || IS8MB()) {
-			textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+			text_load_font(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 		}
 
 		if (g_Vars.stagenum == STAGE_TEST_OLD) {
-			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+			text_load_font(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 		}
 
-		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		text_load_font(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
 #elif VERSION >= VERSION_PAL_BETA
-		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
-		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
-		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		text_load_font(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
+		text_load_font(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		text_load_font(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
 
 		if (!g_Vars.normmplayerisrunning) {
-			textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+			text_load_font(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 		}
 
 		if (g_Vars.stagenum == STAGE_TEST_OLD) {
-			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+			text_load_font(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 		}
 #else
 		// This unused GE font exists in NTSC but was removed in the PAL version
-		textLoadFont(&_fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
+		text_load_font(&_fonttahomaSegmentRomStart, &_fonttahomaSegmentRomEnd, &g_FontTahoma2, &g_FontTahoma1, false);
 
-		textLoadFont(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
-		textLoadFont(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
-		textLoadFont(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
-		textLoadFont(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
+		text_load_font(&_fontnumericSegmentRomStart, &_fontnumericSegmentRomEnd, &g_FontNumeric, &g_CharsNumeric, false);
+		text_load_font(&_fonthandelgothicxsSegmentRomStart, &_fonthandelgothicxsSegmentRomEnd, &g_FontHandelGothicXs, &g_CharsHandelGothicXs, false);
+		text_load_font(&_fonthandelgothicsmSegmentRomStart, &_fonthandelgothicsmSegmentRomEnd, &g_FontHandelGothicSm, &g_CharsHandelGothicSm, false);
+		text_load_font(&_fonthandelgothicmdSegmentRomStart, &_fonthandelgothicmdSegmentRomEnd, &g_FontHandelGothicMd, &g_CharsHandelGothicMd, false);
 
 		if (g_Vars.stagenum == STAGE_TEST_OLD) {
-			textLoadFont(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
+			text_load_font(&_fonthandelgothiclgSegmentRomStart, &_fonthandelgothiclgSegmentRomEnd, &g_FontHandelGothicLg, &g_CharsHandelGothicLg, false);
 		}
 #endif
 	}
@@ -409,7 +409,7 @@ Gfx *text0f153780(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *textSetPrimColour(Gfx *gdl, u32 colour)
+Gfx *text_set_prim_colour(Gfx *gdl, u32 colour)
 {
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
@@ -429,7 +429,7 @@ Gfx *text0f153838(Gfx *gdl)
 
 Gfx *text0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 {
-	gdl = textSetPrimColour(gdl, 0x00000000);
+	gdl = text_set_prim_colour(gdl, 0x00000000);
 
 	gDPFillRectangle(gdl++, *x1, *y1, *x2, *y2);
 
@@ -440,7 +440,7 @@ Gfx *text0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 
 Gfx *text0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 {
-	gdl = textSetPrimColour(gdl, 0x00000000);
+	gdl = text_set_prim_colour(gdl, 0x00000000);
 
 	gDPFillRectangleScaled(gdl++, *x1, *y1, *x2, *y2);
 
@@ -452,7 +452,7 @@ Gfx *text0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 #if VERSION >= VERSION_NTSC_1_0
 Gfx *text0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 {
-	gdl = textSetPrimColour(gdl, 0x00000000);
+	gdl = text_set_prim_colour(gdl, 0x00000000);
 
 #if VERSION >= VERSION_JPN_FINAL
 	gDPFillRectangle(gdl++, left - 1, top - 1, width * var8007fad0 + left + 1, top + height * var80080108jf + 1);
@@ -468,7 +468,7 @@ Gfx *text0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 
 Gfx *text0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour)
 {
-	gdl = textSetPrimColour(gdl, colour);
+	gdl = text_set_prim_colour(gdl, colour);
 
 	gDPFillRectangle(gdl++, x1, y1, x2, y2);
 
@@ -483,7 +483,7 @@ Gfx *text0f153ab0(Gfx *gdl)
 
 	var8007fb9c = true;
 
-	allocation = gfxAllocate(sizeof(Gfx) * 530);
+	allocation = gfx_allocate(sizeof(Gfx) * 530);
 
 	var800a4634 = allocation;
 	var800a4638 = allocation + 530;
@@ -520,7 +520,7 @@ void text0f153b6c(s32 arg0)
 	}
 }
 
-void textSetDiagonalBlend(s32 x, s32 y, f32 timer, u8 mode)
+void text_set_diagonal_blend(s32 x, s32 y, f32 timer, u8 mode)
 {
 	g_Blend.types |= BLENDTYPE_DIAGONAL;
 	g_Blend.diagrefx = x;
@@ -529,7 +529,7 @@ void textSetDiagonalBlend(s32 x, s32 y, f32 timer, u8 mode)
 	g_Blend.diagmode = mode;
 }
 
-void textBackupDiagonalBlendSettings(void)
+void text_backup_diagonal_blend_settings(void)
 {
 	g_Blend.backupdiagrefx = g_Blend.diagrefx;
 	g_Blend.backupdiagrefy = g_Blend.diagrefy;
@@ -538,7 +538,7 @@ void textBackupDiagonalBlendSettings(void)
 	g_Blend.backupdiagtypes = g_Blend.types & BLENDTYPE_DIAGONAL;
 }
 
-void textRestoreDiagonalBlendSettings(void)
+void text_restore_diagonal_blend_settings(void)
 {
 	g_Blend.diagrefx = g_Blend.backupdiagrefx;
 	g_Blend.diagrefy = g_Blend.backupdiagrefy;
@@ -547,7 +547,7 @@ void textRestoreDiagonalBlendSettings(void)
 	g_Blend.types |= g_Blend.backupdiagtypes;
 }
 
-void textSetVerticalBlend(s32 y1, s32 y2, u32 arg2)
+void text_set_vertical_blend(s32 y1, s32 y2, u32 arg2)
 {
 	g_Blend.types |= BLENDTYPE_VERTICAL;
 	g_Blend.vertrefy1 = y1;
@@ -555,7 +555,7 @@ void textSetVerticalBlend(s32 y1, s32 y2, u32 arg2)
 	g_Blend.vert34 = arg2;
 }
 
-void textSetHorizontalBlend(s32 x1, s32 x2, u32 arg2)
+void text_set_horizontal_blend(s32 x1, s32 x2, u32 arg2)
 {
 	g_Blend.types |= BLENDTYPE_HORIZONTAL;
 	g_Blend.horizrefx1 = x1;
@@ -563,28 +563,28 @@ void textSetHorizontalBlend(s32 x1, s32 x2, u32 arg2)
 	g_Blend.horiz40 = arg2;
 }
 
-void textResetBlends2(void)
+void text_reset_blends2(void)
 {
 	g_Blend.types = 0;
 }
 
-void textResetBlends3(void)
+void text_reset_blends3(void)
 {
 	g_Blend.types = 0;
 }
 
-void textBackupAndResetBlends(void)
+void text_backup_and_reset_blends(void)
 {
 	g_Blend.backuptypes = g_Blend.types;
 	g_Blend.types = 0;
 }
 
-void textRestoreBlends(void)
+void text_restore_blends(void)
 {
 	g_Blend.types = g_Blend.backuptypes;
 }
 
-void textSetWaveBlend(s32 arg0, s32 arg1, s32 cthresh)
+void text_set_wave_blend(s32 arg0, s32 arg1, s32 cthresh)
 {
 	g_Blend.types |= BLENDTYPE_WAVE;
 	g_Blend.wave4c = arg0;
@@ -594,30 +594,30 @@ void textSetWaveBlend(s32 arg0, s32 arg1, s32 cthresh)
 	g_Blend.wavecolour2 = 0xffffff00;
 }
 
-void textSetMenuBlend(f32 arg0)
+void text_set_menu_blend(f32 arg0)
 {
 	g_Blend.types |= BLENDTYPE_MENU;
 	g_Blend.menuweight = arg0 * arg0 * 110.0f;
 }
 
-void textSetWaveColours(u32 colour1, u32 colour2)
+void text_set_wave_colours(u32 colour1, u32 colour2)
 {
 	g_Blend.wavecolour1 = colour1;
 	g_Blend.wavecolour2 = colour2;
 }
 
-void textResetBlends(void)
+void text_reset_blends(void)
 {
 	g_Blend.types = 0;
 }
 
-bool textHasDiagonalBlend(void)
+bool text_has_diagonal_blend(void)
 {
 	return (g_Blend.types & BLENDTYPE_DIAGONAL)
 		&& (g_Blend.diagmode == DIAGMODE_FADEIN || g_Blend.diagmode == DIAGMODE_FADEOUT);
 }
 
-u32 textApplyProjectionColour(s32 x, s32 y, u32 colour)
+u32 text_apply_projection_colour(s32 x, s32 y, u32 colour)
 {
 	u32 stack[3];
 	u32 result = colour;
@@ -653,7 +653,7 @@ u32 textApplyProjectionColour(s32 x, s32 y, u32 colour)
 			} else if ((g_Blend.diagtimer - (f14 + f18 + f16)) < f12) {
 				u32 colour2 = (((colour & 0xff) + 0xff) / 2) | (colour & 0xffffff00);
 				weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
-				result = colourBlend(colour, colour2, 0xff - (u32) weightf);
+				result = colour_blend(colour, colour2, 0xff - (u32) weightf);
 			}
 		} else if (g_Blend.diagmode == 2) {
 			f16 = 0.0f;
@@ -662,12 +662,12 @@ u32 textApplyProjectionColour(s32 x, s32 y, u32 colour)
 				result = 0x00000000;
 			} else if (g_Blend.diagtimer - f14 < f12) {
 				weightf = (f12 - (g_Blend.diagtimer - f14)) / f14 * 255.0f;
-				result = colourBlend(0x00000000, colour & 0xff, weightf);
+				result = colour_blend(0x00000000, colour & 0xff, weightf);
 			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
 				result = colour & 0xff;
 			} else if ((g_Blend.diagtimer - (f14 + f18 + f16)) < f12) {
 				weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
-				result = colourBlend(colour & 0xff, colour, weightf);
+				result = colour_blend(colour & 0xff, colour, weightf);
 			}
 		}
 	}
@@ -683,7 +683,7 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 	u32 colour = colourarg;
 
 	if (g_Blend.types & BLENDTYPE_MENU) {
-		colour = (colourBlend(0x00000000, colour, g_Blend.menuweight) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(0x00000000, colour, g_Blend.menuweight) & 0xffffff00) | (colour & 0xff);
 	}
 
 	if (g_Blend.types & BLENDTYPE_VERTICAL) {
@@ -703,7 +703,7 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 		}
 
 		if (g_Blend.vert34 >= v0) {
-			colour = colourBlend(colour, 0x00000000, v0 * 255 / g_Blend.vert34);
+			colour = colour_blend(colour, 0x00000000, v0 * 255 / g_Blend.vert34);
 		}
 	}
 
@@ -724,7 +724,7 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 		}
 
 		if (g_Blend.horiz40 >= v0) {
-			colour = colourBlend(colour, 0x00000000, v0 * 255 / g_Blend.horiz40);
+			colour = colour_blend(colour, 0x00000000, v0 * 255 / g_Blend.horiz40);
 		}
 	}
 
@@ -776,12 +776,12 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 				colour = 0x00000000;
 			} else if (g_Blend.diagtimer - f14 < f12) {
 				f32 weightf = (f12 - (g_Blend.diagtimer - f14)) / f14 * 255.0f;
-				colour = colourBlend(0x00000000, colour & 0xff, weightf);
+				colour = colour_blend(0x00000000, colour & 0xff, weightf);
 			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
 				colour &= 0xff;
 			} else if (g_Blend.diagtimer - (f14 + f18 + f16) < f12) {
 				f32 weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
-				colour = colourBlend(0x00000000, colour, weightf);
+				colour = colour_blend(0x00000000, colour, weightf);
 			}
 		} else {
 			u32 alpha[4];
@@ -792,24 +792,24 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 			f18 = 50.0f;
 			f16 = 22.0f;
 
-			mainOverrideVariable("burncol", &burncol);
+			main_override_variable("burncol", &burncol);
 
 			if (g_Blend.diagtimer < f12) {
-				colour = colourBlend(alpha[0], colour, 110);
+				colour = colour_blend(alpha[0], colour, 110);
 			} else if (g_Blend.diagtimer - f14 < f12) {
 				f32 weightf = (f12 - (g_Blend.diagtimer - f14)) / f14 * 255.0f;
-				colour = colourBlend(
-						colourBlend(burncol | (colour & 0xff), colour, 0xc0),
-						colourBlend(alpha[0], colour, 110),
+				colour = colour_blend(
+						colour_blend(burncol | (colour & 0xff), colour, 0xc0),
+						colour_blend(alpha[0], colour, 110),
 						255 - (u32) weightf);
 			} else if (g_Blend.diagtimer - (f14 + f16) < f12) {
 				u32 stack;
-				colour = colourBlend(burncol | (colour & 0xff), colour, 0xc0);
+				colour = colour_blend(burncol | (colour & 0xff), colour, 0xc0);
 			} else if (g_Blend.diagtimer - (f14 + f18 + f16) < f12) {
 				f32 weightf = (f12 - (g_Blend.diagtimer - (f14 + f18 + f16))) / f18 * 255.0f;
-				colour = colourBlend(
+				colour = colour_blend(
 						colour,
-						colourBlend(burncol | (colour & 0xff), colour, 0xc0),
+						colour_blend(burncol | (colour & 0xff), colour, 0xc0),
 						255 - (u32) weightf);
 			}
 		}
@@ -828,10 +828,10 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 
 		if (f0 < 0.0f) {
 			s32 weight = var8007fbbc * (0 - f0);
-			colour = colourBlend(g_Blend.wavecolour1 | (colour & 0xff), colour, weight);
+			colour = colour_blend(g_Blend.wavecolour1 | (colour & 0xff), colour, weight);
 		} else {
 			s32 weight = var8007fbb8 * f0;
-			colour = colourBlend(g_Blend.wavecolour2 | (colour & 0xff), colour, weight);
+			colour = colour_blend(g_Blend.wavecolour2 | (colour & 0xff), colour, weight);
 		}
 	}
 
@@ -852,7 +852,7 @@ Gfx *text0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
 }
 
 #if VERSION >= VERSION_PAL_BETA
-void textMapCodeUnitToChar2(u8 *c)
+void text_map_code_unit_to_char2(u8 *c)
 {
 	switch (*c) {
 	case 0xc0:
@@ -1043,12 +1043,12 @@ u16 func0f154968jf(u8 value)
 }
 #endif
 
-void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar);
+void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar);
 
 #if VERSION == VERSION_JPN_FINAL
 #if MATCHING
 GLOBAL_ASM(
-glabel textMapCodeUnitToChar
+glabel text_map_code_unit_to_char
 /*  f154b00:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f154b04:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f154b08:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -1140,7 +1140,7 @@ glabel textMapCodeUnitToChar
 /*  f154c50:	018d4825 */ 	or	$t1,$t4,$t5
 /*  f154c54:	a7a9002a */ 	sh	$t1,0x2a($sp)
 /*  f154c58:	afa90024 */ 	sw	$t1,0x24($sp)
-/*  f154c5c:	0c0036b4 */ 	jal	mainOverrideVariable
+/*  f154c5c:	0c0036b4 */ 	jal	main_override_variable
 /*  f154c60:	a3a00029 */ 	sb	$zero,0x29($sp)
 /*  f154c64:	3c0e8008 */ 	lui	$t6,%hi(ope)
 /*  f154c68:	8dce0228 */ 	lw	$t6,%lo(ope)($t6)
@@ -1196,7 +1196,7 @@ u32 ope = 0;
 
 const char var7f1b8068jf[] = "ope";
 #else
-void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
+void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
 {
 	u16 c;
 	u8 c1;
@@ -1246,7 +1246,7 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 	sp2a = ((c1 & 0x7f) << 7) | (c2 & 0x7f);
 	sp29 = 0;
 
-	mainOverrideVariable("ope", &ope);
+	main_override_variable("ope", &ope);
 
 	if (ope) {
 		sp29 = func0f154784jf(sp2a);
@@ -1268,7 +1268,7 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 }
 #endif
 #elif VERSION >= VERSION_PAL_BETA
-void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
+void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
 {
 	u8 c;
 	u8 index;
@@ -1336,7 +1336,7 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 		case 0xaa: index = 0x86; break;
 		}
 	} else {
-		textMapCodeUnitToChar2(&c);
+		text_map_code_unit_to_char2(&c);
 	}
 
 	if (index > 0) {
@@ -1356,7 +1356,7 @@ void textMapCodeUnitToChar(char **text, struct fontchar **arg1, struct fontchar 
 	*arg2 = &chars[*prevchar - 0x21];
 
 	if (index > 0) {
-		textMapCodeUnitToChar2(&c);
+		text_map_code_unit_to_char2(&c);
 	}
 
 	*prevchar = c;
@@ -1385,7 +1385,7 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 
 #if VERSION >= VERSION_JPN_FINAL
 	if (curchar->pixeldata == NULL) {
-		curchar->pixeldata = (void *) langGetJpnCharPixels(curchar->index - 0x80);
+		curchar->pixeldata = (void *) lang_get_jpn_char_pixels(curchar->index - 0x80);
 	}
 
 	if (curchar->index >= 0x80) {
@@ -1425,9 +1425,9 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 	sp34 = sp36 + ((sp34 + 1) << 6);
 	sp30 = sp32 + ((sp30 + 1) << 6);
 
-	vertices = gfxAllocateVertices(4);
+	vertices = gfx_allocate_vertices(4);
 
-	colours = gfxAllocateColours(1);
+	colours = gfx_allocate_colours(1);
 	colours[0].word = 0xff0000ff;
 
 	vertices[0].z = -10;
@@ -1495,7 +1495,7 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 	}
 #endif
 
-	textMeasure(&textheight, &textwidth, text, chars, font, 0);
+	text_measure(&textheight, &textwidth, text, chars, font, 0);
 
 	ptr = &x;
 	fx = *ptr - (widthscale - 1.0f) * textwidth * 0.5f * hdir;
@@ -1547,7 +1547,7 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 				struct fontchar *sp84;
 				struct fontchar *sp80;
 
-				textMapCodeUnitToChar(&text, &sp84, &sp80, chars, &prevchar);
+				text_map_code_unit_to_char(&text, &sp84, &sp80, chars, &prevchar);
 				gdl = text0f154f38(gdl, &relx, sp84, sp80, font, widthscale, heightscale, fx, fy);
 			}
 		}
@@ -1591,7 +1591,7 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 				}
 
 				tmpchar.index = codepoint + 0x80;
-				tmpchar.pixeldata = (void *) langGetJpnCharPixels(codepoint);
+				tmpchar.pixeldata = (void *) lang_get_jpn_char_pixels(codepoint);
 
 				text += 2;
 			}
@@ -1623,13 +1623,13 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 	width *= xscale;
 	height *= yscale;
 
-	if (g_TextRotated90 || (*x > 0 && *x <= viGetWidth() && sp90 + curchar->baseline <= viGetHeight())) {
+	if (g_TextRotated90 || (*x > 0 && *x <= vi_get_width() && sp90 + curchar->baseline <= vi_get_height())) {
 		if (savedx + width >= *x
 				&& savedy + height >= curchar->baseline + sp90
 				&& *x >= savedx
 				&& curchar->baseline + sp90 + curchar->height >= savedy) {
 			if (curchar->pixeldata == NULL) {
-				curchar->pixeldata = (void *)langGetJpnCharPixels(curchar->index - 0x80);
+				curchar->pixeldata = (void *)lang_get_jpn_char_pixels(curchar->index - 0x80);
 			}
 
 			if (curchar->index >= 0x80) {
@@ -1693,7 +1693,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 								text0f153b6c(*y + arg10);
 
 								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
-									var800a4634 = menugfxDrawPlane(var800a4634,
+									var800a4634 = menugfx_draw_plane(var800a4634,
 											var8007fba0,
 											curchar->baseline * var80080108jf + sp90,
 											var8007fba0,
@@ -1704,7 +1704,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 								}
 
 								if (var8007fba0 - 3 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0 - 3) {
-									var800a4634 = menugfxDrawPlane(var800a4634,
+									var800a4634 = menugfx_draw_plane(var800a4634,
 											var8007fba0,
 											curchar->baseline * var80080108jf + sp90,
 											var8007fba0,
@@ -1762,7 +1762,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 	*x -= (tmp - 1) * xscale;
 	width *= xscale;
 
-	if (g_TextRotated90 || (*x > 0 && *x <= viGetWidth() && sp90 + curchar->baseline <= viGetHeight())) {
+	if (g_TextRotated90 || (*x > 0 && *x <= vi_get_width() && sp90 + curchar->baseline <= vi_get_height())) {
 		if (savedx + width >= *x
 				&& savedy + height >= curchar->baseline + sp90
 				&& *x >= savedx
@@ -1808,7 +1808,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 								text0f153b6c(*y + arg10);
 
 								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
-									var800a4634 = menugfxDrawPlane(var800a4634,
+									var800a4634 = menugfx_draw_plane(var800a4634,
 											var8007fba0,
 											curchar->baseline + sp90,
 											var8007fba0,
@@ -1819,7 +1819,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 								}
 
 								if (var8007fba0 - 3 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0 - 3) {
-									var800a4634 = menugfxDrawPlane(var800a4634,
+									var800a4634 = menugfx_draw_plane(var800a4634,
 											var8007fba0,
 											curchar->baseline + sp90,
 											var8007fba0,
@@ -1878,7 +1878,7 @@ void text0f156030(u32 colour)
 	var800a463c = colour;
 }
 
-Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *chars, struct font *font,
+Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *chars, struct font *font,
 		s32 colour, s32 width, s32 height, s32 arg9, s32 lineheight)
 {
 	s32 savedx;
@@ -1908,7 +1908,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 
 	if (var8007fbd8) {
 #if VERSION >= VERSION_JPN_FINAL
-		menuGetSinOscFrac(40);
+		menu_get_sin_osc_frac(40);
 		newx = *x / g_ScaleX;
 		newy = *y;
 		tmpcolour = var800a463c;
@@ -1919,7 +1919,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 			newy--;
 		}
 
-		mainOverrideVariable("sbrd", &sbrd);
+		main_override_variable("sbrd", &sbrd);
 
 		if (sbrd != 0) {
 			tmpcolour = sbrd;
@@ -1937,38 +1937,38 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 
 		newx = *x / g_ScaleX + 1;
 		newy = *y - 1;
-		gdl = textRenderProjected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
+		gdl = text_render_projected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
 
 		newx = *x / g_ScaleX + 1;
 		newy = *y + 1;
-		gdl = textRenderProjected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
+		gdl = text_render_projected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
 
 		newx = *x / g_ScaleX - 1;
 		newy = *y - 1;
-		gdl = textRenderProjected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
+		gdl = text_render_projected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
 
 		newx = *x / g_ScaleX - 1;
 		newy = *y + 1;
-		gdl = textRenderProjected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
+		gdl = text_render_projected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
 
 		var8007fbd8 = 1;
 
 		g_Blend.types = savedtypes;
 		g_Blend.diagmode = savedmode;
 #else
-		alpha = (1.0f - menuGetSinOscFrac(40.0f)) * 100.0f + 150.0f;
+		alpha = (1.0f - menu_get_sin_osc_frac(40.0f)) * 100.0f + 150.0f;
 		newx = *x / g_ScaleX;
 		newy = *y;
 		tmpcolour = var800a463c;
 		colour2 = (colour & 0xffffff00) | (u32) alpha;
 
-		mainOverrideVariable("sbrd", &sbrd);
+		main_override_variable("sbrd", &sbrd);
 
 		if (sbrd) {
 			tmpcolour = sbrd;
 		}
 
-		gdl = textRender(gdl, &newx, &newy, text, chars, font, colour2, tmpcolour, width, height, arg9, lineheight);
+		gdl = text_render(gdl, &newx, &newy, text, chars, font, colour2, tmpcolour, width, height, arg9, lineheight);
 #endif
 	}
 
@@ -1978,13 +1978,13 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 	}
 #endif
 
-	mainOverrideVariable("lalpha", &var8007fbac);
-	mainOverrideVariable("subtlety", &var8007fbb8);
-	mainOverrideVariable("subtletx", &var8007fbbc);
-	mainOverrideVariable("coly", &var8007fbc4);
-	mainOverrideVariable("colx", &var8007fbc0);
-	mainOverrideVariable("lfade", &var8007fbb0);
-	mainOverrideVariable("llimbo", &var8007fbb4);
+	main_override_variable("lalpha", &var8007fbac);
+	main_override_variable("subtlety", &var8007fbb8);
+	main_override_variable("subtletx", &var8007fbbc);
+	main_override_variable("coly", &var8007fbc4);
+	main_override_variable("colx", &var8007fbc0);
+	main_override_variable("lfade", &var8007fbb0);
+	main_override_variable("llimbo", &var8007fbb4);
 
 	savedx = *x;
 	savedy = *y;
@@ -2047,7 +2047,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 				struct fontchar *sp78;
 				struct fontchar *sp74;
 
-				textMapCodeUnitToChar(&text, &sp78, &sp74, chars, &prevchar);
+				text_map_code_unit_to_char(&text, &sp78, &sp74, chars, &prevchar);
 
 				gdl = text0f15568c(gdl, x, y, sp78, sp74, font, savedx, savedy, width, height, arg9);
 			}
@@ -2089,7 +2089,7 @@ Gfx *textRenderProjected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *
 				}
 
 				tmpchar.index = codepoint + 0x80;
-				tmpchar.pixeldata = (void *)langGetJpnCharPixels(codepoint);
+				tmpchar.pixeldata = (void *)lang_get_jpn_char_pixels(codepoint);
 
 				gdl = text0f15568c(gdl, x, y, &tmpchar, &tmpchar, font, savedx, savedy, width, height, arg9);
 
@@ -2129,7 +2129,7 @@ Gfx *text0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
 	return gdl;
 }
 
-Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fontchar *char2,
+Gfx *text_render_char(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fontchar *char2,
 		struct font *font, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
 {
 	s32 tmp;
@@ -2141,15 +2141,15 @@ Gfx *textRenderChar(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fon
 	*x -= (tmp - 1) * var8007fad0;
 
 	if (*x > 0
-			&& *x <= viGetWidth()
-			&& sp38 + char1->baseline <= viGetHeight()
+			&& *x <= vi_get_width()
+			&& sp38 + char1->baseline <= vi_get_height()
 			&& *x <= arg6 + arg8
 			&& char1->baseline + sp38 <= arg7 + arg9
 			&& *x >= arg6
 			&& sp38 + char1->baseline + char1->height >= arg7) {
 #if VERSION >= VERSION_JPN_FINAL
 		if (char1->pixeldata == NULL) {
-			char1->pixeldata = (void *)langGetJpnCharPixels(char1->index - 0x80);
+			char1->pixeldata = (void *)lang_get_jpn_char_pixels(char1->index - 0x80);
 		}
 #else
 		if (g_Blend.types) {
@@ -2231,7 +2231,7 @@ Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 
 	return gdl;
 }
 
-Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
+Gfx *text_render(Gfx *gdl, s32 *x, s32 *y, char *text,
 		struct fontchar *chars, struct font *font, u32 arg6, u32 colour,
 		s32 width, s32 height, u32 arg10, s32 lineheight)
 {
@@ -2312,9 +2312,9 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 			struct fontchar *sp78;
 			struct fontchar *sp74;
 
-			textMapCodeUnitToChar(&text, &sp78, &sp74, chars, &prevchar);
+			text_map_code_unit_to_char(&text, &sp78, &sp74, chars, &prevchar);
 
-			gdl = textRenderChar(gdl, x, y, sp78, sp74,
+			gdl = text_render_char(gdl, x, y, sp78, sp74,
 					font, savedx, savedy, width * var8007fad0, height, arg10);
 		}
 	}
@@ -2330,7 +2330,7 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 			prevchar = 'H';
 			text++;
 		} else if (*text < 0x80) {
-			gdl = textRenderChar(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21],
+			gdl = text_render_char(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21],
 					font, savedx, savedy, width * var8007fad0, height, arg10);
 			prevchar = *text;
 			text++;
@@ -2348,9 +2348,9 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 			}
 
 			sp74.index = codepoint + 0x80;
-			sp74.pixeldata = (void *)langGetJpnCharPixels(codepoint);
+			sp74.pixeldata = (void *)lang_get_jpn_char_pixels(codepoint);
 
-			gdl = textRenderChar(gdl, x, y, &sp74, &sp74, font, savedx, savedy, width * var8007fad0, height, arg10);
+			gdl = text_render_char(gdl, x, y, &sp74, &sp74, font, savedx, savedy, width * var8007fad0, height, arg10);
 
 			text += 2;
 		}
@@ -2371,13 +2371,13 @@ Gfx *textRender(Gfx *gdl, s32 *x, s32 *y, char *text,
 #if VERSION == VERSION_JPN_FINAL
 Gfx *func0f1574d0jf(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1, struct font *font2, s32 colour, u32 colour2, s32 width, s32 height, s32 arg9, u32 arg10)
 {
-	return textRenderProjected(gdl, x, y, text, font1, font2, colour, width, height, arg9, arg10);
+	return text_render_projected(gdl, x, y, text, font1, font2, colour, width, height, arg9, arg10);
 }
 #endif
 
 #if VERSION < VERSION_PAL_BETA && MATCHING
 GLOBAL_ASM(
-glabel textMeasure
+glabel text_measure
 /*  f1572f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
 /*  f1572fc:	afb10008 */ 	sw	$s1,0x8($sp)
 /*  f157300:	8fb1002c */ 	lw	$s1,0x2c($sp)
@@ -2532,7 +2532,7 @@ glabel textMeasure
 );
 #else
 // Mismatch: Regalloc
-void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *font1, struct font *font2, s32 lineheight)
+void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *font1, struct font *font2, s32 lineheight)
 {
 	char prevchar;
 	char thischar;
@@ -2593,7 +2593,7 @@ void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *f
 				text++;
 			} else {
 #if VERSION >= VERSION_JPN_FINAL
-				textMapCodeUnitToChar(&text, &sp54, &sp50, font1, &prevchar);
+				text_map_code_unit_to_char(&text, &sp54, &sp50, font1, &prevchar);
 
 				overlap = 0;
 
@@ -2616,7 +2616,7 @@ void textMeasure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *f
 				struct fontchar *sp50;
 				struct fontchar *sp4c;
 
-				textMapCodeUnitToChar(&text, &sp50, &sp4c, font1, &prevchar);
+				text_map_code_unit_to_char(&text, &sp50, &sp4c, font1, &prevchar);
 
 				tmp = font2->kerning[sp4c->kerningindex * 13 + sp50->kerningindex] + var8007fac4 - 1;
 				*textwidth = *textwidth + sp50->width - tmp;
@@ -2669,7 +2669,7 @@ bool func0f157768jf(s32 arg0, s32 arg1)
 
 #if MATCHING && VERSION >= VERSION_JPN_FINAL
 GLOBAL_ASM(
-glabel textWrap
+glabel text_wrap
 /*  f157778:	27bdff48 */ 	addiu	$sp,$sp,-184
 /*  f15777c:	afbe0040 */ 	sw	$s8,0x40($sp)
 /*  f157780:	afb3002c */ 	sw	$s3,0x2c($sp)
@@ -2846,7 +2846,7 @@ glabel textWrap
 /*  f1579d0:	27a400a4 */ 	addiu	$a0,$sp,0xa4
 /*  f1579d4:	27a500a8 */ 	addiu	$a1,$sp,0xa8
 /*  f1579d8:	27a60074 */ 	addiu	$a2,$sp,0x74
-/*  f1579dc:	0fc55d49 */ 	jal	textMeasure
+/*  f1579dc:	0fc55d49 */ 	jal	text_measure
 /*  f1579e0:	afac0010 */ 	sw	$t4,0x10($sp)
 /*  f1579e4:	8fad00b4 */ 	lw	$t5,0xb4($sp)
 /*  f1579e8:	8fae00a8 */ 	lw	$t6,0xa8($sp)
@@ -3003,7 +3003,7 @@ glabel textWrap
 /*  f157bf4:	27bd00b8 */ 	addiu	$sp,$sp,0xb8
 );
 #else
-void textWrap(s32 wrapwidth, char *src, char *dst, struct fontchar *chars, struct font *font)
+void text_wrap(s32 wrapwidth, char *src, char *dst, struct fontchar *chars, struct font *font)
 {
 #if VERSION >= VERSION_JPN_FINAL
 	// JPN mismatch: Regalloc for sp94
@@ -3123,7 +3123,7 @@ void textWrap(s32 wrapwidth, char *src, char *dst, struct fontchar *chars, struc
 
 		curword[wordlen] = '\0';
 
-		textMeasure(&wordheight, &wordwidth, curword, chars, font, 0);
+		text_measure(&wordheight, &wordwidth, curword, chars, font, 0);
 
 		curlinewidth += wordwidth;
 
@@ -3247,7 +3247,7 @@ void textWrap(s32 wrapwidth, char *src, char *dst, struct fontchar *chars, struc
 
 		curword[wordlen] = '\0';
 
-		textMeasure(&wordheight, &wordwidth, curword, chars, font, 0);
+		text_measure(&wordheight, &wordwidth, curword, chars, font, 0);
 
 		curlinewidth += wordwidth;
 

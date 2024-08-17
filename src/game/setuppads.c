@@ -15,17 +15,17 @@
 /**
  * The function assumes that a pad file's data has been loaded from the ROM
  * and is pointed to by g_StageSetup.padfiledata. These pads are in a packed
- * format. During gameplay, the game uses padUnpack as needed to temporarily
+ * format. During gameplay, the game uses pad_unpack as needed to temporarily
  * populate pad structs from this data.
  *
- * setupPreparePads prepares the packed data by doing the following:
+ * setup_prepare_pads prepares the packed data by doing the following:
  * - populates the room field (if -1)
  * - multiplies each pad's bounding box by 1 (this is effectively a no op)
  * - sets the g_StageSetup pad/waygroup/waypoint/cover pointers
  * - promotes file offsets to RAM pointers
- * - does similar things for cover by calling setupPrepareCover()
+ * - does similar things for cover by calling setup_prepare_cover()
  */
-void setupPreparePads(void)
+void setup_prepare_pads(void)
 {
 	struct packedpad *packedpad;
 	RoomNum *roomsptr;
@@ -47,12 +47,12 @@ void setupPreparePads(void)
 	for (; padnum < numpads; padnum++) {
 		offset = g_PadOffsets[padnum];
 		packedpad = (struct packedpad *) &g_StageSetup.padfiledata[offset];
-		padUnpack(padnum, PADFIELD_POS | PADFIELD_BBOX, &pad);
+		pad_unpack(padnum, PADFIELD_POS | PADFIELD_BBOX, &pad);
 
 		// If room is negative (ie. not specified)
 		if (packedpad->room < 0) {
 			roomsptr = NULL;
-			bgFindRoomsByPos(&pad.pos, inrooms, aboverooms, 20, NULL);
+			bg_find_rooms_by_pos(&pad.pos, inrooms, aboverooms, 20, NULL);
 
 			if (inrooms[0] != -1) {
 				roomsptr = inrooms;
@@ -61,7 +61,7 @@ void setupPreparePads(void)
 			}
 
 			if (roomsptr != NULL) {
-				roomnum = cdFindFloorRoomAtPos(&pad.pos, roomsptr);
+				roomnum = cd_find_floor_room_at_pos(&pad.pos, roomsptr);
 
 				if (roomnum > 0) {
 					packedpad->room = roomnum;
@@ -83,7 +83,7 @@ void setupPreparePads(void)
 			pad.bbox.zmin *= scale;
 			pad.bbox.zmax *= scale;
 
-			padCopyBboxFromPad(padnum, &pad);
+			pad_copy_bbox_from_pad(padnum, &pad);
 		}
 	}
 
@@ -92,7 +92,7 @@ void setupPreparePads(void)
 	g_StageSetup.cover = (void *) ((intptr_t)g_StageSetup.padfiledata + g_PadsFile->coversoffset);
 
 	if (g_StageSetup.cover != NULL) {
-		setupPrepareCover();
+		setup_prepare_cover();
 	}
 
 	// Promote offsets to pointers in waypoints

@@ -290,7 +290,7 @@ Gfx g_GfxGroup10[] = {
 	0,
 };
 
-void gfxReplaceGbiCommands(Gfx *startgdl, Gfx *endgdl, s32 type)
+void gfx_replace_gbi_commands(Gfx *startgdl, Gfx *endgdl, s32 type)
 {
 	static Gfx *groups[] = {
 		g_GfxGroup00,
@@ -323,7 +323,7 @@ void gfxReplaceGbiCommands(Gfx *startgdl, Gfx *endgdl, s32 type)
 	}
 }
 
-void gfxReplaceGbiCommandsRecursively(struct roomblock *block, s32 type)
+void gfx_replace_gbi_commands_recursively(struct roomblock *block, s32 type)
 {
 	if (block->type == ROOMBLOCKTYPE_PARENT);
 
@@ -334,11 +334,11 @@ void gfxReplaceGbiCommandsRecursively(struct roomblock *block, s32 type)
 
 		switch (block->type) {
 		case ROOMBLOCKTYPE_LEAF:
-			gfxReplaceGbiCommands(block->gdl, NULL, type);
+			gfx_replace_gbi_commands(block->gdl, NULL, type);
 			block = block->next;
 			break;
 		case ROOMBLOCKTYPE_PARENT:
-			gfxReplaceGbiCommandsRecursively(block->child, type);
+			gfx_replace_gbi_commands_recursively(block->child, type);
 			block = block->next;
 			break;
 		default:

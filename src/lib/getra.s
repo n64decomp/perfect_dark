@@ -7,10 +7,10 @@
  *
  * For example, a C function could use:
  *
- *     osSyncPrintf("Called from %u\n", getReturnAddress());
+ *     osSyncPrintf("Called from %u\n", get_return_address());
  *
  * It follows the current $ra to get to the function that called
- * getReturnAddress, then steps backwards through that function's bytecode until
+ * get_return_address, then steps backwards through that function's bytecode until
  * it finds either `addiu $sp` or `sw $ra, 0xnn($sp)`.
  *
  * If it finds `addiu $sp` first then it's reached the top of the function and
@@ -20,7 +20,7 @@
  * If it finds `sw $ra, 0xnn($sp)` first then it reads the stack offset out of
  * the instruction, then reads the value out of the stack using that offset.
  */
-glabel getReturnAddress
+glabel get_return_address
 	move   $a0, $ra
 	li     $v0, -1
 .loop:

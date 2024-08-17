@@ -62,12 +62,12 @@ struct menudialogdef g_FilemgrRenameMenuDialog;
 #endif
 
 #if PAL
-MenuItemHandlerResult filemgrHandleSetLanguage(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_handle_set_language(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Vars.language = item->param;
-		langSetEuropean(g_Vars.language);
-		menuPopDialog();
+		lang_set_european(g_Vars.language);
+		menu_pop_dialog();
 	}
 
 	return 0;
@@ -96,7 +96,7 @@ struct menuitem g_ChooseLanguageMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPWEAPONS_262, // "English"
 		0,
-		filemgrHandleSetLanguage,
+		filemgr_handle_set_language,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -104,7 +104,7 @@ struct menuitem g_ChooseLanguageMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPWEAPONS_263, // "French"
 		0,
-		filemgrHandleSetLanguage,
+		filemgr_handle_set_language,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -112,7 +112,7 @@ struct menuitem g_ChooseLanguageMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPWEAPONS_264, // "German"
 		0,
-		filemgrHandleSetLanguage,
+		filemgr_handle_set_language,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -120,7 +120,7 @@ struct menuitem g_ChooseLanguageMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPWEAPONS_265, // "Italian"
 		0,
-		filemgrHandleSetLanguage,
+		filemgr_handle_set_language,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -128,7 +128,7 @@ struct menuitem g_ChooseLanguageMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_MPWEAPONS_266, // "Spanish"
 		0,
-		filemgrHandleSetLanguage,
+		filemgr_handle_set_language,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -143,7 +143,7 @@ struct menudialogdef g_ChooseLanguageMenuDialog = {
 };
 #endif
 
-char *filemgrGetDeviceName(s32 index)
+char *filemgr_get_device_name(s32 index)
 {
 	u16 names[] = {
 		L_OPTIONS_112, // "Controller Pak 1"
@@ -157,13 +157,13 @@ char *filemgrGetDeviceName(s32 index)
 	};
 
 	if (index < ARRAYCOUNT(names)) {
-		return langGet(names[index]);
+		return lang_get(names[index]);
 	}
 
 	return NULL;
 }
 
-MenuItemHandlerResult filemgrDeviceNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_device_name_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if ((g_Menus[g_MpPlayerNum].fm.device1 & 0x7f) >= SAVEDEVICE_INVALID) {
@@ -174,12 +174,12 @@ MenuItemHandlerResult filemgrDeviceNameMenuHandler(s32 operation, struct menuite
 	return 0;
 }
 
-char *filemgrMenuTextDeviceName(struct menuitem *item)
+char *filemgr_menu_text_device_name(struct menuitem *item)
 {
-	return filemgrGetDeviceName(g_Menus[g_MpPlayerNum].fm.device1 & 0x7f);
+	return filemgr_get_device_name(g_Menus[g_MpPlayerNum].fm.device1 & 0x7f);
 }
 
-void filemgrGetSelectName(char *buffer, struct filelistfile *file, u32 filetype)
+void filemgr_get_select_name(char *buffer, struct filelistfile *file, u32 filetype)
 {
 	s32 days;
 	char tmpbuffer1[28];
@@ -198,7 +198,7 @@ void filemgrGetSelectName(char *buffer, struct filelistfile *file, u32 filetype)
 		break;
 	case FILETYPE_MPPLAYER:
 		// MP Player filenames have the play duration appended to the name
-		mpplayerfileGetOverview(file->name, namebuffer, &totalinseconds);
+		mpplayerfile_get_overview(file->name, namebuffer, &totalinseconds);
 		pos = sprintf(tmpbuffer1, "%s-", namebuffer);
 
 		if (totalinseconds >= 0x7ffffff) { // about 4.25 years
@@ -231,7 +231,7 @@ const char var7f1b2f28[] = "Setup: item = %x\n";
 // game, mpsetup, mpplayer, perfect head
 const u32 g_FileTypeSizes[] = {0xa0, 0x31, 0x4e, 0x4a0};
 
-MenuItemHandlerResult filemgrFileNameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_file_name_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if (g_Menus[g_MpPlayerNum].fm.filetodelete == 0) {
@@ -242,10 +242,10 @@ MenuItemHandlerResult filemgrFileNameMenuHandler(s32 operation, struct menuitem 
 	return 0;
 }
 
-char *filemgrMenuTextDeleteFileName(struct menuitem *item)
+char *filemgr_menu_text_delete_file_name(struct menuitem *item)
 {
 	if (g_Menus[g_MpPlayerNum].fm.filetodelete) {
-		filemgrGetSelectName(g_StringPointer,
+		filemgr_get_select_name(g_StringPointer,
 				g_Menus[g_MpPlayerNum].fm.filetodelete,
 				g_Menus[g_MpPlayerNum].fm.filetypetodelete);
 		return g_StringPointer;
@@ -254,9 +254,9 @@ char *filemgrMenuTextDeleteFileName(struct menuitem *item)
 	return NULL;
 }
 
-void filemgrSetDevice1BySerial(s32 deviceserial)
+void filemgr_set_device1_by_serial(s32 deviceserial)
 {
-	s32 device = pakFindBySerial(deviceserial);
+	s32 device = pak_find_by_serial(deviceserial);
 
 	if (device >= 0) {
 		g_Menus[g_MpPlayerNum].fm.device1 = device;
@@ -269,19 +269,19 @@ void filemgrSetDevice1BySerial(s32 deviceserial)
 	}
 }
 
-void filemgrSetDevice1ByFile(struct filelistfile *file)
+void filemgr_set_device1_by_file(struct filelistfile *file)
 {
-	filemgrSetDevice1BySerial(file->deviceserial);
+	filemgr_set_device1_by_serial(file->deviceserial);
 }
 
-void filemgrSetFileToDelete(struct filelistfile *file, s32 filetype)
+void filemgr_set_file_to_delete(struct filelistfile *file, s32 filetype)
 {
 	g_Menus[g_MpPlayerNum].fm.filetypetodelete = filetype;
 	g_Menus[g_MpPlayerNum].fm.filetodelete = file;
-	filemgrSetDevice1ByFile(file);
+	filemgr_set_device1_by_file(file);
 }
 
-char *filemgrMenuTextFailReason(struct menuitem *item)
+char *filemgr_menu_text_fail_reason(struct menuitem *item)
 {
 	static u16 reasons[] = {
 		L_OPTIONS_322, // "The Controller Pak was not found in any controller."
@@ -295,7 +295,7 @@ char *filemgrMenuTextFailReason(struct menuitem *item)
 		L_OPTIONS_330, // "Game note delete failed."
 	};
 
-	return langGet(reasons[g_Menus[g_MpPlayerNum].fm.errno]);
+	return lang_get(reasons[g_Menus[g_MpPlayerNum].fm.errno]);
 }
 
 /**
@@ -307,7 +307,7 @@ char *filemgr0f108484(struct menuitem *item)
 	return g_StringPointer;
 }
 
-MenuItemHandlerResult filemgrDeviceNameForErrorMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_device_name_for_error_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKHIDDEN) {
 		if ((g_Menus[g_MpPlayerNum].fm.device1 & 0x7f) >= SAVEDEVICE_INVALID) {
@@ -332,9 +332,9 @@ MenuItemHandlerResult filemgrDeviceNameForErrorMenuHandler(s32 operation, struct
 	return false;
 }
 
-char *filemgrMenuTextDeviceNameForError(struct menuitem *item)
+char *filemgr_menu_text_device_name_for_error(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%s", filemgrGetDeviceName(g_Menus[g_MpPlayerNum].fm.device1 & 0x7f));
+	sprintf(g_StringPointer, "%s", filemgr_get_device_name(g_Menus[g_MpPlayerNum].fm.device1 & 0x7f));
 
 	if (g_Menus[g_MpPlayerNum].fm.errno != FILEERROR_PAKREMOVED) {
 		s32 i = 0;
@@ -363,11 +363,11 @@ const char var7f1b3024[] = "MyResult: %d\n";
 const char var7f1b3034[] = "PakOperationSearch>> Search for pak: %x = %d\n";
 #endif
 
-void filemgrPushErrorDialog(u16 errno)
+void filemgr_push_error_dialog(u16 errno)
 {
 	g_Menus[g_MpPlayerNum].fm.errno = errno;
 
-	menuPushDialog(&g_FilemgrErrorMenuDialog);
+	menu_push_dialog(&g_FilemgrErrorMenuDialog);
 }
 
 struct menuitem g_FilemgrErrorMenuItems[] = {
@@ -375,15 +375,15 @@ struct menuitem g_FilemgrErrorMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
-		(uintptr_t) &filemgrMenuTextDeviceNameForError,
+		(uintptr_t) &filemgr_menu_text_device_name_for_error,
 		0,
-		filemgrDeviceNameForErrorMenuHandler,
+		filemgr_device_name_for_error_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
-		(uintptr_t) &filemgrMenuTextFailReason,
+		(uintptr_t) &filemgr_menu_text_fail_reason,
 		0,
 		NULL,
 	},
@@ -411,7 +411,7 @@ struct menudialogdef g_FilemgrErrorMenuDialog = {
  * For a file listing, iterate the devices until the one at optionindex is found.
  * Depending on operation, return the device name or index of the first file.
  */
-s32 filemgrGetDeviceNameOrStartIndex(s32 listnum, s32 operation, s32 optionindex)
+s32 filemgr_get_device_name_or_start_index(s32 listnum, s32 operation, s32 optionindex)
 {
 	u16 names[] = {
 		L_OPTIONS_111, // "Game Pak"
@@ -428,7 +428,7 @@ s32 filemgrGetDeviceNameOrStartIndex(s32 listnum, s32 operation, s32 optionindex
 		if (g_FileLists[listnum]->devicestartindexes[i] != -1) {
 			if (remaining == 0) {
 				if (operation == MENUOP_GETOPTGROUPTEXT) {
-					return (s32)langGet(names[i]);
+					return (s32)lang_get(names[i]);
 				}
 
 				return g_FileLists[listnum]->devicestartindexes[i];
@@ -441,7 +441,7 @@ s32 filemgrGetDeviceNameOrStartIndex(s32 listnum, s32 operation, s32 optionindex
 	return 0;
 }
 
-char *filemgrMenuTextErrorTitle(struct menuitem *item)
+char *filemgr_menu_text_error_title(struct menuitem *item)
 {
 	u16 messages[] = {
 		L_OPTIONS_331, // "Error Loading Game"
@@ -458,31 +458,31 @@ char *filemgrMenuTextErrorTitle(struct menuitem *item)
 	switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 	case FILEOP_LOAD_GAME:
 	case FILEOP_LOAD_MPSETUP:
-		return langGet(messages[0]);
+		return lang_get(messages[0]);
 	case FILEOP_SAVE_GAME_000:
 	case FILEOP_SAVE_GAME_001:
 	case FILEOP_SAVE_GAME_002:
 	case FILEOP_SAVE_MPSETUP:
-		return langGet(messages[1]);
+		return lang_get(messages[1]);
 	case FILEOP_LOAD_MPPLAYER:
-		return langGet(messages[2]);
+		return lang_get(messages[2]);
 	case FILEOP_SAVE_MPPLAYER:
-		return langGet(messages[3]);
+		return lang_get(messages[3]);
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
-		return langGet(messages[6]);
+		return lang_get(messages[6]);
 	case FILEOP_WRITE_GAME:
 	case FILEOP_WRITE_MPSETUP:
 	case FILEOP_WRITE_MPPLAYER:
-		return langGet(messages[7]);
+		return lang_get(messages[7]);
 	}
 
-	return langGet(messages[8]);
+	return lang_get(messages[8]);
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-char *filemgrMenuTextFileType(struct menuitem *item)
+char *filemgr_menu_text_file_type(struct menuitem *item)
 {
 	u16 names[] = {
 		L_OPTIONS_103, // "Single Player Agent File"
@@ -498,26 +498,26 @@ char *filemgrMenuTextFileType(struct menuitem *item)
 	case FILEOP_WRITE_GAME:
 	case FILEOP_LOAD_GAME:
 	case FILEOP_READ_GAME:
-		return langGet(names[0]);
+		return lang_get(names[0]);
 	case FILEOP_SAVE_MPSETUP:
 	case FILEOP_WRITE_MPSETUP:
 	case FILEOP_LOAD_MPSETUP:
 	case FILEOP_READ_MPSETUP:
-		return langGet(names[1]);
+		return lang_get(names[1]);
 	case FILEOP_SAVE_MPPLAYER:
 	case FILEOP_WRITE_MPPLAYER:
 	case FILEOP_LOAD_MPPLAYER:
 	case FILEOP_READ_MPPLAYER:
-		return langGet(names[2]);
+		return lang_get(names[2]);
 	}
 
-	return langGet(names[0]);
+	return lang_get(names[0]);
 }
 #endif
 
 void func0f10898c(void)
 {
-	menuSetBanner(-1, false);
+	menu_set_banner(-1, false);
 
 	switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 	case FILEOP_WRITE_GAME:
@@ -526,7 +526,7 @@ void func0f10898c(void)
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
-		memaFree(g_Menus[g_MpPlayerNum].fm.unke44, align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
+		mema_free(g_Menus[g_MpPlayerNum].fm.unke44, align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 		break;
 	case FILEOP_LOAD_GAME:
 	case FILEOP_LOAD_MPPLAYER:
@@ -542,21 +542,21 @@ void func0f10898c(void)
 	}
 }
 
-void filemgrHandleSuccess(void)
+void filemgr_handle_success(void)
 {
-	menuSetBanner(-1, false);
+	menu_set_banner(-1, false);
 
 	switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 	case FILEOP_WRITE_GAME:
 	case FILEOP_WRITE_MPSETUP:
 	case FILEOP_WRITE_MPPLAYER:
-		memaFree(g_Menus[g_MpPlayerNum].fm.unke44,
+		mema_free(g_Menus[g_MpPlayerNum].fm.unke44,
 				align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 		break;
 	case FILEOP_LOAD_GAME:
 		g_Vars.bossfileid = g_Menus[g_MpPlayerNum].fm.fileid;
 		g_Vars.bossdeviceserial = g_Menus[g_MpPlayerNum].fm.deviceserial;
-		bossfileSave();
+		bossfile_save();
 
 		if (IS4MB()) {
 			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
@@ -567,7 +567,7 @@ void filemgrHandleSuccess(void)
 	case FILEOP_READ_GAME:
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
-		filemgrSaveOrLoad(&var800a21e8,
+		filemgr_save_or_load(&var800a21e8,
 				g_Menus[g_MpPlayerNum].fm.fileop - 98,
 				g_Menus[g_MpPlayerNum].fm.mpplayernum);
 		break;
@@ -584,21 +584,21 @@ void filemgrHandleSuccess(void)
 	}
 }
 
-MenuItemHandlerResult filemgrRetrySaveMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_retry_save_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		filemgrRetrySave(2);
+		filemgr_retry_save(2);
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrSaveElsewhereYesMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_save_elsewhere_yes_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		s32 filetype;
 
-		menuCloseDialog();
+		menu_close_dialog();
 
 		switch (g_Menus[g_MpPlayerNum].fm.fileop) {
 		case FILEOP_SAVE_GAME_000:
@@ -617,18 +617,18 @@ MenuItemHandlerResult filemgrSaveElsewhereYesMenuHandler(s32 operation, struct m
 			break;
 		}
 
-		filemgrPushSelectLocationDialog(g_Menus[g_MpPlayerNum].fm.fileop + 9, filetype);
+		filemgr_push_select_location_dialog(g_Menus[g_MpPlayerNum].fm.fileop + 9, filetype);
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrCancelSave2MenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_cancel_save2_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		menuCloseDialog();
+		menu_close_dialog();
 		func0f10898c();
-		menuUpdateCurFrame();
+		menu_update_cur_frame();
 	}
 
 	return 0;
@@ -640,33 +640,33 @@ MenuItemHandlerResult filemgrCancelSave2MenuHandler(s32 operation, struct menuit
 MenuItemHandlerResult filemgr0f108d14(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		filemgrRetrySave(2);
+		filemgr_retry_save(2);
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrAcknowledgeFileLostMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_acknowledge_file_lost_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		menuCloseDialog();
+		menu_close_dialog();
 		func0f10898c();
-		menuUpdateCurFrame();
+		menu_update_cur_frame();
 	}
 
 	return 0;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void filemgrEraseCorruptFile(void)
+void filemgr_erase_corrupt_file(void)
 {
 	s32 device;
 	s32 i;
 
-	device = pakFindBySerial(g_Menus[g_MpPlayerNum].fm.deviceserial);
+	device = pak_find_by_serial(g_Menus[g_MpPlayerNum].fm.deviceserial);
 
 	if (device >= 0) {
-		pakDeleteFile(device, g_Menus[g_MpPlayerNum].fm.fileid);
+		pak_delete_file(device, g_Menus[g_MpPlayerNum].fm.fileid);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_FileLists); i++) {
@@ -675,39 +675,39 @@ void filemgrEraseCorruptFile(void)
 		}
 	}
 
-	menuPushDialog(&g_FilemgrFileLostMenuDialog);
+	menu_push_dialog(&g_FilemgrFileLostMenuDialog);
 }
 #endif
 
-MenuDialogHandlerResult filemgrInsertOriginalPakMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult filemgr_insert_original_pak_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog &&
 				g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
-			filemgrRetrySave(0);
+			filemgr_retry_save(0);
 		}
 	}
 
 	return false;
 }
 
-MenuItemHandlerResult filemgrReinsertedOkMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_reinserted_ok_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		pakExecuteDebugOperations();
-		filemgrRetrySave(1);
+		pak_execute_debug_operations();
+		filemgr_retry_save(1);
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrReinsertedCancelMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_reinserted_cancel_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop) && g_Menus[g_MpPlayerNum].fm.fileop != FILEOP_SAVE_GAME_001) {
 			func0f0f3704(&g_FilemgrSaveElsewhereMenuDialog);
 		} else {
-			menuPopDialog();
+			menu_pop_dialog();
 		}
 	}
 
@@ -715,13 +715,13 @@ MenuItemHandlerResult filemgrReinsertedCancelMenuHandler(s32 operation, struct m
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-char *filemgrMenuTextInsertOriginalPak(struct menuitem *item)
+char *filemgr_menu_text_insert_original_pak(struct menuitem *item)
 {
 	char fullbuffer[100];
 	char namebuffer[100];
 	s32 i;
 
-	sprintf(namebuffer, filemgrMenuTextFileType(item));
+	sprintf(namebuffer, filemgr_menu_text_file_type(item));
 
 	// Replace first line break in namebuffer with a terminator
 	i = 0;
@@ -735,9 +735,9 @@ char *filemgrMenuTextInsertOriginalPak(struct menuitem *item)
 	}
 
 	// "Please insert the Controller Pak containing your %s into any controller."
-	sprintf(fullbuffer, langGet(L_OPTIONS_363), namebuffer);
+	sprintf(fullbuffer, lang_get(L_OPTIONS_363), namebuffer);
 
-	textWrap(120, fullbuffer, g_StringPointer, g_CharsHandelGothicSm, g_FontHandelGothicSm);
+	text_wrap(120, fullbuffer, g_StringPointer, g_CharsHandelGothicSm, g_FontHandelGothicSm);
 
 	return g_StringPointer;
 }
@@ -749,35 +749,35 @@ char *filemgrMenuTextInsertOriginalPak(struct menuitem *item)
  * 1 when user selects OK on reinsert dialog
  * 2 when user selects Retry Save on error dialog
  */
-void filemgrRetrySave(s32 context)
+void filemgr_retry_save(s32 context)
 {
-	s32 device = pakFindBySerial(g_Menus[g_MpPlayerNum].fm.deviceserial);
+	s32 device = pak_find_by_serial(g_Menus[g_MpPlayerNum].fm.deviceserial);
 
 	if (device == -1) {
 		if (context == 1) {
-			filemgrPushErrorDialog(FILEERROR_NOPAK);
+			filemgr_push_error_dialog(FILEERROR_NOPAK);
 		}
 
 		if (context == 2) {
 			func0f0f3704(&g_PakNotOriginalMenuDialog);
 		}
-	} else if (filemgrAttemptOperation(device, true)) {
+	} else if (filemgr_attempt_operation(device, true)) {
 		if (context == 2) {
 			g_Menus[g_MpPlayerNum].fm.device1 = device;
 
 			if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop)) {
-				filemgrPushErrorDialog(FILEERROR_SAVEFAILED);
+				filemgr_push_error_dialog(FILEERROR_SAVEFAILED);
 			} else {
-				filemgrPushErrorDialog(FILEERROR_LOADFAILED);
+				filemgr_push_error_dialog(FILEERROR_LOADFAILED);
 			}
 		} else {
-			filemgrSetDevice1BySerial(g_Menus[g_MpPlayerNum].fm.deviceserial);
+			filemgr_set_device1_by_serial(g_Menus[g_MpPlayerNum].fm.deviceserial);
 
 			if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop)) {
 				func0f0f3704(&g_FilemgrSaveErrorMenuDialog);
 			} else {
 #if VERSION >= VERSION_NTSC_1_0
-				filemgrEraseCorruptFile();
+				filemgr_erase_corrupt_file();
 #else
 				func0f0f3704(&g_FilemgrFileLostMenuDialog);
 #endif
@@ -786,7 +786,7 @@ void filemgrRetrySave(s32 context)
 	}
 }
 
-bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
+bool filemgr_attempt_operation(s32 device, bool closeonsuccess)
 {
 	s32 errno = 0;
 	bool showfilesaved = (g_Menus[g_MpPlayerNum].fm.isretryingsave & 1) != 0;
@@ -806,18 +806,18 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 		// fall through
 	case FILEOP_SAVE_GAME_000:
 	case FILEOP_SAVE_GAME_001:
-		errno = gamefileSave(device,
+		errno = gamefile_save(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_SAVE_MPPLAYER:
-		errno = mpplayerfileSave(
+		errno = mpplayerfile_save(
 				(s32) g_Menus[g_MpPlayerNum].fm.unke44, device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_SAVE_MPSETUP:
-		errno = mpsetupfileSave(device,
+		errno = mpsetupfile_save(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		showfilesaved = true;
@@ -829,24 +829,24 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 #if VERSION >= VERSION_NTSC_1_0
 		func0f0d5690(g_Menus[g_MpPlayerNum].fm.unke44, g_Menus[g_MpPlayerNum].fm.filename);
 #endif
-		errno = pakSaveAtGuid(device,
+		errno = pak_save_at_guid(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				filetypes[g_Menus[g_MpPlayerNum].fm.fileop - 6],
 				g_Menus[g_MpPlayerNum].fm.unke44, &newfileid, NULL);
 		var80075bd0[g_Menus[g_MpPlayerNum].fm.fileop - 6] = 1;
 		break;
 	case FILEOP_LOAD_GAME:
-		errno = gamefileLoad(device);
+		errno = gamefile_load(device);
 		break;
 	case FILEOP_LOAD_MPPLAYER:
-		errno = mpplayerfileLoad(
+		errno = mpplayerfile_load(
 				(s32) g_Menus[g_MpPlayerNum].fm.unke44,
 				device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
 	case FILEOP_LOAD_MPSETUP:
-		errno = mpsetupfileLoad(device,
+		errno = mpsetupfile_load(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
 				g_Menus[g_MpPlayerNum].fm.deviceserial);
 		break;
@@ -854,33 +854,33 @@ bool filemgrAttemptOperation(s32 device, bool closeonsuccess)
 	case FILEOP_READ_MPSETUP:
 	case FILEOP_READ_MPPLAYER:
 #if VERSION >= VERSION_NTSC_1_0
-		errno = pakReadBodyAtGuid(device, g_Menus[g_MpPlayerNum].fm.fileid, g_Menus[g_MpPlayerNum].fm.unke44, 0);
+		errno = pak_read_body_at_guid(device, g_Menus[g_MpPlayerNum].fm.fileid, g_Menus[g_MpPlayerNum].fm.unke44, 0);
 #else
-		errno = pakReadBodyAtGuid(device, g_Menus[g_MpPlayerNum].fm.fileid, g_Menus[g_MpPlayerNum].fm.unke44,
+		errno = pak_read_body_at_guid(device, g_Menus[g_MpPlayerNum].fm.fileid, g_Menus[g_MpPlayerNum].fm.unke44,
 				g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.fileop - FILEOP_READ_GAME]);
 #endif
 		break;
 	}
 
 	if (errno == 0 && closeonsuccess) {
-		menuCloseDialog();
+		menu_close_dialog();
 	}
 
 	if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop)) {
 		if (errno == 0) {
-			filemgrHandleSuccess();
+			filemgr_handle_success();
 		}
 
 		if (showfilesaved && errno == 0) {
-			menuPushDialog(&g_FilemgrFileSavedMenuDialog);
+			menu_push_dialog(&g_FilemgrFileSavedMenuDialog);
 		}
 	} else {
 		if (errno == 0) {
-			filemgrHandleSuccess();
+			filemgr_handle_success();
 		}
 	}
 
-	menuUpdateCurFrame();
+	menu_update_cur_frame();
 
 	return errno;
 }
@@ -913,7 +913,7 @@ const char var7f1b31ec[] = "Multiplayer %d was using that file...\n";
  *
  * Return true if it worked, otherwise false.
  */
-bool filemgrSaveOrLoad(struct fileguid *guid, s32 fileop, u32 playernum)
+bool filemgr_save_or_load(struct fileguid *guid, s32 fileop, u32 playernum)
 {
 	s32 device;
 
@@ -932,28 +932,28 @@ bool filemgrSaveOrLoad(struct fileguid *guid, s32 fileop, u32 playernum)
 		// empty
 	}
 
-	device = pakFindBySerial(g_Menus[g_MpPlayerNum].fm.deviceserial);
+	device = pak_find_by_serial(g_Menus[g_MpPlayerNum].fm.deviceserial);
 
 	if (device == -1) {
 		// Original pak is no longer connected
 		g_Menus[g_MpPlayerNum].fm.isretryingsave |= 1;
-		menuPushDialog(&g_PakNotOriginalMenuDialog);
+		menu_push_dialog(&g_PakNotOriginalMenuDialog);
 		return false;
 	}
 
-	if (filemgrAttemptOperation(device, false) != 0) {
+	if (filemgr_attempt_operation(device, false) != 0) {
 		// Operation failed
 		g_Menus[g_MpPlayerNum].fm.isretryingsave |= 1;
-		filemgrSetDevice1BySerial(g_Menus[g_MpPlayerNum].fm.deviceserial);
+		filemgr_set_device1_by_serial(g_Menus[g_MpPlayerNum].fm.deviceserial);
 
 		if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop)) {
-			menuPushDialog(&g_FilemgrSaveErrorMenuDialog);
+			menu_push_dialog(&g_FilemgrSaveErrorMenuDialog);
 		} else {
 			// File couldn't be loaded
 #if VERSION >= VERSION_NTSC_1_0
-			filemgrEraseCorruptFile();
+			filemgr_erase_corrupt_file();
 #else
-			menuPushDialog(&g_FilemgrFileLostMenuDialog);
+			menu_push_dialog(&g_FilemgrFileLostMenuDialog);
 #endif
 		}
 
@@ -963,16 +963,16 @@ bool filemgrSaveOrLoad(struct fileguid *guid, s32 fileop, u32 playernum)
 	return true;
 }
 
-void filemgrDeleteCurrentFile(void)
+void filemgr_delete_current_file(void)
 {
 #if VERSION >= VERSION_JPN_FINAL
 	// JPN uses an array for g_FilemgrFileToDelete
 	bool error = false;
-	s8 device = pakFindBySerial(g_FilemgrFileToDelete[g_MpPlayerNum].deviceserial);
+	s8 device = pak_find_by_serial(g_FilemgrFileToDelete[g_MpPlayerNum].deviceserial);
 	s32 i;
 
 	if (device >= 0) {
-		if (pakDeleteFile(device, g_FilemgrFileToDelete[g_MpPlayerNum].fileid) != 0) {
+		if (pak_delete_file(device, g_FilemgrFileToDelete[g_MpPlayerNum].fileid) != 0) {
 			error = true;
 		}
 	} else {
@@ -983,23 +983,23 @@ void filemgrDeleteCurrentFile(void)
 
 	if (error) {
 		g_Menus[g_MpPlayerNum].fm.device1 = device;
-		filemgrPushErrorDialog(FILEERROR_DELETEFAILED);
+		filemgr_push_error_dialog(FILEERROR_DELETEFAILED);
 	} else {
 		// If deleting a loaded MP player, reset them to default
 		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_FilemgrFileToDelete[g_MpPlayerNum].fileid == g_PlayerConfigsArray[i].fileguid.fileid
 					&& g_FilemgrFileToDelete[g_MpPlayerNum].deviceserial == g_PlayerConfigsArray[i].fileguid.deviceserial) {
-				mpPlayerSetDefaults(i, true);
+				mp_player_set_defaults(i, true);
 			}
 		}
 	}
 #else
 	bool error = false;
-	s8 device = pakFindBySerial(g_FilemgrFileToDelete.deviceserial);
+	s8 device = pak_find_by_serial(g_FilemgrFileToDelete.deviceserial);
 	s32 i;
 
 	if (device >= 0) {
-		if (pakDeleteFile(device, g_FilemgrFileToDelete.fileid) != 0) {
+		if (pak_delete_file(device, g_FilemgrFileToDelete.fileid) != 0) {
 			error = true;
 		}
 	} else {
@@ -1010,13 +1010,13 @@ void filemgrDeleteCurrentFile(void)
 
 	if (error) {
 		g_Menus[g_MpPlayerNum].fm.device1 = device;
-		filemgrPushErrorDialog(FILEERROR_DELETEFAILED);
+		filemgr_push_error_dialog(FILEERROR_DELETEFAILED);
 	} else {
 		// If deleting a loaded MP player, reset them to default
 		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_FilemgrFileToDelete.fileid == g_PlayerConfigsArray[i].fileguid.fileid
 					&& g_FilemgrFileToDelete.deviceserial == g_PlayerConfigsArray[i].fileguid.deviceserial) {
-				mpPlayerSetDefaults(i, true);
+				mp_player_set_defaults(i, true);
 			}
 		}
 	}
@@ -1057,9 +1057,9 @@ struct menuitem g_FilemgrSaveErrorMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
-		(uintptr_t) &filemgrMenuTextDeviceName,
+		(uintptr_t) &filemgr_menu_text_device_name,
 		0,
-		filemgrDeviceNameMenuHandler,
+		filemgr_device_name_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
@@ -1075,7 +1075,7 @@ struct menuitem g_FilemgrSaveErrorMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_349, // "Try Again"
 		0,
-		filemgrRetrySaveMenuHandler,
+		filemgr_retry_save_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -1083,7 +1083,7 @@ struct menuitem g_FilemgrSaveErrorMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_350, // "Save Elsewhere"
 		0,
-		filemgrSaveElsewhereYesMenuHandler,
+		filemgr_save_elsewhere_yes_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -1091,14 +1091,14 @@ struct menuitem g_FilemgrSaveErrorMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_351, // "Cancel"
 		0,
-		filemgrCancelSave2MenuHandler,
+		filemgr_cancel_save2_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrSaveErrorMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	(uintptr_t) &filemgrMenuTextErrorTitle,
+	(uintptr_t) &filemgr_menu_text_error_title,
 	g_FilemgrSaveErrorMenuItems,
 	NULL,
 	MENUDIALOGFLAG_IGNOREBACK | MENUDIALOGFLAG_DISABLEBANNER,
@@ -1110,9 +1110,9 @@ struct menuitem g_FilemgrFileLostMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
-		(uintptr_t) &filemgrMenuTextDeviceName,
+		(uintptr_t) &filemgr_menu_text_device_name,
 		0,
-		filemgrDeviceNameMenuHandler,
+		filemgr_device_name_menu_handler,
 	},
 #if VERSION >= VERSION_NTSC_1_0
 	{
@@ -1147,14 +1147,14 @@ struct menuitem g_FilemgrFileLostMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_354, // "Cancel"
 		0,
-		filemgrAcknowledgeFileLostMenuHandler,
+		filemgr_acknowledge_file_lost_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_FilemgrFileLostMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	(uintptr_t) &filemgrMenuTextErrorTitle,
+	(uintptr_t) &filemgr_menu_text_error_title,
 	g_FilemgrFileLostMenuItems,
 	NULL,
 	MENUDIALOGFLAG_IGNOREBACK | MENUDIALOGFLAG_DISABLEBANNER,
@@ -1176,7 +1176,7 @@ struct menuitem g_FilemgrSaveElsewhereMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_361, // "Yes"
 		0,
-		filemgrSaveElsewhereYesMenuHandler,
+		filemgr_save_elsewhere_yes_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -1184,7 +1184,7 @@ struct menuitem g_FilemgrSaveElsewhereMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_362, // "No"
 		0,
-		filemgrCancelSave2MenuHandler,
+		filemgr_cancel_save2_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -1204,7 +1204,7 @@ struct menuitem g_PakNotOriginalMenuItems[] = {
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
 #if VERSION >= VERSION_NTSC_1_0
-		(uintptr_t) &filemgrMenuTextInsertOriginalPak,
+		(uintptr_t) &filemgr_menu_text_insert_original_pak,
 #else
 		L_OPTIONS_363, // "Please insert the Controller Pak containing your %s into any controller."
 #endif
@@ -1217,7 +1217,7 @@ struct menuitem g_PakNotOriginalMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_365, // "OK"
 		0,
-		filemgrReinsertedOkMenuHandler,
+		filemgr_reinserted_ok_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -1225,16 +1225,16 @@ struct menuitem g_PakNotOriginalMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_366, // "Cancel"
 		0,
-		filemgrReinsertedCancelMenuHandler,
+		filemgr_reinserted_cancel_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
 
 struct menudialogdef g_PakNotOriginalMenuDialog = {
 	MENUDIALOGTYPE_DANGER,
-	(uintptr_t) &filemgrMenuTextErrorTitle,
+	(uintptr_t) &filemgr_menu_text_error_title,
 	g_PakNotOriginalMenuItems,
-	filemgrInsertOriginalPakMenuDialog,
+	filemgr_insert_original_pak_menu_dialog,
 	MENUDIALOGFLAG_IGNOREBACK | MENUDIALOGFLAG_DISABLEBANNER,
 	NULL,
 };
@@ -1249,12 +1249,12 @@ void func0f1097d0(s32 device)
 		var800a21e8.fileid = g_FileLists[0]->deviceguids[device].fileid;
 		var800a21e8.deviceserial = g_FileLists[0]->deviceguids[device].deviceserial;
 
-		thing = memaAlloc(align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
+		thing = mema_alloc(align16(g_FileTypeSizes[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1]));
 
 		if (thing) {
-			filemgrSaveOrLoad(&g_FilemgrFileToCopy, g_Menus[g_MpPlayerNum].fm.filetypeplusone + 103, (s32) thing);
+			filemgr_save_or_load(&g_FilemgrFileToCopy, g_Menus[g_MpPlayerNum].fm.filetypeplusone + 103, (s32) thing);
 		} else {
-			filemgrPushErrorDialog(FILEERROR_OUTOFMEMORY);
+			filemgr_push_error_dialog(FILEERROR_OUTOFMEMORY);
 		}
 
 		var80075bd0[g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1] = 1;
@@ -1268,18 +1268,18 @@ const char var7f1b326c[] = "COULDNT GET THE RAM!\n";
 const char var7f1b3284[] = "Saving...\n";
 #endif
 
-void filemgrSaveGameToDevice(s32 device)
+void filemgr_save_game_to_device(s32 device)
 {
 	if (g_FileLists[0]) {
 		g_GameFileGuid.fileid = g_FileLists[0]->deviceguids[device].fileid;
 		g_GameFileGuid.deviceserial = g_FileLists[0]->deviceguids[device].deviceserial;
 
-		filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
+		filemgr_save_or_load(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 	}
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void filemgrGetFileName(char *dst, struct filelistfile *file)
+void filemgr_get_file_name(char *dst, struct filelistfile *file)
 {
 	char localbuffer[20];
 	u32 playtime;
@@ -1292,7 +1292,7 @@ void filemgrGetFileName(char *dst, struct filelistfile *file)
 		func0f0d564c(file->name, localbuffer, false);
 		break;
 	case FILETYPE_MPPLAYER:
-		mpplayerfileGetOverview(file->name, localbuffer, &playtime);
+		mpplayerfile_get_overview(file->name, localbuffer, &playtime);
 		break;
 	}
 
@@ -1303,7 +1303,7 @@ void filemgrGetFileName(char *dst, struct filelistfile *file)
 #if VERSION >= VERSION_NTSC_1_0
 const char var7f1b3294[] = "GETFileNameForThePurposesOfTheFileRenamingChecker: Unknown type %d\n";
 
-void filemgrGetRenameName(char *buffer)
+void filemgr_get_rename_name(char *buffer)
 {
 	s32 i;
 	s32 j;
@@ -1349,7 +1349,7 @@ void filemgrGetRenameName(char *buffer)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void filemgrSetRenameName(char *name)
+void filemgr_set_rename_name(char *name)
 {
 	switch (g_Menus[g_MpPlayerNum].fm.unke3e) {
 	case 0:
@@ -1382,7 +1382,7 @@ const char var7f1b32dc[] = "SetFileNameForThePurposesOfTheFileRenamingChecker: U
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-bool filemgrIsNameAvailable(s32 device)
+bool filemgr_is_name_available(s32 device)
 {
 	static u8 lookup[] = {1, 2, 3, 4, 0};
 
@@ -1420,9 +1420,9 @@ bool filemgrIsNameAvailable(s32 device)
 	}
 
 	// Get the filename to search for, make it uppercase and remove trailing line break.
-	// @dangerous: findname can overflow if filemgrGetRenameName returns a long name.
+	// @dangerous: findname can overflow if filemgr_get_rename_name returns a long name.
 	findname[0] = '\0';
-	filemgrGetRenameName(findname);
+	filemgr_get_rename_name(findname);
 
 	for (j = 0; findname[j] != '\0';) {
 		if (findname[j] >= 'a' && findname[j] <= 'z') {
@@ -1440,10 +1440,10 @@ bool filemgrIsNameAvailable(s32 device)
 
 	// Iterate files
 	for (i = startindex; i < endindex; i++) {
-		filemgrGetFileName(loopname, &g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->files[i]);
+		filemgr_get_file_name(loopname, &g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->files[i]);
 
 		// Convert loop filename to uppercase and remove trailing line break
-		// @dangerous: loopname can overflow if filemgrGetFileName returns a long name.
+		// @dangerous: loopname can overflow if filemgr_get_file_name returns a long name.
 		for (j = 0; loopname[j] != '\0';) {
 			if (loopname[j] >= 'a' && loopname[j] <= 'z') {
 				loopname[j] -= 32;
@@ -1478,33 +1478,33 @@ const char var7f1b33d8[] = "decided location: %d\n";
 /**
  * Used for both saving new files and copying files.
  */
-void filemgrSaveToDevice(void)
+void filemgr_save_to_device(void)
 {
 	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->spacesfree[g_Menus[g_MpPlayerNum].fm.device2] > 0) {
-		if (!filemgrIsNameAvailable(g_Menus[g_MpPlayerNum].fm.device2)) {
-			menuPushDialog(&g_FilemgrDuplicateNameMenuDialog);
+		if (!filemgr_is_name_available(g_Menus[g_MpPlayerNum].fm.device2)) {
+			menu_push_dialog(&g_FilemgrDuplicateNameMenuDialog);
 		} else {
-			menuPopDialog();
+			menu_pop_dialog();
 
 			if (g_Menus[g_MpPlayerNum].fm.unke3e == 0) {
-				filemgrSaveGameToDevice(g_Menus[g_MpPlayerNum].fm.device2);
+				filemgr_save_game_to_device(g_Menus[g_MpPlayerNum].fm.device2);
 			} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 5) {
 				// empty
 			} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 6) {
 				struct fileguid guid;
 				guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].fileid;
 				guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].deviceserial;
-				filemgrSaveOrLoad(&guid, FILEOP_SAVE_MPPLAYER, (u32)g_MpPlayerNum);
+				filemgr_save_or_load(&guid, FILEOP_SAVE_MPPLAYER, (u32)g_MpPlayerNum);
 			} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 7) {
 				struct fileguid guid;
 				guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].fileid;
 				guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].deviceserial;
-				filemgrSaveOrLoad(&guid, FILEOP_SAVE_MPSETUP, 0);
+				filemgr_save_or_load(&guid, FILEOP_SAVE_MPSETUP, 0);
 			} else if (g_Menus[g_MpPlayerNum].fm.unke3e >= 9) {
 				struct fileguid guid;
 				guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].fileid;
 				guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[g_Menus[g_MpPlayerNum].fm.device2].deviceserial;
-				filemgrSaveOrLoad(&guid, -1, 0);
+				filemgr_save_or_load(&guid, -1, 0);
 			} else {
 				func0f1097d0(g_Menus[g_MpPlayerNum].fm.device2);
 			}
@@ -1514,19 +1514,19 @@ void filemgrSaveToDevice(void)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-MenuItemHandlerResult filemgrConfirmRenameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_confirm_rename_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	char *name = data->keyboard.string;
 
 	switch (operation) {
 	case MENUOP_GETTEXT:
-		filemgrGetRenameName(name);
+		filemgr_get_rename_name(name);
 		break;
 	case MENUOP_SETTEXT:
-		filemgrSetRenameName(name);
+		filemgr_set_rename_name(name);
 		break;
 	case MENUOP_SET:
-		filemgrSaveToDevice();
+		filemgr_save_to_device();
 		break;
 	}
 
@@ -1535,11 +1535,11 @@ MenuItemHandlerResult filemgrConfirmRenameMenuHandler(s32 operation, struct menu
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-MenuItemHandlerResult filemgrDuplicateRenameMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_duplicate_rename_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		menuPopDialog();
-		menuPushDialog(&g_FilemgrRenameMenuDialog);
+		menu_pop_dialog();
+		menu_push_dialog(&g_FilemgrRenameMenuDialog);
 	}
 
 	return 0;
@@ -1547,11 +1547,11 @@ MenuItemHandlerResult filemgrDuplicateRenameMenuHandler(s32 operation, struct me
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-MenuItemHandlerResult filemgrDuplicateCancelMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_duplicate_cancel_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		menuPopDialog();
-		menuPopDialog();
+		menu_pop_dialog();
+		menu_pop_dialog();
 	}
 
 	return 0;
@@ -1559,18 +1559,18 @@ MenuItemHandlerResult filemgrDuplicateCancelMenuHandler(s32 operation, struct me
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-char *filemgrMenuTextDeviceNameContainingDuplicateFile(struct menuitem *item)
+char *filemgr_menu_text_device_name_containing_duplicate_file(struct menuitem *item)
 {
-	return filemgrGetDeviceName(g_Menus[g_MpPlayerNum].fm.device2);
+	return filemgr_get_device_name(g_Menus[g_MpPlayerNum].fm.device2);
 }
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-char *filemgrMenuTextDuplicateFileName(struct menuitem *item)
+char *filemgr_menu_text_duplicate_file_name(struct menuitem *item)
 {
 	char buffer[32];
 
-	filemgrGetRenameName(buffer);
+	filemgr_get_rename_name(buffer);
 	sprintf(g_StringPointer, "%s\n", buffer);
 
 	return g_StringPointer;
@@ -1593,7 +1593,7 @@ struct menuitem g_FilemgrRenameMenuItems[] = {
 		0,
 		0,
 		0,
-		filemgrConfirmRenameMenuHandler,
+		filemgr_confirm_rename_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -1614,7 +1614,7 @@ struct menuitem g_FilemgrDuplicateMenuMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
-		(uintptr_t) &filemgrMenuTextDeviceNameContainingDuplicateFile,
+		(uintptr_t) &filemgr_menu_text_device_name_containing_duplicate_file,
 		0,
 		NULL,
 	},
@@ -1638,7 +1638,7 @@ struct menuitem g_FilemgrDuplicateMenuMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_LESSHEIGHT,
-		(uintptr_t) &filemgrMenuTextDuplicateFileName,
+		(uintptr_t) &filemgr_menu_text_duplicate_file_name,
 		0,
 		NULL,
 	},
@@ -1648,7 +1648,7 @@ struct menuitem g_FilemgrDuplicateMenuMenuItems[] = {
 		0,
 		L_MPWEAPONS_235, // "Rename File"
 		0,
-		filemgrDuplicateRenameMenuHandler,
+		filemgr_duplicate_rename_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -1664,7 +1664,7 @@ struct menuitem g_FilemgrDuplicateMenuMenuItems[] = {
 		0,
 		L_MPWEAPONS_237, // "Cancel"
 		0,
-		filemgrDuplicateCancelMenuHandler,
+		filemgr_duplicate_cancel_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -1679,7 +1679,7 @@ struct menudialogdef g_FilemgrDuplicateNameMenuDialog = {
 };
 #endif
 
-char *filemgrMenuTextLocationName2(struct menuitem *item)
+char *filemgr_menu_text_location_name2(struct menuitem *item)
 {
 	u16 names[] = {
 		L_OPTIONS_112, // "Controller Pak 1"
@@ -1696,18 +1696,18 @@ char *filemgrMenuTextLocationName2(struct menuitem *item)
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->spacesfree[item->param] < 0) {
-		return langGet(names[5]);
+		return lang_get(names[5]);
 	}
 #else
 	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->spacesfree[item->param] <= 0) {
-		return langGet(names[5]);
+		return lang_get(names[5]);
 	}
 #endif
 
-	return langGet(names[item->param]);
+	return lang_get(names[item->param]);
 }
 
-char *filemgrMenuTextSaveLocationSpaces(struct menuitem *item)
+char *filemgr_menu_text_save_location_spaces(struct menuitem *item)
 {
 	s32 spacesfree;
 
@@ -1722,7 +1722,7 @@ char *filemgrMenuTextSaveLocationSpaces(struct menuitem *item)
 	}
 
 	if (spacesfree == 0) {
-		return langGet(L_OPTIONS_372); // "Full"
+		return lang_get(L_OPTIONS_372); // "Full"
 	}
 
 	sprintf(g_StringPointer, "%d", spacesfree);
@@ -1744,7 +1744,7 @@ const char var7f1b34ac[] = "Deleting files, wad %d\n";
 /**
  * item->param is a SAVEDEVICE constant.
  */
-MenuItemHandlerResult filemgrSelectLocationMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_select_location_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum] == NULL) {
 		return 0;
@@ -1759,29 +1759,29 @@ MenuItemHandlerResult filemgrSelectLocationMenuHandler(s32 operation, struct men
 	if (operation == MENUOP_SET) {
 #if VERSION >= VERSION_NTSC_1_0
 		g_Menus[g_MpPlayerNum].fm.device2 = item->param;
-		filemgrSaveToDevice();
+		filemgr_save_to_device();
 #else
-		menuPopDialog();
+		menu_pop_dialog();
 
 		if (g_Menus[g_MpPlayerNum].fm.unke3e == 0) {
-			filemgrSaveGameToDevice(item->param);
+			filemgr_save_game_to_device(item->param);
 		} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 5) {
 			// empty
 		} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 6) {
 			struct fileguid guid;
 			guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].fileid;
 			guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].deviceserial;
-			filemgrSaveOrLoad(&guid, FILEOP_SAVE_MPPLAYER, (u32)g_MpPlayerNum);
+			filemgr_save_or_load(&guid, FILEOP_SAVE_MPPLAYER, (u32)g_MpPlayerNum);
 		} else if (g_Menus[g_MpPlayerNum].fm.unke3e == 7) {
 			struct fileguid guid;
 			guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].fileid;
 			guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].deviceserial;
-			filemgrSaveOrLoad(&guid, FILEOP_SAVE_MPSETUP, 0);
+			filemgr_save_or_load(&guid, FILEOP_SAVE_MPSETUP, 0);
 		} else if (g_Menus[g_MpPlayerNum].fm.unke3e >= 9) {
 			struct fileguid guid;
 			guid.fileid = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].fileid;
 			guid.deviceserial = g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->deviceguids[item->param].deviceserial;
-			filemgrSaveOrLoad(&guid, -1, 0);
+			filemgr_save_or_load(&guid, -1, 0);
 		} else {
 			func0f1097d0(item->param);
 		}
@@ -1791,49 +1791,49 @@ MenuItemHandlerResult filemgrSelectLocationMenuHandler(s32 operation, struct men
 	return 0;
 }
 
-MenuItemHandlerResult filemgrCancelSaveMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_cancel_save_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		menuPopDialog();
+		menu_pop_dialog();
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrDeleteFilesForSaveMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_delete_files_for_save_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		filemgrPushDeleteFileDialog(g_Menus[g_MpPlayerNum].fm.listnum);
+		filemgr_push_delete_file_dialog(g_Menus[g_MpPlayerNum].fm.listnum);
 		g_Menus[g_MpPlayerNum].fm.isdeletingforsave = true;
 	}
 
 	return 0;
 }
 
-void filemgrPushSelectLocationDialog(s32 arg0, u32 filetype)
+void filemgr_push_select_location_dialog(s32 arg0, u32 filetype)
 {
 	g_Menus[g_MpPlayerNum].fm.unke3e = arg0;
-	g_Menus[g_MpPlayerNum].fm.listnum = filelistFindOrCreate(filetype);
+	g_Menus[g_MpPlayerNum].fm.listnum = filelist_find_or_create(filetype);
 
 #if VERSION >= VERSION_NTSC_1_0
-	filelistsTick();
+	filelists_tick();
 #endif
 
-	menuPushDialog(&g_FilemgrSelectLocationMenuDialog);
+	menu_push_dialog(&g_FilemgrSelectLocationMenuDialog);
 }
 
 #if VERSION >= VERSION_JPN_FINAL
-bool filemgrIsFileInUse(struct filelistfile *file)
+bool filemgr_is_file_in_use(struct filelistfile *file)
 {
 	s32 i;
 
-	if (menuIsDialogOpen(&g_FilemgrCopyMenuDialog)
+	if (menu_is_dialog_open(&g_FilemgrCopyMenuDialog)
 			&& file->fileid == g_FilemgrFileToCopy.fileid
 			&& file->deviceserial == g_FilemgrFileToCopy.deviceserial) {
 		return true;
 	}
 
-	if (menuIsDialogOpen(&g_FilemgrFileSelect4MbMenuDialog)) {
+	if (menu_is_dialog_open(&g_FilemgrFileSelect4MbMenuDialog)) {
 		return false;
 	}
 
@@ -1872,7 +1872,7 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 }
 #endif
 
-MenuItemHandlerResult filemgrConfirmDeleteMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_confirm_delete_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 #if VERSION >= VERSION_JPN_FINAL
@@ -1880,16 +1880,16 @@ MenuItemHandlerResult filemgrConfirmDeleteMenuHandler(s32 operation, struct menu
 		file.fileid = g_FilemgrFileToDelete[g_MpPlayerNum].fileid;
 		file.deviceserial = g_FilemgrFileToDelete[g_MpPlayerNum].deviceserial;
 
-		menuPopDialog();
+		menu_pop_dialog();
 
-		if (filemgrIsFileInUse(&file)) {
-			filemgrPushErrorDialog(FILEERROR_DELETEFAILED);
+		if (filemgr_is_file_in_use(&file)) {
+			filemgr_push_error_dialog(FILEERROR_DELETEFAILED);
 		} else {
-			filemgrDeleteCurrentFile();
+			filemgr_delete_current_file();
 		}
 #else
-		menuPopDialog();
-		filemgrDeleteCurrentFile();
+		menu_pop_dialog();
+		filemgr_delete_current_file();
 #endif
 	}
 
@@ -1897,28 +1897,28 @@ MenuItemHandlerResult filemgrConfirmDeleteMenuHandler(s32 operation, struct menu
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-char *filemgrMenuTextFileInUseDescription(struct menuitem *item)
+char *filemgr_menu_text_file_in_use_description(struct menuitem *item)
 {
-	if (menuIsDialogOpen(&g_FilemgrCopyMenuDialog)) {
-		return langGet(L_MPWEAPONS_240); // "The file you are copying cannot be deleted."
+	if (menu_is_dialog_open(&g_FilemgrCopyMenuDialog)) {
+		return lang_get(L_MPWEAPONS_240); // "The file you are copying cannot be deleted."
 	}
 
-	return langGet(L_MPWEAPONS_160); // "Cannot delete file as it is being used."
+	return lang_get(L_MPWEAPONS_160); // "Cannot delete file as it is being used."
 }
 #endif
 
 /**
  * This is a dirty decomp hack where we intentionally declare
  * an incorrect function signature in order to get a match.
- * pheadGetTexture uses u16 as its last argument
- * but filemgrRenderPerfectHeadThumbnail will only match if
+ * phead_get_texture uses u16 as its last argument
+ * but filemgr_render_perfect_head_thumbnail will only match if
  * it's an s32 with a 0xffff mask.
  */
-struct textureconfig *pheadGetTexture(s32 playernum, s32 fileid, s32 deviceserial);
+struct textureconfig *phead_get_texture(s32 playernum, s32 fileid, s32 deviceserial);
 
-Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, s32 fileid, s32 deviceserial)
+Gfx *filemgr_render_perfect_head_thumbnail(Gfx *gdl, struct menuitemrenderdata *renderdata, s32 fileid, s32 deviceserial)
 {
-	struct textureconfig *texture = pheadGetTexture(g_MpPlayerNum, fileid, deviceserial & 0xffff);
+	struct textureconfig *texture = phead_get_texture(g_MpPlayerNum, fileid, deviceserial & 0xffff);
 
 	if (texture) {
 		gSPDisplayList(gdl++, &var800613a0);
@@ -1930,7 +1930,7 @@ Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *rend
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		texSelect(&gdl, texture, 1, 0, 2, 1, NULL);
+		tex_select(&gdl, texture, 1, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -1963,23 +1963,23 @@ Gfx *filemgrRenderPerfectHeadThumbnail(Gfx *gdl, struct menuitemrenderdata *rend
 }
 
 #if VERSION < VERSION_JPN_FINAL
-bool filemgrIsFileInUse(struct filelistfile *file)
+bool filemgr_is_file_in_use(struct filelistfile *file)
 {
 	s32 i;
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (menuIsDialogOpen(&g_FilemgrCopyMenuDialog)
+	if (menu_is_dialog_open(&g_FilemgrCopyMenuDialog)
 			&& file->fileid == g_FilemgrFileToCopy.fileid
 			&& file->deviceserial == g_FilemgrFileToCopy.deviceserial) {
 		return true;
 	}
 
-	if (menuIsDialogOpen(&g_FilemgrFileSelect4MbMenuDialog)) {
+	if (menu_is_dialog_open(&g_FilemgrFileSelect4MbMenuDialog)) {
 		return false;
 	}
 #else
 	if (g_MenuData.root == MENUROOT_FILEMGR
-			&& menuIsDialogOpen(&g_FilemgrCopyMenuDialog)
+			&& menu_is_dialog_open(&g_FilemgrCopyMenuDialog)
 			&& file->fileid == g_FilemgrFileToCopy.fileid
 			&& file->deviceserial == g_FilemgrFileToCopy.deviceserial) {
 		return true;
@@ -2013,7 +2013,7 @@ bool filemgrIsFileInUse(struct filelistfile *file)
 /**
  * item->param is 0 if copying, 1 if deleting.
  */
-MenuItemHandlerResult filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data, bool isdelete)
+MenuItemHandlerResult filemgr_file_to_copy_or_delete_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data, bool isdelete)
 {
 	s32 x;
 	s32 y;
@@ -2043,12 +2043,12 @@ MenuItemHandlerResult filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, st
 			struct filelistfile *file = &list->files[data->list.unk04];
 
 			if (g_Menus[g_MpPlayerNum].fm.filetypeplusone == 4) {
-				gdl = filemgrRenderPerfectHeadThumbnail(gdl, renderdata, file->fileid, file->deviceserial);
+				gdl = filemgr_render_perfect_head_thumbnail(gdl, renderdata, file->fileid, file->deviceserial);
 			} else {
 				u32 colour = renderdata->colour;
 				char text[32];
 
-				if (isdelete && filemgrIsFileInUse(file)) {
+				if (isdelete && filemgr_is_file_in_use(file)) {
 					colour = 0xff333300 | (colour & 0xff);
 				}
 
@@ -2058,9 +2058,9 @@ MenuItemHandlerResult filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, st
 				gdl = text0f153628(gdl);
 
 				if (file) {
-					filemgrGetSelectName(text, file, g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1);
-					gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-							colour, viGetWidth(), viGetHeight(), 0, 1);
+					filemgr_get_select_name(text, file, g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1);
+					gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+							colour, vi_get_width(), vi_get_height(), 0, 1);
 					y = renderdata->y + 12;
 					x = renderdata->x + 2;
 				}
@@ -2077,16 +2077,16 @@ MenuItemHandlerResult filemgrFileToCopyOrDeleteListMenuHandler(s32 operation, st
 		data->list.value = list->numdevices;
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return filemgrGetDeviceNameOrStartIndex(listnum, operation, data->list.value);
+		return filemgr_get_device_name_or_start_index(listnum, operation, data->list.value);
 	case MENUOP_GETGROUPSTARTINDEX:
-		data->list.groupstartindex = filemgrGetDeviceNameOrStartIndex(listnum, operation, data->list.value);
+		data->list.groupstartindex = filemgr_get_device_name_or_start_index(listnum, operation, data->list.value);
 		return 0;
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrFileToDeleteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_file_to_delete_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum] == NULL) {
 		return 0;
@@ -2096,11 +2096,11 @@ MenuItemHandlerResult filemgrFileToDeleteListMenuHandler(s32 operation, struct m
 		struct filelistfile *file = &g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->files[data->list.value];
 
 		if (file) {
-			if (filemgrIsFileInUse(file)) {
-				filemgrSetFileToDelete(file, g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->filetype);
-				menuPushDialog(&g_FilemgrFileInUseMenuDialog);
+			if (filemgr_is_file_in_use(file)) {
+				filemgr_set_file_to_delete(file, g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->filetype);
+				menu_push_dialog(&g_FilemgrFileInUseMenuDialog);
 			} else {
-				filemgrSetFileToDelete(file, g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->filetype);
+				filemgr_set_file_to_delete(file, g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->filetype);
 #if VERSION >= VERSION_JPN_FINAL
 				g_FilemgrFileToDelete[g_MpPlayerNum].fileid = file->fileid;
 				g_FilemgrFileToDelete[g_MpPlayerNum].deviceserial = file->deviceserial;
@@ -2108,15 +2108,15 @@ MenuItemHandlerResult filemgrFileToDeleteListMenuHandler(s32 operation, struct m
 				g_FilemgrFileToDelete.fileid = file->fileid;
 				g_FilemgrFileToDelete.deviceserial = file->deviceserial;
 #endif
-				menuPushDialog(&g_FilemgrConfirmDeleteMenuDialog);
+				menu_push_dialog(&g_FilemgrConfirmDeleteMenuDialog);
 			}
 		}
 	}
 
-	return filemgrFileToCopyOrDeleteListMenuHandler(operation, item, data, true);
+	return filemgr_file_to_copy_or_delete_list_menu_handler(operation, item, data, true);
 }
 
-MenuItemHandlerResult filemgrFileToCopyListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_file_to_copy_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct filelist *list = g_FileLists[0];
 
@@ -2132,22 +2132,22 @@ MenuItemHandlerResult filemgrFileToCopyListMenuHandler(s32 operation, struct men
 			g_FilemgrFileToCopy.deviceserial = file->deviceserial;
 
 #if VERSION >= VERSION_NTSC_1_0
-			filemgrGetFileName(g_Menus[g_MpPlayerNum].fm.filename, file);
+			filemgr_get_file_name(g_Menus[g_MpPlayerNum].fm.filename, file);
 #endif
-			filemgrPushSelectLocationDialog(g_Menus[g_MpPlayerNum].fm.filetypeplusone, g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1);
+			filemgr_push_select_location_dialog(g_Menus[g_MpPlayerNum].fm.filetypeplusone, g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1);
 		}
 	}
 
-	return filemgrFileToCopyOrDeleteListMenuHandler(operation, item, data, false);
+	return filemgr_file_to_copy_or_delete_list_menu_handler(operation, item, data, false);
 }
 
-MenuDialogHandlerResult filemgrCopyOrDeleteListMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult filemgr_copy_or_delete_list_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_CLOSE) {
 		if (g_Menus[g_MpPlayerNum].fm.isdeletingforsave == true) {
 			g_Menus[g_MpPlayerNum].fm.isdeletingforsave = false;
 		} else {
-			filelistCreate(0, FILETYPE_GAME);
+			filelist_create(0, FILETYPE_GAME);
 			g_Menus[g_MpPlayerNum].fm.filetypeplusone = 0;
 		}
 	}
@@ -2155,7 +2155,7 @@ MenuDialogHandlerResult filemgrCopyOrDeleteListMenuDialog(s32 operation, struct 
 	return 0;
 }
 
-void filemgrPushDeleteFileDialog(s32 listnum)
+void filemgr_push_delete_file_dialog(s32 listnum)
 {
 	struct filelist *list;
 
@@ -2169,10 +2169,10 @@ void filemgrPushDeleteFileDialog(s32 listnum)
 		g_Menus[g_MpPlayerNum].fm.filetypeplusone = list->filetype + 1;
 	}
 
-	menuPushDialog(&g_FilemgrDeleteMenuDialog);
+	menu_push_dialog(&g_FilemgrDeleteMenuDialog);
 }
 
-MenuItemHandlerResult pakDeleteGameNoteMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult pak_delete_game_note_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		OSPfsState *note = &g_EditingPak->notes[g_Menus[g_MpPlayerNum].fm.noteindex];
@@ -2180,15 +2180,15 @@ MenuItemHandlerResult pakDeleteGameNoteMenuHandler(s32 operation, struct menuite
 
 		g_Menus[g_MpPlayerNum].fm.unke24 = g_Menus[g_MpPlayerNum].fm.unke24 | (1 << g_Menus[g_MpPlayerNum].fm.device);
 
-		menuPopDialog();
+		menu_pop_dialog();
 
-		result = pakDeleteGameNote(g_Menus[g_MpPlayerNum].fm.device,
+		result = pak_delete_game_note(g_Menus[g_MpPlayerNum].fm.device,
 				note->company_code, note->game_code, note->game_name, note->ext_name);
 
 		g_Menus[g_MpPlayerNum].fm.device1 = g_Menus[g_MpPlayerNum].fm.device;
 
 		if (result != PAK_ERR1_OK) {
-			filemgrPushErrorDialog(FILEERROR_DELETENOTEFAILED);
+			filemgr_push_error_dialog(FILEERROR_DELETENOTEFAILED);
 		}
 	}
 
@@ -2198,7 +2198,7 @@ MenuItemHandlerResult pakDeleteGameNoteMenuHandler(s32 operation, struct menuite
 /**
  * Handler for the note listing in the controller pak menu.
  */
-MenuItemHandlerResult pakGameNoteListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult pak_game_note_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 x;
 	s32 y;
@@ -2247,13 +2247,13 @@ MenuItemHandlerResult pakGameNoteListMenuHandler(s32 operation, struct menuitem 
 		sprintf(generalbuffer, "%d:\n", data->list.unk04 + 1);
 		x = renderdata->x + 4;
 		y = renderdata->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
+		gdl = text_render_projected(gdl, &x, &y, generalbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+				renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 		// Prepare buffers for remaining text
 		if (g_EditingPak->notesinuse[data->list.unk04] == 1) {
-			pakN64FontCodeToAscii(note->game_name, tmpname, 16);
-			pakN64FontCodeToAscii(note->ext_name, tmpext, 4);
+			pak_n64_font_code_to_ascii(note->game_name, tmpname, 16);
+			pak_n64_font_code_to_ascii(note->ext_name, tmpext, 4);
 
 			tmpext[1] = '\0';
 
@@ -2261,30 +2261,30 @@ MenuItemHandlerResult pakGameNoteListMenuHandler(s32 operation, struct menuitem 
 			sprintf(extbuffer, "%s\n", tmpext);
 			sprintf(pagesbuffer, "%d\n", note->file_size / 256);
 		} else {
-			sprintf(generalbuffer, langGet(L_OPTIONS_392)); // "Empty"
-			sprintf(pagesbuffer, langGet(L_OPTIONS_393)); // "--"
+			sprintf(generalbuffer, lang_get(L_OPTIONS_392)); // "Empty"
+			sprintf(pagesbuffer, lang_get(L_OPTIONS_393)); // "--"
 			sprintf(extbuffer, "", tmpname, tmpext);
 		}
 
 		// Render note name
 		x = renderdata->x + 20;
 		y = renderdata->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, generalbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
+		gdl = text_render_projected(gdl, &x, &y, generalbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+				renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 		// Render ext character (for when a game has multiple notes)
 		x = renderdata->x + (VERSION == VERSION_JPN_FINAL ? 220 : 190);
 		y = renderdata->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, extbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
+		gdl = text_render_projected(gdl, &x, &y, extbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+				renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 		// Render number of pages
-		textMeasure(&textheight, &textwidth, pagesbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, pagesbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 		x = renderdata->x + renderdata->width - textwidth - 6;
 		y = renderdata->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, pagesbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
-				renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
+		gdl = text_render_projected(gdl, &x, &y, pagesbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+				renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 		return (uintptr_t) gdl;
 	case MENUOP_GETOPTIONHEIGHT:
@@ -2293,7 +2293,7 @@ MenuItemHandlerResult pakGameNoteListMenuHandler(s32 operation, struct menuitem 
 	case MENUOP_SET:
 		if (g_EditingPak->notesinuse[data->list.value] == true) {
 			g_Menus[g_MpPlayerNum].fm.noteindex = data->list.value;
-			menuPushDialog(&g_PakDeleteNoteMenuDialog);
+			menu_push_dialog(&g_PakDeleteNoteMenuDialog);
 		}
 		break;
 	}
@@ -2309,7 +2309,7 @@ const char var7f1b34e8[] = "Try to find last opened file...\n";
 /**
  * Controller pak note listing dialog.
  */
-MenuDialogHandlerResult pakGameNotesMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult pak_game_notes_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog
@@ -2317,15 +2317,15 @@ MenuDialogHandlerResult pakGameNotesMenuDialog(s32 operation, struct menudialogd
 			PakErr1 ret = pak0f1168c4(g_Menus[g_MpPlayerNum].fm.device, &g_EditingPak);
 
 			if (ret != PAK_ERR1_OK) {
-				menuCloseDialog();
+				menu_close_dialog();
 				g_EditingPak = NULL;
 				g_Menus[g_MpPlayerNum].fm.device1 = g_Menus[g_MpPlayerNum].fm.device;
 
 				if (ret == PAK_ERR1_NOPAK) {
-					filemgrPushErrorDialog(FILEERROR_PAKREMOVED);
+					filemgr_push_error_dialog(FILEERROR_PAKREMOVED);
 				}
 
-				menuUpdateCurFrame();
+				menu_update_cur_frame();
 			}
 		}
 	}
@@ -2333,36 +2333,36 @@ MenuDialogHandlerResult pakGameNotesMenuDialog(s32 operation, struct menudialogd
 	return 0;
 }
 
-char *pakMenuTextPagesFree(struct menuitem *item)
+char *pak_menu_text_pages_free(struct menuitem *item)
 {
 	if (g_EditingPak == NULL) {
-		sprintf(g_StringPointer, langGet(L_OPTIONS_394)); // "Pages Free: "
+		sprintf(g_StringPointer, lang_get(L_OPTIONS_394)); // "Pages Free: "
 	} else {
-		sprintf(g_StringPointer, langGet(L_OPTIONS_395), g_EditingPak->pagesfree); // "Pages Free: %d"
+		sprintf(g_StringPointer, lang_get(L_OPTIONS_395), g_EditingPak->pagesfree); // "Pages Free: %d"
 	}
 
 	return g_StringPointer;
 }
 
-char *pakMenuTextPagesUsed(struct menuitem *item)
+char *pak_menu_text_pages_used(struct menuitem *item)
 {
 	if (g_EditingPak == NULL) {
-		sprintf(g_StringPointer2, langGet(L_OPTIONS_396)); // "Pages Used: "
+		sprintf(g_StringPointer2, lang_get(L_OPTIONS_396)); // "Pages Used: "
 	} else {
-		sprintf(g_StringPointer2, langGet(L_OPTIONS_397), g_EditingPak->pagesused); // "Pages Used: %d"
+		sprintf(g_StringPointer2, lang_get(L_OPTIONS_397), g_EditingPak->pagesused); // "Pages Used: %d"
 	}
 
 	return g_StringPointer2;
 }
 
-char *pakMenuTextStatusMessage(struct menuitem *item)
+char *pak_menu_text_status_message(struct menuitem *item)
 {
 	ubool haspdnote = false;
 	ubool hasemptynote = false;
 	s32 i;
 
 	if (g_EditingPak == NULL) {
-		return langGet(L_OPTIONS_398); // "Perfect Dark note already exists on this Controller Pak."
+		return lang_get(L_OPTIONS_398); // "Perfect Dark note already exists on this Controller Pak."
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_EditingPak->notes); i++) {
@@ -2377,22 +2377,22 @@ char *pakMenuTextStatusMessage(struct menuitem *item)
 	}
 
 	if (haspdnote) {
-		return langGet(L_OPTIONS_398); // "Perfect Dark note already exists on this Controller Pak."
+		return lang_get(L_OPTIONS_398); // "Perfect Dark note already exists on this Controller Pak."
 	}
 
 	if (g_EditingPak->pagesfree < 28 || !hasemptynote) {
-		return langGet(L_OPTIONS_400); // "Controller Pak is too full to save note- 1 note and 28 pages required to save to Controller Pak."
+		return lang_get(L_OPTIONS_400); // "Controller Pak is too full to save note- 1 note and 28 pages required to save to Controller Pak."
 	}
 
-	return langGet(L_OPTIONS_399); // "There is enough space for Perfect Dark note."
+	return lang_get(L_OPTIONS_399); // "There is enough space for Perfect Dark note."
 }
 
 /**
  * Title for the note listing dialog.
  */
-char *pakMenuTextEditingPakName(struct menuitem *item)
+char *pak_menu_text_editing_pak_name(struct menuitem *item)
 {
-	return filemgrGetDeviceName(g_Menus[g_MpPlayerNum].fm.device);
+	return filemgr_get_device_name(g_Menus[g_MpPlayerNum].fm.device);
 }
 
 /**
@@ -2400,17 +2400,17 @@ char *pakMenuTextEditingPakName(struct menuitem *item)
  *
  * Selecting one takes you to the note listing dialog.
  */
-MenuItemHandlerResult pakSelectionMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult pak_selection_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
-		if (!mempakIsOkay((s8)item->param)) {
+		if (!mempak_is_okay((s8)item->param)) {
 			return true;
 		}
 	}
 
 	if (operation == MENUOP_SET) {
 		g_Menus[g_MpPlayerNum].fm.device = item->param;
-		menuPushDialog(&g_PakGameNotesMenuDialog);
+		menu_push_dialog(&g_PakGameNotesMenuDialog);
 	}
 
 	return 0;
@@ -2421,12 +2421,12 @@ MenuItemHandlerResult pakSelectionMenuHandler(s32 operation, struct menuitem *it
  *
  * Lists the connected controller paks.
  */
-MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult pak_choose_pak_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	switch (operation) {
 	case MENUOP_OPEN:
-		joySetPfsPollInterval(3);
+		joy_set_pfs_poll_interval(3);
 		g_Menus[g_MpPlayerNum].fm.unke24 = 0;
 		break;
 	case MENUOP_TICK:
@@ -2444,14 +2444,14 @@ MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogd
 				}
 			}
 		}
-		joySetDefaultPfsPollInterval();
+		joy_set_default_pfs_poll_interval();
 		break;
 	}
 #else
 	switch (operation) {
 	case MENUOP_OPEN:
-		joySetPfsPollInterval(3);
-		joySetPfsPollInterval(-1);
+		joy_set_pfs_poll_interval(3);
+		joy_set_pfs_poll_interval(-1);
 		g_Menus[g_MpPlayerNum].fm.unke24 = 0;
 		break;
 	case MENUOP_TICK:
@@ -2467,7 +2467,7 @@ MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogd
 				}
 			}
 		}
-		joySetDefaultPfsPollInterval();
+		joy_set_default_pfs_poll_interval();
 		pak0f1189d0();
 		break;
 	}
@@ -2476,36 +2476,36 @@ MenuDialogHandlerResult pakChoosePakMenuDialog(s32 operation, struct menudialogd
 	return 0;
 }
 
-MenuItemHandlerResult filemgrOpenCopyFileMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_open_copy_file_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Menus[g_MpPlayerNum].fm.filetypeplusone = item->param + 1;
-		filelistCreate(0, item->param);
+		filelist_create(0, item->param);
 
 #if VERSION >= VERSION_NTSC_1_0
 		g_Menus[g_MpPlayerNum].fm.listnum = 0;
 #endif
 		g_Menus[g_MpPlayerNum].fm.isdeletingforsave = false;
 
-		menuPushDialog(&g_FilemgrCopyMenuDialog);
+		menu_push_dialog(&g_FilemgrCopyMenuDialog);
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrOpenDeleteFileMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_open_delete_file_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		g_Menus[g_MpPlayerNum].fm.filetypeplusone = item->param + 1;
-		filelistCreate(0, item->param);
+		filelist_create(0, item->param);
 		g_Menus[g_MpPlayerNum].fm.unke3e = -1;
-		filemgrPushDeleteFileDialog(0);
+		filemgr_push_delete_file_dialog(0);
 	}
 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrAgentNameKeyboardMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_agent_name_keyboard_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	char *name = data->keyboard.string;
 
@@ -2521,7 +2521,7 @@ MenuItemHandlerResult filemgrAgentNameKeyboardMenuHandler(s32 operation, struct 
 		strcpy(g_GameFile.name, name);
 		break;
 	case MENUOP_SET:
-		filemgrPushSelectLocationDialog(0, FILETYPE_GAME);
+		filemgr_push_select_location_dialog(0, FILETYPE_GAME);
 		g_Menus[g_MpPlayerNum].fm.unke2c = 1;
 		break;
 	}
@@ -2529,7 +2529,7 @@ MenuItemHandlerResult filemgrAgentNameKeyboardMenuHandler(s32 operation, struct 
 	return 0;
 }
 
-MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult filemgr_choose_agent_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	s32 x;
 	s32 y;
@@ -2610,7 +2610,7 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 			file = &g_FileLists[0]->files[data->list.unk04];
 
 			if (file) {
-				gamefileGetOverview(file->name, name, &stage, &difficulty, &time);
+				gamefile_get_overview(file->name, name, &stage, &difficulty, &time);
 
 				seconds = time % 60;
 				time = time / 60;
@@ -2642,7 +2642,7 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		texSelect(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -2664,12 +2664,12 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 
 		if (data->list.unk04 == g_FileLists[0]->numfiles) {
 			// "New Agent..."
-			gdl = textRenderProjected(gdl, &x, &y, langGet(L_OPTIONS_403),
-					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = text_render_projected(gdl, &x, &y, lang_get(L_OPTIONS_403),
+					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 		} else if (file) {
 			// Render file name
-			gdl = textRenderProjected(gdl, &x, &y, name,
-					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, viGetWidth(), viGetHeight(), 0, 1);
+			gdl = text_render_projected(gdl, &x, &y, name,
+					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 			// Prepare and render stage name
 			y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 16 : 18);
@@ -2677,16 +2677,16 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 
 			if (stage > 0) {
 				sprintf(buffer, "%s %s",
-						langGet(g_SoloStages[stage - 1].name1),
-						langGet(g_SoloStages[stage - 1].name2));
+						lang_get(g_SoloStages[stage - 1].name1),
+						lang_get(g_SoloStages[stage - 1].name2));
 			} else {
 				// "New Recruit"
-				strcpy(buffer, langGet(L_OPTIONS_404));
+				strcpy(buffer, lang_get(L_OPTIONS_404));
 			}
 
 			strcat(buffer, "\n");
-			gdl = textRenderProjected(gdl, &x, &y, buffer,
-					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = text_render_projected(gdl, &x, &y, buffer,
+					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
 			// Prepare and render mission time
 			x = renderdata->x + 62;
@@ -2698,28 +2698,28 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 
 			if (days > 0) {
 				// "Mission Time:"
-				sprintf(buffer, "%s %d:%02d:%02d", langGet(L_OPTIONS_405), days, hours, minutes);
+				sprintf(buffer, "%s %d:%02d:%02d", lang_get(L_OPTIONS_405), days, hours, minutes);
 			} else {
 				// "Mission Time:"
-				sprintf(buffer, "%s %02d:%02d", langGet(L_OPTIONS_405), hours, minutes);
+				sprintf(buffer, "%s %02d:%02d", lang_get(L_OPTIONS_405), hours, minutes);
 			}
 
 			// Useless - textwidth and textheight are not used
 #if VERSION >= VERSION_JPN_FINAL
-			textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, -1);
+			text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, -1);
 #else
-			textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+			text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 #endif
 
-			gdl = textRenderProjected(gdl, &x, &y, buffer,
-					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = text_render_projected(gdl, &x, &y, buffer,
+					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
 			// Render seconds part of mission time (uses a smaller font)
 			y += (VERSION == VERSION_JPN_FINAL) ? 3 : 1;
 			x++;
 			sprintf(buffer, ".%02d", seconds);
-			gdl = textRenderProjected(gdl, &x, &y, buffer,
-					g_CharsHandelGothicXs, g_FontHandelGothicXs, renderdata->colour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = text_render_projected(gdl, &x, &y, buffer,
+					g_CharsHandelGothicXs, g_FontHandelGothicXs, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 		}
 		gdl = text0f153780(gdl);
 		return (uintptr_t) gdl;
@@ -2729,15 +2729,15 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 	case MENUOP_SET:
 		if (data->list.value == g_FileLists[0]->numfiles) {
 			// New agent
-			gamefileLoadDefaults(&g_GameFile);
-			menuPushDialog(&g_FilemgrEnterNameMenuDialog);
+			gamefile_load_defaults(&g_GameFile);
+			menu_push_dialog(&g_FilemgrEnterNameMenuDialog);
 		} else {
 			struct filelistfile *file = &g_FileLists[0]->files[data->list.value];
 
 			if (file) {
 				g_GameFileGuid.fileid = file->fileid;
 				g_GameFileGuid.deviceserial = file->deviceserial;
-				filemgrSaveOrLoad(&g_GameFileGuid, FILEOP_LOAD_GAME, 0);
+				filemgr_save_or_load(&g_GameFileGuid, FILEOP_LOAD_GAME, 0);
 			}
 		}
 		break;
@@ -2746,14 +2746,14 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
 		if (data->list.value >= g_FileLists[0]->numdevices) {
-			return (uintptr_t) langGet(L_OPTIONS_402); // "New..."
+			return (uintptr_t) lang_get(L_OPTIONS_402); // "New..."
 		}
-		return filemgrGetDeviceNameOrStartIndex(0, operation, data->list.value);
+		return filemgr_get_device_name_or_start_index(0, operation, data->list.value);
 	case MENUOP_GETGROUPSTARTINDEX:
 		if (data->list.value >= g_FileLists[0]->numdevices) {
 			data->list.groupstartindex = g_FileLists[0]->numfiles;
 		} else {
-			data->list.groupstartindex = filemgrGetDeviceNameOrStartIndex(0, operation, data->list.value);
+			data->list.groupstartindex = filemgr_get_device_name_or_start_index(0, operation, data->list.value);
 		}
 		return 0;
 	}
@@ -2761,7 +2761,7 @@ MenuItemHandlerResult filemgrChooseAgentListMenuHandler(s32 operation, struct me
 	return 0;
 }
 
-MenuDialogHandlerResult filemgrMainMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult filemgr_main_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	s32 i;
 
@@ -2769,13 +2769,13 @@ MenuDialogHandlerResult filemgrMainMenuDialog(s32 operation, struct menudialogde
 	case MENUOP_OPEN:
 		g_Menus[g_MpPlayerNum].fm.filetypeplusone = 0;
 
-		filelistCreate(0, FILETYPE_GAME);
-		mpInit();
+		filelist_create(0, FILETYPE_GAME);
+		mp_init();
 
 		// Set MP player names to "Player 1" through 4 if blank
 		for (i = 0; i < MAX_PLAYERS; i++) {
 			if (g_PlayerConfigsArray[i].base.name[0] == '\0') {
-				sprintf(g_PlayerConfigsArray[i].base.name, "%s %d\n", langGet(L_MISC_437), i + 1);
+				sprintf(g_PlayerConfigsArray[i].base.name, "%s %d\n", lang_get(L_MISC_437), i + 1);
 			}
 		}
 		break;
@@ -2784,7 +2784,7 @@ MenuDialogHandlerResult filemgrMainMenuDialog(s32 operation, struct menudialogde
 		break;
 #if VERSION < VERSION_NTSC_1_0
 	case MENUOP_TICK:
-		filelistsTick();
+		filelists_tick();
 		break;
 #endif
 	}
@@ -2792,15 +2792,15 @@ MenuDialogHandlerResult filemgrMainMenuDialog(s32 operation, struct menudialogde
 	return 0;
 }
 
-bool filemgrConsiderPushingFileSelectDialog(void)
+bool filemgr_consider_pushing_file_select_dialog(void)
 {
 	if (g_Menus[g_MpPlayerNum].openinhibit == 0) {
 		g_Menus[g_MpPlayerNum].playernum = 0;
-		menuPushRootDialog(&g_FilemgrFileSelectMenuDialog, MENUROOT_FILEMGR);
+		menu_push_root_dialog(&g_FilemgrFileSelectMenuDialog, MENUROOT_FILEMGR);
 
 #if PAL
 		if (g_Vars.language >= 6) {
-			menuPushDialog(&g_ChooseLanguageMenuDialog);
+			menu_push_dialog(&g_ChooseLanguageMenuDialog);
 		}
 #endif
 
@@ -2810,11 +2810,11 @@ bool filemgrConsiderPushingFileSelectDialog(void)
 	return false;
 }
 
-void bootmenuReset(void)
+void bootmenu_reset(void)
 {
 	s32 prevplayernum = g_MpPlayerNum;
 	g_MpPlayerNum = 0;
-	menuPushRootDialog(&g_PakChoosePakMenuDialog, MENUROOT_BOOTPAKMGR);
+	menu_push_root_dialog(&g_PakChoosePakMenuDialog, MENUROOT_BOOTPAKMGR);
 	g_MpPlayerNum = prevplayernum;
 }
 
@@ -2839,41 +2839,41 @@ struct menuitem g_FilemgrSelectLocationMenuItems[] = {
 		MENUITEMTYPE_SELECTABLE,
 		SAVEDEVICE_GAMEPAK,
 		0,
-		(uintptr_t)&filemgrMenuTextLocationName2,
-		(uintptr_t)&filemgrMenuTextSaveLocationSpaces,
-		filemgrSelectLocationMenuHandler,
+		(uintptr_t)&filemgr_menu_text_location_name2,
+		(uintptr_t)&filemgr_menu_text_save_location_spaces,
+		filemgr_select_location_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
 		SAVEDEVICE_CONTROLLERPAK1,
 		0,
-		(uintptr_t)&filemgrMenuTextLocationName2,
-		(uintptr_t)&filemgrMenuTextSaveLocationSpaces,
-		filemgrSelectLocationMenuHandler,
+		(uintptr_t)&filemgr_menu_text_location_name2,
+		(uintptr_t)&filemgr_menu_text_save_location_spaces,
+		filemgr_select_location_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
 		SAVEDEVICE_CONTROLLERPAK2,
 		0,
-		(uintptr_t)&filemgrMenuTextLocationName2,
-		(uintptr_t)&filemgrMenuTextSaveLocationSpaces,
-		filemgrSelectLocationMenuHandler,
+		(uintptr_t)&filemgr_menu_text_location_name2,
+		(uintptr_t)&filemgr_menu_text_save_location_spaces,
+		filemgr_select_location_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
 		SAVEDEVICE_CONTROLLERPAK3,
 		0,
-		(uintptr_t)&filemgrMenuTextLocationName2,
-		(uintptr_t)&filemgrMenuTextSaveLocationSpaces,
-		filemgrSelectLocationMenuHandler,
+		(uintptr_t)&filemgr_menu_text_location_name2,
+		(uintptr_t)&filemgr_menu_text_save_location_spaces,
+		filemgr_select_location_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
 		SAVEDEVICE_CONTROLLERPAK4,
 		0,
-		(uintptr_t)&filemgrMenuTextLocationName2,
-		(uintptr_t)&filemgrMenuTextSaveLocationSpaces,
-		filemgrSelectLocationMenuHandler,
+		(uintptr_t)&filemgr_menu_text_location_name2,
+		(uintptr_t)&filemgr_menu_text_save_location_spaces,
+		filemgr_select_location_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -2889,7 +2889,7 @@ struct menuitem g_FilemgrSelectLocationMenuItems[] = {
 		0,
 		L_OPTIONS_370, // "Delete Files..."
 		0,
-		filemgrDeleteFilesForSaveMenuHandler,
+		filemgr_delete_files_for_save_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -2897,7 +2897,7 @@ struct menuitem g_FilemgrSelectLocationMenuItems[] = {
 		0,
 		L_OPTIONS_371, // "Cancel"
 		0,
-		filemgrCancelSaveMenuHandler,
+		filemgr_cancel_save_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -2916,17 +2916,17 @@ struct menuitem g_FilemgrConfirmDeleteMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
-		(uintptr_t)&filemgrMenuTextDeleteFileName,
+		(uintptr_t)&filemgr_menu_text_delete_file_name,
 		0,
-		filemgrFileNameMenuHandler,
+		filemgr_file_name_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_SMALLFONT,
-		(uintptr_t)&filemgrMenuTextDeviceName,
+		(uintptr_t)&filemgr_menu_text_device_name,
 		0,
-		filemgrDeviceNameMenuHandler,
+		filemgr_device_name_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
@@ -2950,7 +2950,7 @@ struct menuitem g_FilemgrConfirmDeleteMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_382, // "OK"
 		0,
-		filemgrConfirmDeleteMenuHandler,
+		filemgr_confirm_delete_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -2969,24 +2969,24 @@ struct menuitem g_FilemgrFileInUseMenuItems[] = {
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE,
-		(uintptr_t)&filemgrMenuTextDeleteFileName,
+		(uintptr_t)&filemgr_menu_text_delete_file_name,
 		0,
-		filemgrFileNameMenuHandler,
+		filemgr_file_name_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING | MENUITEMFLAG_SELECTABLE_CENTRE | MENUITEMFLAG_SMALLFONT,
-		(uintptr_t)&filemgrMenuTextDeviceName,
+		(uintptr_t)&filemgr_menu_text_device_name,
 		0,
-		filemgrDeviceNameMenuHandler,
+		filemgr_device_name_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
 #if VERSION >= VERSION_NTSC_1_0
-		(uintptr_t)&filemgrMenuTextFileInUseDescription,
+		(uintptr_t)&filemgr_menu_text_file_in_use_description,
 #else
 		0x54a0,
 #endif
@@ -3028,7 +3028,7 @@ struct menuitem g_FilemgrDeleteMenuItems[] = {
 		MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0,
 		0,
-		filemgrFileToDeleteListMenuHandler,
+		filemgr_file_to_delete_list_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
@@ -3045,7 +3045,7 @@ struct menudialogdef g_FilemgrDeleteMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_376, // "Delete File"
 	g_FilemgrDeleteMenuItems,
-	filemgrCopyOrDeleteListMenuDialog,
+	filemgr_copy_or_delete_list_menu_dialog,
 	0,
 	NULL,
 };
@@ -3065,7 +3065,7 @@ struct menuitem g_FilemgrCopyMenuItems[] = {
 		MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0,
 		0,
-		filemgrFileToCopyListMenuHandler,
+		filemgr_file_to_copy_list_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
@@ -3082,7 +3082,7 @@ struct menudialogdef g_FilemgrCopyMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_373, // "Copy File"
 	g_FilemgrCopyMenuItems,
-	filemgrCopyOrDeleteListMenuDialog,
+	filemgr_copy_or_delete_list_menu_dialog,
 	0,
 	NULL,
 };
@@ -3112,7 +3112,7 @@ struct menuitem g_PakDeleteNoteMenuItems[] = {
 		MENUITEMFLAG_SELECTABLE_CENTRE,
 		L_OPTIONS_386, // "Yes"
 		0,
-		pakDeleteGameNoteMenuHandler,
+		pak_delete_game_note_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -3132,7 +3132,7 @@ struct menuitem g_PakGameNotesMenuItems[] = {
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
 		L_OPTIONS_388, // "Delete Game Notes:"
-		(uintptr_t)&pakMenuTextEditingPakName,
+		(uintptr_t)&pak_menu_text_editing_pak_name,
 		NULL,
 	},
 	{
@@ -3157,21 +3157,21 @@ struct menuitem g_PakGameNotesMenuItems[] = {
 		MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0x000000c8,
 		0x0000006e,
-		pakGameNoteListMenuHandler,
+		pak_game_note_list_menu_handler,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
-		(uintptr_t)&pakMenuTextPagesFree,
-		(uintptr_t)&pakMenuTextPagesUsed,
+		(uintptr_t)&pak_menu_text_pages_free,
+		(uintptr_t)&pak_menu_text_pages_used,
 		NULL,
 	},
 	{
 		MENUITEMTYPE_LABEL,
 		0,
 		MENUITEMFLAG_LESSLEFTPADDING,
-		(uintptr_t)&pakMenuTextStatusMessage,
+		(uintptr_t)&pak_menu_text_status_message,
 		0,
 		NULL,
 	},
@@ -3190,7 +3190,7 @@ struct menudialogdef g_PakGameNotesMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_387, // "Game Notes"
 	g_PakGameNotesMenuItems,
-	pakGameNotesMenuDialog,
+	pak_game_notes_menu_dialog,
 	0,
 	NULL,
 };
@@ -3226,7 +3226,7 @@ struct menuitem g_PakChoosePakMenuItems[] = {
 		0,
 		L_OPTIONS_112, // "Controller Pak 1"
 		0,
-		pakSelectionMenuHandler,
+		pak_selection_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3234,7 +3234,7 @@ struct menuitem g_PakChoosePakMenuItems[] = {
 		0,
 		L_OPTIONS_113, // "Controller Pak 2"
 		0,
-		pakSelectionMenuHandler,
+		pak_selection_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3242,7 +3242,7 @@ struct menuitem g_PakChoosePakMenuItems[] = {
 		0,
 		L_OPTIONS_114, // "Controller Pak 3"
 		0,
-		pakSelectionMenuHandler,
+		pak_selection_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3250,7 +3250,7 @@ struct menuitem g_PakChoosePakMenuItems[] = {
 		0,
 		L_OPTIONS_115, // "Controller Pak 4"
 		0,
-		pakSelectionMenuHandler,
+		pak_selection_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -3275,7 +3275,7 @@ struct menudialogdef g_PakChoosePakMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_107, // "Controller Pak Menu"
 	g_PakChoosePakMenuItems,
-	pakChoosePakMenuDialog,
+	pak_choose_pak_menu_dialog,
 	0,
 	NULL,
 };
@@ -3295,7 +3295,7 @@ struct menuitem g_FilemgrOperationsMenuItems[] = {
 		0,
 		L_OPTIONS_103, // "Single Player Agent File"
 		0,
-		filemgrOpenCopyFileMenuHandler,
+		filemgr_open_copy_file_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3303,7 +3303,7 @@ struct menuitem g_FilemgrOperationsMenuItems[] = {
 		0,
 		L_OPTIONS_104, // "Combat Simulator Settings File"
 		0,
-		filemgrOpenCopyFileMenuHandler,
+		filemgr_open_copy_file_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3311,7 +3311,7 @@ struct menuitem g_FilemgrOperationsMenuItems[] = {
 		0,
 		L_OPTIONS_105, // "Combat Simulator Player File"
 		0,
-		filemgrOpenCopyFileMenuHandler,
+		filemgr_open_copy_file_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -3335,7 +3335,7 @@ struct menuitem g_FilemgrOperationsMenuItems[] = {
 		0,
 		L_OPTIONS_103, // "Single Player Agent File"
 		0,
-		filemgrOpenDeleteFileMenuHandler,
+		filemgr_open_delete_file_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3343,7 +3343,7 @@ struct menuitem g_FilemgrOperationsMenuItems[] = {
 		0,
 		L_OPTIONS_104, // "Combat Simulator Settings File"
 		0,
-		filemgrOpenDeleteFileMenuHandler,
+		filemgr_open_delete_file_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SELECTABLE,
@@ -3351,7 +3351,7 @@ struct menuitem g_FilemgrOperationsMenuItems[] = {
 		0,
 		L_OPTIONS_105, // "Combat Simulator Player File"
 		0,
-		filemgrOpenDeleteFileMenuHandler,
+		filemgr_open_delete_file_menu_handler,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -3388,7 +3388,7 @@ struct menuitem g_FilemgrEnterNameMenuItems[] = {
 		0,
 		0,
 		0x00000001,
-		filemgrAgentNameKeyboardMenuHandler,
+		filemgr_agent_name_keyboard_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -3417,7 +3417,7 @@ struct menuitem g_FilemgrFileSelectMenuItems[] = {
 		MENUITEMFLAG_LIST_CUSTOMRENDER,
 		0x000000f5,
 		0,
-		filemgrChooseAgentListMenuHandler,
+		filemgr_choose_agent_list_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -3426,7 +3426,7 @@ struct menudialogdef g_FilemgrFileSelectMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_095, // "Perfect Dark"
 	g_FilemgrFileSelectMenuItems,
-	filemgrMainMenuDialog,
+	filemgr_main_menu_dialog,
 	MENUDIALOGFLAG_IGNOREBACK,
 	&g_FilemgrOperationsMenuDialog,
 };

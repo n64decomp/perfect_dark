@@ -7,7 +7,7 @@
 
 /**
  * This function is generated automatically by makerom. It clears the BSS
- * segment, sets the stack pointer to 0x80000f10 and then calls vmBoot.
+ * segment, sets the stack pointer to 0x80000f10 and then calls vm_boot.
  */
 glabel preamble
  	lui	   $t0, %hi(_bssSegmentStart)
@@ -21,8 +21,8 @@ glabel preamble
  	bnez   $t1, .bss_loop
  	addi   $t0, $t0, 8
 
- 	lui    $t2, %hi(vmBootFromPreamble)
+ 	lui    $t2, %hi(vm_boot_from_preamble)
  	li     $sp, K0BASE
- 	addiu  $t2, $t2, %lo(vmBootFromPreamble)
+ 	addiu  $t2, $t2, %lo(vm_boot_from_preamble)
  	jr     $t2
  	addiu  $sp, $sp, 0xf10

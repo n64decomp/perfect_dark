@@ -4,11 +4,11 @@
 #include "data.h"
 #include "types.h"
 
-f32 pdmodeGetEnemyReactionSpeed(void);
-f32 pdmodeGetEnemyHealth(void);
-f32 pdmodeGetEnemyDamage(void);
-f32 pdmodeGetEnemyAccuracy(void);
+f32 pdmode_get_enemy_reaction_speed(void);
+f32 pdmode_get_enemy_health(void);
+f32 pdmode_get_enemy_damage(void);
+f32 pdmode_get_enemy_accuracy(void);
 void func0f01b148(u32 arg0);
-void titleSetNextStage(s32 stagenum);
+void title_set_next_stage(s32 stagenum);
 
 #endif

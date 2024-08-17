@@ -30,7 +30,7 @@ OSMesgQueue g_AdmaMesgQueue;
 OSMesg g_AdmaMesgs[ADMA_MAX_ITEMS];
 u32 g_AdmaCurFrame;
 
-void admaInit(void)
+void adma_init(void)
 {
 	osCreateMesgQueue(&g_AdmaMesgQueue, g_AdmaMesgs, ARRAYCOUNT(g_AdmaMesgs));
 }
@@ -44,9 +44,9 @@ void admaInit(void)
  * doesn't find the samples that it needs, it will initiate a DMA of the samples
  * that it needs. In either case, it updates the lastframe variable, to indicate
  * that this buffer was last used in this frame. This is important for the
- * admaBeginFrame routine.
+ * adma_begin_frame routine.
  */
-s32 admaExec(s32 offset, s32 len, void *state)
+s32 adma_exec(s32 offset, s32 len, void *state)
 {
 	void *foundbuffer;
 	s32 delta;
@@ -127,7 +127,7 @@ s32 admaExec(s32 offset, s32 len, void *state)
  * will only really do any initialization the first time. After that we just
  * return the address to the DMA routine.
  */
-void *admaNew(struct admastate **state)
+void *adma_new(struct admastate **state)
 {
 #if PAL
 	s32 max = ADMA_MAX_ITEMS;
@@ -149,14 +149,14 @@ void *admaNew(struct admastate **state)
 
 	*state = &g_AdmaState;
 
-	return &admaExec;
+	return &adma_exec;
 }
 
 /**
  * Remove old items from the list, increment the
  * frame counter and reset the number of items to 0.
  */
-void admaBeginFrame(void)
+void adma_begin_frame(void)
 {
 	struct admaitem *item = g_AdmaState.firstused;
 
@@ -200,7 +200,7 @@ void admaBeginFrame(void)
  * a message queue, and that means the messages have to be read off it at some
  * point. This is done here.
  */
-void admaReceiveAll(void)
+void adma_receive_all(void)
 {
 	s32 i;
 

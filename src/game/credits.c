@@ -30,12 +30,12 @@
  *
  * This file handles both the credits sequence and the alternative title screen.
  *
- * For the alternative title screen, title code calls creditsRequestAltTitle
+ * For the alternative title screen, title code calls credits_request_alt_title
  * before switching the stage to STAGE_CREDITS. For the proper credits, the
- * stage is switched to STAGE_CREDITS without calling creditsRequestAltTitle.
+ * stage is switched to STAGE_CREDITS without calling credits_request_alt_title.
  *
- * Credits are then initialised using creditsReset, then called on each tick
- * using creditsDraw. creditsTick is called from creditsDraw.
+ * Credits are then initialised using credits_reset, then called on each tick
+ * using credits_draw. credits_tick is called from credits_draw.
  *
  * For the main part of the credits, the scene is composed of:
  * - Two visible background layers
@@ -184,7 +184,7 @@ bool g_CreditsScrollStarted = false;
 bool g_CreditsAltTitleRequested = false;
 bool g_CreditsUsingAltTitle = false;
 
-void creditsMap4BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
+void credits_map_4_bg_vertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
 {
 	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
 	f32 b = arg2 * cosf(arg1) - arg3 * sinf(arg1);
@@ -202,7 +202,7 @@ void creditsMap4BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4
 	vertices[3].t = (cosf(arg4 + RAD(270, 4.7123889923096f)) - sinf(arg4 + RAD(270, 4.7123889923096f))) * arg6 + b;
 }
 
-void creditsMap9BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
+void credits_map_9_bg_vertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
 {
 	f32 a = arg2 * sinf(arg1) + arg3 * cosf(arg1);
 	f32 b = arg2 * cosf(arg1) - arg3 * sinf(arg1);
@@ -248,7 +248,7 @@ void creditsMap9BgVertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4
  * 7:  0      1800
  * 8:  1800   1800
  */
-void creditsInitBgVertices(Vtx *vertices, s32 z)
+void credits_init_bg_vertices(Vtx *vertices, s32 z)
 {
 	s32 i;
 
@@ -276,7 +276,7 @@ struct bgconfig g_CreditsBgConfigs[] = {
 	{ 0.01, { 2, 1, 2, 1, 0, 1, 2, 1, 2 }, { { 0x00ffff, 0x0000ff, 0x000000 }, { 0xffffff, 0xffffff, 0xffffff }, { 0xffffff, 0xffffff, 0xffffff } } },
 };
 
-void creditsChooseBgColours(Vtx *vertices, Col *colours, s32 confignum, s32 alpha, s32 arg4)
+void credits_choose_bg_colours(Vtx *vertices, Col *colours, s32 confignum, s32 alpha, s32 arg4)
 {
 #if PAL
 	s32 iVar1 = (s32)(g_CreditsBgConfigs[confignum].unk00 * g_CreditsCurFrame2 / (10.0f / 3.0f) + arg4) % 180;
@@ -307,15 +307,15 @@ void creditsChooseBgColours(Vtx *vertices, Col *colours, s32 confignum, s32 alph
 	weightfrac = (iVar1 % 60) / 60.0f;
 	weight = 255.0f * weightfrac;
 
-	colours[0].word = colourBlend(
+	colours[0].word = colour_blend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][0] << 8,
 			g_CreditsBgConfigs[confignum].colours[colour1index][0] << 8, weight) | alpha;
 
-	colours[1].word = colourBlend(
+	colours[1].word = colour_blend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][1] << 8,
 			g_CreditsBgConfigs[confignum].colours[colour1index][1] << 8, weight) | alpha;
 
-	colours[2].word = colourBlend(
+	colours[2].word = colour_blend(
 			g_CreditsBgConfigs[confignum].colours[colour2index][2] << 8,
 			g_CreditsBgConfigs[confignum].colours[colour1index][2] << 8, weight) | alpha;
 }
@@ -344,7 +344,7 @@ struct creditsbgtype g_CreditsBgTypes[] = {
 	{ 10000, 1000,  -200, 0x2d, 220, 0 },
 };
 
-Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 alpha, s32 arg5)
+Gfx *credits_draw_background_layer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 alpha, s32 arg5)
 {
 	Vtx *vertices;
 	Col *colours;
@@ -362,14 +362,14 @@ Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 al
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	texSelect(&gdl, &g_TexGeneralConfigs[g_CreditsBgTypes[type].texturenum], 1, 1, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[g_CreditsBgTypes[type].texturenum], 1, 1, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
-	colours = gfxAllocateColours(3);
-	vertices = gfxAllocateVertices(9);
+	colours = gfx_allocate_colours(3);
+	vertices = gfx_allocate_vertices(9);
 
-	creditsInitBgVertices(vertices, (s32)((g_CreditsBgTypes[type].unk04 + 2000) * arg3) - 2000);
+	credits_init_bg_vertices(vertices, (s32)((g_CreditsBgTypes[type].unk04 + 2000) * arg3) - 2000);
 
 #if PAL
 	rotation = g_CreditsData->bglayers[layernum].rotspeed * g_CreditsCurFrame2 / (10.0f / 3.0f);
@@ -381,7 +381,7 @@ Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 al
 	b = g_CreditsBgTypes[type].unk0c * 32.0f;
 	c = g_CreditsBgTypes[type].unk10 * 32.0f;
 
-	creditsMap9BgVertices(vertices, pan, b, c, rotation, g_CreditsBgTypes[type].unk00, g_CreditsBgTypes[type].unk02);
+	credits_map_9_bg_vertices(vertices, pan, b, c, rotation, g_CreditsBgTypes[type].unk00, g_CreditsBgTypes[type].unk02);
 
 	if (g_CreditsBgTypes[type].texturenum == 4) {
 		alpha = alpha * 2 / 3;
@@ -391,7 +391,7 @@ Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 al
 		alpha = alpha * 2 / 3;
 	}
 
-	creditsChooseBgColours(vertices, colours, g_CreditsData->bglayers[layernum].confignum, alpha, arg5 * 90);
+	credits_choose_bg_colours(vertices, colours, g_CreditsData->bglayers[layernum].confignum, alpha, arg5 * 90);
 
 	gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 9, 0);
@@ -402,7 +402,7 @@ Gfx *creditsDrawBackgroundLayer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 al
 	return gdl;
 }
 
-void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move)
+void credits_copy_background_layer(s32 srcindex, s32 dstindex, bool move)
 {
 	g_CreditsData->bglayers[dstindex].type = g_CreditsData->bglayers[srcindex].type;
 	g_CreditsData->bglayers[dstindex].rotspeed = g_CreditsData->bglayers[srcindex].rotspeed;
@@ -414,7 +414,7 @@ void creditsCopyBackgroundLayer(s32 srcindex, s32 dstindex, bool move)
 	}
 }
 
-Gfx *creditsDrawBackground(Gfx *gdl)
+Gfx *credits_draw_background(Gfx *gdl)
 {
 	s32 s1[4] = {-1, -1, -1, -1};
 	u32 s5[4];
@@ -458,7 +458,7 @@ Gfx *creditsDrawBackground(Gfx *gdl)
 			len += 2;
 		} else {
 			if (g_CreditsData->unk41b0[i] == 1) {
-				creditsCopyBackgroundLayer(i + 2, i, true);
+				credits_copy_background_layer(i + 2, i, true);
 			}
 
 			g_CreditsData->unk41b0[i] = 0;
@@ -484,7 +484,7 @@ Gfx *creditsDrawBackground(Gfx *gdl)
 		}
 
 		if (bestindex >= 0) {
-			gdl = creditsDrawBackgroundLayer(gdl, g_CreditsData->bglayers[s1[bestindex]].type,
+			gdl = credits_draw_background_layer(gdl, g_CreditsData->bglayers[s1[bestindex]].type,
 					s1[bestindex], s4[bestindex], s2[bestindex], s5[bestindex]);
 
 			s1[bestindex] = -1;
@@ -534,7 +534,7 @@ struct g_CreditParticleConfigs g_CreditParticleConfigs[] = {
  *
  * This is only called with max = 0.00223f.
  */
-f32 creditsRandInRange(f32 range)
+f32 credits_rand_in_range(f32 range)
 {
 	f32 value;
 
@@ -546,7 +546,7 @@ f32 creditsRandInRange(f32 range)
 	return value;
 }
 
-void creditsCreatePendingBgLayers(u32 mask)
+void credits_create_pending_bg_layers(u32 mask)
 {
 	s32 i;
 
@@ -555,8 +555,8 @@ void creditsCreatePendingBgLayers(u32 mask)
 
 		if (g_CreditsData->unk41b0[i] == 0) {
 			g_CreditsData->bglayers[i + 2].type = random() % 12;
-			g_CreditsData->bglayers[i + 2].rotspeed = creditsRandInRange(0.00223f);
-			g_CreditsData->bglayers[i + 2].panspeed = creditsRandInRange(0.00223f);
+			g_CreditsData->bglayers[i + 2].rotspeed = credits_rand_in_range(0.00223f);
+			g_CreditsData->bglayers[i + 2].panspeed = credits_rand_in_range(0.00223f);
 
 			if (((u8)(mask >> shift) & 2)) {
 				g_CreditsData->bglayers[i + 2].confignum = random() % 6;
@@ -565,13 +565,13 @@ void creditsCreatePendingBgLayers(u32 mask)
 	}
 }
 
-Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
+Gfx *credits_fill_framebuffer(Gfx *gdl, u32 colour)
 {
 	gSPDisplayList(gdl++, &var800613a0);
 
-	gdl = textSetPrimColour(gdl, colour);
+	gdl = text_set_prim_colour(gdl, colour);
 
-	gDPFillRectangle(gdl++, 0, 0, viGetWidth(), viGetHeight());
+	gDPFillRectangle(gdl++, 0, 0, vi_get_width(), vi_get_height());
 
 	gdl = text0f153838(gdl);
 
@@ -582,13 +582,13 @@ Gfx *creditsFillFramebuffer(Gfx *gdl, u32 colour)
  * An unused function. Renders a white line between two 3D coordinates.
  * The line would be 10 units high, though I'm not sure if that's big or not.
  */
-Gfx *creditsRenderLine(Gfx *gdl, struct coord *from, struct coord *to)
+Gfx *credits_render_line(Gfx *gdl, struct coord *from, struct coord *to)
 {
 	Vtx *vertices;
 	Col *colours;
 
-	colours = gfxAllocateColours(2);
-	vertices = gfxAllocateVertices(4);
+	colours = gfx_allocate_colours(2);
+	vertices = gfx_allocate_vertices(4);
 
 	vertices[0].x = from->x;
 	vertices[0].y = from->y;
@@ -622,7 +622,7 @@ Gfx *creditsRenderLine(Gfx *gdl, struct coord *from, struct coord *to)
 	return gdl;
 }
 
-void creditsResetParticles(void)
+void credits_reset_particles(void)
 {
 	f32 tmp;
 	s32 i;
@@ -665,7 +665,7 @@ void creditsResetParticles(void)
 	}
 }
 
-void creditsTickParticles(void)
+void credits_tick_particles(void)
 {
 	s32 i;
 	f32 amount;
@@ -684,7 +684,7 @@ void creditsTickParticles(void)
 		}
 	} else {
 #if VERSION >= VERSION_NTSC_1_0
-		if (RANDOMFRAC() < 0.007f && joyGetButtons(0, L_TRIG | R_TRIG) == 0) {
+		if (RANDOMFRAC() < 0.007f && joy_get_buttons(0, L_TRIG | R_TRIG) == 0) {
 			g_CreditsData->particlecolourindex1 = random() % 4;
 			g_CreditsData->particlecolourweight = 0;
 		}
@@ -697,7 +697,7 @@ void creditsTickParticles(void)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (RANDOMFRAC() < 0.002f && joyGetButtons(0, L_TRIG | R_TRIG) == 0) {
+	if (RANDOMFRAC() < 0.002f && joy_get_buttons(0, L_TRIG | R_TRIG) == 0) {
 		g_CreditsData->particlemovetype = random() % 5;
 	}
 #else
@@ -707,7 +707,7 @@ void creditsTickParticles(void)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (joyGetButtonsPressedThisFrame(0, R_TRIG)) {
+	if (joy_get_buttons_pressed_this_frame(0, R_TRIG)) {
 		g_CreditsData->particlemovetype = random() % 5;
 
 		if (g_CreditsData->particlecolourindex1 < 0) {
@@ -770,7 +770,7 @@ void creditsTickParticles(void)
 	}
 }
 
-void creditsGetParticlePos(struct coord *pos, struct particle *particle, s32 particlenum)
+void credits_get_particle_pos(struct coord *pos, struct particle *particle, s32 particlenum)
 {
 	f32 sp4c;
 	f32 sp48;
@@ -852,7 +852,7 @@ void creditsGetParticlePos(struct coord *pos, struct particle *particle, s32 par
 	}
 }
 
-Gfx *creditsDrawParticles(Gfx *gdl)
+Gfx *credits_draw_particles(Gfx *gdl)
 {
 	Col *colours;
 	u32 colour;
@@ -865,15 +865,15 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 	static u32 tload = 0x25;
 	static u32 dump = 0;
 
-	mainOverrideVariable("tload", &tload);
-	mainOverrideVariable("dump", &dump);
+	main_override_variable("tload", &tload);
+	main_override_variable("dump", &dump);
 
-	colours = gfxAllocateColours(60);
+	colours = gfx_allocate_colours(60);
 
 	for (i = 0; i < 4; i++) {
 		if (g_CreditsData->particlecolourindex1 >= 0) {
 			u32 weight = g_CreditsData->particlecolourweight * 255.0f;
-			colour = colourBlend(g_CreditColourPalette[g_CreditsData->particlecolourindex1][i], g_CreditColourPalette[g_CreditsData->particlecolourindex2][i], weight);
+			colour = colour_blend(g_CreditColourPalette[g_CreditsData->particlecolourindex1][i], g_CreditColourPalette[g_CreditsData->particlecolourindex2][i], weight);
 		} else {
 			colour = g_CreditColourPalette[g_CreditsData->particlecolourindex2][i];
 		}
@@ -904,7 +904,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 				f32 frac;
 
 				if (!donetexture) {
-					texSelect(&gdl, &g_TexGeneralConfigs[g_CreditParticleConfigs[confignum].texturenum], 2, 1, 2, 1, 0);
+					tex_select(&gdl, &g_TexGeneralConfigs[g_CreditParticleConfigs[confignum].texturenum], 2, 1, 2, 1, 0);
 
 					gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 					gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -921,7 +921,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 					donetexture = true;
 				}
 
-				creditsGetParticlePos(&pos, &g_CreditsData->particles[i], i);
+				credits_get_particle_pos(&pos, &g_CreditsData->particles[i], i);
 
 				frac = 1.0f - (pos.f[2] - -4500.0f) / 3500.0f;
 
@@ -936,7 +936,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 				invsine = -sine;
 				invcosine = -cosine;
 
-				vertices = gfxAllocateVertices(4);
+				vertices = gfx_allocate_vertices(4);
 
 				vertices[0].x = pos.f[0] + radius * (sine + cosine);
 				vertices[0].y = pos.f[1] + radius * (cosine + -sine);
@@ -981,7 +981,7 @@ Gfx *creditsDrawParticles(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *creditsDrawBackgroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 opacity, f32 speed, f32 spread)
+Gfx *credits_draw_background_text(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 opacity, f32 speed, f32 spread)
 {
 	f32 sp98;
 	u32 colour1;
@@ -991,8 +991,8 @@ Gfx *creditsDrawBackgroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontch
 
 	sp98 = ((y / 2) % 100) * M_BADTAU / 100.0f;
 
-	colour1 = colourBlend(0x00ffff00, 0xffffff00, 255.0f * spread);
-	colour2 = colourBlend(0x0000af00, 0xffffff00, 255.0f * spread);
+	colour1 = colour_blend(0x00ffff00, 0xffffff00, 255.0f * spread);
+	colour2 = colour_blend(0x0000af00, 0xffffff00, 255.0f * spread);
 
 	for (i = 4; i >= 0; i--) {
 		f32 f24 = i * 0.2f + g_CreditsParticleRotationFrac * 10.0f * M_BADTAU + sp98;
@@ -1002,7 +1002,7 @@ Gfx *creditsDrawBackgroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontch
 			f26 *= 10.0f;
 		}
 
-		colour3 = colourBlend(colour2, colour1, 63 * i);
+		colour3 = colour_blend(colour2, colour1, 63 * i);
 		colour3 |= (u32)((63.0f + ((4 - i) * 16)) * opacity);
 
 		if (colour3 & 0x000000ff) {
@@ -1017,7 +1017,7 @@ Gfx *creditsDrawBackgroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontch
 	return gdl;
 }
 
-Gfx *creditsDrawForegroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 transfrac, s32 hdir, s32 vdir, s32 stretchtype)
+Gfx *credits_draw_foreground_text(Gfx *gdl, s32 x, s32 y, char *text, struct fontchar *chars, struct font *font, f32 transfrac, s32 hdir, s32 vdir, s32 stretchtype)
 {
 	f32 widthscale;
 	f32 heightscale;
@@ -1064,7 +1064,7 @@ Gfx *creditsDrawForegroundText(Gfx *gdl, s32 x, s32 y, char *text, struct fontch
 	return gdl;
 }
 
-void creditsResetSlides(void)
+void credits_reset_slides(void)
 {
 	u8 pool[NUM_CORE_TEAM];
 	s32 i;
@@ -1282,7 +1282,7 @@ struct credit g_Credits[] = {
  * core team and are in a random order. The rest are in the same order as
  * defined in the g_Credits array.
  */
-struct credit *creditGetByRow(s32 row)
+struct credit *credit_get_by_row(s32 row)
 {
 	// If core team, use the mapping
 	if (g_CreditsData->creditnum > 0 && g_CreditsData->creditnum < ARRAYCOUNT(g_CreditsData->coreteammap)) {
@@ -1296,9 +1296,9 @@ struct credit *creditGetByRow(s32 row)
 	return &g_Credits[g_CreditsData->creditnum + row];
 }
 
-void creditsTickSlide(void)
+void credits_tick_slide(void)
 {
-	struct credit *credit = creditGetByRow(0);
+	struct credit *credit = credit_get_by_row(0);
 	s32 i;
 	f32 durations[] = {4, 8, 12, 16}; // in seconds
 	f32 loadat = durations[credit->durationindex] + 2.0f + 0.142f * (g_CreditsData->numthisslide * 2 - 1);
@@ -1319,7 +1319,7 @@ void creditsTickSlide(void)
 		g_CreditsData->numthisslide = 1;
 
 		do {
-			credit = creditGetByRow(g_CreditsData->numthisslide - 1);
+			credit = credit_get_by_row(g_CreditsData->numthisslide - 1);
 
 			if (credit->more) {
 				g_CreditsData->numthisslide++;
@@ -1337,8 +1337,8 @@ void creditsTickSlide(void)
 				g_CreditsData->blacktimer60 = 0;
 				g_CreditsData->unk4208 = 0;
 
-				musicEndMenu();
-				musicStartPrimary(0);
+				music_end_menu();
+				music_start_primary(0);
 			}
 		} while (credit && credit->more && g_CreditsData->numthisslide < 4);
 
@@ -1346,11 +1346,11 @@ void creditsTickSlide(void)
 			g_CreditsData->unk41a8[i] = random() % 3 | random() % 3 << 2 | random() % 16 << 4;
 		}
 
-		creditsCreatePendingBgLayers(0xffffffff);
+		credits_create_pending_bg_layers(0xffffffff);
 	}
 }
 
-Gfx *creditsDrawSlide(Gfx *gdl)
+Gfx *credits_draw_slide(Gfx *gdl)
 {
 	s32 i;
 	struct credit *credits[4];
@@ -1375,7 +1375,7 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 	// Iterate the credits on this slide and populate the arrays
 	for (i = 0; i < g_CreditsData->numthisslide; i++) {
 		index = i * 2;
-		credits[i] = creditGetByRow(i);
+		credits[i] = credit_get_by_row(i);
 
 		if (credits[i] == NULL) {
 			g_CreditsData->creditnum = 0;
@@ -1384,8 +1384,8 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 			return gdl;
 		}
 
-		texts[index + 0] = langGet(credits[i]->text1);
-		texts[index + 1] = langGet(credits[i]->text2);
+		texts[index + 0] = lang_get(credits[i]->text1);
+		texts[index + 1] = lang_get(credits[i]->text2);
 
 		// Choose first font
 		switch (credits[i]->style) {
@@ -1441,11 +1441,11 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 		prevstyle = credits[i]->style;
 
 #if VERSION >= VERSION_JPN_FINAL
-		textMeasure(&textheights[index + 0], &textwidths[index + 0], texts[index + 0], chars[index + 0], fonts[index + 0], -1);
-		textMeasure(&textheights[index + 1], &textwidths[index + 1], texts[index + 1], chars[index + 1], fonts[index + 1], -1);
+		text_measure(&textheights[index + 0], &textwidths[index + 0], texts[index + 0], chars[index + 0], fonts[index + 0], -1);
+		text_measure(&textheights[index + 1], &textwidths[index + 1], texts[index + 1], chars[index + 1], fonts[index + 1], -1);
 #else
-		textMeasure(&textheights[index + 0], &textwidths[index + 0], texts[index + 0], chars[index + 0], fonts[index + 0], 0);
-		textMeasure(&textheights[index + 1], &textwidths[index + 1], texts[index + 1], chars[index + 1], fonts[index + 1], 0);
+		text_measure(&textheights[index + 0], &textwidths[index + 0], texts[index + 0], chars[index + 0], fonts[index + 0], 0);
+		text_measure(&textheights[index + 1], &textwidths[index + 1], texts[index + 1], chars[index + 1], fonts[index + 1], 0);
 #endif
 
 		// Choose first position
@@ -1566,7 +1566,7 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 				speed = 1.0f;
 			}
 
-			gdl = creditsDrawBackgroundText(gdl, x[i], y[i] + extray, texts[i], chars[i], fonts[i], opacity, speed, spread);
+			gdl = credits_draw_background_text(gdl, x[i], y[i] + extray, texts[i], chars[i], fonts[i], opacity, speed, spread);
 		}
 	}
 
@@ -1658,7 +1658,7 @@ Gfx *creditsDrawSlide(Gfx *gdl)
 				}
 
 				extray = 120 - cury / 2;
-				gdl = creditsDrawForegroundText(gdl, x[i], y[i] + extray, texts[i], chars[i], fonts[i],
+				gdl = credits_draw_foreground_text(gdl, x[i], y[i] + extray, texts[i], chars[i], fonts[i],
 						transfrac, hdir, vdir, stretchtype);
 			}
 		}
@@ -1674,19 +1674,19 @@ void credits0f13ae04(Mtxf *mtx)
 	// empty
 }
 
-void creditsTick(void)
+void credits_tick(void)
 {
 	s32 i;
 	static bool flick = false;
 	static u32 type = 0xffff;
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (joyGetButtonsPressedThisFrame(0, L_TRIG)) {
-		creditsCreatePendingBgLayers(0xffffffff);
+	if (joy_get_buttons_pressed_this_frame(0, L_TRIG)) {
+		credits_create_pending_bg_layers(0xffffffff);
 	}
 #endif
 
-	mainOverrideVariable("for", &type);
+	main_override_variable("for", &type);
 
 	if (type < 0xffff) {
 		for (i = 0; i < ARRAYCOUNT(g_CreditsData->bglayers); i++) {
@@ -1694,20 +1694,20 @@ void creditsTick(void)
 		}
 	}
 
-	mainOverrideVariable("flick", &flick);
+	main_override_variable("flick", &flick);
 
 	if (flick) {
-		creditsCreatePendingBgLayers(0xffffffff);
+		credits_create_pending_bg_layers(0xffffffff);
 		flick = false;
 	}
 
 	if (g_CreditsCurFrame2 == 0) {
 		if (g_CreditsUsingAltTitle) {
-			musicSetStage(STAGE_CREDITS);
-			musicStartPrimary(0);
+			music_set_stage(STAGE_CREDITS);
+			music_start_primary(0);
 		} else {
-			musicSetStage(STAGE_CREDITS);
-			musicStartTrackAsMenu(MUSIC_CREDITS);
+			music_set_stage(STAGE_CREDITS);
+			music_start_track_as_menu(MUSIC_CREDITS);
 		}
 	}
 
@@ -1717,35 +1717,35 @@ void creditsTick(void)
 	g_CreditsCurFrame2 += g_Vars.diffframe240;
 	g_CreditsParticleRotationFrac = (g_CreditsCurFrame2 % TICKS(4800)) / TICKS(4800.0f);
 
-	creditsTickParticles();
+	credits_tick_particles();
 
 	if (g_CreditsData->slidesenabled) {
-		creditsTickSlide();
-	} else if (RANDOMFRAC() < 0.01f && !joyGetButtons(0, L_TRIG | R_TRIG)) {
-		creditsCreatePendingBgLayers(0xffffffff);
+		credits_tick_slide();
+	} else if (RANDOMFRAC() < 0.01f && !joy_get_buttons(0, L_TRIG | R_TRIG)) {
+		credits_create_pending_bg_layers(0xffffffff);
 	}
 
 	if (!g_CreditsData->slidesenabled && g_CreditsData->blacktimer60 < (PAL ? 1150 : 1360)) {
 		g_CreditsData->blacktimer60 += g_Vars.diffframe60;
 	}
 #else
-	if (joyGetButtons(0, R_TRIG) == 0) {
+	if (joy_get_buttons(0, R_TRIG) == 0) {
 		g_CreditsPrevFrame = g_CreditsCurFrame;
 		g_CreditsCurFrame += g_Vars.diffframe240;
 		g_CreditsCurFrame2 += g_Vars.diffframe240;
 	}
 
-	joyGetButtonsPressedThisFrame(0, Z_TRIG);
+	joy_get_buttons_pressed_this_frame(0, Z_TRIG);
 
 	g_CreditsParticleRotationFrac = (g_CreditsCurFrame2 % TICKS(4800)) / TICKS(4800.0f);
 
-	if (joyGetButtons(0, R_TRIG) == 0) {
-		creditsTickParticles();
+	if (joy_get_buttons(0, R_TRIG) == 0) {
+		credits_tick_particles();
 
 		if (g_CreditsData->slidesenabled) {
-			creditsTickSlide();
+			credits_tick_slide();
 		} else if (RANDOMFRAC() < 0.01f) {
-			creditsCreatePendingBgLayers(0xffffffff);
+			credits_create_pending_bg_layers(0xffffffff);
 		}
 
 		if (!g_CreditsData->slidesenabled && g_CreditsData->blacktimer60 < TICKS(1360)) {
@@ -1755,10 +1755,10 @@ void creditsTick(void)
 #endif
 }
 
-Gfx *creditsDraw(Gfx *gdl)
+Gfx *credits_draw(Gfx *gdl)
 {
 	Mtxf sp68;
-	Mtxf *matrix = gfxAllocateMatrix();
+	Mtxf *matrix = gfx_allocate_matrix();
 	struct coord sp58[1];
 	struct coord sp4c[1];
 
@@ -1772,13 +1772,13 @@ Gfx *creditsDraw(Gfx *gdl)
 
 	g_ScaleX = 1;
 
-	gdl = viPrepareZbuf(gdl);
+	gdl = vi_prepare_zbuf(gdl);
 	gdl = vi0000b1d0(gdl);
-	gdl = creditsFillFramebuffer(gdl, 0x000000ff);
+	gdl = credits_fill_framebuffer(gdl, 0x000000ff);
 
-	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 120, viGetWidth() * 4.0f, (viGetHeight() - 30) * 4.0f);
+	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 120, vi_get_width() * 4.0f, (vi_get_height() - 30) * 4.0f);
 
-	creditsTick();
+	credits_tick();
 
 	// blacktimer60 is set to 0 when slides are finished, then ticks up
 	// * 0 to 60 is fading to black
@@ -1796,7 +1796,7 @@ Gfx *creditsDraw(Gfx *gdl)
 				g_CreditsScrollStarted = true;
 				scrolltimer240 = 0;
 
-				menuUnsetModel(&g_CreditsData->menumodel);
+				menu_unset_model(&g_CreditsData->menumodel);
 			}
 
 			scrolltimer240 += g_Vars.diffframe240;
@@ -1820,16 +1820,16 @@ Gfx *creditsDraw(Gfx *gdl)
 			g_CreditsData->menumodel.drawbehinddialog = true;
 			g_CreditsData->menumodel.partvisibility = NULL;
 
-			gdl = menuRenderModel(gdl, &g_CreditsData->menumodel, MENUMODELTYPE_CREDITSLOGO);
+			gdl = menu_render_model(gdl, &g_CreditsData->menumodel, MENUMODELTYPE_CREDITSLOGO);
 
 			gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-			gdl = creditsFillFramebuffer(gdl, 0x000000d8);
+			gdl = credits_fill_framebuffer(gdl, 0x000000d8);
 		}
 
-		mtx4LoadIdentity(&sp68);
-		mtxF2L(&sp68, matrix);
-		camSetWorldToScreenMtxf(&sp68);
+		mtx4_load_identity(&sp68);
+		mtx_f2l(&sp68, matrix);
+		cam_set_world_to_screen_mtxf(&sp68);
 
 		gSPMatrix(gdl++, osVirtualToPhysical(matrix), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -1841,11 +1841,11 @@ Gfx *creditsDraw(Gfx *gdl)
 		sp4c[0].y = 0;
 		sp4c[0].z = -100;
 
-		gdl = creditsDrawBackground(gdl);
-		gdl = creditsDrawParticles(gdl);
+		gdl = credits_draw_background(gdl);
+		gdl = credits_draw_particles(gdl);
 
 		if (g_CreditsData->slidesenabled) {
-			gdl = creditsDrawSlide(func0f0d479c(gdl));
+			gdl = credits_draw_slide(func0f0d479c(gdl));
 		}
 
 		if (!g_CreditsData->slidesenabled) {
@@ -1862,29 +1862,29 @@ Gfx *creditsDraw(Gfx *gdl)
 			}
 
 			if (alpha) {
-				gdl = creditsFillFramebuffer(gdl, alpha);
+				gdl = credits_fill_framebuffer(gdl, alpha);
 			}
 		}
 	}
 
 	// Exit the alternative title if a button is pressed (other than L or R)
 #if VERSION >= VERSION_NTSC_1_0
-	if (g_CreditsUsingAltTitle && joyGetButtonsPressedThisFrame(0, 0xffcf))
+	if (g_CreditsUsingAltTitle && joy_get_buttons_pressed_this_frame(0, 0xffcf))
 #else
-	if (g_CreditsUsingAltTitle && joyGetButtons(0, 0xffff))
+	if (g_CreditsUsingAltTitle && joy_get_buttons(0, 0xffff))
 #endif
 	{
 		g_TitleNextStage = STAGE_CITRAINING;
 
-		setNumPlayers(1);
-		mainChangeToStage(g_TitleNextStage);
+		set_num_players(1);
+		main_change_to_stage(g_TitleNextStage);
 
 		g_Vars.bondplayernum = 0;
 		g_Vars.coopplayernum = -1;
 		g_Vars.antiplayernum = -1;
 
-		lvSetDifficulty(DIFF_A);
-		viBlack(true);
+		lv_set_difficulty(DIFF_A);
+		vi_black(true);
 	}
 
 	return gdl;
@@ -1893,33 +1893,33 @@ Gfx *creditsDraw(Gfx *gdl)
 /**
  * Initialise the credits structures and variables.
  */
-void creditsReset(void)
+void credits_reset(void)
 {
 	g_CreditsCurFrame = 0;
 	g_CreditsCurFrame2 = 0;
 	g_CreditsScrollStarted = false;
 
-	g_CreditsData = mempAlloc(sizeof(struct creditsdata), MEMPOOL_STAGE);
+	g_CreditsData = memp_alloc(sizeof(struct creditsdata), MEMPOOL_STAGE);
 
 	g_CreditsData->unk2eec = 0;
 	g_CreditsData->unk41b0[0] = 0;
 	g_CreditsData->unk41b0[1] = 0;
 
-	creditsCreatePendingBgLayers(0xffffffff);
+	credits_create_pending_bg_layers(0xffffffff);
 
 	// Move layers 2 and 3 to 0 and 1
-	creditsCopyBackgroundLayer(2, 0, true);
-	creditsCopyBackgroundLayer(3, 1, true);
+	credits_copy_background_layer(2, 0, true);
+	credits_copy_background_layer(3, 1, true);
 
 	g_CreditsData->slidesenabled = true;
 
-	creditsResetParticles();
-	creditsResetSlides();
-	menuResetModel(&g_CreditsData->menumodel, 0x25800, true);
+	credits_reset_particles();
+	credits_reset_slides();
+	menu_reset_model(&g_CreditsData->menumodel, 0x25800, true);
 
 	g_CreditsData->menumodel.removingpiece = false;
 
-	menuConfigureModel(&g_CreditsData->menumodel, 0, 0, 0, 0, 0, 0, 1, MENUMODELFLAG_HASSCALE | MENUMODELFLAG_HASROTATION);
+	menu_configure_model(&g_CreditsData->menumodel, 0, 0, 0, 0, 0, 0, 1, MENUMODELFLAG_HASSCALE | MENUMODELFLAG_HASROTATION);
 
 	g_CreditsData->menumodel.newposy = 90;
 	g_CreditsData->menumodel.curposx = 8.2;
@@ -1937,14 +1937,14 @@ void creditsReset(void)
 		g_CreditsData->blacktimer60 = TICKS(1140);
 	}
 
-	playerConfigureVi();
+	player_configure_vi();
 }
 
 /**
  * Instruct the credits system to display the alternative title
  * instead of the regular credits.
  */
-void creditsRequestAltTitle(void)
+void credits_request_alt_title(void)
 {
 	g_CreditsAltTitleRequested = true;
 }

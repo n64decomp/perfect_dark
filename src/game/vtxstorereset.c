@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-void vtxstoreReset(void)
+void vtxstore_reset(void)
 {
 	s32 i;
 	s32 j;
@@ -25,7 +25,7 @@ void vtxstoreReset(void)
 		}
 
 		if (num > 0) {
-			g_VtxstoreTypes[i].unk24 = mempAlloc(num * sizeof(struct var8007e3d0_data), MEMPOOL_STAGE);
+			g_VtxstoreTypes[i].unk24 = memp_alloc(num * sizeof(struct var8007e3d0_data), MEMPOOL_STAGE);
 		}
 
 		for (j = 0; j < num; j++) {

@@ -4,9 +4,9 @@
 #include "data.h"
 #include "types.h"
 
-Gfx *creditsDraw(Gfx *gdl);
-void creditsReset(void);
-void creditsRequestAltTitle(void);
+Gfx *credits_draw(Gfx *gdl);
+void credits_reset(void);
+void credits_request_alt_title(void);
 void credits0f13ae04(Mtxf *mtx);
 
 #endif

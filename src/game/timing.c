@@ -5,13 +5,13 @@
 #include "data.h"
 #include "types.h"
 
-void frametimeInit(void)
+void frametime_init(void)
 {
 	g_Vars.thisframestartt = osGetCount();
 	g_Vars.prevframestartt = g_Vars.thisframestartt;
 }
 
-void frametimeApply(s32 diffframe60, s32 diffframe240, s32 frametime)
+void frametime_apply(s32 diffframe60, s32 diffframe240, s32 frametime)
 {
 	g_Vars.prevframestartt = g_Vars.thisframestartt;
 	g_Vars.thisframestartt = frametime;
@@ -27,7 +27,7 @@ void frametimeApply(s32 diffframe60, s32 diffframe240, s32 frametime)
 	g_Vars.diffframe240freal = PALUPF(g_Vars.diffframe240f);
 }
 
-void frametimeCalculate(void)
+void frametime_calculate(void)
 {
 	u32 count;
 	u32 diffframet;
@@ -48,7 +48,7 @@ void frametimeCalculate(void)
 
 	g_Vars.mininc60 = 1;
 
-	frametimeApply(diffframe60, diffframe240, count);
+	frametime_apply(diffframe60, diffframe240, count);
 }
 
 void func0f16cf8c(s32 arg0)

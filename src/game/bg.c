@@ -130,7 +130,7 @@ s32 g_BgNumRoomLoadCandidates = 0;
 u16 g_BgFrameCount = 0xfffe;
 s32 g_BgNumPortalCameraCacheItems = 0;
 
-void bgUnpausePropsInRoom(u32 roomnum, bool tintedglassonly)
+void bg_unpause_props_in_room(u32 roomnum, bool tintedglassonly)
 {
 	struct prop *prop;
 	struct defaultobj *obj;
@@ -141,7 +141,7 @@ void bgUnpausePropsInRoom(u32 roomnum, bool tintedglassonly)
 	rooms[0] = roomnum;
 	rooms[1] = -1;
 
-	roomGetProps(rooms, propnums, 256);
+	room_get_props(rooms, propnums, 256);
 
 	propnumptr = propnums;
 
@@ -158,10 +158,10 @@ void bgUnpausePropsInRoom(u32 roomnum, bool tintedglassonly)
 				obj = prop->obj;
 
 				if (obj->type == OBJTYPE_TINTEDGLASS) {
-					propUnpause(prop);
+					prop_unpause(prop);
 				}
 			} else {
-				propUnpause(prop);
+				prop_unpause(prop);
 			}
 		}
 
@@ -169,7 +169,7 @@ void bgUnpausePropsInRoom(u32 roomnum, bool tintedglassonly)
 	}
 }
 
-void bgSetRoomOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
+void bg_set_room_onscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 {
 	s32 index;
 
@@ -204,7 +204,7 @@ void bgSetRoomOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 				}
 			}
 
-			bgExpandBox(&g_BgDrawSlots[index].box, box);
+			bg_expand_box(&g_BgDrawSlots[index].box, box);
 		} else {
 			index = g_BgNumDrawSlots;
 
@@ -237,11 +237,11 @@ void bgSetRoomOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 				g_BgNumDrawSlots = g_BgNumAttemptedDrawSlots;
 			}
 
-			bgUnpausePropsInRoom(roomnum, false);
+			bg_unpause_props_in_room(roomnum, false);
 
 			if (g_Rooms[roomnum].loaded240 == 0 && var8007fc10 > 0) {
 				var8007fc10--;
-				bgLoadRoom(roomnum);
+				bg_load_room(roomnum);
 			} else if (g_Rooms[roomnum].loaded240 == 0) {
 				var8007fc10--;
 			}
@@ -249,13 +249,13 @@ void bgSetRoomOnscreen(s32 roomnum, s32 draworder, struct screenbox *box)
 	}
 }
 
-void bgGetRoomBrightnessRange(s32 roomnum, u8 *min, u8 *max)
+void bg_get_room_brightness_range(s32 roomnum, u8 *min, u8 *max)
 {
 	*min = g_BgRooms[roomnum].br_light_min;
 	*max = g_BgRooms[roomnum].br_light_max;
 }
 
-struct drawslot *bgGetRoomDrawSlot(s32 roomnum)
+struct drawslot *bg_get_room_draw_slot(s32 roomnum)
 {
 	s32 index = 60;
 
@@ -266,7 +266,7 @@ struct drawslot *bgGetRoomDrawSlot(s32 roomnum)
 	return &g_BgDrawSlots[index];
 }
 
-Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata)
+Gfx *bg_render_xray_data(Gfx *gdl, struct xraydata *xraydata)
 {
 	Vtx *vertices;
 	Col *colours;
@@ -275,8 +275,8 @@ Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata)
 	s32 count;
 
 	if (xraydata->numtris > 0) {
-		vertices = gfxAllocateVertices(xraydata->numvertices);
-		colours = gfxAllocateColours(xraydata->numvertices);
+		vertices = gfx_allocate_vertices(xraydata->numvertices);
+		colours = gfx_allocate_colours(xraydata->numvertices);
 
 		for (i = 0; i < xraydata->numvertices; i++) {
 			vertices[i].x = xraydata->vertices[i][0];
@@ -322,14 +322,14 @@ Gfx *bgRenderXrayData(Gfx *gdl, struct xraydata *xraydata)
 	return gdl;
 }
 
-Gfx *bgAddXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 vertices2[3], s16 vertices3[3], u32 colour1, u32 colour2, u32 colour3)
+Gfx *bg_add_xray_tri(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 vertices2[3], s16 vertices3[3], u32 colour1, u32 colour2, u32 colour3)
 {
 	s16 sp30[3] = {-1, -1, -1};
 	s32 count = 0;
 	s16 i;
 
 	if (xraydata->numtris >= 64) {
-		gdl = bgRenderXrayData(gdl, xraydata);
+		gdl = bg_render_xray_data(gdl, xraydata);
 	}
 
 	for (i = 0; i < xraydata->numvertices && sp30[0] == -1; i++) {
@@ -361,7 +361,7 @@ Gfx *bgAddXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 ver
 
 	if (count < 3) {
 		if (xraydata->numvertices - count + 3 > 16) {
-			gdl = bgRenderXrayData(gdl, xraydata);
+			gdl = bg_render_xray_data(gdl, xraydata);
 
 			xraydata->vertices[0][0] = vertices1[0];
 			xraydata->vertices[0][1] = vertices1[1];
@@ -427,7 +427,7 @@ Gfx *bgAddXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 vertices1[3], s16 ver
 	return gdl;
 }
 
-void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xraydata *xraydata)
+void bg_choose_xray_vtx_colour(bool *inrange, s16 vertex[3], u32 *colour, struct xraydata *xraydata)
 {
 	f32 sp2c[3];
 	f32 f12;
@@ -496,7 +496,7 @@ void bgChooseXrayVtxColour(bool *inrange, s16 vertex[3], u32 *colour, struct xra
 	}
 }
 
-Gfx *bgProcessXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3], s16 arg4[3], s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
+Gfx *bg_process_xray_tri(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3[3], s16 arg4[3], s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
 {
 	s32 spa4[3];
 	s16 sp9c[3] = {0, 0, 0};
@@ -523,7 +523,7 @@ Gfx *bgProcessXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3
 			sp64++;
 			sp68 = 0;
 
-			bgChooseXrayVtxColour(&inrange[0], sp84[0], &colours[0], xraydata);
+			bg_choose_xray_vtx_colour(&inrange[0], sp84[0], &colours[0], xraydata);
 		}
 
 		spa4[0] = arg4[0] - arg3[0];
@@ -541,7 +541,7 @@ Gfx *bgProcessXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3
 			sp64++;
 			sp68 = 1;
 
-			bgChooseXrayVtxColour(&inrange[1], sp84[1], &colours[1], xraydata);
+			bg_choose_xray_vtx_colour(&inrange[1], sp84[1], &colours[1], xraydata);
 		}
 
 		spa4[0] = arg2[0] - arg4[0];
@@ -559,13 +559,13 @@ Gfx *bgProcessXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3
 			sp64++;
 			sp68 = 2;
 
-			bgChooseXrayVtxColour(&inrange[2], sp84[2], &colours[2], xraydata);
+			bg_choose_xray_vtx_colour(&inrange[2], sp84[2], &colours[2], xraydata);
 		}
 	}
 
 	if (sp64 == 0) {
 		if (arg8 || arg9 || arg10) {
-			return bgAddXrayTri(gdl, xraydata, arg2, arg3, arg4, arg5, arg6, arg7);
+			return bg_add_xray_tri(gdl, xraydata, arg2, arg3, arg4, arg5, arg6, arg7);
 		}
 	} else {
 		bool render;
@@ -618,14 +618,14 @@ Gfx *bgProcessXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3
 		if (render) {
 			if (sp64 == 1) {
 				if (sp68 == 0) {
-					gdl = bgProcessXrayTri(gdl, xraydata, arg2, sp84[0], arg4, arg5, colours[0], arg7, arg8, inrange[0], arg10);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg4, sp84[0], arg3, arg7, colours[0], arg6, arg10, inrange[0], arg9);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg2, sp84[0], arg4, arg5, colours[0], arg7, arg8, inrange[0], arg10);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg4, sp84[0], arg3, arg7, colours[0], arg6, arg10, inrange[0], arg9);
 				} else if (sp68 == 1) {
-					gdl = bgProcessXrayTri(gdl, xraydata, arg3, sp84[1], arg2, arg6, colours[1], arg5, arg9, inrange[1], arg8);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg2, sp84[1], arg4, arg5, colours[1], arg7, arg8, inrange[1], arg10);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg3, sp84[1], arg2, arg6, colours[1], arg5, arg9, inrange[1], arg8);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg2, sp84[1], arg4, arg5, colours[1], arg7, arg8, inrange[1], arg10);
 				} else if (sp68 == 2) {
-					gdl = bgProcessXrayTri(gdl, xraydata, arg4, sp84[2], arg3, arg7, colours[2], arg6, arg10, inrange[2], arg9);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg3, sp84[2], arg2, arg6, colours[2], arg5, arg9, inrange[2], arg8);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg4, sp84[2], arg3, arg7, colours[2], arg6, arg10, inrange[2], arg9);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg3, sp84[2], arg2, arg6, colours[2], arg5, arg9, inrange[2], arg8);
 				}
 			} else if (sp64 == 2) {
 				s32 v0 = 0;
@@ -639,23 +639,23 @@ Gfx *bgProcessXrayTri(Gfx *gdl, struct xraydata *xraydata, s16 arg2[3], s16 arg3
 				}
 
 				if (v0 == 0) {
-					gdl = bgProcessXrayTri(gdl, xraydata, arg4, sp84[2], sp84[1], arg7, colours[2], colours[1], arg10, inrange[2], inrange[1]);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg3, sp84[1], sp84[2], arg6, colours[1], colours[2], arg9, inrange[1], inrange[2]);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg2, arg3, sp84[2], arg5, arg6, colours[2], arg8, arg9, inrange[2]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg4, sp84[2], sp84[1], arg7, colours[2], colours[1], arg10, inrange[2], inrange[1]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg3, sp84[1], sp84[2], arg6, colours[1], colours[2], arg9, inrange[1], inrange[2]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg2, arg3, sp84[2], arg5, arg6, colours[2], arg8, arg9, inrange[2]);
 				} else if (v0 == 1) {
-					gdl = bgProcessXrayTri(gdl, xraydata, arg2, sp84[0], sp84[2], arg5, colours[0], colours[2], arg8, inrange[0], inrange[2]);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg4, sp84[2], sp84[0], arg7, colours[2], colours[0], arg10, inrange[2], inrange[0]);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg3, arg4, sp84[0], arg6, arg7, colours[0], arg9, arg10, inrange[0]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg2, sp84[0], sp84[2], arg5, colours[0], colours[2], arg8, inrange[0], inrange[2]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg4, sp84[2], sp84[0], arg7, colours[2], colours[0], arg10, inrange[2], inrange[0]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg3, arg4, sp84[0], arg6, arg7, colours[0], arg9, arg10, inrange[0]);
 				} else {
-					gdl = bgProcessXrayTri(gdl, xraydata, arg3, sp84[1], sp84[0], arg6, colours[1], colours[0], arg9, inrange[1], inrange[0]);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg2, sp84[0], sp84[1], arg5, colours[0], colours[1], arg8, inrange[0], inrange[1]);
-					gdl = bgProcessXrayTri(gdl, xraydata, arg4, arg2, sp84[1], arg7, arg5, colours[1], arg10, arg8, inrange[1]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg3, sp84[1], sp84[0], arg6, colours[1], colours[0], arg9, inrange[1], inrange[0]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg2, sp84[0], sp84[1], arg5, colours[0], colours[1], arg8, inrange[0], inrange[1]);
+					gdl = bg_process_xray_tri(gdl, xraydata, arg4, arg2, sp84[1], arg7, arg5, colours[1], arg10, arg8, inrange[1]);
 				}
 			} else if (sp64 == 3) {
-				gdl = bgProcessXrayTri(gdl, xraydata, arg2, sp84[0], sp84[2], arg5, colours[0], colours[2], arg8, inrange[0], inrange[2]);
-				gdl = bgProcessXrayTri(gdl, xraydata, arg3, sp84[1], sp84[0], arg6, colours[1], colours[0], arg9, inrange[1], inrange[0]);
-				gdl = bgProcessXrayTri(gdl, xraydata, arg4, sp84[2], sp84[1], arg7, colours[2], colours[1], arg10, inrange[2], inrange[1]);
-				gdl = bgProcessXrayTri(gdl, xraydata, sp84[0], sp84[1], sp84[2], colours[0], colours[1], colours[2], inrange[0], inrange[1], inrange[2]);
+				gdl = bg_process_xray_tri(gdl, xraydata, arg2, sp84[0], sp84[2], arg5, colours[0], colours[2], arg8, inrange[0], inrange[2]);
+				gdl = bg_process_xray_tri(gdl, xraydata, arg3, sp84[1], sp84[0], arg6, colours[1], colours[0], arg9, inrange[1], inrange[0]);
+				gdl = bg_process_xray_tri(gdl, xraydata, arg4, sp84[2], sp84[1], arg7, colours[2], colours[1], arg10, inrange[2], inrange[1]);
+				gdl = bg_process_xray_tri(gdl, xraydata, sp84[0], sp84[1], sp84[2], colours[0], colours[1], colours[2], inrange[0], inrange[1], inrange[2]);
 			}
 		}
 	}
@@ -668,12 +668,12 @@ bool g_BgCmdStack[20] = {0};
 s32 g_BgCmdStackIndex = 0;
 u32 g_BgCmdResult = BGRESULT_TRUE;
 
-Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
+Gfx *bg_render_gdl_in_xray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 {
 	s32 i;
 	u8 *verticesu8 = (u8 *) vertices;
 	struct xraydata xraydata;
-	struct stagetableentry *stage = stageGetCurrent();
+	struct stagetableentry *stage = stage_get_current();
 	s16 dmemvertices[16][3];
 	u32 dmemcolours[16];
 	bool inrange[16];
@@ -716,7 +716,7 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 				dmemvertices[dmemindex + i][1] = vtx->y;
 				dmemvertices[dmemindex + i][2] = vtx->z;
 
-				bgChooseXrayVtxColour(&inrange[i], dmemvertices[dmemindex + i], &dmemcolours[dmemindex + i], &xraydata);
+				bg_choose_xray_vtx_colour(&inrange[i], dmemvertices[dmemindex + i], &dmemcolours[dmemindex + i], &xraydata);
 
 				offset += sizeof(Vtx);
 			}
@@ -726,7 +726,7 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 			s16 y = cmd->tri.tri.v[1] / 10;
 			s16 z = cmd->tri.tri.v[2] / 10;
 
-			gdl = bgProcessXrayTri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
+			gdl = bg_process_xray_tri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
 		} else if (readgdl[0] == G_TRI4) {
 			Gfx *cmd = (Gfx *) readgdl;
 			s16 x;
@@ -737,36 +737,36 @@ Gfx *bgRenderGdlInXray(Gfx *gdl, s8 *readgdl, Vtx *vertices, s16 arg3[3])
 			y = cmd->tri4.y1;
 			z = cmd->tri4.z1;
 
-			gdl = bgProcessXrayTri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
+			gdl = bg_process_xray_tri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
 
 			x = cmd->tri4.x2;
 			y = cmd->tri4.y2;
 			z = cmd->tri4.z2;
 
-			gdl = bgProcessXrayTri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
+			gdl = bg_process_xray_tri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
 
 			x = cmd->tri4.x3;
 			y = cmd->tri4.y3;
 			z = cmd->tri4.z3;
 
-			gdl = bgProcessXrayTri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
+			gdl = bg_process_xray_tri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
 
 			x = cmd->tri4.x4;
 			y = cmd->tri4.y4;
 			z = cmd->tri4.z4;
 
-			gdl = bgProcessXrayTri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
+			gdl = bg_process_xray_tri(gdl, &xraydata, dmemvertices[x], dmemvertices[y], dmemvertices[z], dmemcolours[x], dmemcolours[y], dmemcolours[z], inrange[x], inrange[y], inrange[z]);
 		}
 
 		readgdl += 8;
 	}
 
-	gdl = bgRenderXrayData(gdl, &xraydata);
+	gdl = bg_render_xray_data(gdl, &xraydata);
 
 	return gdl;
 }
 
-Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool recurse, s16 arg4[3])
+Gfx *bg_render_room_xray_pass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool recurse, s16 arg4[3])
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -776,10 +776,10 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool r
 
 	switch (block->type) {
 	case ROOMBLOCKTYPE_LEAF:
-		gdl = bgRenderGdlInXray(gdl, (s8 *) block->gdl, block->vertices, arg4);
+		gdl = bg_render_gdl_in_xray(gdl, (s8 *) block->gdl, block->vertices, arg4);
 
 		if (recurse) {
-			gdl = bgRenderRoomXrayPass(gdl, roomnum, block->next, true, arg4);
+			gdl = bg_render_room_xray_pass(gdl, roomnum, block->next, true, arg4);
 		}
 		break;
 	case ROOMBLOCKTYPE_PARENT:
@@ -802,15 +802,15 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool r
 			sum = sp34.f[0] * sp28.f[0] + sp34.f[1] * sp28.f[1] + sp34.f[2] * sp28.f[2];
 
 			if (sum < 0.0f) {
-				gdl = bgRenderRoomXrayPass(gdl, roomnum, child1, false, arg4);
-				gdl = bgRenderRoomXrayPass(gdl, roomnum, child2, false, arg4);
+				gdl = bg_render_room_xray_pass(gdl, roomnum, child1, false, arg4);
+				gdl = bg_render_room_xray_pass(gdl, roomnum, child2, false, arg4);
 			} else {
-				gdl = bgRenderRoomXrayPass(gdl, roomnum, child2, false, arg4);
-				gdl = bgRenderRoomXrayPass(gdl, roomnum, child1, false, arg4);
+				gdl = bg_render_room_xray_pass(gdl, roomnum, child2, false, arg4);
+				gdl = bg_render_room_xray_pass(gdl, roomnum, child1, false, arg4);
 			}
 
 			if (recurse) {
-				gdl = bgRenderRoomXrayPass(gdl, roomnum, block->next, true, arg4);
+				gdl = bg_render_room_xray_pass(gdl, roomnum, block->next, true, arg4);
 			}
 		}
 		break;
@@ -822,7 +822,7 @@ Gfx *bgRenderRoomXrayPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool r
 /**
  * Render the given room for the purpose of the FarSight or xray scanner.
  */
-Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
+Gfx *bg_render_room_in_xray(Gfx *gdl, s32 roomnum)
 {
 	struct coord sp54;
 	struct coord globaldrawworldoffset;
@@ -836,7 +836,7 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 	if (g_Rooms[roomnum].loaded240 == 0) {
 		if (var8007fc10 > 0) {
 			var8007fc10--;
-			bgLoadRoom(roomnum);
+			bg_load_room(roomnum);
 		}
 	}
 
@@ -848,7 +848,7 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 		return gdl;
 	}
 
-	roomGetPos(roomnum, &globaldrawworldoffset);
+	room_get_pos(roomnum, &globaldrawworldoffset);
 
 	sp54.x = player->eraserpos.x - globaldrawworldoffset.x;
 	sp54.y = player->eraserpos.y - globaldrawworldoffset.y;
@@ -858,16 +858,16 @@ Gfx *bgRenderRoomInXray(Gfx *gdl, s32 roomnum)
 	sp40[1] = sp54.f[1];
 	sp40[2] = sp54.f[2];
 
-	gdl = roomApplyMtx(gdl, roomnum);
-	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true, sp40);
-	gdl = bgRenderRoomXrayPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true, sp40);
+	gdl = room_apply_mtx(gdl, roomnum);
+	gdl = bg_render_room_xray_pass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true, sp40);
+	gdl = bg_render_room_xray_pass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true, sp40);
 
 	g_Rooms[roomnum].loaded240 = 1;
 
 	return gdl;
 }
 
-Gfx *bgRenderSceneInXray(Gfx *gdl)
+Gfx *bg_render_scene_in_xray(Gfx *gdl)
 {
 	RoomNum *roomnumptr;
 	RoomNum *room;
@@ -900,7 +900,7 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 		roomnumptr++;
 	}
 
-	gdl = envStopFog(gdl);
+	gdl = env_stop_fog(gdl);
 
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gSPSetGeometryMode(gdl++, G_SHADE | G_SHADING_SMOOTH);
@@ -908,29 +908,29 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
+	tex_select(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 
 	// Render BG
-	gdl = bgScissorToViewport(gdl);
+	gdl = bg_scissor_to_viewport(gdl);
 
 	for (i = g_BgMinDrawOrder; i <= g_BgMaxDrawOrder; i++) {
 		for (j = 0; j < g_BgNumDrawSlots; j++) {
 			struct drawslot *thing = &g_BgDrawSlots[j];
 
 			if (thing->draworder == i) {
-				gdl = bgRenderRoomInXray(gdl, thing->roomnum);
+				gdl = bg_render_room_in_xray(gdl, thing->roomnum);
 			}
 		}
 	}
 
 	// Render props
-	gdl = bgScissorToViewport(gdl);
+	gdl = bg_scissor_to_viewport(gdl);
 
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	if (g_BgMinDrawOrder); \
 	if (g_BgNumDrawSlots); \
@@ -939,18 +939,18 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 			struct drawslot *thing = &g_BgDrawSlots[k];
 
 			if (thing->draworder == i) {
-				gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+				gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-				gdl = bgScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
+				gdl = bg_scissor_within_viewport_f(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
 
-				gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+				gSPMatrix(gdl++, osVirtualToPhysical(cam_get_perspective_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-				if (debugIsPropRenderingEnabled() && getVar80084040()) {
+				if (debug_is_prop_rendering_enabled() && get_var80084040()) {
 					if (thing->roomnum == -1) {
-						gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
+						gdl = props_render(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
 					}
 
-					gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
+					gdl = props_render(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
 				}
 
 				if (1);
@@ -958,12 +958,12 @@ Gfx *bgRenderSceneInXray(Gfx *gdl)
 		}
 	}
 
-	gdl = skyRenderSuns(gdl, true);
+	gdl = sky_render_suns(gdl, true);
 
 	return gdl;
 }
 
-Gfx *bgRenderScene(Gfx *gdl)
+Gfx *bg_render_scene(Gfx *gdl)
 {
 	s32 stagenum = g_Vars.stagenum;
 	s32 firstroomnum = -1;
@@ -982,7 +982,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 	g_NumRoomsWithGlares = 0;
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-		gdl = bgRenderSceneInXray(gdl);
+		gdl = bg_render_scene_in_xray(gdl);
 		return gdl;
 	}
 
@@ -1014,7 +1014,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 		} while (i);
 	}
 
-	gdl = bgScissorToViewport(gdl);
+	gdl = bg_scissor_to_viewport(gdl);
 
 	// Render special "always on" rooms, such as the Defection moon,
 	// Attack Ship planet, and other sky tricks that are implemented as rooms
@@ -1030,7 +1030,7 @@ Gfx *bgRenderScene(Gfx *gdl)
 				|| stagenum == g_Stages[STAGEINDEX_MBR].id
 				|| stagenum == g_Stages[STAGEINDEX_TEST_OLD].id
 				|| stagenum == g_Stages[STAGEINDEX_ATTACKSHIP].id)) {
-		gdl = envStopFog(gdl);
+		gdl = env_stop_fog(gdl);
 		gdl = vi0000ab78(gdl);
 
 		roomnum = -1;
@@ -1062,27 +1062,27 @@ Gfx *bgRenderScene(Gfx *gdl)
 					|| stagenum == STAGE_ATTACKSHIP)) {
 			gdl = text0f153628(gdl);
 
-			gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+			gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-			gdl = playerLoadMatrix(gdl);
-			gdl = envStopFog(gdl);
-			gdl = starsRender(gdl);
+			gdl = player_load_matrix(gdl);
+			gdl = env_stop_fog(gdl);
+			gdl = stars_render(gdl);
 			gdl = text0f153780(gdl);
 			gdl = vi0000ab78(gdl);
 		}
 
 		if (roomnum != -1) {
 			if (!g_Rooms[roomnum].loaded240) {
-				bgLoadRoom(roomnum);
+				bg_load_room(roomnum);
 			}
 
-			gdl = bgRenderRoomOpaque(gdl, roomnum);
+			gdl = bg_render_room_opaque(gdl, roomnum);
 		}
 
-		gSPPerspNormalize(gdl++, viGetPerspScale());
+		gSPPerspNormalize(gdl++, vi_get_persp_scale());
 	}
 
-	gdl = skyRenderSuns(gdl, false);
+	gdl = sky_render_suns(gdl, false);
 
 	// Build an array of room numbers per onscreen prop.
 	// For each onscreen prop there is exactly one entry in the roomnumsbyprop array.
@@ -1121,53 +1121,53 @@ Gfx *bgRenderScene(Gfx *gdl)
 		thing = &g_BgDrawSlots[roomnum];
 
 		// Render prop opaque components - pre BG pass
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-		gdl = envStopFog(gdl);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_perspective_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gdl = env_stop_fog(gdl);
 
-		if (debugIsPropRenderingEnabled() && getVar80084040()) {
+		if (debug_is_prop_rendering_enabled() && get_var80084040()) {
 			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_OPA_PREBG, roomnumsbyprop);
+				gdl = props_render(gdl, 0, RENDERPASS_OPA_PREBG, roomnumsbyprop);
 			}
 
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_PREBG, roomnumsbyprop);
+			gdl = props_render(gdl, thing->roomnum, RENDERPASS_OPA_PREBG, roomnumsbyprop);
 		}
 
 		// Render BG opaque components
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = bgScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
-		gdl = envStartFog(gdl, false);
+		gdl = bg_scissor_within_viewport_f(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
+		gdl = env_start_fog(gdl, false);
 
-		if (debugIsBgRenderingEnabled() && getVar80084040()) {
+		if (debug_is_bg_rendering_enabled() && get_var80084040()) {
 			if (g_StageIndex != STAGEINDEX_TEST_OLD) {
-				gdl = bgRenderRoomOpaque(gdl, thing->roomnum);
+				gdl = bg_render_room_opaque(gdl, thing->roomnum);
 			}
 		}
 
 		// Render prop opaque components - post BG pass
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_perspective_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = envStopFog(gdl);
+		gdl = env_stop_fog(gdl);
 
-		if (debugIsPropRenderingEnabled() && getVar80084040()) {
+		if (debug_is_prop_rendering_enabled() && get_var80084040()) {
 			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
+				gdl = props_render(gdl, 0, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
 			}
 
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
+			gdl = props_render(gdl, thing->roomnum, RENDERPASS_OPA_POSTBG, roomnumsbyprop);
 		}
 	}
 
-	gdl = envStopFog(gdl);
-	gdl = bgScissorToViewport(gdl);
+	gdl = env_stop_fog(gdl);
+	gdl = bg_scissor_to_viewport(gdl);
 
 	// Render wall hits
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-	if (getVar80084040() && g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
+	if (get_var80084040() && g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 		for (i = 0; i < g_BgNumDrawSlots; i++) {
 			roomnum = roomnums[i];
-			gdl = wallhitRenderBgHits(g_BgDrawSlots[roomnum].roomnum, gdl);
+			gdl = wallhit_render_bg_hits(g_BgDrawSlots[roomnum].roomnum, gdl);
 		}
 	}
 
@@ -1176,33 +1176,33 @@ Gfx *bgRenderScene(Gfx *gdl)
 	for (i = g_BgNumDrawSlots - 1; i >= 0; i--) {
 		roomnum = roomnums[i];
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		thing = &g_BgDrawSlots[roomnum];
 
 		// Render BG translucent components
-		gdl = bgScissorWithinViewportF(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
-		gdl = envStartFog(gdl, true);
+		gdl = bg_scissor_within_viewport_f(gdl, thing->box.xmin, thing->box.ymin, thing->box.xmax, thing->box.ymax);
+		gdl = env_start_fog(gdl, true);
 
-		if (debugIsBgRenderingEnabled() && getVar80084040()) {
-			gdl = bgRenderRoomXlu(gdl, thing->roomnum);
+		if (debug_is_bg_rendering_enabled() && get_var80084040()) {
+			gdl = bg_render_room_xlu(gdl, thing->roomnum);
 		}
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_perspective_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = envStopFog(gdl);
+		gdl = env_stop_fog(gdl);
 
 		// Render prop translucent components
-		if (debugIsPropRenderingEnabled() && getVar80084040()) {
+		if (debug_is_prop_rendering_enabled() && get_var80084040()) {
 			if (firstroomnum == thing->roomnum) {
-				gdl = propsRender(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
+				gdl = props_render(gdl, 0, RENDERPASS_XLU, roomnumsbyprop);
 			}
 
-			gdl = propsRender(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
+			gdl = props_render(gdl, thing->roomnum, RENDERPASS_XLU, roomnumsbyprop);
 		}
 
 		if (!g_Vars.mplayerisrunning) {
-			artifactsCalculateGlaresForRoom(thing->roomnum);
+			artifacts_calculate_glares_for_room(thing->roomnum);
 
 			if (g_NumRoomsWithGlares < 100) {
 				g_GlareRooms[g_NumRoomsWithGlares++] = thing->roomnum;
@@ -1219,35 +1219,35 @@ Gfx *bgRenderScene(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *bgRenderArtifacts(Gfx *gdl)
+Gfx *bg_render_artifacts(Gfx *gdl)
 {
 	s32 i;
 
 	if (g_Vars.mplayerisrunning == false && g_NumRoomsWithGlares > 0) {
-		gdl = artifactsConfigureForGlares(gdl);
+		gdl = artifacts_configure_for_glares(gdl);
 
 		for (i = 0; i < g_NumRoomsWithGlares; i++) {
-			gdl = artifactsRenderGlaresForRoom(gdl, g_GlareRooms[i]);
+			gdl = artifacts_render_glares_for_room(gdl, g_GlareRooms[i]);
 		}
 
-		gdl = artifactsUnconfigureForGlares(gdl);
+		gdl = artifacts_unconfigure_for_glares(gdl);
 	}
 
-	gdl = skyRenderArtifacts(gdl);
+	gdl = sky_render_artifacts(gdl);
 
 	return gdl;
 }
 
-void bgLoadFile(void *memaddr, u32 offset, u32 len)
+void bg_load_file(void *memaddr, u32 offset, u32 len)
 {
 	if (var8007fc04) {
 		bcopy(var8007fc08 + offset, memaddr, len);
 	} else {
-		fileLoadPartToAddr(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
+		file_load_part_to_addr(g_Stages[g_StageIndex].bgfileid, memaddr, offset, len);
 	}
 }
 
-s32 bgGetStageIndex(s32 stagenum)
+s32 bg_get_stage_index(s32 stagenum)
 {
 	s32 index = -1;
 	s32 i;
@@ -1261,7 +1261,7 @@ s32 bgGetStageIndex(s32 stagenum)
 	return index;
 }
 
-f32 bgCalculatePortalSurfaceArea(s32 portalnum)
+f32 bg_calculate_portal_surface_area(s32 portalnum)
 {
 	struct portalvertices *pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 	s32 count = pvertices->count;
@@ -1288,7 +1288,7 @@ f32 bgCalculatePortalSurfaceArea(s32 portalnum)
 	return sum;
 }
 
-void bgGetPortalVtxInfo(s32 portalnum, struct coord *a, struct coord *b, struct coord *c, struct coord *normal)
+void bg_get_portal_vtx_info(s32 portalnum, struct coord *a, struct coord *b, struct coord *c, struct coord *normal)
 {
 	struct portalvertices *pvertices;
 	pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
@@ -1318,9 +1318,9 @@ void bgGetPortalVtxInfo(s32 portalnum, struct coord *a, struct coord *b, struct 
  * A 1 metre square portal would have alpha of 1.
  * A 1596 metre square portal would have alpha of 255.
  */
-u8 bgCalculatePortalAlpha(s32 portal)
+u8 bg_calculate_portal_alpha(s32 portal)
 {
-	s32 alpha = bgCalculatePortalSurfaceArea(portal) / 10000.0f;
+	s32 alpha = bg_calculate_portal_surface_area(portal) / 10000.0f;
 
 	if (alpha > 0xff) {
 		alpha = 0xff;
@@ -1329,18 +1329,18 @@ u8 bgCalculatePortalAlpha(s32 portal)
 	return alpha;
 }
 
-u8 bgGetPortalAlpha(s32 portalnum)
+u8 bg_get_portal_alpha(s32 portalnum)
 {
 	return g_BgPortalAlphas[portalnum];
 }
 
 #if PIRACYCHECKS
-u32 bgNot(u32 arg)
+u32 bg_not(u32 arg)
 {
 	return ~arg;
 }
 
-u32 bgXorBabebabe(u32 value)
+u32 bg_xor_babebabe(u32 value)
 {
 	return value ^ 0xbabebabe;
 }
@@ -1356,7 +1356,7 @@ u32 bgXorBabebabe(u32 value)
  * The second function runs on every tick, re-sums them and induces a crash if
  * they've changed.
  */
-void bgBuildReferenceLightSums(void)
+void bg_build_reference_light_sums(void)
 {
 	s32 i;
 
@@ -1373,7 +1373,7 @@ void bgBuildReferenceLightSums(void)
 	}
 }
 
-void bgVerifyLightSums(char *file, s32 line)
+void bg_verify_light_sums(char *file, s32 line)
 {
 	s32 i;
 	s32 sum;
@@ -1388,7 +1388,7 @@ void bgVerifyLightSums(char *file, s32 line)
 
 	if (sum != g_BgNumLightsChecksum) {
 		sprintf(message, "NumLightsChecksum failed %s %d", file, line);
-		crashSetMessage(message);
+		crash_set_message(message);
 		CRASH();
 	}
 
@@ -1400,7 +1400,7 @@ void bgVerifyLightSums(char *file, s32 line)
 
 	if (sum != g_BgLightsOffsetChecksum) {
 		sprintf(message, "LightsOffsetChecksum failed %s %d", file, line);
-		crashSetMessage(message);
+		crash_set_message(message);
 		CRASH();
 	}
 }
@@ -1446,7 +1446,7 @@ void bgVerifyLightSums(char *file, s32 line)
  * - 4 bytes pointer to light table
  * - 4 bytes null
  */
-void bgReset(s32 stagenum)
+void bg_reset(s32 stagenum)
 {
 	u8 *header;
 	u8 headerbuffer[0x50];
@@ -1483,7 +1483,7 @@ void bgReset(s32 stagenum)
 	var800a4bf4 = 0;
 #endif
 
-	g_StageIndex = bgGetStageIndex(stagenum);
+	g_StageIndex = bg_get_stage_index(stagenum);
 
 	if (g_StageIndex < 0) {
 		g_StageIndex = 0;
@@ -1491,7 +1491,7 @@ void bgReset(s32 stagenum)
 
 	// Copy section 1 header to stack and parse into variables
 	header = (u8 *)ALIGN16((uintptr_t)headerbuffer);
-	bgLoadFile(header, 0, 0x40);
+	bg_load_file(header, 0, 0x40);
 	inflatedsize = *(u32 *)&header[0];
 	section1compsize = *(u32 *)&header[4];
 	primcompsize = *(u32 *)&header[8];
@@ -1501,7 +1501,7 @@ void bgReset(s32 stagenum)
 
 	// Allocate space for the primary bg data
 	// An extra 0x8000 or so is given as temporary scratch space
-	g_BgPrimaryData = mempAlloc(ALIGN16(inflatedsize + 0x8010), MEMPOOL_STAGE);
+	g_BgPrimaryData = memp_alloc(ALIGN16(inflatedsize + 0x8010), MEMPOOL_STAGE);
 
 	// Set up pointer to scratch space
 	scratch = (uintptr_t) g_BgPrimaryData + inflatedsize - primcompsize;
@@ -1510,19 +1510,19 @@ void bgReset(s32 stagenum)
 	g_LoadType = LOADTYPE_BG;
 
 	// Copy section 1 header + compressed primary to scratch space
-	bgLoadFile((u8 *) scratch, 0, ALIGN16(primcompsize + 15));
+	bg_load_file((u8 *) scratch, 0, ALIGN16(primcompsize + 15));
 
 	// Inflate primary data to the start of the buffer
 	scratch += 0xc;
-	bgInflate((u8 *) scratch, g_BgPrimaryData, primcompsize);
+	bg_inflate((u8 *) scratch, g_BgPrimaryData, primcompsize);
 
 	// Shrink the allocation (ie. free the scratch space)
-	mempRealloc(g_BgPrimaryData, inflatedsize, MEMPOOL_STAGE);
+	memp_realloc(g_BgPrimaryData, inflatedsize, MEMPOOL_STAGE);
 
 	// Load the section 2 header
 	section2start = section1compsize + 0xc;
 
-	bgLoadFile(header, section2start, 0x40);
+	bg_load_file(header, section2start, 0x40);
 
 	inflatedsize = (*(u16 *) &header[0] & 0x7fff) - 1;
 	section2compsize = *(u16 *) &header[2];
@@ -1533,49 +1533,49 @@ void bgReset(s32 stagenum)
 	// NTSC 1.0. A full writeup about the bug and how the fix works can be found
 	// in the docs folder of this project.
 #ifdef AVOID_UB
-	section2 = mempAlloc(inflatedsize + section2compsize, MEMPOOL_STAGE);
+	section2 = memp_alloc(inflatedsize + section2compsize, MEMPOOL_STAGE);
 	scratch = (uintptr_t) section2 + inflatedsize;
 #elif VERSION >= VERSION_NTSC_FINAL
-	section2 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
+	section2 = memp_alloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
 	scratch = (uintptr_t) section2 + 0x8000;
 #else
-	section2 = mempAlloc(inflatedsize + 0x800, MEMPOOL_STAGE);
+	section2 = memp_alloc(inflatedsize + 0x800, MEMPOOL_STAGE);
 	scratch = (uintptr_t) section2 + 0x800;
 #endif
 
 	// Load compressed data from ROM to scratch
-	bgLoadFile((u8 *) scratch, section2start + 4, ((section2compsize - 1) | 0xf) + 1);
+	bg_load_file((u8 *) scratch, section2start + 4, ((section2compsize - 1) | 0xf) + 1);
 
 	// Inflate section 2 to the start of the buffer
-	bgInflate((u8 *) scratch, (u8 *) section2, section2compsize);
+	bg_inflate((u8 *) scratch, (u8 *) section2, section2compsize);
 
 	// Iterate texture IDs and ensure they're loaded
 	inflatedsize = (*(u16 *) &header[0] & 0x7fff) >> 1;
 
 	for (i = 0; i ^ inflatedsize; i++) {
-		texLoadFromTextureNum(section2[i] & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff, NULL);
+		tex_load_from_texture_num(section2[i] & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff & 0xffff, NULL);
 	}
 
 	if (1);
 
 	// Free section 2
-	mempRealloc(section2, 0, MEMPOOL_STAGE);
+	memp_realloc(section2, 0, MEMPOOL_STAGE);
 
 	g_BgSection3 = section2start + section2compsize + 4;
 
 #if PIRACYCHECKS
 	{
-		u32 addr = bgNot(PAL ? ~0xb0000340 : ~0xb0000454);
+		u32 addr = bg_not(PAL ? ~0xb0000340 : ~0xb0000454);
 		u32 actualvalue;
-		u32 expectedvalue = bgXorBabebabe((PAL ? 0x0330c820 : 0x0109082b) ^ 0xbabebabe);
+		u32 expectedvalue = bg_xor_babebabe((PAL ? 0x0330c820 : 0x0109082b) ^ 0xbabebabe);
 
 		osPiReadIo(addr, &actualvalue);
 
 		if (actualvalue != expectedvalue) {
 			// Copy 0x40 bytes from a random location in ROM to a random
 			// location in RAM. The write address can be anywhere in the
-			// boot segment or in the lib segment up to modelRenderNodeDl.
-			dmaExec((void *)(PHYS_TO_K0(0x1000) + (random() & 0x1fff8)), random() & 0x1fffe, 0x40);
+			// boot segment or in the lib segment up to model_render_node_dl.
+			dma_exec((void *)(PHYS_TO_K0(0x1000) + (random() & 0x1fff8)), random() & 0x1fffe, 0x40);
 		}
 	}
 #endif
@@ -1614,7 +1614,7 @@ void bgReset(s32 stagenum)
 	}
 }
 
-void bgBuildTables(s32 stagenum)
+void bg_build_tables(s32 stagenum)
 {
 	s32 i;
 	s32 j;
@@ -1643,8 +1643,8 @@ void bgBuildTables(s32 stagenum)
 	u16 *datalenptr;
 	u8 *numlightsptr;
 
-	g_Rooms = mempAlloc(ALIGN16(g_Vars.roomcount * sizeof(struct room)), MEMPOOL_STAGE);
-	g_BgDrawSlotsByRoom = mempAlloc(ALIGN16(g_Vars.roomcount * sizeof(struct drawslotpointer)), MEMPOOL_STAGE);
+	g_Rooms = memp_alloc(ALIGN16(g_Vars.roomcount * sizeof(struct room)), MEMPOOL_STAGE);
+	g_BgDrawSlotsByRoom = memp_alloc(ALIGN16(g_Vars.roomcount * sizeof(struct drawslotpointer)), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		g_BgDrawSlotsByRoom[i].updatedframe = 0xffff;
@@ -1652,7 +1652,7 @@ void bgBuildTables(s32 stagenum)
 	}
 
 	if (g_Vars.mplayerisrunning) {
-		g_MpRoomVisibility = mempAlloc(ALIGN16(g_Vars.roomcount), MEMPOOL_STAGE);
+		g_MpRoomVisibility = memp_alloc(ALIGN16(g_Vars.roomcount), MEMPOOL_STAGE);
 
 		for (i = 0; i < g_Vars.roomcount; i++) {
 			g_MpRoomVisibility[i] = 0;
@@ -1669,7 +1669,7 @@ void bgBuildTables(s32 stagenum)
 		g_Rooms[i].unk4e_04 = 0;
 	}
 
-	bgSetStageTranslationThing(g_Stages[g_StageIndex].unk14);
+	bg_set_stage_translation_thing(g_Stages[g_StageIndex].unk14);
 	chr0f028490(g_Stages[g_StageIndex].unk14);
 
 	for (i = 0; i < MAX_PLAYERS; i++) {
@@ -1686,7 +1686,7 @@ void bgBuildTables(s32 stagenum)
 		}
 
 		g_BgNumPortalCameraCacheItems = numportals;
-		g_PortalCameraCache = mempAlloc(ALIGN16(g_BgNumPortalCameraCacheItems * sizeof(struct portalcamcacheitem)), MEMPOOL_STAGE);
+		g_PortalCameraCache = memp_alloc(ALIGN16(g_BgNumPortalCameraCacheItems * sizeof(struct portalcamcacheitem)), MEMPOOL_STAGE);
 
 		// Iterate the portals and update their verticesoffset value. In
 		// storage, the g_BgPortals array is followed by vertice data, and each
@@ -1722,7 +1722,7 @@ void bgBuildTables(s32 stagenum)
 		// number ascending. Each room struct contains an index into this array
 		// where its portal numbers start.
 		index = 0;
-		g_RoomPortals = mempAlloc(ALIGN16((numportals == 0 ? 1 : numportals) * sizeof(s16 *)), MEMPOOL_STAGE);
+		g_RoomPortals = memp_alloc(ALIGN16((numportals == 0 ? 1 : numportals) * sizeof(s16 *)), MEMPOOL_STAGE);
 
 		g_Vars.roomportalrecursionlimit = 0;
 
@@ -1796,13 +1796,13 @@ void bgBuildTables(s32 stagenum)
 			}
 		}
 
-		g_BgPortalAlphas = mempAlloc(ALIGN16(numportals == 0 ? 1 : numportals), MEMPOOL_STAGE);
+		g_BgPortalAlphas = memp_alloc(ALIGN16(numportals == 0 ? 1 : numportals), MEMPOOL_STAGE);
 
 		for (i = 0; i < numportals; i++) {
-			g_BgPortalAlphas[i] = bgCalculatePortalAlpha(i);
+			g_BgPortalAlphas[i] = bg_calculate_portal_alpha(i);
 		}
 
-		g_PortalMetrics = mempAlloc(ALIGN16(numportals * sizeof(struct portalmetric)), MEMPOOL_STAGE);
+		g_PortalMetrics = memp_alloc(ALIGN16(numportals * sizeof(struct portalmetric)), MEMPOOL_STAGE);
 
 		for (i = 0; i < numportals; i++) {
 			// Clockwise vertices will cause the normal to point towards the viewer
@@ -1856,7 +1856,7 @@ void bgBuildTables(s32 stagenum)
 		if (g_BgCommands != NULL) {
 			for (i = 0; g_BgCommands[i].type != BGCMD_END; i++) {
 				if (g_BgCommands[i].type == BGCMD_PORTALARG) {
-					g_BgCommands[i].param = bgFindPortalByVertices((void *)((intptr_t)g_BgPrimaryData - 0x0f000000 + g_BgCommands[i].param));
+					g_BgCommands[i].param = bg_find_portal_by_vertices((void *)((intptr_t)g_BgPrimaryData - 0x0f000000 + g_BgCommands[i].param));
 				}
 			}
 		}
@@ -1872,7 +1872,7 @@ void bgBuildTables(s32 stagenum)
 			g_Rooms[i].xluwallhits = NULL;
 		}
 
-		roomsReset();
+		rooms_reset();
 
 		g_Rooms[0].bbmin[0] = 0.0f;
 		g_Rooms[0].bbmin[1] = 0.0f;
@@ -1881,7 +1881,7 @@ void bgBuildTables(s32 stagenum)
 		g_Rooms[0].bbmax[1] = 0.0f;
 		g_Rooms[0].bbmax[2] = 0.0f;
 
-		dyntexReset();
+		dyntex_reset();
 
 		// Load section 3 of the BG file. To do this, the header of the BG file
 		// must be loaded first as it contains the offset to section 3. Then
@@ -1890,25 +1890,25 @@ void bgBuildTables(s32 stagenum)
 
 		// Load and read the header
 		header = (u8 *)ALIGN16((uintptr_t)headerbuffer);
-		bgLoadFile(header, g_BgSection3, 0x40);
+		bg_load_file(header, g_BgSection3, 0x40);
 		inflatedsize = (*(u16 *)&header[0] & 0x7fff) - 1;
 		section3compsize = *(u16 *)&header[2];
 		inflatedsize = (inflatedsize | 0xf) + 1;
 
 		// Load and inflate section 3
 #ifdef AVOID_UB
-		section3 = mempAlloc(inflatedsize + section3compsize, MEMPOOL_STAGE);
+		section3 = memp_alloc(inflatedsize + section3compsize, MEMPOOL_STAGE);
 		scratch = section3 + inflatedsize;
 #elif VERSION >= VERSION_NTSC_FINAL
-		section3 = mempAlloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
+		section3 = memp_alloc(inflatedsize + 0x8000, MEMPOOL_STAGE);
 		scratch = section3 + 0x8000;
 #else
-		section3 = mempAlloc(inflatedsize + 0x1000, MEMPOOL_STAGE);
+		section3 = memp_alloc(inflatedsize + 0x1000, MEMPOOL_STAGE);
 		scratch = section3 + 0x1000;
 #endif
 
-		bgLoadFile(scratch, g_BgSection3 + 4, ((section3compsize - 1) | 0xf) + 1);
-		bgInflate(scratch, section3, section3compsize);
+		bg_load_file(scratch, g_BgSection3 + 4, ((section3compsize - 1) | 0xf) + 1);
+		bg_inflate(scratch, section3, section3compsize);
 
 		// Section 3 starts with a table of room bounding boxes
 		bboxptr = (s16 *) section3;
@@ -1967,10 +1967,10 @@ void bgBuildTables(s32 stagenum)
 		}
 
 		// Free the section 3 allocation
-		mempRealloc(section3, 0, MEMPOOL_STAGE);
+		memp_realloc(section3, 0, MEMPOOL_STAGE);
 
 		for (i = 1; i < g_Vars.roomcount; i++) {
-			roomInitLights(i);
+			room_init_lights(i);
 		}
 
 		// Initialise a table related to lights.
@@ -1982,7 +1982,7 @@ void bgBuildTables(s32 stagenum)
 		}
 
 		if (j) {
-			var800a41a0 = mempAlloc(ALIGN16(j * 3), MEMPOOL_STAGE);
+			var800a41a0 = memp_alloc(ALIGN16(j * 3), MEMPOOL_STAGE);
 
 			for (i = 0; i < j; i++) {
 				var800a41a0[i * 3 + 0] = 0;
@@ -1994,15 +1994,15 @@ void bgBuildTables(s32 stagenum)
 		}
 
 		for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
-			bgInitPortal(i);
+			bg_init_portal(i);
 		}
 
 		for (i = 1; i < g_Vars.roomcount; i++) {
-			bgInitRoom(i);
+			bg_init_room(i);
 		}
 
 		for (i = 1; i < g_Vars.roomcount; i++) {
-			bgExpandRoomToPortals(i);
+			bg_expand_room_to_portals(i);
 		}
 
 		for (i = 0; g_BgPortals[i].verticesoffset != 0; i++) {
@@ -2010,41 +2010,41 @@ void bgBuildTables(s32 stagenum)
 		}
 	}
 
-	envSetStageNum(stagenum);
+	env_set_stage_num(stagenum);
 
 	var8007fc10 = 200;
 
-	wallhitReset();
+	wallhit_reset();
 	func0f002a98();
 	func0f001c0c();
 
 #if VERSION < VERSION_NTSC_1_0
-	bgBuildReferenceLightSums();
+	bg_build_reference_light_sums();
 #endif
 }
 
-void bgStop(void)
+void bg_stop(void)
 {
-	bgUnloadAllRooms();
+	bg_unload_all_rooms();
 	mtx00016748(1);
 }
 
-void bgSetStageTranslationThing(f32 arg0)
+void bg_set_stage_translation_thing(f32 arg0)
 {
 	// empty
 }
 
-f32 bgGetStageTranslationThing(void)
+f32 bg_get_stage_translation_thing(void)
 {
 	return g_Stages[g_StageIndex].unk1c / g_Stages[g_StageIndex].unk14;
 }
 
-f32 bgGetScaleBg2Gfx(void)
+f32 bg_get_scale_bg2gfx(void)
 {
 	return g_Vars.currentplayerstats->scale_bg2gfx;
 }
 
-void bgSetScaleBg2Gfx(f32 scale)
+void bg_set_scale_bg2gfx(f32 scale)
 {
 	g_Vars.currentplayerstats->scale_bg2gfx = g_Stages[g_StageIndex].unk18 * scale;
 	mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
@@ -2060,21 +2060,21 @@ void bgSetScaleBg2Gfx(f32 scale)
  * When the counter rolls over, all portal camera cache is cleared to avoid any
  * potential issues with reusing the timestamps.
  */
-void bgTickCounter(void)
+void bg_tick_counter(void)
 {
 	g_BgFrameCount++;
 
 	if (g_BgFrameCount == 0xffff) {
 		g_BgFrameCount = 1;
 
-		bgClearPortalCameraCache();
+		bg_clear_portal_camera_cache();
 	}
 
 #if PIRACYCHECKS
 	if ((g_BgFrameCount & 0xff) == 0xff) {
 		u32 checksum = 0;
-		s32 *ptr = (s32 *)&menuTickTimers;
-		s32 *end = (s32 *)&menuGetSinOscFrac;
+		s32 *ptr = (s32 *)&menu_tick_timers;
+		s32 *end = (s32 *)&menu_get_sin_osc_frac;
 
 		while (ptr < end) {
 			checksum ^= ~*ptr;
@@ -2084,7 +2084,7 @@ void bgTickCounter(void)
 		}
 
 		if (checksum != CHECKSUM_PLACEHOLDER) {
-			ptr = (s32 *)&bgBuildTables + 20;
+			ptr = (s32 *)&bg_build_tables + 20;
 
 			if (1) {
 				end = &ptr[4];
@@ -2099,20 +2099,20 @@ void bgTickCounter(void)
 #endif
 }
 
-void bgTick(void)
+void bg_tick(void)
 {
 	s32 tickmode;
 
 	g_BgNumForceOnscreenRooms = 0;
 
 #if VERSION < VERSION_NTSC_1_0
-	bgVerifyLightSums("bg.c", 5761);
+	bg_verify_light_sums("bg.c", 5761);
 #endif
 
-	bgTickCounter();
+	bg_tick_counter();
 
 	if (g_Vars.currentplayerindex == 0) {
-		bgTickRooms();
+		bg_tick_rooms();
 	}
 
 	tickmode = g_Vars.tickmode;
@@ -2141,28 +2141,28 @@ void bgTick(void)
 	g_CamRoom = g_Vars.currentplayer->cam_room;
 
 #if VERSION >= VERSION_NTSC_1_0
-	bgTickPortals();
+	bg_tick_portals();
 #else
-	bgVerifyLightSums("bg.c", 5834);
-	bgTickPortals();
-	bgVerifyLightSums("bg.c", 5846);
+	bg_verify_light_sums("bg.c", 5834);
+	bg_tick_portals();
+	bg_verify_light_sums("bg.c", 5846);
 #endif
 }
 
-Gfx *bgRender(Gfx *gdl)
+Gfx *bg_render(Gfx *gdl)
 {
-	gdl = lightsSetDefault(gdl);
+	gdl = lights_set_default(gdl);
 
 	gSPSegment(gdl++, SPSEGMENT_BG_DL, g_BgPrimaryData);
 
-	gdl = envStartFog(gdl, false);
-	gdl = bgRenderSceneAndLoadCandidate(gdl);
-	gdl = bgScissorToViewport(gdl);
-	gdl = envStopFog(gdl);
+	gdl = env_start_fog(gdl, false);
+	gdl = bg_render_scene_and_load_candidate(gdl);
+	gdl = bg_scissor_to_viewport(gdl);
+	gdl = env_stop_fog(gdl);
 
 	gSPMatrix(gdl++, var80092870, G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-	gdl = playerLoadMatrix(gdl);
+	gdl = player_load_matrix(gdl);
 
 	return gdl;
 }
@@ -2170,28 +2170,28 @@ Gfx *bgRender(Gfx *gdl)
 /**
  * Leftover from GE.
  */
-f32 bgGetStanThing(s32 roomnum)
+f32 bg_get_stan_thing(s32 roomnum)
 {
 	return g_BgStanThings[roomnum + 1];
 }
 
-Gfx *bgScissorToViewport(Gfx *gdl)
+Gfx *bg_scissor_to_viewport(Gfx *gdl)
 {
-	return bgScissorWithinViewport(gdl,
+	return bg_scissor_within_viewport(gdl,
 			g_Vars.currentplayer->viewleft,
 			g_Vars.currentplayer->viewtop,
 			g_Vars.currentplayer->viewleft + g_Vars.currentplayer->viewwidth,
 			g_Vars.currentplayer->viewtop + g_Vars.currentplayer->viewheight);
 }
 
-Gfx *bgScissorWithinViewportF(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom)
+Gfx *bg_scissor_within_viewport_f(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom)
 {
-	gdl = bgScissorWithinViewport(gdl, viewleft, viewtop, ceil(viewright), ceil(viewbottom));
+	gdl = bg_scissor_within_viewport(gdl, viewleft, viewtop, ceil(viewright), ceil(viewbottom));
 
 	return gdl;
 }
 
-Gfx *bgScissorWithinViewport(Gfx *gdl, s32 viewleft, s32 viewtop, s32 viewright, s32 viewbottom)
+Gfx *bg_scissor_within_viewport(Gfx *gdl, s32 viewleft, s32 viewtop, s32 viewright, s32 viewbottom)
 {
 	if (viewleft < g_Vars.currentplayer->viewleft) {
 		viewleft = g_Vars.currentplayer->viewleft;
@@ -2214,7 +2214,7 @@ Gfx *bgScissorWithinViewport(Gfx *gdl, s32 viewleft, s32 viewtop, s32 viewright,
 	return gdl;
 }
 
-void bgClearPortalCameraCache(void)
+void bg_clear_portal_camera_cache(void)
 {
 	s32 i;
 
@@ -2225,7 +2225,7 @@ void bgClearPortalCameraCache(void)
 	}
 }
 
-bool bgRoomIntersectsScreenBox(s32 room, struct screenbox *screen)
+bool bg_room_intersects_screen_box(s32 room, struct screenbox *screen)
 {
 	s32 i;
 	struct coord roomscreenpos;
@@ -2256,7 +2256,7 @@ bool bgRoomIntersectsScreenBox(s32 room, struct screenbox *screen)
 			corner.z = g_Rooms[room].bbmax[2];
 		}
 
-		if (bg3dPosTo2dPos(&corner, &roomscreenpos) == 0) {
+		if (bg_3d_pos_to_2d_pos(&corner, &roomscreenpos) == 0) {
 			// Corner is behind the camera
 			if (g_BgSnake.zrange.far <= -roomscreenpos.z) {
 				numfar++;
@@ -2311,15 +2311,15 @@ bool bgRoomIntersectsScreenBox(s32 room, struct screenbox *screen)
 	return true;
 }
 
-bool bg3dPosTo2dPos(struct coord *cornerpos, struct coord *screenpos)
+bool bg_3d_pos_to_2d_pos(struct coord *cornerpos, struct coord *screenpos)
 {
-	Mtxf *matrix = camGetWorldToScreenMtxf();
+	Mtxf *matrix = cam_get_world_to_screen_mtxf();
 
 	screenpos->x = cornerpos->x;
 	screenpos->y = cornerpos->y;
 	screenpos->z = cornerpos->z;
 
-	mtx4TransformVecInPlace(matrix, screenpos);
+	mtx4_transform_vec_in_place(matrix, screenpos);
 	cam0f0b4d68(screenpos, screenpos->f);
 
 	if (screenpos->z > 0) {
@@ -2329,7 +2329,7 @@ bool bg3dPosTo2dPos(struct coord *cornerpos, struct coord *screenpos)
 	return true;
 }
 
-bool bgGetPortalScreenBbox(s32 portalnum, struct screenbox *box)
+bool bg_get_portal_screen_bbox(s32 portalnum, struct screenbox *box)
 {
 	s32 i;
 	s32 j;
@@ -2350,7 +2350,7 @@ bool bgGetPortalScreenBbox(s32 portalnum, struct screenbox *box)
 		return g_PortalCameraCache[portalnum].bboxisvalid;
 	}
 
-	len = portalConvertCoordinates(portalnum, &start, things);
+	len = portal_convert_coordinates(portalnum, &start, things);
 
 	numvalid = 0;
 	thing = &things[start];
@@ -2432,24 +2432,24 @@ bool bgGetPortalScreenBbox(s32 portalnum, struct screenbox *box)
 	return numvalid;
 }
 
-Gfx *bgDrawBoxEdge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+Gfx *bg_draw_box_edge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	gDPFillRectangle(gdl++, x1, y1, x2 + 1, y2 + 1);
 
 	return gdl;
 }
 
-Gfx *bgDrawBox(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+Gfx *bg_draw_box(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
-	gdl = bgDrawBoxEdge(gdl, x1, y1, x2, y1); // top
-	gdl = bgDrawBoxEdge(gdl, x2, y1, x2, y2); // right
-	gdl = bgDrawBoxEdge(gdl, x1, y2, x2, y2); // bottom
-	gdl = bgDrawBoxEdge(gdl, x1, y1, x1, y2); // left
+	gdl = bg_draw_box_edge(gdl, x1, y1, x2, y1); // top
+	gdl = bg_draw_box_edge(gdl, x2, y1, x2, y2); // right
+	gdl = bg_draw_box_edge(gdl, x1, y2, x2, y2); // bottom
+	gdl = bg_draw_box_edge(gdl, x1, y1, x1, y2); // left
 
 	return gdl;
 }
 
-bool bgGetBoxIntersection(struct screenbox *a, struct screenbox *b)
+bool bg_get_box_intersection(struct screenbox *a, struct screenbox *b)
 {
 	a->xmin = a->xmin > b->xmin ? a->xmin : b->xmin;
 	a->ymin = a->ymin > b->ymin ? a->ymin : b->ymin;
@@ -2469,7 +2469,7 @@ bool bgGetBoxIntersection(struct screenbox *a, struct screenbox *b)
 	return true;
 }
 
-void bgExpandBox(struct screenbox *a, struct screenbox *b)
+void bg_expand_box(struct screenbox *a, struct screenbox *b)
 {
 	a->xmin = a->xmin < b->xmin ? a->xmin : b->xmin;
 	a->ymin = a->ymin < b->ymin ? a->ymin : b->ymin;
@@ -2477,7 +2477,7 @@ void bgExpandBox(struct screenbox *a, struct screenbox *b)
 	a->ymax = a->ymax > b->ymax ? a->ymax : b->ymax;
 }
 
-void bgCopyBox(struct screenbox *dst, struct screenbox *src)
+void bg_copy_box(struct screenbox *dst, struct screenbox *src)
 {
 	dst->xmin = src->xmin;
 	dst->ymin = src->ymin;
@@ -2485,7 +2485,7 @@ void bgCopyBox(struct screenbox *dst, struct screenbox *src)
 	dst->ymax = src->ymax;
 }
 
-bool bgRoomIsOnscreen(s32 room)
+bool bg_room_is_onscreen(s32 room)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & 0xf) != 0;
@@ -2494,7 +2494,7 @@ bool bgRoomIsOnscreen(s32 room)
 	}
 }
 
-bool bgRoomIsStandby(s32 room)
+bool bg_room_is_standby(s32 room)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & 0xf0) != 0;
@@ -2503,7 +2503,7 @@ bool bgRoomIsStandby(s32 room)
 	return g_Rooms[room].flags & ROOMFLAG_STANDBY;
 }
 
-bool bgRoomIsOnPlayerScreen(s32 room, u32 playernum)
+bool bg_room_is_on_player_screen(s32 room, u32 playernum)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & (1 << playernum)) != 0;
@@ -2512,7 +2512,7 @@ bool bgRoomIsOnPlayerScreen(s32 room, u32 playernum)
 	}
 }
 
-bool bgRoomIsOnPlayerStandby(s32 room, u32 playernum)
+bool bg_room_is_on_player_standby(s32 room, u32 playernum)
 {
 	if (g_Vars.mplayerisrunning) {
 		return (g_MpRoomVisibility[room] & (0x10 << playernum)) != 0;
@@ -2521,7 +2521,7 @@ bool bgRoomIsOnPlayerStandby(s32 room, u32 playernum)
 	}
 }
 
-s32 bgFindPortalByVertices(struct portalvertices *target)
+s32 bg_find_portal_by_vertices(struct portalvertices *target)
 {
 	s32 i;
 	struct bgportal *portal = g_BgPortals;
@@ -2546,9 +2546,9 @@ s32 bgFindPortalByVertices(struct portalvertices *target)
  * Nothing is done with the string though. It's likely that debug versions of
  * the game would send the string to the host computer or display it on the HUD.
  */
-void bgPrintLoadedRooms(void)
+void bg_print_loaded_rooms(void)
 {
-	if (debugIsRoomStateDebugEnabled()) {
+	if (debug_is_room_state_debug_enabled()) {
 		u8 string[704];
 		s32 len = 0;
 		s32 i;
@@ -2574,7 +2574,7 @@ void bgPrintLoadedRooms(void)
 	}
 }
 
-u32 bgInflate(u8 *src, u8 *dst, u32 len)
+u32 bg_inflate(u8 *src, u8 *dst, u32 len)
 {
 	u32 result;
 	u8 scratch[5120];
@@ -2582,8 +2582,8 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 	char message[128];
 #endif
 
-	if (rzipIs1173(src)) {
-		result = rzipInflate(src, dst, &scratch);
+	if (rzip_is_1173(src)) {
+		result = rzip_inflate(src, dst, &scratch);
 
 #if VERSION < VERSION_NTSC_1_0
 		if (!result) {
@@ -2594,7 +2594,7 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 					src[8], src[9], src[10], src[11],
 					src[12], src[13], src[14], src[15]);
 
-			crashSetMessage(message);
+			crash_set_message(message);
 			CRASH();
 		}
 #endif
@@ -2606,7 +2606,7 @@ u32 bgInflate(u8 *src, u8 *dst, u32 len)
 	return result;
 }
 
-Gfx *bgGetNextGdlInBlock(struct roomblock *block, Gfx *start, Gfx *end)
+Gfx *bg_get_next_gdl_in_block(struct roomblock *block, Gfx *start, Gfx *end)
 { \
 	Gfx *tmp; \
 	while (true) {
@@ -2627,7 +2627,7 @@ Gfx *bgGetNextGdlInBlock(struct roomblock *block, Gfx *start, Gfx *end)
 			block = block->next;
 			break;
 		case ROOMBLOCKTYPE_PARENT:
-			tmp = bgGetNextGdlInBlock(block->child, start, end);
+			tmp = bg_get_next_gdl_in_block(block->child, start, end);
 			block = block->next;
 			end = tmp;
 			break;
@@ -2639,7 +2639,7 @@ Gfx *bgGetNextGdlInBlock(struct roomblock *block, Gfx *start, Gfx *end)
 	return end;
 }
 
-Gfx *bgGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
+Gfx *bg_get_next_gdl_in_layer(s32 roomnum, Gfx *start, u32 types)
 {
 	struct roomblock *opablocks = g_Rooms[roomnum].gfxdata->opablocks;
 	struct roomblock *xlublocks = g_Rooms[roomnum].gfxdata->xlublocks;
@@ -2647,7 +2647,7 @@ Gfx *bgGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
 	Gfx *xlugdl = NULL;
 
 	if ((types & VTXBATCHTYPE_OPA) && opablocks) {
-		opagdl = bgGetNextGdlInBlock(opablocks, start, NULL);
+		opagdl = bg_get_next_gdl_in_block(opablocks, start, NULL);
 
 		if (types == VTXBATCHTYPE_OPA) {
 			return opagdl;
@@ -2655,7 +2655,7 @@ Gfx *bgGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
 	}
 
 	if ((types & VTXBATCHTYPE_XLU) && xlublocks) {
-		xlugdl = bgGetNextGdlInBlock(xlublocks, start, NULL);
+		xlugdl = bg_get_next_gdl_in_block(xlublocks, start, NULL);
 
 		if (types == VTXBATCHTYPE_XLU) {
 			return xlugdl;
@@ -2673,7 +2673,7 @@ Gfx *bgGetNextGdlInLayer(s32 roomnum, Gfx *start, u32 types)
 	return xlugdl;
 }
 
-Vtx *bgFindVerticesForGdl(s32 roomnum, Gfx *gdl)
+Vtx *bg_find_vertices_for_gdl(s32 roomnum, Gfx *gdl)
 {
 	struct roomblock *block = g_Rooms[roomnum].gfxdata->blocks;
 	uintptr_t end = (uintptr_t)g_Rooms[roomnum].gfxdata->vertices;
@@ -2714,7 +2714,7 @@ Vtx *bgFindVerticesForGdl(s32 roomnum, Gfx *gdl)
  * - Find each batch of vertices and build a bbox for each batch.
  *   These are used for hit detection.
  */
-void bgLoadRoom(s32 roomnum)
+void bg_load_room(s32 roomnum)
 {
 	s32 alloclen;
 	s32 inflatedlen;
@@ -2740,7 +2740,7 @@ void bgLoadRoom(s32 roomnum)
 	s32 prev;
 
 #if VERSION < VERSION_NTSC_1_0
-	bgVerifyLightSums("bg.c", 7076);
+	bg_verify_light_sums("bg.c", 7076);
 #endif
 
 	if (roomnum == 0 || roomnum >= g_Vars.roomcount) {
@@ -2758,19 +2758,19 @@ void bgLoadRoom(s32 roomnum)
 	if (g_Rooms[roomnum].gfxdatalen > 0) {
 		alloclen = g_Rooms[roomnum].gfxdatalen;
 
-		if (debugIsRoomGfxExtraMemEnabled()) {
+		if (debug_is_room_gfx_extra_mem_enabled()) {
 			alloclen += 1024;
 		}
 	} else {
-		alloclen = memaGetLongestFree();
+		alloclen = mema_get_longest_free();
 	}
 
-	bgGarbageCollectRooms(alloclen, false);
+	bg_garbage_collect_rooms(alloclen, false);
 
-	allocation = memaAlloc(alloclen);
+	allocation = mema_alloc(alloclen);
 
 	if (allocation != NULL) {
-		dyntexSetCurrentRoom(roomnum);
+		dyntex_set_current_room(roomnum);
 
 		// Calculate the file offset and read length
 		// of the compressed room data in the BG file
@@ -2779,22 +2779,22 @@ void bgLoadRoom(s32 roomnum)
 		fileoffset -= var8007fc54;
 
 		if (readlen > alloclen) {
-			dyntexSetCurrentRoom(-1);
+			dyntex_set_current_room(-1);
 			return;
 		}
 
 		// Load the compressed data to the right side of the allocation
 		memaddr = allocation + (alloclen - readlen);
 
-		bgLoadFile(memaddr, fileoffset, readlen);
+		bg_load_file(memaddr, fileoffset, readlen);
 
-		if (rzipIs1173(memaddr) && readlen + 0x20 > alloclen) {
-			dyntexSetCurrentRoom(-1);
+		if (rzip_is_1173(memaddr) && readlen + 0x20 > alloclen) {
+			dyntex_set_current_room(-1);
 			return;
 		}
 
 		// Inflate the data to the left side of the allocation
-		inflatedlen = bgInflate(memaddr, allocation, g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00);
+		inflatedlen = bg_inflate(memaddr, allocation, g_BgRooms[roomnum + 1].unk00 - g_BgRooms[roomnum].unk00);
 
 		g_Rooms[roomnum].gfxdata = (struct roomgfxdata *)allocation;
 
@@ -2856,32 +2856,32 @@ void bgLoadRoom(s32 roomnum)
 
 		// Calculate the number of vertices and colours
 		g_Rooms[roomnum].gfxdata->numvertices = ((uintptr_t) g_Rooms[roomnum].gfxdata->colours - (uintptr_t) g_Rooms[roomnum].gfxdata->vertices) / sizeof(Vtx);
-		g_Rooms[roomnum].gfxdata->numcolours = ((uintptr_t) bgGetNextGdlInLayer(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (uintptr_t) g_Rooms[roomnum].gfxdata->colours) / sizeof(Col);
+		g_Rooms[roomnum].gfxdata->numcolours = ((uintptr_t) bg_get_next_gdl_in_layer(roomnum, 0, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU) - (uintptr_t) g_Rooms[roomnum].gfxdata->colours) / sizeof(Col);
 
 		// Build arrays of pointers to gfx blocks and vtx blocks
 		numgdls = 0;
-		itergdl1 = (u8 *) bgGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
+		itergdl1 = (u8 *) bg_get_next_gdl_in_layer(roomnum, NULL, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
 
 		while (itergdl1) {
 			gfxblocks[numgdls] = (u8 *) itergdl1;
-			vtxblocks[numgdls] = (u8 *) bgFindVerticesForGdl(roomnum, (Gfx *) itergdl1);
+			vtxblocks[numgdls] = (u8 *) bg_find_vertices_for_gdl(roomnum, (Gfx *) itergdl1);
 			numgdls++;
 
-			itergdl1 = (u8 *) bgGetNextGdlInLayer(roomnum, (Gfx *) itergdl1, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
+			itergdl1 = (u8 *) bg_get_next_gdl_in_layer(roomnum, (Gfx *) itergdl1, VTXBATCHTYPE_OPA | VTXBATCHTYPE_XLU);
 		}
 
 		gfxblocks[numgdls] = allocation + inflatedlen;
 
 		// Copy gdls to the right-side of the allocation
 		// and build a pointer array to them
-		texCopyGdls((void *) gfxblocks[0], (void *) (allocation + alloclen - (gfxblocks[numgdls] - gfxblocks[0])), (u32) (gfxblocks[numgdls] - gfxblocks[0]));
+		tex_copy_gdls((void *) gfxblocks[0], (void *) (allocation + alloclen - (gfxblocks[numgdls] - gfxblocks[0])), (u32) (gfxblocks[numgdls] - gfxblocks[0]));
 
 		for (i = 0; i < numgdls + 1; i++) {
 			gdlpointers[i] = gfxblocks[i] + (allocation + alloclen - gfxblocks[numgdls]);
 		}
 
 		// Load textures by scanning the right-side gdls.
-		// texLoadFromGdl is reading from gdlpointers and writing new GBI commands
+		// tex_load_from_gdl is reading from gdlpointers and writing new GBI commands
 		// to itergdl2, overwriting the GBI commands that were loaded from the
 		// BG file. As these are being processed the gdlpointers pointers are
 		// changed to point to the written GBI.
@@ -2890,7 +2890,7 @@ void bgLoadRoom(s32 roomnum)
 		for (i = 0; i < numgdls; i++) {
 			s32 byteswritten;
 			len = gfxblocks[i + 1] - gfxblocks[i];
-			byteswritten = texLoadFromGdl((void *) gdlpointers[i], len, (void *) itergdl2, NULL, vtxblocks[i]);
+			byteswritten = tex_load_from_gdl((void *) gdlpointers[i], len, (void *) itergdl2, NULL, vtxblocks[i]);
 			gdlpointers[i] = itergdl2;
 
 			if (len);
@@ -2906,7 +2906,7 @@ void bgLoadRoom(s32 roomnum)
 
 		if (g_Rooms[roomnum].gfxdatalen > prev) {
 #if VERSION < VERSION_NTSC_1_0
-			crashSetMessage("bg.c: roominf[room].allocsize > calculated!");
+			crash_set_message("bg.c: roominf[room].allocsize > calculated!");
 			CRASH();
 #endif
 		}
@@ -2914,7 +2914,7 @@ void bgLoadRoom(s32 roomnum)
 		g_Rooms[roomnum].loaded240 = 1;
 
 		if (g_Rooms[roomnum].gfxdatalen != alloclen) {
-			memaRealloc((intptr_t) allocation, alloclen, g_Rooms[roomnum].gfxdatalen);
+			mema_realloc((intptr_t) allocation, alloclen, g_Rooms[roomnum].gfxdatalen);
 		}
 
 		// Update gdl pointers in the gfxdata so they point to the ones
@@ -2948,25 +2948,25 @@ void bgLoadRoom(s32 roomnum)
 
 		// Do some find/replaces in the gdls based on environment configuration
 		if (g_FogEnabled) {
-			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->opablocks, 1);
-			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->xlublocks, 5);
+			gfx_replace_gbi_commands_recursively(g_Rooms[roomnum].gfxdata->opablocks, 1);
+			gfx_replace_gbi_commands_recursively(g_Rooms[roomnum].gfxdata->xlublocks, 5);
 		} else if (!g_EnvHasTransparency) {
-			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->opablocks, 6);
-			gfxReplaceGbiCommandsRecursively(g_Rooms[roomnum].gfxdata->xlublocks, 7);
+			gfx_replace_gbi_commands_recursively(g_Rooms[roomnum].gfxdata->opablocks, 6);
+			gfx_replace_gbi_commands_recursively(g_Rooms[roomnum].gfxdata->xlublocks, 7);
 		}
 
 		// Create vertex batches - these are used for hit detection
-		bgFindRoomVtxBatches(roomnum);
+		bg_find_room_vtx_batches(roomnum);
 
 		g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTS_DIRTY;
 		g_Rooms[roomnum].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_PERM;
 
 		g_Rooms[roomnum].colours = NULL;
 
-		dyntexSetCurrentRoom(-1);
+		dyntex_set_current_room(-1);
 
 #if VERSION < VERSION_NTSC_1_0
-		bgVerifyLightSums("bg.c", 7474);
+		bg_verify_light_sums("bg.c", 7474);
 #endif
 	}
 }
@@ -2995,32 +2995,32 @@ const char var7f1b7564[] = " Failed 2 - Crossed portal %d";
 const char var7f1b7584[] = " Failed 1 - Crossed portal %d";
 const char var7f1b75a4[] = " Passed";
 
-void bgUnloadRoom(s32 roomnum)
+void bg_unload_room(s32 roomnum)
 {
 	u32 size;
 
 	if (g_Rooms[roomnum].vtxbatches) {
 		size = ((g_Rooms[roomnum].numvtxbatches) * sizeof(struct vtxbatch) + 0xf) & ~0xf;
-		memaFree(g_Rooms[roomnum].vtxbatches, size);
+		mema_free(g_Rooms[roomnum].vtxbatches, size);
 		g_Rooms[roomnum].vtxbatches = NULL;
 	}
 
 	if (g_Rooms[roomnum].gfxdatalen > 0) {
 		size = g_Rooms[roomnum].gfxdatalen;
-		memaFree(g_Rooms[roomnum].gfxdata, size);
+		mema_free(g_Rooms[roomnum].gfxdata, size);
 		g_Rooms[roomnum].gfxdata = NULL;
 	}
 
 	g_Rooms[roomnum].loaded240 = 0;
 }
 
-void bgUnloadAllRooms(void)
+void bg_unload_all_rooms(void)
 {
 	s32 i;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		if (g_Rooms[i].loaded240) {
-			bgUnloadRoom(i);
+			bg_unload_room(i);
 		}
 	}
 }
@@ -3035,9 +3035,9 @@ void bgUnloadAllRooms(void)
  * is true, do a final iteration through all the rooms and free everything
  * that's not visible.
  */
-void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
+void bg_garbage_collect_rooms(s32 bytesneeded, bool desparate)
 {
-	s32 bytesfree = memaGetLongestFree();
+	s32 bytesfree = mema_get_longest_free();
 	s32 oldestroom;
 	s32 oldesttimer;
 	s32 count = 0;
@@ -3055,11 +3055,11 @@ void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
 		}
 
 		if (oldestroom != 0) {
-			bgUnloadRoom(oldestroom);
-			memaDefrag();
+			bg_unload_room(oldestroom);
+			mema_defrag();
 		}
 
-		bytesfree = memaGetLongestFree();
+		bytesfree = mema_get_longest_free();
 		count++;
 
 		if (count == 30) {
@@ -3071,10 +3071,10 @@ void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
 					if (g_Rooms[i].loaded240)
 #endif
 					{
-						bgUnloadRoom(i);
-						memaDefrag();
+						bg_unload_room(i);
+						mema_defrag();
 
-						if (memaGetLongestFree() >= bytesneeded) {
+						if (mema_get_longest_free() >= bytesneeded) {
 							return;
 						}
 					}
@@ -3091,7 +3091,7 @@ void bgGarbageCollectRooms(s32 bytesneeded, bool desparate)
  * If any rooms have reached the timer limit then unload them, but don't unload
  * more than 2 rooms per frame.
  */
-void bgTickRooms(void)
+void bg_tick_rooms(void)
 {
 	s32 numunloaded = 0;
 	s32 i;
@@ -3113,9 +3113,9 @@ void bgTickRooms(void)
 			}
 
 			if (numunloaded < 2 && g_Rooms[i].loaded240 == g_BgUnloadDelay240_2) {
-				bgUnloadRoom(i);
+				bg_unload_room(i);
 #if VERSION >= VERSION_NTSC_1_0
-				memaDefrag();
+				mema_defrag();
 #endif
 				numunloaded++;
 			}
@@ -3123,7 +3123,7 @@ void bgTickRooms(void)
 	}
 }
 
-Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
+Gfx *bg_render_room_pass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 {
 	uintptr_t v0;
 
@@ -3134,12 +3134,12 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 	switch (block->type) {
 	case ROOMBLOCKTYPE_LEAF:
 		if (g_Rooms[roomnum].flags & ROOMFLAG_HASDYNTEX) {
-			dyntexTickRoom(roomnum, block->vertices);
+			dyntex_tick_room(roomnum, block->vertices);
 		}
 
 		gSPSegment(gdl++, SPSEGMENT_BG_VTX, OS_PHYSICAL_TO_K0(block->vertices));
 
-		roomHighlight(roomnum);
+		room_highlight(roomnum);
 
 		v0 = (uintptr_t)g_Rooms[roomnum].colours;
 
@@ -3155,7 +3155,7 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 		gSPDisplayList(gdl++, OS_PHYSICAL_TO_K0(block->gdl));
 
 		if (arg3) {
-			gdl = bgRenderRoomPass(gdl, roomnum, block->next, true);
+			gdl = bg_render_room_pass(gdl, roomnum, block->next, true);
 		}
 		break;
 	case ROOMBLOCKTYPE_PARENT:
@@ -3182,15 +3182,15 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 			sum = sp40[0] * sp34[0] + sp40[1] * sp34[1] + sp40[2] * sp34[2];
 
 			if (sum < 0.0f) {
-				gdl = bgRenderRoomPass(gdl, roomnum, sp58, false);
-				gdl = bgRenderRoomPass(gdl, roomnum, sp54, false);
+				gdl = bg_render_room_pass(gdl, roomnum, sp58, false);
+				gdl = bg_render_room_pass(gdl, roomnum, sp54, false);
 			} else {
-				gdl = bgRenderRoomPass(gdl, roomnum, sp54, false);
-				gdl = bgRenderRoomPass(gdl, roomnum, sp58, false);
+				gdl = bg_render_room_pass(gdl, roomnum, sp54, false);
+				gdl = bg_render_room_pass(gdl, roomnum, sp58, false);
 			}
 
 			if (arg3) {
-				gdl = bgRenderRoomPass(gdl, roomnum, block->next, true);
+				gdl = bg_render_room_pass(gdl, roomnum, block->next, true);
 			}
 		}
 		break;
@@ -3202,17 +3202,17 @@ Gfx *bgRenderRoomPass(Gfx *gdl, s32 roomnum, struct roomblock *block, bool arg3)
 /**
  * Render the opaque layer of the room.
  */
-Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
+Gfx *bg_render_room_opaque(Gfx *gdl, s32 roomnum)
 {
 	if (g_Rooms[roomnum].loaded240 == 0) {
 		return gdl;
 	}
 
-	gdl = roomApplyMtx(gdl, roomnum);
+	gdl = room_apply_mtx(gdl, roomnum);
 
-	gdl = lightsSetForRoom(gdl, roomnum);
-	gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true);
-	gdl = lightsSetDefault(gdl);
+	gdl = lights_set_for_room(gdl, roomnum);
+	gdl = bg_render_room_pass(gdl, roomnum, g_Rooms[roomnum].gfxdata->opablocks, true);
+	gdl = lights_set_default(gdl);
 
 	g_Rooms[roomnum].loaded240 = 1;
 
@@ -3222,7 +3222,7 @@ Gfx *bgRenderRoomOpaque(Gfx *gdl, s32 roomnum)
 /**
  * Render the transparency layer of the room.
  */
-Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
+Gfx *bg_render_room_xlu(Gfx *gdl, s32 roomnum)
 {
 	u32 stack;
 
@@ -3235,23 +3235,23 @@ Gfx *bgRenderRoomXlu(Gfx *gdl, s32 roomnum)
 			return gdl;
 		}
 
-		roomHighlight(roomnum);
+		room_highlight(roomnum);
 
 		if (g_Rooms[roomnum].gfxdata);
 		if (g_Rooms[roomnum].gfxdata);
 
-		gdl = roomApplyMtx(gdl, roomnum);
-		gdl = bgRenderRoomPass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true);
+		gdl = room_apply_mtx(gdl, roomnum);
+		gdl = bg_render_room_pass(gdl, roomnum, g_Rooms[roomnum].gfxdata->xlublocks, true);
 
 		g_Rooms[roomnum].loaded240 = 1;
 	} else {
-		bgLoadRoom(roomnum);
+		bg_load_room(roomnum);
 	}
 
 	return gdl;
 }
 
-s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 batchindex, Vtx *vertices, s32 type)
+s32 bg_populate_vtx_batch_type(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 batchindex, Vtx *vertices, s32 type)
 {
 	s32 i;
 	s32 j;
@@ -3329,7 +3329,7 @@ s32 bgPopulateVtxBatchType(s32 roomnum, struct vtxbatch *batches, Gfx *gdl, s32 
 	return batchindex;
 }
 
-void bgFindRoomVtxBatches(s32 roomnum)
+void bg_find_room_vtx_batches(s32 roomnum)
 {
 	s32 i;
 	s32 batchindex = 0;
@@ -3338,7 +3338,7 @@ void bgFindRoomVtxBatches(s32 roomnum)
 	struct vtxbatch *batches;
 
 	if (g_Rooms[roomnum].vtxbatches == NULL) {
-		gdl = bgGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA);
+		gdl = bg_get_next_gdl_in_layer(roomnum, NULL, VTXBATCHTYPE_OPA);
 
 		if (gdl != NULL) {
 			while (gdl) {
@@ -3349,12 +3349,12 @@ void bgFindRoomVtxBatches(s32 roomnum)
 					}
 				}
 
-				gdl = bgGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_OPA);
+				gdl = bg_get_next_gdl_in_layer(roomnum, gdl, VTXBATCHTYPE_OPA);
 			}
 
 			xlucount = 0;
 
-			gdl = bgGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_XLU);
+			gdl = bg_get_next_gdl_in_layer(roomnum, NULL, VTXBATCHTYPE_XLU);
 
 			while (gdl) {
 				for (i = 0; gdl[i].dma.cmd != G_ENDDL; i++) {
@@ -3364,32 +3364,32 @@ void bgFindRoomVtxBatches(s32 roomnum)
 					}
 				}
 
-				gdl = bgGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_XLU);
+				gdl = bg_get_next_gdl_in_layer(roomnum, gdl, VTXBATCHTYPE_XLU);
 			}
 
 			batchindex += xlucount;
 
-			batches = memaAlloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
+			batches = mema_alloc((batchindex * sizeof(struct vtxbatch) + 0xf) & ~0xf);
 
 			if (batches != NULL) {
-				gdl = bgGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_OPA);
+				gdl = bg_get_next_gdl_in_layer(roomnum, NULL, VTXBATCHTYPE_OPA);
 				batchindex = 0;
 
 				g_Rooms[roomnum].vtxbatches = batches;
 
 				while (gdl) {
-					Vtx *vertices = bgFindVerticesForGdl(roomnum, gdl);
-					batchindex = bgPopulateVtxBatchType(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_OPA);
-					gdl = bgGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_OPA);
+					Vtx *vertices = bg_find_vertices_for_gdl(roomnum, gdl);
+					batchindex = bg_populate_vtx_batch_type(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_OPA);
+					gdl = bg_get_next_gdl_in_layer(roomnum, gdl, VTXBATCHTYPE_OPA);
 				}
 
 				if (xlucount) {
-					gdl = bgGetNextGdlInLayer(roomnum, NULL, VTXBATCHTYPE_XLU);
+					gdl = bg_get_next_gdl_in_layer(roomnum, NULL, VTXBATCHTYPE_XLU);
 
 					while (gdl) {
-						Vtx *vertices = bgFindVerticesForGdl(roomnum, gdl);
-						batchindex = bgPopulateVtxBatchType(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_XLU);
-						gdl = bgGetNextGdlInLayer(roomnum, gdl, VTXBATCHTYPE_XLU);
+						Vtx *vertices = bg_find_vertices_for_gdl(roomnum, gdl);
+						batchindex = bg_populate_vtx_batch_type(roomnum, batches, gdl, batchindex, vertices, VTXBATCHTYPE_XLU);
+						gdl = bg_get_next_gdl_in_layer(roomnum, gdl, VTXBATCHTYPE_XLU);
 					}
 				}
 
@@ -3399,7 +3399,7 @@ void bgFindRoomVtxBatches(s32 roomnum)
 	}
 }
 
-bool bgTestLineIntersectsIntBbox(struct coord *arg0, struct coord *arg1, s32 *arg2, s32 *arg3)
+bool bg_test_line_intersects_int_bbox(struct coord *arg0, struct coord *arg1, s32 *arg2, s32 *arg3)
 {
 	struct coord arg2f;
 	struct coord arg3f;
@@ -3412,10 +3412,10 @@ bool bgTestLineIntersectsIntBbox(struct coord *arg0, struct coord *arg1, s32 *ar
 	arg3f.y = arg3[1];
 	arg3f.z = arg3[2];
 
-	return bgTestLineIntersectsBbox(arg0, arg1, &arg2f, &arg3f);
+	return bg_test_line_intersects_bbox(arg0, arg1, &arg2f, &arg3f);
 }
 
-bool bgTestLineIntersectsBbox(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3)
+bool bg_test_line_intersects_bbox(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3)
 {
 	u32 stack[4];
 	f32 f0;
@@ -3538,7 +3538,7 @@ bool bgTestLineIntersectsBbox(struct coord *arg0, struct coord *arg1, struct coo
 	return true;
 }
 
-bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *gdl,
+bool bg_test_hit_on_obj(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *gdl,
 		Gfx *gdl2, Vtx *vertices, struct hitthing *hitthing)
 {
 	s16 stack;
@@ -3666,7 +3666,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 			}
 
 			if (intersectsbbox) {
-				intersectsbbox = bgTestLineIntersectsBbox(arg0, arg2, &min, &max);
+				intersectsbbox = bg_test_line_intersects_bbox(arg0, arg2, &min, &max);
 			}
 		} else if (gdl->dma.cmd == (s8)G_SETTIMG) {
 			imggdl = gdl;
@@ -3765,7 +3765,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 						}
 
 						if (!(arg0->y < min.y && arg1->y < min.y) && !(arg0->y > max.y && arg1->y > max.y)) {
-							if (bgTestLineIntersectsBbox(arg0, arg2, &min, &max)
+							if (bg_test_line_intersects_bbox(arg0, arg2, &min, &max)
 									&& func0002f560(point1, point2, point3, NULL, arg0, arg1, arg2, &sp8c, &sp80)) {
 								tmp = sp8c.x - arg0->x;
 								sqdist = tmp * tmp;
@@ -3835,7 +3835,7 @@ bool bgTestHitOnObj(struct coord *arg0, struct coord *arg1, struct coord *arg2, 
 	return hit;
 }
 
-bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3,
+bool bg_test_hit_on_chr(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3,
 		Gfx *gdl, Gfx *gdl2, Vtx *vertices, f32 *sqdistptr, struct hitthing *hitthing)
 {
 	s16 triref;
@@ -3901,7 +3901,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 				ptr[1] = vtx->y;
 				ptr[2] = vtx->z;
 
-				mtx4TransformVecInPlace(mtx, (struct coord *) ptr);
+				mtx4_transform_vec_in_place(mtx, (struct coord *) ptr);
 
 				numvertices--;
 				ptr += 3;
@@ -3955,7 +3955,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 					|| (arg1->z > max.z && arg2->z > max.z)) {
 				intersectsbbox = false;
 			} else {
-				intersectsbbox = bgTestLineIntersectsBbox(arg1, arg3, &min, &max);
+				intersectsbbox = bg_test_line_intersects_bbox(arg1, arg3, &min, &max);
 			}
 		} else {
 			if (!intersectsbbox) {
@@ -4052,7 +4052,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 						}
 
 						if (!(arg1->y < min.y && arg2->y < min.y) && !(arg1->y > max.y && arg2->y > max.y)) {
-							if (bgTestLineIntersectsBbox(arg1, arg3, &min, &max)
+							if (bg_test_line_intersects_bbox(arg1, arg3, &min, &max)
 									&& func0002f560(point1, point2, point3, NULL, arg1, arg2, arg3, &sp84, &sp78)) {
 								tmp = sp84.x - arg1->x;
 								sqdist = tmp * tmp;
@@ -4113,7 +4113,7 @@ bool bgTestHitOnChr(struct model *model, struct coord *arg1, struct coord *arg2,
 	return hit;
 }
 
-bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct vtxbatch *batch, s32 roomnum, struct hitthing *hitthing)
+bool bg_test_hit_in_vtx_batch(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct vtxbatch *batch, s32 roomnum, struct hitthing *hitthing)
 {
 	s16 stack;
 	s16 triref;
@@ -4139,7 +4139,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 	Gfx *tmpgdl;
 	Gfx *tri4gdl;
 
-	vtx = bgFindVerticesForGdl(roomnum, gdl);
+	vtx = bg_find_vertices_for_gdl(roomnum, gdl);
 	iter = &gdl[batch->gbicmdindex];
 	vtx = (Vtx *)((iter->words.w1 & 0xffffff) + (s32)vtx);
 	numvertices = (((u32)iter->bytes[1] >> 4) & 0xf) + 1;
@@ -4256,7 +4256,7 @@ bool bgTestHitInVtxBatch(struct coord *arg0, struct coord *arg1, struct coord *a
 								}
 
 								if (!(arg0->y > max.y && arg1->y > max.y)) {
-									if (bgTestLineIntersectsBbox(arg0, arg2, &min, &max)
+									if (bg_test_line_intersects_bbox(arg0, arg2, &min, &max)
 											&& func0002f560(point1, point2, point3, NULL, arg0, arg1, arg2, &spb0, &spa4)) {
 										f32 tmp;
 
@@ -4419,7 +4419,7 @@ s32 bg0f1612e4(struct coord *bbmin, struct coord *bbmax, struct coord *frompos, 
  * Room vertices are already grouped into batches, where each batch has a
  * precomputed bounding box.
  */
-bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, struct hitthing *hitthing)
+bool bg_test_hit_in_room(struct coord *frompos, struct coord *topos, s32 roomnum, struct hitthing *hitthing)
 {
 	s32 i;
 	s32 count;
@@ -4511,7 +4511,7 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 			count = 0;
 
 			for (j = 0; j < ARRAYCOUNT(var800a6538); j++) {
-				if (bgTestHitInVtxBatch(&from, &to, &dist, &g_Rooms[roomnum].vtxbatches[var800a6538[j].vtxbatchindex], roomnum, hitthing)) {
+				if (bg_test_hit_in_vtx_batch(&from, &to, &dist, &g_Rooms[roomnum].vtxbatches[var800a6538[j].vtxbatchindex], roomnum, hitthing)) {
 					f0 = from.x - hitthing->pos.x;
 					f2 = f0 * f0;
 
@@ -4560,7 +4560,7 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 	batch = g_Rooms[roomnum].vtxbatches;
 
 	for (i = 0; i < count; i++) {
-		if (bgTestHitInVtxBatch(&from, &to, &dist, &batch[var800a6538[i].vtxbatchindex], roomnum, hitthing)) {
+		if (bg_test_hit_in_vtx_batch(&from, &to, &dist, &batch[var800a6538[i].vtxbatchindex], roomnum, hitthing)) {
 			i++;
 
 			if (i < count) {
@@ -4575,7 +4575,7 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 
 				for (; i < count; i++) {
 					if (var800a6538[i].unk04 <= spc8) {
-						if (bgTestHitInVtxBatch(&from, &to, &dist, &batch[var800a6538[i].vtxbatchindex], roomnum, &sp60)) {
+						if (bg_test_hit_in_vtx_batch(&from, &to, &dist, &batch[var800a6538[i].vtxbatchindex], roomnum, &sp60)) {
 							f0 = from.f[0] - sp60.pos.f[0];
 							f20 = f0 * f0;
 
@@ -4614,12 +4614,12 @@ bool bgTestHitInRoom(struct coord *frompos, struct coord *topos, s32 roomnum, st
 	return false;
 }
 
-bool bgRoomIsLoaded(s32 room)
+bool bg_room_is_loaded(s32 room)
 {
 	return g_Rooms[room].loaded240;
 }
 
-bool bgRoomContainsCoord(struct coord *pos, RoomNum roomnum)
+bool bg_room_contains_coord(struct coord *pos, RoomNum roomnum)
 {
 	struct coord copy;
 	copy.x = pos->x;
@@ -4646,7 +4646,7 @@ bool bgRoomContainsCoord(struct coord *pos, RoomNum roomnum)
  * - The normal points towards the front of the portal.
  * - The room on the front side is roomnum2.
  */
-bool bgTestPosInRoomCheap(struct coord *pos, RoomNum roomnum)
+bool bg_test_pos_in_room_cheap(struct coord *pos, RoomNum roomnum)
 {
 	s32 i;
 
@@ -4672,7 +4672,7 @@ bool bgTestPosInRoomCheap(struct coord *pos, RoomNum roomnum)
 	return true;
 }
 
-bool bgTestPosInRoomExpensive(struct coord *pos, RoomNum roomnum)
+bool bg_test_pos_in_room_expensive(struct coord *pos, RoomNum roomnum)
 {
 	s32 t5;
 	struct coord *next;
@@ -4780,12 +4780,12 @@ bool bgTestPosInRoomExpensive(struct coord *pos, RoomNum roomnum)
 	return true;
 }
 
-bool bgTestPosInRoom(struct coord *pos, RoomNum roomnum)
+bool bg_test_pos_in_room(struct coord *pos, RoomNum roomnum)
 {
 	if (g_Rooms[roomnum].flags & ROOMFLAG_COMPLICATEDPORTALS) {
-		return bgTestPosInRoomExpensive(pos, roomnum);
+		return bg_test_pos_in_room_expensive(pos, roomnum);
 	} else {
-		return bgTestPosInRoomCheap(pos, roomnum);
+		return bg_test_pos_in_room_cheap(pos, roomnum);
 	}
 }
 
@@ -4809,7 +4809,7 @@ bool bgTestPosInRoom(struct coord *pos, RoomNum roomnum)
  * to pos and writes the room number to the bestroom pointer. The bestroom
  * pointer is a pointer to a single s16 rather than an array.
  */
-void bgFindRoomsByPos(struct coord *posarg, RoomNum *inrooms, RoomNum *aboverooms, s32 max, RoomNum *bestroom)
+void bg_find_rooms_by_pos(struct coord *posarg, RoomNum *inrooms, RoomNum *aboverooms, s32 max, RoomNum *bestroom)
 {
 	s32 inlen = 0;
 	s32 abovelen = 0;
@@ -4909,7 +4909,7 @@ void bgFindRoomsByPos(struct coord *posarg, RoomNum *inrooms, RoomNum *aboveroom
 	}
 }
 
-bool bgCmdPushValue(bool value)
+bool bg_cmd_push_value(bool value)
 {
 	g_BgCmdStack[g_BgCmdStackIndex] = value;
 	g_BgCmdStackIndex = (g_BgCmdStackIndex + 1) % 20;
@@ -4917,13 +4917,13 @@ bool bgCmdPushValue(bool value)
 	return value;
 }
 
-bool bgCmdPopValue(void)
+bool bg_cmd_pop_value(void)
 {
 	bool val = g_BgCmdStack[g_BgCmdStackIndex = (g_BgCmdStackIndex + 19) % 20];
 	return val;
 }
 
-bool bgCmdGetNthValueFromEnd(s32 n)
+bool bg_cmd_get_nth_value_from_end(s32 n)
 {
 	return g_BgCmdStack[((g_BgCmdStackIndex - n) + 19) % 20];
 }
@@ -4949,7 +4949,7 @@ bool bgCmdGetNthValueFromEnd(s32 n)
  * these statements should be executed, or whether the condition failed and
  * it's just passing over them to get to the endif command.
  */
-struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
+struct bgcmd *bg_cmd_execute_branch(struct bgcmd *cmd, bool execute)
 {
 	s32 i;
 
@@ -4965,43 +4965,43 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 			return cmd;
 		case BGCMD_PUSH:
 			if (execute) {
-				bgCmdPushValue(cmd->param);
+				bg_cmd_push_value(cmd->param);
 			}
 			cmd += cmd->len;
 			break;
 		case BGCMD_POP:
 			if (execute) {
-				bgCmdPopValue();
+				bg_cmd_pop_value();
 			}
 			cmd += cmd->len;
 			break;
 		case BGCMD_AND:
 			if (execute) {
-				bgCmdPushValue(bgCmdPopValue() & bgCmdPopValue());
+				bg_cmd_push_value(bg_cmd_pop_value() & bg_cmd_pop_value());
 			}
 			cmd += cmd->len;
 			break;
 		case BGCMD_OR:
 			if (execute) {
-				bgCmdPushValue(bgCmdPopValue() | bgCmdPopValue());
+				bg_cmd_push_value(bg_cmd_pop_value() | bg_cmd_pop_value());
 			}
 			cmd += cmd->len;
 			break;
 		case BGCMD_NOT:
 			if (execute) {
-				bgCmdPushValue(bgCmdPopValue() == 0);
+				bg_cmd_push_value(bg_cmd_pop_value() == 0);
 			}
 			cmd += cmd->len;
 			break;
 		case BGCMD_XOR:
 			if (execute) {
-				bgCmdPushValue(bgCmdPopValue() ^ bgCmdPopValue());
+				bg_cmd_push_value(bg_cmd_pop_value() ^ bg_cmd_pop_value());
 			}
 			cmd += cmd->len;
 			break;
 		case BGCMD_PUSH_CAMINROOMRANGE:
 			if (execute) {
-				bgCmdPushValue(g_CamRoom >= cmd[1].param && g_CamRoom <= cmd[2].param);
+				bg_cmd_push_value(g_CamRoom >= cmd[1].param && g_CamRoom <= cmd[2].param);
 			}
 			cmd += cmd->len;
 			break;
@@ -5018,9 +5018,9 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 		case BGCMD_SETRESULT_IFPORTALINFOV:
 			if (execute) {
 				if (!PORTAL_IS_CLOSED(cmd[1].param)) {
-					if (!bgGetPortalScreenBbox(cmd[1].param, &g_PortalScreenBbox)) {
+					if (!bg_get_portal_screen_bbox(cmd[1].param, &g_PortalScreenBbox)) {
 						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (bgGetBoxIntersection(&g_BgCmdScreenBox, &g_PortalScreenBbox) == 0) {
+					} else if (bg_get_box_intersection(&g_BgCmdScreenBox, &g_PortalScreenBbox) == 0) {
 						g_BgCmdResult = BGRESULT_FALSE;
 					} else {
 						g_BgCmdResult = BGRESULT_TRUE;
@@ -5034,12 +5034,12 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 				struct screenbox portalbox;
 
 				if (!PORTAL_IS_CLOSED(cmd[1].param)) {
-					if (bgGetPortalScreenBbox(cmd[1].param, &portalbox) && bgGetBoxIntersection(&g_BgCmdScreenBox, &portalbox)) {
+					if (bg_get_portal_screen_bbox(cmd[1].param, &portalbox) && bg_get_box_intersection(&g_BgCmdScreenBox, &portalbox)) {
 						if (g_BgCmdResult != BGRESULT_TRUE) {
-							bgCopyBox(&g_BgCmdScreenBox, &portalbox);
+							bg_copy_box(&g_BgCmdScreenBox, &portalbox);
 							g_BgCmdResult = BGRESULT_TRUE;
 						} else {
-							bgExpandBox(&g_BgCmdScreenBox, &portalbox);
+							bg_expand_box(&g_BgCmdScreenBox, &portalbox);
 						}
 					}
 				}
@@ -5053,11 +5053,11 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 
 					if (PORTAL_IS_CLOSED(cmd[1].param)) {
 						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (!bgGetPortalScreenBbox(cmd[1].param, &portalbox)) {
+					} else if (!bg_get_portal_screen_bbox(cmd[1].param, &portalbox)) {
 						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (bgGetBoxIntersection(&portalbox, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
+					} else if (bg_get_box_intersection(&portalbox, (struct screenbox *)&g_Vars.currentplayer->screenxminf) == 0) {
 						g_BgCmdResult = BGRESULT_FALSE;
-					} else if (bgGetBoxIntersection(&g_PortalScreenBbox, &portalbox) == 0) {
+					} else if (bg_get_box_intersection(&g_PortalScreenBbox, &portalbox) == 0) {
 						g_BgCmdResult = BGRESULT_FALSE;
 					}
 				}
@@ -5066,8 +5066,8 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 			break;
 		case BGCMD_IFRESULT_SHOWROOM:
 			if (execute) {
-				if (g_BgCmdResult == BGRESULT_TRUE && bgRoomIntersectsScreenBox(cmd[1].param, &g_BgCmdScreenBox)) {
-					bgSetRoomOnscreen(cmd[1].param, 0, &g_BgCmdScreenBox);
+				if (g_BgCmdResult == BGRESULT_TRUE && bg_room_intersects_screen_box(cmd[1].param, &g_BgCmdScreenBox)) {
+					bg_set_room_onscreen(cmd[1].param, 0, &g_BgCmdScreenBox);
 					g_BgForceOnscreenRooms[g_BgNumForceOnscreenRooms++] = cmd[1].param;
 				}
 			}
@@ -5101,7 +5101,7 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 			break;
 		case BGCMD_PUSH_PORTALISOPEN:
 			if (execute) {
-				bgCmdPushValue(!PORTAL_IS_CLOSED(cmd[1].param));
+				bg_cmd_push_value(!PORTAL_IS_CLOSED(cmd[1].param));
 			}
 			cmd += cmd->len;
 			break;
@@ -5118,7 +5118,7 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 			cmd += cmd->len;
 			break;
 		case BGCMD_BRANCH:
-			cmd = bgCmdExecuteBranch(cmd + cmd->len, execute);
+			cmd = bg_cmd_execute_branch(cmd + cmd->len, execute);
 			cmd += cmd->len;
 			break;
 		case BGCMD_CATCH:
@@ -5133,7 +5133,7 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 			execute = false;
 			break;
 		case BGCMD_IF:
-			cmd = bgCmdExecuteBranch(cmd + cmd->len, bgCmdPopValue() & execute);
+			cmd = bg_cmd_execute_branch(cmd + cmd->len, bg_cmd_pop_value() & execute);
 			if (g_BgCmdThrowing) {
 				execute = false;
 			}
@@ -5179,7 +5179,7 @@ struct bgcmd *bgCmdExecuteBranch(struct bgcmd *cmd, bool execute)
 	return cmd;
 }
 
-struct bgcmd *bgCmdExecute(struct bgcmd *cmd)
+struct bgcmd *bg_cmd_execute(struct bgcmd *cmd)
 {
 	struct player *player = g_Vars.currentplayer;
 	g_BgCmdResult = BGRESULT_TRUE;
@@ -5189,17 +5189,17 @@ struct bgcmd *bgCmdExecute(struct bgcmd *cmd)
 	}
 
 	// This may have been used in an osSyncPrintf call
-	bgCmdGetNthValueFromEnd(0);
+	bg_cmd_get_nth_value_from_end(0);
 
 	g_BgCmdScreenBox.xmin = player->screenxminf;
 	g_BgCmdScreenBox.ymin = player->screenyminf;
 	g_BgCmdScreenBox.xmax = player->screenxmaxf;
 	g_BgCmdScreenBox.ymax = player->screenymaxf;
 
-	return bgCmdExecuteBranch(cmd, true);
+	return bg_cmd_execute_branch(cmd, true);
 }
 
-void bgTickPortalsXray(void)
+void bg_tick_portals_xray(void)
 {
 	struct coord vismax;
 	struct coord vismin;
@@ -5216,7 +5216,7 @@ void bgTickPortalsXray(void)
 
 	static u32 edist = 400;
 
-	bgCalculateScreenProperties();
+	bg_calculate_screen_properties();
 
 	if (g_BgDrawSlots);
 
@@ -5229,8 +5229,8 @@ void bgTickPortalsXray(void)
 	xmax = player->screenxmaxf;
 	ymax = player->screenymaxf;
 
-	if (bgunGetWeaponNum(HAND_RIGHT) == WEAPON_FARSIGHT && player->gunsightoff == 0) {
-		player->eraserdepth = -500.0f / camGetLodScaleZ();
+	if (bgun_get_weapon_num(HAND_RIGHT) == WEAPON_FARSIGHT && player->gunsightoff == 0) {
+		player->eraserdepth = -500.0f / cam_get_lod_scale_z();
 	} else {
 		player->eraserdepth = -500.0f;
 	}
@@ -5239,15 +5239,15 @@ void bgTickPortalsXray(void)
 	eraserpos.f[1] = 0.0f;
 	eraserpos.f[2] = player->eraserdepth;
 
-	mtx4TransformVecInPlace(camGetProjectionMtxF(), &eraserpos);
+	mtx4_transform_vec_in_place(cam_get_projection_mtxf(), &eraserpos);
 
 	player->eraserpos.f[0] = eraserpos.f[0];
 	player->eraserpos.f[1] = eraserpos.f[1];
 	player->eraserpos.f[2] = eraserpos.f[2];
 
-	mainOverrideVariable("edist", &edist);
+	main_override_variable("edist", &edist);
 
-	stage = stageGetCurrent();
+	stage = stage_get_current();
 
 	player->eraserpropdist = stage->eraserpropdist;
 	player->eraserbgdist = (f32) stage->eraserpropdist + stage->unk30;
@@ -5298,7 +5298,7 @@ void bgTickPortalsXray(void)
 
 				g_BgDrawSlots[index].roomnum = i;
 
-				bgUnpausePropsInRoom(i, false);
+				bg_unpause_props_in_room(i, false);
 
 				x = (g_Rooms[i].bbmin[0] + g_Rooms[i].bbmax[0]) / 2.0f - vismid.f[0];
 				y = (g_Rooms[i].bbmin[1] + g_Rooms[i].bbmax[1]) / 2.0f - vismid.f[1];
@@ -5329,10 +5329,10 @@ void bgTickPortalsXray(void)
 		}
 	}
 
-	bgChooseRoomsToLoad();
+	bg_choose_rooms_to_load();
 }
 
-void bgAddToSnake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct screenbox *box)
+void bg_add_to_snake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct screenbox *box)
 {
 	struct bgsnakeitem *item;
 	s32 i;
@@ -5360,7 +5360,7 @@ void bgAddToSnake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct screen
 			if (item->roomnum == roomnum) {
 				for (j = 0; j < ARRAYCOUNT(item->fromroomnums); j++) {
 					if (item->fromroomnums[j] == -1) {
-						bgExpandBox(&item->screenbox, box);
+						bg_expand_box(&item->screenbox, box);
 						item->fromroomnums[j] = fromroomnum;
 						return;
 					}
@@ -5413,7 +5413,7 @@ void bgAddToSnake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct screen
  * Those that should be onscreen are added to the draw list and appended to the
  * snake so its neighbours will be processed recursively.
  */
-void bgConsumeSnakeItem(struct bgsnakeitem *item)
+void bg_consume_snake_item(struct bgsnakeitem *item)
 {
 	struct coord *campos;
 	s32 i;
@@ -5483,8 +5483,8 @@ void bgConsumeSnakeItem(struct bgsnakeitem *item)
 		// multiple portals between the same two rooms.
 		if (prevfoundroom != newfoundroom) {
 			if (prevvalidcount) {
-				bgSetRoomOnscreen(prevfoundroom, item->depth, &prevbox);
-				bgAddToSnake(item->roomnum, prevfoundroom, item->depth + 1, &prevbox);
+				bg_set_room_onscreen(prevfoundroom, item->depth, &prevbox);
+				bg_add_to_snake(item->roomnum, prevfoundroom, item->depth + 1, &prevbox);
 			}
 
 			prevvalidcount = 0;
@@ -5514,11 +5514,11 @@ void bgConsumeSnakeItem(struct bgsnakeitem *item)
 			newbox.ymax = item->screenbox.ymax;
 			side = true;
 		} else {
-			side = bgGetPortalScreenBbox(portalnum, &newbox);
+			side = bg_get_portal_screen_bbox(portalnum, &newbox);
 		}
 
 		if (side) {
-			bgGetBoxIntersection(&newbox, &item->screenbox);
+			bg_get_box_intersection(&newbox, &item->screenbox);
 
 			if (newbox.xmin < newbox.xmax && newbox.ymin < newbox.ymax) {
 				if (prevvalidcount == 0) {
@@ -5527,7 +5527,7 @@ void bgConsumeSnakeItem(struct bgsnakeitem *item)
 					prevbox.xmax = newbox.xmax;
 					prevbox.ymax = newbox.ymax;
 				} else {
-					bgExpandBox(&prevbox, &newbox);
+					bg_expand_box(&prevbox, &newbox);
 				}
 
 				prevvalidcount++;
@@ -5536,8 +5536,8 @@ void bgConsumeSnakeItem(struct bgsnakeitem *item)
 	}
 
 	if (prevvalidcount != 0) {
-		bgSetRoomOnscreen(prevfoundroom, item->depth, &prevbox);
-		bgAddToSnake(item->roomnum, prevfoundroom, item->depth + 1, &prevbox);
+		bg_set_room_onscreen(prevfoundroom, item->depth, &prevbox);
+		bg_add_to_snake(item->roomnum, prevfoundroom, item->depth + 1, &prevbox);
 	}
 }
 
@@ -5549,13 +5549,13 @@ void bgConsumeSnakeItem(struct bgsnakeitem *item)
  *
  * The structure is used for discovering onscreen rooms.
  */
-bool bgTryConsumeSnake(void)
+bool bg_try_consume_snake(void)
 {
 	if (g_BgSnake.tailindex == g_BgSnake.headindex) {
 		return false;
 	}
 
-	bgConsumeSnakeItem(&g_BgSnake.items[g_BgSnake.tailindex]);
+	bg_consume_snake_item(&g_BgSnake.items[g_BgSnake.tailindex]);
 
 	g_BgSnake.tailindex++;
 
@@ -5579,7 +5579,7 @@ bool bgTryConsumeSnake(void)
  * destroying the glass may make many rooms visible at once, and only one room
  * is loaded per tick.
  */
-void bgChooseRoomsToLoad(void)
+void bg_choose_rooms_to_load(void)
 {
 	s32 i;
 	s32 j;
@@ -5602,7 +5602,7 @@ void bgChooseRoomsToLoad(void)
 					g_BgNumRoomLoadCandidates++;
 				}
 
-				bgUnpausePropsInRoom(roomnum2, true);
+				bg_unpause_props_in_room(roomnum2, true);
 
 				if (PORTAL_IS_CLOSED(i)) {
 					for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
@@ -5631,7 +5631,7 @@ void bgChooseRoomsToLoad(void)
 					g_BgNumRoomLoadCandidates++;
 				}
 
-				bgUnpausePropsInRoom(roomnum1, true);
+				bg_unpause_props_in_room(roomnum1, true);
 
 				if (PORTAL_IS_CLOSED(i)) {
 					for (j = 0; j < g_Rooms[roomnum1].numportals; j++) {
@@ -5675,21 +5675,21 @@ void bgChooseRoomsToLoad(void)
 	}
 }
 
-void bgTickPortals(void)
+void bg_tick_portals(void)
 {
 	s32 i;
 	s32 room;
 	struct screenbox box;
 	struct player *player = g_Vars.currentplayer;
 
-	bgCalculateScreenProperties();
+	bg_calculate_screen_properties();
 
 	box.xmin = player->screenxminf;
 	box.ymin = player->screenyminf;
 	box.xmax = player->screenxmaxf;
 	box.ymax = player->screenymaxf;
 
-	viGetZRange(&g_BgSnake.zrange);
+	vi_get_z_range(&g_BgSnake.zrange);
 	g_BgSnake.zrange.far = g_BgSnake.zrange.far / g_Vars.currentplayerstats->scale_bg2gfx;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
@@ -5700,7 +5700,7 @@ void bgTickPortals(void)
 	}
 
 	if (player->visionmode == VISIONMODE_XRAY) {
-		bgTickPortalsXray();
+		bg_tick_portals_xray();
 	} else {
 		if (g_BgNumAttemptedDrawSlots > g_BgMostAttemptedDrawSlots) {
 			g_BgMostAttemptedDrawSlots = g_BgNumAttemptedDrawSlots;
@@ -5721,40 +5721,40 @@ void bgTickPortals(void)
 		g_BgDrawSlots[60].box.xmax = box.xmax;
 		g_BgDrawSlots[60].box.ymax = box.ymax;
 
-		bgCmdExecute(g_BgCommands);
+		bg_cmd_execute(g_BgCommands);
 
 		if (!g_BgRoomTestsDisabled) {
 			if (g_BgPortals[0].verticesoffset == 0) {
 				for (room = 1; room < g_Vars.roomcount; room++) {
-					if (bgRoomIntersectsScreenBox(room, &box)
+					if (bg_room_intersects_screen_box(room, &box)
 							&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)
 							&& (g_StageIndex != STAGEINDEX_SKEDARRUINS || room != 0x02)
 							&& ((g_StageIndex != STAGEINDEX_DEFECTION && g_StageIndex != STAGEINDEX_EXTRACTION) || room != 0x01)
 							&& (g_StageIndex != STAGEINDEX_ATTACKSHIP || room != 0x71)) {
-						bgSetRoomOnscreen(room, 0, &box);
+						bg_set_room_onscreen(room, 0, &box);
 					}
 				}
 			} else {
-				bgSetRoomOnscreen(g_CamRoom, 0, &box);
+				bg_set_room_onscreen(g_CamRoom, 0, &box);
 
 				g_BgSnake.count = 0;
 				g_BgSnake.headindex = 0;
 				g_BgSnake.tailindex = 0;
 
-				bgAddToSnake(g_CamRoom, g_CamRoom, 1, &box);
+				bg_add_to_snake(g_CamRoom, g_CamRoom, 1, &box);
 
-				while (bgTryConsumeSnake());
+				while (bg_try_consume_snake());
 			}
 		}
 
-		bgChooseRoomsToLoad();
+		bg_choose_rooms_to_load();
 	}
 }
 
-Gfx *bgRenderSceneAndLoadCandidate(Gfx *gdl)
+Gfx *bg_render_scene_and_load_candidate(Gfx *gdl)
 {
-	gdl = bgRenderScene(gdl);
-	gdl = bgScissorToViewport(gdl);
+	gdl = bg_render_scene(gdl);
+	gdl = bg_scissor_to_viewport(gdl);
 
 	if (g_Vars.currentplayerindex == 0) {
 		g_BgLoadCandidateTimer240 -= g_Vars.lvupdate240;
@@ -5824,7 +5824,7 @@ Gfx *bgRenderSceneAndLoadCandidate(Gfx *gdl)
 		}
 
 		if (bestroomnum != 0) {
-			bgLoadRoom(bestroomnum);
+			bg_load_room(bestroomnum);
 			g_BgLoadCandidateTimer240 = 64;
 		}
 	}
@@ -5832,7 +5832,7 @@ Gfx *bgRenderSceneAndLoadCandidate(Gfx *gdl)
 	return gdl;
 }
 
-s32 bgGetForceOnscreenRooms(RoomNum *rooms, s32 len)
+s32 bg_get_force_onscreen_rooms(RoomNum *rooms, s32 len)
 {
 	s32 i;
 
@@ -5845,7 +5845,7 @@ s32 bgGetForceOnscreenRooms(RoomNum *rooms, s32 len)
 	return i;
 }
 
-s32 bgRoomGetNeighbours(s32 roomnum, RoomNum *dstrooms, s32 len)
+s32 bg_room_get_neighbours(s32 roomnum, RoomNum *dstrooms, s32 len)
 {
 	s32 count = 0;
 	s32 i;
@@ -5881,7 +5881,7 @@ end:
 	return count;
 }
 
-bool bgRoomsAreNeighbours(s32 roomnum1, s32 roomnum2)
+bool bg_rooms_are_neighbours(s32 roomnum1, s32 roomnum2)
 {
 	s32 i;
 
@@ -5896,15 +5896,15 @@ bool bgRoomsAreNeighbours(s32 roomnum1, s32 roomnum2)
 	return false;
 }
 
-void bgCalculateScreenProperties(void)
+void bg_calculate_screen_properties(void)
 {
 	struct player *player = g_Vars.currentplayer;
-	f32 width = viGetWidth();
+	f32 width = vi_get_width();
 	u32 stack;
-	f32 height = viGetHeight();
+	f32 height = vi_get_height();
 	u32 stack2;
 
-	player->screenxminf = viGetViewLeft();
+	player->screenxminf = vi_get_view_left();
 
 	if (player->screenxminf < 0) {
 		player->screenxminf = 0;
@@ -5914,7 +5914,7 @@ void bgCalculateScreenProperties(void)
 		player->screenxminf = width;
 	}
 
-	player->screenyminf = viGetViewTop();
+	player->screenyminf = vi_get_view_top();
 
 	if (player->screenyminf < 0) {
 		player->screenyminf = 0;
@@ -5924,7 +5924,7 @@ void bgCalculateScreenProperties(void)
 		player->screenyminf = height;
 	}
 
-	player->screenxmaxf = viGetViewLeft() + viGetViewWidth();
+	player->screenxmaxf = vi_get_view_left() + vi_get_view_width();
 
 	if (player->screenxmaxf < 0) {
 		player->screenxmaxf = 0;
@@ -5934,7 +5934,7 @@ void bgCalculateScreenProperties(void)
 		player->screenxmaxf = width;
 	}
 
-	player->screenymaxf = viGetViewTop() + viGetViewHeight();
+	player->screenymaxf = vi_get_view_top() + vi_get_view_height();
 
 	if (player->screenymaxf < 0) {
 		player->screenymaxf = 0;
@@ -5945,7 +5945,7 @@ void bgCalculateScreenProperties(void)
 	}
 }
 
-void bgExpandRoomToPortals(s32 roomnum)
+void bg_expand_room_to_portals(s32 roomnum)
 {
 	s32 i;
 	s32 j;
@@ -5976,7 +5976,7 @@ void bgExpandRoomToPortals(s32 roomnum)
 	if (count);
 }
 
-bool bgPortalExists(s32 portalnum)
+bool bg_portal_exists(s32 portalnum)
 {
 	s32 i;
 
@@ -5989,14 +5989,14 @@ bool bgPortalExists(s32 portalnum)
 	return false;
 }
 
-void bgPortalSwapRooms(s32 portal)
+void bg_portal_swap_rooms(s32 portal)
 {
 	RoomNum tmp = g_BgPortals[portal].roomnum1;
 	g_BgPortals[portal].roomnum1 = g_BgPortals[portal].roomnum2;
 	g_BgPortals[portal].roomnum2 = tmp;
 }
 
-void bgInitPortal(s32 portalnum)
+void bg_init_portal(s32 portalnum)
 {
 	struct coord room1centre;
 	struct coord room2centre;
@@ -6036,7 +6036,7 @@ void bgInitPortal(s32 portalnum)
 	if (tmp1 > sp28.max) {
 		sp18 = 1;
 
-		bgPortalSwapRooms(portalnum);
+		bg_portal_swap_rooms(portalnum);
 
 		sp28.normal.x = -sp28.normal.x;
 		sp28.normal.y = -sp28.normal.y;
@@ -6050,7 +6050,7 @@ void bgInitPortal(s32 portalnum)
 	tmp2 = sp28.normal.f[0] * room2centre.f[0] + sp28.normal.f[1] * room2centre.f[1] + sp28.normal.f[2] * room2centre.f[2];
 
 	if (tmp2 <= sp28.min && sp18) {
-		bgPortalSwapRooms(portalnum);
+		bg_portal_swap_rooms(portalnum);
 	}
 
 	if (sp18);
@@ -6067,7 +6067,7 @@ void bgInitPortal(s32 portalnum)
  * a portal (door) on the inside wall of the L. It means you can be inside the
  * room but your position is on the opposite side of the door's plane.
  */
-void bgInitRoom(s32 roomnum)
+void bg_init_room(s32 roomnum)
 {
 	struct portalvertices *pvertices;
 	s32 i;
@@ -6120,12 +6120,12 @@ void bgInitRoom(s32 roomnum)
 	}
 }
 
-void bgSetPortalOpenState(s32 portal, bool open)
+void bg_set_portal_open_state(s32 portal, bool open)
 {
 	g_BgPortals[portal].flags = (g_BgPortals[portal].flags | PORTALFLAG_CLOSED) ^ (open != false);
 }
 
-Gfx *bgRenderPortals(Gfx *gdl, s32 arg1, s32 arg2)
+Gfx *bg_render_portals(Gfx *gdl, s32 arg1, s32 arg2)
 {
 	return gdl;
 }
@@ -6137,7 +6137,7 @@ void bg0f164e80(s32 arg0, s32 arg1)
 
 f32 var8007fcb4 = 0;
 
-s32 bgFindPortalBetweenPositions(struct coord *pos1, struct coord *pos2)
+s32 bg_find_portal_between_positions(struct coord *pos1, struct coord *pos2)
 {
 	s32 bestportalnum = -1;
 	s32 count = 0;
@@ -6146,7 +6146,7 @@ s32 bgFindPortalBetweenPositions(struct coord *pos1, struct coord *pos2)
 	s32 i;
 
 	for (i = 0; g_BgPortals[i].verticesoffset; i++) {
-		if (portalCalculateIntersection(i, pos1, pos2) != PORTALINTERSECTION_NONE) {
+		if (portal_calculate_intersection(i, pos1, pos2) != PORTALINTERSECTION_NONE) {
 			thisthing = var8007fcb4;
 
 			if (thisthing < 0) {
@@ -6166,7 +6166,7 @@ s32 bgFindPortalBetweenPositions(struct coord *pos1, struct coord *pos2)
 	return bestportalnum;
 }
 
-bool bgIsBboxOverlapping(struct coord *portalbbmin, struct coord *portalbbmax, struct coord *propbbmin, struct coord *propbbmax)
+bool bg_is_bbox_overlapping(struct coord *portalbbmin, struct coord *portalbbmax, struct coord *propbbmin, struct coord *propbbmax)
 {
 	s32 i;
 
@@ -6179,7 +6179,7 @@ bool bgIsBboxOverlapping(struct coord *portalbbmin, struct coord *portalbbmax, s
 	return true;
 }
 
-void bgCalculatePortalBbox(s32 portalnum, struct coord *bbmin, struct coord *bbmax)
+void bg_calculate_portal_bbox(s32 portalnum, struct coord *bbmin, struct coord *bbmax)
 {
 	struct portalvertices *pvertices;
 	s32 i;
@@ -6210,7 +6210,7 @@ void bgCalculatePortalBbox(s32 portalnum, struct coord *bbmin, struct coord *bbm
 	}
 }
 
-void bgFindEnteredRooms(struct coord *bbmin, struct coord *bbmax, RoomNum *rooms, s32 maxlen, bool arg4)
+void bg_find_entered_rooms(struct coord *bbmin, struct coord *bbmax, RoomNum *rooms, s32 maxlen, bool arg4)
 {
 	RoomNum room;
 	RoomNum otherroom;
@@ -6250,9 +6250,9 @@ void bgFindEnteredRooms(struct coord *bbmin, struct coord *bbmax, RoomNum *rooms
 					continue;
 				}
 
-				bgCalculatePortalBbox(portalnum, &portalbbmin, &portalbbmax);
+				bg_calculate_portal_bbox(portalnum, &portalbbmin, &portalbbmax);
 
-				if (bgIsBboxOverlapping(&portalbbmin, &portalbbmax, &propbbmin, &propbbmax)) {
+				if (bg_is_bbox_overlapping(&portalbbmin, &portalbbmax, &propbbmin, &propbbmax)) {
 					if (room == g_BgPortals[portalnum].roomnum1) {
 						otherroom = g_BgPortals[portalnum].roomnum2;
 					} else {

@@ -103,7 +103,7 @@ Lights1 var800624f8jf = gdSPDefLights1(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 Lights1 var80062510jf = gdSPDefLights1(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7f);
 #endif
 
-char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
+char *mp_player_get_weapon_of_choice_name(u32 playernum, u32 slot)
 {
 	char *name;
 	s32 weapon1;
@@ -111,19 +111,19 @@ char *mpPlayerGetWeaponOfChoiceName(u32 playernum, u32 slot)
 	u32 prevplayernum = g_Vars.currentplayernum;
 	s32 weapon;
 
-	setCurrentPlayerNum(playernum);
+	set_current_player_num(playernum);
 
-	invGetWeaponOfChoice(&weapon1, &weapon2);
+	inv_get_weapon_of_choice(&weapon1, &weapon2);
 
 	weapon = slot == 1 ? weapon2 : weapon1;
 
-	name = bgunGetName(weapon);
-	setCurrentPlayerNum(prevplayernum);
+	name = bgun_get_name(weapon);
+	set_current_player_num(prevplayernum);
 
 	return name;
 }
 
-void titleSetLight(Lights1 *light, u8 r, u8 g, u8 b, f32 luminosity, struct coord *dir)
+void title_set_light(Lights1 *light, u8 r, u8 g, u8 b, f32 luminosity, struct coord *dir)
 {
 	light->a.l.col[0] = r * luminosity;
 	light->a.l.col[1] = g * luminosity;
@@ -146,9 +146,9 @@ void titleSetLight(Lights1 *light, u8 r, u8 g, u8 b, f32 luminosity, struct coor
 	light->l[0].l.dir[2] = dir->z * 127.0f;
 }
 
-void titleInitLegal(void)
+void title_init_legal(void)
 {
-	musicQueueStopAllEvent();
+	music_queue_stop_all_event();
 	var800624f4 = 1;
 	g_TitleTimer = 0;
 	g_TitleButtonPressed = false;
@@ -156,65 +156,65 @@ void titleInitLegal(void)
 
 #if VERSION == VERSION_PAL_BETA
 	// Play a sound if player has successfully enabled the crash screen.
-	// This is done in mainInit by holding all four C buttons.
+	// This is done in main_init by holding all four C buttons.
 	if (g_CrashEnabled) {
-		sndStart(var80095200, SFX_8113, 0, -1, -1, -1.0f, -1, -1);
+		snd_start(var80095200, SFX_8113, 0, -1, -1, -1.0f, -1, -1);
 	}
 #endif
 }
 
-void titleExitLegal(void)
+void title_exit_legal(void)
 {
 	// empty
 }
 
-void titleTickLegal(void)
+void title_tick_legal(void)
 {
-	viSetFovY(60);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	vi_set_fov_y(60);
+	vi_set_aspect(1.33333333f);
+	vi_set_z_range(100, 10000);
+	vi_set_use_z_buf(false);
 
 	g_TitleTimer += g_Vars.lvupdate60;
 
 	if (g_TitleTimer > TICKS(180)) {
-		titleSetNextMode(TITLEMODE_CHECKCONTROLLERS);
+		title_set_next_mode(TITLEMODE_CHECKCONTROLLERS);
 	}
 }
 
-void titleInitCheckControllers(void)
+void title_init_check_controllers(void)
 {
 	g_TitleTimer = 0;
-	viBlack(true);
+	vi_black(true);
 }
 
-void titleExitCheckControllers(void)
+void title_exit_check_controllers(void)
 {
 	var800624e8 = 0;
-	viConfigureForLogos();
-	viSetMode(VIMODE_HI);
-	viBlack(false);
+	vi_configure_for_logos();
+	vi_set_mode(VIMODE_HI);
+	vi_black(false);
 }
 
-void titleTickCheckControllers(void)
+void title_tick_check_controllers(void)
 {
 	g_TitleTimer++;
-	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	vi_set_z_range(100, 10000);
+	vi_set_use_z_buf(false);
 
 	if (g_TitleTimer > 6) {
-		if ((joyGetConnectedControllers() & 1) == 0) {
-			titleSetNextMode(TITLEMODE_NOCONTROLLER);
+		if ((joy_get_connected_controllers() & 1) == 0) {
+			title_set_next_mode(TITLEMODE_NOCONTROLLER);
 		} else {
-			titleSetNextMode(TITLEMODE_RARELOGO);
+			title_set_next_mode(TITLEMODE_RARELOGO);
 		}
 	}
 }
 
-Gfx *titleRenderCheckControllers(Gfx *gdl)
+Gfx *title_render_check_controllers(Gfx *gdl)
 {
 	if (g_TitleTimer > 2 && g_TitleTimer < 6) {
-		gdl = titleClear(gdl);
+		gdl = title_clear(gdl);
 	}
 
 	return gdl;
@@ -230,12 +230,12 @@ Gfx *title0f0165f0(Gfx *gdl, s32 xcentre, s32 ycentre, s32 xscale, s32 yscale, c
 	textwidth = 0;
 	textheight = 0;
 
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = xcentre - xscale * textwidth / 2;
 	y = ycentre - yscale * textheight / 2;
 
-	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text, font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 
 	return gdl;
 }
@@ -313,7 +313,7 @@ struct legalelement g_LegalElements[] = {
 #endif
 };
 
-Gfx *titleRenderLegal(Gfx *gdl)
+Gfx *title_render_legal(Gfx *gdl)
 {
 #if VERSION >= VERSION_PAL_BETA
 	s32 prevx = 0;
@@ -327,7 +327,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 	struct font *font2;
 
 	if (g_LegalEnabled) {
-		gdl = titleClear(gdl);
+		gdl = title_clear(gdl);
 #if VERSION == VERSION_JPN_FINAL
 		gdl = func0f0d479c(gdl);
 #endif
@@ -383,9 +383,9 @@ Gfx *titleRenderLegal(Gfx *gdl)
 			if (elem->type == LEGALELEMENTTYPE_LINE) {
 				gdl = text0f153780(gdl);
 #if VERSION == VERSION_JPN_FINAL
-				gdl = text0f153a34(gdl, elem->x, elem->y - 1, viGetWidth(), elem->y + 1, 0x7f7fff7f);
+				gdl = text0f153a34(gdl, elem->x, elem->y - 1, vi_get_width(), elem->y + 1, 0x7f7fff7f);
 #else
-				gdl = text0f153a34(gdl, elem->x, elem->y, viGetWidth(), elem->y + 2, 0x7f7fff7f);
+				gdl = text0f153a34(gdl, elem->x, elem->y, vi_get_width(), elem->y + 2, 0x7f7fff7f);
 #endif
 				gdl = text0f153628(gdl);
 			} else if (elem->type == LEGALELEMENTTYPE_DOLBYLOGO) {
@@ -397,7 +397,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				texSelect(&gdl, &g_TexGeneralConfigs[47], 1, 0, 2, 1, 0);
+				tex_select(&gdl, &g_TexGeneralConfigs[47], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -420,7 +420,7 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				texSelect(&gdl, &g_TexGeneralConfigs[49], 1, 0, 2, 1, 0);
+				tex_select(&gdl, &g_TexGeneralConfigs[49], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -450,16 +450,16 @@ Gfx *titleRenderLegal(Gfx *gdl)
 						x += 24;
 					}
 
-					gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+					gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 
 					var8007fad0 = 1;
 					var80080108jf = 1;
 				} else {
-					gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), viGetWidth(), viGetHeight(), 0, 0);
+					gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), vi_get_width(), vi_get_height(), 0, 0);
 
 					x = elem->x == -1 ? prevx : elem->x;
 					y = elem->y;
-					gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+					gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 
 					prevx = x;
 				}
@@ -468,23 +468,23 @@ Gfx *titleRenderLegal(Gfx *gdl)
 				// Render a darker copy of the text one pixel above
 				x = elem->x == -1 ? prevx : elem->x;
 				y = elem->y - 1;
-				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), viGetWidth(), viGetHeight(), 0, 0);
+				gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), vi_get_width(), vi_get_height(), 0, 0);
 
 				// Render the text properly
 				x = elem->x == -1 ? prevx : elem->x;
 				y = elem->y;
-				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+				gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 
 				prevx = x;
 #elif VERSION >= VERSION_PAL_BETA
 				x = elem->x == -1 ? prevx : elem->x;
 				y = elem->y;
-				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+				gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 				prevx = x;
 #else
 				x = elem->x;
 				y = elem->y;
-				gdl = textRenderProjected(gdl, &x, &y, langGet(elem->textid), font1, font2, colour, viGetWidth(), viGetHeight(), 0, 0);
+				gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 #endif
 			}
 		}
@@ -499,7 +499,7 @@ bool g_LegalEnabled = true;
 bool g_PdLogoIsFirstTick = true;
 bool g_PdLogoTriggerExit = false;
 
-void titleInitPdLogo(void)
+void title_init_pd_logo(void)
 {
 	u8 *nextaddr = var8009cca0;
 	u32 remaining;
@@ -532,86 +532,86 @@ void titleInitPdLogo(void)
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_NLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
-		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO].fileid));
+		g_ModelStates[MODEL_NLOGO].modeldef = modeldef_load(g_ModelStates[MODEL_NLOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
+		size = ALIGN64(file_get_loaded_size(g_ModelStates[MODEL_NLOGO].fileid));
 		nextaddr += size;
 		remaining = TITLE_ALLOCSIZE - size;
-		modelAllocateRwData(g_ModelStates[MODEL_NLOGO].modeldef);
+		model_allocate_rw_data(g_ModelStates[MODEL_NLOGO].modeldef);
 
-		g_TitleModel = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO].modeldef);
-		modelSetScale(g_TitleModel, 1);
-		modelSetRootPosition(g_TitleModel, &coord);
+		g_TitleModel = modelmgr_instantiate_model_with_anim(g_ModelStates[MODEL_NLOGO].modeldef);
+		model_set_scale(g_TitleModel, 1);
+		model_set_root_position(g_TitleModel, &coord);
 	}
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_NLOGO2].modeldef = modeldefLoad(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
-		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_NLOGO2].fileid));
+		g_ModelStates[MODEL_NLOGO2].modeldef = modeldef_load(g_ModelStates[MODEL_NLOGO2].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(file_get_loaded_size(g_ModelStates[MODEL_NLOGO2].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_NLOGO2].modeldef);
+		model_allocate_rw_data(g_ModelStates[MODEL_NLOGO2].modeldef);
 
-		g_TitleModelNLogo2 = modelmgrInstantiateModelWithAnim(g_ModelStates[MODEL_NLOGO2].modeldef);
-		modelSetScale(g_TitleModelNLogo2, 1);
-		modelSetRootPosition(g_TitleModelNLogo2, &coord);
+		g_TitleModelNLogo2 = modelmgr_instantiate_model_with_anim(g_ModelStates[MODEL_NLOGO2].modeldef);
+		model_set_scale(g_TitleModelNLogo2, 1);
+		model_set_root_position(g_TitleModelNLogo2, &coord);
 	}
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_PDTWO].modeldef = modeldefLoad(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
-		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTWO].fileid));
+		g_ModelStates[MODEL_PDTWO].modeldef = modeldef_load(g_ModelStates[MODEL_PDTWO].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(file_get_loaded_size(g_ModelStates[MODEL_PDTWO].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_PDTWO].modeldef);
+		model_allocate_rw_data(g_ModelStates[MODEL_PDTWO].modeldef);
 
-		g_TitleModelPdTwo = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTWO].modeldef);
-		modelSetScale(g_TitleModelPdTwo, 1);
-		modelSetRootPosition(g_TitleModelPdTwo, &coord);
+		g_TitleModelPdTwo = modelmgr_instantiate_model_without_anim(g_ModelStates[MODEL_PDTWO].modeldef);
+		model_set_scale(g_TitleModelPdTwo, 1);
+		model_set_root_position(g_TitleModelPdTwo, &coord);
 	}
 
 #if VERSION == VERSION_JPN_FINAL
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_JPNLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_JPNLOGO].fileid, nextaddr, remaining, 0);
-		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNLOGO].fileid));
+		g_ModelStates[MODEL_JPNLOGO].modeldef = modeldef_load(g_ModelStates[MODEL_JPNLOGO].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(file_get_loaded_size(g_ModelStates[MODEL_JPNLOGO].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_JPNLOGO].modeldef);
+		model_allocate_rw_data(g_ModelStates[MODEL_JPNLOGO].modeldef);
 
-		g_TitleModelJpnLogo1 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].modeldef);
-		g_TitleModelJpnLogo2 = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNLOGO].modeldef);
-		modelSetScale(g_TitleModelJpnLogo1, 1);
-		modelSetScale(g_TitleModelJpnLogo2, 1);
-		modelSetRootPosition(g_TitleModelJpnLogo1, &coord);
-		modelSetRootPosition(g_TitleModelJpnLogo2, &coord);
+		g_TitleModelJpnLogo1 = modelmgr_instantiate_model_without_anim(g_ModelStates[MODEL_JPNLOGO].modeldef);
+		g_TitleModelJpnLogo2 = modelmgr_instantiate_model_without_anim(g_ModelStates[MODEL_JPNLOGO].modeldef);
+		model_set_scale(g_TitleModelJpnLogo1, 1);
+		model_set_scale(g_TitleModelJpnLogo2, 1);
+		model_set_root_position(g_TitleModelJpnLogo1, &coord);
+		model_set_root_position(g_TitleModelJpnLogo2, &coord);
 
-		g_ModelStates[MODEL_JPNPD].modeldef = modeldefLoad(g_ModelStates[MODEL_JPNPD].fileid, nextaddr, remaining, 0);
-		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_JPNPD].fileid));
+		g_ModelStates[MODEL_JPNPD].modeldef = modeldef_load(g_ModelStates[MODEL_JPNPD].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(file_get_loaded_size(g_ModelStates[MODEL_JPNPD].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_JPNPD].modeldef);
+		model_allocate_rw_data(g_ModelStates[MODEL_JPNPD].modeldef);
 
-		g_TitleModelJpnPd = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_JPNPD].modeldef);
-		modelSetScale(g_TitleModelJpnPd, 1);
-		modelSetRootPosition(g_TitleModelJpnPd, &coord);
+		g_TitleModelJpnPd = modelmgr_instantiate_model_without_anim(g_ModelStates[MODEL_JPNPD].modeldef);
+		model_set_scale(g_TitleModelJpnPd, 1);
+		model_set_root_position(g_TitleModelJpnPd, &coord);
 	}
 #endif
 
 	{
 		struct coord coord = {0, 0, 0};
-		g_ModelStates[MODEL_PDTHREE].modeldef = modeldefLoad(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
-		size = ALIGN64(fileGetLoadedSize(g_ModelStates[MODEL_PDTHREE].fileid));
+		g_ModelStates[MODEL_PDTHREE].modeldef = modeldef_load(g_ModelStates[MODEL_PDTHREE].fileid, nextaddr, remaining, 0);
+		size = ALIGN64(file_get_loaded_size(g_ModelStates[MODEL_PDTHREE].fileid));
 		nextaddr += size;
 		remaining -= size;
-		modelAllocateRwData(g_ModelStates[MODEL_PDTHREE].modeldef);
+		model_allocate_rw_data(g_ModelStates[MODEL_PDTHREE].modeldef);
 
-		g_TitleModelPdThree = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_PDTHREE].modeldef);
-		modelSetScale(g_TitleModelPdThree, 1);
-		modelSetRootPosition(g_TitleModelPdThree, &coord);
+		g_TitleModelPdThree = modelmgr_instantiate_model_without_anim(g_ModelStates[MODEL_PDTHREE].modeldef);
+		model_set_scale(g_TitleModelPdThree, 1);
+		model_set_root_position(g_TitleModelPdThree, &coord);
 	}
 
 	{
-		struct modelrodata_dl *rodata = (struct modelrodata_dl *)modelGetPartRodata(g_ModelStates[MODEL_PDTWO].modeldef, MODELPART_LOGO_FRONTSIDE);
+		struct modelrodata_dl *rodata = (struct modelrodata_dl *)model_get_part_rodata(g_ModelStates[MODEL_PDTWO].modeldef, MODELPART_LOGO_FRONTSIDE);
 
 		size = ALIGN8(rodata->numvertices * sizeof(Vtx));
 
@@ -640,33 +640,33 @@ void titleInitPdLogo(void)
 		g_PdLogoTriggerExit = false;
 
 		if (g_TitleButtonPressed) {
-			titleSkipToPdTitle();
+			title_skip_to_pd_title();
 		}
 	}
 }
 
-void titleExitPdLogo(void)
+void title_exit_pd_logo(void)
 {
-	modelmgrFreeModel(g_TitleModel);
-	modelmgrFreeModel(g_TitleModelNLogo2);
-	modelmgrFreeModel(g_TitleModelPdTwo);
-	modelmgrFreeModel(g_TitleModelPdThree);
+	modelmgr_free_model(g_TitleModel);
+	modelmgr_free_model(g_TitleModelNLogo2);
+	modelmgr_free_model(g_TitleModelPdTwo);
+	modelmgr_free_model(g_TitleModelPdThree);
 
 #if VERSION == VERSION_JPN_FINAL
-	modelmgrFreeModel(g_TitleModelJpnLogo1);
-	modelmgrFreeModel(g_TitleModelJpnLogo2);
-	modelmgrFreeModel(g_TitleModelJpnPd);
+	modelmgr_free_model(g_TitleModelJpnLogo1);
+	modelmgr_free_model(g_TitleModelJpnLogo2);
+	modelmgr_free_model(g_TitleModelJpnPd);
 #endif
 
 	joy00014810(true);
 }
 
-void titleTickPdLogo(void)
+void title_tick_pd_logo(void)
 {
-	viSetFovY(46);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	vi_set_fov_y(46);
+	vi_set_aspect(1.33333333f);
+	vi_set_z_range(100, 10000);
+	vi_set_use_z_buf(false);
 
 	g_TitleTimer += g_Vars.lvupdate60;
 	g_PdLogoVtxColIndex = 1 - g_PdLogoVtxColIndex;
@@ -681,36 +681,36 @@ void titleTickPdLogo(void)
 		// Exiting due to player not pressing anything
 		if (g_AltTitleEnabled && IS8MB()) {
 			g_TitleMode = TITLEMODE_SKIP;
-			creditsRequestAltTitle();
+			credits_request_alt_title();
 			g_TitleNextStage = STAGE_CREDITS; // for alt title screen
-			setNumPlayers(1);
-			mainChangeToStage(g_TitleNextStage);
+			set_num_players(1);
+			main_change_to_stage(g_TitleNextStage);
 
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
 
-			lvSetDifficulty(DIFF_A);
-			viBlack(true);
+			lv_set_difficulty(DIFF_A);
+			vi_black(true);
 		} else {
-			titleSetNextMode(TITLEMODE_SKIP);
+			title_set_next_mode(TITLEMODE_SKIP);
 		}
 	}
 
 	if (g_TitleButtonPressed && g_TitleTimer > TICKS(666)) {
-		titleSetNextMode(TITLEMODE_SKIP);
+		title_set_next_mode(TITLEMODE_SKIP);
 	}
 
-	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
+	if (joy_get_buttons_pressed_this_frame(0, 0xffff)) {
 		g_TitleButtonPressed = g_TitleFastForward = true;
 
 		if (g_TitleTimer < TICKS(549)) {
-			titleSetNextMode(TITLEMODE_PDLOGO);
+			title_set_next_mode(TITLEMODE_PDLOGO);
 		}
 	}
 }
 
-Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, Vtx *vertices, Col *colours)
+Gfx *title_render_pd_logo_model(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, Vtx *vertices, Col *colours)
 {
 	struct modelrenderdata renderdata = {NULL, true, 3};
 	s32 tmp2;
@@ -736,10 +736,10 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 	Col *s2;
 	Mtxf sp6c;
 
-	tmp = modelGetNodeRwData(model, modelGetPart(model->definition, MODELPART_LOGO_0000));
+	tmp = model_get_node_rw_data(model, model_get_part(model->definition, MODELPART_LOGO_0000));
 	tmp->toggle.visible = arg2;
 
-	tmp = modelGetNodeRwData(model, modelGetPart(model->definition, MODELPART_LOGO_0001));
+	tmp = model_get_node_rw_data(model, model_get_part(model->definition, MODELPART_LOGO_0001));
 	tmp->toggle.visible = !arg2;
 
 	s6 = arg3 * 65536.0f;
@@ -780,28 +780,28 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 
 	for (i = 0; i < 4; i++) {
 		if (i == 0) {
-			node1 = modelGetPart(model->definition, MODELPART_LOGO_FRONTSIDE);
-			node2 = modelGetPart(model->definition, MODELPART_LOGO_0003);
+			node1 = model_get_part(model->definition, MODELPART_LOGO_FRONTSIDE);
+			node2 = model_get_part(model->definition, MODELPART_LOGO_0003);
 		} else if (i == 1) {
-			node1 = modelGetPart(model->definition, MODELPART_LOGO_RIGHTSIDE);
-			node2 = modelGetPart(model->definition, MODELPART_LOGO_0005);
+			node1 = model_get_part(model->definition, MODELPART_LOGO_RIGHTSIDE);
+			node2 = model_get_part(model->definition, MODELPART_LOGO_0005);
 		} else if (i == 2) {
-			node1 = modelGetPart(model->definition, MODELPART_LOGO_BACKSIDE);
-			node2 = modelGetPart(model->definition, MODELPART_LOGO_0007);
+			node1 = model_get_part(model->definition, MODELPART_LOGO_BACKSIDE);
+			node2 = model_get_part(model->definition, MODELPART_LOGO_0007);
 		} else {
-			node1 = modelGetPart(model->definition, MODELPART_LOGO_LEFTSIDE);
-			node2 = modelGetPart(model->definition, MODELPART_LOGO_0009);
+			node1 = model_get_part(model->definition, MODELPART_LOGO_LEFTSIDE);
+			node2 = model_get_part(model->definition, MODELPART_LOGO_0009);
 		}
 
 		if (node1 && node2) {
 			if (arg2) {
 				s5rodata = &node1->rodata->dl;
 				s1rodata = &node2->rodata->dl;
-				rwdata = modelGetNodeRwData(model, node1);
+				rwdata = model_get_node_rw_data(model, node1);
 			} else {
 				s5rodata = &node2->rodata->dl;
 				s1rodata = &node1->rodata->dl;
-				rwdata = modelGetNodeRwData(model, node2);
+				rwdata = model_get_node_rw_data(model, node2);
 			}
 
 			s1 = (Col *)ALIGN8(s5rodata->numvertices * sizeof(Vtx) + (s32)s5rodata->vertices);
@@ -856,25 +856,25 @@ Gfx *titleRenderPdLogoModel(Gfx *gdl, struct model *model, bool arg2, f32 arg3, 
 	gDPSetPrimColor(gdl++, 0, 0, 0x00, 0x00, 0x00, alpha1);
 
 	renderdata.unk00 = arg6;
-	renderdata.unk10 = gfxAllocate(model->definition->nummatrices * sizeof(Mtxf));
+	renderdata.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
 
-	mtx4Copy(arg6, renderdata.unk10);
+	mtx4_copy(arg6, renderdata.unk10);
 
 	model->matrices = renderdata.unk10;
 
-	modelUpdateRelations(model);
+	model_update_relations(model);
 
 	renderdata.flags = 3;
 	renderdata.zbufferenabled = false;
 	renderdata.gdl = gdl;
 
-	modelRender(&renderdata, model);
+	model_render(&renderdata, model);
 
 	gdl = renderdata.gdl;
 
 	for (j = 0, k = 0; j < model->definition->nummatrices; j++, k += sizeof(Mtxf)) {
-		mtx4Copy((Mtxf *)((uintptr_t)model->matrices + k), &sp6c);
-		mtxF2L(&sp6c, model->matrices + j);
+		mtx4_copy((Mtxf *)((uintptr_t)model->matrices + k), &sp6c);
+		mtx_f2l(&sp6c, model->matrices + j);
 	}
 
 	return gdl;
@@ -915,7 +915,7 @@ f32 g_PdLogoLightDirFrac = 0;
  *
  * Assumes the title mode is already PdLogo, but at an earlier point.
  */
-void titleSkipToPdTitle(void)
+void title_skip_to_pd_title(void)
 {
 	g_PdLogoYRotCur = 0;
 	g_PdLogoYRotSpeed = 0;
@@ -949,10 +949,10 @@ void titleSkipToPdTitle(void)
 	g_TitleTimer = TICKS(549);
 	g_PdLogoIsFirstTick = false;
 
-	musicStartTemporaryPrimary(MUSIC_TITLE2);
+	music_start_temporary_primary(MUSIC_TITLE2);
 }
 
-Gfx *titleRenderPdLogo(Gfx *gdl)
+Gfx *title_render_pd_logo(Gfx *gdl)
 {
 	struct modelrenderdata renderdata = {NULL, true, 3};
 	Mtxf sp2b0;
@@ -1055,7 +1055,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	if (g_PdLogoYRotStopping) {
 		if (g_PdLogoYRotCur < g_PdLogoEndYRot) {
-			applySpeed(&g_PdLogoYRotCur, g_PdLogoEndYRot, &g_PdLogoYRotSpeed, yrotaccel, yrotaccel, yrotmaxspeed);
+			apply_speed(&g_PdLogoYRotCur, g_PdLogoEndYRot, &g_PdLogoYRotSpeed, yrotaccel, yrotaccel, yrotmaxspeed);
 
 			if (g_PdLogoYRotCur >= g_PdLogoEndYRot) {
 				g_PdLogoYRotCur = g_PdLogoEndYRot;
@@ -1126,7 +1126,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 		if (g_PdLogoXRotCur > xrotmin) {
 			// Implement the camera lowering effect, but it's actually
 			// the model that rotates upwards to face the camera
-			applyRotation(&g_PdLogoXRotCur, xrotmin, &g_PdLogoXRotSpeed, xrotaccel, xrotaccel, xrotmaxspeed);
+			apply_rotation(&g_PdLogoXRotCur, xrotmin, &g_PdLogoXRotSpeed, xrotaccel, xrotaccel, xrotmaxspeed);
 
 			if (g_PdLogoXRotCur <= xrotmin) {
 				g_PdLogoXRotCur = xrotmin;
@@ -1279,28 +1279,28 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 #if VERSION == VERSION_JPN_FINAL
 	if (g_PdLogoTitleStep < 0) {
-		gdl = viSetFillColour(gdl, 0x00, 0x00, 0x00);
+		gdl = vi_set_fill_colour(gdl, 0x00, 0x00, 0x00);
 	} else if (g_PdLogoTitleStep == 0) {
 		step0value = g_PdLogoTitleStepFrac * 255.0f;
-		gdl = viSetFillColour(gdl, step0value, step0value, step0value);
+		gdl = vi_set_fill_colour(gdl, step0value, step0value, step0value);
 	} else if (g_PdLogoTitleStep == 1) {
 		step1weight = g_PdLogoTitleStepFrac * 255.0f;
-		step1colour = colourBlend(0xffffffff, 0xa5002c00, step1weight);
-		gdl = viSetFillColour(gdl, ((step1colour >> 24) & 0xff), (step1colour >> 16) & 0xff, (step1colour >> 8) & 0xff);
+		step1colour = colour_blend(0xffffffff, 0xa5002c00, step1weight);
+		gdl = vi_set_fill_colour(gdl, ((step1colour >> 24) & 0xff), (step1colour >> 16) & 0xff, (step1colour >> 8) & 0xff);
 	} else {
-		gdl = viSetFillColour(gdl, 0xb9, 0x00, 0x2c);
+		gdl = vi_set_fill_colour(gdl, 0xb9, 0x00, 0x2c);
 	}
 #else
-	gdl = viSetFillColour(gdl, 0x00, 0x00, 0x00);
+	gdl = vi_set_fill_colour(gdl, 0x00, 0x00, 0x00);
 #endif
 
-	gdl = viFillBuffer(gdl);
+	gdl = vi_fill_buffer(gdl);
 
 	if (g_PdLogoBlackTimer != 0) {
 		return gdl;
 	}
 
-	lookat = gfxAllocateLookAt(2);
+	lookat = gfx_allocate_look_at(2);
 	guLookAtReflect(&spf0, lookat, 0.0f, 0.0f, 4000.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	gSPLookAt(gdl++, lookat);
 
@@ -1363,10 +1363,10 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 	model = g_PdLogoUseCombinedModel == true ? g_TitleModel : g_TitleModelNLogo2;
 
-	mtx4LoadYRotation(g_PdLogoYRotCur, &sp1e8);
-	mtx4LoadXRotation(g_PdLogoXRotCur, &sp1a8);
-	mtx4MultMtx4InPlace(&sp1a8, &sp1e8);
-	mtx4MultMtx4(&sp2b0, &sp1e8, &sp270);
+	mtx4_load_y_rotation(g_PdLogoYRotCur, &sp1e8);
+	mtx4_load_x_rotation(g_PdLogoXRotCur, &sp1a8);
+	mtx4_mult_mtx4_in_place(&sp1a8, &sp1e8);
+	mtx4_mult_mtx4(&sp2b0, &sp1e8, &sp270);
 	mtx00015f04(g_PdLogoScale, &sp270);
 
 #if VERSION != VERSION_JPN_FINAL
@@ -1382,27 +1382,27 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 		s32 numvertices = 0;
 		s32 numcolours = 0;
 
-		node = modelGetPart(model->definition, MODELPART_LOGO_FRONTSIDE);
+		node = model_get_part(model->definition, MODELPART_LOGO_FRONTSIDE);
 
 		if (node != NULL) {
 			rodata = &node->rodata->dl;
 			numvertices += rodata->numvertices + 1;
 			numcolours += rodata->numcolours + 1;
-			rwdata = modelGetNodeRwData(model, node);
-			rwdata->gdl = tmpgdl = gfxAllocate(5 * sizeof(Gfx));
+			rwdata = model_get_node_rw_data(model, node);
+			rwdata->gdl = tmpgdl = gfx_allocate(5 * sizeof(Gfx));
 
 			gSPSetLights1(tmpgdl++, g_TitleLightPdLogoFront);
 			gSPBranchList(tmpgdl++, rodata->opagdl);
 		}
 
-		node = modelGetPart(model->definition, MODELPART_LOGO_RIGHTSIDE);
+		node = model_get_part(model->definition, MODELPART_LOGO_RIGHTSIDE);
 
 		if (node != NULL) {
 			rodata = &node->rodata->dl;
 			numvertices += rodata->numvertices + 1;
 			numcolours += rodata->numcolours + 1;
-			rwdata = modelGetNodeRwData(model, node);
-			rwdata->gdl = tmpgdl = gfxAllocate(5 * sizeof(Gfx));
+			rwdata = model_get_node_rw_data(model, node);
+			rwdata->gdl = tmpgdl = gfx_allocate(5 * sizeof(Gfx));
 
 			if (g_PdLogoAmbientLightFrac > 0.0f) {
 				gSPSetLights1(tmpgdl++, g_TitleLightPdLogoNotFront);
@@ -1412,14 +1412,14 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			}
 		}
 
-		node = modelGetPart(model->definition, MODELPART_LOGO_BACKSIDE);
+		node = model_get_part(model->definition, MODELPART_LOGO_BACKSIDE);
 
 		if (node != NULL) {
 			rodata = &node->rodata->dl;
 			numvertices += rodata->numvertices + 1;
 			numcolours += rodata->numcolours + 1;
-			rwdata = modelGetNodeRwData(model, node);
-			rwdata->gdl = tmpgdl = gfxAllocate(5 * sizeof(Gfx));
+			rwdata = model_get_node_rw_data(model, node);
+			rwdata->gdl = tmpgdl = gfx_allocate(5 * sizeof(Gfx));
 
 			if (g_PdLogoAmbientLightFrac > 0.0f) {
 				gSPSetLights1(tmpgdl++, g_TitleLightPdLogoNotFront);
@@ -1429,14 +1429,14 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			}
 		}
 
-		node = modelGetPart(model->definition, MODELPART_LOGO_LEFTSIDE);
+		node = model_get_part(model->definition, MODELPART_LOGO_LEFTSIDE);
 
 		if (node != NULL) {
 			rodata = &node->rodata->dl;
 			numvertices += rodata->numvertices + 1;
 			numcolours += rodata->numcolours + 1;
-			rwdata = modelGetNodeRwData(model, node);
-			rwdata->gdl = tmpgdl = gfxAllocate(5 * sizeof(Gfx));
+			rwdata = model_get_node_rw_data(model, node);
+			rwdata->gdl = tmpgdl = gfx_allocate(5 * sizeof(Gfx));
 
 			if (g_PdLogoAmbientLightFrac > 0.0f) {
 				gSPSetLights1(tmpgdl++, g_TitleLightPdLogoNotFront);
@@ -1446,7 +1446,7 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			}
 		}
 
-		gdl = titleRenderPdLogoModel(gdl, model, var80062804, g_PdLogoFrac, 240, 1.0f, &sp270, gfxAllocateVertices(numvertices), gfxAllocateColours(numcolours));
+		gdl = title_render_pd_logo_model(gdl, model, var80062804, g_PdLogoFrac, 240, 1.0f, &sp270, gfx_allocate_vertices(numvertices), gfx_allocate_colours(numcolours));
 	}
 
 	gSPSetLights1(gdl++, g_TitleLightPdLogoMain);
@@ -1454,12 +1454,12 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 	{
 		u32 stack3[4];
 		struct coord sp64 = {0, 0, 1000};
-		mtx4LoadTranslation(&sp64, &sp1e8);
+		mtx4_load_translation(&sp64, &sp1e8);
 	}
 
 #if VERSION == VERSION_JPN_FINAL
 	mtx00015ea8(0.01f, &sp1e8);
-	mtx4MultMtx4(&sp2b0, &sp1e8, &sp230);
+	mtx4_mult_mtx4(&sp2b0, &sp1e8, &sp230);
 	mtx00015f04(0.308f, &sp230);
 	mtx00015f04(3.5f, &sp230);
 
@@ -1474,20 +1474,20 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 			envalpha = (1.0f - g_PdLogoTitleStepFrac) * 255.0f;
 
-			mtx4LoadIdentity(&sp1b0);
+			mtx4_load_identity(&sp1b0);
 			mtx00015f04(var8009d350jf * 1.5f, &sp1b0);
 			mtx00016ae4(&sp2b0, 0.0f, 0.0f, 4000.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-			mtx4MultMtx4InPlace(&sp2b0, &sp1b0);
-			mtx4Copy(&sp1b0, &sp2b0);
+			mtx4_mult_mtx4_in_place(&sp2b0, &sp1b0);
+			mtx4_copy(&sp1b0, &sp2b0);
 
 			renderdata.unk00 = &sp2b0;
-			renderdata.unk10 = gfxAllocate(g_TitleModelJpnLogo2->definition->nummatrices * sizeof(Mtxf));
+			renderdata.unk10 = gfx_allocate(g_TitleModelJpnLogo2->definition->nummatrices * sizeof(Mtxf));
 
-			mtx4Copy(&sp2b0, renderdata.unk10);
+			mtx4_copy(&sp2b0, renderdata.unk10);
 
 			g_TitleModelJpnLogo2->matrices = renderdata.unk10;
 
-			modelUpdateRelations(g_TitleModelJpnLogo2);
+			model_update_relations(g_TitleModelJpnLogo2);
 
 			renderdata.unk30 = 5;
 			renderdata.zbufferenabled = false;
@@ -1495,14 +1495,14 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			renderdata.envcolour = 0xff000000 | envalpha;
 			renderdata.gdl = gdl;
 
-			modelRender(&renderdata, g_TitleModelJpnLogo2);
+			model_render(&renderdata, g_TitleModelJpnLogo2);
 
 			gdl = renderdata.gdl;
 
 			for (mtxindex = 0; mtxindex < g_TitleModelJpnLogo2->definition->nummatrices; mtxindex++) {
 				Mtxf mtx;
-				mtx4Copy((Mtxf *) ((uintptr_t) g_TitleModelJpnLogo2->matrices + mtxindex * sizeof(Mtxf)), &mtx);
-				mtxF2L(&mtx, g_TitleModelJpnLogo2->matrices + mtxindex);
+				mtx4_copy((Mtxf *) ((uintptr_t) g_TitleModelJpnLogo2->matrices + mtxindex * sizeof(Mtxf)), &mtx);
+				mtx_f2l(&mtx, g_TitleModelJpnLogo2->matrices + mtxindex);
 			}
 		}
 
@@ -1537,13 +1537,13 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 
 			renderdata.unk00 = &sp230;
 
-			renderdata.unk10 = gfxAllocate(g_TitleModelJpnPd->definition->nummatrices * sizeof(Mtxf));
+			renderdata.unk10 = gfx_allocate(g_TitleModelJpnPd->definition->nummatrices * sizeof(Mtxf));
 
-			mtx4Copy(&sp230, renderdata.unk10);
+			mtx4_copy(&sp230, renderdata.unk10);
 
 			g_TitleModelJpnPd->matrices = renderdata.unk10;
 
-			modelUpdateRelations(g_TitleModelJpnPd);
+			model_update_relations(g_TitleModelJpnPd);
 
 			// @bug: || should be | in fogcolour expression
 			renderdata.zbufferenabled = false;
@@ -1552,14 +1552,14 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			renderdata.envcolour = envcolour;
 			renderdata.gdl = gdl;
 
-			modelRender(&renderdata, g_TitleModelJpnPd);
+			model_render(&renderdata, g_TitleModelJpnPd);
 
 			gdl = renderdata.gdl;
 
 			for (mtxindex = 0; mtxindex < g_TitleModelJpnPd->definition->nummatrices; mtxindex++) {
 				Mtxf mtx;
-				mtx4Copy((Mtxf *) ((uintptr_t) g_TitleModelJpnPd->matrices + mtxindex * sizeof(Mtxf)), &mtx);
-				mtxF2L(&mtx, g_TitleModelJpnPd->matrices + mtxindex);
+				mtx4_copy((Mtxf *) ((uintptr_t) g_TitleModelJpnPd->matrices + mtxindex * sizeof(Mtxf)), &mtx);
+				mtx_f2l(&mtx, g_TitleModelJpnPd->matrices + mtxindex);
 			}
 		}
 
@@ -1570,20 +1570,20 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			u32 stack7[4];
 			s32 mtxindex;
 
-			mtx4LoadIdentity(&spb0);
+			mtx4_load_identity(&spb0);
 			mtx00015f04(var8009d34cjf * 1.5f, &spb0);
 			mtx00016ae4(&sp2b0, 0.0f, 0.0f, 4000.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-			mtx4MultMtx4InPlace(&sp2b0, &spb0);
-			mtx4Copy(&spb0, &sp2b0);
+			mtx4_mult_mtx4_in_place(&sp2b0, &spb0);
+			mtx4_copy(&spb0, &sp2b0);
 
 			renderdata.unk00 = &sp2b0;
-			renderdata.unk10 = gfxAllocate(g_TitleModelJpnLogo1->definition->nummatrices * sizeof(Mtxf));
+			renderdata.unk10 = gfx_allocate(g_TitleModelJpnLogo1->definition->nummatrices * sizeof(Mtxf));
 
-			mtx4Copy(&sp2b0, renderdata.unk10);
+			mtx4_copy(&sp2b0, renderdata.unk10);
 
 			g_TitleModelJpnLogo1->matrices = renderdata.unk10;
 
-			modelUpdateRelations(g_TitleModelJpnLogo1);
+			model_update_relations(g_TitleModelJpnLogo1);
 
 			renderdata.zbufferenabled = false;
 			renderdata.unk30 = 5;
@@ -1591,20 +1591,20 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 			renderdata.envcolour = 0x000000ff;
 			renderdata.gdl = gdl;
 
-			modelRender(&renderdata, g_TitleModelJpnLogo1);
+			model_render(&renderdata, g_TitleModelJpnLogo1);
 
 			gdl = renderdata.gdl;
 
 			for (mtxindex = 0; mtxindex < g_TitleModelJpnLogo1->definition->nummatrices; mtxindex++) {
 				Mtxf mtx;
-				mtx4Copy((Mtxf *) ((uintptr_t) g_TitleModelJpnLogo1->matrices + mtxindex * sizeof(Mtxf)), &mtx);
-				mtxF2L(&mtx, g_TitleModelJpnLogo1->matrices + mtxindex);
+				mtx4_copy((Mtxf *) ((uintptr_t) g_TitleModelJpnLogo1->matrices + mtxindex * sizeof(Mtxf)), &mtx);
+				mtx_f2l(&mtx, g_TitleModelJpnLogo1->matrices + mtxindex);
 			}
 		}
 	}
 #else
 	mtx00015f88(1.0f + sp13c, &sp1e8);
-	mtx4MultMtx4(&sp2b0, &sp1e8, &sp230);
+	mtx4_mult_mtx4(&sp2b0, &sp1e8, &sp230);
 	mtx00015f04(0.308f, &sp230);
 
 	// Render the "PERFECT DARK" model
@@ -1614,18 +1614,18 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 		} else if (g_PdLogoTitleStep == 1) {
 			bool visible = g_PdLogoTitleStepFrac < 0.5f;
 			model = g_TitleModelPdThree;
-			gdl = titleRenderPdLogoModel(gdl, model, visible, g_PdLogoTitleStepFrac, 255, g_PdLogoTitleStepFrac, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
+			gdl = title_render_pd_logo_model(gdl, model, visible, g_PdLogoTitleStepFrac, 255, g_PdLogoTitleStepFrac, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
 		} else if (g_PdLogoTitleStep == 2) {
 			bool visible = g_PdLogoTitleStepFrac < 0.5f;
 			model = g_TitleModelPdTwo;
-			gdl = titleRenderPdLogoModel(gdl, model, visible, 1.0f - g_PdLogoTitleStepFrac, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
+			gdl = title_render_pd_logo_model(gdl, model, visible, 1.0f - g_PdLogoTitleStepFrac, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
 		} else if (g_PdLogoTitleStep == 3) {
 			bool visible = g_PdLogoTitleStepFrac < 0.5f;
 			model = g_TitleModelPdTwo;
-			gdl = titleRenderPdLogoModel(gdl, model, visible, g_PdLogoTitleStepFrac, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
+			gdl = title_render_pd_logo_model(gdl, model, visible, g_PdLogoTitleStepFrac, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
 		} else {
 			model = g_TitleModelPdTwo;
-			gdl = titleRenderPdLogoModel(gdl, model, false, 1.0f, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
+			gdl = title_render_pd_logo_model(gdl, model, false, 1.0f, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
 		}
 	}
 #endif
@@ -1636,14 +1636,14 @@ Gfx *titleRenderPdLogo(Gfx *gdl)
 struct sndstate *g_TitleAudioHandle = NULL;
 bool g_TitleTypewriterFinishing = false;
 
-void titleInitRarePresents(void)
+void title_init_rare_presents(void)
 {
 	g_TitleTimer = 0;
 	joy00014810(false);
 	g_TitleAudioHandle = NULL;
 }
 
-void titleExitRarePresents(void)
+void title_exit_rare_presents(void)
 {
 	if (g_TitleAudioHandle) {
 		audioStop(g_TitleAudioHandle);
@@ -1653,26 +1653,26 @@ void titleExitRarePresents(void)
 	joy00014810(true);
 }
 
-void titleTickRarePresents(void)
+void title_tick_rare_presents(void)
 {
-	viSetFovY(60);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	vi_set_fov_y(60);
+	vi_set_aspect(1.33333333f);
+	vi_set_z_range(100, 10000);
+	vi_set_use_z_buf(false);
 
 	g_TitleTimer += g_Vars.lvupdate60;
 
 	if (g_TitleTimer > TICKS(300)) {
-		titleSetNextMode(TITLEMODE_PDLOGO);
-	} else if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
-		titleSetNextMode(TITLEMODE_SKIP);
+		title_set_next_mode(TITLEMODE_PDLOGO);
+	} else if (joy_get_buttons_pressed_this_frame(0, 0xffff)) {
+		title_set_next_mode(TITLEMODE_SKIP);
 	}
 }
 
-Gfx *titleRenderTypewriterText(Gfx *gdl, s32 *x, s32 *y, u16 textnum, s32 timer, s32 *colourcomponent)
+Gfx *title_render_typewriter_text(Gfx *gdl, s32 *x, s32 *y, u16 textnum, s32 timer, s32 *colourcomponent)
 {
 	s32 lentoprint = timer / 3;
-	char *text = langGet(textnum);
+	char *text = lang_get(textnum);
 	s32 i;
 	u8 buffer[] = {'\0', '\0'};
 	s32 fulllen = strlen(text);
@@ -1700,44 +1700,44 @@ Gfx *titleRenderTypewriterText(Gfx *gdl, s32 *x, s32 *y, u16 textnum, s32 timer,
 		*colourcomponent = tmp = (60 - remaining) * 255 / 60;
 
 		buffer[0] = text[i];
-		gdl = textRenderProjected(gdl, x, y, buffer, g_CharsHandelGothicLg, g_FontHandelGothicLg,
-				0x7f7fffff | (tmp << 8) | (tmp << 16), viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, x, y, buffer, g_CharsHandelGothicLg, g_FontHandelGothicLg,
+				0x7f7fffff | (tmp << 8) | (tmp << 16), vi_get_width(), vi_get_height(), 0, 0);
 	}
 
 	return gdl;
 }
 
-Gfx *titleRenderRarePresents(Gfx *gdl)
+Gfx *title_render_rare_presents(Gfx *gdl)
 {
 	s32 x;
 	s32 y;
 	s32 colourcomponent = 255;
 
-	gdl = titleClear(gdl);
+	gdl = title_clear(gdl);
 	gdl = text0f153628(gdl);
 
-	x = viGetViewLeft() + 50;
-	y = viGetViewTop() + viGetViewHeight() - 80;
+	x = vi_get_view_left() + 50;
+	y = vi_get_view_top() + vi_get_view_height() - 80;
 
 	g_TitleTypewriterFinishing = false;
 
 	if (g_TitleMode == TITLEMODE_RAREPRESENTS1) {
-		gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_005, g_TitleTimer, &colourcomponent); // "earth:"
+		gdl = title_render_typewriter_text(gdl, &x, &y, L_OPTIONS_005, g_TitleTimer, &colourcomponent); // "earth:"
 
 		if (g_TitleTimer > 70) {
-			x = viGetViewLeft() + 50;
-			y = viGetViewTop() + viGetViewHeight() - 60;
-			gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_006, g_TitleTimer - 100, &colourcomponent); // "   prehistory"
+			x = vi_get_view_left() + 50;
+			y = vi_get_view_top() + vi_get_view_height() - 60;
+			gdl = title_render_typewriter_text(gdl, &x, &y, L_OPTIONS_006, g_TitleTimer - 100, &colourcomponent); // "   prehistory"
 		}
 	} else {
-		gdl = titleRenderTypewriterText(gdl, &x, &y, L_OPTIONS_007, g_TitleTimer - 35, &colourcomponent); // "rare presents"
+		gdl = title_render_typewriter_text(gdl, &x, &y, L_OPTIONS_007, g_TitleTimer - 35, &colourcomponent); // "rare presents"
 	}
 
 	gdl = text0f153780(gdl);
 
 	if (g_TitleTypewriterFinishing) {
 		if (g_TitleAudioHandle == NULL) {
-			sndStart(var80095200, SFX_HUDMSG, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFX_HUDMSG, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
 		}
 	} else {
 		if (g_TitleAudioHandle) {
@@ -1752,22 +1752,22 @@ Gfx *titleRenderRarePresents(Gfx *gdl)
 		gdl = text0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
 	}
 
-	gdl = bviewDrawIntroText(gdl);
+	gdl = bview_draw_intro_text(gdl);
 
 	if (g_TitleTimer > TICKS(222)) {
 		f32 alpha = ((g_TitleTimer - TICKS(222.0f)) / TICKS(78.0f));
 		u32 stack;
 
-		gdl = text0f153a34(gdl, viGetViewLeft(), viGetViewTop(),
-				viGetViewLeft() + viGetViewWidth(),
-				viGetViewTop() + viGetViewHeight(),
+		gdl = text0f153a34(gdl, vi_get_view_left(), vi_get_view_top(),
+				vi_get_view_left() + vi_get_view_width(),
+				vi_get_view_top() + vi_get_view_height(),
 				255.0f * alpha);
 	}
 
 	return gdl;
 }
 
-void titleInitNintendoLogo(void)
+void title_init_nintendo_logo(void)
 {
 	u8 *nextaddr = var8009cca0;
 
@@ -1782,20 +1782,20 @@ void titleInitNintendoLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_ModelStates[MODEL_NINTENDOLOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
+		g_ModelStates[MODEL_NINTENDOLOGO].modeldef = modeldef_load(g_ModelStates[MODEL_NINTENDOLOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
 
-		modelAllocateRwData(g_ModelStates[MODEL_NINTENDOLOGO].modeldef);
-		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_NINTENDOLOGO].modeldef);
-		modelSetScale(g_TitleModel, 1);
-		modelSetRootPosition(g_TitleModel, &coord);
+		model_allocate_rw_data(g_ModelStates[MODEL_NINTENDOLOGO].modeldef);
+		g_TitleModel = modelmgr_instantiate_model_without_anim(g_ModelStates[MODEL_NINTENDOLOGO].modeldef);
+		model_set_scale(g_TitleModel, 1);
+		model_set_root_position(g_TitleModel, &coord);
 		var800624f4 = 1;
 		joy00014810(false);
 	}
 }
 
-void titleExitNintendoLogo(void)
+void title_exit_nintendo_logo(void)
 {
-	modelmgrFreeModel(g_TitleModel);
+	modelmgr_free_model(g_TitleModel);
 	joy00014810(true);
 }
 
@@ -1805,12 +1805,12 @@ void titleExitNintendoLogo(void)
  * logo, the Nintendo logo sequence will play at double speed until it exits at
  * the 140 tick mark.
  */
-void titleTickNintendoLogo(void)
+void title_tick_nintendo_logo(void)
 {
-	viSetFovY(60);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	vi_set_fov_y(60);
+	vi_set_aspect(1.33333333f);
+	vi_set_z_range(100, 10000);
+	vi_set_use_z_buf(false);
 
 	g_TitleTimer += g_Vars.lvupdate60;
 
@@ -1818,10 +1818,10 @@ void titleTickNintendoLogo(void)
 		g_TitleTimer += g_Vars.lvupdate60;
 	}
 
-	if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
+	if (joy_get_buttons_pressed_this_frame(0, 0xffff)) {
 		if (osResetType == RESETTYPE_WARM) {
 			g_TitleButtonPressed = true;
-			titleSetNextMode(TITLEMODE_PDLOGO);
+			title_set_next_mode(TITLEMODE_PDLOGO);
 		} else if (!g_TitleButtonPressed) {
 			g_TitleFastForward = true;
 		}
@@ -1830,7 +1830,7 @@ void titleTickNintendoLogo(void)
 	if (g_TitleFastForward && !g_TitleButtonPressed && g_TitleTimer > TICKS(140)) {
 		g_TitleButtonPressed = true;
 		g_TitleFastForward = false;
-		titleSetNextMode(TITLEMODE_PDLOGO);
+		title_set_next_mode(TITLEMODE_PDLOGO);
 	}
 
 #if VERSION == VERSION_PAL_FINAL
@@ -1839,11 +1839,11 @@ void titleTickNintendoLogo(void)
 	if (g_TitleTimer > TICKS(240))
 #endif
 	{
-		titleSetNextMode(TITLEMODE_PDLOGO);
+		title_set_next_mode(TITLEMODE_PDLOGO);
 	}
 }
 
-Gfx *titleRenderNintendoLogo(Gfx *gdl)
+Gfx *title_render_nintendo_logo(Gfx *gdl)
 {
 	struct modelrenderdata renderdata = { NULL, true, 3 };
 	s32 i;
@@ -1853,7 +1853,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 	struct coord lightdir = {0, 0, 0};
 	s32 v0;
 
-	gdl = titleClear(gdl);
+	gdl = title_clear(gdl);
 
 	gSPSetLights1(gdl++, g_TitleLightNintendoRare);
 
@@ -1880,7 +1880,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 		v0 = 0;
 	}
 
-	titleSetLight(&g_TitleLightNintendoRare, v0, v0, v0, 0.0f, &lightdir);
+	title_set_light(&g_TitleLightNintendoRare, v0, v0, v0, 0.0f, &lightdir);
 
 	{
 		Mtxf spa8;
@@ -1897,7 +1897,7 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 		sp9c.y = (-cosf((1.0f - (fracdone / 1)) * M_PI) * 0.5f + .5f) * 0.35f;
 		sp9c.z = 0.0f;
 
-		mtx4LoadRotation(&sp9c, &spa8);
+		mtx4_load_rotation(&sp9c, &spa8);
 		mtx00015f88(fracdone * 0.2f + 1.0f, &spa8);
 
 		mtx00016ae4(&sp108,
@@ -1905,34 +1905,34 @@ Gfx *titleRenderNintendoLogo(Gfx *gdl)
 				/* look */ 0.0f, 0.0f, 0.0f,
 				/* up   */ 0.0f, 1.0f, 0.0f);
 
-		mtx4MultMtx4InPlace(&sp108, &spa8);
-		mtx4Copy(&spa8, &sp108);
+		mtx4_mult_mtx4_in_place(&sp108, &spa8);
+		mtx4_copy(&spa8, &sp108);
 		renderdata.unk00 = &sp108;
 
-		renderdata.unk10 = gfxAllocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
-		mtx4Copy(&sp108, renderdata.unk10);
+		renderdata.unk10 = gfx_allocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
+		mtx4_copy(&sp108, renderdata.unk10);
 		g_TitleModel->matrices = renderdata.unk10;
 
-		modelUpdateRelations(g_TitleModel);
+		model_update_relations(g_TitleModel);
 
 		renderdata.flags = 3;
 		renderdata.zbufferenabled = false;
 		renderdata.gdl = gdl;
 
-		modelRender(&renderdata, g_TitleModel);
+		model_render(&renderdata, g_TitleModel);
 
 		gdl = renderdata.gdl;
 
 		for (i = 0, j = 0; i < g_TitleModel->definition->nummatrices; i++, j += sizeof(Mtxf)) {
-			mtx4Copy((Mtxf *)((uintptr_t)g_TitleModel->matrices + j), &sp54);
-			mtxF2L(&sp54, g_TitleModel->matrices + i);
+			mtx4_copy((Mtxf *)((uintptr_t)g_TitleModel->matrices + j), &sp54);
+			mtx_f2l(&sp54, g_TitleModel->matrices + i);
 		}
 	}
 
 	return gdl;
 }
 
-void titleInitRareLogo(void)
+void title_init_rare_logo(void)
 {
 	u8 *nextaddr = var8009cca0;
 
@@ -1941,16 +1941,16 @@ void titleInitRareLogo(void)
 	{
 		struct coord coord = {0, 0, 0};
 
-		g_ModelStates[MODEL_RARELOGO].modeldef = modeldefLoad(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
+		g_ModelStates[MODEL_RARELOGO].modeldef = modeldef_load(g_ModelStates[MODEL_RARELOGO].fileid, nextaddr, TITLE_ALLOCSIZE, 0);
 
-		modelAllocateRwData(g_ModelStates[MODEL_RARELOGO].modeldef);
-		g_TitleModel = modelmgrInstantiateModelWithoutAnim(g_ModelStates[MODEL_RARELOGO].modeldef);
-		modelSetScale(g_TitleModel, 1);
-		modelSetRootPosition(g_TitleModel, &coord);
+		model_allocate_rw_data(g_ModelStates[MODEL_RARELOGO].modeldef);
+		g_TitleModel = modelmgr_instantiate_model_without_anim(g_ModelStates[MODEL_RARELOGO].modeldef);
+		model_set_scale(g_TitleModel, 1);
+		model_set_root_position(g_TitleModel, &coord);
 
 		var800624f4 = 1;
 
-		musicQueueStopAllEvent();
+		music_queue_stop_all_event();
 		joy00014810(false);
 
 		if (!g_IsTitleDemo && IS8MB()) {
@@ -1959,9 +1959,9 @@ void titleInitRareLogo(void)
 	}
 }
 
-void titleExitRareLogo(void)
+void title_exit_rare_logo(void)
 {
-	modelmgrFreeModel(g_TitleModel);
+	modelmgr_free_model(g_TitleModel);
 	joy00014810(true);
 }
 
@@ -1975,26 +1975,26 @@ void titleExitRareLogo(void)
  * early as possible, but if you press the button between 20-59 ticks it'll end
  * up taking longer than if you'd waited a second.
  */
-void titleTickRareLogo(void)
+void title_tick_rare_logo(void)
 {
-	viSetFovY(60);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	vi_set_fov_y(60);
+	vi_set_aspect(1.33333333f);
+	vi_set_z_range(100, 10000);
+	vi_set_use_z_buf(false);
 
 	if (g_TitleTimer < 0) {
 		g_TitleTimer++;
 	} else {
 		if (g_TitleTimer == 0) {
-			musicQueueStartEvent(TRACKTYPE_PRIMARY, MUSIC_TITLE1, 0, 0x7fff);
+			music_queue_start_event(TRACKTYPE_PRIMARY, MUSIC_TITLE1, 0, 0x7fff);
 		}
 
 		g_TitleTimer += g_Vars.lvupdate60;
 
-		if (joyGetButtonsPressedThisFrame(0, 0xffff)) {
+		if (joy_get_buttons_pressed_this_frame(0, 0xffff)) {
 			if (osResetType == RESETTYPE_WARM) {
 				g_TitleButtonPressed = true;
-				titleSetNextMode(TITLEMODE_PDLOGO);
+				title_set_next_mode(TITLEMODE_PDLOGO);
 			} else if (!g_TitleButtonPressed) {
 				if (g_TitleTimer < TICKS(60)) {
 					g_TitleButtonPressed = true;
@@ -2012,7 +2012,7 @@ void titleTickRareLogo(void)
 		if (g_TitleTimer > TICKS(240)
 				|| g_TitleFastForward
 				|| (g_TitleButtonPressed && g_TitleTimer > TICKS(140))) {
-			titleSetNextMode(TITLEMODE_NINTENDOLOGO);
+			title_set_next_mode(TITLEMODE_NINTENDOLOGO);
 		}
 	}
 }
@@ -2022,7 +2022,7 @@ f32 func0f019d0c(f32 arg0)
 	return ((1.0f - arg0) + (1.0f - arg0)) * M_PI - DEG2RAD(90);
 }
 
-Gfx *titleRenderRareLogo(Gfx *gdl)
+Gfx *title_render_rare_logo(Gfx *gdl)
 {
 	struct modelrenderdata renderdata = { NULL, true, 3 };
 	s32 i;
@@ -2033,7 +2033,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 
 	static f32 var80062920 = 0;
 
-	gdl = titleClear(gdl);
+	gdl = title_clear(gdl);
 
 	if (g_TitleTimer < 0) {
 		return gdl;
@@ -2066,13 +2066,13 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 		}
 
 		if (fracdone < 0.2f) {
-			titleSetLight(&g_TitleLightNintendoRare,
+			title_set_light(&g_TitleLightNintendoRare,
 					(s32)(255.0f * fracdone / 0.2f),
 					(s32)(255.0f * fracdone / 0.2f),
 					(s32)(255.0f * fracdone / 0.2f),
 					0, &lightdir);
 		} else {
-			titleSetLight(&g_TitleLightNintendoRare, s0, s0, s0, 0, &lightdir);
+			title_set_light(&g_TitleLightNintendoRare, s0, s0, s0, 0, &lightdir);
 		}
 
 		s0 = s0 * 192 / 255;
@@ -2081,9 +2081,9 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 			lightdir.z = sinf(func0f019d0c(0.5f));
 			lightdir.x = cosf(func0f019d0c(0.5f));
 			guNormalize(&lightdir.x, &lightdir.y, &lightdir.z);
-			titleSetLight(&var800625a8, s0, s0, s0, 0, &lightdir);
+			title_set_light(&var800625a8, s0, s0, s0, 0, &lightdir);
 		} else {
-			titleSetLight(&var800625a8, s0, s0, s0, 0, &lightdir);
+			title_set_light(&var800625a8, s0, s0, s0, 0, &lightdir);
 		}
 
 		var80062920 += g_Vars.lvupdate60f / 90;
@@ -2094,7 +2094,7 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 		spb4.y = RAD(90, 1.5707963705063f) * tmp;
 		spb4.z = 0;
 
-		mtx4LoadRotation(&spb4, &spc0);
+		mtx4_load_rotation(&spb4, &spc0);
 		mtx00015f88(1 + fracdone * 0.25f, &spc0);
 
 		mtx00016ae4(&sp118,
@@ -2102,30 +2102,30 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 				/* look */ 0, 0, 0,
 				/* up   */ 0, 1, 0);
 
-		mtx4MultMtx4InPlace(&sp118, &spc0);
-		mtx4Copy(&spc0, &sp118);
+		mtx4_mult_mtx4_in_place(&sp118, &spc0);
+		mtx4_copy(&spc0, &sp118);
 
 		renderdata.unk00 = &sp118;
-		renderdata.unk10 = gfxAllocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
-		mtx4Copy(&sp118, renderdata.unk10);
+		renderdata.unk10 = gfx_allocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
+		mtx4_copy(&sp118, renderdata.unk10);
 
 		g_TitleModel->matrices = renderdata.unk10;
 
-		modelUpdateRelations(g_TitleModel);
+		model_update_relations(g_TitleModel);
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000B));
+		rwdata = model_get_node_rw_data(g_TitleModel, model_get_part(g_TitleModel->definition, MODELPART_RARELOGO_000B));
 
 		if (rwdata) {
 			rwdata->visible = false;
 		}
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000D));
+		rwdata = model_get_node_rw_data(g_TitleModel, model_get_part(g_TitleModel->definition, MODELPART_RARELOGO_000D));
 
 		if (rwdata) {
 			rwdata->visible = true;
 		}
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000C));
+		rwdata = model_get_node_rw_data(g_TitleModel, model_get_part(g_TitleModel->definition, MODELPART_RARELOGO_000C));
 
 		if (rwdata) {
 			rwdata->visible = false;
@@ -2137,23 +2137,23 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 		renderdata.zbufferenabled = 0;
 		renderdata.gdl = gdl;
 
-		modelRender(&renderdata, g_TitleModel);
+		model_render(&renderdata, g_TitleModel);
 
 		gdl = renderdata.gdl;
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000B));
+		rwdata = model_get_node_rw_data(g_TitleModel, model_get_part(g_TitleModel->definition, MODELPART_RARELOGO_000B));
 
 		if (rwdata) {
 			rwdata->visible = true;
 		}
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000D));
+		rwdata = model_get_node_rw_data(g_TitleModel, model_get_part(g_TitleModel->definition, MODELPART_RARELOGO_000D));
 
 		if (rwdata) {
 			rwdata->visible = false;
 		}
 
-		rwdata = modelGetNodeRwData(g_TitleModel, modelGetPart(g_TitleModel->definition, MODELPART_RARELOGO_000C));
+		rwdata = model_get_node_rw_data(g_TitleModel, model_get_part(g_TitleModel->definition, MODELPART_RARELOGO_000C));
 
 		if (rwdata) {
 			rwdata->visible = true;
@@ -2165,14 +2165,14 @@ Gfx *titleRenderRareLogo(Gfx *gdl)
 		renderdata.zbufferenabled = 0;
 		renderdata.gdl = gdl;
 
-		modelRender(&renderdata, g_TitleModel);
+		model_render(&renderdata, g_TitleModel);
 
 		gdl = renderdata.gdl;
 
 		for (i = 0, j = 0; i < g_TitleModel->definition->nummatrices; i++, j += sizeof(Mtxf)) {
 			Mtxf sp58;
-			mtx4Copy((Mtxf *)((uintptr_t)g_TitleModel->matrices + j), &sp58);
-			mtxF2L(&sp58, g_TitleModel->matrices + i);
+			mtx4_copy((Mtxf *)((uintptr_t)g_TitleModel->matrices + j), &sp58);
+			mtx_f2l(&sp58, g_TitleModel->matrices + i);
 		}
 	}
 
@@ -2186,31 +2186,31 @@ u32 var80062930 = 0x00000001;
 u32 var80062934 = 0x00000001;
 u32 var80062938 = 0x00000000;
 
-s32 getNumPlayers(void)
+s32 get_num_players(void)
 {
 	return g_NumPlayers;
 }
 
-void setNumPlayers(s32 numplayers)
+void set_num_players(s32 numplayers)
 {
 	g_NumPlayers = numplayers;
 }
 
-s32 playerGetTeam(s32 playernum)
+s32 player_get_team(s32 playernum)
 {
 	return g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team;
 }
 
-void playerSetTeam(s32 playernum, s32 team)
+void player_set_team(s32 playernum, s32 team)
 {
 	g_PlayerConfigsArray[g_Vars.playerstats[playernum].mpindex].base.team = team;
 }
 
-void titleInitSkip(void)
+void title_init_skip(void)
 {
 	g_TitleNextStage = STAGE_CITRAINING;
 
-	setNumPlayers(1);
+	set_num_players(1);
 
 	if (g_IsTitleDemo) {
 		g_TitleNextStage = STAGE_DEFECTION;
@@ -2219,44 +2219,44 @@ void titleInitSkip(void)
 
 	if (IS4MB()) {
 		g_TitleNextStage = STAGE_4MBMENU;
-		viSetAspect(PAL ? 1.7316017150879f : ((f32) FBALLOC_WIDTH_LO / (f32) FBALLOC_HEIGHT_LO));
-		viSetSize(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
-		viSetBufSize(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
-		playermgrSetViewSize(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
-		viSetViewSize(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
+		vi_set_aspect(PAL ? 1.7316017150879f : ((f32) FBALLOC_WIDTH_LO / (f32) FBALLOC_HEIGHT_LO));
+		vi_set_size(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
+		vi_set_buf_size(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
+		playermgr_set_view_size(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
+		vi_set_view_size(FBALLOC_WIDTH_LO, FBALLOC_HEIGHT_LO);
 	}
 
-	mainChangeToStage(g_TitleNextStage);
+	main_change_to_stage(g_TitleNextStage);
 
 	g_Vars.bondplayernum = 0;
 	g_Vars.coopplayernum = -1;
 	g_Vars.antiplayernum = -1;
 
-	lvSetDifficulty(DIFF_A);
-	viBlack(true);
+	lv_set_difficulty(DIFF_A);
+	vi_black(true);
 }
 
-void titleInitNoController(void)
+void title_init_no_controller(void)
 {
 	g_TitleTimer = 0;
 }
 
-void titleExitNoController(void)
+void title_exit_no_controller(void)
 {
 	// empty
 }
 
-void titleTickNoController(void)
+void title_tick_no_controller(void)
 {
-	viSetFovY(60);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(false);
+	vi_set_fov_y(60);
+	vi_set_aspect(1.33333333f);
+	vi_set_z_range(100, 10000);
+	vi_set_use_z_buf(false);
 
 	g_TitleTimer += g_Vars.lvupdate60;
 }
 
-Gfx *titleRenderNoController(Gfx *gdl)
+Gfx *title_render_no_controller(Gfx *gdl)
 {
 	s32 textheight;
 	s32 textwidth;
@@ -2272,9 +2272,9 @@ Gfx *titleRenderNoController(Gfx *gdl)
 	if (1);
 
 	// This was likely printed to console
-	joyGetConnectedControllers();
+	joy_get_connected_controllers();
 
-	gdl = titleClear(gdl);
+	gdl = title_clear(gdl);
 	gdl = text0f153628(gdl);
 
 #if VERSION >= VERSION_JPN_FINAL
@@ -2284,68 +2284,68 @@ Gfx *titleRenderNoController(Gfx *gdl)
 	var80080108jf = 2;
 
 	// Line 1
-	text = langGet(L_MPWEAPONS_285);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_MPWEAPONS_285);
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - textwidth;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 	y += 18;
 
 	// Line 2
-	text = langGet(L_MPWEAPONS_286);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_MPWEAPONS_286);
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - textwidth;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 	y += 28;
 
 	// Line 3
-	text = langGet(L_MPWEAPONS_287);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_MPWEAPONS_287);
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - textwidth;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 	y += 18;
 
 	// Line 4
-	text = langGet(L_MPWEAPONS_288);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_MPWEAPONS_288);
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - textwidth;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 	y += 18;
 
 	var8007fad0 = 1;
 	var80080108jf = 1;
 #else
 	// Line 1
-	text = langGet(L_OPTIONS_071); // "- no controller in controller socket 1 -"
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_OPTIONS_071); // "- no controller in controller socket 1 -"
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - (textwidth >> 1);
 	y = (g_TitleViewHeight / 2) - (textheight >> 1) - 12;
 
 	if (g_Jpn) {
-		width = viGetWidth();
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, viGetHeight(), 0, 0);
+		width = vi_get_width();
+		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, vi_get_height(), 0, 0);
 	} else {
-		width = viGetWidth();
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+		width = vi_get_width();
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	}
 
 	// Line 2
-	text = langGet(L_OPTIONS_072); // "please power off and attach a controller"
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_OPTIONS_072); // "please power off and attach a controller"
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - (textwidth >> 1);
 	y = (g_TitleViewHeight / 2) - (textheight >> 1) + 12;
 
 	if (g_Jpn) {
-		width = viGetWidth();
-		gdl = textRender(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, viGetHeight(), 0, 0);
+		width = vi_get_width();
+		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, vi_get_height(), 0, 0);
 	} else {
-		width = viGetWidth();
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+		width = vi_get_width();
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	}
 #endif
 
@@ -2355,33 +2355,33 @@ Gfx *titleRenderNoController(Gfx *gdl)
 }
 
 #if VERSION >= VERSION_JPN_FINAL
-void titleInitNoExpansion(void)
+void title_init_no_expansion(void)
 {
 	g_TitleTimer = 0;
 }
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-void titleExitNoExpansion(void)
+void title_exit_no_expansion(void)
 {
 	// empty
 }
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-void titleTickNoExpansion(void)
+void title_tick_no_expansion(void)
 {
-	viSetFovY(60);
-	viSetAspect(1.33333333f);
-	viSetZRange(100, 10000);
-	viSetUseZBuf(0);
+	vi_set_fov_y(60);
+	vi_set_aspect(1.33333333f);
+	vi_set_z_range(100, 10000);
+	vi_set_use_z_buf(0);
 
 	g_TitleTimer += g_Vars.lvupdate60;
 }
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-Gfx *titleRenderNoExpansion(Gfx *gdl)
+Gfx *title_render_no_expansion(Gfx *gdl)
 {
 	s32 textheight;
 	s32 textwidth;
@@ -2396,9 +2396,9 @@ Gfx *titleRenderNoExpansion(Gfx *gdl)
 	if (1);
 	if (1);
 
-	joyGetConnectedControllers();
+	joy_get_connected_controllers();
 
-	gdl = titleClear(gdl);
+	gdl = title_clear(gdl);
 	gdl = text0f153628(gdl);
 
 	x = 50;
@@ -2407,25 +2407,25 @@ Gfx *titleRenderNoExpansion(Gfx *gdl)
 	var8007fad0 = 2;
 	var80080108jf = 2;
 
-	text = langGet(L_MPWEAPONS_281);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_MPWEAPONS_281);
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 	x = 288 - textwidth;
-	width = viGetWidth();
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+	width = vi_get_width();
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	y += 18;
 
-	text = langGet(L_MPWEAPONS_282);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_MPWEAPONS_282);
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 	x = 288 - textwidth;
-	width = viGetWidth();
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+	width = vi_get_width();
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	y += 18;
 
-	text = langGet(L_MPWEAPONS_284);
-	textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
+	text = lang_get(L_MPWEAPONS_284);
+	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 	x = 288 - textwidth;
-	width = viGetWidth();
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, viGetHeight(), 0, 0);
+	width = vi_get_width();
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	y += 18;
 
 	var8007fad0 = 1;
@@ -2437,31 +2437,31 @@ Gfx *titleRenderNoExpansion(Gfx *gdl)
 }
 #endif
 
-void titleSetNextMode(s32 mode)
+void title_set_next_mode(s32 mode)
 {
 	if (g_TitleDelayedMode != mode) {
 		g_TitleNextMode = mode;
 	}
 }
 
-s32 titleGetMode(void)
+s32 title_get_mode(void)
 {
 	return g_TitleMode;
 }
 
-void titleTick(void)
+void title_tick(void)
 {
 #if PAL
-	viSetAspect(576.0f / g_TitleViewHeight * 1.1904761791229f);
+	vi_set_aspect(576.0f / g_TitleViewHeight * 1.1904761791229f);
 #else
-	viSetAspect(576.0f / g_TitleViewHeight);
+	vi_set_aspect(576.0f / g_TitleViewHeight);
 #endif
-	viSetSize(576, g_TitleViewHeight);
-	viSetBufSize(576, g_TitleViewHeight);
-	playermgrSetViewSize(576, g_TitleViewHeight);
-	viSetViewSize(576, g_TitleViewHeight);
-	playermgrSetViewPosition(0, 0);
-	viSetViewPosition(0, 0);
+	vi_set_size(576, g_TitleViewHeight);
+	vi_set_buf_size(576, g_TitleViewHeight);
+	playermgr_set_view_size(576, g_TitleViewHeight);
+	vi_set_view_size(576, g_TitleViewHeight);
+	playermgr_set_view_position(0, 0);
+	vi_set_view_position(0, 0);
 
 	// If there's a new mode to transition to, schedule it to apply in 3 ticks
 	// time and call the exit function for the current mode.
@@ -2471,32 +2471,32 @@ void titleTick(void)
 
 		switch (g_TitleMode) {
 		case TITLEMODE_LEGAL:
-			titleExitLegal();
+			title_exit_legal();
 			break;
 		case TITLEMODE_CHECKCONTROLLERS:
-			titleExitCheckControllers();
+			title_exit_check_controllers();
 			break;
 		case TITLEMODE_PDLOGO:
-			titleExitPdLogo();
+			title_exit_pd_logo();
 			break;
 		case TITLEMODE_NINTENDOLOGO:
-			titleExitNintendoLogo();
+			title_exit_nintendo_logo();
 			break;
 		case TITLEMODE_RARELOGO:
-			titleExitRareLogo();
+			title_exit_rare_logo();
 			break;
 		case TITLEMODE_NOCONTROLLER:
-			titleExitNoController();
+			title_exit_no_controller();
 			break;
 #if VERSION >= VERSION_JPN_FINAL
 		case TITLEMODE_NOEXPANSION:
-			titleExitNoExpansion();
+			title_exit_no_expansion();
 			break;
 #endif
 		}
 
 		if (g_TitleMode != TITLEMODE_CHECKCONTROLLERS) {
-			viBlack(true);
+			vi_black(true);
 		}
 
 		g_TitleNextMode = -1;
@@ -2524,76 +2524,76 @@ void titleTick(void)
 
 		switch (g_TitleMode) {
 		case TITLEMODE_LEGAL:
-			titleInitLegal();
+			title_init_legal();
 			break;
 		case TITLEMODE_CHECKCONTROLLERS:
-			titleInitCheckControllers();
+			title_init_check_controllers();
 			break;
 		case TITLEMODE_PDLOGO:
-			titleInitPdLogo();
+			title_init_pd_logo();
 			break;
 		case TITLEMODE_NINTENDOLOGO:
-			titleInitNintendoLogo();
+			title_init_nintendo_logo();
 			break;
 		case TITLEMODE_RARELOGO:
-			titleInitRareLogo();
+			title_init_rare_logo();
 			break;
 		case TITLEMODE_SKIP:
-			titleInitSkip();
+			title_init_skip();
 			break;
 		case TITLEMODE_NOCONTROLLER:
-			titleInitNoController();
+			title_init_no_controller();
 			break;
 #if VERSION >= VERSION_JPN_FINAL
 		case TITLEMODE_NOEXPANSION:
-			titleInitNoExpansion();
+			title_init_no_expansion();
 			break;
 #endif
 		}
 
 		if (g_TitleMode != TITLEMODE_CHECKCONTROLLERS && g_TitleMode != TITLEMODE_SKIP) {
-			viBlack(false);
+			vi_black(false);
 		}
 	}
 
 	// Run the current mode's tick function
 	switch (g_TitleMode) {
 	case TITLEMODE_LEGAL:
-		titleTickLegal();
+		title_tick_legal();
 		break;
 	case TITLEMODE_CHECKCONTROLLERS:
-		titleTickCheckControllers();
+		title_tick_check_controllers();
 		break;
 	case TITLEMODE_PDLOGO:
-		titleTickPdLogo();
+		title_tick_pd_logo();
 		break;
 	case TITLEMODE_NINTENDOLOGO:
-		titleTickNintendoLogo();
+		title_tick_nintendo_logo();
 		break;
 	case TITLEMODE_RARELOGO:
-		titleTickRareLogo();
+		title_tick_rare_logo();
 		break;
 	case TITLEMODE_NOCONTROLLER:
-		titleTickNoController();
+		title_tick_no_controller();
 		break;
 #if VERSION >= VERSION_JPN_FINAL
 	case TITLEMODE_NOEXPANSION:
-		titleTickNoExpansion();
+		title_tick_no_expansion();
 		break;
 #endif
 	case TITLEMODE_SKIP:
-		viSetUseZBuf(false);
-		titleSetNextMode(TITLEMODE_RARELOGO);
+		vi_set_use_z_buf(false);
+		title_set_next_mode(TITLEMODE_RARELOGO);
 		break;
 	}
 }
 
-bool titleIsChangingMode(void)
+bool title_is_changing_mode(void)
 {
 	return g_TitleNextMode >= 0;
 }
 
-bool titleIsKeepingMode(void)
+bool title_is_keeping_mode(void)
 {
 	if (g_TitleNextMode >= 0) {
 		return false;
@@ -2606,35 +2606,35 @@ bool titleIsKeepingMode(void)
 	return true;
 }
 
-void titleExit(void)
+void title_exit(void)
 {
 	switch (g_TitleMode) {
 	case TITLEMODE_LEGAL:
-		titleExitLegal();
+		title_exit_legal();
 		break;
 	case TITLEMODE_CHECKCONTROLLERS:
-		titleExitCheckControllers();
+		title_exit_check_controllers();
 		break;
 	case TITLEMODE_PDLOGO:
-		titleExitPdLogo();
+		title_exit_pd_logo();
 		break;
 	case TITLEMODE_NINTENDOLOGO:
-		titleExitNintendoLogo();
+		title_exit_nintendo_logo();
 		break;
 	case TITLEMODE_RARELOGO:
-		titleExitRareLogo();
+		title_exit_rare_logo();
 		break;
 	case TITLEMODE_NOCONTROLLER:
-		titleExitNoController();
+		title_exit_no_controller();
 		break;
 #if VERSION >= VERSION_JPN_FINAL
 	case TITLEMODE_NOEXPANSION:
-		titleExitNoExpansion();
+		title_exit_no_expansion();
 		break;
 #endif
 	case TITLEMODE_RAREPRESENTS1:
 	case TITLEMODE_RAREPRESENTS2:
-		titleExitRarePresents();
+		title_exit_rare_presents();
 		break;
 	}
 
@@ -2642,28 +2642,28 @@ void titleExit(void)
 	g_TitleMode = -1;
 }
 
-void titleInitFromAiCmd(u32 value)
+void title_init_from_ai_cmd(u32 value)
 {
 	switch (value) {
 	case TITLEAIMODE_RAREPRESENTS1:
 		g_TitleMode = TITLEMODE_RAREPRESENTS1;
-		titleInitRarePresents();
+		title_init_rare_presents();
 		break;
 	case TITLEAIMODE_RARELOGO:
 		g_TitleMode = TITLEMODE_RARELOGO;
-		titleInitRareLogo();
+		title_init_rare_logo();
 		break;
 	case TITLEAIMODE_RAREPRESENTS2:
 		g_TitleMode = TITLEMODE_RAREPRESENTS2;
-		titleInitRarePresents();
+		title_init_rare_presents();
 		break;
 	case TITLEAIMODE_NINTENDOLOGO:
 		g_TitleMode = TITLEMODE_NINTENDOLOGO;
-		titleInitNintendoLogo();
+		title_init_nintendo_logo();
 		break;
 	case TITLEAIMODE_PDLOGO:
 		g_TitleMode = TITLEMODE_PDLOGO;
-		titleInitPdLogo();
+		title_init_pd_logo();
 		break;
 	}
 
@@ -2672,7 +2672,7 @@ void titleInitFromAiCmd(u32 value)
 
 bool func0f01ad5c(void)
 {
-	if (!titleIsKeepingMode()) {
+	if (!title_is_keeping_mode()) {
 		return false;
 	}
 
@@ -2689,75 +2689,75 @@ bool func0f01ad5c(void)
 
 void func0f01adb8(void)
 {
-	viSetMode(VIMODE_HI);
-	viSetSize(576, g_TitleViewHeight);
-	viSetBufSize(576, g_TitleViewHeight);
-	playermgrSetViewSize(576, g_TitleViewHeight);
-	viSetViewSize(576, g_TitleViewHeight);
-	playermgrSetViewPosition(0, 0);
-	viSetViewPosition(0, 0);
+	vi_set_mode(VIMODE_HI);
+	vi_set_size(576, g_TitleViewHeight);
+	vi_set_buf_size(576, g_TitleViewHeight);
+	playermgr_set_view_size(576, g_TitleViewHeight);
+	vi_set_view_size(576, g_TitleViewHeight);
+	playermgr_set_view_position(0, 0);
+	vi_set_view_position(0, 0);
 }
 
-void titleTickOld(void)
+void title_tick_old(void)
 {
-	if (titleIsKeepingMode()) {
+	if (title_is_keeping_mode()) {
 		joy00014810(false);
 
 		if (g_TitleDelayedTimer == 0) {
 			switch (g_TitleMode) {
 			case TITLEMODE_LEGAL:
-				titleTickLegal();
+				title_tick_legal();
 				break;
 			case TITLEMODE_CHECKCONTROLLERS:
-				titleTickCheckControllers();
+				title_tick_check_controllers();
 				break;
 			case TITLEMODE_PDLOGO:
-				titleTickPdLogo();
+				title_tick_pd_logo();
 				break;
 			case TITLEMODE_NINTENDOLOGO:
-				titleTickNintendoLogo();
+				title_tick_nintendo_logo();
 				break;
 			case TITLEMODE_RAREPRESENTS1:
 			case TITLEMODE_RAREPRESENTS2:
-				titleTickRarePresents();
+				title_tick_rare_presents();
 				break;
 			case TITLEMODE_RARELOGO:
-				titleTickRareLogo();
+				title_tick_rare_logo();
 				break;
 			}
 		}
 	}
 }
 
-Gfx *titleRender(Gfx *gdl)
+Gfx *title_render(Gfx *gdl)
 {
 	if (g_TitleDelayedTimer == 0) {
 		switch (g_TitleMode) {
 		case TITLEMODE_LEGAL:
-			gdl = titleRenderLegal(gdl);
+			gdl = title_render_legal(gdl);
 			break;
 		case TITLEMODE_CHECKCONTROLLERS:
-			gdl = titleRenderCheckControllers(gdl);
+			gdl = title_render_check_controllers(gdl);
 			break;
 		case TITLEMODE_PDLOGO:
-			gdl = titleRenderPdLogo(gdl);
+			gdl = title_render_pd_logo(gdl);
 			break;
 		case TITLEMODE_NINTENDOLOGO:
-			gdl = titleRenderNintendoLogo(gdl);
+			gdl = title_render_nintendo_logo(gdl);
 			break;
 		case TITLEMODE_RAREPRESENTS1:
 		case TITLEMODE_RAREPRESENTS2:
-			gdl = titleRenderRarePresents(gdl);
+			gdl = title_render_rare_presents(gdl);
 			break;
 		case TITLEMODE_RARELOGO:
-			gdl = titleRenderRareLogo(gdl);
+			gdl = title_render_rare_logo(gdl);
 			break;
 		case TITLEMODE_NOCONTROLLER:
-			gdl = titleRenderNoController(gdl);
+			gdl = title_render_no_controller(gdl);
 			break;
 #if VERSION >= VERSION_JPN_FINAL
 		case TITLEMODE_NOEXPANSION:
-			gdl = titleRenderNoExpansion(gdl);
+			gdl = title_render_no_expansion(gdl);
 			break;
 #endif
 		}

@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-void crcCalculateU32Pair(u8 *start, u8 *end, u32 *checksum)
+void crc_calculate_u32_pair(u8 *start, u8 *end, u32 *checksum)
 {
 	u8 *ptr;
 	u32 salt = 0;
@@ -15,19 +15,19 @@ void crcCalculateU32Pair(u8 *start, u8 *end, u32 *checksum)
 
 	for (ptr = start; ptr < end; ptr++, salt += 7) {
 		seed += *ptr << (salt & 0x0f);
-		sum1 ^= rngRotateSeed(&seed);
+		sum1 ^= rng_rotate_seed(&seed);
 	}
 
 	for (ptr = end - 1; ptr >= start; ptr--, salt += 3) {
 		seed += *ptr << (salt & 0x0f);
-		sum2 ^= rngRotateSeed(&seed);
+		sum2 ^= rng_rotate_seed(&seed);
 	}
 
 	checksum[0] = sum1;
 	checksum[1] = sum2;
 }
 
-void crcCalculateU16Pair(u8 *start, u8 *end, u16 *checksum)
+void crc_calculate_u16_pair(u8 *start, u8 *end, u16 *checksum)
 {
 	u8 *ptr;
 	u32 salt = 0;
@@ -37,12 +37,12 @@ void crcCalculateU16Pair(u8 *start, u8 *end, u16 *checksum)
 
 	for (ptr = start; ptr < end; ptr++, salt += 7) {
 		seed += *ptr << (salt & 0x0f);
-		sum1 ^= rngRotateSeed(&seed);
+		sum1 ^= rng_rotate_seed(&seed);
 	}
 
 	for (ptr = end - 1; ptr >= start; ptr--, salt += 3) {
 		seed += *ptr << (salt & 0x0f);
-		sum2 ^= rngRotateSeed(&seed);
+		sum2 ^= rng_rotate_seed(&seed);
 	}
 
 	checksum[0] = sum1 & 0xffff;

@@ -4,17 +4,17 @@
 #include "data.h"
 #include "types.h"
 
-void profileInit(void)
+void profile_init(void)
 {
 	// empty
 }
 
-void profileTick(void)
+void profile_tick(void)
 {
 	// empty
 }
 
-void profileReset(void)
+void profile_reset(void)
 {
 	// empty
 }
@@ -24,12 +24,12 @@ void profile00009a98(void)
 	// empty
 }
 
-void profileSetMarker(u32 value)
+void profile_set_marker(u32 value)
 {
 	// empty
 }
 
-Gfx *profileRender(Gfx *gdl)
+Gfx *profile_render(Gfx *gdl)
 {
 	return gdl;
 }

@@ -131,23 +131,23 @@ u32 g_FadePrevColour = 0;
 u32 g_FadeColour = 0;
 s16 g_FadeDelay = 0;
 
-u32 getVar80084040(void)
+u32 get_var80084040(void)
 {
 	return var80084040;
 }
 
-void setVar80084040(u32 value)
+void set_var80084040(u32 value)
 {
 	var80084040 = value;
 }
 
-void lvInit(void)
+void lv_init(void)
 {
 	g_Vars.lockscreen = 0;
 	g_Vars.joydisableframestogo = -1;
 }
 
-void lvResetMiscSfx(void)
+void lv_reset_misc_sfx(void)
 {
 	s32 i;
 
@@ -157,7 +157,7 @@ void lvResetMiscSfx(void)
 	}
 }
 
-s32 lvGetMiscSfxIndex(u32 type)
+s32 lv_get_misc_sfx_index(u32 type)
 {
 	s32 i;
 
@@ -170,11 +170,11 @@ s32 lvGetMiscSfxIndex(u32 type)
 	return -1;
 }
 
-void lvSetMiscSfxState(u32 type, bool play)
+void lv_set_misc_sfx_state(u32 type, bool play)
 {
 	if (play) {
-		if (lvGetMiscSfxIndex(type) == -1) {
-			s32 index = lvGetMiscSfxIndex(-1);
+		if (lv_get_misc_sfx_index(type) == -1) {
+			s32 index = lv_get_misc_sfx_index(-1);
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (index != -1 && g_MiscSfxAudioHandles[index] == NULL)
@@ -182,13 +182,13 @@ void lvSetMiscSfxState(u32 type, bool play)
 			if (index != -1)
 #endif
 			{
-				sndStart(var80095200, g_MiscSfxSounds[type], &g_MiscSfxAudioHandles[index], -1, -1, -1, -1, -1);
+				snd_start(var80095200, g_MiscSfxSounds[type], &g_MiscSfxAudioHandles[index], -1, -1, -1, -1, -1);
 				g_MiscSfxActiveTypes[index] = type;
 			}
 		}
 	} else {
 		u32 stack;
-		s32 index = lvGetMiscSfxIndex(type);
+		s32 index = lv_get_misc_sfx_index(type);
 
 		if (index != -1) {
 			audioStop(g_MiscSfxAudioHandles[index]);
@@ -200,21 +200,21 @@ void lvSetMiscSfxState(u32 type, bool play)
 	}
 }
 
-void lvUpdateMiscSfx(void)
+void lv_update_misc_sfx(void)
 {
 	s32 i;
 
 	if (g_Vars.lvupdate240 == 0) {
 		for (i = 0; i != ARRAYCOUNT(g_MiscSfxActiveTypes); i++) {
-			lvSetMiscSfxState(i, false);
+			lv_set_misc_sfx_state(i, false);
 		}
 	} else {
 		bool usingboost = g_Vars.speedpillon
-			&& lvGetSlowMotionType() == SLOWMOTION_OFF
+			&& lv_get_slow_motion_type() == SLOWMOTION_OFF
 			&& g_Vars.in_cutscene == false;
 		bool usingrocket;
 
-		lvSetMiscSfxState(MISCSFX_BOOSTHEARTBEAT, usingboost);
+		lv_set_misc_sfx_state(MISCSFX_BOOSTHEARTBEAT, usingboost);
 
 		usingrocket = false;
 
@@ -224,8 +224,8 @@ void lvUpdateMiscSfx(void)
 			}
 		}
 
-		lvSetMiscSfxState(MISCSFX_SLAYERROCKETHUM, usingrocket);
-		lvSetMiscSfxState(MISCSFX_SLAYERROCKETBEEP, usingrocket);
+		lv_set_misc_sfx_state(MISCSFX_SLAYERROCKETHUM, usingrocket);
+		lv_set_misc_sfx_state(MISCSFX_SLAYERROCKETBEEP, usingrocket);
 	}
 
 	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && sndGetState(g_MiscAudioHandle) != AL_STOPPED) {
@@ -233,20 +233,20 @@ void lvUpdateMiscSfx(void)
 	}
 }
 
-void lvReset(s32 stagenum)
+void lv_reset(s32 stagenum)
 {
-	lvFadeReset();
+	lv_fade_reset();
 
 	var80084014 = false;
 	var80084010 = 0;
 
 #if VERSION >= VERSION_NTSC_1_0
-	joyLockCyclicPolling();
+	joy_lock_cyclic_polling();
 
 	g_Vars.joydisableframestogo = 10;
 #else
-	if (joyIsCyclicPollingEnabled()) {
-		joyDisableCyclicPolling(760, "lv.c");
+	if (joy_is_cyclic_polling_enabled()) {
+		joy_disable_cyclic_polling(760, "lv.c");
 
 		g_Vars.joydisableframestogo = 10;
 	}
@@ -256,7 +256,7 @@ void lvReset(s32 stagenum)
 	g_Vars.paksneededformenu = 0;
 	g_Vars.stagenum = stagenum;
 
-	cheatsReset();
+	cheats_reset();
 
 	var80084040 = true;
 	g_Vars.lvframenum = 0;
@@ -296,19 +296,19 @@ void lvReset(s32 stagenum)
 
 	g_MiscAudioHandle = NULL;
 
-	musicReset();
-	modelmgrSetLvResetting(true);
-	surfaceReset();
-	texReset();
-	textReset();
-	hudmsgsReset();
+	music_reset();
+	modelmgr_set_lv_resetting(true);
+	surface_reset();
+	tex_reset();
+	text_reset();
+	hudmsgs_reset();
 
 	if (stagenum == STAGE_TEST_OLD) {
-		titleReset();
+		title_reset();
 	}
 
 	if (stagenum == STAGE_TITLE) {
-		titleReset();
+		title_reset();
 	} else if (stagenum == STAGE_BOOTPAKMENU) {
 		// empty
 	} else if (stagenum == STAGE_CREDITS) {
@@ -319,19 +319,19 @@ void lvReset(s32 stagenum)
 		s32 i;
 		s32 j;
 
-		tilesReset();
-		bgReset(g_Vars.stagenum);
-		bgBuildTables(g_Vars.stagenum);
-		skyReset(g_Vars.stagenum);
+		tiles_reset();
+		bg_reset(g_Vars.stagenum);
+		bg_build_tables(g_Vars.stagenum);
+		sky_reset(g_Vars.stagenum);
 
 		if (g_Vars.normmplayerisrunning) {
-			musicSetStageAndStartMusic(stagenum);
+			music_set_stage_and_start_music(stagenum);
 		} else {
-			musicSetStage(stagenum);
+			music_set_stage(stagenum);
 		}
 
 		if (g_Vars.normmplayerisrunning) {
-			mpApplyLimits();
+			mp_apply_limits();
 		}
 
 		if (g_Vars.mplayerisrunning == false) {
@@ -362,25 +362,25 @@ void lvReset(s32 stagenum)
 		}
 	}
 
-	mpSetDefaultNamesIfEmpty();
-	animsReset();
-	objectivesReset();
-	vtxstoreReset();
-	modelmgrReset();
-	psReset();
-	setupLoadFiles(stagenum);
-	scenarioReset();
-	varsReset();
-	propsReset();
-	chrmgrReset();
-	bodiesReset(stagenum);
-	setupCreateProps(stagenum);
-	tagsReset();
-	explosionsReset();
-	smokeReset();
-	sparksReset();
-	weatherReset();
-	lvResetMiscSfx();
+	mp_set_default_names_if_empty();
+	anims_reset();
+	objectives_reset();
+	vtxstore_reset();
+	modelmgr_reset();
+	ps_reset();
+	setup_load_files(stagenum);
+	scenario_reset();
+	vars_reset();
+	props_reset();
+	chrmgr_reset();
+	bodies_reset(stagenum);
+	setup_create_props(stagenum);
+	tags_reset();
+	explosions_reset();
+	smoke_reset();
+	sparks_reset();
+	weather_reset();
+	lv_reset_misc_sfx();
 
 	switch (g_Vars.stagenum) {
 	case STAGE_ESCAPE:
@@ -389,87 +389,87 @@ void lvReset(s32 stagenum)
 	case STAGE_DEFECTION:
 	case STAGE_ATTACKSHIP:
 	case STAGE_TEST_OLD:
-		starsReset();
+		stars_reset();
 		break;
 	}
 
 	func0f0099a4();
-	boltbeamsReset();
-	lasersightsReset();
+	boltbeams_reset();
+	lasersights_reset();
 	stub0f013540();
-	shardsReset();
-	frReset();
+	shards_reset();
+	fr_reset();
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
 		// empty
 	} else if (stagenum == STAGE_BOOTPAKMENU) {
-		setCurrentPlayerNum(0);
-		menuReset();
+		set_current_player_num(0);
+		menu_reset();
 	} else if (stagenum == STAGE_4MBMENU) {
-		setCurrentPlayerNum(0);
-		menuReset();
+		set_current_player_num(0);
+		menu_reset();
 	} else if (stagenum == STAGE_CREDITS) {
-		creditsReset();
+		credits_reset();
 	} else {
 		s32 i;
 
-		utilsReset();
-		casingsReset();
+		utils_reset();
+		casings_reset();
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
-			setCurrentPlayerNum(i);
+			set_current_player_num(i);
 			g_Vars.currentplayer->usedowntime = 0;
 			g_Vars.currentplayer->invdowntime = g_Vars.currentplayer->usedowntime;
 
-			menuReset();
-			amReset();
-			invReset();
-			bgunReset();
-			playerLoadDefaults();
-			playerReset();
-			playerSpawn();
-			bheadReset();
+			menu_reset();
+			am_reset();
+			inv_reset();
+			bgun_reset();
+			player_load_defaults();
+			player_reset();
+			player_spawn();
+			bhead_reset();
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_TEAMSENABLED)) {
-				playermgrCalculateAiBuddyNums();
+				playermgr_calculate_ai_buddy_nums();
 			}
 		}
 
-		acousticReset();
-		portalsReset();
-		lightsReset();
-		setCurrentPlayerNum(0);
+		acoustic_reset();
+		portals_reset();
+		lights_reset();
+		set_current_player_num(0);
 	}
 
 	if (g_Vars.lvmpbotlevel) {
-		mpCalculateTeamIsOnlyAi();
+		mp_calculate_team_is_only_ai();
 	}
 
-	paksReset();
-	sndResetCurMp3();
+	paks_reset();
+	snd_reset_cur_mp3();
 
 	if (stagenum == STAGE_BOOTPAKMENU) {
-		bootmenuReset();
+		bootmenu_reset();
 	}
 
 	if (stagenum == STAGE_4MBMENU) {
-		fmbReset();
+		fmb_reset();
 	}
 
 	if (IS8MB()) {
-		pheadReset();
+		phead_reset();
 	}
 
-	modelmgrSetLvResetting(false);
+	modelmgr_set_lv_resetting(false);
 	var80084018 = 1;
-	schedResetArtifacts();
-	lvSetPaused(0);
+	sched_reset_artifacts();
+	lv_set_paused(0);
 
 #if PIRACYCHECKS
 	{
 		u32 checksum = 0;
-		s32 *i = (s32 *)&lvGetSlowMotionType;
-		s32 *end = (s32 *)&lvTick;
+		s32 *i = (s32 *)&lv_get_slow_motion_type;
+		s32 *end = (s32 *)&lv_tick;
 
 		while (i < end) {
 			checksum += *i;
@@ -494,7 +494,7 @@ void lvReset(s32 stagenum)
 #endif
 }
 
-void lvConfigureFade(u32 color, s16 num_frames)
+void lv_configure_fade(u32 color, s16 num_frames)
 {
 	g_FadeNumFrames = num_frames;
 	g_FadePrevColour = g_FadeColour;
@@ -510,7 +510,7 @@ void lvConfigureFade(u32 color, s16 num_frames)
 	g_FadeDelay = 2;
 }
 
-Gfx *lvRenderFade(Gfx *gdl)
+Gfx *lv_render_fade(Gfx *gdl)
 {
 	u32 colour = g_FadeColour;
 	u32 inset = 0;
@@ -540,7 +540,7 @@ Gfx *lvRenderFade(Gfx *gdl)
 			return gdl;
 		}
 	} else {
-		colour = colourBlend(g_FadeColour, g_FadePrevColour, g_FadeFrac * 255);
+		colour = colour_blend(g_FadeColour, g_FadePrevColour, g_FadeFrac * 255);
 	}
 
 	if ((colour & 0xff) == 0) {
@@ -553,20 +553,20 @@ Gfx *lvRenderFade(Gfx *gdl)
 	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
 
 	gDPFillRectangle(gdl++,
-			viGetViewLeft(),
-			viGetViewTop() + inset,
-			viGetViewLeft() + viGetViewWidth() + 1,
-			viGetViewTop() + viGetViewHeight() - inset + 2);
+			vi_get_view_left(),
+			vi_get_view_top() + inset,
+			vi_get_view_left() + vi_get_view_width() + 1,
+			vi_get_view_top() + vi_get_view_height() - inset + 2);
 
 	return text0f153838(gdl);
 }
 
-bool lvIsFadeActive(void)
+bool lv_is_fade_active(void)
 {
 	return g_FadeFrac >= 0;
 }
 
-void lvFadeReset(void)
+void lv_fade_reset(void)
 {
 	g_FadeNumFrames = 0;
 	g_FadeFrac = -1;
@@ -575,7 +575,7 @@ void lvFadeReset(void)
 	g_FadeDelay = 0;
 }
 
-bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
+bool lv_update_tracked_prop(struct trackedprop *trackedprop, s32 index)
 {
 	f32 y1;
 	f32 x1;
@@ -587,14 +587,14 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 	if (trackedprop->prop && prop->chr) {
 		switch (trackedprop->prop->type) {
 		case PROPTYPE_PLAYER:
-			if (playermgrGetPlayerNumByProp(prop) == g_Vars.currentplayernum) {
+			if (playermgr_get_player_num_by_prop(prop) == g_Vars.currentplayernum) {
 				return false;
 			}
 			// fall through
 		case PROPTYPE_CHR:
 			chr = trackedprop->prop->chr;
 
-			if (chrIsDead(trackedprop->prop->chr)) {
+			if (chr_is_dead(trackedprop->prop->chr)) {
 				if (index >= 0) {
 					// Existing trackedprop
 					if (g_Vars.currentplayer->targetset[index] < TICKS(129)) {
@@ -620,7 +620,7 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 				x2 = -2;
 				y2 = -2;
 
-				if (modelGetScreenCoords(model, &x2, &x1, &y2, &y1)) {
+				if (model_get_screen_coords(model, &x2, &x1, &y2, &y1)) {
 					break;
 				}
 				return false;
@@ -636,7 +636,7 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 				x2 = -2;
 				y2 = -2;
 
-				if (modelGetScreenCoords(model, &x2, &x1, &y2, &y1)) {
+				if (model_get_screen_coords(model, &x2, &x1, &y2, &y1)) {
 					break;
 				}
 				return false;
@@ -660,7 +660,7 @@ bool lvUpdateTrackedProp(struct trackedprop *trackedprop, s32 index)
 }
 
 #ifdef DEBUG
-Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
+Gfx *lv_render_man_pos_if_enabled(Gfx *gdl)
 {
 	char bufroom[16];
 	char bufx[16];
@@ -671,7 +671,7 @@ Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
 	s32 y;
 	s32 y2;
 
-	if (debugIsManPosEnabled()) {
+	if (debug_is_man_pos_enabled()) {
 		f32 xfrac = g_Vars.currentplayer->bond2.unk00.x;
 		f32 zfrac = g_Vars.currentplayer->bond2.unk00.z;
 
@@ -695,25 +695,25 @@ Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
 		sprintf(bufz, "%s%sz %4.0f", "", "", g_Vars.currentplayer->prop->pos.z);
 		sprintf(bufdir, "%s %3d", &directions[(degrees + 22) / 45], degrees);
 
-		x = viGetViewLeft() + 17;
-		y = viGetViewTop() + 17;
+		x = vi_get_view_left() + 17;
+		y = vi_get_view_top() + 17;
 		y2 = y + 10;
 		gdl = text0f153628(gdl);
-		gdl = text0f153a34(gdl, 0, y - 1, viGetWidth(), y2 + 1, 0x00000064);
+		gdl = text0f153a34(gdl, 0, y - 1, vi_get_width(), y2 + 1, 0x00000064);
 
-		gdl = textRenderProjected(gdl, &x, &y, bufroom, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, bufroom, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
-		x = viGetViewLeft() + 87;
-		gdl = textRenderProjected(gdl, &x, &y, bufx, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+		x = vi_get_view_left() + 87;
+		gdl = text_render_projected(gdl, &x, &y, bufx, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
-		x = viGetViewLeft() + 141;
-		gdl = textRenderProjected(gdl, &x, &y, bufy, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+		x = vi_get_view_left() + 141;
+		gdl = text_render_projected(gdl, &x, &y, bufy, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
-		x = viGetViewLeft() + 195;
-		gdl = textRenderProjected(gdl, &x, &y, bufz, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+		x = vi_get_view_left() + 195;
+		gdl = text_render_projected(gdl, &x, &y, bufz, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
-		x = viGetViewLeft() + 249;
-		gdl = textRenderProjected(gdl, &x, &y, bufdir, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, viGetWidth(), viGetHeight(), 0, 0);
+		x = vi_get_view_left() + 249;
+		gdl = text_render_projected(gdl, &x, &y, bufdir, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
 		gdl = text0f153780(gdl);
 	}
@@ -722,7 +722,7 @@ Gfx *lvRenderManPosIfEnabled(Gfx *gdl)
 }
 #endif
 
-void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
+void lv_find_threats_for_prop(struct prop *prop, bool inchild, struct coord *playerpos, bool *activeslots, f32 *distances)
 {
 	bool condition = true;
 	struct defaultobj *obj;
@@ -776,7 +776,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 			}
 		}
 
-		if (obj->modelnum == MODEL_TARGET && frIsTargetOneHitExplodable(prop)) {
+		if (obj->modelnum == MODEL_TARGET && fr_is_target_one_hit_explodable(prop)) {
 			pass = true;
 		}
 
@@ -794,7 +794,7 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 			sp76 = -2;
 			sp80 = -2;
 
-			if (!modelGetScreenCoords(model, &sp76, &sp84, &sp80, &sp88)) {
+			if (!model_get_screen_coords(model, &sp76, &sp84, &sp80, &sp88)) {
 				pass = false;
 			}
 		}
@@ -842,11 +842,11 @@ void lvFindThreatsForProp(struct prop *prop, bool inchild, struct coord *playerp
 	}
 
 	if (prop->child) {
-		lvFindThreatsForProp(prop->child, true, playerpos, activeslots, distances);
+		lv_find_threats_for_prop(prop->child, true, playerpos, activeslots, distances);
 	}
 
 	if (inchild && prop->next) {
-		lvFindThreatsForProp(prop->next, inchild, playerpos, activeslots, distances);
+		lv_find_threats_for_prop(prop->next, inchild, playerpos, activeslots, distances);
 	}
 }
 
@@ -871,7 +871,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 			} else {
 				if (prop->type == PROPTYPE_CHR
 						|| (prop->type == PROPTYPE_PLAYER
-							&& playermgrGetPlayerNumByProp(prop) != g_Vars.currentplayernum)) {
+							&& playermgr_get_player_num_by_prop(prop) != g_Vars.currentplayernum)) {
 					model = g_Vars.currentplayer->trackedprops[i].prop->chr->model;
 				}
 			}
@@ -882,7 +882,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 				sp116 = -2;
 				sp120 = -2;
 
-				if (modelGetScreenCoords(model, &sp116, &sp124, &sp120, &sp128)) {
+				if (model_get_screen_coords(model, &sp116, &sp124, &sp120, &sp128)) {
 					activeslots[i] = true;
 					g_Vars.currentplayer->trackedprops[i].x1 = sp124 - 2;
 					g_Vars.currentplayer->trackedprops[i].x2 = sp116 + 2;
@@ -907,7 +907,7 @@ void func0f168f24(struct prop *prop, bool inchild, struct coord *playerpos, s32 
 	}
 }
 
-void lvFindThreats(void)
+void lv_find_threats(void)
 {
 	s32 i;
 	struct prop *prop;
@@ -944,7 +944,7 @@ void lvFindThreats(void)
 		prop = *propptr;
 
 		if (prop) {
-			lvFindThreatsForProp(prop, false, &campos, activeslots, distances);
+			lv_find_threats_for_prop(prop, false, &campos, activeslots, distances);
 		}
 
 		propptr--;
@@ -981,7 +981,7 @@ void lvFindThreats(void)
  * - random static in the Infiltration intro cutscene
  * - combat boost activation and reverting
  */
-Gfx *lvRender(Gfx *gdl)
+Gfx *lv_render(Gfx *gdl)
 {
 	gSPSegment(gdl++, SPSEGMENT_PHYSICAL, 0x00000000);
 
@@ -990,84 +990,84 @@ Gfx *lvRender(Gfx *gdl)
 #endif
 
 	if (g_Vars.stagenum == STAGE_TITLE
-			|| (g_Vars.stagenum == STAGE_TEST_OLD && titleIsKeepingMode())) {
+			|| (g_Vars.stagenum == STAGE_TEST_OLD && title_is_keeping_mode())) {
 		gSPDisplayList(gdl++, &var800613a0);
 
-		if (debugIsZBufferDisabled()) {
+		if (debug_is_z_buffer_disabled()) {
 			gSPDisplayList(gdl++, &var80061360);
 		} else {
 			gSPDisplayList(gdl++, &var80061380);
 		}
 
-		gdl = viPrepareZbuf(gdl);
+		gdl = vi_prepare_zbuf(gdl);
 		gdl = vi0000b1d0(gdl);
 
 		gDPSetScissorFrac(gdl++, 0,
-				viGetViewLeft() * 4.0f, viGetViewTop() * 4.0f,
-				(viGetViewLeft() + viGetViewWidth()) * 4.0f,
-				(viGetViewTop() + viGetViewHeight()) * 4.0f);
+				vi_get_view_left() * 4.0f, vi_get_view_top() * 4.0f,
+				(vi_get_view_left() + vi_get_view_width()) * 4.0f,
+				(vi_get_view_top() + vi_get_view_height()) * 4.0f);
 
-		gdl = titleRender(gdl);
-		gdl = lvRenderFade(gdl);
+		gdl = title_render(gdl);
+		gdl = lv_render_fade(gdl);
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
 		gSPDisplayList(gdl++, &var800613a0);
 		gSPDisplayList(gdl++, &var80061380);
 
-		setCurrentPlayerNum(0);
-		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
+		set_current_player_num(0);
+		vi_set_view_position(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+		vi_set_fov_aspect_and_size(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 		mtx00016748(1);
 
 		gdl = vi0000b1d0(gdl);
-		gdl = viRenderViewportEdges(gdl);
-		gdl = bgScissorToViewport(gdl);
-		gdl = menuRender(gdl);
+		gdl = vi_render_viewport_edges(gdl);
+		gdl = bg_scissor_to_viewport(gdl);
+		gdl = menu_render(gdl);
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
 		gSPDisplayList(gdl++, &var800613a0);
 		gSPDisplayList(gdl++, &var80061380);
 
-		setCurrentPlayerNum(0);
+		set_current_player_num(0);
 
 #if VERSION >= VERSION_PAL_BETA
-		viSetMode(VIMODE_LO);
-		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-		viSetSize(playerGetFbWidth(), playerGetFbHeight());
-		viSetBufSize(playerGetFbWidth(), playerGetFbHeight());
-		viSetViewSize(playerGetFbWidth(), playerGetFbHeight());
+		vi_set_mode(VIMODE_LO);
+		vi_set_view_position(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+		vi_set_size(player_get_fb_width(), player_get_fb_height());
+		vi_set_buf_size(player_get_fb_width(), player_get_fb_height());
+		vi_set_view_size(player_get_fb_width(), player_get_fb_height());
 #else
-		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+		vi_set_view_position(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
 #endif
 
-		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
+		vi_set_fov_aspect_and_size(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 
 		mtx00016748(1);
 
 		gdl = vi0000b1d0(gdl);
-		gdl = bgScissorToViewport(gdl);
-		gdl = menuRender(gdl);
+		gdl = bg_scissor_to_viewport(gdl);
+		gdl = menu_render(gdl);
 
 		if (g_Vars.currentplayer->pausemode != PAUSEMODE_UNPAUSED) {
-			playerTickPauseMenu();
+			player_tick_pause_menu();
 		}
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
 		gSPClipRatio(gdl++, FRUSTRATIO_2);
 		gSPDisplayList(gdl++, &var800613a0);
 		gSPDisplayList(gdl++, &var80061380);
 
-		setCurrentPlayerNum(0);
-		viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-		viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
+		set_current_player_num(0);
+		vi_set_view_position(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+		vi_set_fov_aspect_and_size(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 				g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 		mtx00016748(1);
 
 		gdl = vi0000b1a8(gdl);
 		gdl = vi0000b1d0(gdl);
-		gdl = viRenderViewportEdges(gdl);
-		gdl = creditsDraw(gdl);
+		gdl = vi_render_viewport_edges(gdl);
+		gdl = credits_draw(gdl);
 	} else {
 		// Normal stages
 		s32 i;
@@ -1075,10 +1075,10 @@ Gfx *lvRender(Gfx *gdl)
 		Gfx *savedgdl;
 #if VERSION >= VERSION_NTSC_1_0
 		bool forcesingleplayer = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& playerHasSharedViewport();
+			&& player_has_shared_viewport();
 #else
 		bool forcesingleplayer = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
-			&& ((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE);
+			&& ((g_InCutscene && !g_MainIsEndscreen) || menu_get_root() == MENUROOT_COOPCONTINUE);
 #endif
 		struct player *player;
 		struct chrdata *chr;
@@ -1094,12 +1094,12 @@ Gfx *lvRender(Gfx *gdl)
 			savedgdl = gdl;
 
 			if (forcesingleplayer) {
-				setCurrentPlayerNum(0);
+				set_current_player_num(0);
 				g_Vars.currentplayerindex = 0;
 				islastplayer = true;
 			} else {
 				s32 nextplayernum = i + 1;
-				setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
+				set_current_player_num(playermgr_get_player_at_order(i));
 				islastplayer = playercount == nextplayernum;
 			}
 
@@ -1130,26 +1130,26 @@ Gfx *lvRender(Gfx *gdl)
 				}
 			}
 
-			bviewSetMotionBlur(bluramount);
+			bview_set_motion_blur(bluramount);
 
 			gSPDisplayList(gdl++, &var800613a0);
 
-			if (debugIsZBufferDisabled()) {
+			if (debug_is_z_buffer_disabled()) {
 				gSPDisplayList(gdl++, &var80061360);
 			} else {
 				gSPDisplayList(gdl++, &var80061380);
 			}
 
-			viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-			viSetFovAspectAndSize(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
+			vi_set_view_position(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+			vi_set_fov_aspect_and_size(g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 					g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 			mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
-			envTick();
-			zbufSwap();
-			gdl = viPrepareZbuf(gdl);
+			env_tick();
+			zbuf_swap();
+			gdl = vi_prepare_zbuf(gdl);
 			gdl = vi0000b1d0(gdl);
-			gdl = bgScissorToViewport(gdl);
-			artifactsClear();
+			gdl = bg_scissor_to_viewport(gdl);
+			artifacts_clear();
 
 			if ((g_Vars.stagenum != STAGE_CITRAINING || (var80087260 <= 0 && g_MenuData.root != MENUROOT_MPSETUP))
 					&& g_Vars.lvframenum <= 5
@@ -1165,41 +1165,41 @@ Gfx *lvRender(Gfx *gdl)
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON
 					&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
 					&& var8009dfc0 == 0) {
-				g_Vars.currentplayer->gunctrl.loadall = bgunLoadAll();
+				g_Vars.currentplayer->gunctrl.loadall = bgun_load_all();
 			}
 
 			if (g_Vars.lockscreen) {
-				gdl = bviewDrawMotionBlur(gdl, 0xffffffff, 255);
+				gdl = bview_draw_motion_blur(gdl, 0xffffffff, 255);
 				g_Vars.lockscreen--;
 			} else if (var8009dfc0) {
-				gdl = viRenderViewportEdges(gdl);
-				gdl = bgScissorToViewport(gdl);
+				gdl = vi_render_viewport_edges(gdl);
+				gdl = bg_scissor_to_viewport(gdl);
 				mtx00016748(1);
 
 				if (g_Vars.currentplayer->menuisactive) {
-					gdl = menuRender(gdl);
+					gdl = menu_render(gdl);
 				}
 			} else {
 				if (var80075d60 == 2) {
-					gdl = playerUpdateShootRot(gdl);
+					gdl = player_update_shoot_rot(gdl);
 				}
 
-				gdl = viRenderViewportEdges(gdl);
-				gdl = skyRender(gdl);
-				bgTick();
-				lightsTick();
-				propsTickPlayer(islastplayer);
-				scenarioTickChr(NULL);
-				propsSort();
-				autoaimTick();
-				handsTickAttack();
+				gdl = vi_render_viewport_edges(gdl);
+				gdl = sky_render(gdl);
+				bg_tick();
+				lights_tick();
+				props_tick_player(islastplayer);
+				scenario_tick_chr(NULL);
+				props_sort();
+				autoaim_tick();
+				hands_tick_attack();
 
 				// Calculate lookingatprop
 				if (PLAYERCOUNT() == 1
 						|| g_Vars.coopplayernum >= 0
 						|| g_Vars.antiplayernum >= 0
-						|| (weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmoveIsInSightAimMode())) {
-					g_Vars.currentplayer->lookingatprop.prop = propFindAimingAt(HAND_RIGHT, false, FINDPROPCONTEXT_QUERY);
+						|| (weapon_has_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmove_is_in_sight_aim_mode())) {
+					g_Vars.currentplayer->lookingatprop.prop = prop_find_aiming_at(HAND_RIGHT, false, FINDPROPCONTEXT_QUERY);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
 						if (g_Vars.currentplayer->lookingatprop.prop->type == PROPTYPE_CHR
@@ -1230,21 +1230,21 @@ Gfx *lvRender(Gfx *gdl)
 					g_Vars.currentplayer->lookingatprop.prop = NULL;
 				}
 
-				if (gsetHasFunctionFlags(&g_Vars.currentplayer->hands[0].gset, FUNCFLAG_THREATDETECTOR)) {
-					lvFindThreats();
-				} else if (weaponHasFlag(bgunGetWeaponNum(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
+				if (gset_has_function_flags(&g_Vars.currentplayer->hands[0].gset, FUNCFLAG_THREATDETECTOR)) {
+					lv_find_threats();
+				} else if (weapon_has_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
 
-					if (frIsInTraining()
+					if (fr_is_in_training()
 							&& g_Vars.currentplayer->lookingatprop.prop
-							&& bmoveIsInSightAimMode()) {
+							&& bmove_is_in_sight_aim_mode()) {
 						func0f1a0924(g_Vars.currentplayer->lookingatprop.prop);
-					} else if (lvUpdateTrackedProp(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
+					} else if (lv_update_tracked_prop(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
 						g_Vars.currentplayer->lookingatprop.prop = NULL;
 					}
 
 					for (j = 0; j < ARRAYCOUNT(g_Vars.currentplayer->trackedprops); j++) {
-						if (!lvUpdateTrackedProp(&g_Vars.currentplayer->trackedprops[j], j)) {
+						if (!lv_update_tracked_prop(&g_Vars.currentplayer->trackedprops[j], j)) {
 							g_Vars.currentplayer->trackedprops[j].x1 = -1;
 							g_Vars.currentplayer->trackedprops[j].x2 = -2;
 						}
@@ -1256,71 +1256,71 @@ Gfx *lvRender(Gfx *gdl)
 						&& (g_Vars.currentplayer->devicesactive & ~g_Vars.currentplayer->devicesinhibit & DEVICE_EYESPY)
 						&& g_Vars.currentplayer->eyespy->camerabuttonheld) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-						objectiveCheckHolograph(400);
-						sndStart(var80095200, SFX_CAMSPY_SHUTTER, 0, -1, -1, -1, -1, -1);
+						objective_check_holograph(400);
+						snd_start(var80095200, SFX_CAMSPY_SHUTTER, 0, -1, -1, -1, -1, -1);
 					} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 						if (g_Vars.currentplayer->eyespydarts) {
 							// Fire dart
 							struct coord direction;
-							sndStart(var80095200, SFX_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
+							snd_start(var80095200, SFX_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
 							g_Vars.currentplayer->eyespydarts--;
 
 							direction.x = g_Vars.currentplayer->eyespy->look.x;
 							direction.y = g_Vars.currentplayer->eyespy->look.y;
 							direction.z = g_Vars.currentplayer->eyespy->look.z;
 
-							projectileCreate(g_Vars.currentplayer->eyespy->prop, 0,
+							projectile_create(g_Vars.currentplayer->eyespy->prop, 0,
 									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, NULL);
 						} else {
 							// No dart ammo
-							sndStart(var80095200, SFX_FIREEMPTY, 0, -1, -1, -1, -1, -1);
+							snd_start(var80095200, SFX_FIREEMPTY, 0, -1, -1, -1, -1, -1);
 						}
 					} else { // EYESPYMODE_BOMBSPY
 						struct coord vel = {0, 0, 0};
 						struct gset gset = {WEAPON_GRENADE, 0, 0, FUNC_PRIMARY};
-						explosionCreateSimple(g_Vars.currentplayer->eyespy->prop,
+						explosion_create_simple(g_Vars.currentplayer->eyespy->prop,
 								&g_Vars.currentplayer->eyespy->prop->pos,
 								g_Vars.currentplayer->eyespy->prop->rooms,
 								EXPLOSIONTYPE_DRAGONBOMBSPY, 0);
-						chrBeginDeath(g_Vars.currentplayer->eyespy->prop->chr, &vel, 0, 0, &gset, false, 0);
+						chr_begin_death(g_Vars.currentplayer->eyespy->prop->chr, &vel, 0, 0, &gset, false, 0);
 					}
 				}
 
 				// Handle opening doors and reloading
 				if (g_Vars.currentplayer->bondactivateorreload) {
-					if (currentPlayerInteract(false)) {
-						bgunReloadIfPossible(HAND_RIGHT);
-						bgunReloadIfPossible(HAND_LEFT);
+					if (current_player_interact(false)) {
+						bgun_reload_if_possible(HAND_RIGHT);
+						bgun_reload_if_possible(HAND_LEFT);
 					}
 				} else if (g_Vars.currentplayer->eyespy
 						&& g_Vars.currentplayer->eyespy->active
 						&& g_Vars.currentplayer->eyespy->opendoor) {
-					currentPlayerInteract(true);
+					current_player_interact(true);
 				}
 
-				propsTestForPickup();
-				gdl = bgRender(gdl);
+				props_test_for_pickup();
+				gdl = bg_render(gdl);
 				chr0f028498(var80075d68 == 15 || g_AnimHostEnabled);
-				gdl = propsRenderBeams(gdl);
-				gdl = shardsRender(gdl);
-				gdl = sparksRender(gdl);
-				gdl = weatherRender(gdl);
+				gdl = props_render_beams(gdl);
+				gdl = shards_render(gdl);
+				gdl = sparks_render(gdl);
+				gdl = weather_render(gdl);
 
 				if (g_NbombsActive) {
-					gdl = nbombsRender(gdl);
+					gdl = nbombs_render(gdl);
 				}
 
 				if (var80075d60 == 2) {
-					gdl = playerRenderHud(gdl);
+					gdl = player_render_hud(gdl);
 
 #ifdef DEBUG
-					gdl = lvRenderManPosIfEnabled(gdl);
+					gdl = lv_render_man_pos_if_enabled(gdl);
 #endif
 				} else {
-					gdl = boltbeamsRender(gdl);
+					gdl = boltbeams_render(gdl);
 
 					if (g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
-						gdl = bgRenderArtifacts(gdl);
+						gdl = bg_render_artifacts(gdl);
 					}
 				}
 
@@ -1338,7 +1338,7 @@ Gfx *lvRender(Gfx *gdl)
 						if (g_Vars.stagenum == STAGE_TEST_OLD) {
 							f32 frac = 0;
 							u32 colour;
-							s32 endframe = animGetNumFrames(g_CutsceneAnimNum) - 1;
+							s32 endframe = anim_get_num_frames(g_CutsceneAnimNum) - 1;
 
 							colour = 0;
 
@@ -1366,10 +1366,10 @@ Gfx *lvRender(Gfx *gdl)
 								gDPSetPrimColorViaWord(gdl++, 0, 0, colour | alpha);
 
 								gDPFillRectangle(gdl++,
-									viGetViewLeft(),
-									viGetViewTop(),
-									viGetViewLeft() + viGetViewWidth(),
-									viGetViewTop() + viGetViewHeight());
+									vi_get_view_left(),
+									vi_get_view_top(),
+									vi_get_view_left() + vi_get_view_width(),
+									vi_get_view_top() + vi_get_view_height());
 
 								gdl = text0f153838(gdl);
 							}
@@ -1381,7 +1381,7 @@ Gfx *lvRender(Gfx *gdl)
 						case ANIM_CUT_CAVE_INTRO_CAM:
 							// Horizon scanner in Air Base intro
 							if (g_CutsceneCurAnimFrame60 > 839 && g_CutsceneCurAnimFrame60 < 1411) {
-								gdl = bviewDrawHorizonScanner(gdl);
+								gdl = bview_draw_horizon_scanner(gdl);
 							}
 							break;
 						case ANIM_CUT_LUE_INTRO_CAM_01:
@@ -1393,7 +1393,7 @@ Gfx *lvRender(Gfx *gdl)
 								cutscenehasstatic = true;
 
 								if (g_CutsceneStaticAudioHandle == NULL) {
-									sndStart(var80095200, SFX_INFIL_STATIC_LONG, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
+									snd_start(var80095200, SFX_INFIL_STATIC_LONG, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
 								}
 
 								g_CutsceneStaticTimer -= g_Vars.diffframe60;
@@ -1403,12 +1403,12 @@ Gfx *lvRender(Gfx *gdl)
 									g_CutsceneStaticActive = false;
 								}
 
-								gdl = bviewDrawFilmInterlace(gdl, 0xffffffff, 0xffffffff);
+								gdl = bview_draw_film_interlace(gdl, 0xffffffff, 0xffffffff);
 
 								if (g_CutsceneStaticTimer < TICKS(15)) {
 									if (g_CutsceneStaticActive == false) {
 										g_CutsceneStaticActive = true;
-										sndStart(var80095200, SFX_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
+										snd_start(var80095200, SFX_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
 									}
 
 									cutscenestatic = 225 - g_CutsceneStaticTimer * PALUP(10);
@@ -1418,11 +1418,11 @@ Gfx *lvRender(Gfx *gdl)
 								// to the main static above
 								if (random() % 60 == 1) {
 									cutscenestatic = 255;
-									sndStart(var80095200, SFX_INFIL_STATIC_SHORT, NULL, -1, -1, -1, -1, -1);
+									snd_start(var80095200, SFX_INFIL_STATIC_SHORT, NULL, -1, -1, -1, -1, -1);
 								}
 
 								if (cutscenestatic) {
-									gdl = bviewDrawStatic(gdl, 0xffffffff, cutscenestatic);
+									gdl = bview_draw_static(gdl, 0xffffffff, cutscenestatic);
 								}
 							}
 							break;
@@ -1436,7 +1436,7 @@ Gfx *lvRender(Gfx *gdl)
 					// Slayer rocket shows static when flying out of bounds
 					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKET
 							&& g_Vars.tickmode != TICKMODE_CUTSCENE) {
-						gdl = bviewDrawSlayerRocketInterlace(gdl, 0xffffffff, 0xffffffff);
+						gdl = bview_draw_slayer_rocket_interlace(gdl, 0xffffffff, 0xffffffff);
 
 						if (g_Vars.currentplayer->badrockettime > 0) {
 							u32 slayerstatic = g_Vars.currentplayer->badrockettime * 255 / TICKS(90);
@@ -1445,13 +1445,13 @@ Gfx *lvRender(Gfx *gdl)
 								slayerstatic = 255;
 							}
 
-							gdl = bviewDrawStatic(gdl, 0x4fffffff, slayerstatic);
+							gdl = bview_draw_static(gdl, 0x4fffffff, slayerstatic);
 						}
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
 					if (g_Vars.currentplayer->visionmode == VISIONMODE_SLAYERROCKETSTATIC) {
-						gdl = bviewDrawStatic(gdl, 0x4fffffff, 255);
+						gdl = bview_draw_static(gdl, 0x4fffffff, 255);
 						g_Vars.currentplayer->visionmode = VISIONMODE_NORMAL;
 					}
 #endif
@@ -1468,7 +1468,7 @@ Gfx *lvRender(Gfx *gdl)
 #endif
 						}
 
-						gdl = bviewDrawZoomBlur(gdl, 0xffffffff, xraything, 1.05f, 1.05f);
+						gdl = bview_draw_zoom_blur(gdl, 0xffffffff, xraything, 1.05f, 1.05f);
 					}
 
 					// Handle combat boosts
@@ -1476,22 +1476,22 @@ Gfx *lvRender(Gfx *gdl)
 							|| (g_Vars.speedpillwant && !g_Vars.speedpillon)
 							|| (!g_Vars.speedpillwant && g_Vars.speedpillon)) {
 						if (g_Vars.speedpillchange == (PAL ? 26 : 30) && !g_Vars.speedpillwant) {
-							sndStart(var80095200, lvGetSlowMotionType() ? SFX_JO_BOOST_ACTIVATE : SFX_ARGH_JO_02AD, 0, -1, -1, -1, -1, -1);
+							snd_start(var80095200, lv_get_slow_motion_type() ? SFX_JO_BOOST_ACTIVATE : SFX_ARGH_JO_02AD, 0, -1, -1, -1, -1, -1);
 						}
 
 						if (g_Vars.speedpillchange < (PAL ? 13 : 15)) {
-							gdl = bviewDrawZoomBlur(gdl, 0xffffffff,
+							gdl = bview_draw_zoom_blur(gdl, 0xffffffff,
 									g_Vars.speedpillchange * 180 / (PAL ? 13 : 15),
 									(f32)g_Vars.speedpillchange * (PAL ? 0.023076923564076f : 0.02000000141561f) + 1.1f,
 									(f32)g_Vars.speedpillchange * (PAL ? 0.023076923564076f : 0.02000000141561f) + 1.1f);
-							gdl = playerDrawFade(gdl, 0xff, 0xff, 0xff,
+							gdl = player_draw_fade(gdl, 0xff, 0xff, 0xff,
 									g_Vars.speedpillchange * (PAL ? 0.0076923076994717f : 0.0066666668280959f));
 						} else {
-							gdl = bviewDrawZoomBlur(gdl, 0xffffffff,
+							gdl = bview_draw_zoom_blur(gdl, 0xffffffff,
 									((PAL ? 26 : 30) - g_Vars.speedpillchange) * 180 / (PAL ? 13 : 15),
 									(f32)((PAL ? 26 : 30) - g_Vars.speedpillchange) * (PAL ? 0.023076923564076f : 0.02000000141561f) + 1.1f,
 									(f32)((PAL ? 26 : 30) - g_Vars.speedpillchange) * (PAL ? 0.023076923564076f : 0.02000000141561f) + 1.1f);
-							gdl = playerDrawFade(gdl, 0xff, 0xff, 0xff,
+							gdl = player_draw_fade(gdl, 0xff, 0xff, 0xff,
 									((PAL ? 26.0f : 30.0f) - g_Vars.speedpillchange) * (PAL ? 0.0076923076994717f : 0.0066666668280959f));
 						}
 
@@ -1517,19 +1517,19 @@ Gfx *lvRender(Gfx *gdl)
 					}
 
 					if (bluramount) {
-						bviewClearMotionBlur();
-						gdl = bviewDrawMotionBlur(gdl, 0xffffffff, bluramount);
+						bview_clear_motion_blur();
+						gdl = bview_draw_motion_blur(gdl, 0xffffffff, bluramount);
 					}
 
 					// Handle blur effect in cutscenes (Extraction intro?)
 					if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-						f32 cutsceneblurfrac = playerGetCutsceneBlurFrac();
+						f32 cutsceneblurfrac = player_get_cutscene_blur_frac();
 
 						if (cutsceneblurfrac > 0) {
 #if VERSION < VERSION_PAL_BETA
 							u32 stack;
 #endif
-							gdl = bviewDrawMotionBlur(gdl, 0xffffff00, cutsceneblurfrac * 255);
+							gdl = bview_draw_motion_blur(gdl, 0xffffff00, cutsceneblurfrac * 255);
 						}
 					}
 
@@ -1546,12 +1546,12 @@ Gfx *lvRender(Gfx *gdl)
 					if (bluramount);
 #endif
 
-					if (debugGetMotionBlur() == 1) {
-						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 128);
-					} else if (debugGetMotionBlur() == 2) {
-						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 192);
-					} else if (debugGetMotionBlur() == 3) {
-						gdl = bviewDrawMotionBlur(gdl, 0xffffff00, 230);
+					if (debug_get_motion_blur() == 1) {
+						gdl = bview_draw_motion_blur(gdl, 0xffffff00, 128);
+					} else if (debug_get_motion_blur() == 2) {
+						gdl = bview_draw_motion_blur(gdl, 0xffffff00, 192);
+					} else if (debug_get_motion_blur() == 3) {
+						gdl = bview_draw_motion_blur(gdl, 0xffffff00, 230);
 					}
 
 					// Render white when teleporting
@@ -1580,31 +1580,31 @@ Gfx *lvRender(Gfx *gdl)
 						if (alpha) {
 							gdl = text0f153628(gdl);
 							gdl = text0f153a34(gdl,
-									viGetViewLeft(), viGetViewTop(),
-									viGetViewLeft() + viGetViewWidth(),
-									viGetViewTop() + viGetViewHeight(), 0xffffff00 | alpha);
+									vi_get_view_left(), vi_get_view_top(),
+									vi_get_view_left() + vi_get_view_width(),
+									vi_get_view_top() + vi_get_view_height(), 0xffffff00 | alpha);
 							gdl = text0f153780(gdl);
 						}
 					}
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
-				gdl = scenarioRenderHud(gdl);
-				gdl = lvRenderFade(gdl);
+				gdl = scenario_render_hud(gdl);
+				gdl = lv_render_fade(gdl);
 #else
-				gdl = lvRenderFade(gdl);
-				gdl = scenarioRenderHud(gdl);
+				gdl = lv_render_fade(gdl);
+				gdl = scenario_render_hud(gdl);
 #endif
 
 				if (g_FrIsValidWeapon) {
-					gdl = frRenderHud(gdl);
+					gdl = fr_render_hud(gdl);
 				}
 
-				if (debugGetTilesDebugMode() != 0
-						|| debugGetPadsDebugMode() != 0
+				if (debug_get_tiles_debug_mode() != 0
+						|| debug_get_pads_debug_mode() != 0
 						|| debug0f11eea8()
 						|| debug0f11ef80()
-						|| debugIsChrStatsEnabled()
+						|| debug_is_chr_stats_enabled()
 						|| debug0f11ee40()) {
 #if VERSION < VERSION_NTSC_1_0
 					RoomNum spc8[21];
@@ -1622,42 +1622,42 @@ Gfx *lvRender(Gfx *gdl)
 					spc8[j] = -1;
 
 					for (j = 0; sp9c[j] != -1; j++) {
-						bgRoomGetNeighbours(sp9c[j], spb0, 10);
-						roomsAppend(spb0, spc8, 20);
+						bg_room_get_neighbours(sp9c[j], spb0, 10);
+						rooms_append(spb0, spc8, 20);
 					}
 
-					if (debugIsChrStatsEnabled()) {
-						gdl = chrsRenderChrStats(gdl, spc8);
+					if (debug_is_chr_stats_enabled()) {
+						gdl = chrs_render_chr_stats(gdl, spc8);
 					}
 #endif
 				}
 
-				gdl = skyRenderOverexposure(gdl);
-				gdl = amRender(gdl);
+				gdl = sky_render_overexposure(gdl);
+				gdl = am_render(gdl);
 				mtx00016748(1);
 
 				if (g_Vars.currentplayer->menuisactive) {
-					gdl = menuRender(gdl);
+					gdl = menu_render(gdl);
 				}
 
 				mtx00016748(g_Vars.currentplayerstats->scale_bg2gfx);
 
 				if (g_Vars.mplayerisrunning) {
-					gdl = mpRenderModalText(gdl);
+					gdl = mp_render_modal_text(gdl);
 				}
 
 				if (g_Vars.currentplayer->dostartnewlife) {
-					playerStartNewLife();
+					player_start_new_life();
 				}
 			}
 
-			artifactsTick();
+			artifacts_tick();
 
 			if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 #if VERSION >= VERSION_NTSC_1_0
-					&& playerHasSharedViewport()
+					&& player_has_shared_viewport()
 #else
-					&& ((g_InCutscene && !g_MainIsEndscreen) || menuGetRoot() == MENUROOT_COOPCONTINUE)
+					&& ((g_InCutscene && !g_MainIsEndscreen) || menu_get_root() == MENUROOT_COOPCONTINUE)
 #endif
 					&& g_Vars.currentplayernum != 0) {
 				gdl = savedgdl;
@@ -1675,18 +1675,18 @@ Gfx *lvRender(Gfx *gdl)
 		}
 
 		if (g_Vars.autocutgroupcur < 0 && g_Vars.autocutgroupleft <= 0) {
-			mainChangeToStage(STAGE_TITLE);
+			main_change_to_stage(STAGE_TITLE);
 		}
 	}
 
 	// Advance the cutscenes when autoplaying
 	if (!g_Vars.autocutplaying && g_Vars.autocutgroupcur >= 0 && g_Vars.autocutgroupleft > 0) {
-		hudmsgRemoveAll();
+		hudmsg_remove_all();
 
 		g_Vars.autocutnum = g_Cutscenes[g_Vars.autocutgroupcur].scene;
 
 #if VERSION < VERSION_NTSC_1_0
-		if (mainGetStageNum() != g_Cutscenes[g_Vars.autocutgroupcur].stage)
+		if (main_get_stage_num() != g_Cutscenes[g_Vars.autocutgroupcur].stage)
 #endif
 		{
 			g_MissionConfig.iscoop = false;
@@ -1696,14 +1696,14 @@ Gfx *lvRender(Gfx *gdl)
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
 			g_MissionConfig.isanti = false;
-			setNumPlayers(1);
-			titleSetNextMode(TITLEMODE_SKIP);
+			set_num_players(1);
+			title_set_next_mode(TITLEMODE_SKIP);
 			g_MissionConfig.difficulty = DIFF_A;
-			lvSetDifficulty(DIFF_A);
+			lv_set_difficulty(DIFF_A);
 			g_MissionConfig.stageindex = g_Cutscenes[g_Vars.autocutgroupcur].mission;
 			g_MissionConfig.stagenum = g_Cutscenes[g_Vars.autocutgroupcur].stage;
-			titleSetNextStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
-			mainChangeToStage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
+			title_set_next_stage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
+			main_change_to_stage(g_Cutscenes[g_Vars.autocutgroupcur].stage);
 		}
 
 		g_Vars.autocutgroupleft--;
@@ -1715,12 +1715,12 @@ Gfx *lvRender(Gfx *gdl)
 		}
 	}
 
-	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth(), viGetHeight());
+	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, vi_get_width(), vi_get_height());
 
 #if VERSION < VERSION_NTSC_1_0
 	if ((uintptr_t)gdl < (uintptr_t)g_GfxBuffers[g_GfxActiveBufferIndex]
 			|| (uintptr_t)gdl > (uintptr_t)g_GfxBuffers[g_GfxActiveBufferIndex + 1]) {
-		crashSetMessage("lv.c Master DL overrun!");
+		crash_set_message("lv.c Master DL overrun!");
 		CRASH();
 	}
 #endif
@@ -1747,7 +1747,7 @@ u32 var800840b4 = 0;
 u32 var800840b8 = 0;
 u32 var800840bc = 0;
 
-void lvUpdateSoloHandicaps(void)
+void lv_update_solo_handicaps(void)
 {
 	if (g_Vars.antiplayernum >= 0) {
 		if (g_Difficulty == DIFF_A) {
@@ -1845,7 +1845,7 @@ void lvUpdateSoloHandicaps(void)
 			f32 frac = 1;
 
 			if (g_Vars.coopplayernum < 0 && g_Vars.antiplayernum < 0) {
-				totalhealth = playerGetHealthFrac() + playerGetShieldFrac();
+				totalhealth = player_get_health_frac() + player_get_shield_frac();
 
 				if (totalhealth <= 0.125f) {
 					frac = 0.5f;
@@ -1931,7 +1931,7 @@ s32 sub54321(s32 value)
 }
 #endif
 
-void lvUpdateCutsceneTime(void)
+void lv_update_cutscene_time(void)
 {
 	if (g_Vars.in_cutscene) {
 		g_CutsceneTime240_60 += g_Vars.lvupdate60;
@@ -1941,7 +1941,7 @@ void lvUpdateCutsceneTime(void)
 	g_CutsceneTime240_60 = 0;
 }
 
-s32 lvGetSlowMotionType(void)
+s32 lv_get_slow_motion_type(void)
 {
 #if PIRACYCHECKS
 #if PAL
@@ -1975,13 +1975,13 @@ s32 lvGetSlowMotionType(void)
 			return SLOWMOTION_SMART;
 		}
 	} else {
-		if (cheatIsActive(CHEAT_SLOMO)) {
+		if (cheat_is_active(CHEAT_SLOMO)) {
 			return SLOWMOTION_ON;
 		}
-		if (debugGetSlowMotion() == SLOWMOTION_ON) {
+		if (debug_get_slow_motion() == SLOWMOTION_ON) {
 			return SLOWMOTION_ON;
 		}
-		if (debugGetSlowMotion() == SLOWMOTION_SMART) {
+		if (debug_get_slow_motion() == SLOWMOTION_SMART) {
 			return SLOWMOTION_SMART;
 		}
 	}
@@ -1989,16 +1989,16 @@ s32 lvGetSlowMotionType(void)
 	return SLOWMOTION_OFF;
 }
 
-void lvTick(void)
+void lv_tick(void)
 {
 	s32 j;
 	s32 i;
 
-	lvCheckPauseStateChanged();
+	lv_check_pause_state_changed();
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.pakstocheck) {
-		paksTick();
+		paks_tick();
 	}
 #endif
 
@@ -2006,10 +2006,10 @@ void lvTick(void)
 		g_Vars.joydisableframestogo--;
 	} else if (g_Vars.joydisableframestogo == 0) {
 #if VERSION >= VERSION_NTSC_1_0
-		joyUnlockCyclicPolling();
+		joy_unlock_cyclic_polling();
 #else
-		if (!joyIsCyclicPollingEnabled()) {
-			joyEnableCyclicPolling(3278, "lv.c");
+		if (!joy_is_cyclic_polling_enabled()) {
+			joy_enable_cyclic_polling(3278, "lv.c");
 		}
 #endif
 
@@ -2020,14 +2020,14 @@ void lvTick(void)
 			g_Vars.paksneededforgame = 0;
 		} else {
 			g_Vars.paksneededforgame = 0x1f;
-			pakEnableRumbleForAllPlayers();
+			pak_enable_rumble_for_all_players();
 		}
 
 		g_Vars.joydisableframestogo = -1;
 	}
 
 	if (IS4MB()) {
-		vmPrintStatsIfEnabled();
+		vm_print_stats_if_enabled();
 	}
 
 	for (j = 0; j < PLAYERCOUNT(); j++) {
@@ -2035,16 +2035,16 @@ void lvTick(void)
 		g_Vars.players[j]->hands[HAND_RIGHT].hasdotinfo = false;
 	}
 
-	if (lvIsPaused()) {
+	if (lv_is_paused()) {
 		g_Vars.lvupdate240 = 0;
-	} else if (mpIsPaused()) {
+	} else if (mp_is_paused()) {
 		g_Vars.lvupdate240 = 0;
 
 		for (j = 0; j < PLAYERCOUNT(); j++) {
 			g_Vars.players[j]->joybutinhibit = 0xefffefff;
 		}
 	} else {
-		s32 slowmo = lvGetSlowMotionType();
+		s32 slowmo = lv_get_slow_motion_type();
 		g_Vars.lvupdate240 = g_Vars.diffframe240;
 
 		if (slowmo == SLOWMOTION_ON) {
@@ -2071,7 +2071,7 @@ void lvTick(void)
 								for (otherplayernum = 0; otherplayernum < PLAYERCOUNT(); otherplayernum++) {
 									if (playernum != otherplayernum
 											&& g_Vars.players[otherplayernum]->isdead == false
-											&& bgRoomIsOnPlayerScreen(rooms[r], otherplayernum)) {
+											&& bg_room_is_on_player_screen(rooms[r], otherplayernum)) {
 										foundnearbychr = true;
 									}
 								}
@@ -2118,58 +2118,58 @@ void lvTick(void)
 	g_Vars.lvupdate60frealprev = g_Vars.lvupdate60freal;
 	g_Vars.lvupdate60freal = PALUPF(g_Vars.lvupdate60f);
 
-	bgunTickBoost();
-	hudmsgsTick();
+	bgun_tick_boost();
+	hudmsgs_tick();
 
-	if ((joyGetButtonsPressedThisFrame(0, 0xffff) != 0
-				|| joyGetStickX(0) > 10
-				|| joyGetStickX(0) < -10
-				|| joyGetStickY(0) > 10
-				|| joyGetStickY(0) < -10
-				|| joyGetButtonsPressedThisFrame(1, 0xffff) != 0
-				|| joyGetStickX(1) > 10
-				|| joyGetStickX(1) < -10
-				|| joyGetStickY(1) > 10
-				|| joyGetStickY(1) < -10
-				|| joyGetButtonsPressedThisFrame(2, 0xffff) != 0
-				|| joyGetStickX(2) > 10
-				|| joyGetStickX(2) < -10
-				|| joyGetStickY(2) > 10
-				|| joyGetStickY(2) < -10
-				|| joyGetButtonsPressedThisFrame(3, 0xffff) != 0
-				|| joyGetStickX(3) > 10
-				|| joyGetStickX(3) < -10
-				|| joyGetStickY(3) > 10
-				|| joyGetStickY(3) < -10) && g_IsTitleDemo) {
+	if ((joy_get_buttons_pressed_this_frame(0, 0xffff) != 0
+				|| joy_get_stick_x(0) > 10
+				|| joy_get_stick_x(0) < -10
+				|| joy_get_stick_y(0) > 10
+				|| joy_get_stick_y(0) < -10
+				|| joy_get_buttons_pressed_this_frame(1, 0xffff) != 0
+				|| joy_get_stick_x(1) > 10
+				|| joy_get_stick_x(1) < -10
+				|| joy_get_stick_y(1) > 10
+				|| joy_get_stick_y(1) < -10
+				|| joy_get_buttons_pressed_this_frame(2, 0xffff) != 0
+				|| joy_get_stick_x(2) > 10
+				|| joy_get_stick_x(2) < -10
+				|| joy_get_stick_y(2) > 10
+				|| joy_get_stick_y(2) < -10
+				|| joy_get_buttons_pressed_this_frame(3, 0xffff) != 0
+				|| joy_get_stick_x(3) > 10
+				|| joy_get_stick_x(3) < -10
+				|| joy_get_stick_y(3) > 10
+				|| joy_get_stick_y(3) < -10) && g_IsTitleDemo) {
 		if (g_Vars.stagenum != STAGE_TITLE) {
-			titleSetNextMode(TITLEMODE_SKIP);
-			mainChangeToStage(STAGE_TITLE);
+			title_set_next_mode(TITLEMODE_SKIP);
+			main_change_to_stage(STAGE_TITLE);
 		}
 
 		g_IsTitleDemo = false;
 	}
 
 	if (g_Vars.stagenum < STAGE_TITLE && !g_IsTitleDemo && !g_Vars.in_cutscene) {
-		if (joyGetButtons(0, 0xffff) == 0
-				&& joyGetStickX(0) < 10
-				&& joyGetStickX(0) > -10
-				&& joyGetStickY(0) < 10
-				&& joyGetStickY(0) > -10
-				&& joyGetButtons(1, 0xffff) == 0
-				&& joyGetStickX(1) < 10
-				&& joyGetStickX(1) > -10
-				&& joyGetStickY(1) < 10
-				&& joyGetStickY(1) > -10
-				&& joyGetButtons(2, 0xffff) == 0
-				&& joyGetStickX(2) < 10
-				&& joyGetStickX(2) > -10
-				&& joyGetStickY(2) < 10
-				&& joyGetStickY(2) > -10
-				&& joyGetButtons(3, 0xffff) == 0
-				&& joyGetStickX(3) < 10
-				&& joyGetStickX(3) > -10
-				&& joyGetStickY(3) < 10
-				&& joyGetStickY(3) > -10) {
+		if (joy_get_buttons(0, 0xffff) == 0
+				&& joy_get_stick_x(0) < 10
+				&& joy_get_stick_x(0) > -10
+				&& joy_get_stick_y(0) < 10
+				&& joy_get_stick_y(0) > -10
+				&& joy_get_buttons(1, 0xffff) == 0
+				&& joy_get_stick_x(1) < 10
+				&& joy_get_stick_x(1) > -10
+				&& joy_get_stick_y(1) < 10
+				&& joy_get_stick_y(1) > -10
+				&& joy_get_buttons(2, 0xffff) == 0
+				&& joy_get_stick_x(2) < 10
+				&& joy_get_stick_x(2) > -10
+				&& joy_get_stick_y(2) < 10
+				&& joy_get_stick_y(2) > -10
+				&& joy_get_buttons(3, 0xffff) == 0
+				&& joy_get_stick_x(3) < 10
+				&& joy_get_stick_x(3) > -10
+				&& joy_get_stick_y(3) < 10
+				&& joy_get_stick_y(3) > -10) {
 			g_TitleIdleTime60 += g_Vars.diffframe60;
 		} else {
 			g_TitleIdleTime60 = 0;
@@ -2192,20 +2192,20 @@ void lvTick(void)
 				s32 i;
 
 				for (i = 0; i < PLAYERCOUNT(); i++) {
-					setCurrentPlayerNum(i);
-					hudmsgCreate(langGet(L_MISC_068), HUDMSGTYPE_DEFAULT); // "One minute left."
+					set_current_player_num(i);
+					hudmsg_create(lang_get(L_MISC_068), HUDMSGTYPE_DEFAULT); // "One minute left."
 				}
 			}
 
 			if (elapsed < TICKS(g_MpTimeLimit60) && nexttime >= TICKS(g_MpTimeLimit60)) {
 				// Match is ending due to time limit reached
-				mainEndStage();
+				main_end_stage();
 			}
 
 			// Sound alarm at 10 seconds remaining
 			if (nexttime >= TICKS(g_MpTimeLimit60) - TICKS(600)
 					&& g_MiscAudioHandle == NULL
-					&& !lvIsPaused()
+					&& !lv_is_paused()
 					&& nexttime < TICKS(g_MpTimeLimit60)) {
 				snd00010718(&g_MiscAudioHandle, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_ALARM_DEFAULT, 1, 1, -1, true);
 			}
@@ -2232,7 +2232,7 @@ void lvTick(void)
 
 			if (g_MpScoreLimit > 0) {
 				struct ranking rankings[MAX_MPCHRS];
-				s32 count = mpGetPlayerRankings(rankings);
+				s32 count = mp_get_player_rankings(rankings);
 
 				for (i = 0; i < count; i++) {
 					if (rankings[i].score >= g_MpScoreLimit) {
@@ -2243,7 +2243,7 @@ void lvTick(void)
 
 			if (g_MpTeamScoreLimit > 0) {
 				struct ranking rankings[MAX_MPCHRS];
-				s32 count = mpGetTeamRankings(rankings);
+				s32 count = mp_get_team_rankings(rankings);
 
 				for (i = 0; i < count; i++) {
 					if (rankings[i].score >= g_MpTeamScoreLimit) {
@@ -2253,7 +2253,7 @@ void lvTick(void)
 			}
 
 			if (g_NumReasonsToEndMpMatch > 0 && numdying == 0) {
-				mainEndStage();
+				main_end_stage();
 			}
 		}
 	}
@@ -2261,86 +2261,86 @@ void lvTick(void)
 	g_StageTimeElapsed60 += g_Vars.lvupdate60;
 	g_StageTimeElapsed1f = g_StageTimeElapsed60 / TICKS(60.0f);
 
-	viSetUseZBuf(true);
+	vi_set_use_z_buf(true);
 
 	if (g_Vars.stagenum == STAGE_TEST_OLD) {
-		titleTickOld();
-		musicTick();
+		title_tick_old();
+		music_tick();
 	}
 
 	if (g_Vars.stagenum == STAGE_TITLE) {
-		titleTick();
-		langTick();
-		musicTick();
+		title_tick();
+		lang_tick();
+		music_tick();
 	} else if (g_Vars.stagenum == STAGE_BOOTPAKMENU) {
-		setCurrentPlayerNum(0);
+		set_current_player_num(0);
 #if VERSION >= VERSION_PAL_BETA
-		playerConfigureVi();
+		player_configure_vi();
 #endif
-		menuTick();
-		musicTick();
-		langTick();
-		pakExecuteDebugOperations();
+		menu_tick();
+		music_tick();
+		lang_tick();
+		pak_execute_debug_operations();
 	} else if (g_Vars.stagenum == STAGE_4MBMENU) {
-		menuTick();
-		musicTick();
-		langTick();
-		pakExecuteDebugOperations();
+		menu_tick();
+		music_tick();
+		lang_tick();
+		pak_execute_debug_operations();
 	} else if (g_Vars.stagenum == STAGE_CREDITS) {
-		musicTick();
-		langTick();
+		music_tick();
+		lang_tick();
 	} else {
-		lvUpdateCutsceneTime();
-		vtxstoreTick();
-		lvUpdateSoloHandicaps();
-		roomsTick();
-		skyTick();
-		casingsTick();
-		shardsTick();
-		sparksTick();
-		wallhitsTick();
-		splatsTick();
+		lv_update_cutscene_time();
+		vtxstore_tick();
+		lv_update_solo_handicaps();
+		rooms_tick();
+		sky_tick();
+		casings_tick();
+		shards_tick();
+		sparks_tick();
+		wallhits_tick();
+		splats_tick();
 
 		if (g_WeatherActive) {
-			weatherTick();
+			weather_tick();
 		}
 
 		if (g_NbombsActive) {
-			nbombsTick();
+			nbombs_tick();
 		}
 
-		lvUpdateMiscSfx();
-		sndTick();
-		pakExecuteDebugOperations();
-		lightingTick();
-		modelmgrPrintCounts();
-		boltbeamsTick();
-		amTick();
-		menuTick();
-		scenarioTick();
+		lv_update_misc_sfx();
+		snd_tick();
+		pak_execute_debug_operations();
+		lighting_tick();
+		modelmgr_print_counts();
+		boltbeams_tick();
+		am_tick();
+		menu_tick();
+		scenario_tick();
 
 		if (!g_MainIsEndscreen) {
-			propsTick();
+			props_tick();
 		}
 
-		musicTick();
-		langTick();
-		propsTickPadEffects();
+		music_tick();
+		lang_tick();
+		props_tick_pad_effects();
 
-		if (mainGetStageNum() == STAGE_CITRAINING) {
-			struct trainingdata *trainingdata = dtGetData();
+		if (main_get_stage_num() == STAGE_CITRAINING) {
+			struct trainingdata *trainingdata = dt_get_data();
 
 			if ((g_Vars.currentplayer->prop->rooms[0] < ROOM_DISH_HOLO1 || g_Vars.currentplayer->prop->rooms[0] > ROOM_DISH_HOLO4)
 					&& g_Vars.currentplayer->prop->rooms[0] != ROOM_DISH_FIRINGRANGE
 					&& (trainingdata == NULL || trainingdata->intraining == false)) {
-				chrUnsetStageFlag(NULL, STAGEFLAG_CI_IN_TRAINING);
+				chr_unset_stage_flag(NULL, STAGEFLAG_CI_IN_TRAINING);
 			}
 
-			frTick();
+			fr_tick();
 
 			if (g_Vars.lvupdate240 != 0) {
-				dtTick();
-				htTick();
+				dt_tick();
+				ht_tick();
 			}
 		}
 	}
@@ -2351,16 +2351,16 @@ const char var7f1b774c[] = "pos:%s%s %.2f %.2f %.2f\n";
 const char var7f1b7768[] = "";
 const char var7f1b776c[] = "";
 
-void lvTickPlayer(void)
+void lv_tick_player(void)
 {
 	f32 xdiff;
 	f32 zdiff;
 
 	if (var80075d64 == 2) {
 		if (var80075d68 == 2) {
-			playerTick(true);
+			player_tick(true);
 		} else {
-			playerTick(false);
+			player_tick(false);
 		}
 	}
 
@@ -2370,92 +2370,92 @@ void lvTickPlayer(void)
 	g_Vars.currentplayerstats->distance += sqrtf(xdiff * xdiff + zdiff * zdiff);
 }
 
-void lvStop(void)
+void lv_stop(void)
 {
-	paksStop(true);
+	paks_stop(true);
 
 	if (g_MiscAudioHandle && sndGetState(g_MiscAudioHandle)) {
 		audioStop(g_MiscAudioHandle);
 	}
 
 	if (g_Vars.stagenum < STAGE_TITLE) {
-		s32 bank = langGetLangBankIndexFromStagenum(g_Vars.stagenum);
-		langClearBank(bank);
+		s32 bank = lang_get_lang_bank_index_from_stagenum(g_Vars.stagenum);
+		lang_clear_bank(bank);
 		stub0f015270();
 	}
 
-	chrmgrStop();
-	explosionsStop();
-	smokeStop();
+	chrmgr_stop();
+	explosions_stop();
+	smoke_stop();
 	stub0f015400();
 	stub0f015410();
-	shardsStop();
+	shards_stop();
 	stub0f0153f0();
-	propsStop();
-	objsStop();
-	weatherStop();
-	objectivesStop();
+	props_stop();
+	objs_stop();
+	weather_stop();
+	objectives_stop();
 	stub0f015260();
-	bgunStop();
-	psStop();
-	musicStop();
-	hudmsgsStop();
+	bgun_stop();
+	ps_stop();
+	music_stop();
+	hudmsgs_stop();
 
 	if (g_Vars.stagenum < STAGE_TITLE) {
-		bgStop();
+		bg_stop();
 	}
 
 	func00033dd8();
 
 	if (g_FileState == FILESTATE_CHANGINGAGENT) {
-		menuPlaySound(MENUSOUND_EXPLOSION);
+		menu_play_sound(MENUSOUND_EXPLOSION);
 		g_FileState = FILESTATE_UNSELECTED;
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	menuStop();
+	menu_stop();
 #endif
 }
 
-void lvCheckPauseStateChanged(void)
+void lv_check_pause_state_changed(void)
 {
-	u32 paused = mpIsPaused();
+	u32 paused = mp_is_paused();
 
 	if (paused != var80084010) {
 		if (paused) {
-			pakDisableRumbleForAllPlayers();
+			pak_disable_rumble_for_all_players();
 		} else {
-			pakEnableRumbleForAllPlayers();
+			pak_enable_rumble_for_all_players();
 		}
 	}
 
 	var80084010 = paused;
 }
 
-void lvSetPaused(bool paused)
+void lv_set_paused(bool paused)
 {
 	if (paused) {
-		pakDisableRumbleForAllPlayers();
+		pak_disable_rumble_for_all_players();
 		snd0000fe20();
 	} else {
 		snd0000fe50();
-		pakEnableRumbleForAllPlayers();
+		pak_enable_rumble_for_all_players();
 	}
 
 	var80084014 = paused;
 }
 
-bool lvIsPaused(void)
+bool lv_is_paused(void)
 {
 	return var80084014;
 }
 
-s32 lvGetDifficulty(void)
+s32 lv_get_difficulty(void)
 {
 	return g_Difficulty;
 }
 
-void lvSetDifficulty(s32 difficulty)
+void lv_set_difficulty(s32 difficulty)
 {
 	if (difficulty < DIFF_A || difficulty > DIFF_PD) {
 		difficulty = DIFF_A;
@@ -2464,27 +2464,27 @@ void lvSetDifficulty(s32 difficulty)
 	g_Difficulty = difficulty;
 }
 
-void lvSetMpTimeLimit60(u32 limit)
+void lv_set_mp_time_limit60(u32 limit)
 {
 	g_MpTimeLimit60 = limit;
 }
 
-void lvSetMpScoreLimit(u32 limit)
+void lv_set_mp_score_limit(u32 limit)
 {
 	g_MpScoreLimit = limit;
 }
 
-void lvSetMpTeamScoreLimit(u32 limit)
+void lv_set_mp_team_score_limit(u32 limit)
 {
 	g_MpTeamScoreLimit = limit;
 }
 
-f32 lvGetStageTimeInSeconds(void)
+f32 lv_get_stage_time_in_seconds(void)
 {
 	return g_StageTimeElapsed1f;
 }
 
-s32 lvGetStageTime60(void)
+s32 lv_get_stage_time60(void)
 {
 	return g_StageTimeElapsed60;
 }

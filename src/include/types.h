@@ -848,7 +848,7 @@ struct geotilef {
 	union {
 		// The arrays are surely the correct type here, but they create
 		// mismatches in code that has already been matched using individual
-		// properties (eg. cdCollectGeoForCylFromList). @TODO: Rematch them using the arrays.
+		// properties (eg. cd_collect_geo_for_cyl_from_list). @TODO: Rematch them using the arrays.
 		struct {
 			/*0x06*/ u8 min[3]; // These are indexes into vertices
 			/*0x09*/ u8 max[3];
@@ -2872,7 +2872,7 @@ struct invaimsettings {
 };
 
 struct gunviscmd {
-	// See related functions: bgunExecuteGunVisCommands and bgunTestGunVisCommand
+	// See related functions: bgun_execute_gun_vis_commands and bgun_test_gun_vis_command
 
 	// unk00 - Some kind of condition field
 	// 0 = terminator

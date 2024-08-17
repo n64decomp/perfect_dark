@@ -28,17 +28,17 @@ void func0f0d4690(Mtxf *mtx)
 {
 	struct coord pos;
 
-	mtx4LoadIdentity(mtx);
+	mtx4_load_identity(mtx);
 
 	pos.x = -159.75f;
 	pos.y = PAL ? 136.25f : 120.25f;
 	pos.z = 0;
 
-	pos.x = (.5f - viGetWidth()) * 0.5f;
-	pos.y = (.5f + viGetHeight()) * 0.5f;
+	pos.x = (.5f - vi_get_width()) * 0.5f;
+	pos.y = (.5f + vi_get_height()) * 0.5f;
 	pos.z = 0;
 
-	mtx4SetTranslation(&pos, mtx);
+	mtx4_set_translation(&pos, mtx);
 	mtx00015e4c(-1, mtx);
 
 	if (g_ScaleX == 2) {
@@ -59,20 +59,20 @@ Gfx *func0f0d479c(Gfx *gdl)
 	Mtxf *mtx1;
 	Mtxf *mtx2;
 
-	mtx1 = gfxAllocateMatrix();
-	mtx2 = gfxAllocateMatrix();
+	mtx1 = gfx_allocate_matrix();
+	mtx2 = gfx_allocate_matrix();
 
 	mtx00016760();
 	func0f0d475c(&mtx);
-	mtxF2L(&mtx, mtx2);
-	mtx4LoadIdentity(&mtx);
+	mtx_f2l(&mtx, mtx2);
+	mtx4_load_identity(&mtx);
 
 	guFrustumF(mtx.m,
-			-(f32) viGetWidth() * 0.5f, viGetWidth() * 0.5f,
-			-(f32) viGetHeight() * 0.5f, viGetHeight() * 0.5f,
+			-(f32) vi_get_width() * 0.5f, vi_get_width() * 0.5f,
+			-(f32) vi_get_height() * 0.5f, vi_get_height() * 0.5f,
 			10, 10000, 1);
 
-	mtxF2L(&mtx, mtx1);
+	mtx_f2l(&mtx, mtx1);
 	mtx00016784();
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx2), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
@@ -81,16 +81,16 @@ Gfx *func0f0d479c(Gfx *gdl)
 #if VERSION >= VERSION_NTSC_1_0
 	if (var80070f10 == NULL) {
 		u32 size = align16(sizeof(Vp));
-		var80070f10 = gfxAllocate(size);
+		var80070f10 = gfx_allocate(size);
 
 		if (var80070f10 != NULL) {
-			var80070f10->vp.vscale[0] = viGetWidth() << 1;
-			var80070f10->vp.vscale[1] = viGetHeight() << 1;
+			var80070f10->vp.vscale[0] = vi_get_width() << 1;
+			var80070f10->vp.vscale[1] = vi_get_height() << 1;
 			var80070f10->vp.vscale[2] = 1;
 			var80070f10->vp.vscale[3] = 0;
 
-			var80070f10->vp.vtrans[0] = viGetWidth() << 1;
-			var80070f10->vp.vtrans[1] = viGetHeight() << 1;
+			var80070f10->vp.vtrans[0] = vi_get_width() << 1;
+			var80070f10->vp.vtrans[1] = vi_get_height() << 1;
 			var80070f10->vp.vtrans[2] = 0x1ff;
 			var80070f10->vp.vtrans[3] = 0;
 		}
@@ -108,13 +108,13 @@ Gfx *func0f0d479c(Gfx *gdl)
 	var80070f10.vp.vtrans[2] = 0x1ff;
 	var80070f10.vp.vtrans[3] = 0;
 
-	var80070f10.vp.vscale[0] = viGetWidth() << 1;
-	var80070f10.vp.vscale[1] = viGetHeight() << 1;
+	var80070f10.vp.vscale[0] = vi_get_width() << 1;
+	var80070f10.vp.vscale[1] = vi_get_height() << 1;
 	var80070f10.vp.vscale[2] = 1;
 	var80070f10.vp.vscale[3] = 0;
 
-	var80070f10.vp.vtrans[0] = viGetWidth() << 1;
-	var80070f10.vp.vtrans[1] = viGetHeight() << 1;
+	var80070f10.vp.vtrans[0] = vi_get_width() << 1;
+	var80070f10.vp.vtrans[1] = vi_get_height() << 1;
 	var80070f10.vp.vtrans[2] = 0x1ff;
 	var80070f10.vp.vtrans[3] = 0;
 
@@ -128,8 +128,8 @@ Gfx *func0f0d479c(Gfx *gdl)
 
 Gfx *func0f0d49c8(Gfx *gdl)
 {
-	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(viGetCurrentPlayerViewport()));
-	gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+	gSPViewport(gdl++, OS_K0_TO_PHYSICAL(vi_get_current_player_viewport()));
+	gSPMatrix(gdl++, osVirtualToPhysical(cam_get_perspective_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 	return gdl;
 }
@@ -137,14 +137,14 @@ Gfx *func0f0d49c8(Gfx *gdl)
 Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1)
 {
 	Mtxf mtx;
-	Mtxf *mtxptr = gfxAllocateMatrix();
+	Mtxf *mtxptr = gfx_allocate_matrix();
 
 	gDPPipeSync(gdl++);
 
 	if (arg1 == 0) {
-		texSelect(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
 	} else if (arg1 == 1) {
-		texSelect(&gdl, &g_TexGeneralConfigs[11], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[11], 2, 0, 2, 1, NULL);
 	}
 
 	gDPPipeSync(gdl++);
@@ -160,7 +160,7 @@ Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1)
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 
 	func0f0d4690(&mtx);
-	mtxF2L(&mtx, mtxptr);
+	mtx_f2l(&mtx, mtxptr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtxptr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -170,19 +170,19 @@ Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1)
 Gfx *func0f0d4c80(Gfx *gdl)
 {
 	Mtxf mtx;
-	Mtxf *mtxptr = gfxAllocateMatrix();
+	Mtxf *mtxptr = gfx_allocate_matrix();
 
 	func0f0d4690(&mtx);
 	mtx00015df0(0.1f, &mtx);
 	mtx00015e4c(0.1f, &mtx);
-	mtxF2L(&mtx, mtxptr);
+	mtx_f2l(&mtx, mtxptr);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtxptr), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	return gdl;
 }
 
-Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, s32 type)
+Gfx *menugfx_draw_plane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, s32 type)
 {
 	Col *colours;
 	Vtx *vertices;
@@ -203,13 +203,13 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 	static u32 txmul = 20;
 	static u32 rsub = 5;
 
-	colours = gfxAllocateColours(2);
-	vertices = gfxAllocateVertices(4);
+	colours = gfx_allocate_colours(2);
+	vertices = gfx_allocate_vertices(4);
 
 	sp34 = 1.0f;
 	sp30 = 1.0f;
 
-	mainOverrideVariable("txmul", &txmul);
+	main_override_variable("txmul", &txmul);
 
 	if (y1 < var8009de90 && y2 < var8009de90) {
 		return gdl;
@@ -244,7 +244,7 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 		sp30 = 2.0f;
 	}
 
-	mainOverrideVariable("depthsub", &depthsub);
+	main_override_variable("depthsub", &depthsub);
 
 	a1 = 200;
 
@@ -300,7 +300,7 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
 	}
 
 	if (type == MENUPLANE_07) {
-		mainOverrideVariable("rsub", &rsub);
+		main_override_variable("rsub", &rsub);
 
 		a1 = -rsub;
 
@@ -378,7 +378,7 @@ Gfx *menugfxDrawPlane(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32
  *
  * This function only sets bits to on and does not unset them.
  */
-void savebufferOr(struct savebuffer *buffer, u32 value, s32 numbits)
+void savebuffer_or(struct savebuffer *buffer, u32 value, s32 numbits)
 {
 	u32 bit = 1 << (numbits - 1);
 
@@ -401,7 +401,7 @@ void savebufferOr(struct savebuffer *buffer, u32 value, s32 numbits)
  *
  * numbits is expected to be 32 or less.
  */
-void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *dst)
+void savebuffer_write_bits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *dst)
 {
 	u32 bit = 1 << (numbits - 1);
 
@@ -427,7 +427,7 @@ void savebufferWriteBits(struct savebuffer *buffer, u32 value, s32 numbits, u8 *
  *
  * numbits is expected to be 32 or less.
  */
-u32 savebufferReadBits(struct savebuffer *buffer, s32 numbits)
+u32 savebuffer_read_bits(struct savebuffer *buffer, s32 numbits)
 {
 	u32 bit = 1 << (numbits - 1);
 	u32 value = 0;
@@ -447,7 +447,7 @@ u32 savebufferReadBits(struct savebuffer *buffer, s32 numbits)
 	return value;
 }
 
-void savebufferClear(struct savebuffer *buffer)
+void savebuffer_clear(struct savebuffer *buffer)
 {
 	s32 i;
 
@@ -481,14 +481,14 @@ void func0f0d54c4(struct savebuffer *buffer)
  * Read a zero-terminated string from the buffer and move the buffer's internal
  * pointer past the end of the string.
  */
-void savebufferReadString(struct savebuffer *buffer, char *dst, bool addlinebreak)
+void savebuffer_read_string(struct savebuffer *buffer, char *dst, bool addlinebreak)
 {
 	bool foundnull = false;
 	s32 index = 0;
 	s32 i;
 
 	for (i = 0; i < 10; i++) {
-		s32 byte = savebufferReadBits(buffer, 8);
+		s32 byte = savebuffer_read_bits(buffer, 8);
 
 		if (!foundnull) {
 			if (byte == '\0') {
@@ -522,12 +522,12 @@ void func0f0d55a4(struct savebuffer *buffer, char *src)
 				done = true;
 			} else {
 				u32 c = src[i];
-				savebufferOr(buffer, c, 8);
+				savebuffer_or(buffer, c, 8);
 			}
 		}
 
 		if (done) {
-			savebufferOr(buffer, '\0', 8);
+			savebuffer_or(buffer, '\0', 8);
 		}
 	}
 }
@@ -537,7 +537,7 @@ void func0f0d564c(u8 *data, char *dst, bool addlinebreak)
 	struct savebuffer buffer;
 
 	func0f0d5484(&buffer, data, 10);
-	savebufferReadString(&buffer, dst, addlinebreak);
+	savebuffer_read_string(&buffer, dst, addlinebreak);
 }
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -557,30 +557,30 @@ void func0f0d5690(u8 *dst, char *src)
 				done = true;
 			} else {
 				u32 c = src[i];
-				savebufferWriteBits(&buffer, c, 8, dst);
+				savebuffer_write_bits(&buffer, c, 8, dst);
 			}
 		}
 
 		if (done) {
-			savebufferWriteBits(&buffer, '\0', 8, dst);
+			savebuffer_write_bits(&buffer, '\0', 8, dst);
 		}
 	}
 }
 #endif
 
-void savebufferWriteGuid(struct savebuffer *buffer, struct fileguid *guid)
+void savebuffer_write_guid(struct savebuffer *buffer, struct fileguid *guid)
 {
-	savebufferOr(buffer, guid->fileid, 7);
-	savebufferOr(buffer, guid->deviceserial, 13);
+	savebuffer_or(buffer, guid->fileid, 7);
+	savebuffer_or(buffer, guid->deviceserial, 13);
 }
 
-void savebufferReadGuid(struct savebuffer *buffer, struct fileguid *guid)
+void savebuffer_read_guid(struct savebuffer *buffer, struct fileguid *guid)
 {
-	guid->fileid = savebufferReadBits(buffer, 7);
-	guid->deviceserial = savebufferReadBits(buffer, 13);
+	guid->fileid = savebuffer_read_bits(buffer, 7);
+	guid->deviceserial = savebuffer_read_bits(buffer, 13);
 }
 
-void formatTime(char *dst, s32 time60, s32 precision)
+void format_time(char *dst, s32 time60, s32 precision)
 {
 	s32 parts[5];
 	bool donefirst = false;

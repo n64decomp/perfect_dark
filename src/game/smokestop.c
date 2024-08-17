@@ -5,16 +5,16 @@
 #include "data.h"
 #include "types.h"
 
-void smokeStop(void)
+void smoke_stop(void)
 {
 	s32 i;
 
 	if (g_Smokes) {
 		for (i = 0; i < g_MaxSmokes; i++) {
 			if (g_Smokes[i].prop) {
-				propDelist(g_Smokes[i].prop);
-				propDisable(g_Smokes[i].prop);
-				propFree(g_Smokes[i].prop);
+				prop_delist(g_Smokes[i].prop);
+				prop_disable(g_Smokes[i].prop);
+				prop_free(g_Smokes[i].prop);
 
 				g_Smokes[i].prop = NULL;
 			}

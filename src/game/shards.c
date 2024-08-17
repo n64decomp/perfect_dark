@@ -19,9 +19,9 @@ struct shard *g_Shards;
 s32 g_NextShardNum = 0;
 bool g_ShardsActive = false;
 
-void shardCreate(RoomNum room, struct coord *pos, f32 rotx, f32 size, s32 type);
+void shard_create(RoomNum room, struct coord *pos, f32 rotx, f32 size, s32 type);
 
-void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmin, f32 relxmax, f32 relymin, f32 relymax, s32 type, struct prop *prop)
+void shards_create(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmin, f32 relxmax, f32 relymin, f32 relymax, s32 type, struct prop *prop)
 {
 	s32 y;
 	s32 x;
@@ -79,7 +79,7 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmi
 	basepos.z = (pos->f[2] + (relxmin + (speci >> 1)) * spcc[2]) + spc0[2] * (relymin + (speci >> 1));
 
 	if (type == SHARDTYPE_GLASS) {
-		psCreate(NULL, NULL, SFX_GLASS_SHATTER, -1,
+		ps_create(NULL, NULL, SFX_GLASS_SHATTER, -1,
 				-1, 0, 0, PSTYPE_NONE, &prop->pos, -1.0f, prop->rooms, -1, -1.0f, -1.0f, -1.0f);
 	} else if (type == SHARDTYPE_BOTTLE) {
 		/**
@@ -88,10 +88,10 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmi
 		 * when you shoot the bottles, half of them don't play any breaking
 		 * sound effect.
 		 */
-		psCreate(NULL, NULL, SFX_BOTTLE_BREAK + (random() % 2) * 2, -1,
+		ps_create(NULL, NULL, SFX_BOTTLE_BREAK + (random() % 2) * 2, -1,
 				-1, 0, 0, PSTYPE_NONE, &prop->pos, -1.0f, prop->rooms, -1, -1.0f, -1.0f, -1.0f);
 	} else if (type == SHARDTYPE_WOOD) {
-		psCreate(NULL, NULL, SFX_WOOD_BREAK, -1,
+		ps_create(NULL, NULL, SFX_WOOD_BREAK, -1,
 				-1, 0, 0, PSTYPE_NONE, &prop->pos, -1.0f, prop->rooms, -1, -1.0f, -1.0f, -1.0f);
 	}
 
@@ -106,12 +106,12 @@ void shardsCreate(struct coord *pos, f32 *rotx, f32 *roty, f32 *rotz, f32 relxmi
 			thispos.y = basepos.f[1] + x * (f32) speci * spcc[1] + spc0[1] * f20;
 			thispos.z = basepos.f[2] + x * (f32) speci * spcc[2] + spc0[2] * f20;
 
-			shardCreate(prop->rooms[0], &thispos, f30, (RANDOMFRAC() * 0.7f + 0.1f) * spec, type);
+			shard_create(prop->rooms[0], &thispos, f30, (RANDOMFRAC() * 0.7f + 0.1f) * spec, type);
 		}
 	}
 }
 
-void shardCreate(RoomNum room, struct coord *pos, f32 rotx, f32 size, s32 type)
+void shard_create(RoomNum room, struct coord *pos, f32 rotx, f32 size, s32 type)
 {
 	f32 velx = RANDOMFRAC() * 2.0f - 1.0f;
 	f32 vely = RANDOMFRAC() * 1.12f - 0.12f;
@@ -208,7 +208,7 @@ void shardCreate(RoomNum room, struct coord *pos, f32 rotx, f32 size, s32 type)
 	}
 }
 
-Gfx *shardsRenderWood(Gfx *gdl)
+Gfx *shards_render_wood(Gfx *gdl)
 {
 	if (g_ShardsActive) {
 		RoomNum prevroom = 0;
@@ -224,14 +224,14 @@ Gfx *shardsRenderWood(Gfx *gdl)
 		gDPSetTextureFilter(gdl++, G_TF_BILERP);
 		gDPSetCycleType(gdl++, G_CYC_2CYCLE);
 		gDPSetTextureLOD(gdl++, G_TL_LOD);
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		for (i = 0; i < g_MaxShards; i++) {
 			if (g_Shards[i].age60 > 0 && g_Shards[i].type == SHARDTYPE_WOOD) {
 				bool render = true;
 				f32 alphamult = 1.0f;
 				f32 xraydist;
-				Mtxf *mtx = gfxAllocateMatrix();
+				Mtxf *mtx = gfx_allocate_matrix();
 				u32 stack;
 
 				if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
@@ -255,7 +255,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 				if (render) {
 					struct shard *shard = (struct shard *) ((u8 *)g_Shards + i * sizeof(struct shard));
 
-					mtx4LoadRotationAndTranslation(&shard->pos, &shard->rot, &shardmtx);
+					mtx4_load_rotation_and_translation(&shard->pos, &shard->rot, &shardmtx);
 
 					shardmtx.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
 					shardmtx.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
@@ -267,12 +267,12 @@ Gfx *shardsRenderWood(Gfx *gdl)
 							&& shardmtx.m[3][2] < 10000 && shardmtx.m[3][2] > -10000)
 #endif
 					{
-						mtxF2L(&shardmtx, mtx);
+						mtx_f2l(&shardmtx, mtx);
 
 						gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 						if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-							Col *colours = gfxAllocateColours(3);
+							Col *colours = gfx_allocate_colours(3);
 
 							if (g_Shards[i].age60 >= TICKS(100)) {
 								f32 frac = g_Shards[i].age60 / (PAL ? 41.666664123535f : 50.0f);
@@ -296,7 +296,7 @@ Gfx *shardsRenderWood(Gfx *gdl)
 							gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 						} else {
 							if (g_Shards[i].room != prevroom) {
-								gdl = lightsSetForRoom(gdl, g_Shards[i].room);
+								gdl = lights_set_for_room(gdl, g_Shards[i].room);
 								prevroom = g_Shards[i].room;
 							}
 
@@ -311,18 +311,18 @@ Gfx *shardsRenderWood(Gfx *gdl)
 		}
 
 		if (prevroom == 0) {
-			gdl = lightsSetDefault(gdl);
+			gdl = lights_set_default(gdl);
 		}
 
 		gSPClearGeometryMode(gdl++, G_LIGHTING | G_TEXTURE_GEN);
-		gSPMatrix(gdl++, camGetPerspectiveMtxL(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-		gSPMatrix(gdl++, camGetMtxL173c(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(gdl++, cam_get_perspective_mtxl(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, cam_get_mtxl173c(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	}
 
 	return gdl;
 }
 
-Gfx *shardsRenderGlass(Gfx *gdl)
+Gfx *shards_render_glass(Gfx *gdl)
 {
 	if (g_ShardsActive) {
 		RoomNum prevroom = 0;
@@ -331,9 +331,9 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 		s32 j;
 
 		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-			texSelect(&gdl, NULL, 2, 1, 2, 1, NULL);
+			tex_select(&gdl, NULL, 2, 1, 2, 1, NULL);
 		} else {
-			texSelect(&gdl, &g_TexShardConfigs[1], 2, 1, 2, 1, NULL);
+			tex_select(&gdl, &g_TexShardConfigs[1], 2, 1, 2, 1, NULL);
 		}
 
 		gSPTexture(gdl++, 0x0d80, 0x0d80, 2, G_TX_RENDERTILE, G_ON);
@@ -346,14 +346,14 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 			gSPSetGeometryMode(gdl++, G_LIGHTING | G_TEXTURE_GEN);
 		}
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 		for (i = 0; i < g_MaxShards; i++) {
 			if (g_Shards[i].age60 > 0 && g_Shards[i].type != SHARDTYPE_WOOD) {
 				bool render = true;
 				f32 alphamult = 1.0f;
 				f32 xraydist;
-				Mtxf *mtx = gfxAllocateMatrix();
+				Mtxf *mtx = gfx_allocate_matrix();
 				u32 stack;
 
 				if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
@@ -377,7 +377,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 				if (render) {
 					struct shard *shard = (struct shard *) ((u8 *)g_Shards + i * sizeof(struct shard));
 
-					mtx4LoadRotationAndTranslation(&shard->pos, &shard->rot, &shardmtx);
+					mtx4_load_rotation_and_translation(&shard->pos, &shard->rot, &shardmtx);
 
 					shardmtx.m[3][0] -= g_Vars.currentplayer->globaldrawworldoffset.x;
 					shardmtx.m[3][1] -= g_Vars.currentplayer->globaldrawworldoffset.y;
@@ -389,12 +389,12 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 							&& shardmtx.m[3][2] < 10000 && shardmtx.m[3][2] > -10000)
 #endif
 					{
-						mtxF2L(&shardmtx, mtx);
+						mtx_f2l(&shardmtx, mtx);
 
 						gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 						if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
-							Col *colours = gfxAllocateColours(3);
+							Col *colours = gfx_allocate_colours(3);
 
 							if (g_Shards[i].age60 >= TICKS(100)) {
 								f32 frac = g_Shards[i].age60 / (PAL ? 41.666664123535f : 50.0f);
@@ -418,7 +418,7 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 							gSPColor(gdl++, osVirtualToPhysical(colours), 3);
 						} else {
 							if (g_Shards[i].room != prevroom) {
-								gdl = lightsSetForRoom(gdl, g_Shards[i].room);
+								gdl = lights_set_for_room(gdl, g_Shards[i].room);
 								prevroom = g_Shards[i].room;
 							}
 
@@ -433,21 +433,21 @@ Gfx *shardsRenderGlass(Gfx *gdl)
 		}
 
 		if (prevroom == 0) {
-			gdl = lightsSetDefault(gdl);
+			gdl = lights_set_default(gdl);
 		}
 
 		gSPClearGeometryMode(gdl++, G_LIGHTING | G_TEXTURE_GEN);
-		gSPMatrix(gdl++, camGetPerspectiveMtxL(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
-		gSPMatrix(gdl++, camGetMtxL173c(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
+		gSPMatrix(gdl++, cam_get_perspective_mtxl(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, cam_get_mtxl173c(), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	}
 
 	return gdl;
 }
 
-Gfx *shardsRender(Gfx *gdl)
+Gfx *shards_render(Gfx *gdl)
 {
-	gdl = shardsRenderWood(gdl);
-	gdl = shardsRenderGlass(gdl);
+	gdl = shards_render_wood(gdl);
+	gdl = shards_render_glass(gdl);
 
 	return gdl;
 }

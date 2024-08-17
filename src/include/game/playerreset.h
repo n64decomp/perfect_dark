@@ -4,11 +4,11 @@
 #include "data.h"
 #include "types.h"
 
-void modelmgrReset(void);
-void modelmgrSetLvResetting(bool value);
-void modelmgrAllocateSlots(s32 numobjs, s32 numchrs);
-bool modelmgrLoadProjectileModeldefs(s32 weaponnum);
-void playerInitEyespy(void);
-void playerReset(void);
+void modelmgr_reset(void);
+void modelmgr_set_lv_resetting(bool value);
+void modelmgr_allocate_slots(s32 numobjs, s32 numchrs);
+bool modelmgr_load_projectile_modeldefs(s32 weaponnum);
+void player_init_eyespy(void);
+void player_reset(void);
 
 #endif

@@ -16,18 +16,18 @@ struct mpscenariooverview {
 
 extern struct mpscenariooverview g_MpScenarioOverviews[6];
 
-MenuItemHandlerResult menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handlerdata *data);
-void scenarioReadSave(struct savebuffer *buffer);
-void scenarioWriteSave(struct savebuffer *buffer);
-void scenarioInit(void);
-s32 scenarioNumProps(void);
-void scenarioInitProps(void);
-void scenarioTick(void);
-void scenarioTickChr(struct chrdata *chr);
-Gfx *scenarioRadarExtra(Gfx *gdl);
-bool scenarioRadarChr(Gfx **gdl, struct prop *prop);
-f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, RoomNum *rooms, struct prop *prop);
-s32 scenarioGetMaxTeams(void);
-void scenarioHighlightRoom(RoomNum room, s32 *arg1, s32 *arg2, s32 *arg3);
+MenuItemHandlerResult menuhandler_mp_open_options(s32 operation, struct menuitem *item, union handlerdata *data);
+void scenario_read_save(struct savebuffer *buffer);
+void scenario_write_save(struct savebuffer *buffer);
+void scenario_init(void);
+s32 scenario_num_props(void);
+void scenario_init_props(void);
+void scenario_tick(void);
+void scenario_tick_chr(struct chrdata *chr);
+Gfx *scenario_radar_extra(Gfx *gdl);
+bool scenario_radar_chr(Gfx **gdl, struct prop *prop);
+f32 scenario_choose_spawn_location(f32 chrradius, struct coord *pos, RoomNum *rooms, struct prop *prop);
+s32 scenario_get_max_teams(void);
+void scenario_highlight_room(RoomNum room, s32 *arg1, s32 *arg2, s32 *arg3);
 
 #endif

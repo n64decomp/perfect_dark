@@ -53,7 +53,7 @@ bool splat0f149274(f32 arg0, struct prop *prop, struct shotdata *shotdata, f32 a
 void splat0f14986c(struct splatdata *splatdata);
 #endif
 
-void splatTickChr(struct prop *prop)
+void splat_tick_chr(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;
 	struct chrdata *attacker = chr->lastattacker;
@@ -86,17 +86,17 @@ void splatTickChr(struct prop *prop)
 				}
 			}
 
-			if (thudframe != -1.0f && modelGetCurAnimFrame(chr->model) < thudframe) {
-				osSyncPrintf("SPLAT : Not Dead Enough %s%s%f", "", "", modelGetCurAnimFrame(chr->model));
+			if (thudframe != -1.0f && model_get_cur_anim_frame(chr->model) < thudframe) {
+				osSyncPrintf("SPLAT : Not Dead Enough %s%s%f", "", "", model_get_cur_anim_frame(chr->model));
 			} else if (chr->tickssincesplat > TICKS(30) && chr->deaddropsplatsadded < 6) {
-				chr->deaddropsplatsadded += splatsCreate(1, 1.1f, prop, NULL, 0, 0, isskedar, SPLATTYPE_PUDDLE, TICKS(150), attacker, random() & 8);
+				chr->deaddropsplatsadded += splats_create(1, 1.1f, prop, NULL, 0, 0, isskedar, SPLATTYPE_PUDDLE, TICKS(150), attacker, random() & 8);
 			}
 		} else {
 			// Consider creating a wounded drop
 			u32 value = chr->bulletstaken * chr->tickssincesplat;
 
 			if (value > TICKS(240)) {
-				f32 dist = coordsGetDistance(&chr->lastdroppos, &prop->pos);
+				f32 dist = coords_get_distance(&chr->lastdroppos, &prop->pos);
 				s32 addmore = false;
 
 				if (dist > 40) {
@@ -108,12 +108,12 @@ void splatTickChr(struct prop *prop)
 				}
 
 				if (addmore) {
-					chr->woundedsplatsadded += splatsCreate(1, 0.3f, prop, NULL, 0, 0, isskedar, SPLATTYPE_DROP, TICKS(80), attacker, 0);
+					chr->woundedsplatsadded += splats_create(1, 0.3f, prop, NULL, 0, 0, isskedar, SPLATTYPE_DROP, TICKS(80), attacker, 0);
 				}
 			}
 
 			if (chr->woundedsplatsadded >= 40) {
-				wallhitRemoveOldestWoundedSplatByChr(prop);
+				wallhit_remove_oldest_wounded_splat_by_chr(prop);
 				chr->woundedsplatsadded--;
 			}
 
@@ -124,7 +124,7 @@ void splatTickChr(struct prop *prop)
 	chr->tickssincesplat += g_Vars.lvupdate60;
 }
 
-void splatsCreateForChrHit(struct prop *prop, struct shotdata *shotdata, struct coord *arg2, struct coord *arg3, bool isskedar, s32 splattype, struct chrdata *chr2)
+void splats_create_for_chr_hit(struct prop *prop, struct shotdata *shotdata, struct coord *arg2, struct coord *arg3, bool isskedar, s32 splattype, struct chrdata *chr2)
 {
 #if VERSION != VERSION_JPN_FINAL
 	struct chrdata *chr = prop->chr;
@@ -137,13 +137,13 @@ void splatsCreateForChrHit(struct prop *prop, struct shotdata *shotdata, struct 
 		u32 qty = random() % 3;
 
 		if (qty) {
-			chr->stdsplatsadded += splatsCreate(qty, 0.8f, prop, shotdata, arg2, arg3, isskedar, splattype, TICKS(50), chr2, 0);
+			chr->stdsplatsadded += splats_create(qty, 0.8f, prop, shotdata, arg2, arg3, isskedar, splattype, TICKS(50), chr2, 0);
 		}
 	}
 #endif
 }
 
-s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg,
+s32 splats_create(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg,
 		struct coord *arg4, struct coord *arg5, bool isskedar, s32 splattype,
 		s32 timermax, struct chrdata *chr, s32 timerspeed)
 {
@@ -162,7 +162,7 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 	s32 j;
 
 	if (splattype == 0) {
-		dist = coordsGetDistance(&shotdata->gunpos3d, arg5);
+		dist = coords_get_distance(&shotdata->gunpos3d, arg5);
 
 		for (i = 0; i < 3; i++) {
 			spfc.f[i] = shotdata->gundir3d.f[i];
@@ -203,9 +203,9 @@ s32 splatsCreate(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdata
 			spe4.f[j] = (RANDOMFRAC() * var8007f8a8 * 2.0f - var8007f8a8) * 0.017453292384744f;
 		}
 
-		mtx4LoadRotation(&spe4, &spa4);
-		mtx4RotateVec(&spa4, &spfc, &shotdata->gundir3d);
-		mtx4RotateVec(&spa4, &spf0, &shotdata->gundir2d);
+		mtx4_load_rotation(&spe4, &spa4);
+		mtx4_rotate_vec(&spa4, &spfc, &shotdata->gundir3d);
+		mtx4_rotate_vec(&spa4, &spf0, &shotdata->gundir2d);
 
 #if VERSION >= VERSION_NTSC_1_0
 		func0f177164(&shotdata->gundir3d, &shotdata->gundir3d, 403, "splat.c");
@@ -278,7 +278,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	portal00018148(&stackshotdata.gunpos3d, &endpos, gunrooms, endrooms, rooms, ARRAYCOUNT(rooms) - 1);
 
 	for (i = 0; rooms[i] != -1; i++) {
-		if (bgTestHitInRoom(&stackshotdata.gunpos3d, &endpos, rooms[i], &hitthing)
+		if (bg_test_hit_in_room(&stackshotdata.gunpos3d, &endpos, rooms[i], &hitthing)
 				&& ((stackshotdata.gunpos3d.x <= endpos.x && hitthing.pos.x <= endpos.x && stackshotdata.gunpos3d.x <= hitthing.pos.x) || (endpos.x <= stackshotdata.gunpos3d.x && endpos.x <= hitthing.pos.x && hitthing.pos.x <= stackshotdata.gunpos3d.x))
 					&& ((stackshotdata.gunpos3d.y <= endpos.y && hitthing.pos.y <= endpos.y && stackshotdata.gunpos3d.y <= hitthing.pos.y) || (endpos.y <= stackshotdata.gunpos3d.y && endpos.y <= hitthing.pos.y && hitthing.pos.y <= stackshotdata.gunpos3d.y))
 					&& ((stackshotdata.gunpos3d.z <= endpos.z && hitthing.pos.z <= endpos.z && stackshotdata.gunpos3d.z <= hitthing.pos.z) || (endpos.z <= stackshotdata.gunpos3d.z && endpos.z <= hitthing.pos.z && hitthing.pos.z <= stackshotdata.gunpos3d.z))) {
@@ -297,7 +297,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 	}
 
 	if (hasresult) {
-		spraydistance = coordsGetDistance(&stackshotdata.gunpos3d, &besthitthing.pos);
+		spraydistance = coords_get_distance(&stackshotdata.gunpos3d, &besthitthing.pos);
 
 		if (spraydistance < g_SplatMaxDistance) {
 			sp50c = &hitthing.pos;
@@ -332,7 +332,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 
 			if (prop) {
 				if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR || prop->type == PROPTYPE_WEAPON) {
-					objTestHit(prop, &stackshotdata);
+					obj_test_hit(prop, &stackshotdata);
 					if (1);
 				}
 			}
@@ -395,7 +395,7 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 }
 #endif
 
-void splatsTick(void)
+void splats_tick(void)
 {
 	// empty
 }
@@ -459,7 +459,7 @@ void splat0f14986c(struct splatdata *splat)
 		break;
 	}
 
-	distance = coordsGetDistance(&splat->gunpos, &splat->unk0c);
+	distance = coords_get_distance(&splat->gunpos, &splat->unk0c);
 	spa0 = var8007f8a0 * distance * sp9c;
 
 	if (var8007f8b8 < spa0) {
@@ -495,9 +495,9 @@ void splat0f14986c(struct splatdata *splat)
 	width *= splat->unk50;
 	height *= splat->unk50;
 
-	wallhitChooseBloodColour(splat->chrprop);
+	wallhit_choose_blood_colour(splat->chrprop);
 
-	wallhitCreateWith20Args(&splat->relpos, &splat->unk18, splat->chr ? &splat->chr->prop->pos : NULL, NULL,
+	wallhit_create_with_20_args(&splat->relpos, &splat->unk18, splat->chr ? &splat->chr->prop->pos : NULL, NULL,
 			NULL, texnum, splat->room, splat->objprop,
 			splat->chrprop, splat->mtxindex, 0, splat->chr,
 			width, height, minalpha, maxalpha,
@@ -507,12 +507,12 @@ void splat0f14986c(struct splatdata *splat)
 		smokerooms[0] = splat->room;
 		smokerooms[1] = -1;
 
-		smokeCreateSimple(&splat->unk0c, smokerooms, sp88 ? SMOKETYPE_SKCORPSE : SMOKETYPE_14);
+		smoke_create_simple(&splat->unk0c, smokerooms, sp88 ? SMOKETYPE_SKCORPSE : SMOKETYPE_14);
 	}
 }
 #endif
 
-void splatResetChr(struct chrdata *chr)
+void splat_reset_chr(struct chrdata *chr)
 {
 	osSyncPrintf("Splat_ResetChr : Reset One Char : chrdata = %x\n", (uintptr_t) chr);
 

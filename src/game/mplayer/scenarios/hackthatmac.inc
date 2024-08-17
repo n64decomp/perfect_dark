@@ -16,7 +16,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_222, // "One-Hit Kills"
 		MPOPTION_ONEHITKILLS,
-		menuhandlerMpOneHitKills,
+		menuhandler_mp_one_hit_kills,
 	},
 	{
 		MENUITEMTYPE_DROPDOWN,
@@ -24,7 +24,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_223, // "Slow Motion"
 		0,
-		menuhandlerMpSlowMotion,
+		menuhandler_mp_slow_motion,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -32,7 +32,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_224, // "Fast Movement"
 		MPOPTION_FASTMOVEMENT,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -40,7 +40,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_225, // "Display Team"
 		MPOPTION_DISPLAYTEAM,
-		menuhandlerMpDisplayTeam,
+		menuhandler_mp_display_team,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -48,7 +48,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_226, // "No Radar"
 		MPOPTION_NORADAR,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -56,7 +56,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_227, // "No Auto-Aim"
 		MPOPTION_NOAUTOAIM,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -64,7 +64,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_OPTIONS_493, // "Kills Score"
 		MPOPTION_KILLSSCORE,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -80,7 +80,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_231, // "Highlight Terminal"
 		MPOPTION_HTM_HIGHLIGHTTERMINAL,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -88,7 +88,7 @@ struct menuitem g_HtmOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_238, // "Show on Radar"
 		MPOPTION_HTM_SHOWONRADAR,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -113,14 +113,14 @@ struct menudialogdef g_HtmOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_217, // "Hacker Options"
 	g_HtmOptionsMenuItems,
-	mpOptionsMenuDialog,
+	mp_options_menu_dialog,
 	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
 struct weaponobj g_HtmUplinkObj;
 
-void htmInit(void)
+void htm_init(void)
 {
 	g_ScenarioData.htm.uplink = NULL;
 }
@@ -128,12 +128,12 @@ void htmInit(void)
 /**
  * Add one for the data uplink.
  */
-s32 htmNumProps(void)
+s32 htm_num_props(void)
 {
 	return HTM_NUM_TERMINALS + 1;
 }
 
-void htmAddPad(s16 padnum)
+void htm_add_pad(s16 padnum)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 
@@ -148,7 +148,7 @@ void htmAddPad(s16 padnum)
 	}
 }
 
-void htmReset(void)
+void htm_reset(void)
 {
 	s32 i;
 
@@ -180,7 +180,7 @@ void htmReset(void)
 	}
 }
 
-void htbCreateUplink(void)
+void htb_create_uplink(void)
 {
 	struct weaponobj template = {
 		512,                    // extrascale
@@ -252,7 +252,7 @@ void htbCreateUplink(void)
 	g_HtmUplinkObj = template;
 	g_HtmUplinkObj.base.pad = padnum;
 
-	setupPlaceWeapon(&g_HtmUplinkObj, 999);
+	setup_place_weapon(&g_HtmUplinkObj, 999);
 
 	g_HtmUplinkObj.base.hidden2 &= ~OBJH2FLAG_CANREGEN;
 
@@ -263,7 +263,7 @@ void htbCreateUplink(void)
 	}
 }
 
-void htmInitProps(void)
+void htm_init_props(void)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 	struct prop *prop = g_Vars.activeprops;
@@ -279,7 +279,7 @@ void htmInitProps(void)
 			if (obj->type == OBJTYPE_AMMOCRATE || obj->type == OBJTYPE_MULTIAMMOCRATE) {
 				if (obj->modelnum == MODEL_MULTI_AMMO_CRATE) {
 					osSyncPrintf("HackThatMacInitProps -> Adding prop %d (%x)\n", i, obj->pad);
-					htmAddPad(obj->pad);
+					htm_add_pad(obj->pad);
 				}
 			}
 		}
@@ -289,14 +289,14 @@ void htmInitProps(void)
 	}
 
 	osSyncPrintf("HackThatMacInitProps -> Mid : %d Bank Pads\n", data->numpads);
-	osSyncPrintf("HackThatMacInitProps -> Generating %d random box pads from %d in the bank\n", htmNumProps(), data->numpads);
+	osSyncPrintf("HackThatMacInitProps -> Generating %d random box pads from %d in the bank\n", htm_num_props(), data->numpads);
 
 	data->numterminals = 0;
 
-	// @bug: This should be < htmNumProps() - 1 to account for the data uplink,
+	// @bug: This should be < htm_num_props() - 1 to account for the data uplink,
 	// or just < HTM_NUM_TERMINALS. If HTM_NUM_TERMINALS is set to 7 then it
 	// will overflow the array.
-	while (data->numterminals < htmNumProps()) {
+	while (data->numterminals < htm_num_props()) {
 		s32 padnum;
 
 		do {
@@ -309,30 +309,30 @@ void htmInitProps(void)
 		data->padnums[rand] = -1;
 	}
 
-	osSyncPrintf("HackThatMacInitProps -> %d/%d Random box pads generated - Listing\n", data->numterminals, htmNumProps());
+	osSyncPrintf("HackThatMacInitProps -> %d/%d Random box pads generated - Listing\n", data->numterminals, htm_num_props());
 
 	for (i = 0; i < data->numterminals; i++) {
 		osSyncPrintf("Pad %d -> Pad Id = %d\n", i, data->terminals[i].padnum);
 	}
 
 	for (i = 0; i < HTM_NUM_TERMINALS; i++) {
-		data->terminals[i].prop = scenarioCreateObj(MODEL_GOODPC, data->terminals[i].padnum, 0.2f,
+		data->terminals[i].prop = scenario_create_obj(MODEL_GOODPC, data->terminals[i].padnum, 0.2f,
 				OBJFLAG_FALL | OBJFLAG_INVINCIBLE | OBJFLAG_FORCENOBOUNCE,
 				OBJFLAG2_IMMUNETOGUNFIRE | OBJFLAG2_IMMUNETOEXPLOSIONS,
 				OBJFLAG3_HTMTERMINAL | OBJFLAG3_INTERACTABLE);
 		osSyncPrintf("HackThatMacInitProps -> Building and adding custom prop %d - Pad=%d, Ptr=%08x\n",
 				i, data->terminals[i].padnum, data->terminals[i].prop);
-		htbRemoveAmmoCrateAtPad(data->terminals[i].padnum);
+		htb_remove_ammo_crate_at_pad(data->terminals[i].padnum);
 	}
 
 	var800869ec = NULL;
 
-	htbCreateUplink();
+	htb_create_uplink();
 
 	osSyncPrintf("HackThatMacInitProps -> End\n");
 }
 
-void htmTick(void)
+void htm_tick(void)
 {
 	u8 stack[8];
 	s32 i;
@@ -367,16 +367,16 @@ void htmTick(void)
 	// Check if a player is holding it
 	if (g_ScenarioData.htm.uplink == NULL) {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
-			setCurrentPlayerNum(i);
+			set_current_player_num(i);
 
-			if (invHasDataUplink()) {
+			if (inv_has_data_uplink()) {
 				g_ScenarioData.htm.uplink = g_Vars.currentplayer->prop;
 				break;
 			}
 		}
 	}
 
-	setCurrentPlayerNum(prevplayernum);
+	set_current_player_num(prevplayernum);
 
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htm.uplink == NULL) {
@@ -389,11 +389,11 @@ void htmTick(void)
 	}
 
 	if (g_ScenarioData.htm.uplink == NULL) {
-		htbCreateUplink();
+		htb_create_uplink();
 	}
 }
 
-void htmTickChr(struct chrdata *chr)
+void htm_tick_chr(struct chrdata *chr)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 	bool hasuplink;
@@ -403,9 +403,9 @@ void htmTickChr(struct chrdata *chr)
 
 	if (chr) {
 		hasuplink = chr->aibot->hasuplink;
-		playernum = mpPlayerGetIndex(chr);
+		playernum = mp_player_get_index(chr);
 	} else {
-		hasuplink = invHasDataUplink() && bgunGetWeaponNum(HAND_RIGHT) == WEAPON_DATAUPLINK;
+		hasuplink = inv_has_data_uplink() && bgun_get_weapon_num(HAND_RIGHT) == WEAPON_DATAUPLINK;
 		playernum = g_Vars.currentplayernum;
 	}
 
@@ -440,20 +440,20 @@ void htmTickChr(struct chrdata *chr)
 
 						if (chr == NULL) {
 #if VERSION >= VERSION_JPN_FINAL
-							hudmsgCreateWithFlags(langGet(L_MPWEAPONS_018), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "Starting download."
+							hudmsg_create_with_flags(lang_get(L_MPWEAPONS_018), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "Starting download."
 #else
-							hudmsgCreateWithFlags(langGet(L_MPWEAPONS_018), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "Starting download."
+							hudmsg_create_with_flags(lang_get(L_MPWEAPONS_018), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "Starting download."
 #endif
-							psCreate(NULL, data->terminals[data->dlterminalnum].prop, SFX_01BF, -1,
+							ps_create(NULL, data->terminals[data->dlterminalnum].prop, SFX_01BF, -1,
 									-1, PSFLAG_REPEATING, PSFLAG2_MPPAUSABLE, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 						}
 					}
 				} else {
 					if (chr == NULL) {
 #if VERSION >= VERSION_JPN_FINAL
-						hudmsgCreateWithFlags(langGet(L_MPWEAPONS_019), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "You need to use the Data Uplink."
+						hudmsg_create_with_flags(lang_get(L_MPWEAPONS_019), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "You need to use the Data Uplink."
 #else
-						hudmsgCreateWithFlags(langGet(L_MPWEAPONS_019), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "You need to use the Data Uplink."
+						hudmsg_create_with_flags(lang_get(L_MPWEAPONS_019), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "You need to use the Data Uplink."
 #endif
 						snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_01CC, 1, 1, -1, 1);
 					}
@@ -474,12 +474,12 @@ void htmTickChr(struct chrdata *chr)
 
 		if (chr) {
 			chrpos = &chr->prop->pos;
-			angle = (M_BADTAU - chrGetInverseTheta(chr)) * 57.295776367188f;
+			angle = (M_BADTAU - chr_get_inverse_theta(chr)) * 57.295776367188f;
 			holdinguplink = chr->aibot->weaponnum == WEAPON_UNARMED;
 		} else {
 			chrpos = &g_Vars.currentplayer->prop->pos;
 			angle = g_Vars.currentplayer->vv_theta;
-			holdinguplink = bgunGetWeaponNum(HAND_RIGHT) == WEAPON_DATAUPLINK;
+			holdinguplink = bgun_get_weapon_num(HAND_RIGHT) == WEAPON_DATAUPLINK;
 		}
 
 		dist.x = terminalpos->x - chrpos->x;
@@ -524,11 +524,11 @@ void htmTickChr(struct chrdata *chr)
 			if (chr == NULL) {
 				// "Connection broken."
 #if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_017), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+				hudmsg_create_with_flags(lang_get(L_MPWEAPONS_017), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
-				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_017), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+				hudmsg_create_with_flags(lang_get(L_MPWEAPONS_017), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
-				psStopSound(data->terminals[data->dlterminalnum].prop, PSTYPE_GENERAL, 0xffff);
+				ps_stop_sound(data->terminals[data->dlterminalnum].prop, PSTYPE_GENERAL, 0xffff);
 				snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_01CC, 1, 1, -1, 1);
 			}
 
@@ -545,11 +545,11 @@ void htmTickChr(struct chrdata *chr)
 				if (chr == NULL) {
 					// "Download successful."
 #if VERSION >= VERSION_JPN_FINAL
-					hudmsgCreateWithFlags(langGet(L_MPWEAPONS_016), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+					hudmsg_create_with_flags(lang_get(L_MPWEAPONS_016), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
-					hudmsgCreateWithFlags(langGet(L_MPWEAPONS_016), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+					hudmsg_create_with_flags(lang_get(L_MPWEAPONS_016), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
-					psStopSound(data->terminals[data->dlterminalnum].prop, PSTYPE_GENERAL, 0xffff);
+					ps_stop_sound(data->terminals[data->dlterminalnum].prop, PSTYPE_GENERAL, 0xffff);
 					snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_01C1, 1, 1, -1, 1);
 				}
 
@@ -564,7 +564,7 @@ void htmTickChr(struct chrdata *chr)
 	}
 }
 
-Gfx *htmRenderHud(Gfx *gdl)
+Gfx *htm_render_hud(Gfx *gdl)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 	s32 dltime;
@@ -583,22 +583,22 @@ Gfx *htmRenderHud(Gfx *gdl)
 	dltime = data->dltime240[g_Vars.currentplayernum];
 
 	if (data->dlterminalnum != -1 && g_Vars.currentplayernum == data->dlplayernum) {
-		viewleft = viGetViewLeft();
-		viewright = viGetViewLeft() + viGetViewWidth();
-		viewtop = viGetViewTop();
+		viewleft = vi_get_view_left();
+		viewright = vi_get_view_left() + vi_get_view_width();
+		viewtop = vi_get_view_top();
 		t6 = (viewleft + viewright) / 2;
-		a1 = viGetViewWidth() / 3;
+		a1 = vi_get_view_width() / 3;
 		barleft = t6 - a1 / 2;
 		barright = t6 + a1 / 2;
 		s1 = barleft + (s32) (a1 * (dltime / TICKS(4800.0f)));
 
 		gdl = text0f153628(gdl);
-		gdl = textSetPrimColour(gdl, 0x60000060);
+		gdl = text_set_prim_colour(gdl, 0x60000060);
 
 		gDPFillRectangle(gdl++, barleft, viewtop + 8, barright, viewtop + 16);
 
 		gdl = text0f153838(gdl);
-		gdl = textSetPrimColour(gdl, 0xc00000d0);
+		gdl = text_set_prim_colour(gdl, 0xc00000d0);
 
 		v1 = barleft + 1;
 		a0 = barleft;
@@ -616,7 +616,7 @@ Gfx *htmRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void htmCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+void htm_calculate_player_score(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -650,7 +650,7 @@ void htmCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score
 	*deaths = mpchr->numdeaths;
 }
 
-Gfx *htmRadarExtra(Gfx *gdl)
+Gfx *htm_radar_extra(Gfx *gdl)
 {
 	struct scenariodata_htm *data = &g_ScenarioData.htm;
 	struct coord dist;
@@ -675,7 +675,7 @@ Gfx *htmRadarExtra(Gfx *gdl)
 			dist.y = data->uplink->pos.y - g_Vars.currentplayer->prop->pos.y;
 			dist.z = data->uplink->pos.z - g_Vars.currentplayer->prop->pos.z;
 
-			gdl = radarDrawDot(gdl, data->uplink, &dist, 0x00ff0000, 0x00000000, true);
+			gdl = radar_draw_dot(gdl, data->uplink, &dist, 0x00ff0000, 0x00000000, true);
 		}
 
 		// Show the terminal
@@ -691,7 +691,7 @@ Gfx *htmRadarExtra(Gfx *gdl)
 					bf = 0;
 					af = 0;
 				} else if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-					u32 colour = g_TeamColours[radarGetTeamIndex(data->terminals[i].team)];
+					u32 colour = g_TeamColours[radar_get_team_index(data->terminals[i].team)];
 					rf = (colour >> 24) & 0xff;
 					gf = ((colour >> 16) & 0xff);
 					bf = ((colour >> 8) & 0xff);
@@ -724,7 +724,7 @@ Gfx *htmRadarExtra(Gfx *gdl)
 					ai = 255;
 				}
 
-				gdl = radarDrawDot(gdl, data->terminals[i].prop, &sp88,
+				gdl = radar_draw_dot(gdl, data->terminals[i].prop, &sp88,
 						(ri << 24) | (gi << 16) | (bi << 8) | ai,
 						0x00000000, true);
 			}
@@ -734,7 +734,7 @@ Gfx *htmRadarExtra(Gfx *gdl)
 	return gdl;
 }
 
-bool htmRadarChr(Gfx **gdl, struct prop *prop)
+bool htm_radar_chr(Gfx **gdl, struct prop *prop)
 {
 	if ((g_MpSetup.options & MPOPTION_HTM_SHOWONRADAR) && g_ScenarioData.htm.uplink) {
 		if (prop == g_ScenarioData.htm.uplink &&
@@ -745,10 +745,10 @@ bool htmRadarChr(Gfx **gdl, struct prop *prop)
 			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
-				*gdl = radarDrawDot(*gdl, g_ScenarioData.htm.uplink, &dist, colour, 0, 1);
+				u32 colour = g_TeamColours[radar_get_team_index(prop->chr->team)];
+				*gdl = radar_draw_dot(*gdl, g_ScenarioData.htm.uplink, &dist, colour, 0, 1);
 			} else {
-				*gdl = radarDrawDot(*gdl, g_ScenarioData.htm.uplink, &dist, 0x00ff0000, 0, 1);
+				*gdl = radar_draw_dot(*gdl, g_ScenarioData.htm.uplink, &dist, 0x00ff0000, 0, 1);
 			}
 
 			return true;
@@ -758,7 +758,7 @@ bool htmRadarChr(Gfx **gdl, struct prop *prop)
 	return false;
 }
 
-bool htmHighlightProp(struct prop *prop, s32 *colour)
+bool htm_highlight_prop(struct prop *prop, s32 *colour)
 {
 	if (g_MpSetup.options & MPOPTION_HTM_HIGHLIGHTTERMINAL) {
 		bool highlight = false;

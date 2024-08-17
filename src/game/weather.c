@@ -24,7 +24,7 @@
 
 struct weatherdata *g_WeatherData = NULL;
 
-Gfx *weatherRender(Gfx *gdl)
+Gfx *weather_render(Gfx *gdl)
 {
 	struct weatherdata *weather;
 
@@ -46,7 +46,7 @@ Gfx *weatherRender(Gfx *gdl)
 	gSPDisplayList(gdl++, &var80061380);
 
 	if (weather->type == WEATHERTYPE_SNOW) {
-		texSelect(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetColorDither(gdl++, G_CD_NOISE);
@@ -61,41 +61,41 @@ Gfx *weatherRender(Gfx *gdl)
 
 	switch (weather->type) {
 	case WEATHERTYPE_RAIN:
-		gdl = weatherRenderRain(gdl, weather, 0);
+		gdl = weather_render_rain(gdl, weather, 0);
 		break;
 	case WEATHERTYPE_SNOW:
-		gdl = weatherRenderSnow(gdl, weather, 0);
+		gdl = weather_render_snow(gdl, weather, 0);
 		break;
 	}
 
 	return gdl;
 }
 
-void weatherSetBoundaries(struct weatherparticledata *data, s32 index, f32 min, f32 max)
+void weather_set_boundaries(struct weatherparticledata *data, s32 index, f32 min, f32 max)
 {
 	((f32 *)(&data->boundarymin))[index] = min;
 	((f32 *)(&data->boundarymax))[index] = max;
 	((f32 *)(&data->boundaryrange))[index] = ABS(min) + ABS(max);
 }
 
-struct weatherparticledata *weatherAllocateParticles(void)
+struct weatherparticledata *weather_allocate_particles(void)
 {
-	struct weatherparticledata *data = mempAlloc(sizeof(struct weatherparticledata), MEMPOOL_STAGE);
+	struct weatherparticledata *data = memp_alloc(sizeof(struct weatherparticledata), MEMPOOL_STAGE);
 	u32 i;
 
 	data->unk3e80.x = 0;
 	data->unk3e80.y = 0;
 	data->unk3e80.z = 0;
 
-	weatherSetBoundaries(data, 0, -800, 800);
+	weather_set_boundaries(data, 0, -800, 800);
 
 	if ((u32)g_StageIndex == STAGEINDEX_CRASHSITE) {
-		weatherSetBoundaries(data, 1, -500, 500);
+		weather_set_boundaries(data, 1, -500, 500);
 	} else {
-		weatherSetBoundaries(data, 1, -800, 800);
+		weather_set_boundaries(data, 1, -800, 800);
 	}
 
-	weatherSetBoundaries(data, 2, -800, 800);
+	weather_set_boundaries(data, 2, -800, 800);
 
 	i = 0;
 
@@ -147,7 +147,7 @@ void func0f131678(s32 arg0)
 	}
 }
 
-void weatherSetIntensity(s32 intensity)
+void weather_set_intensity(s32 intensity)
 {
 	s32 dotheloop = -1;
 	s32 special = -1;
@@ -261,7 +261,7 @@ u32 g_RainSpeedExtra;
 u32 g_SnowSpeed;
 u32 g_SnowSpeedExtra;
 
-void weatherTickRain(struct weatherdata *weather)
+void weather_tick_rain(struct weatherdata *weather)
 { \
 	s32 lVar6 = 0;
 	s32 relativetotal = 0; // eg. -10 if deleted 10 particles, +10 if created 10
@@ -271,7 +271,7 @@ void weatherTickRain(struct weatherdata *weather)
 	f32 rand;
 	s32 lvupdate;
 
-	mainOverrideVariable("rainspeedxtra", &g_RainSpeedExtra);
+	main_override_variable("rainspeedxtra", &g_RainSpeedExtra);
 
 	if (weather->unk90 > 0) {
 		weather->unk88 += (weather->unk8c - weather->unk88) / weather->unk90;
@@ -305,20 +305,20 @@ void weatherTickRain(struct weatherdata *weather)
 
 		iVar10 = weather->unk58[i].unk00 * 32767.0f * weather->unk88;
 
-		if (lvIsPaused()) {
+		if (lv_is_paused()) {
 			 iVar10 = 0;
 		}
 
 		if (iVar10 > 0) {
 			if (weather->audiohandles[i] == 0 && sounds[i] >= 0) {
 				weather->unkf8 = sounds[i];
-				sndStart(var80095200, weather->unkf8, &weather->audiohandles[i], -1,
+				snd_start(var80095200, weather->unkf8, &weather->audiohandles[i], -1,
 						-1, -1, -1, -1);
 			}
 
 			if (weather->audiohandles[i] != 0) {
 				if (sndGetState(weather->audiohandles[i]) != AL_STOPPED) {
-					sndAdjust(&weather->audiohandles[i], 0, iVar10 * 3 / 4, -1,
+					snd_adjust(&weather->audiohandles[i], 0, iVar10 * 3 / 4, -1,
 							weather->unkf8, 1, 1, -1, 1);
 				}
 			}
@@ -425,7 +425,7 @@ u32 g_RainSpeedExtra = 20;
 u32 g_SnowSpeed = 15;
 u32 g_SnowSpeedExtra = 10;
 
-void weatherTickSnow(struct weatherdata *weather)
+void weather_tick_snow(struct weatherdata *weather)
 { \
 	s32 lVar7 = 0;
 	s32 relativetotal = 0; // eg. -10 if deleted 10 particles, +10 if created 10
@@ -434,8 +434,8 @@ void weatherTickSnow(struct weatherdata *weather)
 	s32 i;
 	struct weatherparticledata *data;
 
-	mainOverrideVariable("snowspeed", &g_SnowSpeed);
-	mainOverrideVariable("snowspeedxtra", &g_SnowSpeedExtra);
+	main_override_variable("snowspeed", &g_SnowSpeed);
+	main_override_variable("snowspeedxtra", &g_SnowSpeedExtra);
 
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
 		weather->windanglerad = RAD(90, 1.5707963705063f);
@@ -600,23 +600,23 @@ void weatherTickSnow(struct weatherdata *weather)
 	}
 }
 
-void weatherConfigureRain(u32 intensity)
+void weather_configure_rain(u32 intensity)
 {
 	if (g_WeatherData) {
 		g_WeatherData->type = WEATHERTYPE_RAIN;
-		weatherSetIntensity(intensity);
+		weather_set_intensity(intensity);
 	}
 }
 
-void weatherConfigureSnow(u32 intensity)
+void weather_configure_snow(u32 intensity)
 {
 	if (g_WeatherData) {
 		g_WeatherData->type = WEATHERTYPE_SNOW;
-		weatherSetIntensity(intensity);
+		weather_set_intensity(intensity);
 	}
 }
 
-bool weatherIsRoomWeatherProof(s32 room)
+bool weather_is_room_weather_proof(s32 room)
 {
 	if (g_StageIndex == STAGEINDEX_CHICAGO) {
 		// Rooms listed do not have weather
@@ -761,7 +761,7 @@ bool weatherIsRoomWeatherProof(s32 room)
 	return false;
 }
 
-Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
+Gfx *weather_render_rain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 {
 	s32 numtestrooms;
 	u32 stack;
@@ -800,14 +800,14 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	numtestrooms = 0;
 	numbadrooms = 0;
 
-	mainOverrideVariable("raincol1", &raincol1);
-	mainOverrideVariable("raincol2", &raincol2);
-	mainOverrideVariable("rainwidth", &rainwidth);
-	mainOverrideVariable("rainout", &rainout);
-	mainOverrideVariable("cddiv", &cddiv);
-	mainOverrideVariable("wetclip", &wetclip);
-	mainOverrideVariable("bounder", &bounder);
-	mainOverrideVariable("trypitch", &trypitch);
+	main_override_variable("raincol1", &raincol1);
+	main_override_variable("raincol2", &raincol2);
+	main_override_variable("rainwidth", &rainwidth);
+	main_override_variable("rainout", &rainout);
+	main_override_variable("cddiv", &cddiv);
+	main_override_variable("wetclip", &wetclip);
+	main_override_variable("bounder", &bounder);
+	main_override_variable("trypitch", &trypitch);
 
 	if (g_Vars.lvupdate240 <= 0) {
 		numsparksavailable = 0;
@@ -819,7 +819,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		timings1[i] = 0;
 	}
 
-	texSelect(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -861,16 +861,16 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		particledata = weather->particledata[arg2];
 		numtris = 0;
 
-		mtx4LoadIdentity(&worldtoscreenmtx);
-		mtx00015be0(camGetWorldToScreenMtxf(), &worldtoscreenmtx);
+		mtx4_load_identity(&worldtoscreenmtx);
+		mtx00015be0(cam_get_world_to_screen_mtxf(), &worldtoscreenmtx);
 
 		worldtoscreenmtx.m[3][0] = 0.0f;
 		worldtoscreenmtx.m[3][1] = 0.0f;
 		worldtoscreenmtx.m[3][2] = 0.0f;
 
-		mtx = gfxAllocateMatrix();
+		mtx = gfx_allocate_matrix();
 
-		mtxF2L(&worldtoscreenmtx, mtx);
+		mtx_f2l(&worldtoscreenmtx, mtx);
 
 		gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -939,7 +939,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 		// Increase or decrease rain volume depending on whether the camera
 		// is in a weatherproof room or not.
-		if (weatherIsRoomWeatherProof(g_Vars.currentplayer->cam_room)) {
+		if (weather_is_room_weather_proof(g_Vars.currentplayer->cam_room)) {
 			if (weather->unk88 > 0.99f) {
 				weather->unk8c = 0.65f;
 				weather->unk90 = 9;
@@ -976,8 +976,8 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 					}
 
 					for (i = 1; i < g_Vars.roomcount; i++) {
-						if (!weatherIsRoomWeatherProof(i)) {
-							roomSetFlashBrightness(i, brightness);
+						if (!weather_is_room_weather_proof(i)) {
+							room_set_flash_brightness(i, brightness);
 						}
 					}
 				}
@@ -1025,7 +1025,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 					if (weather->audiohandles[3] == NULL) {
 						weather->unkf8 = soundnum;
-						sndStart(var80095200, soundnum, &weather->audiohandles[3], -1, -1, -1, -1, -1);
+						snd_start(var80095200, soundnum, &weather->audiohandles[3], -1, -1, -1, -1, -1);
 						weather->unk58[3].unk00 = 1;
 
 						if (weather->audiohandles[3] != NULL) {
@@ -1035,7 +1035,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 								volume /= 2;
 							}
 
-							sndAdjust(&weather->audiohandles[3], 0, volume, -1, weather->unkf8, 1.00f, 1, -1, 1);
+							snd_adjust(&weather->audiohandles[3], 0, volume, -1, weather->unkf8, 1.00f, 1, -1, 1);
 							audioPostEvent(weather->audiohandles[3], AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
 						}
 					}
@@ -1063,7 +1063,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 			}
 
 			for (scale = 1.0f, t = 0; t < numtestrooms; t++) {
-				numneighbours = bgRoomGetNeighbours(testrooms[t], neighbours, ARRAYCOUNT(neighbours));
+				numneighbours = bg_room_get_neighbours(testrooms[t], neighbours, ARRAYCOUNT(neighbours));
 
 				for (n = 0; n < numneighbours; n++) {
 					if (g_Rooms[neighbours[n]].flags & ROOMFLAG_ONSCREEN) {
@@ -1100,7 +1100,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 			}
 
 			for (t = 0; t < numtestrooms; t++) {
-				if (weatherIsRoomWeatherProof(testrooms[t])) {
+				if (weather_is_room_weather_proof(testrooms[t])) {
 					// @bug: Overflowing badbbmin and badbbmax if badrooms is full.
 					// (These writes should be inside the if statement).
 					badbbmin[numbadrooms].f[0] = g_Rooms[testrooms[t]].bbmin[0] / scale;
@@ -1130,7 +1130,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 			}
 		}
 
-		colours = gfxAllocateColours(2);
+		colours = gfx_allocate_colours(2);
 		colours[0].word = raincol1;
 		colours[1].word = raincol2;
 
@@ -1168,7 +1168,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 						// empty
 					} else {
 						if (numtris == 0) {
-							vertices = gfxAllocateVertices(12);
+							vertices = gfx_allocate_vertices(12);
 						}
 
 						sp218[0] /= sp214;
@@ -1227,7 +1227,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 										&& spc9c.f[1] <= g_Rooms[badrooms[i]].bbmax[1]
 										&& spca8.f[1] >= g_Rooms[badrooms[i]].bbmin[1]
 										&& bounder
-										&& bgTestLineIntersectsIntBbox(&spc90, &spfc, &bboxes[i][0], &bboxes[i][3])) {
+										&& bg_test_line_intersects_int_bbox(&spc90, &spfc, &bboxes[i][0], &bboxes[i][3])) {
 									draw = false;
 								}
 							}
@@ -1286,7 +1286,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 										spd4.f[1] = g_Rooms[testrooms[i]].bbmin[1] / scale;
 										spd4.f[2] = particle2->pos.f[2] + particledata->unk3e80.f[2];
 
-										sparksCreate(testrooms[i], NULL, &spd4, &particle2->inc, NULL, SPARKTYPE_SHALLOWWATER);
+										sparks_create(testrooms[i], NULL, &spd4, &particle2->inc, NULL, SPARKTYPE_SHALLOWWATER);
 
 										numsparksavailable--;
 									}
@@ -1362,7 +1362,7 @@ Gfx *weatherRenderRain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 #if MATCHING
 GLOBAL_ASM(
-glabel weatherRenderSnow
+glabel weather_render_snow
 .late_rodata
 glabel var7f1b5784
 .word 0x4096cbe4
@@ -1404,7 +1404,7 @@ glabel var7f1b5790
 /*  f134720:	24060004 */ 	addiu	$a2,$zero,0x4
 /*  f134724:	afa00018 */ 	sw	$zero,0x18($sp)
 /*  f134728:	afa01268 */ 	sw	$zero,0x1268($sp)
-/*  f13472c:	0fc2ce70 */ 	jal	texSelect
+/*  f13472c:	0fc2ce70 */ 	jal	tex_select
 /*  f134730:	00003825 */ 	or	$a3,$zero,$zero
 /*  f134734:	8fb81398 */ 	lw	$t8,0x1398($sp)
 /*  f134738:	8fa81268 */ 	lw	$t0,0x1268($sp)
@@ -1466,31 +1466,31 @@ glabel var7f1b5790
 /*  f134818:	af380004 */ 	sw	$t8,0x4($t9)
 /*  f13481c:	24a5f104 */ 	addiu	$a1,$a1,%lo(var8007f104)
 /*  f134820:	2484569c */ 	addiu	$a0,$a0,%lo(var7f1b569c)
-/*  f134824:	0c0036cc */ 	jal	mainOverrideVariable
+/*  f134824:	0c0036cc */ 	jal	main_override_variable
 /*  f134828:	afa81268 */ 	sw	$t0,0x1268($sp)
 /*  f13482c:	3c047f1b */ 	lui	$a0,%hi(var7f1b56a8)
 /*  f134830:	3c058008 */ 	lui	$a1,%hi(var8007f108)
 /*  f134834:	24a5f108 */ 	addiu	$a1,$a1,%lo(var8007f108)
-/*  f134838:	0c0036cc */ 	jal	mainOverrideVariable
+/*  f134838:	0c0036cc */ 	jal	main_override_variable
 /*  f13483c:	248456a8 */ 	addiu	$a0,$a0,%lo(var7f1b56a8)
 /*  f134840:	3c047f1b */ 	lui	$a0,%hi(var7f1b56b4)
 /*  f134844:	3c058008 */ 	lui	$a1,%hi(var8007f10c)
 /*  f134848:	24a5f10c */ 	addiu	$a1,$a1,%lo(var8007f10c)
-/*  f13484c:	0c0036cc */ 	jal	mainOverrideVariable
+/*  f13484c:	0c0036cc */ 	jal	main_override_variable
 /*  f134850:	248456b4 */ 	addiu	$a0,$a0,%lo(var7f1b56b4)
 /*  f134854:	3c047f1b */ 	lui	$a0,%hi(var7f1b56c0)
 /*  f134858:	3c058008 */ 	lui	$a1,%hi(var8007f110)
 /*  f13485c:	24a5f110 */ 	addiu	$a1,$a1,%lo(var8007f110)
-/*  f134860:	0c0036cc */ 	jal	mainOverrideVariable
+/*  f134860:	0c0036cc */ 	jal	main_override_variable
 /*  f134864:	248456c0 */ 	addiu	$a0,$a0,%lo(var7f1b56c0)
 /*  f134868:	0013c880 */ 	sll	$t9,$s3,0x2
 /*  f13486c:	02397021 */ 	addu	$t6,$s1,$t9
 /*  f134870:	27b001cc */ 	addiu	$s0,$sp,0x1cc
 /*  f134874:	8dd20024 */ 	lw	$s2,0x24($t6)
 /*  f134878:	afa00198 */ 	sw	$zero,0x198($sp)
-/*  f13487c:	0c00566c */ 	jal	mtx4LoadIdentity
+/*  f13487c:	0c00566c */ 	jal	mtx4_load_identity
 /*  f134880:	02002025 */ 	or	$a0,$s0,$zero
-/*  f134884:	0fc2d5be */ 	jal	camGetWorldToScreenMtxf
+/*  f134884:	0fc2d5be */ 	jal	cam_get_world_to_screen_mtxf
 /*  f134888:	00000000 */ 	nop
 /*  f13488c:	00402025 */ 	or	$a0,$v0,$zero
 /*  f134890:	0c0056f8 */ 	jal	mtx00015be0
@@ -1499,11 +1499,11 @@ glabel var7f1b5790
 /*  f13489c:	00000000 */ 	nop
 /*  f1348a0:	e7b401fc */ 	swc1	$f20,0x1fc($sp)
 /*  f1348a4:	e7b40200 */ 	swc1	$f20,0x200($sp)
-/*  f1348a8:	0fc59e66 */ 	jal	gfxAllocateMatrix
+/*  f1348a8:	0fc59e66 */ 	jal	gfx_allocate_matrix
 /*  f1348ac:	e7b40204 */ 	swc1	$f20,0x204($sp)
 /*  f1348b0:	00408825 */ 	or	$s1,$v0,$zero
 /*  f1348b4:	02002025 */ 	or	$a0,$s0,$zero
-/*  f1348b8:	0c005815 */ 	jal	mtxF2L
+/*  f1348b8:	0c005815 */ 	jal	mtx_f2l
 /*  f1348bc:	00402825 */ 	or	$a1,$v0,$zero
 /*  f1348c0:	8fb01398 */ 	lw	$s0,0x1398($sp)
 /*  f1348c4:	3c190102 */ 	lui	$t9,0x102
@@ -1762,7 +1762,7 @@ glabel var7f1b5790
 /*  f134c68:	afa81268 */ 	sw	$t0,0x1268($sp)
 /*  f134c6c:	02602825 */ 	or	$a1,$s3,$zero
 /*  f134c70:	24060014 */ 	addiu	$a2,$zero,0x14
-/*  f134c74:	0fc5916a */ 	jal	bgRoomGetNeighbours
+/*  f134c74:	0fc5916a */ 	jal	bg_room_get_neighbours
 /*  f134c78:	00001025 */ 	or	$v0,$zero,$zero
 /*  f134c7c:	8fa81268 */ 	lw	$t0,0x1268($sp)
 /*  f134c80:	8fac00ac */ 	lw	$t4,0xac($sp)
@@ -1874,7 +1874,7 @@ glabel var7f1b5790
 /*  f134df0:	8d840000 */ 	lw	$a0,0x0($t4)
 /*  f134df4:	afad0184 */ 	sw	$t5,0x184($sp)
 /*  f134df8:	afac00ac */ 	sw	$t4,0xac($sp)
-/*  f134dfc:	0fc4ca87 */ 	jal	weatherIsRoomWeatherProof
+/*  f134dfc:	0fc4ca87 */ 	jal	weather_is_room_weather_proof
 /*  f134e00:	afa81268 */ 	sw	$t0,0x1268($sp)
 /*  f134e04:	8fa81268 */ 	lw	$t0,0x1268($sp)
 /*  f134e08:	8fac00ac */ 	lw	$t4,0xac($sp)
@@ -2094,7 +2094,7 @@ glabel var7f1b5790
 /*  f135140:	26310004 */ 	addiu	$s1,$s1,0x4
 /*  f135144:	1420ffdf */ 	bnez	$at,.L0f1350c4
 /*  f135148:	e600fffc */ 	swc1	$f0,-0x4($s0)
-/*  f13514c:	0fc59e73 */ 	jal	gfxAllocateColours
+/*  f13514c:	0fc59e73 */ 	jal	gfx_allocate_colours
 /*  f135150:	24040010 */ 	addiu	$a0,$zero,0x10
 /*  f135154:	00408025 */ 	or	$s0,$v0,$zero
 /*  f135158:	240310ef */ 	addiu	$v1,$zero,0x10ef
@@ -2199,7 +2199,7 @@ glabel var7f1b5790
 /*  f1352d4:	0019c880 */ 	sll	$t9,$t9,0x2
 /*  f1352d8:	17000004 */ 	bnez	$t8,.L0f1352ec
 /*  f1352dc:	afb90080 */ 	sw	$t9,0x80($sp)
-/*  f1352e0:	0fc59e59 */ 	jal	gfxAllocateVertices
+/*  f1352e0:	0fc59e59 */ 	jal	gfx_allocate_vertices
 /*  f1352e4:	24040008 */ 	addiu	$a0,$zero,0x8
 /*  f1352e8:	afa20214 */ 	sw	$v0,0x214($sp)
 .L0f1352ec:
@@ -2824,7 +2824,7 @@ u32 var8007f108 = 10;
 u32 var8007f10c = 0x8888aaff;
 u32 var8007f110 = 0xffffff7f;
 #else
-Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
+Gfx *weather_render_snow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 {
 	struct weatherparticledata *particledata;
 	struct weatherparticle *particle;
@@ -2890,7 +2890,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	s7 = 0;
 	sp1268 = 0;
 
-	texSelect(&gdl, &g_TexGeneralConfigs[0], 4, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[0], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -2902,25 +2902,25 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 			0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0,
 			0, 0, 0, SHADE, TEXEL0, 0, SHADE, 0);
 
-	mainOverrideVariable("snowwidth", &snowwidth);
-	mainOverrideVariable("snowheight", &snowheight);
-	mainOverrideVariable("snowcol1", &snowcol1);
-	mainOverrideVariable("snowcol2", &snowcol2);
+	main_override_variable("snowwidth", &snowwidth);
+	main_override_variable("snowheight", &snowheight);
+	main_override_variable("snowcol1", &snowcol1);
+	main_override_variable("snowcol2", &snowcol2);
 
 	particledata = weather->particledata[arg2];
 
 	sp198 = 0;
 
-	mtx4LoadIdentity(&sp1cc);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp1cc);
+	mtx4_load_identity(&sp1cc);
+	mtx00015be0(cam_get_world_to_screen_mtxf(), &sp1cc);
 
 	sp1cc.m[3][0] = 0.0f;
 	sp1cc.m[3][1] = 0.0f;
 	sp1cc.m[3][2] = 0.0f;
 
-	mtx = gfxAllocateMatrix();
+	mtx = gfx_allocate_matrix();
 
-	mtxF2L(&sp1cc, mtx);
+	mtx_f2l(&sp1cc, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -3003,7 +3003,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	// 4c54
 	for (i = 0; i < sp1268; i++) {
-		numneighbours = bgRoomGetNeighbours(sp126c[i], sp144, ARRAYCOUNT(sp144));
+		numneighbours = bg_room_get_neighbours(sp126c[i], sp144, ARRAYCOUNT(sp144));
 
 		for (j2 = 0; j2 < numneighbours; j2++) {
 			a0 = true;
@@ -3041,7 +3041,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 
 	// 4dc0
 	for (i = 0; i < sp1268; i++) {
-		if (weatherIsRoomWeatherProof(sp126c[i])) {
+		if (weather_is_room_weather_proof(sp126c[i])) {
 			spe20[s7].f[0] = g_Rooms[sp126c[i]].bbmin[0] / 1;
 			spe20[s7].f[1] = g_Rooms[sp126c[i]].bbmin[1] / 1;
 			spe20[s7].f[2] = g_Rooms[sp126c[i]].bbmin[2] / 1;
@@ -3092,7 +3092,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	}
 
 	// 514c
-	colours = gfxAllocateColours(numcolours);
+	colours = gfx_allocate_colours(numcolours);
 
 	for (j = 0; j < numcolours; j++) {
 		u32 alpha = ((numcolours + 1) * 255 - j * 255) / (numcolours + 1);
@@ -3126,7 +3126,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 					// empty
 				} else {
 					if (sp198 == 0) {
-						vertices = gfxAllocateVertices(8);
+						vertices = gfx_allocate_vertices(8);
 					}
 
 					sp260 = 0.0f;
@@ -3380,7 +3380,7 @@ Gfx *weatherRenderSnow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 }
 #endif
 
-void weatherStop(void)
+void weather_stop(void)
 {
 	if (g_WeatherData) {
 		if (g_WeatherData->audiohandles[0]) {

@@ -4,8 +4,8 @@
 #include "data.h"
 #include "types.h"
 
-void mp3Init(ALHeap *heap);
-void mp3PlayFile(s32 romaddr, s32 filesize);
+void mp3_init(ALHeap *heap);
+void mp3_play_file(s32 romaddr, s32 filesize);
 void func00037e1c(void);
 void func00037e38(void);
 void func00037e68(void);
@@ -15,6 +15,6 @@ void func00037f5c(s32 arg0, bool arg1);
 s32 func00037fc0(s32 arg0, Acmd **cmd);
 void func00038924(struct mp3vars *vars);
 void func00038b90(void *fn);
-void mp3Dma(void);
+void mp3_dma(void);
 
 #endif

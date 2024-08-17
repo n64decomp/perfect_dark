@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void crcCalculateU32Pair(u8 *start, u8 *end, u32 *checksum);
-void crcCalculateU16Pair(u8 *start, u8 *end, u16 *checksum);
+void crc_calculate_u32_pair(u8 *start, u8 *end, u32 *checksum);
+void crc_calculate_u16_pair(u8 *start, u8 *end, u16 *checksum);
 
 #endif

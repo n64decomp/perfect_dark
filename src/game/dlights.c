@@ -99,12 +99,12 @@ u32 func0f000920(s32 portalnum1, s32 portalnum2)
 	return 0;
 }
 
-struct light *roomGetLight(s32 roomnum, s32 lightnum)
+struct light *room_get_light(s32 roomnum, s32 lightnum)
 {
 	return (struct light *)&g_BgLightsFileData[(g_Rooms[roomnum].lightindex + lightnum) * 0x22];
 }
 
-u8 roomGetFinalBrightness(s32 roomnum)
+u8 room_get_final_brightness(s32 roomnum)
 {
 	s32 brightness = g_Rooms[roomnum].br_flash + g_Rooms[roomnum].br_settled_regional;
 
@@ -119,7 +119,7 @@ u8 roomGetFinalBrightness(s32 roomnum)
 	return brightness;
 }
 
-u8 roomGetFinalBrightnessForPlayer(s32 roomnum)
+u8 room_get_final_brightness_for_player(s32 roomnum)
 {
 	s32 brightness = g_Rooms[roomnum].br_flash;
 
@@ -145,7 +145,7 @@ u8 func0f000b18(u32 arg0)
 	return 255;
 }
 
-u8 roomGetSettledRegionalBrightnessForPlayer(s32 roomnum)
+u8 room_get_settled_regional_brightness_for_player(s32 roomnum)
 {
 	u32 brightness;
 
@@ -162,12 +162,12 @@ u8 roomGetSettledRegionalBrightnessForPlayer(s32 roomnum)
 	return brightness;
 }
 
-u8 roomGetSettledLocalBrightness(s32 room)
+u8 room_get_settled_local_brightness(s32 room)
 {
 	return g_Rooms[room].br_settled_local & 0xff;
 }
 
-s32 roomGetFlashBrightness(s32 roomnum)
+s32 room_get_flash_brightness(s32 roomnum)
 {
 	if (g_Rooms[roomnum].br_flash > 255) {
 		return 255;
@@ -180,12 +180,12 @@ s32 roomGetFlashBrightness(s32 roomnum)
 	return (g_Rooms[roomnum].flags & ROOMFLAG_BRIGHTNESS_CALCED) ? g_Rooms[roomnum].br_flash : 0;
 }
 
-f32 roomGetLightOpCurFrac(s32 roomnum)
+f32 room_get_light_op_cur_frac(s32 roomnum)
 {
 	return g_Rooms[roomnum].lightop_cur_frac;
 }
 
-f32 roomGetFinalBrightnessFrac(s32 roomnum)
+f32 room_get_final_brightness_frac(s32 roomnum)
 {
 	f32 frac = (g_Rooms[roomnum].br_flash + g_Rooms[roomnum].br_settled_regional) / (1.0f / 255.0f);
 
@@ -200,12 +200,12 @@ f32 roomGetFinalBrightnessFrac(s32 roomnum)
 	return frac;
 }
 
-f32 roomGetSettledRegionalBrightnessFrac(s32 roomnum)
+f32 room_get_settled_regional_brightness_frac(s32 roomnum)
 {
 	return g_Rooms[roomnum].br_settled_regional / 255.0f;
 }
 
-f32 roomGetSettledLocalBrightnessFrac(s32 roomnum)
+f32 room_get_settled_local_brightness_frac(s32 roomnum)
 {
 	return g_Rooms[roomnum].br_settled_local / 255.0f;
 }
@@ -213,7 +213,7 @@ f32 roomGetSettledLocalBrightnessFrac(s32 roomnum)
 /**
  * The resulting position is not a world position. It is relative to the room.
  */
-bool lightGetBboxCentre(s32 roomnum, u32 lightnum, struct coord *pos)
+bool light_get_bbox_centre(s32 roomnum, u32 lightnum, struct coord *pos)
 {
 	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	s32 i;
@@ -236,11 +236,11 @@ bool lightGetBboxCentre(s32 roomnum, u32 lightnum, struct coord *pos)
 	return true;
 }
 
-bool lightIsHealthy(s32 roomnum, s32 lightnum)
+bool light_is_healthy(s32 roomnum, s32 lightnum)
 {
 	bool healthy;
 
-	if (roomnum && roomGetLight(roomnum, lightnum)->healthy) {
+	if (roomnum && room_get_light(roomnum, lightnum)->healthy) {
 		healthy = true;
 	} else {
 		healthy = false;
@@ -249,18 +249,18 @@ bool lightIsHealthy(s32 roomnum, s32 lightnum)
 	return healthy;
 }
 
-bool lightIsVulnerable(s32 roomnum, s32 lightnum)
+bool light_is_vulnerable(s32 roomnum, s32 lightnum)
 {
-	struct light *light = roomGetLight(roomnum, lightnum);
+	struct light *light = room_get_light(roomnum, lightnum);
 
 	return light->vulnerable;
 }
 
-bool lightIsOn(s32 roomnum, s32 lightnum)
+bool light_is_on(s32 roomnum, s32 lightnum)
 {
 	bool on;
 
-	if (roomnum && roomGetLight(roomnum, lightnum)->on) {
+	if (roomnum && room_get_light(roomnum, lightnum)->on) {
 		on = true;
 	} else {
 		on = false;
@@ -269,12 +269,12 @@ bool lightIsOn(s32 roomnum, s32 lightnum)
 	return on;
 }
 
-void roomSetFlashBrightness(s32 roomnum, s32 value)
+void room_set_flash_brightness(s32 roomnum, s32 value)
 {
 	g_Rooms[roomnum].br_flash = value;
 }
 
-void lightGetDirection(s32 roomnum, u32 lightnum, struct coord *dir)
+void light_get_direction(s32 roomnum, u32 lightnum, struct coord *dir)
 {
 	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	light += lightnum;
@@ -293,7 +293,7 @@ void func0f0010b4(void)
 	var80061424 = 1;
 }
 
-void roomSetDefaults(struct room *room)
+void room_set_defaults(struct room *room)
 {
 	room->br_light_min = 0;
 	room->br_light_max = 255;
@@ -311,11 +311,11 @@ void roomSetDefaults(struct room *room)
 	room->lightop_duration240 = 0;
 }
 
-Gfx *lightsSetForRoom(Gfx *gdl, RoomNum roomnum)
+Gfx *lights_set_for_room(Gfx *gdl, RoomNum roomnum)
 {
-	Lights1 *lights = gfxAllocate(sizeof(Lights1));
+	Lights1 *lights = gfx_allocate(sizeof(Lights1));
 
-	u8 brightness = roomGetFinalBrightnessForPlayer(roomnum);
+	u8 brightness = room_get_final_brightness_for_player(roomnum);
 	u8 a0 = (u32)(brightness * 0.5882353f);
 
 	lights->a.l.col[0] = a0;
@@ -337,31 +337,31 @@ Gfx *lightsSetForRoom(Gfx *gdl, RoomNum roomnum)
 
 	gSPSetLights1(gdl++, (*lights));
 
-	gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
-	gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
+	gSPLookAtX(gdl++, &cam_get_look_at()->l[0]);
+	gSPLookAtY(gdl++, &cam_get_look_at()->l[1]);
 
 	return gdl;
 }
 
-Gfx *lightsSetDefault(Gfx *gdl)
+Gfx *lights_set_default(Gfx *gdl)
 {
 	static Lights1 var80061460 = gdSPDefLights1(0x96, 0x96, 0x96, 0xff, 0xff, 0xff, 0x4d, 0x4d, 0x2e);
 
 	gSPSetLights1(gdl++, var80061460);
 
-	gSPLookAtX(gdl++, &camGetLookAt()->l[0]);
-	gSPLookAtY(gdl++, &camGetLookAt()->l[1]);
+	gSPLookAtX(gdl++, &cam_get_look_at()->l[0]);
+	gSPLookAtY(gdl++, &cam_get_look_at()->l[1]);
 
 	return gdl;
 }
 
-void roomInitLights(s32 roomnum)
+void room_init_lights(s32 roomnum)
 {
 	struct room *room = &g_Rooms[roomnum];
 	struct light *light;
 	s32 i;
 
-	bgGetRoomBrightnessRange(roomnum, &room->br_light_min, &room->br_light_max);
+	bg_get_room_brightness_range(roomnum, &room->br_light_min, &room->br_light_max);
 
 	room->br_light_min = room->br_light_min / 4;
 
@@ -412,7 +412,7 @@ void roomInitLights(s32 roomnum)
 	room->flags |= ROOMFLAG_LIGHTS_DIRTY;
 
 #if VERSION < VERSION_NTSC_1_0
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS) && (room->flags & ROOMFLAG_RENDERALWAYS) == 0) {
+	if (cheat_is_active(CHEAT_PERFECTDARKNESS) && (room->flags & ROOMFLAG_RENDERALWAYS) == 0) {
 		room->lightop = LIGHTOP_SET;
 		room->lightop_to_frac = 0.0f;
 	}
@@ -422,7 +422,7 @@ void roomInitLights(s32 roomnum)
 
 	for (i = 0; i < room->numlights; i++) {
 #if VERSION < VERSION_NTSC_1_0
-		if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
+		if (cheat_is_active(CHEAT_PERFECTDARKNESS)) {
 			light->brightness = 0;
 			light->sparkable = (random() % 2) ? true : false;
 			light->healthy = false;
@@ -459,7 +459,7 @@ void roomInitLights(s32 roomnum)
 	}
 }
 
-bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
+bool lights_handle_hit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
 {
 	s32 i;
 	f32 f2;
@@ -506,8 +506,8 @@ bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
 				soundpos.y = light->bbox[0].y;
 				soundpos.z = light->bbox[0].z;
 
-				roomSetLightBroken(roomnum, i);
-				psCreate(0, 0, SFX_HIT_GLASS, -1, -1, PSFLAG_0400, 0, PSTYPE_NONE, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+				room_set_light_broken(roomnum, i);
+				ps_create(0, 0, SFX_HIT_GLASS, -1, -1, PSFLAG_0400, 0, PSTYPE_NONE, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
 				return true;
 			}
 		}
@@ -518,7 +518,7 @@ bool lightsHandleHit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
 	return false;
 }
 
-void roomSetLightsFaulty(s32 roomnum, s32 chance)
+void room_set_lights_faulty(s32 roomnum, s32 chance)
 {
 	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	s32 i;
@@ -543,16 +543,16 @@ void roomSetLightsFaulty(s32 roomnum, s32 chance)
 	g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTS_DIRTY;
 }
 
-void roomSetLightBroken(s32 roomnum, s32 lightnum)
+void room_set_light_broken(s32 roomnum, s32 lightnum)
 {
-	struct light *light = roomGetLight(roomnum, lightnum);
+	struct light *light = room_get_light(roomnum, lightnum);
 	light->healthy = false;
 	light->on = false;
 
 	g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTS_DIRTY;
 }
 
-void lightsReset(void)
+void lights_reset(void)
 {
 	if (var80061444) {
 		func0f004c6c();
@@ -579,7 +579,7 @@ void func0f001c0c(void)
 
 	var80061440 = 0;
 
-	lightsCalculateRoomDimensions();
+	lights_calculate_room_dimensions();
 
 	if (1);
 	for (g_NumPortals = 0; g_BgPortals[g_NumPortals].verticesoffset != 0; g_NumPortals++);
@@ -594,7 +594,7 @@ void func0f001c0c(void)
 	table4size = align16((u32)var8009cae0 * (u32)var8009cae0);
 	sp68 = align16(g_Vars.roomcount * 8);
 
-	mempGetStageFree();
+	memp_get_stage_free();
 
 	/**
 	 * This lighting initialisation needs to build temporary tables in memory.
@@ -608,7 +608,7 @@ void func0f001c0c(void)
 	 * Note that for some stages the z-buffer allocation must be higher than the
 	 * lo-res size to support the lighting needs here.
 	 */
-	ptr = zbufGetAllocation();
+	ptr = zbuf_get_allocation();
 
 	var80061434 = (f32 *)ptr;
 	ptr += table1size;
@@ -624,7 +624,7 @@ void func0f001c0c(void)
 
 	s5 = (u8 *)ptr;
 
-	var80061420 = mempAlloc(sp68, MEMPOOL_STAGE);
+	var80061420 = memp_alloc(sp68, MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumPortals; i++) {
 		if (PORTAL_IS_CLOSED(i)) {
@@ -647,7 +647,7 @@ void func0f001c0c(void)
 		table3size += align4(sp44[i]);
 	}
 
-	ptr = mempAlloc(align16(table3size), MEMPOOL_STAGE);
+	ptr = memp_alloc(align16(table3size), MEMPOOL_STAGE);
 
 	sp68 += align16(table3size);
 
@@ -674,7 +674,7 @@ void func0f001c0c(void)
 		table3size += align4(sp44[i]);
 	}
 
-	ptr = mempAlloc(align16(table3size), MEMPOOL_STAGE);
+	ptr = memp_alloc(align16(table3size), MEMPOOL_STAGE);
 
 	align16(table3size);
 
@@ -692,7 +692,7 @@ void func0f001c0c(void)
 		g_Rooms[i].flags |= ROOMFLAG_ONSCREEN;
 	}
 
-	lightingTick();
+	lighting_tick();
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		g_Rooms[i].flags &= ~ROOMFLAG_ONSCREEN;
@@ -741,14 +741,14 @@ f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2)
 	f32 result;
 
 	if (portalnum1 != -1) {
-		surfacearea = bgCalculatePortalSurfaceArea(portalnum1);
+		surfacearea = bg_calculate_portal_surface_area(portalnum1);
 	}
 
-	result = (bgCalculatePortalSurfaceArea(portalnum2) / (g_Rooms[roomnum].surfacearea - surfacearea)) * mult;
+	result = (bg_calculate_portal_surface_area(portalnum2) / (g_Rooms[roomnum].surfacearea - surfacearea)) * mult;
 	return result;
 }
 
-void lightsCalculateRoomDimensions(void)
+void lights_calculate_room_dimensions(void)
 {
 	s32 i;
 	s32 j;
@@ -819,7 +819,7 @@ void func0f00259c(s32 roomnum)
 	}
 
 	for (i = 0; i < g_Rooms[roomnum].numportals; i++) {
-		f20 += bgCalculatePortalSurfaceArea(g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i]);
+		f20 += bg_calculate_portal_surface_area(g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i]);
 	}
 
 	sp58 = (g_Rooms[roomnum].surfacearea - f20) / g_Rooms[roomnum].surfacearea;
@@ -893,8 +893,8 @@ void func0f002a98(void)
 	g_Vars.remakewallhitvtx = 0;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		roomSetDefaults(&g_Rooms[i]);
-		roomInitLights(i);
+		room_set_defaults(&g_Rooms[i]);
+		room_init_lights(i);
 	}
 
 	var80061420 = NULL;
@@ -904,7 +904,7 @@ void func0f002a98(void)
 	}
 }
 
-void roomSetLightsOn(s32 roomnum, s32 enable)
+void room_set_lights_on(s32 roomnum, s32 enable)
 {
 	struct light *light = (struct light *)&g_BgLightsFileData[g_Rooms[roomnum].lightindex * 0x22];
 	s32 i;
@@ -933,9 +933,9 @@ void roomSetLightsOn(s32 roomnum, s32 enable)
  * They should be duration60 * 4. This only affects LIGHTOP_TRANSITION,
  * which makes it start the transition 3/4 of the way into it.
  */
-void roomSetLightOp(s32 roomnum, s32 operation, u8 br_to, u8 br_from, u8 duration60)
+void room_set_light_op(s32 roomnum, s32 operation, u8 br_to, u8 br_from, u8 duration60)
 {
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS) == false) {
+	if (cheat_is_active(CHEAT_PERFECTDARKNESS) == false) {
 		g_Rooms[roomnum].lightop = operation;
 
 		switch (operation) {
@@ -966,7 +966,7 @@ void roomSetLightOp(s32 roomnum, s32 operation, u8 br_to, u8 br_from, u8 duratio
 	}
 }
 
-bool lightTickBroken(s32 roomnum, s32 lightnum)
+bool light_tick_broken(s32 roomnum, s32 lightnum)
 {
 	struct light *light = (struct light *)(g_BgLightsFileData + ((g_Rooms[roomnum].lightindex + lightnum) * 0x22));
 
@@ -1047,24 +1047,24 @@ bool lightTickBroken(s32 roomnum, s32 lightnum)
 				break;
 			}
 
-			lightGetBboxCentre(roomnum, lightnum, &centre);
+			light_get_bbox_centre(roomnum, lightnum, &centre);
 
 			room = (void *) ((u8 *) g_BgRooms + (u32) room);
 			centre.x += room->pos.x;
 			centre.y += room->pos.y;
 			centre.z += room->pos.z;
 
-			sparksCreate(roomnum, NULL, &centre, &spa4, &sp8c, sparktype);
+			sparks_create(roomnum, NULL, &centre, &spa4, &sp8c, sparktype);
 
 			if ((random() % 4) == 0) {
 				smokerooms[0] = roomnum;
 				smokerooms[1] = -1;
 
-				smokeCreateSimple(&centre, smokerooms, SMOKETYPE_BULLETIMPACT);
+				smoke_create_simple(&centre, smokerooms, SMOKETYPE_BULLETIMPACT);
 			}
 
-			roomFlashLighting(roomnum, 64, 80);
-			psCreate(NULL, NULL, psGetRandomSparkSound(), -1, -1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+			room_flash_lighting(roomnum, 64, 80);
+			ps_create(NULL, NULL, ps_get_random_spark_sound(), -1, -1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, &centre, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
 			return true;
 		}
 	} else {
@@ -1091,14 +1091,14 @@ const char var7f1a7d10[] = "L2 -> Allocated %uK for the compressed acoustic shad
 const char var7f1a7d50[] = "L2(%d) -> ";
 const char var7f1a7d5c[] = "L2 -> Finished building portal range table\n";
 
-void lightingTick(void)
+void lighting_tick(void)
 {
 	s32 i;
 
-	roomsTickLighting();
+	rooms_tick_lighting();
 
 	if (g_Vars.remakewallhitvtx) {
-		wallhitsRecolour();
+		wallhits_recolour();
 
 		g_Vars.remakewallhitvtx = false;
 
@@ -1109,7 +1109,7 @@ void lightingTick(void)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void lightsConfigureForPerfectDarknessCutscene(void)
+void lights_configure_for_perfect_darkness_cutscene(void)
 {
 	s32 i;
 	s32 j;
@@ -1134,7 +1134,7 @@ void lightsConfigureForPerfectDarknessCutscene(void)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void lightsConfigureForPerfectDarknessGameplay(void)
+void lights_configure_for_perfect_darkness_gameplay(void)
 {
 	s32 i;
 	s32 j;
@@ -1159,13 +1159,13 @@ void lightsConfigureForPerfectDarknessGameplay(void)
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-void lightsTickPerfectDarkness(void)
+void lights_tick_perfect_darkness(void)
 {
 	if (g_Vars.tickmode != g_LightsPrevTickMode) {
 		if (TICKMODE_CUTSCENE == g_Vars.tickmode && TICKMODE_CUTSCENE != g_LightsPrevTickMode) {
-			lightsConfigureForPerfectDarknessCutscene();
+			lights_configure_for_perfect_darkness_cutscene();
 		} else if (TICKMODE_NORMAL == g_Vars.tickmode && TICKMODE_NORMAL != g_LightsPrevTickMode) {
-			lightsConfigureForPerfectDarknessGameplay();
+			lights_configure_for_perfect_darkness_gameplay();
 		}
 
 		g_LightsPrevTickMode = g_Vars.tickmode;
@@ -1173,7 +1173,7 @@ void lightsTickPerfectDarkness(void)
 }
 #endif
 
-void roomsTickLighting(void)
+void rooms_tick_lighting(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	s32 i;
@@ -1192,8 +1192,8 @@ void roomsTickLighting(void)
 	u32 stack;
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (cheatIsActive(CHEAT_PERFECTDARKNESS)) {
-		lightsTickPerfectDarkness();
+	if (cheat_is_active(CHEAT_PERFECTDARKNESS)) {
+		lights_tick_perfect_darkness();
 	}
 #else
 	static s32 prevtickmode = 0;
@@ -1228,7 +1228,7 @@ void roomsTickLighting(void)
 			}
 
 			g_Rooms[i].flags |= ROOMFLAG_LIGHTS_DIRTY;
-			roomSetLightOp(i, LIGHTOP_NONE, 0, 0, 0);
+			room_set_light_op(i, LIGHTOP_NONE, 0, 0, 0);
 			break;
 		case LIGHTOP_SETRANDOM:
 			if (g_Rooms[i].lightop_timer240 < 0) {
@@ -1255,7 +1255,7 @@ void roomsTickLighting(void)
 					g_Rooms[i].lightop_cur_frac = 0.0f;
 				}
 			} else {
-				roomSetLightOp(i, LIGHTOP_NONE, 0, 0, 0);
+				room_set_light_op(i, LIGHTOP_NONE, 0, 0, 0);
 			}
 
 			g_Rooms[i].flags |= ROOMFLAG_LIGHTS_DIRTY;
@@ -1420,17 +1420,17 @@ void roomsTickLighting(void)
 					g_Rooms[i].flags &= ~(ROOMFLAG_BRIGHTNESS_DIRTY_PERM | ROOMFLAG_BRIGHTNESS_DIRTY_TEMP);
 
 					if (g_Rooms[i].lightop == LIGHTOP_HIGHLIGHT) {
-						s32 r = roomGetFinalBrightnessForPlayer(i);
+						s32 r = room_get_final_brightness_for_player(i);
 						s32 g = r;
 						s32 b = r;
 
-						scenarioHighlightRoom(i, &r, &g, &b);
+						scenario_highlight_room(i, &r, &g, &b);
 
 						g_Rooms[i].highlightfrac_r = r * (1.0f / 255.0f);
 						g_Rooms[i].highlightfrac_g = g * (1.0f / 255.0f);
 						g_Rooms[i].highlightfrac_b = b * (1.0f / 255.0f);
 					} else {
-						g_Rooms[i].highlightfrac_r = roomGetFinalBrightnessForPlayer(i) * (1.0f / 255.0f);
+						g_Rooms[i].highlightfrac_r = room_get_final_brightness_for_player(i) * (1.0f / 255.0f);
 						g_Rooms[i].highlightfrac_g = g_Rooms[i].highlightfrac_r;
 						g_Rooms[i].highlightfrac_b = g_Rooms[i].highlightfrac_r;
 					}
@@ -1450,7 +1450,7 @@ void roomsTickLighting(void)
 					if (g_Rooms[prop->rooms[i]].flags & ROOMFLAG_NEEDRESHADE) {
 						if (2 == g_IsSwitchingGoggles) {
 							struct chrdata *chr = prop->chr;
-							propCalculateShadeColour(chr->prop, chr->nextcol, chr->floorcol);
+							prop_calculate_shade_colour(chr->prop, chr->nextcol, chr->floorcol);
 						} else {
 							struct chrdata *chr = prop->chr;
 							chr->unk32c_18 = true;
@@ -1470,7 +1470,7 @@ void roomsTickLighting(void)
 	}
 }
 
-void lightsTick(void)
+void lights_tick(void)
 {
 	struct hand *hand1 = &g_Vars.currentplayer->hands[0];
 	struct hand *hand2 = &g_Vars.currentplayer->hands[1];
@@ -1478,7 +1478,7 @@ void lightsTick(void)
 	func0f005bb0();
 
 	if (hand1->flashon || hand2->flashon) {
-		roomFlashLighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
+		room_flash_lighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
 	}
 }
 
@@ -1492,7 +1492,7 @@ void func0f004384(void)
  *
  * The room must not have ROOMFLAG_OUTDOORS.
  */
-void roomFlashLighting(s32 roomnum, s32 start, s32 limit)
+void room_flash_lighting(s32 roomnum, s32 start, s32 limit)
 {
 	if (var80061420 && !(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
 		s32 value;
@@ -1516,7 +1516,7 @@ void roomFlashLighting(s32 roomnum, s32 start, s32 limit)
 
 			// @bug: Should be checking neighbournum flags, not roomnum
 			if (!(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
-				roomFlashLocalLighting(neighbournum, increment, limit);
+				room_flash_local_lighting(neighbournum, increment, limit);
 			}
 
 			value = func0f177c8c(var80061420[roomnum].unk04, &sp78, &neighbournum);
@@ -1524,7 +1524,7 @@ void roomFlashLighting(s32 roomnum, s32 start, s32 limit)
 	}
 }
 
-void roomFlashLocalLighting(s32 roomnum, s32 increment, s32 limit)
+void room_flash_local_lighting(s32 roomnum, s32 increment, s32 limit)
 {
 	if (roomnum) {
 		if (g_Rooms[roomnum].flags & ROOMFLAG_ONSCREEN) {
@@ -1551,7 +1551,7 @@ void roomFlashLocalLighting(s32 roomnum, s32 increment, s32 limit)
 	}
 }
 
-void roomHighlight(s32 roomnum)
+void room_highlight(s32 roomnum)
 {
 	s32 i;
 	s32 tmpr;
@@ -1577,9 +1577,9 @@ void roomHighlight(s32 roomnum)
 			g_Rooms[roomnum].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_PERM;
 		}
 
-		br_settled_regional = roomGetSettledRegionalBrightnessForPlayer(roomnum);
+		br_settled_regional = room_get_settled_regional_brightness_for_player(roomnum);
 		numcolours = g_Rooms[roomnum].gfxdata->numcolours;
-		dst = gfxAllocateColours(numcolours);
+		dst = gfx_allocate_colours(numcolours);
 		g_Rooms[roomnum].colours = dst;
 
 		extra = g_Rooms[roomnum].br_flash;
@@ -1646,7 +1646,7 @@ void roomHighlight(s32 roomnum)
 				}
 
 				if (g_Rooms[roomnum].lightop == LIGHTOP_HIGHLIGHT) {
-					scenarioHighlightRoom(roomnum, &red, &green, &blue);
+					scenario_highlight_room(roomnum, &red, &green, &blue);
 				}
 
 				if (red > 255) {
@@ -1708,7 +1708,7 @@ void func0f004c6c(void)
 	}
 
 	s4 = align16(s4);
-	ptr = mempAlloc(align16(s4), MEMPOOL_STAGE);
+	ptr = memp_alloc(align16(s4), MEMPOOL_STAGE);
 	var80061430 = (void *)ptr;
 
 	ptr += sp38;
@@ -1730,7 +1730,7 @@ void func0f004c6c(void)
 
 	align16((s32)s4);
 
-	ptr = mempGetNextStageAllocation();
+	ptr = memp_get_next_stage_allocation();
 	var8009cad0 = (void *)ptr;
 	ptr += sp44;
 
@@ -1759,9 +1759,9 @@ void func0f004c6c(void)
 	}
 
 	for (i = 0; i < g_NumPortals; i++) {
-		var8009cad8[i] = portalGetXluFrac(i) > 0.5f;
+		var8009cad8[i] = portal_get_xlu_frac(i) > 0.5f;
 
-		portalGetAvgVertexPos(i, &var80061428[i]);
+		portal_get_avg_vertex_pos(i, &var80061428[i]);
 	}
 
 	if (g_Vars.stagenum == STAGE_INVESTIGATION) {
@@ -1877,7 +1877,7 @@ f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2,
 							f32 xdiff2;
 							f32 zdiff2;
 
-							portalGetAvgVertexPos(portalnum1, &sp44);
+							portal_get_avg_vertex_pos(portalnum1, &sp44);
 							sp64 -= sp50;
 
 							xdiff2 = sp44.x - pos1->x;
@@ -1895,7 +1895,7 @@ f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2,
 										f32 xdiff3;
 										f32 zdiff3;
 
-										portalGetAvgVertexPos(portalnum2, &sp2c);
+										portal_get_avg_vertex_pos(portalnum2, &sp2c);
 										sp64 -= sp38;
 
 										xdiff3 = sp2c.x - pos2->x;
@@ -1998,7 +1998,7 @@ void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
 	*result = 32767;
 
 	if (roomnum1 == roomnum2) {
-		*result = coordsGetDistance(pos1, pos2);
+		*result = coords_get_distance(pos1, pos2);
 		return;
 	}
 
@@ -2028,7 +2028,7 @@ void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
  */
 void func0f005bb0(void)
 {
-	s32 brightness = roomGetFinalBrightness(g_Vars.currentplayer->prop->rooms[0]);
+	s32 brightness = room_get_final_brightness(g_Vars.currentplayer->prop->rooms[0]);
 
 	if (((USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) && !g_Vars.currentplayer->usinggoggles)
 			|| ((!USINGDEVICE(DEVICE_NIGHTVISION) && !USINGDEVICE(DEVICE_IRSCANNER)) && g_Vars.currentplayer->usinggoggles)) {
@@ -2037,16 +2037,16 @@ void func0f005bb0(void)
 
 	g_Vars.currentplayer->usinggoggles = USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER);
 
-	if (USINGDEVICE(DEVICE_NIGHTVISION) && !lvIsPaused()) {
+	if (USINGDEVICE(DEVICE_NIGHTVISION) && !lv_is_paused()) {
 		// Play the goggle's hum sound
 		if (g_Vars.currentplayer->nvhum == NULL) {
-			sndStart(var80095200, SFX_0505, &g_Vars.currentplayer->nvhum, -1, -1, -1.0f, -1, -1);
+			snd_start(var80095200, SFX_0505, &g_Vars.currentplayer->nvhum, -1, -1, -1.0f, -1, -1);
 		}
 
 		if (brightness > 128) {
 			// Room is too bright for night vision - play overload sound
 			if (g_Vars.currentplayer->nvoverload == NULL) {
-				sndStart(var80095200, SFX_01BE, &g_Vars.currentplayer->nvoverload, -1, -1, -1.0f, -1, -1);
+				snd_start(var80095200, SFX_01BE, &g_Vars.currentplayer->nvoverload, -1, -1, -1.0f, -1, -1);
 			}
 		} else {
 			// Room is dark enough for night vision - stop overload sound if active

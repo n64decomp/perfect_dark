@@ -7,7 +7,7 @@
 #include "data.h"
 #include "types.h"
 
-void bgunStop(void)
+void bgun_stop(void)
 {
 	s32 i;
 	s32 j;

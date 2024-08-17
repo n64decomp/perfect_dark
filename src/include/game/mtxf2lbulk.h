@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void mtxF2LBulk(Mtxf *matrices, s32 count);
+void mtx_f2l_bulk(Mtxf *matrices, s32 count);
 
 #endif

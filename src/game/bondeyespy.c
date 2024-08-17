@@ -39,7 +39,7 @@ u32 g_EyespyMaxFallSpeed = 3000;
  * position 50 units above the current position, or less if the eyespy is near
  * the top of its height range.
  */
-f32 eyespyFindGround(RoomNum *floorroom)
+f32 eyespy_find_ground(RoomNum *floorroom)
 {
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
 	s32 inlift;
@@ -60,7 +60,7 @@ f32 eyespyFindGround(RoomNum *floorroom)
 	pos.y = prop->pos.y + yoffset;
 	pos.z = prop->pos.z;
 
-	ground = cdFindGroundInfoAtCyl(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
+	ground = cd_find_ground_info_at_cyl(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
 
 	if (ground < -30000) {
 		ground = -30000;
@@ -69,7 +69,7 @@ f32 eyespyFindGround(RoomNum *floorroom)
 	return ground;
 }
 
-s32 eyespyTryMoveUpwards(f32 yvel)
+s32 eyespy_try_move_upwards(f32 yvel)
 {
 	s32 result;
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
@@ -96,23 +96,23 @@ s32 eyespyTryMoveUpwards(f32 yvel)
 
 	func0f065e74(&prop->pos, prop->rooms, &dstpos, dstrooms);
 	chr0f021fa8(prop->chr, &dstpos, dstrooms);
-	propSetPerimEnabled(prop, false);
+	prop_set_perim_enabled(prop, false);
 
 	f0 -= 0.1f;
 
-	result = cdTestVolume(&dstpos, 26, dstrooms, types, CHECKVERTICAL_YES, 15, f0);
-	propSetPerimEnabled(prop, true);
+	result = cd_test_volume(&dstpos, 26, dstrooms, types, CHECKVERTICAL_YES, 15, f0);
+	prop_set_perim_enabled(prop, true);
 
 	if (result == CDRESULT_NOCOLLISION) {
 		prop->pos.y = dstpos.y;
-		propDeregisterRooms(prop);
-		roomsCopy(dstrooms, prop->rooms);
+		prop_deregister_rooms(prop);
+		rooms_copy(dstrooms, prop->rooms);
 	}
 
 	return result;
 }
 
-s32 eyespyCalculateNewPosition(struct coord *vel)
+s32 eyespy_calculate_new_position(struct coord *vel)
 {
 	bool result = true;
 	struct prop *eyespyprop = g_Vars.currentplayer->eyespy->prop;
@@ -133,10 +133,10 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 	s32 playernum;
 	u32 stack2;
 
-	eyespyFindGround(&floorroom);
+	eyespy_find_ground(&floorroom);
 
 	if (vel->x || vel->y || vel->z) {
-		propSetPerimEnabled(eyespyprop, false);
+		prop_set_perim_enabled(eyespyprop, false);
 
 		dstpos.x = vel->x + eyespyprop->pos.x;
 		dstpos.y = vel->y + eyespyprop->pos.y;
@@ -176,28 +176,28 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 		halfradius = radius * 0.5f;
 
 		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
-			result = cdExamCylMove06(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, radius, types, 1, 15, ymin);
+			result = cd_exam_cyl_move06(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, radius, types, 1, 15, ymin);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = cdExamCylMove02(&eyespyprop->pos, &dstpos, radius, dstrooms, types, true, 15, ymin);
+				result = cd_exam_cyl_move02(&eyespyprop->pos, &dstpos, radius, dstrooms, types, true, 15, ymin);
 			}
 		} else {
-			result = cdExamCylMove02(&eyespyprop->pos, &dstpos, radius, sp74, types, true, 15, ymin);
+			result = cd_exam_cyl_move02(&eyespyprop->pos, &dstpos, radius, sp74, types, true, 15, ymin);
 		}
 
 		if (result == CDRESULT_COLLISION) {
-			prop = cdGetObstacleProp();
+			prop = cd_get_obstacle_prop();
 
 			if (prop && prop->type == PROPTYPE_PLAYER) {
 				playernum = g_Vars.currentplayernum;
 
-				if (playernum == playermgrGetPlayerNumByProp(prop)) {
+				if (playernum == playermgr_get_player_num_by_prop(prop)) {
 					g_EyespyPickup = true;
 				}
 			}
 		}
 
-		propSetPerimEnabled(eyespyprop, true);
+		prop_set_perim_enabled(eyespyprop, true);
 
 		if (result == CDRESULT_NOCOLLISION) {
 			// Apply the destination
@@ -205,24 +205,24 @@ s32 eyespyCalculateNewPosition(struct coord *vel)
 			eyespyprop->pos.y = dstpos.y;
 			eyespyprop->pos.z = dstpos.z;
 
-			propDeregisterRooms(eyespyprop);
+			prop_deregister_rooms(eyespyprop);
 
-			roomsCopy(dstrooms, eyespyprop->rooms);
+			rooms_copy(dstrooms, eyespyprop->rooms);
 		}
 	}
 
 	return result;
 }
 
-bool eyespyCalculateNewPositionWithPush(struct coord *vel)
+bool eyespy_calculate_new_position_with_push(struct coord *vel)
 {
-	s32 result = eyespyCalculateNewPosition(vel);
+	s32 result = eyespy_calculate_new_position(vel);
 	struct prop *prop;
 
 	if (result != CDRESULT_NOCOLLISION) {
 		g_EyespyHit = EYESPYHIT_BG;
 
-		prop = cdGetObstacleProp();
+		prop = cd_get_obstacle_prop();
 
 		if (prop && g_Vars.lvupdate240 > 0) {
 			if (prop->type == PROPTYPE_DOOR) {
@@ -235,7 +235,7 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 					struct coord sp2c;
 					struct coord sp20;
 
-					cdGetEdge(&sp2c, &sp20, 286, "bondeyespy.c");
+					cd_get_edge(&sp2c, &sp20, 286, "bondeyespy.c");
 
 					// Nothing is actually done with these coordinates...
 					// This code was likely copied from bondwalk then the bounce
@@ -271,22 +271,22 @@ bool eyespyCalculateNewPositionWithPush(struct coord *vel)
 
 s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
-	if (cd00024ea4()) {
+	if (cd_00024ea4()) {
 		struct coord sp24;
 		s32 someint;
-		f32 somefloat = cd00024e98();
+		f32 somefloat = cd_00024e98();
 		sp24.x = arg0->x * somefloat * 0.25f;
 		sp24.y = arg0->y * somefloat * 0.25f;
 		sp24.z = arg0->z * somefloat * 0.25f;
 
-		someint = eyespyCalculateNewPositionWithPush(&sp24);
+		someint = eyespy_calculate_new_position_with_push(&sp24);
 
 		if (someint == 1) {
 			return 1;
 		}
 
 		if (someint == 0) {
-			cdGetEdge(arg3, arg4, 350, "bondeyespy.c");
+			cd_get_edge(arg3, arg4, 350, "bondeyespy.c");
 
 			if (arg3->f[0] != arg1->f[0]
 					|| arg3->f[1] != arg1->f[1]
@@ -325,7 +325,7 @@ s32 eyespy0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 		sp24.y = 0;
 		sp24.z = sp30.z * tmp;
 
-		return eyespyCalculateNewPositionWithPush(&sp24);
+		return eyespy_calculate_new_position_with_push(&sp24);
 	}
 
 	return -1;
@@ -362,7 +362,7 @@ s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 			sp28.y = 0;
 			sp28.z = sp34.z;
 
-			if (eyespyCalculateNewPositionWithPush(&sp28) == 1) {
+			if (eyespy_calculate_new_position_with_push(&sp28) == 1) {
 				return true;
 			}
 		}
@@ -390,7 +390,7 @@ s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 				sp28.y = 0;
 				sp28.z = sp34.z;
 
-				if (eyespyCalculateNewPositionWithPush(&sp28) == 1) {
+				if (eyespy_calculate_new_position_with_push(&sp28) == 1) {
 					return true;
 				}
 			}
@@ -402,16 +402,16 @@ s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 
 s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
 {
-	bool result = eyespyCalculateNewPositionWithPush(vel);
+	bool result = eyespy_calculate_new_position_with_push(vel);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		cdGetEdge(arg1, arg2, 473, "bondeyespy.c");
+		cd_get_edge(arg1, arg2, 473, "bondeyespy.c");
 	}
 
 	return result;
 }
 
-void eyespyUpdateVertical(void)
+void eyespy_update_vertical(void)
 {
 	struct coord spac;
 	struct coord spa0;
@@ -455,14 +455,14 @@ void eyespyUpdateVertical(void)
 	}
 
 	// Handle gravity
-	mainOverrideVariable("g", &g_EyespyFallAccel);
-	mainOverrideVariable("l", &g_EyespyMaxFallSpeed);
+	main_override_variable("g", &g_EyespyFallAccel);
+	main_override_variable("l", &g_EyespyMaxFallSpeed);
 
 	accel = g_EyespyFallAccel * 0.01; // always 1
 	maxfallspeed = g_EyespyMaxFallSpeed * 0.01f; // always 30
 
 	newy = chr->manground;
-	newground = eyespyFindGround(NULL);
+	newground = eyespy_find_ground(NULL);
 
 	if (newground != chr->manground) {
 		if (newground < chr->manground) {
@@ -500,7 +500,7 @@ void eyespyUpdateVertical(void)
 		}
 	}
 
-	if (eyespyTryMoveUpwards(newy - chr->manground)) {
+	if (eyespy_try_move_upwards(newy - chr->manground)) {
 		chr->manground = newy;
 	} else {
 		g_Vars.currentplayer->eyespy->gravity = 0;
@@ -523,7 +523,7 @@ void eyespyUpdateVertical(void)
 			rebound = true;
 		}
 
-		if (eyespyTryMoveUpwards(newheight - g_Vars.currentplayer->eyespy->height)) {
+		if (eyespy_try_move_upwards(newheight - g_Vars.currentplayer->eyespy->height)) {
 			g_Vars.currentplayer->eyespy->height = newheight;
 		} else {
 			rebound = true;
@@ -551,7 +551,7 @@ void eyespyUpdateVertical(void)
 		dist.f[2] * dist.f[2];
 }
 
-bool eyespyTryLaunch(void)
+bool eyespy_try_launch(void)
 {
 	struct coord playerpos;
 	struct coord testfrompos;
@@ -560,7 +560,7 @@ bool eyespyTryLaunch(void)
 	bool insafe;
 	char text[48];
 
-	insafe = stageGetIndex(g_Vars.stagenum) == STAGEINDEX_G5BUILDING
+	insafe = stage_get_index(g_Vars.stagenum) == STAGEINDEX_G5BUILDING
 		&& g_Vars.currentplayer->prop->rooms[0] == 0x53;
 
 	playerpos.x = g_Vars.currentplayer->prop->pos.x;
@@ -575,8 +575,8 @@ bool eyespyTryLaunch(void)
 	g_Vars.currentplayer->eyespy->up.z = 0;
 	g_Vars.currentplayer->eyespy->startuptimer60 = 0;
 
-	if (stageGetIndex(g_Vars.stagenum) == STAGEINDEX_G5BUILDING
-			|| stageGetIndex(g_Vars.stagenum) == STAGEINDEX_CITRAINING) {
+	if (stage_get_index(g_Vars.stagenum) == STAGEINDEX_G5BUILDING
+			|| stage_get_index(g_Vars.stagenum) == STAGEINDEX_CITRAINING) {
 		g_EyespyMinHeight = 30;
 	} else {
 		g_EyespyMinHeight = 80;
@@ -633,9 +633,9 @@ bool eyespyTryLaunch(void)
 	g_Vars.currentplayer->eyespy->vels[1] = 0;
 	g_Vars.currentplayer->eyespy->pitch = 0;
 
-	playerSetPerimEnabled(g_Vars.currentplayer->prop, false);
+	player_set_perim_enabled(g_Vars.currentplayer->prop, false);
 
-	if (insafe || !cdExamLos08(&testfrompos, g_Vars.currentplayer->prop->rooms,
+	if (insafe || !cd_exam_los08(&testfrompos, g_Vars.currentplayer->prop->rooms,
 				&g_Vars.currentplayer->eyespy->prop->pos,
 				CDTYPE_ALL,
 				GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT)) {
@@ -646,17 +646,17 @@ bool eyespyTryLaunch(void)
 		chr->prevpos.y = g_Vars.currentplayer->eyespy->prop->pos.y = g_Vars.currentplayer->eyespy->oldground + g_Vars.currentplayer->eyespy->height;
 		chr->prevpos.z = g_Vars.currentplayer->eyespy->prop->pos.z = playerpos.f[2];
 
-		propSetPerimEnabled(g_Vars.currentplayer->eyespy->prop, false);
+		prop_set_perim_enabled(g_Vars.currentplayer->eyespy->prop, false);
 
 		// "Not enough room to launch "
-		sprintf(text, "%s%s", langGet(L_MISC_218), bgunGetName(WEAPON_EYESPY));
-		hudmsgCreate(text, HUDMSGTYPE_DEFAULT);
+		sprintf(text, "%s%s", lang_get(L_MISC_218), bgun_get_name(WEAPON_EYESPY));
+		hudmsg_create(text, HUDMSGTYPE_DEFAULT);
 		launched = false;
 	} else {
 		// Launch successful
 		g_Vars.currentplayer->eyespy->deployed = true;
 
-		sndStart(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
 
 		launched = true;
 
@@ -664,16 +664,16 @@ bool eyespyTryLaunch(void)
 		chr->chrflags &= ~CHRCFLAG_INVINCIBLE;
 
 #if VERSION >= VERSION_NTSC_1_0
-		psCreate(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
+		ps_create(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
 				-1, PSFLAG_REPEATING, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 #else
-		psCreate(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
+		ps_create(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
 				-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
 
-	playerSetPerimEnabled(g_Vars.currentplayer->prop, true);
-	propDeregisterRooms(g_Vars.currentplayer->eyespy->prop);
+	player_set_perim_enabled(g_Vars.currentplayer->prop, true);
+	prop_deregister_rooms(g_Vars.currentplayer->eyespy->prop);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms);
 
@@ -682,7 +682,7 @@ bool eyespyTryLaunch(void)
 	return launched;
 }
 
-void eyespyProcessInput(bool allowbuttons)
+void eyespy_process_input(bool allowbuttons)
 {
 	struct chrdata *chr = g_Vars.currentplayer->eyespy->prop->chr;
 	f32 spe0 = PAL ? 0.952f : 0.96f;
@@ -693,15 +693,15 @@ void eyespyProcessInput(bool allowbuttons)
 	f32 spcc;
 	f32 spc8;
 	f32 spc4;
-	s8 contpad1 = optionsGetContpadNum1(g_Vars.currentplayerstats->mpindex);
-	s8 c1stickx = joyGetStickX(contpad1);
+	s8 contpad1 = options_get_contpad_num1(g_Vars.currentplayerstats->mpindex);
+	s8 c1stickx = joy_get_stick_x(contpad1);
 	s8 c2stickx;
-	s8 c1sticky = joyGetStickY(contpad1);
+	s8 c1sticky = joy_get_stick_y(contpad1);
 	s8 c2sticky;
-	u16 c1buttons = allowbuttons ? joyGetButtons(contpad1, 0xffff) : 0;
+	u16 c1buttons = allowbuttons ? joy_get_buttons(contpad1, 0xffff) : 0;
 	u16 c2buttons;
 	bool domovecentre = true;
-	s32 controlmode = optionsGetControlMode(g_Vars.currentplayerstats->mpindex);
+	s32 controlmode = options_get_control_mode(g_Vars.currentplayerstats->mpindex);
 
 	bool aimpressed;
 	bool shootpressed;
@@ -719,11 +719,11 @@ void eyespyProcessInput(bool allowbuttons)
 	f32 tmp;
 
 	if (controlmode >= CONTROLMODE_21) {
-		contpad2 = (s8) optionsGetContpadNum2(g_Vars.currentplayerstats->mpindex);
-		c2stickx = joyGetStickX(contpad2);
-		c2sticky = joyGetStickY(contpad2);
+		contpad2 = (s8) options_get_contpad_num2(g_Vars.currentplayerstats->mpindex);
+		c2stickx = joy_get_stick_x(contpad2);
+		c2sticky = joy_get_stick_y(contpad2);
 
-		c2buttons = allowbuttons ? joyGetButtons(contpad2, 0xffff) : 0;
+		c2buttons = allowbuttons ? joy_get_buttons(contpad2, 0xffff) : 0;
 	} else {
 		c2stickx = c1stickx;
 		c2sticky = c1sticky;
@@ -871,16 +871,16 @@ void eyespyProcessInput(bool allowbuttons)
 	chr->prevpos.y = g_Vars.currentplayer->eyespy->prop->pos.y;
 	chr->prevpos.z = g_Vars.currentplayer->eyespy->prop->pos.z;
 
-	roomsCopy(g_Vars.currentplayer->eyespy->prop->rooms, prevrooms);
+	rooms_copy(g_Vars.currentplayer->eyespy->prop->rooms, prevrooms);
 
-	if (!invHasSingleWeaponIncAllGuns(WEAPON_EYESPY)) {
+	if (!inv_has_single_weapon_inc_all_guns(WEAPON_EYESPY)) {
 		g_Vars.currentplayer->eyespy->deployed = false;
 		g_Vars.currentplayer->eyespy->held = true;
 		g_Vars.currentplayer->eyespy->active = false;
 
 		chr->chrflags |= CHRCFLAG_HIDDEN;
 
-		chrClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
+		chr_clear_references(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
 	}
 
 	if (g_Vars.currentplayer->eyespy->active && g_PlayersWithControl[g_Vars.currentplayernum]) {
@@ -891,9 +891,9 @@ void eyespyProcessInput(bool allowbuttons)
 				&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED
 				&& (c1buttons & START_BUTTON)) {
 			if (!g_Vars.mplayerisrunning) {
-				playerPause(MENUROOT_MAINMENU);
+				player_pause(MENUROOT_MAINMENU);
 			} else {
-				mpPushPauseDialog();
+				mp_push_pause_dialog();
 			}
 		}
 #endif
@@ -1048,7 +1048,7 @@ void eyespyProcessInput(bool allowbuttons)
 	g_EyespyHit = EYESPYHIT_NONE;
 	var80070ecc = 0;
 
-	eyespyUpdateVertical();
+	eyespy_update_vertical();
 
 	// Consider playing the tap sound when the eyespy is driven into a wall or object
 	if (g_Vars.currentplayer->eyespy->active
@@ -1071,7 +1071,7 @@ void eyespyProcessInput(bool allowbuttons)
 			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_DAMAGE:
-			sndStart(var80095200, SFX_PICKUP_LASER, NULL, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFX_PICKUP_LASER, NULL, -1, -1, -1, -1, -1);
 			break;
 		default:
 			break;
@@ -1084,7 +1084,7 @@ void eyespyProcessInput(bool allowbuttons)
 	}
 
 	tmp = g_Vars.currentplayer->eyespy->speed / 1600.0f;
-	psSetVolume(g_Vars.currentplayer->eyespy->prop, tmp * 400.0f);
+	ps_set_volume(g_Vars.currentplayer->eyespy->prop, tmp * 400.0f);
 
 	angle = 180 - g_Vars.currentplayer->eyespy->theta;
 
@@ -1094,7 +1094,7 @@ void eyespyProcessInput(bool allowbuttons)
 
 	angle = angle / 360.0f * M_BADTAU;
 
-	chrSetLookAngle(chr, angle);
+	chr_set_look_angle(chr, angle);
 
 	if (g_Vars.currentplayer->eyespy->startuptimer60 < TICKS(50)) {
 		return;
@@ -1144,7 +1144,7 @@ void eyespyProcessInput(bool allowbuttons)
 			g_EyespyPickup = false;
 		}
 
-		cdresult = cdTestLos05(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+		cdresult = cd_test_los05(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms,
 				CDTYPE_DOORS | CDTYPE_BG,
 				GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT);
@@ -1169,11 +1169,11 @@ void eyespyProcessInput(bool allowbuttons)
 		chr->chrflags |= CHRCFLAG_HIDDEN;
 		chr->chrflags |= CHRCFLAG_INVINCIBLE;
 
-		weaponPlayPickupSound(WEAPON_EYESPY);
-		currentPlayerQueuePickupWeaponHudmsg(WEAPON_EYESPY, false);
-		psStopSound(g_Vars.currentplayer->eyespy->prop, PSTYPE_GENERAL, 0xffff);
-		chrClearReferences(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
+		weapon_play_pickup_sound(WEAPON_EYESPY);
+		current_player_queue_pickup_weapon_hudmsg(WEAPON_EYESPY, false);
+		ps_stop_sound(g_Vars.currentplayer->eyespy->prop, PSTYPE_GENERAL, 0xffff);
+		chr_clear_references(g_Vars.currentplayer->eyespy->prop - g_Vars.props);
 	}
 
-	coordTriggerProxies(&chr->prop->pos, true);
+	coord_trigger_proxies(&chr->prop->pos, true);
 }

@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-void bcutsceneInit(void)
+void bcutscene_init(void)
 {
 	s32 i;
 	s32 j;
@@ -29,7 +29,7 @@ void bcutsceneInit(void)
 	}
 }
 
-void bcutsceneTick(void)
+void bcutscene_tick(void)
 {
 	// empty
 }

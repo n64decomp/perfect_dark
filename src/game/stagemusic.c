@@ -39,12 +39,12 @@ struct stagemusic g_StageTracks[] = {
 	{ 0,                   0,                    0,                       0  },
 };
 
-s32 stageGetPrimaryTrack(s32 stagenum)
+s32 stage_get_primary_track(s32 stagenum)
 {
 	s32 i;
 
 	if (g_Vars.normmplayerisrunning) {
-		return mpChooseTrack();
+		return mp_choose_track();
 	}
 
 	i = 0;
@@ -52,7 +52,7 @@ s32 stageGetPrimaryTrack(s32 stagenum)
 	while (g_StageTracks[i].stagenum) {
 		if (g_StageTracks[i].stagenum == stagenum) {
 			if (g_StageTracks[i].primarytrack == -1) {
-				return mpChooseTrack();
+				return mp_choose_track();
 			}
 
 			return g_StageTracks[i].primarytrack;
@@ -61,10 +61,10 @@ s32 stageGetPrimaryTrack(s32 stagenum)
 		i++;
 	}
 
-	return mpChooseTrack();
+	return mp_choose_track();
 }
 
-s32 stageGetAmbientTrack(s32 stagenum)
+s32 stage_get_ambient_track(s32 stagenum)
 {
 	s32 i = 0;
 
@@ -79,7 +79,7 @@ s32 stageGetAmbientTrack(s32 stagenum)
 	return -1;
 }
 
-s32 stageGetNrgTrack(s32 stagenum)
+s32 stage_get_nrg_track(s32 stagenum)
 {
 	s32 i = 0;
 

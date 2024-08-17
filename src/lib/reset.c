@@ -39,7 +39,7 @@ void resetproc(void *data)
 	g_Resetting = true;
 
 	// Stop the audio and main threads and ensure the reset thread's priority is set correctly
-	amgrStopThread();
+	amgr_stop_thread();
 	osStopThread(&g_MainThread);
 	osSetThreadPri(0, THREADPRI_RESET);
 
@@ -70,13 +70,13 @@ void resetproc(void *data)
 	}
 
 	// Stop controller rumbles if active
-	joyDestroy();
+	joy_destroy();
 
 	// Wait for the system to reset
 	while (1);
 }
 
-void resetThreadCreate(void)
+void reset_thread_create(void)
 {
 	osCreateMesgQueue(&g_ResetMesgQueue, g_ResetMesgs, ARRAYCOUNT(g_ResetMesgs));
 	osSetEventMesg(OS_EVENT_PRENMI, &g_ResetMesgQueue, (OSMesg) 669);

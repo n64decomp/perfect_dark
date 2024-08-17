@@ -27,7 +27,7 @@
 #include "data.h"
 #include "types.h"
 
-void bwalkInit(void)
+void bwalk_init(void)
 {
 	u32 prevmode = g_Vars.currentplayer->bondmovemode;
 	s32 i;
@@ -69,14 +69,14 @@ void bwalkInit(void)
 		g_Vars.currentplayer->crouchoffset = 0;
 
 #if VERSION < VERSION_NTSC_1_0
-		bwalkUpdateCrouchOffsetReal();
+		bwalk_update_crouch_offset_real();
 #endif
 
 		g_Vars.currentplayer->guncloseroffset = 0;
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	bwalkUpdateCrouchOffsetReal();
+	bwalk_update_crouch_offset_real();
 #endif
 
 	if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
@@ -110,9 +110,9 @@ void bwalkInit(void)
 		delta.y = 0;
 		delta.z = g_Vars.currentplayer->walkinitpos.z - g_Vars.currentplayer->prop->pos.z;
 
-		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, false);
-		bwalkCalculateNewPositionWithPush(&delta, 0, true, 0, CDTYPE_ALL);
-		propSetPerimEnabled(g_Vars.currentplayer->hoverbike, true);
+		prop_set_perim_enabled(g_Vars.currentplayer->hoverbike, false);
+		bwalk_calculate_new_position_with_push(&delta, 0, true, 0, CDTYPE_ALL);
+		prop_set_perim_enabled(g_Vars.currentplayer->hoverbike, true);
 	} else if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		g_Vars.currentplayer->moveinitspeed.x = 0;
 		g_Vars.currentplayer->moveinitspeed.y = 0;
@@ -120,12 +120,12 @@ void bwalkInit(void)
 	}
 }
 
-void bwalkSetSwayTarget(s32 value)
+void bwalk_set_sway_target(s32 value)
 {
 	g_Vars.currentplayer->swaytarget = value * 75.0f;
 }
 
-void bwalkAdjustCrouchPos(s32 value)
+void bwalk_adjust_crouch_pos(s32 value)
 {
 	g_Vars.currentplayer->crouchpos += value;
 
@@ -150,9 +150,9 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	abstarget.z = reltarget->z + g_Vars.currentplayer->prop->pos.z;
 
 #if VERSION >= VERSION_NTSC_1_0
-	cdGetEdge(&globalthinga, &globalthingb, 223, "bondwalk.c");
+	cd_get_edge(&globalthinga, &globalthingb, 223, "bondwalk.c");
 #else
-	cdGetEdge(&globalthinga, &globalthingb, 221, "bondwalk.c");
+	cd_get_edge(&globalthinga, &globalthingb, 221, "bondwalk.c");
 #endif
 
 	vector.x = globalthingb.z - globalthinga.z;
@@ -183,7 +183,7 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
  * The function is called with amount = 0 when attempting to stand up from a
  * crouch, after increasing the player's bbox to the standing size.
  */
-s32 bwalkTryMoveUpwards(f32 amount)
+s32 bwalk_try_move_upwards(f32 amount)
 {
 	bool result;
 	struct coord newpos;
@@ -206,23 +206,23 @@ s32 bwalkTryMoveUpwards(f32 amount)
 
 	types = g_Vars.bondcollisions ? CDTYPE_ALL : CDTYPE_BG;
 
-	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
+	player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
-	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &newpos, rooms);
-	propSetPerimEnabled(g_Vars.currentplayer->prop, false);
+	bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &newpos, rooms);
+	prop_set_perim_enabled(g_Vars.currentplayer->prop, false);
 
 	ymin -= 0.1f;
 
-	result = cdTestVolume(&newpos, radius, rooms, types, CHECKVERTICAL_YES,
+	result = cd_test_volume(&newpos, radius, rooms, types, CHECKVERTICAL_YES,
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
-	propSetPerimEnabled(g_Vars.currentplayer->prop, true);
+	prop_set_perim_enabled(g_Vars.currentplayer->prop, true);
 
 	if (result == CDRESULT_NOCOLLISION) {
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
-		propDeregisterRooms(g_Vars.currentplayer->prop);
-		roomsCopy(rooms, g_Vars.currentplayer->prop->rooms);
+		prop_deregister_rooms(g_Vars.currentplayer->prop);
+		rooms_copy(rooms, g_Vars.currentplayer->prop->rooms);
 	}
 
 	g_Vars.enableslopes = true;
@@ -230,7 +230,7 @@ s32 bwalkTryMoveUpwards(f32 amount)
 	return result;
 }
 
-bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 checktypes)
+bool bwalk_calculate_new_position(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 checktypes)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	f32 halfradius;
@@ -258,10 +258,10 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 	if (vel->x || vel->y || vel->z) {
 		if (g_Vars.currentplayer->tank) {
-			propSetPerimEnabled(g_Vars.currentplayer->tank, false);
+			prop_set_perim_enabled(g_Vars.currentplayer->tank, false);
 		}
 
-		propSetPerimEnabled(g_Vars.currentplayer->prop, false);
+		prop_set_perim_enabled(g_Vars.currentplayer->prop, false);
 
 		dstpos.x += vel->x;
 		dstpos.y += vel->y;
@@ -269,7 +269,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 
 		types = g_Vars.bondcollisions ? checktypes : CDTYPE_BG;
 
-		playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
+		player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 		radius += extrawidth;
 
 		func0f065dfc(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
@@ -285,7 +285,7 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		}
 #endif
 
-		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &dstpos, dstrooms);
+		bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &dstpos, dstrooms);
 
 		copyrooms = true;
 
@@ -297,29 +297,29 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		halfradius = radius * 0.5f;
 
 		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
-			result = cdExamCylMove06(&g_Vars.currentplayer->prop->pos,
+			result = cd_exam_cyl_move06(&g_Vars.currentplayer->prop->pos,
 					g_Vars.currentplayer->prop->rooms,
 					&dstpos, dstrooms, radius, types, 1,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = cdExamCylMove02(&g_Vars.currentplayer->prop->pos,
+				result = cd_exam_cyl_move02(&g_Vars.currentplayer->prop->pos,
 						&dstpos, radius, dstrooms, types, true,
 						ymax - g_Vars.currentplayer->prop->pos.y,
 						ymin - g_Vars.currentplayer->prop->pos.y);
 			}
 		} else {
-			result = cdExamCylMove02(&g_Vars.currentplayer->prop->pos,
+			result = cd_exam_cyl_move02(&g_Vars.currentplayer->prop->pos,
 					&dstpos, radius, sp64, types, true,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
 
-		propSetPerimEnabled(g_Vars.currentplayer->prop, true);
+		prop_set_perim_enabled(g_Vars.currentplayer->prop, true);
 
 		if (g_Vars.currentplayer->tank) {
-			propSetPerimEnabled(g_Vars.currentplayer->tank, true);
+			prop_set_perim_enabled(g_Vars.currentplayer->tank, true);
 		}
 	}
 
@@ -341,8 +341,8 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 		g_Vars.currentplayer->prop->pos.z = dstpos.z;
 
 		if (copyrooms) {
-			propDeregisterRooms(g_Vars.currentplayer->prop);
-			roomsCopy(dstrooms, g_Vars.currentplayer->prop->rooms);
+			prop_deregister_rooms(g_Vars.currentplayer->prop);
+			rooms_copy(dstrooms, g_Vars.currentplayer->prop->rooms);
 		}
 	}
 
@@ -351,12 +351,12 @@ bool bwalkCalculateNewPosition(struct coord *vel, f32 rotateamount, bool apply, 
 	return result;
 }
 
-bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
+bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
 {
-	s32 result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
+	s32 result = bwalk_calculate_new_position(delta, rotateamount, apply, extrawidth, types);
 
 	if (result != CDRESULT_NOCOLLISION) {
-		struct prop *obstacle = cdGetObstacleProp();
+		struct prop *obstacle = cd_get_obstacle_prop();
 
 		if (obstacle && g_Vars.lvupdate240 > 0) {
 			if (obstacle->type == PROPTYPE_DOOR) {
@@ -368,9 +368,9 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 				if (door->doorflags & DOORFLAG_DAMAGEONCONTACT) {
 					if (!g_Vars.currentplayer->isdead) {
 #if VERSION >= VERSION_NTSC_1_0
-						cdGetEdge(&sp84, &sp78, 465, "bondwalk.c");
+						cd_get_edge(&sp84, &sp78, 465, "bondwalk.c");
 #else
-						cdGetEdge(&sp84, &sp78, 460, "bondwalk.c");
+						cd_get_edge(&sp84, &sp78, 460, "bondwalk.c");
 #endif
 
 						sp90.x = sp78.f[2] - sp84.f[2];
@@ -383,10 +383,10 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 							sp90.z = 1;
 						}
 
-						chrDamageByLaser(g_Vars.currentplayer->prop->chr, 0.4f, &sp90, 0, g_Vars.currentplayer->prop);
+						chr_damage_by_laser(g_Vars.currentplayer->prop->chr, 0.4f, &sp90, 0, g_Vars.currentplayer->prop);
 
 						// Laser zap sound
-						sndStart(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
+						snd_start(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
 					}
 				}
 			} else if (obstacle->type == PROPTYPE_CHR) {
@@ -400,7 +400,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 				bool canpush = false;
 
 				if (g_Vars.normmplayerisrunning) {
-					if (chrCompareTeams(g_Vars.currentplayer->prop->chr, chr, COMPARE_FRIENDS)) {
+					if (chr_compare_teams(g_Vars.currentplayer->prop->chr, chr, COMPARE_FRIENDS)) {
 						// AI bot on same team
 						canpush = true;
 					}
@@ -434,18 +434,18 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 							newpos.y = obstacle->pos.y;
 							newpos.z = obstacle->pos.z + chr->pushspeed[1] * LVUPDATE60FREAL();
 
-							chrCalculatePushPos(chr, &newpos, newrooms, false);
+							chr_calculate_push_pos(chr, &newpos, newrooms, false);
 
 							obstacle->pos.x = newpos.x;
 							obstacle->pos.y = newpos.y;
 							obstacle->pos.z = newpos.z;
 
-							propDeregisterRooms(obstacle);
-							roomsCopy(newrooms, obstacle->rooms);
+							prop_deregister_rooms(obstacle);
+							rooms_copy(newrooms, obstacle->rooms);
 							chr0f0220ac(chr);
-							modelSetRootPosition(chr->model, &newpos);
+							model_set_root_position(chr->model, &newpos);
 
-							result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
+							result = bwalk_calculate_new_position(delta, rotateamount, apply, extrawidth, types);
 						}
 					}
 				}
@@ -473,7 +473,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 							if (obj->hidden & OBJHFLAG_PROJECTILE && (obj->projectile->flags & PROJECTILEFLAG_SLIDING)) {
 								bool somevalue;
 								bool embedded = false;
-								somevalue = projectileTick(obj, &embedded);
+								somevalue = projectile_tick(obj, &embedded);
 
 								if (obj->hidden & OBJHFLAG_PROJECTILE) {
 									obj->projectile->flags |= PROJECTILEFLAG_00001000;
@@ -486,7 +486,7 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 								}
 
 								if (somevalue) {
-									result = bwalkCalculateNewPosition(delta, rotateamount, apply, extrawidth, types);
+									result = bwalk_calculate_new_position(delta, rotateamount, apply, extrawidth, types);
 								}
 							}
 						}
@@ -501,13 +501,13 @@ bool bwalkCalculateNewPositionWithPush(struct coord *delta, f32 rotateamount, bo
 
 s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 types)
 {
-	s32 result = bwalkCalculateNewPositionWithPush(delta, 0, true, 0, types);
+	s32 result = bwalk_calculate_new_position_with_push(delta, 0, true, 0, types);
 
 	if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
-		cdGetEdge(arg1, arg2, 607, "bondwalk.c");
+		cd_get_edge(arg1, arg2, 607, "bondwalk.c");
 #else
-		cdGetEdge(arg1, arg2, 602, "bondwalk.c");
+		cd_get_edge(arg1, arg2, 602, "bondwalk.c");
 #endif
 	}
 
@@ -520,12 +520,12 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 	struct coord quarter;
 	bool result;
 
-	if (cd00024ea4()) {
-		f32 mult = cd00024e98();
+	if (cd_00024ea4()) {
+		f32 mult = cd_00024e98();
 		quarter.x = a->x * mult * 0.25f;
 		quarter.y = a->y * mult * 0.25f;
 		quarter.z = a->z * mult * 0.25f;
-		result = bwalkCalculateNewPositionWithPush(&quarter, 0, true, 0, types);
+		result = bwalk_calculate_new_position_with_push(&quarter, 0, true, 0, types);
 
 		if (result == CDRESULT_NOCOLLISION) {
 			return CDRESULT_NOCOLLISION;
@@ -533,9 +533,9 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 
 		if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
-			cdGetEdge(d, e, 635, "bondwalk.c");
+			cd_get_edge(d, e, 635, "bondwalk.c");
 #else
-			cdGetEdge(d, e, 630, "bondwalk.c");
+			cd_get_edge(d, e, 630, "bondwalk.c");
 #endif
 
 			if (b->x != d->x
@@ -574,7 +574,7 @@ s32 bwalk0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
 		sp2c.y = 0;
 		sp2c.z = sp38.z * tmp;
 
-		return bwalkCalculateNewPositionWithPush(&sp2c, 0, true, 0, types);
+		return bwalk_calculate_new_position_with_push(&sp2c, 0, true, 0, types);
 	}
 
 	return -1;
@@ -589,7 +589,7 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 	f32 tmp;
 	f32 radius;
 
-	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
+	player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
 	sp34.x = arg1->x - (g_Vars.currentplayer->prop->pos.x + arg0->f[0]);
 	sp34.z = arg1->z - (g_Vars.currentplayer->prop->pos.z + arg0->f[2]);
@@ -614,7 +614,7 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 			sp28.y = 0;
 			sp28.z = sp34.z;
 
-			if (bwalkCalculateNewPositionWithPush(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
+			if (bwalk_calculate_new_position_with_push(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
 				return true;
 			}
 		}
@@ -642,7 +642,7 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 				sp28.y = 0;
 				sp28.z = sp34.z;
 
-				if (bwalkCalculateNewPositionWithPush(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
+				if (bwalk_calculate_new_position_with_push(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
 					return true;
 				}
 			}
@@ -657,7 +657,7 @@ void bwalk0f0c4d98(void)
 	// empty
 }
 
-void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
+void bwalk_update_speed_sideways(f32 targetspeed, f32 accelspeed, s32 mult)
 {
 	if (g_Vars.normmplayerisrunning) {
 		targetspeed = (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
@@ -680,7 +680,7 @@ void bwalkUpdateSpeedSideways(f32 targetspeed, f32 accelspeed, s32 mult)
 	g_Vars.currentplayer->speedsideways = g_Vars.currentplayer->speedstrafe;
 }
 
-void bwalkUpdateSpeedForwards(f32 targetspeed, f32 accelspeed)
+void bwalk_update_speed_forwards(f32 targetspeed, f32 accelspeed)
 {
 	if (g_Vars.normmplayerisrunning) {
 		targetspeed = (g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.unk1c + 25.0f) / 100 * targetspeed;
@@ -703,7 +703,7 @@ void bwalkUpdateSpeedForwards(f32 targetspeed, f32 accelspeed)
 	g_Vars.currentplayer->speedforwards = g_Vars.currentplayer->speedgo;
 }
 
-void bwalkUpdateVertical(void)
+void bwalk_update_vertical(void)
 {
 	s32 i;
 	f32 newfallspeed;
@@ -734,7 +734,7 @@ void bwalkUpdateVertical(void)
 	struct defaultobj *obj;
 #endif
 
-	playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
+	player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
 #if VERSION >= VERSION_NTSC_1_0
 	// Maybe reset counter-op's radius - not sure why
@@ -742,7 +742,7 @@ void bwalkUpdateVertical(void)
 	if (g_Vars.antiplayernum >= 0
 			&& g_Vars.currentplayer == g_Vars.anti
 			&& g_Vars.currentplayer->bond2.radius != 30
-			&& cdTestVolume(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
+			&& cd_test_volume(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
 		g_Vars.currentplayer->prop->chr->radius = 30;
 		g_Vars.currentplayer->bond2.radius = 30;
 		radius = 30;
@@ -753,7 +753,7 @@ void bwalkUpdateVertical(void)
 	// If this comes up false, a second check is done... maybe checking if the
 	// player is touching a ladder from a room which shares the same coordinate
 	// space?
-	onladder = cdFindLadder(&g_Vars.currentplayer->prop->pos,
+	onladder = cd_find_ladder(&g_Vars.currentplayer->prop->pos,
 			radius * 1.2f, ymax - g_Vars.currentplayer->prop->pos.y,
 			g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y + 1,
 			g_Vars.currentplayer->prop->rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY,
@@ -763,9 +763,9 @@ void bwalkUpdateVertical(void)
 		testpos.x = g_Vars.currentplayer->prop->pos.x;
 		testpos.y = g_Vars.currentplayer->prop->pos.y - 10;
 		testpos.z = g_Vars.currentplayer->prop->pos.z;
-		roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
-		bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &testpos, rooms);
-		onladder2 = cdFindLadder(&g_Vars.currentplayer->prop->pos,
+		rooms_copy(g_Vars.currentplayer->prop->rooms, rooms);
+		bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &testpos, rooms);
+		onladder2 = cd_find_ladder(&g_Vars.currentplayer->prop->pos,
 				radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 				g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y - 10,
 				rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY, &g_Vars.currentplayer->laddernormal);
@@ -779,9 +779,9 @@ void bwalkUpdateVertical(void)
 		testpos.y -= g_Vars.currentplayer->crouchheight + g_Vars.currentplayer->crouchoffsetrealsmall;
 	}
 
-	roomsCopy(g_Vars.currentplayer->prop->rooms, rooms);
-	bmoveFindEnteredRoomsByPos(g_Vars.currentplayer, &testpos, rooms);
-	ground = cdFindGroundInfoAtCyl(&testpos, g_Vars.currentplayer->bond2.radius, rooms,
+	rooms_copy(g_Vars.currentplayer->prop->rooms, rooms);
+	bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &testpos, rooms);
+	ground = cd_find_ground_info_at_cyl(&testpos, g_Vars.currentplayer->bond2.radius, rooms,
 			&g_Vars.currentplayer->floorcol, &g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags, &g_Vars.currentplayer->floorroom,
 			&newinlift, &lift);
@@ -794,7 +794,7 @@ void bwalkUpdateVertical(void)
 #if PIRACYCHECKS
 	if (g_Vars.currentplayer->inlift && newinlift == false) {
 		// Exiting a lift
-		piracyRestore();
+		piracy_restore();
 	}
 #endif
 
@@ -817,7 +817,7 @@ void bwalkUpdateVertical(void)
 							|| lift == NULL
 							|| lift->obj == NULL
 							|| (lift->obj->flags & OBJFLAG_CHOPPER_INACTIVE) == 0
-							|| bwalkTryMoveUpwards(moveamount) == CDRESULT_NOCOLLISION) {
+							|| bwalk_try_move_upwards(moveamount) == CDRESULT_NOCOLLISION) {
 						// Going up
 						g_Vars.currentplayer->vv_manground += moveamount;
 						g_Vars.currentplayer->sumground = g_Vars.currentplayer->vv_manground / (PAL ? 0.054400026798248f : 0.045499980449677f);
@@ -847,11 +847,11 @@ void bwalkUpdateVertical(void)
 				(ground <= g_Vars.currentplayer->vv_manground &&
 				 ground <= g_Vars.currentplayer->vv_manground + g_Vars.currentplayer->ladderupdown)) {
 			// Still on ladder
-			if (bwalkTryMoveUpwards(g_Vars.currentplayer->ladderupdown) == CDRESULT_NOCOLLISION) {
+			if (bwalk_try_move_upwards(g_Vars.currentplayer->ladderupdown) == CDRESULT_NOCOLLISION) {
 				g_Vars.currentplayer->vv_manground += g_Vars.currentplayer->ladderupdown;
 			}
 		} else {
-			if (bwalkTryMoveUpwards(ground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
+			if (bwalk_try_move_upwards(ground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
 				g_Vars.currentplayer->vv_manground = ground;
 				onladder = false;
 			}
@@ -885,13 +885,13 @@ void bwalkUpdateVertical(void)
 				sumground = g_Vars.currentplayer->vv_ground - 50;
 			}
 
-			if (bwalkTryMoveUpwards(sumground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
+			if (bwalk_try_move_upwards(sumground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
 				g_Vars.currentplayer->vv_manground = sumground;
 			}
 #if VERSION >= VERSION_NTSC_1_0
 			else {
 				// Not enough room above. If on a hoverbike, blow it up
-				prop = cdGetObstacleProp();
+				prop = cd_get_obstacle_prop();
 
 				if (prop
 						&& g_Vars.currentplayer->prop->pos.y < prop->pos.y
@@ -901,7 +901,7 @@ void bwalkUpdateVertical(void)
 					if (obj->modelnum == MODEL_HOVBIKE) {
 						amount = (obj->maxdamage - obj->damage + 1) / 250.0f;
 						obj->flags &= ~OBJFLAG_INVINCIBLE;
-						objDamage(obj, amount, &obj->prop->pos, WEAPON_REMOTEMINE, -1);
+						obj_damage(obj, amount, &obj->prop->pos, WEAPON_REMOTEMINE, -1);
 					}
 				}
 			}
@@ -913,7 +913,7 @@ void bwalkUpdateVertical(void)
 				&& g_Vars.currentplayer->vv_manground - 20.0f < g_Vars.currentplayer->vv_ground
 				&& g_Vars.currentplayer->onladder == false
 				&& onladder2 == false) {
-			playerDie(true);
+			player_die(true);
 		}
 	}
 
@@ -922,7 +922,7 @@ void bwalkUpdateVertical(void)
 		fallspeed = g_Vars.currentplayer->bdeltapos.y;
 		newmanground = g_Vars.currentplayer->vv_manground;
 
-		if (debugIsTurboModeEnabled()
+		if (debug_is_turbo_mode_enabled()
 				&& g_Vars.currentplayer->bondforcespeed.x == 0
 				&& g_Vars.currentplayer->bondforcespeed.z == 0) {
 			multiplier = 0.277777777f * 5;
@@ -944,7 +944,7 @@ void bwalkUpdateVertical(void)
 			fallspeed = -fallspeed;
 		}
 
-		if (bwalkTryMoveUpwards(newmanground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
+		if (bwalk_try_move_upwards(newmanground - g_Vars.currentplayer->vv_manground) == CDRESULT_NOCOLLISION) {
 			// Falling
 			g_Vars.currentplayer->vv_manground = newmanground;
 			g_Vars.currentplayer->bdeltapos.y = fallspeed;
@@ -956,7 +956,7 @@ void bwalkUpdateVertical(void)
 			} else {
 				if (g_Vars.lvframe60 - g_Vars.currentplayer->fallstart > TICKS(240)) {
 					// Have been falling for 4 seconds
-					playerDie(true);
+					player_die(true);
 				}
 			}
 		} else {
@@ -966,24 +966,24 @@ void bwalkUpdateVertical(void)
 					&& g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 30) {
 				// Not falling - but still at least 30 units off the ground.
 				// Must be something in the way...
-				prop = cdGetObstacleProp();
+				prop = cd_get_obstacle_prop();
 
 				if (prop) {
 					if (prop->type == PROPTYPE_CHR) {
 						// Landed on top of a chr
 						if (prop->chr->inlift) {
-							chrYeetFromPos(prop->chr, &g_Vars.currentplayer->prop->pos, 0);
+							chr_yeet_from_pos(prop->chr, &g_Vars.currentplayer->prop->pos, 0);
 						}
 					} else if (prop->type == PROPTYPE_PLAYER) {
 						// Landed on top of a player
 						u32 prevplayernum = g_Vars.currentplayernum;
-						setCurrentPlayerNum(playermgrGetPlayerNumByProp(prop));
+						set_current_player_num(playermgr_get_player_num_by_prop(prop));
 
 						if (g_Vars.currentplayer->inlift) {
-							playerDieByShooter(prevplayernum, true);
+							player_die_by_shooter(prevplayernum, true);
 						}
 
-						setCurrentPlayerNum(prevplayernum);
+						set_current_player_num(prevplayernum);
 					}
 				}
 			}
@@ -996,7 +996,7 @@ void bwalkUpdateVertical(void)
 			}
 
 			if (g_Vars.currentplayer->vv_manground <= -30000) {
-				playerDie(true);
+				player_die(true);
 			}
 		}
 	} else {
@@ -1006,7 +1006,7 @@ void bwalkUpdateVertical(void)
 		}
 
 		if (g_Vars.currentplayer->vv_manground <= -30000) {
-			playerDie(true);
+			player_die(true);
 		}
 	}
 
@@ -1036,19 +1036,19 @@ void bwalkUpdateVertical(void)
 			chr->floortype = g_Vars.currentplayer->floortype;
 			chr->footstep = 1;
 
-			sound = footstepChooseSound(chr, true);
+			sound = footstep_choose_sound(chr, true);
 
 			if (sound != -1) {
 				if (sound != -1) {
-					psCreate(NULL, g_Vars.currentplayer->prop, sound,
+					ps_create(NULL, g_Vars.currentplayer->prop, sound,
 							-1, -1, PSFLAG_0400 | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
 				}
 
 				chr->footstep = 2;
-				sound = footstepChooseSound(chr, true);
+				sound = footstep_choose_sound(chr, true);
 
 				if (sound != -1) {
-					psCreate(NULL, g_Vars.currentplayer->prop, sound,
+					ps_create(NULL, g_Vars.currentplayer->prop, sound,
 							-1, -1, PSFLAG_0400 | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
 				}
 			}
@@ -1063,7 +1063,7 @@ void bwalkUpdateVertical(void)
 					SFX_JO_LANDING_05B7
 				};
 
-				psCreate(NULL, g_Vars.currentplayer->prop, sounds[random() % 3],
+				ps_create(NULL, g_Vars.currentplayer->prop, sounds[random() % 3],
 						-1, -1, PSFLAG_0400 | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
 			}
 		}
@@ -1128,23 +1128,23 @@ void bwalkUpdateVertical(void)
 		g_Vars.currentplayer->prop->pos.y = newpos.y;
 		g_Vars.currentplayer->prop->pos.z = newpos.z;
 
-		propDeregisterRooms(g_Vars.currentplayer->prop);
-		roomsCopy(newrooms, g_Vars.currentplayer->prop->rooms);
+		prop_deregister_rooms(g_Vars.currentplayer->prop);
+		rooms_copy(newrooms, g_Vars.currentplayer->prop->rooms);
 	}
 }
 
-void bwalkApplyCrouchSpeed(void)
+void bwalk_apply_crouch_speed(void)
 {
-	if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
+	if (bmove_get_crouch_pos() == CROUCHPOS_DUCK) {
 		g_Vars.currentplayer->speedforwards *= 0.5f;
 		g_Vars.currentplayer->speedsideways *= 0.5f;
-	} else if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
+	} else if (bmove_get_crouch_pos() == CROUCHPOS_SQUAT) {
 		g_Vars.currentplayer->speedforwards *= 0.35f;
 		g_Vars.currentplayer->speedsideways *= 0.35f;
 	}
 }
 
-void bwalkUpdateCrouchOffsetReal(void)
+void bwalk_update_crouch_offset_real(void)
 {
 	if (g_Vars.currentplayer->vv_eyeheight + -90.0f * g_Vars.currentplayer->vv_eyeheight * (1.0f / 159.0f) < 69.0f) {
 		g_Vars.currentplayer->crouchoffsetreal = g_Vars.currentplayer->crouchoffset * ((69.0f - g_Vars.currentplayer->vv_eyeheight) / -90.0f);
@@ -1152,7 +1152,7 @@ void bwalkUpdateCrouchOffsetReal(void)
 		g_Vars.currentplayer->crouchoffsetreal = g_Vars.currentplayer->crouchoffset * g_Vars.currentplayer->vv_eyeheight * (1.0f / 159.0f);
 	}
 
-	if (cheatIsActive(CHEAT_SMALLJO)) {
+	if (cheat_is_active(CHEAT_SMALLJO)) {
 		g_Vars.currentplayer->crouchoffsetsmall = 69.0f - g_Vars.currentplayer->vv_eyeheight;
 		g_Vars.currentplayer->crouchoffsetrealsmall = 69.0f - g_Vars.currentplayer->vv_eyeheight;
 	} else {
@@ -1161,15 +1161,15 @@ void bwalkUpdateCrouchOffsetReal(void)
 	}
 }
 
-void bwalkUpdateCrouchOffset(void)
+void bwalk_update_crouch_offset(void)
 {
 	f32 targetoffset = 0;
 
-	if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
+	if (bmove_get_crouch_pos() == CROUCHPOS_SQUAT) {
 		targetoffset = -90;
-	} else if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
+	} else if (bmove_get_crouch_pos() == CROUCHPOS_DUCK) {
 		targetoffset = -45;
-	} else if (bmoveGetCrouchPos() == CROUCHPOS_STAND) {
+	} else if (bmove_get_crouch_pos() == CROUCHPOS_STAND) {
 		// empty
 	}
 
@@ -1180,19 +1180,19 @@ void bwalkUpdateCrouchOffset(void)
 		f32 prevcrouchoffsetrealsmall = g_Vars.currentplayer->crouchoffsetrealsmall;
 
 		// f32 *frac, f32 maxfrac, f32 *fracspeed, f32 accel, f32 decel, f32 maxspeed
-		applySpeed(&g_Vars.currentplayer->crouchoffset, targetoffset,
+		apply_speed(&g_Vars.currentplayer->crouchoffset, targetoffset,
 				&g_Vars.currentplayer->crouchspeed, PALUPF(0.5f), PALUPF(0.5f), PALUPF(5.0f));
 
-		bwalkUpdateCrouchOffsetReal();
+		bwalk_update_crouch_offset_real();
 
-		if (bwalkTryMoveUpwards(0) == CDRESULT_COLLISION) {
+		if (bwalk_try_move_upwards(0) == CDRESULT_COLLISION) {
 			// Crouch adjustment is blocked by ceiling
 			g_Vars.currentplayer->crouchoffset = prevcrouchoffset;
 			g_Vars.currentplayer->crouchoffsetreal = prevcrouchoffsetreal;
 			g_Vars.currentplayer->crouchoffsetsmall = prevcrouchoffsetsmall;
 			g_Vars.currentplayer->crouchoffsetrealsmall = prevcrouchoffsetrealsmall;
 			g_Vars.currentplayer->crouchspeed = 0;
-			bwalkAdjustCrouchPos(-1);
+			bwalk_adjust_crouch_pos(-1);
 		}
 	}
 
@@ -1203,7 +1203,7 @@ void bwalkUpdateCrouchOffset(void)
 	g_Vars.currentplayer->guncloseroffset = g_Vars.currentplayer->crouchoffset / -90;
 }
 
-void bwalkUpdateTheta(void)
+void bwalk_update_theta(void)
 {
 	f32 mult;
 	f32 rotateamount;
@@ -1214,7 +1214,7 @@ void bwalkUpdateTheta(void)
 	rotateamount = g_Vars.currentplayer->speedtheta * mult
 		* g_Vars.lvupdate60freal * 0.0174505133f * 3.5f;
 
-	bwalkCalculateNewPositionWithPush(&delta, rotateamount, true, 0, CDTYPE_ALL);
+	bwalk_calculate_new_position_with_push(&delta, rotateamount, true, 0, CDTYPE_ALL);
 }
 
 void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
@@ -1263,50 +1263,50 @@ void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
 	bwalk0f0c4d98();
 }
 
-void bwalkUpdatePrevPos(void)
+void bwalk_update_prev_pos(void)
 {
 	g_Vars.currentplayer->bondprevpos.x = g_Vars.currentplayer->prop->pos.x;
 	g_Vars.currentplayer->bondprevpos.y = g_Vars.currentplayer->prop->pos.y;
 	g_Vars.currentplayer->bondprevpos.z = g_Vars.currentplayer->prop->pos.z;
 
-	roomsCopy(g_Vars.currentplayer->prop->rooms, g_Vars.currentplayer->bondprevrooms);
+	rooms_copy(g_Vars.currentplayer->prop->rooms, g_Vars.currentplayer->bondprevrooms);
 }
 
-void bwalkHandleActivate(void)
+void bwalk_handle_activate(void)
 {
 	if (g_Vars.currentplayer->walkinitmove) {
 		g_Vars.currentplayer->bondactivateorreload = 0;
 	}
 }
 
-void bwalkApplyMoveData(struct movedata *data)
+void bwalk_apply_move_data(struct movedata *data)
 {
 	if (g_Vars.currentplayer->walkinitmove == false) {
 		// Sideways
 		if (data->digitalstepleft) {
-			bwalkUpdateSpeedSideways(-1, 0.2f, data->digitalstepleft);
+			bwalk_update_speed_sideways(-1, 0.2f, data->digitalstepleft);
 		} else if (data->digitalstepright) {
-			bwalkUpdateSpeedSideways(1, 0.2f, data->digitalstepright);
+			bwalk_update_speed_sideways(1, 0.2f, data->digitalstepright);
 		} else if (data->unk14 == false) {
-			bwalkUpdateSpeedSideways(0, 0.2f, g_Vars.lvupdate60);
+			bwalk_update_speed_sideways(0, 0.2f, g_Vars.lvupdate60);
 		}
 
 		if (data->unk14) {
-			bwalkUpdateSpeedSideways(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate60);
+			bwalk_update_speed_sideways(data->analogstrafe * 0.014285714365542f, 0.2f, g_Vars.lvupdate60);
 		}
 
 		// Forward/back
 		if (data->digitalstepforward) {
-			bwalkUpdateSpeedForwards(1, 1);
+			bwalk_update_speed_forwards(1, 1);
 			g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
 		} else if (data->digitalstepback) {
-			bwalkUpdateSpeedForwards(-1, 1);
+			bwalk_update_speed_forwards(-1, 1);
 		} else if (data->canlookahead == false) {
-			bwalkUpdateSpeedForwards(0, 1);
+			bwalk_update_speed_forwards(0, 1);
 		}
 
 		if (data->canlookahead) {
-			bwalkUpdateSpeedForwards(data->analogwalk * 0.014285714365542f, 1);
+			bwalk_update_speed_forwards(data->analogwalk * 0.014285714365542f, 1);
 
 			if (data->analogwalk > 60) {
 				g_Vars.currentplayer->speedmaxtime60 += g_Vars.lvupdate60;
@@ -1336,35 +1336,35 @@ void bwalkApplyMoveData(struct movedata *data)
 		g_Vars.currentplayer->speedforwards *= g_Vars.currentplayer->speedboost;
 
 		if ((data->canlookahead == false && data->digitalstepforward == false) ||
-				bmoveGetCrouchPos() != CROUCHPOS_STAND) {
+				bmove_get_crouch_pos() != CROUCHPOS_STAND) {
 			g_Vars.currentplayer->speedmaxtime60 = 0;
 		}
 
 		if (data->rleanleft) {
-			bwalkSetSwayTarget(-1);
+			bwalk_set_sway_target(-1);
 		} else if (data->rleanright) {
-			bwalkSetSwayTarget(1);
+			bwalk_set_sway_target(1);
 		} else {
-			bwalkSetSwayTarget(0);
+			bwalk_set_sway_target(0);
 		}
 
 		while (data->crouchdown-- > 0) {
-			bwalkAdjustCrouchPos(-1);
+			bwalk_adjust_crouch_pos(-1);
 		}
 
 		while (data->crouchup-- > 0) {
-			bwalkAdjustCrouchPos(1);
+			bwalk_adjust_crouch_pos(1);
 		}
 
 		g_Vars.currentplayer->eyesshut = data->eyesshut;
 	}
 }
 
-void bwalkUpdateSpeedTheta(void)
+void bwalk_update_speed_theta(void)
 {
-	if (bmoveGetCrouchPos() == CROUCHPOS_SQUAT) {
+	if (bmove_get_crouch_pos() == CROUCHPOS_SQUAT) {
 		g_Vars.currentplayer->speedtheta *= 0.5f;
-	} else if (bmoveGetCrouchPos() == CROUCHPOS_DUCK) {
+	} else if (bmove_get_crouch_pos() == CROUCHPOS_DUCK) {
 		g_Vars.currentplayer->speedtheta *= 0.75f;
 	}
 }
@@ -1416,7 +1416,7 @@ void bwalk0f0c69b8(void)
 
 	spc0 = g_Vars.currentplayer->vv_eyeheight - 159;
 
-	if (invHasBriefcase() && ((g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE || g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE))) {
+	if (inv_has_briefcase() && ((g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE || g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE))) {
 		spc0 = -63.600006f;
 	}
 
@@ -1427,7 +1427,7 @@ void bwalk0f0c69b8(void)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (cheatIsActive(CHEAT_SMALLJO)) {
+	if (cheat_is_active(CHEAT_SMALLJO)) {
 		spc0 *= 0.4f;
 	}
 #endif
@@ -1442,15 +1442,15 @@ void bwalk0f0c69b8(void)
 
 		g_Vars.currentplayer->walkinitt2 = 1.0f - (cosf(g_Vars.currentplayer->walkinitt * M_BADPI) + 1.0f) * 0.5f;
 
-		bmoveUpdateHead(0.0f, 0.0f, 0.0f, &g_Vars.currentplayer->walkinitmtx, 1.0f - g_Vars.currentplayer->walkinitt2);
+		bmove_update_head(0.0f, 0.0f, 0.0f, &g_Vars.currentplayer->walkinitmtx, 1.0f - g_Vars.currentplayer->walkinitt2);
 
 		g_Vars.currentplayer->gunspeed = 0.0f;
 
-		bmoveUpdateMoveInitSpeed(&spcc);
-		bwalkCalculateNewPositionWithPush(&spcc, 0.0f, true, 0.0f, CDTYPE_ALL);
+		bmove_update_move_init_speed(&spcc);
+		bwalk_calculate_new_position_with_push(&spcc, 0.0f, true, 0.0f, CDTYPE_ALL);
 	} else {
-		bwalkApplyCrouchSpeed();
-		bwalkUpdateCrouchOffset();
+		bwalk_apply_crouch_speed();
+		bwalk_update_crouch_offset();
 
 		bmove0f0cba88(&spc8, &spc4,
 				&g_Vars.currentplayer->bondshotspeed,
@@ -1547,7 +1547,7 @@ void bwalk0f0c69b8(void)
 		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * mult;
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (cheatIsActive(CHEAT_SMALLJO)) {
+		if (cheat_is_active(CHEAT_SMALLJO)) {
 			spe0 /= 0.4f;
 		}
 #endif
@@ -1560,7 +1560,7 @@ void bwalk0f0c69b8(void)
 		spd8 = g_Vars.currentplayer->headpos.z;
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (cheatIsActive(CHEAT_SMALLJO)) {
+		if (cheat_is_active(CHEAT_SMALLJO)) {
 			spdc *= 0.4f;
 		}
 #endif
@@ -1570,9 +1570,9 @@ void bwalk0f0c69b8(void)
 		spcc.f[0] += spb4;
 		spcc.f[2] += spb0;
 
-		bmoveUpdateMoveInitSpeed(&spcc);
+		bmove_update_move_init_speed(&spcc);
 
-		if (debugIsTurboModeEnabled()) {
+		if (debug_is_turbo_mode_enabled()) {
 			spcc.f[0] += (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedforwards - g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
 			spcc.f[2] += (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedforwards + g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
 		}
@@ -1593,9 +1593,9 @@ void bwalk0f0c69b8(void)
 					spcc.f[2] += sp74 * g_Vars.currentplayer->laddernormal.f[2];
 					g_Vars.currentplayer->ladderupdown = sp74 * 0.3f;
 				} else {
-					playerGetBbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
+					player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
-					if (!cd0002a13c(&g_Vars.currentplayer->prop->pos,
+					if (!cd_0002a13c(&g_Vars.currentplayer->prop->pos,
 							radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 							(g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y) + 1.0f,
 							g_Vars.currentplayer->prop->rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY)) {
@@ -1720,7 +1720,7 @@ void bwalk0f0c69b8(void)
 	sp40 = g_Vars.currentplayer->speedverta / 0.7f + g_Vars.currentplayer->crouchspeed / PALUPF(5.0f);
 	sp3c = g_Vars.currentplayer->gunspeed;
 
-	breathing = bheadGetBreathingValue();
+	breathing = bhead_get_breathing_value();
 
 	if (sp40 > 1.0f) {
 		sp40 = 1.0f;
@@ -1733,16 +1733,16 @@ void bwalk0f0c69b8(void)
 	}
 
 	bgun0f09d8dc(breathing, sp3c, sp40, sp44, 0.0f);
-	bgunSetAdjustPos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
+	bgun_set_adjust_pos(g_Vars.currentplayer->vv_verta360 * 0.017450513318181f);
 }
 
-void bwalkTick(void)
+void bwalk_tick(void)
 {
-	bwalkUpdatePrevPos();
-	bwalkUpdateTheta();
-	bmoveUpdateVerta();
+	bwalk_update_prev_pos();
+	bwalk_update_theta();
+	bmove_update_verta();
 	bwalk0f0c69b8();
-	bwalkUpdateVertical();
+	bwalk_update_vertical();
 
 #if VERSION >= VERSION_NTSC_1_0
 	{
@@ -1750,7 +1750,7 @@ void bwalkTick(void)
 
 		for (i = 0; g_Vars.currentplayer->prop->rooms[i] != -1; i++) {
 			if (g_Vars.currentplayer->floorroom == g_Vars.currentplayer->prop->rooms[i]) {
-				propDeregisterRooms(g_Vars.currentplayer->prop);
+				prop_deregister_rooms(g_Vars.currentplayer->prop);
 				g_Vars.currentplayer->prop->rooms[0] = g_Vars.currentplayer->floorroom;
 				g_Vars.currentplayer->prop->rooms[1] = -1;
 				break;
@@ -1759,8 +1759,8 @@ void bwalkTick(void)
 	}
 #endif
 
-	bmoveUpdateRooms(g_Vars.currentplayer);
-	objectiveCheckRoomEntered(g_Vars.currentplayer->prop->rooms[0]);
+	bmove_update_rooms(g_Vars.currentplayer);
+	objective_check_room_entered(g_Vars.currentplayer->prop->rooms[0]);
 
 	if (g_Vars.currentplayer->walkinitmove) {
 		struct coord coord;
@@ -1778,6 +1778,6 @@ void bwalkTick(void)
 		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
 	}
 
-	playerUpdatePerimInfo();
-	doorsCheckAutomatic();
+	player_update_perim_info();
+	doors_check_automatic();
 }

@@ -27,7 +27,7 @@ void cam0f0b4950(void)
 	// empty
 }
 
-void camSetScreenSize(f32 width, f32 height)
+void cam_set_screen_size(f32 width, f32 height)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -37,7 +37,7 @@ void camSetScreenSize(f32 width, f32 height)
 	player->c_halfheight = height * 0.5f;
 }
 
-void camSetScreenPosition(f32 left, f32 top)
+void cam_set_screen_position(f32 left, f32 top)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -45,7 +45,7 @@ void camSetScreenPosition(f32 left, f32 top)
 	player->c_screentop = top;
 }
 
-void camSetPerspective(f32 near, f32 fovy, f32 aspect)
+void cam_set_perspective(f32 near, f32 fovy, f32 aspect)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -66,7 +66,7 @@ f32 cam0f0b49b8(f32 arg0)
 	return result;
 }
 
-void camSetScale(void)
+void cam_set_scale(void)
 {
 	struct player *player = g_Vars.currentplayer;
 	f32 fVar4;
@@ -179,57 +179,57 @@ void cam0f0b4eb8(struct coord *arg0, f32 arg1[2], f32 zoom, f32 aspect)
 	arg1[0] = player->c_screenleft + player->c_halfwidth - f14 * arg0->f[0];
 }
 
-void camSetMtxL1738(Mtx *mtx)
+void cam_set_mtxl1738(Mtx *mtx)
 {
 	g_Vars.currentplayer->mtxl1738 = mtx;
 }
 
-Mtx *camGetMtxL1738(void)
+Mtx *cam_get_mtxl1738(void)
 {
 	return g_Vars.currentplayer->mtxl1738;
 }
 
-void camSetMtxL173c(Mtx *mtx)
+void cam_set_mtxl173c(Mtx *mtx)
 {
 	g_Vars.currentplayer->mtxl173c = mtx;
 }
 
-Mtx *camGetMtxL173c(void)
+Mtx *cam_get_mtxl173c(void)
 {
 	return g_Vars.currentplayer->mtxl173c;
 }
 
-void camSetMtxF006c(Mtxf *mtx)
+void cam_set_mtxf006c(Mtxf *mtx)
 {
 	g_Vars.currentplayer->mtxf006c = mtx;
 }
 
-Mtxf *camGetMtxF006c(void)
+Mtxf *cam_get_mtxf006c(void)
 {
 	return g_Vars.currentplayer->mtxf006c;
 }
 
-void camSetPerspectiveMtxL(Mtx *mtx)
+void cam_set_perspective_mtxl(Mtx *mtx)
 {
 	g_Vars.currentplayer->perspmtxl = mtx;
 }
 
-Mtx *camGetPerspectiveMtxL(void)
+Mtx *cam_get_perspective_mtxl(void)
 {
 	return g_Vars.currentplayer->perspmtxl;
 }
 
-void camSetOrthogonalMtxL(Mtx *mtx)
+void cam_set_orthogonal_mtxl(Mtx *mtx)
 {
 	g_Vars.currentplayer->orthomtxl = mtx;
 }
 
-Mtx *camGetOrthogonalMtxL(void)
+Mtx *cam_get_orthogonal_mtxl(void)
 {
 	return g_Vars.currentplayer->orthomtxl;
 }
 
-void camSetWorldToScreenMtxf(Mtxf *mtx)
+void cam_set_world_to_screen_mtxf(Mtxf *mtx)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -247,7 +247,7 @@ Mtxf *cam0f0b5050(u8 *arg0)
 
 	if (arg0 >= g_VtxBuffers[g_GfxActiveBufferIndex] && arg0 < g_VtxBuffers[g_GfxActiveBufferIndex + 1]) {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
-			if (g_Vars.currentplayerindex >= playermgrGetOrderOfPlayer(i)) {
+			if (g_Vars.currentplayerindex >= playermgr_get_order_of_player(i)) {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_viewfmdynticknum) {
 					if (arg0 >= g_Vars.players[i]->unk0484 && (u8 *)result < g_Vars.players[i]->unk0484) {
 						result = g_Vars.players[i]->worldtoscreenmtx;
@@ -257,7 +257,7 @@ Mtxf *cam0f0b5050(u8 *arg0)
 		}
 	} else {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
-			if (g_Vars.currentplayerindex >= playermgrGetOrderOfPlayer(i)) {
+			if (g_Vars.currentplayerindex >= playermgr_get_order_of_player(i)) {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_prevviewfmdynticknum + 1) {
 					if (arg0 >= g_Vars.players[i]->unk0488 && (u8 *)result < g_Vars.players[i]->unk0488) {
 						result = g_Vars.players[i]->prevworldtoscreenmtx;
@@ -283,7 +283,7 @@ Mtxf *cam0f0b53a4(u8 *arg0)
 
 	if (arg0 >= g_VtxBuffers[g_GfxActiveBufferIndex] && arg0 < g_VtxBuffers[g_GfxActiveBufferIndex + 1]) {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
-			if (g_Vars.currentplayerindex >= playermgrGetOrderOfPlayer(i)) {
+			if (g_Vars.currentplayerindex >= playermgr_get_order_of_player(i)) {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_viewfmdynticknum) {
 					if (arg0 >= g_Vars.players[i]->unk0484 && (u8 *)result < g_Vars.players[i]->unk0484) {
 						result = g_Vars.players[i]->projectionmtx;
@@ -293,7 +293,7 @@ Mtxf *cam0f0b53a4(u8 *arg0)
 		}
 	} else {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
-			if (g_Vars.currentplayerindex >= playermgrGetOrderOfPlayer(i)) {
+			if (g_Vars.currentplayerindex >= playermgr_get_order_of_player(i)) {
 				if (g_GfxNumSwaps == g_Vars.players[i]->c_prevviewfmdynticknum + 1) {
 					if (arg0 >= g_Vars.players[i]->unk0488 && (u8 *)result < g_Vars.players[i]->unk0488) {
 						result = g_Vars.players[i]->prevprojectionmtx;
@@ -312,37 +312,37 @@ Mtxf *cam0f0b53a4(u8 *arg0)
 	return result;
 }
 
-Mtxf *camGetWorldToScreenMtxf(void)
+Mtxf *cam_get_world_to_screen_mtxf(void)
 {
 	return g_Vars.currentplayer->worldtoscreenmtx;
 }
 
-void camSetMtxF1754(Mtxf *mtx)
+void cam_set_mtxf1754(Mtxf *mtx)
 {
 	g_Vars.currentplayer->mtxf1754 = mtx;
 }
 
-Mtxf *camGetMtxF1754(void)
+Mtxf *cam_get_mtxf1754(void)
 {
 	return g_Vars.currentplayer->mtxf1754;
 }
 
-Mtxf *camGetPrevWorldToScreenMtxf(void)
+Mtxf *cam_get_prev_world_to_screen_mtxf(void)
 {
 	return g_Vars.currentplayer->prevworldtoscreenmtx;
 }
 
-void camSetMtxF1748(Mtxf *mtx)
+void cam_set_mtxf1748(Mtxf *mtx)
 {
 	g_Vars.currentplayer->mtxf1748 = mtx;
 }
 
-Mtxf *camGetMtxF1748(void)
+Mtxf *cam_get_mtxf1748(void)
 {
 	return g_Vars.currentplayer->mtxf1748;
 }
 
-void camSetProjectionMtxF(Mtxf *mtx)
+void cam_set_projection_mtxf(Mtxf *mtx)
 {
 	struct player *player = g_Vars.currentplayer;
 
@@ -351,62 +351,62 @@ void camSetProjectionMtxF(Mtxf *mtx)
 	player->projectionmtx = mtx;
 }
 
-Mtxf *camGetProjectionMtxF(void)
+Mtxf *cam_get_projection_mtxf(void)
 {
 	return g_Vars.currentplayer->projectionmtx;
 }
 
-Mtxf *camGetPrevProjectionMtxF(void)
+Mtxf *cam_get_prev_projection_mtxf(void)
 {
 	return g_Vars.currentplayer->prevprojectionmtx;
 }
 
-void camSetLookAt(LookAt *lookat)
+void cam_set_look_at(LookAt *lookat)
 {
 	g_Vars.currentplayer->lookat = lookat;
 }
 
-LookAt *camGetLookAt(void)
+LookAt *cam_get_look_at(void)
 {
 	return g_Vars.currentplayer->lookat;
 }
 
-f32 camGetLodScaleZ(void)
+f32 cam_get_lod_scale_z(void)
 {
 	return g_Vars.currentplayer->c_lodscalez;
 }
 
-u32 camGetLodScaleZU32(void)
+u32 cam_get_lod_scale_z_u32(void)
 {
 	return g_Vars.currentplayer->c_lodscalezu32;
 }
 
-f32 camGetScreenWidth(void)
+f32 cam_get_screen_width(void)
 {
 	return g_Vars.currentplayer->c_screenwidth;
 }
 
-f32 camGetScreenHeight(void)
+f32 cam_get_screen_height(void)
 {
 	return g_Vars.currentplayer->c_screenheight;
 }
 
-f32 camGetScreenLeft(void)
+f32 cam_get_screen_left(void)
 {
 	return g_Vars.currentplayer->c_screenleft;
 }
 
-f32 camGetScreenTop(void)
+f32 cam_get_screen_top(void)
 {
 	return g_Vars.currentplayer->c_screentop;
 }
 
-f32 camGetPerspFovY(void)
+f32 cam_get_persp_fov_y(void)
 {
 	return g_Vars.currentplayer->c_perspfovy;
 }
 
-f32 camGetPerspAspect(void)
+f32 cam_get_persp_aspect(void)
 {
 	return g_Vars.currentplayer->c_perspaspect;
 }
@@ -494,7 +494,7 @@ bool cam0f0b5b9c(struct coord *arg0, f32 arg1)
 	return true;
 }
 
-bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct drawslot *drawslot)
+bool cam_is_pos_in_screen_box(struct coord *pos, f32 arg1, struct drawslot *drawslot)
 {
 	struct coord sp74;
 	f32 sp70;
@@ -585,16 +585,16 @@ bool camIsPosInScreenBox(struct coord *pos, f32 arg1, struct drawslot *drawslot)
 
 /**
  * This function is building a drawslot on the stack so it can pass it to
- * camIsPosInScreenBox, however if we allocate this struct then it uses too much
+ * cam_is_pos_in_screen_box, however if we allocate this struct then it uses too much
  * stack and creates a mismatch.
  *
  * We resolve this by allocating a screenbox instead, which is a substruct of
  * drawslot and is all we need in this function. screenbox isn't at the
  * start of drawslot though, so we use a negative array index to pass the
- * correct address to camIsPosInScreenBox so it can interpret the pointer as a
+ * correct address to cam_is_pos_in_screen_box so it can interpret the pointer as a
  * drawslot.
  */
-bool camIsPosInFovAndVisibleRoom(RoomNum *rooms, struct coord *pos, f32 arg2)
+bool cam_is_pos_in_fov_and_visible_room(RoomNum *rooms, struct coord *pos, f32 arg2)
 {
 	s32 i;
 	RoomNum room;
@@ -604,7 +604,7 @@ bool camIsPosInFovAndVisibleRoom(RoomNum *rooms, struct coord *pos, f32 arg2)
 
 	for (i = 0, room = rooms[i]; room != -1; i++, room = rooms[i]) {
 		if (g_Rooms[room].flags & ROOMFLAG_ONSCREEN) {
-			thisthing = bgGetRoomDrawSlot(room);
+			thisthing = bg_get_room_draw_slot(room);
 
 			if (hasdata == false) {
 				box.xmin = thisthing->box.xmin;
@@ -637,5 +637,5 @@ bool camIsPosInFovAndVisibleRoom(RoomNum *rooms, struct coord *pos, f32 arg2)
 		return false;
 	}
 
-	return camIsPosInScreenBox(pos, arg2, (struct drawslot *) &(((u8 *) &box)[-((uintptr_t) &(((struct drawslot *)0)->box))]));
+	return cam_is_pos_in_screen_box(pos, arg2, (struct drawslot *) &(((u8 *) &box)[-((uintptr_t) &(((struct drawslot *)0)->box))]));
 }

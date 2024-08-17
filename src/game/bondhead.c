@@ -16,12 +16,12 @@ struct headanim g_HeadAnims[] = {
 	{ ANIM_0029, 7.5, 17, 0, 1.5, 100 },
 };
 
-void bheadFlipAnimation(void)
+void bhead_flip_animation(void)
 {
 	g_Vars.currentplayer->model.anim->flip = !g_Vars.currentplayer->model.anim->flip;
 }
 
-void bheadUpdateIdleRoll(void)
+void bhead_update_idle_roll(void)
 {
 	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].x = (RANDOMFRAC() - 0.5f) * 0.02f;
 	g_Vars.currentplayer->standlook[g_Vars.currentplayer->standcnt].z = 1;
@@ -39,7 +39,7 @@ void bheadUpdateIdleRoll(void)
 	g_Vars.currentplayer->standcnt = 1 - g_Vars.currentplayer->standcnt;
 }
 
-void bheadUpdatePos(struct coord *vel)
+void bhead_update_pos(struct coord *vel)
 {
 	s32 i;
 
@@ -62,7 +62,7 @@ void bheadUpdatePos(struct coord *vel)
 	g_Vars.currentplayer->headpos.z = g_Vars.currentplayer->headpossum.z * (PAL ? 0.021499991416931f : 0.018000006f);
 }
 
-void bheadUpdateRot(struct coord *lookvel, struct coord *upvel)
+void bhead_update_rot(struct coord *lookvel, struct coord *upvel)
 {
 	s32 i;
 
@@ -94,7 +94,7 @@ void bheadUpdateRot(struct coord *lookvel, struct coord *upvel)
 	g_Vars.currentplayer->headup.z = g_Vars.currentplayer->headupsum.z * (1.0f - g_Vars.currentplayer->headdamp);
 }
 
-void bheadSetDamp(f32 headdamp)
+void bhead_set_damp(f32 headdamp)
 {
 	if (headdamp != g_Vars.currentplayer->headdamp) {
 		f32 divisor = 1.0f - headdamp;
@@ -108,15 +108,15 @@ void bheadSetDamp(f32 headdamp)
 	}
 }
 
-void bheadUpdate(f32 arg0, f32 arg1)
+void bhead_update(f32 arg0, f32 arg1)
 {
 	struct coord headpos = {0, 0, 0};
 	struct coord lookvel = {0, 0, 1};
 	struct coord upvel = {0, 1, 0};
 	f32 animspeed = 0;
 
-	if (animHasFrames(g_Vars.currentplayer->model.anim->animnum)) {
-		animspeed = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
+	if (anim_has_frames(g_Vars.currentplayer->model.anim->animnum)) {
+		animspeed = model_get_abs_anim_speed(&g_Vars.currentplayer->model);
 
 		if (g_Vars.currentplayer->headanim == HEADANIM_RESTING) {
 			if (animspeed > 0.69999998807907f) {
@@ -142,30 +142,30 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			struct modelrenderdata sp80 = {NULL, 1, 3};
 			Mtxf sp40;
 			struct coord modelpos = {0, 0, 0};
-			bool mergeenabled = modelIsAnimMergingEnabled();
+			bool mergeenabled = model_is_anim_merging_enabled();
 
 			g_Vars.currentplayer->resetheadtick = false;
 
-			modelSetAnimMergingEnabled(false);
-			modelTickAnimQuarterSpeed(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
-			modelSetAnimMergingEnabled(mergeenabled);
-			modelUpdateInfo(&g_Vars.currentplayer->model);
-			mtx4LoadIdentity(&sp40);
+			model_set_anim_merging_enabled(false);
+			model_tick_anim_quarter_speed(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
+			model_set_anim_merging_enabled(mergeenabled);
+			model_update_info(&g_Vars.currentplayer->model);
+			mtx4_load_identity(&sp40);
 
 			sp80.unk00 = &sp40;
 			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;
-			modelSetMatricesWithAnim(&sp80, &g_Vars.currentplayer->model);
+			model_set_matrices_with_anim(&sp80, &g_Vars.currentplayer->model);
 
 			g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
 			g_Vars.currentplayer->headbodyoffset.y = g_Vars.currentplayer->standbodyoffset.y;
 			g_Vars.currentplayer->headbodyoffset.z = g_Vars.currentplayer->standbodyoffset.z;
 
-			modelGetRootPosition(&g_Vars.currentplayer->model, &modelpos);
+			model_get_root_position(&g_Vars.currentplayer->model, &modelpos);
 
 			modelpos.x -= g_Vars.currentplayer->bondheadmatrices[0].m[3][0];
 			modelpos.z -= g_Vars.currentplayer->bondheadmatrices[0].m[3][2];
 
-			modelSetRootPosition(&g_Vars.currentplayer->model, &modelpos);
+			model_set_root_position(&g_Vars.currentplayer->model, &modelpos);
 		}
 	}
 
@@ -195,9 +195,9 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			g_Vars.currentplayer->headwalkingtime60 += g_Vars.lvupdate60;
 
 			if (g_Vars.currentplayer->headwalkingtime60 > TICKS(60)) {
-				bheadSetDamp(PAL ? 0.9785f : 0.982f);
+				bhead_set_damp(PAL ? 0.9785f : 0.982f);
 			} else {
-				bheadSetDamp(PAL ? 0.99699f : 0.99748998880386f);
+				bhead_set_damp(PAL ? 0.99699f : 0.99748998880386f);
 			}
 		} else {
 			lookvel.x = g_Vars.currentplayer->bondheadmatrices[0].m[2][0];
@@ -208,7 +208,7 @@ void bheadUpdate(f32 arg0, f32 arg1)
 			upvel.y = g_Vars.currentplayer->bondheadmatrices[0].m[1][1];
 			upvel.z = g_Vars.currentplayer->bondheadmatrices[0].m[1][2];
 
-			bheadSetDamp(PAL ? 0.952f : 0.96f);
+			bhead_set_damp(PAL ? 0.952f : 0.96f);
 		}
 	} else {
 		g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
@@ -220,15 +220,15 @@ void bheadUpdate(f32 arg0, f32 arg1)
 		headpos.z = 0;
 
 		g_Vars.currentplayer->headwalkingtime60 = 0;
-		bheadSetDamp(PAL ? 0.99699f : 0.99748998880386f);
+		bhead_set_damp(PAL ? 0.99699f : 0.99748998880386f);
 
-		if (bmoveGetCrouchPos() != CROUCHPOS_SQUAT) {
+		if (bmove_get_crouch_pos() != CROUCHPOS_SQUAT) {
 			g_Vars.currentplayer->standfrac +=
 				(0.0083333337679505f + 0.025000002235174f * g_Vars.currentplayer->bondbreathing)
 				* g_Vars.lvupdate60freal;
 
 			if (g_Vars.currentplayer->standfrac >= 1) {
-				bheadUpdateIdleRoll();
+				bhead_update_idle_roll();
 				g_Vars.currentplayer->standfrac -= 1;
 			}
 
@@ -250,11 +250,11 @@ void bheadUpdate(f32 arg0, f32 arg1)
 		}
 	}
 
-	bheadUpdatePos(&headpos);
-	bheadUpdateRot(&lookvel, &upvel);
+	bhead_update_pos(&headpos);
+	bhead_update_rot(&lookvel, &upvel);
 }
 
-void bheadAdjustAnimation(f32 speed)
+void bhead_adjust_animation(f32 speed)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 	s32 i;
@@ -274,18 +274,18 @@ void bheadAdjustAnimation(f32 speed)
 					startframe = g_HeadAnims[i].loopframe + (g_HeadAnims[i].endframe - g_HeadAnims[i].loopframe) * startframe;
 				}
 
-				modelSetAnimation(&g_Vars.currentplayer->model, g_HeadAnims[i].animnum,
+				model_set_animation(&g_Vars.currentplayer->model, g_HeadAnims[i].animnum,
 						g_Vars.currentplayer->model.anim->flip, startframe, 0.5f, 12);
-				modelSetAnimLooping(&g_Vars.currentplayer->model, g_HeadAnims[i].loopframe, false);
-				modelSetAnimEndFrame(&g_Vars.currentplayer->model, g_HeadAnims[i].endframe);
+				model_set_anim_looping(&g_Vars.currentplayer->model, g_HeadAnims[i].loopframe, false);
+				model_set_anim_end_frame(&g_Vars.currentplayer->model, g_HeadAnims[i].endframe);
 
-				modelSetAnimFlipFunction(&g_Vars.currentplayer->model, bheadFlipAnimation);
+				model_set_anim_flip_function(&g_Vars.currentplayer->model, bhead_flip_animation);
 				g_Vars.currentplayer->headanim = i;
 			}
 
 			speed = speed / g_HeadAnims[i].translateperframe;
 
-			modelSetAnimSpeed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
+			model_set_anim_speed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
 			break;
 		}
 	}
@@ -293,22 +293,22 @@ void bheadAdjustAnimation(f32 speed)
 	chr->oldframe = g_Vars.currentplayer->model.anim->frame;
 }
 
-void bheadStartDeathAnimation(s16 animnum, u32 flip, f32 fstarttime, f32 speed)
+void bhead_start_death_animation(s16 animnum, u32 flip, f32 fstarttime, f32 speed)
 {
-	modelSetAnimation(&g_Vars.currentplayer->model, animnum, flip, fstarttime, speed * 0.5f, 12);
+	model_set_animation(&g_Vars.currentplayer->model, animnum, flip, fstarttime, speed * 0.5f, 12);
 	g_Vars.currentplayer->headanim = -1;
 }
 
-void bheadSetSpeed(f32 speed)
+void bhead_set_speed(f32 speed)
 {
-	modelSetAnimSpeed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
+	model_set_anim_speed(&g_Vars.currentplayer->model, speed * 0.5f, 0);
 }
 
-f32 bheadGetBreathingValue(void)
+f32 bhead_get_breathing_value(void)
 {
 	if (g_Vars.currentplayer->headanim >= 0) {
 		f32 a = g_Vars.currentplayer->bondbreathing * 0.012500001f + (1.0f / 240.0f);
-		f32 b = modelGetAbsAnimSpeed(&g_Vars.currentplayer->model);
+		f32 b = model_get_abs_anim_speed(&g_Vars.currentplayer->model);
 
 		if (b > 0) {
 			f32 c = b / (g_HeadAnims[g_Vars.currentplayer->headanim].endframe - g_HeadAnims[g_Vars.currentplayer->headanim].loopframe);

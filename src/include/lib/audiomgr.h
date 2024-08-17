@@ -4,16 +4,16 @@
 #include "data.h"
 #include "types.h"
 
-void amgrInit(void);
+void amgr_init(void);
 
 #if VERSION >= VERSION_PAL_BETA
-void amgrCreate(ALSynConfig *config, u32 *settings);
+void amgr_create(ALSynConfig *config, u32 *settings);
 #else
-void amgrCreate(ALSynConfig *config);
+void amgr_create(ALSynConfig *config);
 #endif
 
-void amgrStartThread(void);
-OSMesgQueue *amgrGetFrameMesgQueue(void);
-void amgrStopThread(void);
+void amgr_start_thread(void);
+OSMesgQueue *amgr_get_frame_mesg_queue(void);
+void amgr_stop_thread(void);
 
 #endif

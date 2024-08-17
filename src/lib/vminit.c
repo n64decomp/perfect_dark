@@ -113,7 +113,7 @@ extern u32 *g_VmZipTable;
  *
  * -- For 4MB systems --
  *
- * vmInit allocates space in memory for the TLB to be able to load zips in its
+ * vm_init allocates space in memory for the TLB to be able to load zips in its
  * exception handler. It initialises the zip table then leaves it to the TLB to
  * load the game zips as needed.
  *
@@ -128,14 +128,14 @@ extern u32 *g_VmZipTable;
  *     before unzipping it.
  * zip table - is the ROM offset table where each zip can be found, which is
  *     used by the TLB's exception handler.
- * state table - is cleared by vmInit then left to the TLB's exception handler
+ * state table - is cleared by vm_init then left to the TLB's exception handler
  *     for it to populate as zips are loaded and paged out.
- * stack - is reserved stack space for different threads, which vmInit must not
+ * stack - is reserved stack space for different threads, which vm_init must not
  *     write into.
  *
  * -- For 8MB systems --
  *
- * vmInit loads all game zips into memory and sets TLB entries to map it to
+ * vm_init loads all game zips into memory and sets TLB entries to map it to
  * virtual address space. The page swapping feature is not used as the TLB
  * never encounters a page miss.
  *
@@ -149,12 +149,12 @@ extern u32 *g_VmZipTable;
  *     hold any zip.
  * zip table: is the ROM offset table where each zip can be found.
  * game seg: is where the entire game segment is unzipped to.
- * stack: is reserved stack space for different threads, which vmInit must not
+ * stack: is reserved stack space for different threads, which vm_init must not
  *     write into.
  *
  * -- Both systems --
  *
- * Regardless of the amount of memory being used, it is critical that vmInit
+ * Regardless of the amount of memory being used, it is critical that vm_init
  * sets the g_VmMarker global variable correctly. This marks the point in memory
  * where memory must be preserved. The main thread uses this variable as the end
  * address of memp's heap.
@@ -165,7 +165,7 @@ extern u32 *g_VmZipTable;
  * In 8MB, the zip buffer and zip table are no longer needed, so g_VmMarker is
  * set to the start of the unzipped game segment.
  */
-void vmInit(void)
+void vm_init(void)
 {
 	s32 s1;
 	u32 *romaddrs;
@@ -197,10 +197,10 @@ void vmInit(void)
 
 	g_VmInitialised = true;
 
-	rzipInit();
+	rzip_init();
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (bootGetMemSize() <= 0x400000)
+	if (boot_get_mem_size() <= 0x400000)
 #else
 	if (osGetMemSize() <= 0x400000)
 #endif
@@ -220,7 +220,7 @@ void vmInit(void)
 		g_VmZipTable = (u32 *) ((uintptr_t) ((u32 *) gameseg - (numentries + 4)) & ~0xf);
 
 		// Load gamezips pointer list
-		dmaExec(g_VmZipTable, (romptr_t) &_gamezipSegmentRomStart, ALIGN16((numentries + 1) << 2));
+		dma_exec(g_VmZipTable, (romptr_t) &_gamezipSegmentRomStart, ALIGN16((numentries + 1) << 2));
 
 		// Make pointers absolute instead of relative to their segment
 		for (pagenum = 0; pagenum < numentries; pagenum++) {
@@ -247,7 +247,7 @@ void vmInit(void)
 		g_VmPhysicalSlots = (uintptr_t) gameseg;
 		g_VmMarker = gameseg;
 
-		vmInitVars();
+		vm_init_vars();
 
 		// Clear the state table
 		ptr = g_VmVirtualToPhysicalTable;
@@ -257,7 +257,7 @@ void vmInit(void)
 			ptr[s1] = 0;
 		}
 
-		vmInitVacant();
+		vm_init_vacant();
 	} else {
 		// Expansion pak is being used
 		g_Is4Mb = numentries * false;
@@ -278,7 +278,7 @@ void vmInit(void)
 		numentries2 = numentries;
 
 		// Load gamezips pointer list
-		dmaExec(romaddrs, (romptr_t) &_gamezipSegmentRomStart, ALIGN16((numentries2 + 1) << 2));
+		dma_exec(romaddrs, (romptr_t) &_gamezipSegmentRomStart, ALIGN16((numentries2 + 1) << 2));
 
 		if (pagenum);
 
@@ -299,12 +299,12 @@ void vmInit(void)
 		zip = chunkbuffer + 2;
 
 		for (ITER = 0; ITER < numentries2 - 1;) {
-			dmaExec(chunkbuffer, romaddrs[ITER], ALIGN16(romaddrs[ITER + 1] - romaddrs[ITER]));
+			dma_exec(chunkbuffer, romaddrs[ITER], ALIGN16(romaddrs[ITER + 1] - romaddrs[ITER]));
 
 #if VERSION >= VERSION_NTSC_1_0
-			s2 += rzipInflate(zip, s2, sp68);
+			s2 += rzip_inflate(zip, s2, sp68);
 #else
-			len = rzipInflate(zip, s2, sp68);
+			len = rzip_inflate(zip, s2, sp68);
 
 			if (len == 0) {
 				sprintf(message, "DMA-Crash %s %d Ram: %02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
@@ -313,7 +313,7 @@ void vmInit(void)
 						chunkbuffer[4], chunkbuffer[5], chunkbuffer[6], chunkbuffer[7],
 						chunkbuffer[8], chunkbuffer[9], chunkbuffer[10], chunkbuffer[11],
 						chunkbuffer[12], chunkbuffer[13], chunkbuffer[14], chunkbuffer[15]);
-				crashSetMessage(message);
+				crash_set_message(message);
 				CRASH();
 			}
 

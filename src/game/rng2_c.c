@@ -21,7 +21,7 @@ u32 random2(void)
 /**
  * Set the given seed as the RNG seed. Add 1 to make sure it isn't 0.
  */
-void rng2SetSeed(u64 seed)
+void rng2_set_seed(u64 seed)
 {
 	g_Rng2Seed = seed + 1;
 }

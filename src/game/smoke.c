@@ -84,11 +84,11 @@ struct smoketype g_SmokeTypes[] = {
 #endif
 };
 
-Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, struct coord *coord, f32 size)
+Gfx *smoke_render_part(struct smoke *smoke, struct smokepart *part, Gfx *gdl, struct coord *coord, f32 size)
 {
-	Vtx *vertices = gfxAllocateVertices(4);
-	Col *colours = (Col *)gfxAllocateColours(1);
-	Mtxf *mtx = camGetProjectionMtxF();
+	Vtx *vertices = gfx_allocate_vertices(4);
+	Col *colours = (Col *)gfx_allocate_colours(1);
+	Mtxf *mtx = cam_get_projection_mtxf();
 	struct coord spa0;
 	struct coord sp94;
 	struct coord sp88;
@@ -207,7 +207,7 @@ Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, stru
 		colours[0].a = alpha * alphamult;
 	} else {
 		if (smoke->type != SMOKETYPE_PINBALL) {
-			frac = roomGetFinalBrightnessForPlayer(smoke->prop->rooms[0]) * (1.0f / 255.0f);
+			frac = room_get_final_brightness_for_player(smoke->prop->rooms[0]) * (1.0f / 255.0f);
 
 			if (frac > 1) {
 				frac = 1;
@@ -261,7 +261,7 @@ Gfx *smokeRenderPart(struct smoke *smoke, struct smokepart *part, Gfx *gdl, stru
 	return gdl;
 }
 
-struct smoke *smokeCreate(struct coord *pos, RoomNum *rooms, s16 type)
+struct smoke *smoke_create(struct coord *pos, RoomNum *rooms, s16 type)
 {
 	struct smoke *smoke = NULL;
 	s32 playercount = PLAYERCOUNT();
@@ -299,7 +299,7 @@ struct smoke *smokeCreate(struct coord *pos, RoomNum *rooms, s16 type)
 	}
 
 	if (smoke) {
-		struct prop *prop = propAllocate();
+		struct prop *prop = prop_allocate();
 
 		if (prop) {
 			prop->type = PROPTYPE_SMOKE;
@@ -313,8 +313,8 @@ struct smoke *smokeCreate(struct coord *pos, RoomNum *rooms, s16 type)
 			}
 
 			prop->rooms[i] = -1;
-			propActivateThisFrame(prop);
-			propEnable(prop);
+			prop_activate_this_frame(prop);
+			prop_enable(prop);
 
 			smoke->prop = prop;
 			smoke->age = 0;
@@ -326,7 +326,7 @@ struct smoke *smokeCreate(struct coord *pos, RoomNum *rooms, s16 type)
 	return smoke;
 }
 
-bool smokeCreateForHand(struct coord *pos, RoomNum *rooms, s16 type, s32 handnum)
+bool smoke_create_for_hand(struct coord *pos, RoomNum *rooms, s16 type, s32 handnum)
 {
 	struct smoke *smoke;
 	s32 i;
@@ -353,7 +353,7 @@ bool smokeCreateForHand(struct coord *pos, RoomNum *rooms, s16 type, s32 handnum
 		}
 	}
 
-	smoke = smokeCreate(pos, rooms, type);
+	smoke = smoke_create(pos, rooms, type);
 
 	if (smoke) {
 		smoke->option = handnum;
@@ -368,7 +368,7 @@ bool smokeCreateForHand(struct coord *pos, RoomNum *rooms, s16 type, s32 handnum
  * smoke parts have a size of zero. Perhaps the caller is supposed to check if
  * this function returns false and reuse the zero-sized smoke parts if so?
  */
-bool smokeCreateWithSource(void *source, struct coord *pos, RoomNum *rooms, s16 type, bool srcispadeffect)
+bool smoke_create_with_source(void *source, struct coord *pos, RoomNum *rooms, s16 type, bool srcispadeffect)
 {
 	struct smoke *smoke;
 	s32 i;
@@ -399,7 +399,7 @@ bool smokeCreateWithSource(void *source, struct coord *pos, RoomNum *rooms, s16 
 		}
 	}
 
-	smoke = smokeCreate(pos, rooms, type);
+	smoke = smoke_create(pos, rooms, type);
 
 	if (smoke) {
 		smoke->source = source;
@@ -410,17 +410,17 @@ bool smokeCreateWithSource(void *source, struct coord *pos, RoomNum *rooms, s16 
 	return false;
 }
 
-void smokeCreateAtProp(struct prop *prop, s16 type)
+void smoke_create_at_prop(struct prop *prop, s16 type)
 {
-	smokeCreateWithSource(prop, &prop->pos, prop->rooms, type, false);
+	smoke_create_with_source(prop, &prop->pos, prop->rooms, type, false);
 }
 
-void smokeCreateAtPadEffect(struct padeffectobj *effect, struct coord *pos, RoomNum *rooms, s16 type)
+void smoke_create_at_pad_effect(struct padeffectobj *effect, struct coord *pos, RoomNum *rooms, s16 type)
 {
-	smokeCreateWithSource(effect, pos, rooms, type, true);
+	smoke_create_with_source(effect, pos, rooms, type, true);
 }
 
-void smokeClearForProp(struct prop *prop)
+void smoke_clear_for_prop(struct prop *prop)
 {
 	s32 i;
 
@@ -432,12 +432,12 @@ void smokeClearForProp(struct prop *prop)
 	}
 }
 
-struct smoke *smokeCreateSimple(struct coord *pos, RoomNum *rooms, s16 type)
+struct smoke *smoke_create_simple(struct coord *pos, RoomNum *rooms, s16 type)
 {
-	return smokeCreate(pos, rooms, type);
+	return smoke_create(pos, rooms, type);
 }
 
-u32 smokeTick(struct prop *prop)
+u32 smoke_tick(struct prop *prop)
 {
 	s32 i;
 	s32 j;
@@ -563,7 +563,7 @@ u32 smokeTick(struct prop *prop)
 		}
 	}
 
-	bgFindEnteredRooms(&bbmin, &bbmax, prop->rooms, 7, false);
+	bg_find_entered_rooms(&bbmin, &bbmax, prop->rooms, 7, false);
 
 	if (smoke->age > g_SmokeTypes[smoke->type].spreadspeed) {
 		free = true;
@@ -586,9 +586,9 @@ u32 smokeTick(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-u32 smokeTickPlayer(struct prop *prop)
+u32 smoke_tick_player(struct prop *prop)
 {
-	Mtxf *matrix = camGetWorldToScreenMtxf();
+	Mtxf *matrix = cam_get_world_to_screen_mtxf();
 
 	prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
 
@@ -603,7 +603,7 @@ u32 smokeTickPlayer(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
+Gfx *smoke_render(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	struct smoke *smoke = prop->smoke;
 	s32 roomnum;
@@ -632,9 +632,9 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	}
 
 	if (roomnum != -1) {
-		coord = roomGetPosPtr(roomnum);
+		coord = room_get_pos_ptr(roomnum);
 
-		roomGetPos(roomnum, &worldoffset);
+		room_get_pos(roomnum, &worldoffset);
 
 		if (smoke->parts[0].size > 0) {
 			f32 x = smoke->parts[0].pos.x - worldoffset.x;
@@ -647,15 +647,15 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		if (func0f08e5a8(prop->rooms, &screenbox) > 0) {
-			gdl = bgScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
+			gdl = bg_scissor_within_viewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
-			gdl = bgScissorToViewport(gdl);
+			gdl = bg_scissor_to_viewport(gdl);
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = roomApplyMtx(gdl, roomnum);
+		gdl = room_apply_mtx(gdl, roomnum);
 
 		if (near) {
 			gSPMatrix(gdl++, osVirtualToPhysical(&var800a3448), G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
@@ -680,20 +680,20 @@ Gfx *smokeRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 		for (i = 0; i < ARRAYCOUNT(smoke->parts); i++) {
 			if (smoke->parts[i].size > 0) {
-				gdl = smokeRenderPart(smoke, &smoke->parts[i], gdl, &sp8c, sp88);
+				gdl = smoke_render_part(smoke, &smoke->parts[i], gdl, &sp8c, sp88);
 			} else {
 				smoke->parts[i].size = 0;
 			}
 		}
 
 		gDPSetColorDither(gdl++, G_CD_BAYER);
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_perspective_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 	}
 
 	return gdl;
 }
 
-void smokeClearSomeTypes(void)
+void smoke_clear_some_types(void)
 {
 	s32 i;
 

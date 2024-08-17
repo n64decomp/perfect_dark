@@ -7,7 +7,7 @@
 #include "data.h"
 #include "types.h"
 
-void chrmgrStop(void)
+void chrmgr_stop(void)
 {
 	s32 i;
 
@@ -15,10 +15,10 @@ void chrmgrStop(void)
 		if (g_ChrSlots[i].chrnum >= 0
 				&& g_ChrSlots[i].prop
 				&& g_ChrSlots[i].prop->type == PROPTYPE_CHR) {
-			chrRemove(g_ChrSlots[i].prop, true);
-			propDelist(g_ChrSlots[i].prop);
-			propDisable(g_ChrSlots[i].prop);
-			propFree(g_ChrSlots[i].prop);
+			chr_remove(g_ChrSlots[i].prop, true);
+			prop_delist(g_ChrSlots[i].prop);
+			prop_disable(g_ChrSlots[i].prop);
+			prop_free(g_ChrSlots[i].prop);
 		}
 	}
 }

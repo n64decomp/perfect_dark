@@ -27,9 +27,9 @@
  * Vertices contain an offset to the graphics vertex, as well as a copy of its
  * S and T values.
  *
- * The caller should call dyntexSetCurrentRoom and dyntexSetCurrentType, then
- * add vertices with dyntexAddVertex. Lastly, dyntexTickRoom should be called
- * on each tick for each nearby room. dyntexTickRoom can be called multiple
+ * The caller should call dyntex_set_current_room and dyntex_set_current_type, then
+ * add vertices with dyntex_add_vertex. Lastly, dyntex_tick_room should be called
+ * on each tick for each nearby room. dyntex_tick_room can be called multiple
  * times on the same frame (such as if there's two players), as dyntex will
  * ensure it's only updated once per frame.
  *
@@ -73,7 +73,7 @@ s32 g_DyntexRoomsCount = 0;
 s32 g_DyntexTypesCount = 0;
 s32 g_DyntexVerticesCount = 0;
 
-void dyntexUpdateLinear(Vtx *vertices, struct dyntextype *type)
+void dyntex_update_linear(Vtx *vertices, struct dyntextype *type)
 {
 	s16 tmp = (s32) (g_Lv80SecIntervalFrac * 10.0f * 4096.0f) % 4096;
 	s32 i;
@@ -86,7 +86,7 @@ void dyntexUpdateLinear(Vtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateReset(Vtx *vertices, struct dyntextype *type)
+void dyntex_update_reset(Vtx *vertices, struct dyntextype *type)
 {
 	s32 i;
 
@@ -98,7 +98,7 @@ void dyntexUpdateReset(Vtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateMonitor(Vtx *vertices, struct dyntextype *type)
+void dyntex_update_monitor(Vtx *vertices, struct dyntextype *type)
 {
 	s16 tmp = (s32) (g_Lv80SecIntervalFrac * 4.0f * 4096.0f) % 4096;
 	s32 i;
@@ -111,7 +111,7 @@ void dyntexUpdateMonitor(Vtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateOcean(Vtx *vertices, struct dyntextype *type)
+void dyntex_update_ocean(Vtx *vertices, struct dyntextype *type)
 {
 	f32 f24 = g_Lv80SecIntervalFrac * 5.0f;
 	f32 angle;
@@ -120,8 +120,8 @@ void dyntexUpdateOcean(Vtx *vertices, struct dyntextype *type)
 	static u32 ripsize = 65;
 	static u32 modula = 22;
 
-	mainOverrideVariable("modula", &modula);
-	mainOverrideVariable("ripsize", &ripsize);
+	main_override_variable("modula", &modula);
+	main_override_variable("ripsize", &ripsize);
 
 	for (i = 0; i < type->numvertices; i++) {
 		Vtx *vertex = (Vtx *)((s32)vertices + g_DyntexVertices[type->vertexlistoffset + i].offset);
@@ -134,7 +134,7 @@ void dyntexUpdateOcean(Vtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexUpdateArrows(Vtx *vertices, struct dyntextype *type)
+void dyntex_update_arrows(Vtx *vertices, struct dyntextype *type)
 {
 	s32 tmp = ((s32) ((1.0f - g_Lv80SecIntervalFrac) * 60.0f * 8.0f) % 8) * 256;
 	s32 i;
@@ -147,7 +147,7 @@ void dyntexUpdateArrows(Vtx *vertices, struct dyntextype *type)
 	}
 }
 
-void dyntexTickRoom(s32 roomnum, Vtx *vertices)
+void dyntex_tick_room(s32 roomnum, Vtx *vertices)
 {
 	s32 index = -1;
 	s32 i;
@@ -232,36 +232,36 @@ void dyntexTickRoom(s32 roomnum, Vtx *vertices)
 
 		switch (g_DyntexTypes[g_DyntexRooms[index].typelistoffset + i].type) {
 		case DYNTEXTYPE_RIVER:
-			dyntexUpdateLinear(vertices, type);
+			dyntex_update_linear(vertices, type);
 			break;
 		case DYNTEXTYPE_MONITOR:
-			dyntexUpdateMonitor(vertices, type);
+			dyntex_update_monitor(vertices, type);
 			break;
 		case DYNTEXTYPE_OCEAN:
-			dyntexUpdateOcean(vertices, type);
+			dyntex_update_ocean(vertices, type);
 			break;
 		case DYNTEXTYPE_ARROWS:
-			dyntexUpdateArrows(vertices, type);
+			dyntex_update_arrows(vertices, type);
 			break;
 		case DYNTEXTYPE_TELEPORTAL:
 			// Deep Sea - teleports enabled and not SA disabled
-			if (chrHasStageFlag(0, 0x00000100) && !chrHasStageFlag(0, 0x00010000)) {
-				dyntexUpdateLinear(vertices, type);
+			if (chr_has_stage_flag(0, 0x00000100) && !chr_has_stage_flag(0, 0x00010000)) {
+				dyntex_update_linear(vertices, type);
 			}
 			break;
 		case DYNTEXTYPE_POWERRING:
-			if (chrHasStageFlag(0, 0x00010000)) {
+			if (chr_has_stage_flag(0, 0x00010000)) {
 				// Attack Ship engines are destroyed
-				dyntexUpdateReset(vertices, type);
+				dyntex_update_reset(vertices, type);
 			} else {
 				// Attack Ship engines are healthy
-				dyntexUpdateLinear(vertices, type);
+				dyntex_update_linear(vertices, type);
 			}
 			break;
 		case DYNTEXTYPE_POWERJUICE:
-			if (!chrHasStageFlag(0, 0x00010000)) {
+			if (!chr_has_stage_flag(0, 0x00010000)) {
 				// Attack Ship engines are healthy
-				dyntexUpdateLinear(vertices, type);
+				dyntex_update_linear(vertices, type);
 			}
 			break;
 		}
@@ -270,7 +270,7 @@ void dyntexTickRoom(s32 roomnum, Vtx *vertices)
 	g_DyntexRooms[index].updatedframe = g_Vars.lvframenum;
 }
 
-void dyntexAddVertex(Vtx *vertex)
+void dyntex_add_vertex(Vtx *vertex)
 {
 	if (g_DyntexCurRoom < 0) {
 		return;
@@ -317,7 +317,7 @@ void dyntexAddVertex(Vtx *vertex)
 	g_DyntexTypes[g_DyntexTypesCount - 1].numvertices++;
 }
 
-void dyntexSetCurrentType(s16 type)
+void dyntex_set_current_type(s16 type)
 {
 	// Air Base - don't animate anything (exterior water)
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
@@ -354,7 +354,7 @@ void dyntexSetCurrentType(s16 type)
 	g_DyntexCurType = type;
 }
 
-void dyntexSetCurrentRoom(RoomNum roomnum)
+void dyntex_set_current_room(RoomNum roomnum)
 {
 	s32 i;
 
@@ -374,7 +374,7 @@ void dyntexSetCurrentRoom(RoomNum roomnum)
 	}
 }
 
-void dyntexReset(void)
+void dyntex_reset(void)
 {
 	u32 size3;
 	u32 size2;
@@ -392,13 +392,13 @@ void dyntexReset(void)
 	g_DyntexRoomsMax = 50;
 
 	size1 = ALIGN64(g_DyntexTypesMax * sizeof(struct dyntextype));
-	g_DyntexTypes = mempAlloc(size1, MEMPOOL_STAGE);
+	g_DyntexTypes = memp_alloc(size1, MEMPOOL_STAGE);
 
 	size2 = ALIGN64(g_DyntexVerticesMax * sizeof(struct dyntexvtx));
-	g_DyntexVertices = mempAlloc(size2, MEMPOOL_STAGE);
+	g_DyntexVertices = memp_alloc(size2, MEMPOOL_STAGE);
 
 	size3 = ALIGN64(g_DyntexRoomsMax * sizeof(struct dyntexroom));
-	g_DyntexRooms = mempAlloc(size3, MEMPOOL_STAGE);
+	g_DyntexRooms = memp_alloc(size3, MEMPOOL_STAGE);
 
 	if (g_DyntexVerticesMax);
 	if (g_DyntexTypesMax);
@@ -423,7 +423,7 @@ void dyntex0f13c4e8(void)
 	// empty
 }
 
-bool dyntexHasRoom(void)
+bool dyntex_has_room(void)
 {
 	return g_DyntexCurRoom >= 0;
 }

@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked);
+void obj_set_blocked_path_unblocked(struct defaultobj *blocker, bool unblocked);
 
 #endif

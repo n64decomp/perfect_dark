@@ -164,21 +164,21 @@ void piracy_patch_checksums(void)
 {
 	// algorithm, patch function, sum function
 	patch(algo01, "__scHandleTasks", "boot");
-	patch(algo02, "cheatMenuHandleDialog", "__scHandleTasks");
-	patch(algo03, "botPickupProp", "doorFinishClose");
-	patch(algo04, "chrUncloak", "botPickupProp");
-	patch(algo05, "chrsCheckForNoise", "__scHandleRetrace");
-	patch(algo06, "lvReset", "lvGetSlowMotionType");
-	patch(algo07, "bodyAllocateEyespy", "lvReset");
-	patch(algo08, "chrConsiderGrenadeThrow", "bgReset");
-	patch(algo09, "bgunTickGunLoad", "tagsReset");
-	patch(algo10, "explosionAlertChrs", "glassDestroy");
-	patch(algo11, "menuTickTimers", "mtxGetObfuscatedRomBase");
-	patch(algo12, "bgTickCounter", "menuTickTimers");
+	patch(algo02, "cheat_menu_handle_dialog", "__scHandleTasks");
+	patch(algo03, "bot_pickup_prop", "door_finish_close");
+	patch(algo04, "chr_uncloak", "bot_pickup_prop");
+	patch(algo05, "chrs_check_for_noise", "__scHandleRetrace");
+	patch(algo06, "lv_reset", "lv_get_slow_motion_type");
+	patch(algo07, "body_allocate_eyespy", "lv_reset");
+	patch(algo08, "chr_consider_grenade_throw", "bg_reset");
+	patch(algo09, "bgun_tick_gun_load", "tags_reset");
+	patch(algo10, "explosion_alert_chrs", "glass_destroy");
+	patch(algo11, "menu_tick_timers", "mtx_get_obfuscated_rom_base");
+	patch(algo12, "bg_tick_counter", "menu_tick_timers");
 }
 
 /**
- * NTSC Beta's original mainLoop function reads from a hardware device and
+ * NTSC Beta's original main_loop function reads from a hardware device and
  * refuses to run if it doesn't exist. Because of this, the reads must be
  * patched to allow a ROM to work without this hardware.
  *
@@ -191,7 +191,7 @@ void piracy_patch_mainloop(void)
 	uint32_t offset;
 	bool done_first = false;
 
-	if (!map_get_function_rompos("mainLoop", &start, &end)) {
+	if (!map_get_function_rompos("main_loop", &start, &end)) {
 		return;
 	}
 

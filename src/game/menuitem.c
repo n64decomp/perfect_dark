@@ -114,7 +114,7 @@ s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
 	return s1;
 }
 
-s16 menuitemListGetOffsetY(s16 optionindex, struct menuitem *item)
+s16 menuitem_list_get_offset_y(s16 optionindex, struct menuitem *item)
 {
 	union handlerdata data;
 	bool done;
@@ -156,7 +156,7 @@ s16 menuitemListGetOffsetY(s16 optionindex, struct menuitem *item)
 	return optionindex * g_LineHeight + numlines * LINEHEIGHT;
 }
 
-Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16 height, char *text, struct menudialog *dialog)
+Gfx *menuitem_list_render_header(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16 height, char *text, struct menudialog *dialog)
 {
 	s32 x;
 	s32 y;
@@ -165,14 +165,14 @@ Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16
 	colour = MIXCOLOUR(dialog, listgroup_headerbg);
 
 	if (dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
 	}
 
 	gdl = text0f153780(gdl);
 #if VERSION >= VERSION_NTSC_1_0
-	gdl = menugfxDrawListGroupHeader(gdl, x1, y1, x1 + width, y1 + height, x1 + arg4, colour & 0xff);
+	gdl = menugfx_draw_list_group_header(gdl, x1, y1, x1 + width, y1 + height, x1 + arg4, colour & 0xff);
 #else
-	gdl = menugfxDrawListGroupHeader(gdl, x1, y1, x1 + width, y1 + height, x1 + arg4);
+	gdl = menugfx_draw_list_group_header(gdl, x1, y1, x1 + width, y1 + height, x1 + arg4);
 #endif
 	gdl = text0f153628(gdl);
 
@@ -182,23 +182,23 @@ Gfx *menuitemListRenderHeader(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, s16
 	colour = MIXCOLOUR(dialog, listgroup_headerfg);
 
 	if (dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
 	}
 
-	textSetWaveColours(g_MenuWave2Colours[dialog->type].listgroup_headerfg, g_MenuWave1Colours[dialog->type].listgroup_headerfg);
+	text_set_wave_colours(g_MenuWave2Colours[dialog->type].listgroup_headerfg, g_MenuWave1Colours[dialog->type].listgroup_headerfg);
 
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, width, height, 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, width, height, 0, 0);
 
 	return gdl;
 }
 
-Gfx *menuitemListOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
+Gfx *menuitem_list_overlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2)
 {
 	gDPFillRectangleScaled(gdl++, x, y, x + x2, y + y2);
 	return gdl;
 }
 
-Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_list *itemdata = &context->data->list;
 	union handlerdata sp15c;
@@ -266,20 +266,20 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 		g_ScissorY2 = 0;
 	}
 
-	if (g_ScissorX1 > viGetBufWidth()) {
-		g_ScissorX1 = viGetBufWidth();
+	if (g_ScissorX1 > vi_get_buf_width()) {
+		g_ScissorX1 = vi_get_buf_width();
 	}
 
-	if (g_ScissorX2 > viGetBufWidth()) {
-		g_ScissorX2 = viGetBufWidth();
+	if (g_ScissorX2 > vi_get_buf_width()) {
+		g_ScissorX2 = vi_get_buf_width();
 	}
 
-	if (g_ScissorY1 > viGetBufHeight()) {
-		g_ScissorY1 = viGetBufHeight();
+	if (g_ScissorY1 > vi_get_buf_height()) {
+		g_ScissorY1 = vi_get_buf_height();
 	}
 
-	if (g_ScissorY2 > viGetBufHeight()) {
-		g_ScissorY2 = viGetBufHeight();
+	if (g_ScissorY2 > vi_get_buf_height()) {
+		g_ScissorY2 = vi_get_buf_height();
 	}
 
 	if (g_ScissorX1 > g_ScissorX2) {
@@ -304,12 +304,12 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 	itemdata->viewheight = context->height;
 
 	if (context->item->type == MENUITEMTYPE_DROPDOWN || context->item->type == MENUITEMTYPE_PLAYERSTATS) {
-		gdl = menugfxDrawDropdownBackground(gdl, context->x, context->y, context->x + context->width, context->y + context->height);
+		gdl = menugfx_draw_dropdown_background(gdl, context->x, context->y, context->x + context->width, context->y + context->height);
 
-		gdl = menugfxDrawShimmer(gdl, context->x, context->y, context->x + 1, context->y + context->height, 0x0000007f, true, 15, true);
-		gdl = menugfxDrawShimmer(gdl, context->x + context->width, context->y, context->x + context->width + 1, context->y + context->height, 0x0000007f, false, 15, true);
-		gdl = menugfxDrawShimmer(gdl, context->x, context->y, context->x + context->width, context->y + 1, 0x0000007f, false, 15, true);
-		gdl = menugfxDrawShimmer(gdl, context->x, context->y + context->height, context->x + context->width, context->y + context->height + 1, 0x0000007f, false, 15, false);
+		gdl = menugfx_draw_shimmer(gdl, context->x, context->y, context->x + 1, context->y + context->height, 0x0000007f, true, 15, true);
+		gdl = menugfx_draw_shimmer(gdl, context->x + context->width, context->y, context->x + context->width + 1, context->y + context->height, 0x0000007f, false, 15, true);
+		gdl = menugfx_draw_shimmer(gdl, context->x, context->y, context->x + context->width, context->y + 1, 0x0000007f, false, 15, true);
+		gdl = menugfx_draw_shimmer(gdl, context->x, context->y + context->height, context->x + context->width, context->y + context->height + 1, 0x0000007f, false, 15, false);
 	}
 
 	if (context->item->handler == NULL) {
@@ -339,7 +339,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 
 	sp15c.list.unk04 = 0;
 
-	s4 = menuitemListGetOffsetY(optionindex, context->item) + halfheight - itemdata->curoffsety;
+	s4 = menuitem_list_get_offset_y(optionindex, context->item) + halfheight - itemdata->curoffsety;
 
 	sp14c.list.value = 0;
 	sp14c.list.unk0c = 0;
@@ -380,7 +380,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 				text = (char *) context->item->handler(MENUOP_GETOPTGROUPTEXT, context->item, &sp13c);
 
 				if (s4 + g_LineHeight > 0) {
-					gdl = menuitemListRenderHeader(gdl, context->x, context->y, context->width, width, LINEHEIGHT, text, context->dialog);
+					gdl = menuitem_list_render_header(gdl, context->x, context->y, context->width, width, LINEHEIGHT, text, context->dialog);
 					donestickyheader = true;
 				}
 
@@ -408,17 +408,17 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 			colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 			if (context->dialog->dimmed) {
-				colour = (colourBlend(colour, 0x00000000, 127) & 0xffffff00) | (colour & 0xff);
+				colour = (colour_blend(colour, 0x00000000, 127) & 0xffffff00) | (colour & 0xff);
 			}
 
-			textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
+			text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 			if (optionindex == nextgroupstartindex) {
 				// Draw a group header. Note that optionindex is not incremented
 				// in this branch, but nextgroupstartindex is changed so next time the loop
 				// iterates it will enter the else branch.
 				if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
-					gdl = menuApplyScissor(gdl);
+					gdl = menu_apply_scissor(gdl);
 				}
 
 				title = (char *) context->item->handler(MENUOP_GETOPTGROUPTEXT, context->item, &sp13c);
@@ -430,7 +430,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 					height = LINEHEIGHT;
 				}
 
-				gdl = menuitemListRenderHeader(gdl, context->x, context->y + s4, context->width, width, height, title, context->dialog);
+				gdl = menuitem_list_render_header(gdl, context->x, context->y + s4, context->width, width, height, title, context->dialog);
 
 				if (sp14c.list.values32 < numgroups) {
 					context->item->handler(MENUOP_GETGROUPSTARTINDEX, context->item, &sp14c);
@@ -454,11 +454,11 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 
 					if (optionindex == itemdata->index && context->focused) {
 						u32 spb0;
-						u32 weight = menuGetSinOscFrac(40.0f) * 255.0f;
+						u32 weight = menu_get_sin_osc_frac(40.0f) * 255.0f;
 
 						spb0 = MIXCOLOUR(context->dialog, item_focused_inner);
-						colour = colourBlend(colour, colour & 0xff, 127);
-						colour = colourBlend(colour, spb0, weight);
+						colour = colour_blend(colour, colour & 0xff, 127);
+						colour = colour_blend(colour, spb0, weight);
 
 #if VERSION >= VERSION_NTSC_1_0
 						// If not transitioning the dialog type
@@ -513,12 +513,12 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 						}
 
 						// This logic doesn't look right...
-						if (sp94left / g_ScaleX > viGetWidth()) {
-							sp94left = viGetWidth() / g_ScaleX;
+						if (sp94left / g_ScaleX > vi_get_width()) {
+							sp94left = vi_get_width() / g_ScaleX;
 						}
 
-						if (sp8cright / g_ScaleX > viGetWidth()) {
-							sp8cright = viGetWidth() / g_ScaleX;
+						if (sp8cright / g_ScaleX > vi_get_width()) {
+							sp8cright = vi_get_width() / g_ScaleX;
 						}
 
 						gDPPipeSync(gdl++);
@@ -545,20 +545,20 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 							g_ScissorY2 = 0;
 						}
 
-						if (g_ScissorX1 > viGetBufWidth()) {
-							g_ScissorX1 = viGetBufWidth();
+						if (g_ScissorX1 > vi_get_buf_width()) {
+							g_ScissorX1 = vi_get_buf_width();
 						}
 
-						if (g_ScissorX2 > viGetBufWidth()) {
-							g_ScissorX2 = viGetBufWidth();
+						if (g_ScissorX2 > vi_get_buf_width()) {
+							g_ScissorX2 = vi_get_buf_width();
 						}
 
-						if (g_ScissorY1 > viGetBufHeight()) {
-							g_ScissorY1 = viGetBufHeight();
+						if (g_ScissorY1 > vi_get_buf_height()) {
+							g_ScissorY1 = vi_get_buf_height();
 						}
 
-						if (g_ScissorY2 > viGetBufHeight()) {
-							g_ScissorY2 = viGetBufHeight();
+						if (g_ScissorY2 > vi_get_buf_height()) {
+							g_ScissorY2 = vi_get_buf_height();
 						}
 
 						if (g_ScissorX2 < g_ScissorX1) {
@@ -606,7 +606,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 							height = 0;
 						}
 
-						gdl = textRenderProjected(gdl, &x, &y, text2, chars, font, colour, context->width - left + context->x, height, sp128, 0);
+						gdl = text_render_projected(gdl, &x, &y, text2, chars, font, colour, context->width - left + context->x, height, sp128, 0);
 
 						// Consider a checkbox
 						spb8.list.value = optionindex;
@@ -615,7 +615,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 						context->item->handler(MENUOP_GETLISTITEMCHECKBOX, context->item, &spb8);
 
 						if (spb8.list.unk04 != 255) {
-							gdl = menugfxDrawCheckbox(gdl, left, context->y + s4 + 1, 6, spb8.list.unk04, colour, 0xff00007f);
+							gdl = menugfx_draw_checkbox(gdl, left, context->y + s4 + 1, 6, spb8.list.unk04, colour, 0xff00007f);
 						}
 					}
 
@@ -637,20 +637,20 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 			}
 		}
 
-		gdl = menuApplyScissor(gdl);
+		gdl = menu_apply_scissor(gdl);
 	} else {
 		// The list has no options in it
 		colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 		if (context->dialog->dimmed) {
-			colour = (colourBlend(colour, 0x00000000, 0x0000007f) & 0xffffff00) | (colour & 0xff);
+			colour = (colour_blend(colour, 0x00000000, 0x0000007f) & 0xffffff00) | (colour & 0xff);
 		}
 
 		x = left + 8;
 		y = context->y + context->height / 2;
 
 		// "< Empty >"
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_OPTIONS_313), chars, font, colour, context->width - left + context->x, viGetHeight(), sp128, 0);
+		gdl = text_render_projected(gdl, &x, &y, lang_get(L_OPTIONS_313), chars, font, colour, context->width - left + context->x, vi_get_height(), sp128, 0);
 	}
 
 	gdl = text0f153780(gdl);
@@ -658,7 +658,7 @@ Gfx *menuitemListRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+bool menuitem_list_tick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 f0;
 	union handlerdata handlerdata;
@@ -687,7 +687,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 		min = min / g_LineHeight;
 		min *= g_LineHeight;
 
-		data->list.targetoffsety = menuitemListGetOffsetY(data->list.index, item);
+		data->list.targetoffsety = menuitem_list_get_offset_y(data->list.index, item);
 
 		if (data->list.targetoffsety < min) {
 			data->list.targetoffsety = min;
@@ -729,7 +729,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 
 			if (data->list.index > last) {
 				data->list.index = last;
-				data->list.targetoffsety = menuitemListGetOffsetY(data->list.index, item);
+				data->list.targetoffsety = menuitem_list_get_offset_y(data->list.index, item);
 			}
 
 			if (inputs->updown) {
@@ -744,13 +744,13 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 					data->list.index = 0;
 				}
 
-				data->list.targetoffsety = menuitemListGetOffsetY(data->list.index, item);
+				data->list.targetoffsety = menuitem_list_get_offset_y(data->list.index, item);
 
 				if (prev2 != data->list.index) {
 					handlerdata.list.value = data->list.index;
 					item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
 
-					menuPlaySound(MENUSOUND_SUBFOCUS);
+					menu_play_sound(MENUSOUND_SUBFOCUS);
 				}
 			}
 
@@ -764,7 +764,7 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 
 				item->handler(MENUOP_SET, item, &handlerdata);
 
-				menuPlaySound(MENUSOUND_SELECT);
+				menu_play_sound(MENUSOUND_SELECT);
 
 				if (handlerdata.list.unk04 == 2) {
 					inputs->start = false;
@@ -785,13 +785,13 @@ bool menuitemListTick(struct menuitem *item, struct menuinputs *inputs, u32 tick
 
 	if (handlerdata.list.unk0c != handlerdata.list.value) {
 		data->list.index = handlerdata.list.value;
-		data->list.targetoffsety = menuitemListGetOffsetY(data->list.index, item);
+		data->list.targetoffsety = menuitem_list_get_offset_y(data->list.index, item);
 	}
 
 	return true;
 }
 
-void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
+void menuitem_dropdown_init(struct menuitem *item, union menuitemdata *data)
 {
 	s32 (*handler)(s32 operation, struct menuitem *item, union handlerdata *data);
 	union handlerdata handlerdata;
@@ -828,12 +828,12 @@ void menuitemDropdownInit(struct menuitem *item, union menuitemdata *data)
 		data->dropdown.list.index = handlerdata.dropdown.value;
 	}
 
-	data->dropdown.list.targetoffsety = menuitemListGetOffsetY(data->dropdown.list.index, item);
+	data->dropdown.list.targetoffsety = menuitem_list_get_offset_y(data->dropdown.list.index, item);
 
 	item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
 }
 
-Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_dropdown_render(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour;
 	char *text;
@@ -843,51 +843,51 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 
 	x = context->x;
 	y = context->y;
-	text = menuResolveParam2Text(context->item);
+	text = menu_resolve_param2_text(context->item);
 
 	colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 	if (context->dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 	}
 
 	if (context->focused != 0) {
 		if ((context->focused & 2) != 0) {
 			u32 tmpcolour;
-			u32 weight = menuGetSinOscFrac(20) * 255.0f; \
+			u32 weight = menu_get_sin_osc_frac(20) * 255.0f; \
 			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
-			colour = colourBlend(colour, colour & 0xff, 0x7f);
-			colour = colourBlend(colour, tmpcolour, weight);
+			colour = colour_blend(colour, colour & 0xff, 0x7f);
+			colour = colour_blend(colour, tmpcolour, weight);
 		} else {
 			u32 tmpcolour;
-			u32 weight = menuGetSinOscFrac(40) * 255.0f; \
+			u32 weight = menu_get_sin_osc_frac(40) * 255.0f; \
 			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
-			colour = colourBlend(colour, colour & 0xff, 0x7f);
-			colour = colourBlend(colour, tmpcolour, weight);
+			colour = colour_blend(colour, colour & 0xff, 0x7f);
+			colour = colour_blend(colour, tmpcolour, weight);
 		}
 
-		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
+		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	} else {
-		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
+		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
-	if (menuIsItemDisabled(context->item, context->dialog)) {
+	if (menu_is_item_disabled(context->item, context->dialog)) {
 		colour = MIXCOLOUR(context->dialog, item_disabled);
 
 		if (context->dialog->dimmed) {
-			colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
+			colour = (colour_blend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 		}
 
-		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_disabled, g_MenuWave1Colours[context->dialog->type].item_disabled);
+		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_disabled, g_MenuWave1Colours[context->dialog->type].item_disabled);
 	}
 
 	gdl = text0f153628(gdl);
 
 	x = context->x + 10;
 	y = context->y + 2;
-	gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 
 	if (context->dialog->unk6e) {
 		x = context->x + 80;
@@ -911,10 +911,10 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 		data.list.unk04 = 0;
 		text = (char *)context->item->handler(MENUOP_GETOPTIONTEXT, context->item, &data);
 
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 		x = context->x + context->width - textwidth - 10;
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 	}
 
 	gdl = text0f153780(gdl);
@@ -922,15 +922,15 @@ Gfx *menuitemDropdownRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+bool menuitem_dropdown_tick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	u32 stack;
 
 	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && item->handler) {
 		if (dialog->dimmed && item == dialog->focuseditem) {
-			menuitemListTick(item, inputs, tickflags, data);
+			menuitem_list_tick(item, inputs, tickflags, data);
 
-			if (mpIsPlayerLockedOut(g_MpPlayerNum)) {
+			if (mp_is_player_locked_out(g_MpPlayerNum)) {
 				if ((item->flags & MENUITEMFLAG_LOCKABLEMAJOR) || (dialog->definition->flags & MENUDIALOGFLAG_MPLOCKABLE)) {
 					dialog->dimmed = false;
 				}
@@ -940,7 +940,7 @@ bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, stru
 		if (inputs->back && dialog->dimmed) {
 			dialog->dimmed = false;
 			inputs->back = false;
-			menuPlaySound(MENUSOUND_TOGGLEOFF);
+			menu_play_sound(MENUSOUND_TOGGLEOFF);
 		}
 
 		if (inputs->select) {
@@ -950,12 +950,12 @@ bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, stru
 				union handlerdata handlerdata;
 
 				dialog->dimmed = true;
-				menuitemDropdownInit(item, data);
+				menuitem_dropdown_init(item, data);
 
 				handlerdata.dropdown.value = 0;
 				item->handler(MENUOP_GETSELECTEDINDEX, item, &handlerdata);
 				data->dropdown.unk0e = (u32)handlerdata.dropdown.value * g_LineHeight;
-				menuPlaySound(MENUSOUND_TOGGLEOFF);
+				menu_play_sound(MENUSOUND_TOGGLEOFF);
 			}
 		}
 	}
@@ -963,7 +963,7 @@ bool menuitemDropdownTick(struct menuitem *item, struct menudialog *dialog, stru
 	return true;
 }
 
-Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
+Gfx *menuitem_dropdown_overlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
 {
 	s32 stack;
 	s32 textwidth;
@@ -1020,7 +1020,7 @@ Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menu
 		for (i = 0; i != numoptions; i++) {
 			handlerdata.dropdown.value = i;
 			text = (char *)item->handler(MENUOP_GETOPTIONTEXT, item, &handlerdata);
-			textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+			text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 			textwidth += 6;
 
 			if (textwidth > context.width) {
@@ -1047,13 +1047,13 @@ Gfx *menuitemDropdownOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menu
 			context.y = dialog->y + dialog->height - context.height + 2;
 		}
 
-		gdl = menuitemListRender(gdl, &context);
+		gdl = menuitem_list_render(gdl, &context);
 	}
 
 	return gdl;
 }
 
-bool menuitemKeyboardIsStringEmptyOrSpaces(char *text)
+bool menuitem_keyboard_is_string_empty_or_spaces(char *text)
 {
 	s32 i;
 
@@ -1088,7 +1088,7 @@ bool menuitemKeyboardIsStringEmptyOrSpaces(char *text)
  * |  DEL  |    CAPS   |   CANCEL  |   OK  |
  * +-------+-----------+-----------+-------+
  */
-Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_keyboard_render(Gfx *gdl, struct menurendercontext *context)
 {
 	char label[8];
 	s32 x;
@@ -1108,12 +1108,12 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	label[1] = '\n';
 	label[2] = '\0';
 
-	textSetWaveColours(
+	text_set_wave_colours(
 			g_MenuWave2Colours[context->dialog->type].item_unfocused,
 			g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 	// Draw input field background
-	gdl = textSetPrimColour(gdl, 0x0000ff7f);
+	gdl = text_set_prim_colour(gdl, 0x0000ff7f);
 
 	if (context->item->param3 == 0) {
 		// Half width
@@ -1134,24 +1134,24 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 	y = context->y + 2;
 
 	gdl = text0f153628(gdl);
-	gdl = textRenderProjected(gdl, &x, &y, data->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, context->width, context->height, 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, data->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, context->width, context->height, 0, 0);
 	gdl = text0f153780(gdl);
 
 	// Render cursor
-	alpha = menuGetSinOscFrac(40) * 255;
+	alpha = menu_get_sin_osc_frac(40) * 255;
 
 	if (context->dialog->transitionfrac < 0) {
 		cursorcolour = g_MenuColours[context->dialog->type].item_focused_inner;
 	} else {
-		cursorcolour = colourBlend(
+		cursorcolour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_focused_inner,
 				g_MenuColours[context->dialog->type].item_focused_inner,
 				context->dialog->colourweight);
 	}
 
-	cursorcolour = colourBlend(colourBlend(0x0000ffff, 0x000000ff, 127), cursorcolour, alpha);
+	cursorcolour = colour_blend(colour_blend(0x0000ffff, 0x000000ff, 127), cursorcolour, alpha);
 
-	gdl = textSetPrimColour(gdl, cursorcolour);
+	gdl = text_set_prim_colour(gdl, cursorcolour);
 
 	gDPFillRectangleScaled(gdl++, x + 1, context->y + 2, x + 3, context->y + 9);
 
@@ -1159,7 +1159,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 
 	// Render horizontal grid lines
 	for (row = 0; row < 6; row++) {
-		gdl = menugfxDrawFilledRect(gdl, context->x + 4, context->y + row * 11 + 13,
+		gdl = menugfx_draw_filled_rect(gdl, context->x + 4, context->y + row * 11 + 13,
 				context->x + 124, context->y + row * 11 + 14, 0x00ffff7f, 0x00ffff7f);
 	}
 
@@ -1171,7 +1171,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 			rowspan = 4;
 		}
 
-		gdl = menugfxDrawFilledRect(gdl, context->x + col * 12 + 4, context->y + 13,
+		gdl = menugfx_draw_filled_rect(gdl, context->x + col * 12 + 4, context->y + 13,
 				context->x + col * 12 + 5, context->y + rowspan * 11 + 14, 0x00ffff7f, 0x00ffff7f);
 	}
 
@@ -1185,14 +1185,14 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 			if (context->dialog->transitionfrac < 0) {
 				textcolour = g_MenuColours[context->dialog->type].item_unfocused;
 			} else {
-				textcolour = colourBlend(
+				textcolour = colour_blend(
 						g_MenuColours[context->dialog->type2].item_unfocused,
 						g_MenuColours[context->dialog->type].item_unfocused,
 						context->dialog->colourweight);
 			}
 
 			if (context->dialog->dimmed) {
-				textcolour = (colourBlend(textcolour, 0x00000000, 127) & 0xffffff00) | (textcolour & 0xff);
+				textcolour = (colour_blend(textcolour, 0x00000000, 127) & 0xffffff00) | (textcolour & 0xff);
 			}
 
 			if (data->capseffective && col == 2 && row == 4) {
@@ -1202,18 +1202,18 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 
 			// If this button is the focused one, set highlighted colour
 			if (col == data->col && row == data->row) {
-				alpha = menuGetSinOscFrac(40) * 255;
+				alpha = menu_get_sin_osc_frac(40) * 255;
 
 				if (context->dialog->transitionfrac < 0) {
 					tmpcolour = g_MenuColours[context->dialog->type].item_focused_inner;
 				} else {
-					tmpcolour = colourBlend(
+					tmpcolour = colour_blend(
 							g_MenuColours[context->dialog->type2].item_focused_inner,
 							g_MenuColours[context->dialog->type].item_focused_inner,
 							context->dialog->colourweight);
 				}
 
-				textcolour = colourBlend(colourBlend(textcolour, textcolour & 0xff, 127), tmpcolour, alpha);
+				textcolour = colour_blend(colour_blend(textcolour, textcolour & 0xff, 127), tmpcolour, alpha);
 			}
 
 			x = context->x + col * 12 + 4;
@@ -1253,33 +1253,33 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 						buttonwidth = 36;
 					}
 
-					textMeasure(&textheight, &textwidth, langGet(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+					text_measure(&textheight, &textwidth, lang_get(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 					x = (buttonwidth - textwidth) / 2 + x;
 
 					// Dim the OK button if string is empty
-					if (index == 3 && menuitemKeyboardIsStringEmptyOrSpaces(data->string)) {
+					if (index == 3 && menuitem_keyboard_is_string_empty_or_spaces(data->string)) {
 						if (context->dialog->transitionfrac < 0) {
 							textcolour = g_MenuColours[context->dialog->type].item_disabled;
 						} else {
-							textcolour = colourBlend(
+							textcolour = colour_blend(
 									g_MenuColours[context->dialog->type2].item_disabled,
 									g_MenuColours[context->dialog->type].item_disabled,
 									context->dialog->colourweight);
 						}
 
 						if (context->dialog->dimmed) {
-							textcolour = (colourBlend(textcolour, 0, 127) & 0xffffff00) | (textcolour & 0xff);
+							textcolour = (colour_blend(textcolour, 0, 127) & 0xffffff00) | (textcolour & 0xff);
 						}
 
-						textSetWaveColours(
+						text_set_wave_colours(
 								g_MenuWave2Colours[context->dialog->type].item_disabled,
 								g_MenuWave1Colours[context->dialog->type].item_disabled);
 					}
 
-					gdl = textRenderProjected(gdl, &x, &y, langGet(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, textcolour, context->width, context->height, 0, 0);
+					gdl = text_render_projected(gdl, &x, &y, lang_get(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, textcolour, context->width, context->height, 0, 0);
 
-					if (index == 3 && menuitemKeyboardIsStringEmptyOrSpaces(data->string)) {
-						textSetWaveColours(
+					if (index == 3 && menuitem_keyboard_is_string_empty_or_spaces(data->string)) {
+						text_set_wave_colours(
 								g_MenuWave2Colours[context->dialog->type].item_unfocused,
 								g_MenuWave1Colours[context->dialog->type].item_unfocused);
 					}
@@ -1293,9 +1293,9 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 					label[0] += 32;
 				}
 
-				textMeasure(&textheight, &textwidth, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+				text_measure(&textheight, &textwidth, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 				x = (12 - textwidth) / 2 + x;
-				gdl = textRenderProjected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
+				gdl = text_render_projected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 			}
 		}
 	}
@@ -1327,10 +1327,10 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
 			}
 		}
 
-		gdl = menugfxDrawLine(gdl, x1, y1, x2, y1 + 1, -1, -1); // top
-		gdl = menugfxDrawLine(gdl, x2, y1, x2 + 1, y2 + 1, -1, -1); // right
-		gdl = menugfxDrawLine(gdl, x1, y2, x2, y2 + 1, -1, -1); // bottom
-		gdl = menugfxDrawLine(gdl, x1, y1, x1 + 1, y2 + 1, -1, -1); // left
+		gdl = menugfx_draw_line(gdl, x1, y1, x2, y1 + 1, -1, -1); // top
+		gdl = menugfx_draw_line(gdl, x2, y1, x2 + 1, y2 + 1, -1, -1); // right
+		gdl = menugfx_draw_line(gdl, x1, y2, x2, y2 + 1, -1, -1); // bottom
+		gdl = menugfx_draw_line(gdl, x1, y1, x1 + 1, y2 + 1, -1, -1); // left
 	}
 
 	return gdl;
@@ -1350,7 +1350,7 @@ Gfx *menuitemKeyboardRender(Gfx *gdl, struct menurendercontext *context)
  * |  DEL  |    CAPS   |   CANCEL  |   OK  |
  * +-------+-----------+-----------+-------+
  */
-bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+bool menuitem_keyboard_tick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	struct menuitemdata_keyboard *kb = &data->keyboard;
 	union handlerdata handlerdata;
@@ -1411,7 +1411,7 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 		}
 
 		if (prevcol != kb->col || prevrow != kb->row) {
-			menuPlaySound(MENUSOUND_KEYBOARDFOCUS);
+			menu_play_sound(MENUSOUND_KEYBOARDFOCUS);
 		}
 
 		if (inputs->back2) {
@@ -1419,13 +1419,13 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 		}
 
 		if (inputs->start) {
-			if (item->handler && !menuitemKeyboardIsStringEmptyOrSpaces(kb->string)) {
-				menuPlaySound(MENUSOUND_SELECT);
+			if (item->handler && !menuitem_keyboard_is_string_empty_or_spaces(kb->string)) {
+				menu_play_sound(MENUSOUND_SELECT);
 
 				handlerdata.keyboard.string = kb->string;
 				item->handler(MENUOP_SETTEXT, item, &handlerdata);
 
-				menuPopDialog();
+				menu_pop_dialog();
 
 				item->handler(MENUOP_SET, item, &handlerdata);
 			}
@@ -1447,7 +1447,7 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 
 				// OK
 				if (kb->col == 8) {
-					if (item->handler && !menuitemKeyboardIsStringEmptyOrSpaces(kb->string)) {
+					if (item->handler && !menuitem_keyboard_is_string_empty_or_spaces(kb->string)) {
 						handlerdata.keyboard.string = kb->string;
 						item->handler(MENUOP_SETTEXT, item, &handlerdata);
 					}
@@ -1457,14 +1457,14 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 				if (kb->col == 8 || kb->col == 5) {
 					s32 ok = (kb->col == 8);
 
-					if (kb->col == 5 || !menuitemKeyboardIsStringEmptyOrSpaces(kb->string)) {
-						menuPopDialog();
+					if (kb->col == 5 || !menuitem_keyboard_is_string_empty_or_spaces(kb->string)) {
+						menu_pop_dialog();
 
 						if (ok) {
 							item->handler(MENUOP_SET, item, &handlerdata);
-							menuPlaySound(MENUSOUND_SELECT);
+							menu_play_sound(MENUSOUND_SELECT);
 						} else {
-							menuPlaySound(MENUSOUND_KEYBOARDCANCEL);
+							menu_play_sound(MENUSOUND_KEYBOARDCANCEL);
 						}
 
 						inputs->select = false;
@@ -1497,14 +1497,14 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 						i++;
 					}
 
-					textMeasure(&textheight, &textwidth, kb->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+					text_measure(&textheight, &textwidth, kb->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 					if (item->param3 == 0 && textwidth > 58) {
 						delete = true;
 					}
 
 					if (!delete) {
-						menuPlaySound(MENUSOUND_FOCUS);
+						menu_play_sound(MENUSOUND_FOCUS);
 					}
 				}
 			}
@@ -1515,7 +1515,7 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 			s32 deleted = false;
 			s32 i = 10;
 
-			menuPlaySound(MENUSOUND_FOCUS);
+			menu_play_sound(MENUSOUND_FOCUS);
 
 			while (!deleted) {
 				if (kb->string[i] != '\0') {
@@ -1540,9 +1540,9 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 
 		if (kb->capseffective != prev) {
 			if (kb->capseffective) {
-				menuPlaySound(MENUSOUND_TOGGLEON);
+				menu_play_sound(MENUSOUND_TOGGLEON);
 			} else {
-				menuPlaySound(MENUSOUND_TOGGLEOFF);
+				menu_play_sound(MENUSOUND_TOGGLEOFF);
 			}
 		}
 	}
@@ -1550,7 +1550,7 @@ bool menuitemKeyboardTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-void menuitemKeyboardInit(struct menuitem *item, union menuitemdata *data)
+void menuitem_keyboard_init(struct menuitem *item, union menuitemdata *data)
 {
 	u32 stack;
 	s32 i;
@@ -1571,14 +1571,14 @@ void menuitemKeyboardInit(struct menuitem *item, union menuitemdata *data)
 	data->keyboard.capslock = 0;
 }
 
-Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_separator_render(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour;
 
 	if (context->dialog->transitionfrac < 0) {
 		colour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
-		colour = colourBlend(
+		colour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_unfocused,
 				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
@@ -1587,15 +1587,15 @@ Gfx *menuitemSeparatorRender(Gfx *gdl, struct menurendercontext *context)
 	colour = (colour & 0xffffff00) | 0x3f;
 
 #if VERSION >= VERSION_JPN_FINAL
-	return menugfxDrawFilledRect(gdl, context->x, context->y, context->x + context->width, context->y + 1, colour, colour);
+	return menugfx_draw_filled_rect(gdl, context->x, context->y, context->x + context->width, context->y + 1, colour, colour);
 #else
-	return menugfxDrawFilledRect(gdl, context->x, context->y + 2, context->x + context->width, context->y + 3, colour, colour);
+	return menugfx_draw_filled_rect(gdl, context->x, context->y + 2, context->x + context->width, context->y + 3, colour, colour);
 #endif
 }
 
 u32 var800711e8 = 0x00000000;
 
-Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index, s32 position, s16 objx, s16 objy, s16 width, s16 height, bool withstatus, bool narrow)
+Gfx *menuitem_objectives_render_one(Gfx *gdl, struct menudialog *dialog, s32 index, s32 position, s16 objx, s16 objy, s16 width, s16 height, bool withstatus, bool narrow)
 {
 	u32 sp12c;
 	s32 x;
@@ -1638,47 +1638,47 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 #endif
 	}
 
-	mainOverrideVariable("brcol", &var800711e8);
-	sp120 = langGet(g_Briefing.objectivenames[index]);
+	main_override_variable("brcol", &var800711e8);
+	sp120 = lang_get(g_Briefing.objectivenames[index]);
 	y = objy;
 	sp12c = MIXCOLOUR(dialog, item_unfocused);
 
 	if (dialog->dimmed) {
-		sp12c = (colourBlend(sp12c, 0, 0x2c) & 0xffffff00) | (sp12c & 0xff);
+		sp12c = (colour_blend(sp12c, 0, 0x2c) & 0xffffff00) | (sp12c & 0xff);
 	}
 
-	textSetWaveColours(g_MenuWave2Colours[dialog->type].item_unfocused, g_MenuWave1Colours[dialog->type].item_unfocused);
+	text_set_wave_colours(g_MenuWave2Colours[dialog->type].item_unfocused, g_MenuWave1Colours[dialog->type].item_unfocused);
 	buffer[0] = '\0';
 
 	// Render objective number
 	gdl = text0f153628(gdl);
 	sprintf(buffer, "%d: ", position);
-	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+	text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 	x = objx - textwidth + 25;
-	gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
 
 	x = objx + 25;
 
 	if (narrow) {
-		textWrap(85, sp120, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs);
-		gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, sp12c, width, height, 0, 0);
+		text_wrap(85, sp120, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs);
+		gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, sp12c, width, height, 0, 0);
 	} else {
 		sprintf(buffer, "%s", sp120);
-		gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
 	}
 
 	if (withstatus) {
-		switch (objectiveCheck(index)) {
+		switch (objective_check(index)) {
 		case OBJECTIVE_INCOMPLETE:
-			spcc = langGet(L_OPTIONS_001); // "Incomplete"
+			spcc = lang_get(L_OPTIONS_001); // "Incomplete"
 			spc8 = 0xffff00ff;
 			break;
 		case OBJECTIVE_COMPLETE:
-			spcc = langGet(L_OPTIONS_000); // "Complete"
+			spcc = lang_get(L_OPTIONS_000); // "Complete"
 			spc8 = 0x00ff00ff;
 			break;
 		case OBJECTIVE_FAILED:
-			spcc = langGet(L_OPTIONS_002); // "Failed"
+			spcc = lang_get(L_OPTIONS_002); // "Failed"
 			spc8 = 0xff4040ff;
 			break;
 		}
@@ -1687,7 +1687,7 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 			spc8 = g_MenuColours[0].item_unfocused;
 		}
 
-		textMeasure(&textheight, &textwidth, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+		text_measure(&textheight, &textwidth, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 		if (var800711e8 != 0) {
 			spc8 = var800711e8;
@@ -1701,13 +1701,13 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 		y = objy + spbc + 9;
 #endif
 
-		gdl = textRenderProjected(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8, width, height, 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8, width, height, 0, 0);
 
 #if VERSION != VERSION_JPN_FINAL
 		x = objx + width - textwidth - 10;
 		y = objy + spbc + 9;
 
-		gdl = textRenderProjected(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8 & 0xffffff7f, width, height, 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8 & 0xffffff7f, width, height, 0, 0);
 #endif
 
 		x = objx + width - textwidth - 13;
@@ -1734,22 +1734,22 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 		gdl = menugfx0f0e2498(gdl);
 
 		// Blue lines
-		gdl = menugfxDrawProjectedLine(gdl, objx, spb0, spb4, spb0 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, spb4, spb0, spb4 + 1, spac, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, objx, spac, sp58, spac + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp58 + 3, spac, spb4 + 1, spac + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp58, spac, sp58 + 1, spa8 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp58 + 2, spac, sp58 + 3, spa8, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, objx, spb0, spb4, spb0 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, spb4, spb0, spb4 + 1, spac, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, objx, spac, sp58, spac + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58 + 3, spac, spb4 + 1, spac + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58, spac, sp58 + 1, spa8 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58 + 2, spac, sp58 + 3, spa8, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
 		spb4 = (spc8 & 0xffffff00) | 0x3f;
-		gdl = menugfxDrawProjectedLine(gdl, sp58 + 2, spa8, sp54, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp58, spa8 + 2, sp54, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp54, spa8, sp98, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp54, spa8 + 2, sp98, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58 + 2, spa8, sp54, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58, spa8 + 2, sp54, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp54, spa8, sp98, spa8 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp54, spa8 + 2, sp98, spa8 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
 
 		// Coloured lines
-		gdl = menugfxDrawProjectedLine(gdl, sp98, spa8, sp98 + 1, spa8 + 3, spb4, spb4);
-		gdl = menugfxDrawProjectedLine(gdl, sp98 + 1, spa8 + 1, sp9c - 4, spa8 + 2, spb4, spb4);
-		gdl = menugfxDrawProjectedLine(gdl, sp9c - 4, spa8 + 1, sp9c, spa8 + 2, spb4, (spc8 & 0xffffff00) | 0xcf);
+		gdl = menugfx_draw_projected_line(gdl, sp98, spa8, sp98 + 1, spa8 + 3, spb4, spb4);
+		gdl = menugfx_draw_projected_line(gdl, sp98 + 1, spa8 + 1, sp9c - 4, spa8 + 2, spb4, spb4);
+		gdl = menugfx_draw_projected_line(gdl, sp9c - 4, spa8 + 1, sp9c, spa8 + 2, spb4, (spc8 & 0xffffff00) | 0xcf);
 	} else {
 		// Render lines without status
 		sp80 = objx + 22;
@@ -1757,7 +1757,7 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 		sp78 = objy + 8;
 		sp74 = y + 1;
 
-		textMeasure(&textheight, &textwidth, sp120, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, sp120, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 #if VERSION >= VERSION_JPN_FINAL
 		sp74 -= 2;
@@ -1769,31 +1769,31 @@ Gfx *menuitemObjectivesRenderOne(Gfx *gdl, struct menudialog *dialog, s32 index,
 		gdl = text0f153780(gdl);
 		gdl = menugfx0f0e2498(gdl);
 
-		gdl = menugfxDrawProjectedLine(gdl, objx, sp7c, sp80, sp7c + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp80, sp7c, sp80 + 1, sp78, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, objx, sp78, sp58, sp78 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp58 + 3, sp78, sp80 + 1, sp78 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, objx, sp7c, sp80, sp7c + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp80, sp7c, sp80 + 1, sp78, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, objx, sp78, sp58, sp78 + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58 + 3, sp78, sp80 + 1, sp78 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
 #if VERSION == VERSION_JPN_FINAL
-		gdl = menugfxDrawProjectedLine(gdl, sp58, sp78, sp58 + 1, sp74 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58, sp78, sp58 + 1, sp74 + 3, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
 #else
-		gdl = menugfxDrawProjectedLine(gdl, sp58, sp78, sp58 + 1, sp74 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58, sp78, sp58 + 1, sp74 + 2, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
 #endif
-		gdl = menugfxDrawProjectedLine(gdl, sp58 + 2, sp78, sp58 + 3, sp74, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
-		gdl = menugfxDrawProjectedLine(gdl, sp58 + 2, sp74, sp6c, sp74 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58 + 2, sp78, sp58 + 3, sp74, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
+		gdl = menugfx_draw_projected_line(gdl, sp58 + 2, sp74, sp6c, sp74 + 1, (sp12c & 0xffffff00) | 0x3f, (sp12c & 0xffffff00) | 0x3f);
 	}
 
 	return gdl;
 }
 
-Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_objectives_render(Gfx *gdl, struct menurendercontext *context)
 {
 	s32 y = context->y + 5;
 	s32 position = 1;
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_Briefing.objectivenames); i++) {
-		if (g_Briefing.objectivenames[i] && g_Briefing.objectivedifficulties[i] & (1 << lvGetDifficulty())) {
-			gdl = menuitemObjectivesRenderOne(gdl,
+		if (g_Briefing.objectivenames[i] && g_Briefing.objectivedifficulties[i] & (1 << lv_get_difficulty())) {
+			gdl = menuitem_objectives_render_one(gdl,
 					context->dialog,
 					i, position, context->x, y, context->width, context->height,
 					context->item->param != 1,
@@ -1824,7 +1824,7 @@ Gfx *menuitemObjectivesRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_model_render(Gfx *gdl, struct menurendercontext *context)
 {
 	if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 		struct menuitemrenderdata renderdata;
@@ -1837,14 +1837,14 @@ Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
 		if (context->dialog->transitionfrac < 0) {
 			renderdata.colour = g_MenuColours[context->dialog->type].item_focused_inner;
 		} else {
-			renderdata.colour = colourBlend(
+			renderdata.colour = colour_blend(
 					g_MenuColours[context->dialog->type2].item_focused_inner,
 					g_MenuColours[context->dialog->type].item_focused_inner,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			renderdata.colour = (colourBlend(renderdata.colour, 0, 127) & 0xffffff00) | (renderdata.colour & 0xff);
+			renderdata.colour = (colour_blend(renderdata.colour, 0, 127) & 0xffffff00) | (renderdata.colour & 0xff);
 		}
 
 		renderdata.unk10 = true;
@@ -1859,7 +1859,7 @@ Gfx *menuitemModelRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour1;
 	u32 colour2;
@@ -1878,7 +1878,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		x -= 6;
 	}
 
-	text = menuResolveParam2Text(context->item);
+	text = menu_resolve_param2_text(context->item);
 
 	if (!text) {
 		return gdl;
@@ -1896,7 +1896,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		// Center
 		s32 textheight;
 		s32 textwidth;
-		textMeasure(&textheight, &textwidth, text, font1, font2, 0);
+		text_measure(&textheight, &textwidth, text, font1, font2, 0);
 		x = context->x + (context->width - textwidth) / 2;
 	}
 
@@ -1904,53 +1904,53 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColours[context->dialog->type].checkbox_checked_unfocused;
 		} else {
-			colour1 = colourBlend(
+			colour1 = colour_blend(
 					g_MenuColours[context->dialog->type2].checkbox_checked_unfocused,
 					g_MenuColours[context->dialog->type].checkbox_checked_unfocused,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
+			colour1 = (colour_blend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].checkbox_checked_unfocused,
 				g_MenuWave1Colours[context->dialog->type].checkbox_checked_unfocused);
 	} else {
 		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColours[context->dialog->type].item_unfocused;
 		} else {
-			colour1 = colourBlend(
+			colour1 = colour_blend(
 					g_MenuColours[context->dialog->type2].item_unfocused,
 					g_MenuColours[context->dialog->type].item_unfocused,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
+			colour1 = (colour_blend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].item_unfocused,
 				g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
-	if (menuIsItemDisabled(context->item, context->dialog)) {
+	if (menu_is_item_disabled(context->item, context->dialog)) {
 		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColours[context->dialog->type].item_disabled;
 		} else {
-			colour1 = colourBlend(
+			colour1 = colour_blend(
 					g_MenuColours[context->dialog->type2].item_disabled,
 					g_MenuColours[context->dialog->type].item_disabled,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			colour1 = (colourBlend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
+			colour1 = (colour_blend(colour1, 0, 127) & 0xffffff00) | (colour1 & 0xff);
 		}
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].item_disabled,
 				g_MenuWave1Colours[context->dialog->type].item_disabled);
 	}
@@ -1962,8 +1962,8 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 			return gdl;
 		}
 
-		textBackupDiagonalBlendSettings();
-		textSetDiagonalBlend(x, y, menudfc->unk04 * 300, 0);
+		text_backup_diagonal_blend_settings();
+		text_set_diagonal_blend(x, y, menudfc->unk04 * 300, 0);
 		var8007fb9c = true;
 	}
 
@@ -1986,12 +1986,12 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	gdl = text0f153628(gdl);
-	gdl = textRenderProjected(gdl, &x, &y, text,
+	gdl = text_render_projected(gdl, &x, &y, text,
 			font1, font2, colour1, context->width, context->height, 0, 0);
 
 	if ((context->item->flags & MENUITEMFLAG_LABEL_HASRIGHTTEXT) == 0) {
 		// Right side text
-		text = menuResolveText(context->item->param3, context->item);
+		text = menu_resolve_text(context->item->param3, context->item);
 
 		// This is not how you check if a string is empty...
 		if (text != NULL && text != "") {
@@ -2006,14 +2006,14 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 			}
 #endif
 
-			textMeasure(&textheight, &textwidth, text, font1, font2, 0);
+			text_measure(&textheight, &textwidth, text, font1, font2, 0);
 			x = context->x + context->width - textwidth - 10;
 
 			if (context->item->flags & MENUITEMFLAG_LESSLEFTPADDING) {
 				x += 6;
 			}
 
-			gdl = textRenderProjected(gdl, &x, &y, text,
+			gdl = text_render_projected(gdl, &x, &y, text,
 					font1, font2, colour2, context->width, context->height, 0, 0);
 		}
 	}
@@ -2027,7 +2027,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
 
 		var8007fb9c = savedvalue;
 
-		textRestoreDiagonalBlendSettings();
+		text_restore_diagonal_blend_settings();
 	}
 
 	if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
@@ -2054,7 +2054,7 @@ Gfx *menuitemLabelRender(Gfx *gdl, struct menurendercontext *context)
  * Renders two yellow bars and an optional label. Suspected to be a resource
  * meter but with the calculations ifdeffed out, so the widths are static.
  */
-Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_meter_render(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 a = 9;
 	char *text;
@@ -2070,38 +2070,38 @@ Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
 	if (context->dialog->transitionfrac < 0) {
 		colour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
-		colour = colourBlend(
+		colour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_unfocused,
 				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
 	if (context->dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 127) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 127) & 0xffffff00) | (colour & 0xff);
 	}
 
 	colour2 = 0xffff0000 | (colour & 0xff);
-	colour1 = colourBlend(colour2, colour2 & 0xff, 127);
+	colour1 = colour_blend(colour2, colour2 & 0xff, 127);
 
 	x1 = context->x + 32;
 	x2 = x1 + a;
 	x3 = x2 + 6;
 
-	gdl = textSetPrimColour(gdl, colour1);
+	gdl = text_set_prim_colour(gdl, colour1);
 	gDPFillRectangleScaled(gdl++, x1, context->y, x2, context->y + 5);
 	gdl = text0f153838(gdl);
 
-	gdl = textSetPrimColour(gdl, colour2);
+	gdl = text_set_prim_colour(gdl, colour2);
 	gDPFillRectangleScaled(gdl++, x2, context->y, x3, context->y + 5);
 	gdl = text0f153838(gdl);
 
-	text = menuResolveParam2Text(context->item);
+	text = menu_resolve_param2_text(context->item);
 
 	if (text) {
 		gdl = text0f153628(gdl);
 		x = context->x;
 		y = context->y - 1;
-		gdl = textRenderProjected(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colour2 & 0xffffff7f, context->width, context->height, 0, 0);
 		gdl = text0f153780(gdl);
 	}
@@ -2109,7 +2109,7 @@ Gfx *menuitemMeterRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_selectable_render(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 leftcolour;
 	u32 rightcolour;
@@ -2128,19 +2128,19 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		font2 = g_FontHandelGothicMd;
 	}
 
-	text = menuResolveParam2Text(context->item);
+	text = menu_resolve_param2_text(context->item);
 
 	if (context->dialog->transitionfrac < 0) {
 		leftcolour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
-		leftcolour = colourBlend(
+		leftcolour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_unfocused,
 				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
 	if (context->dialog->dimmed) {
-		leftcolour = (colourBlend(leftcolour, 0, 127) & 0xffffff00) | (leftcolour & 0xff);
+		leftcolour = (colour_blend(leftcolour, 0, 127) & 0xffffff00) | (leftcolour & 0xff);
 	}
 
 	rightcolour = leftcolour;
@@ -2151,44 +2151,44 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		// use in the else branch. The lui is loading a value into $at for the
 		// float to u32 conversion for weight.
 		u32 colour2;
-		u32 weight = menuGetSinOscFrac(40) * 255; \
+		u32 weight = menu_get_sin_osc_frac(40) * 255; \
 		if (context->dialog->transitionfrac < 0) { \
 			colour2 = g_MenuColours[context->dialog->type].item_focused_inner; \
 		} else { \
-			colour2 = colourBlend(
+			colour2 = colour_blend(
 					g_MenuColours[context->dialog->type2].item_focused_inner,
 					g_MenuColours[context->dialog->type].item_focused_inner,
 					context->dialog->colourweight);
 		}
 
-		leftcolour = colourBlend(colourBlend(leftcolour, leftcolour & 0x000000ff, 127), colour2, weight);
+		leftcolour = colour_blend(colour_blend(leftcolour, leftcolour & 0x000000ff, 127), colour2, weight);
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].item_focused_inner,
 				g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	} else {
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].item_unfocused,
 				g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
-	if (menuIsItemDisabled(context->item, context->dialog)) {
+	if (menu_is_item_disabled(context->item, context->dialog)) {
 		if (context->dialog->transitionfrac < 0) {
 			leftcolour = g_MenuColours[context->dialog->type].item_disabled;
 		} else {
-			leftcolour = colourBlend(
+			leftcolour = colour_blend(
 					g_MenuColours[context->dialog->type2].item_disabled,
 					g_MenuColours[context->dialog->type].item_disabled,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			leftcolour = (colourBlend(leftcolour, 0x00000000, 127) & 0xffffff00) | (leftcolour & 0xff);
+			leftcolour = (colour_blend(leftcolour, 0x00000000, 127) & 0xffffff00) | (leftcolour & 0xff);
 		}
 
 		rightcolour = leftcolour;
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].item_disabled,
 				g_MenuWave1Colours[context->dialog->type].item_disabled);
 	}
@@ -2197,7 +2197,7 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 		// Center text
 		s32 textheight;
 		s32 textwidth;
-		textMeasure(&textheight, &textwidth, text, font1, font2, 0);
+		text_measure(&textheight, &textwidth, text, font1, font2, 0);
 		x = context->x + (context->width - textwidth) / 2;
 	}
 
@@ -2207,12 +2207,12 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	gdl = text0f153628(gdl);
-	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
+	gdl = text_render_projected(gdl, &x, &y, text, font1, font2,
 			leftcolour, context->width, context->height, 0, 0);
 
 	if ((context->item->flags & (MENUITEMFLAG_LABEL_HASRIGHTTEXT | MENUITEMFLAG_BIGFONT)) == 0) {
 		// Right side text
-		text = menuResolveText(context->item->param3, context->item);
+		text = menu_resolve_text(context->item->param3, context->item);
 
 		// This is not how you check if a string is empty...
 		if (text != NULL && text != "") {
@@ -2220,10 +2220,10 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 			s32 textwidth;
 
 			y = context->y + 2;
-			textMeasure(&textheight, &textwidth, text, font1, font2, 0);
+			text_measure(&textheight, &textwidth, text, font1, font2, 0);
 			x = context->x + context->width - textwidth - 10;
 
-			gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
+			gdl = text_render_projected(gdl, &x, &y, text, font1, font2,
 					rightcolour, context->width, context->height, 0, 0);
 		}
 	}
@@ -2231,17 +2231,17 @@ Gfx *menuitemSelectableRender(Gfx *gdl, struct menurendercontext *context)
 	return text0f153780(gdl);
 }
 
-bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
+bool menuitem_selectable_tick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
 	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && inputs->select) {
-		menuPlaySound(MENUSOUND_SELECT);
+		menu_play_sound(MENUSOUND_SELECT);
 
 		if (item->flags & MENUITEMFLAG_SELECTABLE_CLOSESDIALOG) {
-			menuPopDialog();
+			menu_pop_dialog();
 		}
 
 		if (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) {
-			menuPushDialog((struct menudialogdef *)item->handler);
+			menu_push_dialog((struct menudialogdef *)item->handler);
 		} else if (item->handler) {
 			union handlerdata data;
 			item->handler(MENUOP_SET, item, &data);
@@ -2251,7 +2251,7 @@ bool menuitemSelectableTick(struct menuitem *item, struct menuinputs *inputs, u3
 	return true;
 }
 
-Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_slider_render(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour;
 	char *label;
@@ -2289,63 +2289,63 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 		x -= 6;
 	}
 
-	label = menuResolveParam2Text(context->item);
+	label = menu_resolve_param2_text(context->item);
 	markerx = context->x + context->width + slidervalue * 75 / context->item->param3 - 82;
 
 	colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 	if (context->dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 	}
 
 	if (context->focused) {
 		if (context->focused & 2) {
 			u32 tmpcolour;
-			u32 weight = menuGetSinOscFrac(40) * 255.0f;
+			u32 weight = menu_get_sin_osc_frac(40) * 255.0f;
 
 			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
-			colour = colourBlend(colour, colour & 0xff, 0x7f);
-			colour = colourBlend(colour, tmpcolour, weight) | 0xff;
+			colour = colour_blend(colour, colour & 0xff, 0x7f);
+			colour = colour_blend(colour, tmpcolour, weight) | 0xff;
 		}
 
-		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
+		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	} else {
-		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
+		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
-	gdl = menugfxRenderSlider(gdl, context->x + context->width - 82, context->y + extray + 5, context->x + context->width - 7, context->y + extray + 11, markerx, colour);
+	gdl = menugfx_render_slider(gdl, context->x + context->width - 82, context->y + extray + 5, context->x + context->width - 7, context->y + extray + 11, markerx, colour);
 
 	colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 	if (context->dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 	}
 
 	if (context->focused != 0) {
 		if (context->focused & 2) {
 			u32 tmpcolour;
-			u32 weight = menuGetSinOscFrac(20) * 255.0f;
+			u32 weight = menu_get_sin_osc_frac(20) * 255.0f;
 			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
-			colour = colourBlend(colour, colour & 0xff, 0x7f);
-			colour = colourBlend(colour, tmpcolour, weight);
+			colour = colour_blend(colour, colour & 0xff, 0x7f);
+			colour = colour_blend(colour, tmpcolour, weight);
 		} else {
 			u32 tmpcolour;
-			u32 weight = menuGetSinOscFrac(40) * 255.0f;
+			u32 weight = menu_get_sin_osc_frac(40) * 255.0f;
 			tmpcolour = MIXCOLOUR(context->dialog, item_focused_inner);
 
-			colour = colourBlend(colour, colour & 0xff, 0x7f);
-			colour = colourBlend(colour, tmpcolour, weight);
+			colour = colour_blend(colour, colour & 0xff, 0x7f);
+			colour = colour_blend(colour, tmpcolour, weight);
 		}
 
-		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
+		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_focused_inner, g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	} else {
-		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
+		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
 	gdl = text0f153628(gdl);
-	gdl = textRenderProjected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 
 	if ((context->item->flags & MENUITEMFLAG_SLIDER_HIDEVALUE) == 0) {
 		strcpy(buffer, "");
@@ -2358,7 +2358,7 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 			context->item->handler(MENUOP_GETSLIDERLABEL, context->item, &data);
 		}
 
-		textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 		x = context->x + context->width - textwidth - 7;
 		y = context->y + 2;
@@ -2366,13 +2366,13 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 		colour = MIXCOLOUR(context->dialog, item_unfocused);
 
 		if (context->dialog->dimmed) {
-			colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
+			colour = (colour_blend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 		}
 
-		textSetWaveColours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
+		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 		colour = (colour & 0xffffff00) | ((colour & 0xff) >> 1);
-		gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 	}
 
 	gdl = text0f153780(gdl);
@@ -2380,7 +2380,7 @@ Gfx *menuitemSliderRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+bool menuitem_slider_tick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	s32 index;
 	union handlerdata handlerdata;
@@ -2490,36 +2490,36 @@ bool menuitemSliderTick(struct menuitem *item, struct menudialog *dialog, struct
 	return true;
 }
 
-void menuitemSliderInit(union menuitemdata *data)
+void menuitem_slider_init(union menuitemdata *data)
 {
 	data->slider.multiplier = 0;
 }
 
-Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_carousel_render(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 colour = 0xff0000ff;
 
 	if (context->focused) {
 		u32 colour1;
-		u32 weight = menuGetSinOscFrac(40) * 255;
+		u32 weight = menu_get_sin_osc_frac(40) * 255;
 
 		if (context->dialog->transitionfrac < 0) {
 			colour1 = g_MenuColours[context->dialog->type].item_focused_inner;
 		} else {
-			colour1 = colourBlend(
+			colour1 = colour_blend(
 					g_MenuColours[context->dialog->type2].item_focused_inner,
 					g_MenuColours[context->dialog->type].item_focused_inner,
 					context->dialog->colourweight);
 		}
 
-		colour = colourBlend(colourBlend(colour, 0x000000ff, 127), colour1, weight);
+		colour = colour_blend(colour_blend(colour, 0x000000ff, 127), colour1, weight);
 	}
 
 	// Left arrow
-	gdl = menugfxDrawCarouselChevron(gdl, context->x, context->y + context->height / 2, 8, 1, -1, colour);
+	gdl = menugfx_draw_carousel_chevron(gdl, context->x, context->y + context->height / 2, 8, 1, -1, colour);
 
 	// Right arrow
-	gdl = menugfxDrawCarouselChevron(gdl, context->x + context->width, context->y + context->height / 2, 8, 3, -1, colour);
+	gdl = menugfx_draw_carousel_chevron(gdl, context->x + context->width, context->y + context->height / 2, 8, 3, -1, colour);
 
 	// This part of the function is unused because param2 is always zero.
 	// Setting it to 0x7b causes a crash.
@@ -2543,7 +2543,7 @@ Gfx *menuitemCarouselRender(Gfx *gdl, struct menurendercontext *context)
 	return gdl;
 }
 
-bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
+bool menuitem_carousel_tick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
 	union handlerdata data;
 	s32 index;
@@ -2553,7 +2553,7 @@ bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 
 
 	if (((tickflags & MENUTICKFLAG_ITEMISFOCUSED) || (item->flags & MENUITEMFLAG_CAROUSEL_04000000)) && item->handler) {
 		if (inputs->leftright != 0) {
-			if (mpIsPlayerLockedOut(g_MpPlayerNum) == 0 || (item->flags & MENUITEMFLAG_LOCKABLEMINOR) == 0) {
+			if (mp_is_player_locked_out(g_MpPlayerNum) == 0 || (item->flags & MENUITEMFLAG_LOCKABLEMINOR) == 0) {
 				done = false;
 
 				item->handler(MENUOP_GETOPTIONCOUNT, item, &data);
@@ -2599,7 +2599,7 @@ bool menuitemCarouselTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_checkbox_render(Gfx *gdl, struct menurendercontext *context)
 {
 	u32 maincolour = 0x00000000;
 	char *text;
@@ -2618,7 +2618,7 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 
 	x = context->x;
 	y = context->y;
-	text = menuResolveParam2Text(context->item);
+	text = menu_resolve_param2_text(context->item);
 	data[0] = 0;
 
 	if (context->item->handler
@@ -2628,34 +2628,34 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		if (context->dialog->transitionfrac < 0) {
 			maincolour = g_MenuColours[context->dialog->type].checkbox_checked_unfocused;
 		} else {
-			maincolour = colourBlend(
+			maincolour = colour_blend(
 					g_MenuColours[context->dialog->type2].checkbox_checked_unfocused,
 					g_MenuColours[context->dialog->type].checkbox_checked_unfocused,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			maincolour = (colourBlend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
+			maincolour = (colour_blend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
 		}
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].checkbox_checked_unfocused,
 				g_MenuWave1Colours[context->dialog->type].checkbox_checked_unfocused);
 	} else {
 		if (context->dialog->transitionfrac < 0) {
 			maincolour = g_MenuColours[context->dialog->type].item_unfocused;
 		} else {
-			maincolour = colourBlend(
+			maincolour = colour_blend(
 					g_MenuColours[context->dialog->type2].item_unfocused,
 					g_MenuColours[context->dialog->type].item_unfocused,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			maincolour = (colourBlend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
+			maincolour = (colour_blend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
 		}
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].item_unfocused,
 				g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
@@ -2668,38 +2668,38 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 		// use in the else branch. The lui is loading a value into $at for the
 		// float to u32 conversion for weight.
 		u32 focuscolour;
-		u32 weight = menuGetSinOscFrac(40) * 255; \
+		u32 weight = menu_get_sin_osc_frac(40) * 255; \
 		if (context->dialog->transitionfrac < 0) { \
 			focuscolour = g_MenuColours[context->dialog->type].item_focused_inner;
 		} else {
-			focuscolour = colourBlend(
+			focuscolour = colour_blend(
 					g_MenuColours[context->dialog->type2].item_focused_inner,
 					g_MenuColours[context->dialog->type].item_focused_inner,
 					context->dialog->colourweight);
 		}
 
-		maincolour = colourBlend(colourBlend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
+		maincolour = colour_blend(colour_blend(maincolour, maincolour & 0xff, 127), focuscolour, weight);
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].item_focused_inner,
 				g_MenuWave1Colours[context->dialog->type].item_focused_inner);
 	}
 
-	if (menuIsItemDisabled(context->item, context->dialog)) {
+	if (menu_is_item_disabled(context->item, context->dialog)) {
 		if (context->dialog->transitionfrac < 0) {
 			maincolour = g_MenuColours[context->dialog->type].item_disabled;
 		} else {
-			maincolour = colourBlend(
+			maincolour = colour_blend(
 					g_MenuColours[context->dialog->type2].item_disabled,
 					g_MenuColours[context->dialog->type].item_disabled,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			maincolour = (colourBlend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
+			maincolour = (colour_blend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
 		}
 
-		textSetWaveColours(
+		text_set_wave_colours(
 				g_MenuWave2Colours[context->dialog->type].item_disabled,
 				g_MenuWave1Colours[context->dialog->type].item_disabled);
 
@@ -2707,30 +2707,30 @@ Gfx *menuitemCheckboxRender(Gfx *gdl, struct menurendercontext *context)
 	}
 
 #if VERSION == VERSION_JPN_FINAL
-	gdl = menugfxDrawCheckbox(gdl, context->x + context->width - 19, context->y + 2, 9, checked, maincolour, fillcolour);
+	gdl = menugfx_draw_checkbox(gdl, context->x + context->width - 19, context->y + 2, 9, checked, maincolour, fillcolour);
 #else
-	gdl = menugfxDrawCheckbox(gdl, context->x + context->width - 16, context->y + 2, 6, checked, maincolour, fillcolour);
+	gdl = menugfx_draw_checkbox(gdl, context->x + context->width - 16, context->y + 2, 6, checked, maincolour, fillcolour);
 #endif
 
 	x = context->x + 10;
 	y = context->y + 2;
-	gdl = textRenderProjected(gdl, &x, &y, text, font1, font2,
+	gdl = text_render_projected(gdl, &x, &y, text, font1, font2,
 			maincolour, context->width, context->height, 0, 0);
 
 	return text0f153780(gdl);
 }
 
-bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
+bool menuitem_checkbox_tick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
 {
 	union handlerdata data;
 
 	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && inputs->select) {
 		if (item->handler && item->handler(MENUOP_GET, item, &data) == 1) {
 			data.checkbox.value = 0;
-			menuPlaySound(MENUSOUND_TOGGLEOFF);
+			menu_play_sound(MENUSOUND_TOGGLEOFF);
 		} else {
 			data.checkbox.value = 1;
-			menuPlaySound(MENUSOUND_TOGGLEON);
+			menu_play_sound(MENUSOUND_TOGGLEON);
 		}
 
 		if (item->handler) {
@@ -2741,37 +2741,37 @@ bool menuitemCheckboxTick(struct menuitem *item, struct menuinputs *inputs, u32 
 	return true;
 }
 
-char *menuitemScrollableGetText(u32 type)
+char *menuitem_scrollable_get_text(u32 type)
 {
 	switch (type) {
 	case DESCRIPTION_MPCONFIG:
-		return challengeGetConfigDescription(g_Menus[g_MpPlayerNum].training.mpconfig);
+		return challenge_get_config_description(g_Menus[g_MpPlayerNum].training.mpconfig);
 	case DESCRIPTION_MPCHALLENGE:
-		if (!challengeIsLoaded()) {
+		if (!challenge_is_loaded()) {
 			g_Menus[g_MpPlayerNum].menumodel.curparams = 0x4fac5ace;
-			challengeLoadAndStoreCurrent(g_Menus[g_MpPlayerNum].menumodel.allocstart, g_Menus[g_MpPlayerNum].menumodel.alloclen);
+			challenge_load_and_store_current(g_Menus[g_MpPlayerNum].menumodel.allocstart, g_Menus[g_MpPlayerNum].menumodel.alloclen);
 		}
-		return challengeGetCurrentDescription();
-	case DESCRIPTION_CHRBIO:         return ciGetChrBioDescription();
-	case DESCRIPTION_MISCBIO:        return ciGetMiscBioDescription();
-	case DESCRIPTION_DEVICETRAINING: return dtGetDescription();
-	case DESCRIPTION_FRWEAPON:       return frGetWeaponDescription();
-	case DESCRIPTION_HANGARBIO:      return ciGetHangarBioDescription();
-	case DESCRIPTION_HOLOTRAINING:   return htGetDescription();
-	case DESCRIPTION_HOLOTIP1:       return htGetTip1();
-	case DESCRIPTION_HOLOTIP2:       return htGetTip2();
-	case DESCRIPTION_DEVICETIP1:     return dtGetTip1();
-	case DESCRIPTION_DEVICETIP2:     return dtGetTip2();
+		return challenge_get_current_description();
+	case DESCRIPTION_CHRBIO:         return ci_get_chr_bio_description();
+	case DESCRIPTION_MISCBIO:        return ci_get_misc_bio_description();
+	case DESCRIPTION_DEVICETRAINING: return dt_get_description();
+	case DESCRIPTION_FRWEAPON:       return fr_get_weapon_description();
+	case DESCRIPTION_HANGARBIO:      return ci_get_hangar_bio_description();
+	case DESCRIPTION_HOLOTRAINING:   return ht_get_description();
+	case DESCRIPTION_HOLOTIP1:       return ht_get_tip1();
+	case DESCRIPTION_HOLOTIP2:       return ht_get_tip2();
+	case DESCRIPTION_DEVICETIP1:     return dt_get_tip1();
+	case DESCRIPTION_DEVICETIP2:     return dt_get_tip2();
 	}
 
-	return langGet(g_Briefing.briefingtextnum);
+	return lang_get(g_Briefing.briefingtextnum);
 }
 
 /**
  * Render a scrollable menu item, such as briefing paragraphs and challenge
  * descriptions.
  *
- * The text returned from menuitemScrollableGetText is first wrapped to fit the
+ * The text returned from menuitem_scrollable_get_text is first wrapped to fit the
  * width of the dialog. It is then separated into two strings:
  *
  * headings - which are started with the pipe character and ended with a
@@ -2780,7 +2780,7 @@ char *menuitemScrollableGetText(u32 type)
  *
  * Headings are rendered in red, with a dropshadow and are outdented.
  */
-Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_scrollable_render(Gfx *gdl, struct menurendercontext *context)
 {
 	char alltext[8000] = "";
 	char headingtext[8000];
@@ -2796,14 +2796,14 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	char *rawtext;
 	s32 paddingright = 24;
 
-	rawtext = menuitemScrollableGetText(context->item->param);
+	rawtext = menuitem_scrollable_get_text(context->item->param);
 
-	if (menuIsScrollableUnscrollable(context->item)) {
+	if (menu_is_scrollable_unscrollable(context->item)) {
 		paddingright = 10;
 	}
 
 	if (rawtext) {
-		textWrap(context->width - paddingright, rawtext, alltext, g_CharsHandelGothicSm, g_FontHandelGothicSm);
+		text_wrap(context->width - paddingright, rawtext, alltext, g_CharsHandelGothicSm, g_FontHandelGothicSm);
 	}
 
 	inptr = alltext;
@@ -2850,17 +2850,17 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	if (context->dialog->transitionfrac < 0) {
 		colour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
-		colour = colourBlend(
+		colour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_unfocused,
 				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
 	if (context->dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 0x7f) & 0xffffff00) | (colour & 0xff);
 	}
 
-	textSetWaveColours(
+	text_set_wave_colours(
 			g_MenuWave2Colours[context->dialog->type].item_unfocused,
 			g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
@@ -2869,26 +2869,26 @@ Gfx *menuitemScrollableRender(Gfx *gdl, struct menurendercontext *context)
 	// Heading text shadow
 	x = context->x + 3;
 	y = context->y + 3;
-	gdl = textRenderProjected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_projected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0x000000ff, context->width - 4, context->height - 4, -data->scrolloffset, 0);
 
 	// Heading text (red)
 	x = context->x + 2;
 	y = context->y + 2;
-	gdl = textRenderProjected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_projected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0xff4444ff, context->width - 4, context->height - 4, -data->scrolloffset, 0);
 
 	// Body text
-	x = menuIsScrollableUnscrollable(context->item) ? context->x + 5 : context->x + 12;
+	x = menu_is_scrollable_unscrollable(context->item) ? context->x + 5 : context->x + 12;
 	y = context->y + 2;
 
-	gdl = textRenderProjected(gdl, &x, &y, bodytext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_projected(gdl, &x, &y, bodytext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			colour, context->width - 4, context->height - 1, -data->scrolloffset, 0);
 
 	return text0f153780(gdl);
 }
 
-bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+bool menuitem_scrollable_tick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	u32 stack;
 
@@ -2910,24 +2910,24 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 		data->scrollable.language = g_LanguageId;
 #endif
 
-		dialogFindItem(dialog, item, &rowindex, &colindex);
+		dialog_find_item(dialog, item, &rowindex, &colindex);
 
 		colwidth = g_Menus[g_MpPlayerNum].cols[colindex].width;
 		rowheight = g_Menus[g_MpPlayerNum].rows[rowindex].height;
 
-		if (menuIsScrollableUnscrollable(item)) {
+		if (menu_is_scrollable_unscrollable(item)) {
 			width = colwidth - 10;
 		} else {
 			width = colwidth - 24;
 		}
 
-		rawtext = menuitemScrollableGetText(item->param);
+		rawtext = menuitem_scrollable_get_text(item->param);
 
 		if (rawtext) {
-			textWrap(width, rawtext, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm);
+			text_wrap(width, rawtext, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm);
 		}
 
-		textMeasure(&height, &width, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&height, &width, wrapped, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 		data->scrollable.maxscrolloffset = height - rowheight + 5;
 
@@ -2938,7 +2938,7 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 		data->scrollable.dialogheight = dialog->height;
 	}
 
-	if (menuIsScrollableUnscrollable(item)) {
+	if (menu_is_scrollable_unscrollable(item)) {
 		data->scrollable.scrolloffset = 0;
 	} else if (tickflags & MENUTICKFLAG_ITEMISFOCUSED) {
 		f32 floatval;
@@ -2984,16 +2984,16 @@ bool menuitemScrollableTick(struct menuitem *item, struct menudialog *dialog, st
 	return true;
 }
 
-void menuitemScrollableInit(union menuitemdata *data)
+void menuitem_scrollable_init(union menuitemdata *data)
 {
 	data->scrollable.dialogheight = -1;
 	data->scrollable.scrolloffset = -10;
 }
 
-Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_marquee_render(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_marquee *data = &context->data->marquee;
-	char *text = menuResolveParam2Text(context->item);
+	char *text = menu_resolve_param2_text(context->item);
 	s32 x;
 	s32 y;
 	u32 colour;
@@ -3033,14 +3033,14 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 	if (context->dialog->transitionfrac < 0) {
 		colour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
-		colour = colourBlend(
+		colour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_unfocused,
 				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
 	if (context->dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 127) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 127) & 0xffffff00) | (colour & 0xff);
 	}
 
 	x = context->x + context->width - data->totalmoved;
@@ -3069,7 +3069,7 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 			}
 #endif
 
-			textMeasure(&textheight, &textwidth, string, font1, font2, 0);
+			text_measure(&textheight, &textwidth, string, font1, font2, 0);
 
 			if (x + textwidth > context->x) {
 				hasmore = false;
@@ -3111,20 +3111,20 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 		g_ScissorY2 = 0;
 	}
 
-	if (g_ScissorX1 > viGetBufWidth()) {
-		g_ScissorX1 = viGetBufWidth();
+	if (g_ScissorX1 > vi_get_buf_width()) {
+		g_ScissorX1 = vi_get_buf_width();
 	}
 
-	if (g_ScissorX2 > viGetBufWidth()) {
-		g_ScissorX2 = viGetBufWidth();
+	if (g_ScissorX2 > vi_get_buf_width()) {
+		g_ScissorX2 = vi_get_buf_width();
 	}
 
-	if (g_ScissorY1 > viGetBufHeight()) {
-		g_ScissorY1 = viGetBufHeight();
+	if (g_ScissorY1 > vi_get_buf_height()) {
+		g_ScissorY1 = vi_get_buf_height();
 	}
 
-	if (g_ScissorY2 > viGetBufHeight()) {
-		g_ScissorY2 = viGetBufHeight();
+	if (g_ScissorY2 > vi_get_buf_height()) {
+		g_ScissorY2 = vi_get_buf_height();
 	}
 
 	if (g_ScissorX2 < g_ScissorX1) {
@@ -3142,25 +3142,25 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 			(context->x + context->width) * g_ScaleX, context->y + context->height - 1);
 #endif
 
-	textBackupAndResetBlends();
+	text_backup_and_reset_blends();
 
 	if (context->item->flags & MENUITEMFLAG_MARQUEE_FADEBOTHSIDES) {
 #if VERSION == VERSION_JPN_FINAL
-		textSetHorizontalBlend(context->x, context->x + context->width, 28);
+		text_set_horizontal_blend(context->x, context->x + context->width, 28);
 #else
-		textSetHorizontalBlend(context->x, context->x + context->width, 14);
+		text_set_horizontal_blend(context->x, context->x + context->width, 14);
 #endif
 	} else {
-		textSetHorizontalBlend(context->x, context->x, 14);
+		text_set_horizontal_blend(context->x, context->x, 14);
 	}
 
 	gdl = text0f153628(gdl);
-	gdl = textRenderProjected(gdl, &x, &y, &text[i], font1, font2, colour,
+	gdl = text_render_projected(gdl, &x, &y, &text[i], font1, font2, colour,
 			context->width + context->x - x, context->height, 0, 0);
 	gdl = text0f153780(gdl);
-	gdl = menuApplyScissor(gdl);
+	gdl = menu_apply_scissor(gdl);
 
-	textRestoreBlends();
+	text_restore_blends();
 
 	data->viewwidth = context->width;
 
@@ -3169,7 +3169,7 @@ Gfx *menuitemMarqueeRender(Gfx *gdl, struct menurendercontext *context)
 
 u32 var800711f0 = 0x00000002;
 
-bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
+bool menuitem_marquee_tick(struct menuitem *item, union menuitemdata *data)
 {
 	s32 i;
 	s32 textheight;
@@ -3178,7 +3178,7 @@ bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 	struct font *font2;
 	s32 increment;
 	u16 texthash = 0;
-	char *text = menuResolveParam2Text(item);
+	char *text = menu_resolve_param2_text(item);
 	s32 limit;
 
 #if VERSION == VERSION_JPN_FINAL
@@ -3210,7 +3210,7 @@ bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 		data->marquee.texthash = texthash;
 	}
 
-	textMeasure(&textheight, &textwidth, text, font1, font2, 0);
+	text_measure(&textheight, &textwidth, text, font1, font2, 0);
 	limit = data->marquee.viewwidth + textwidth;
 	increment = g_Vars.diffframe60 / 2;
 
@@ -3227,19 +3227,19 @@ bool menuitemMarqueeTick(struct menuitem *item, union menuitemdata *data)
 	return true;
 }
 
-void menuitemMarqueeInit(union menuitemdata *data)
+void menuitem_marquee_init(union menuitemdata *data)
 {
 	data->marquee.totalmoved = 0;
 	data->marquee.viewwidth = 50;
 	data->marquee.unk06 = 0;
 }
 
-Gfx *menuitem07Render(Gfx *gdl)
+Gfx *menuitem07_render(Gfx *gdl)
 {
 	return gdl;
 }
 
-Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 {
 	struct ranking rankings[MAX_MPCHRS];
 	s32 numrows;
@@ -3258,9 +3258,9 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 
 	if (context->item->param2 == 1) {
 		team = true;
-		numrows = mpGetTeamRankings(rankings);
+		numrows = mp_get_team_rankings(rankings);
 	} else {
-		numrows = mpGetPlayerRankings(rankings);
+		numrows = mp_get_player_rankings(rankings);
 	}
 
 	gdl = text0f153628(gdl);
@@ -3283,30 +3283,30 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	if (context->dialog->transitionfrac < 0) {
 		textcolour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
-		textcolour = colourBlend(
+		textcolour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_unfocused,
 				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
 	if (context->dialog->dimmed) {
-		textcolour = (colourBlend(textcolour, 0, 127) & 0xffffff00) | (textcolour & 0xff);
+		textcolour = (colour_blend(textcolour, 0, 127) & 0xffffff00) | (textcolour & 0xff);
 	}
 
 	if (!team) {
 		// "Deaths"
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+		text_measure(&textheight, &textwidth, lang_get(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 		x = (context->x - textwidth) + 91;
 		y = context->y + 1;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				textcolour, context->width, context->height, 0, 0);
 	}
 
 	// "Score"
-	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+	text_measure(&textheight, &textwidth, lang_get(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 	x = (context->x - textwidth) + 120;
 	y = context->y + 1;
-	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			textcolour, context->width, context->height, 0, 0);
 	gdl = text0f153780(gdl);
 
@@ -3315,37 +3315,37 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 	if (dialog->transitionfrac < 0) {
 		linecolour1 = g_MenuColours[dialog->type].dialog_border1;
 	} else {
-		linecolour1 = colourBlend(
+		linecolour1 = colour_blend(
 				g_MenuColours[dialog->type2].dialog_border1,
 				g_MenuColours[dialog->type].dialog_border1,
 				dialog->colourweight);
 	}
 
 	if (dialog->dimmed) {
-		linecolour1 = (colourBlend(linecolour1, 0, 44) & 0xffffff00) | (linecolour1 & 0xff);
+		linecolour1 = (colour_blend(linecolour1, 0, 44) & 0xffffff00) | (linecolour1 & 0xff);
 	}
 
 	if (dialog->transitionfrac < 0) {
 		linecolour2 = g_MenuColours[dialog->type].dialog_border2;
 	} else {
-		linecolour2 = colourBlend(
+		linecolour2 = colour_blend(
 				g_MenuColours[dialog->type2].dialog_border2,
 				g_MenuColours[dialog->type].dialog_border2,
 				dialog->colourweight);
 	}
 
 	if (dialog->dimmed) {
-		linecolour2 = (colourBlend(linecolour2, 0, 44) & 0xffffff00) | (linecolour2 & 0xff);
+		linecolour2 = (colour_blend(linecolour2, 0, 44) & 0xffffff00) | (linecolour2 & 0xff);
 	}
 
-	linecolour1 = (textApplyProjectionColour(context->x, context->y + 2, -129) & 0xff) | (linecolour1 & 0xffffff00);
-	linecolour2 = (textApplyProjectionColour(context->x + context->width, context->y + 2, -129) & 0xff) | (linecolour2 & 0xffffff00);
+	linecolour1 = (text_apply_projection_colour(context->x, context->y + 2, -129) & 0xff) | (linecolour1 & 0xffffff00);
+	linecolour2 = (text_apply_projection_colour(context->x + context->width, context->y + 2, -129) & 0xff) | (linecolour2 & 0xffffff00);
 
 	// Horizontal line between header and body
 #if VERSION == VERSION_JPN_FINAL
-	gdl = menugfxDrawFilledRect(gdl, context->x, context->y + 13, context->x + context->width, context->y + 14, linecolour1, linecolour1);
+	gdl = menugfx_draw_filled_rect(gdl, context->x, context->y + 13, context->x + context->width, context->y + 14, linecolour1, linecolour1);
 #else
-	gdl = menugfxDrawFilledRect(gdl, context->x, context->y + 9, context->x + context->width, context->y + 10, linecolour1, linecolour1);
+	gdl = menugfx_draw_filled_rect(gdl, context->x, context->y + 9, context->x + context->width, context->y + 10, linecolour1, linecolour1);
 #endif
 
 	gDPPipeSync(gdl++);
@@ -3372,20 +3372,20 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 		g_ScissorY2 = 0;
 	}
 
-	if (g_ScissorX1 > viGetBufWidth()) {
-		g_ScissorX1 = viGetBufWidth();
+	if (g_ScissorX1 > vi_get_buf_width()) {
+		g_ScissorX1 = vi_get_buf_width();
 	}
 
-	if (g_ScissorX2 > viGetBufWidth()) {
-		g_ScissorX2 = viGetBufWidth();
+	if (g_ScissorX2 > vi_get_buf_width()) {
+		g_ScissorX2 = vi_get_buf_width();
 	}
 
-	if (g_ScissorY1 > viGetBufHeight()) {
-		g_ScissorY1 = viGetBufHeight();
+	if (g_ScissorY1 > vi_get_buf_height()) {
+		g_ScissorY1 = vi_get_buf_height();
 	}
 
-	if (g_ScissorY2 > viGetBufHeight()) {
-		g_ScissorY2 = viGetBufHeight();
+	if (g_ScissorY2 > vi_get_buf_height()) {
+		g_ScissorY2 = vi_get_buf_height();
 	}
 
 	if (g_ScissorX2 < g_ScissorX1) {
@@ -3420,7 +3420,7 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 			weight = i / (f32)(numrows - 1) * 255;
 		}
 
-		textcolour = colourBlend(0x008888ff, 0x00ffffff, weight);
+		textcolour = colour_blend(0x008888ff, 0x00ffffff, weight);
 		x = context->x + 5;
 #if VERSION >= VERSION_JPN_FINAL
 		y = context->y + i * 13 - data->scrolloffset + 18;
@@ -3429,46 +3429,46 @@ Gfx *menuitemRankingRender(Gfx *gdl, struct menurendercontext *context)
 #endif
 
 		if (team) {
-			gdl = textRenderProjected(gdl, &x, &y, g_BossFile.teamnames[ranking->teamnum],
+			gdl = text_render_projected(gdl, &x, &y, g_BossFile.teamnames[ranking->teamnum],
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		} else {
-			gdl = textRenderProjected(gdl, &x, &y, ranking->mpchr->name,
+			gdl = text_render_projected(gdl, &x, &y, ranking->mpchr->name,
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		}
 
 		if (!team) {
 			// Deaths value (red)
-			textcolour = colourBlend(0xcf0000ff, 0xff4040ff, weight);
+			textcolour = colour_blend(0xcf0000ff, 0xff4040ff, weight);
 			sprintf(valuebuffer, "%d\n", ranking->mpchr->numdeaths);
-			textMeasure(&textheight, &textwidth, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+			text_measure(&textheight, &textwidth, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 			x = context->x - textwidth + 91;
 #if VERSION >= VERSION_JPN_FINAL
 			y = context->y + i * 13 - data->scrolloffset + 18;
 #else
 			y = context->y + i * 10 - data->scrolloffset + 14;
 #endif
-			gdl = textRenderProjected(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+			gdl = text_render_projected(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 					textcolour, context->width, context->height, 0, 0);
 		}
 
 		// Score value (green)
-		textcolour = colourBlend(0x009f00ff, 0x00ff00ff, weight);
+		textcolour = colour_blend(0x009f00ff, 0x00ff00ff, weight);
 		sprintf(valuebuffer, "%d\n", ranking->score);
-		textMeasure(&textheight, &textwidth, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+		text_measure(&textheight, &textwidth, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = context->x - textwidth + 120;
 #if VERSION >= VERSION_JPN_FINAL
 		y = context->y + i * 13 - data->scrolloffset + 18;
 #else
 		y = context->y + i * 10 - data->scrolloffset + 14;
 #endif
-		gdl = textRenderProjected(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+		gdl = text_render_projected(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				textcolour, context->width, context->height, 0, 0);
 	}
 
 	return text0f153780(gdl);
 }
 
-bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+bool menuitem_ranking_tick(struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 floatval;
 	s32 intval;
@@ -3503,12 +3503,12 @@ bool menuitemRankingTick(struct menuinputs *inputs, u32 tickflags, union menuite
 	return true;
 }
 
-void menuitemRankingInit(union menuitemdata *data)
+void menuitem_ranking_init(union menuitemdata *data)
 {
 	data->ranking.scrolloffset = 0;
 }
 
-Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_dropdown *data = &context->data->dropdown;
 	s32 x;
@@ -3519,7 +3519,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	u32 selectioncolour;
 	s32 textheight;
 	s32 textwidth;
-	s32 numchrs = mpGetNumChrs();
+	s32 numchrs = mp_get_num_chrs();
 	char buffer[12];
 	s32 i;
 	u32 weight;
@@ -3531,39 +3531,39 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	gdl = text0f153628(gdl);
 
 	// Write selected player's name
-	weight = menuGetSinOscFrac(40) * 255;
+	weight = menu_get_sin_osc_frac(40) * 255;
 
 	if (context->dialog->transitionfrac < 0) {
 		selectioncolour = g_MenuColours[context->dialog->type].item_focused_inner;
 	} else {
-		selectioncolour = colourBlend(
+		selectioncolour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_focused_inner,
 				g_MenuColours[context->dialog->type].item_focused_inner,
 				context->dialog->colourweight);
 	}
 
-	selectioncolour = colourBlend(colourBlend(0xffffffff, 0x000000ff, 127), selectioncolour, weight);
+	selectioncolour = colour_blend(colour_blend(0xffffffff, 0x000000ff, 127), selectioncolour, weight);
 	x = context->x + 2;
 	y = context->y + 1;
 
-	gdl = textRenderProjected(gdl, &x, &y, mpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_projected(gdl, &x, &y, mpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			selectioncolour, context->width, context->height, 0, 0);
 
 	// "Suicides" heading
 	if (context->dialog->transitionfrac < 0) {
 		maincolour = g_MenuColours[context->dialog->type].item_unfocused;
 	} else {
-		maincolour = colourBlend(
+		maincolour = colour_blend(
 				g_MenuColours[context->dialog->type2].item_unfocused,
 				g_MenuColours[context->dialog->type].item_unfocused,
 				context->dialog->colourweight);
 	}
 
 	if (context->dialog->dimmed) {
-		maincolour = (colourBlend(maincolour, 0x00000000, 127) & 0xffffff00) | (maincolour & 0xff);
+		maincolour = (colour_blend(maincolour, 0x00000000, 127) & 0xffffff00) | (maincolour & 0xff);
 	}
 
-	textMeasure(&textheight, &textwidth, langGet(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+	text_measure(&textheight, &textwidth, lang_get(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 #if VERSION >= VERSION_NTSC_1_0
 	x = context->x - textwidth + 121;
 #else
@@ -3571,7 +3571,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 #endif
 	y = context->y + 1;
 
-	gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			maincolour, context->width, context->height, 0, 0);
 
 	// Num suicides
@@ -3579,7 +3579,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	x = context->x - textwidth + 119;
 #endif
 	sprintf(buffer, "%d\n", mpchr->killcounts[playernum]);
-	textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+	text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 #if VERSION >= VERSION_NTSC_1_0
 	x -= textwidth;
 #else
@@ -3591,7 +3591,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	y++;
 #endif
 
-	gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0xffff00ff, context->width, context->height, 0, 0);
 
 	// Move ypos past top row
@@ -3601,29 +3601,29 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	ypos += 12;
 #endif
 
-	if (mpGetNumChrs() >= 2) {
+	if (mp_get_num_chrs() >= 2) {
 		if (context->dialog->transitionfrac < 0) {
 			maincolour = g_MenuColours[context->dialog->type].item_unfocused;
 		} else {
-			maincolour = colourBlend(
+			maincolour = colour_blend(
 					g_MenuColours[context->dialog->type2].item_unfocused,
 					g_MenuColours[context->dialog->type].item_unfocused,
 					context->dialog->colourweight);
 		}
 
 		if (context->dialog->dimmed) {
-			maincolour = (colourBlend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
+			maincolour = (colour_blend(maincolour, 0, 127) & 0xffffff00) | (maincolour & 0xff);
 		}
 
 		// "Deaths" heading
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+		text_measure(&textheight, &textwidth, lang_get(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 		x = context->x - textwidth + 120;
 		y = context->y + ypos;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				maincolour, context->width, context->height, 0, 0);
 
 		// "Kills" heading
-		textMeasure(&textheight, &textwidth, langGet(L_MPMENU_283), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+		text_measure(&textheight, &textwidth, lang_get(L_MPMENU_283), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 #if VERSION >= VERSION_JPN_FINAL
 		x = context->x + 4;
@@ -3632,7 +3632,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 #endif
 
 		y = context->y + ypos;
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPMENU_283),  g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_283),  g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				maincolour, context->width, context->height, 0, 0);
 
 		// Move ypos past heading row
@@ -3682,20 +3682,20 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 			g_ScissorY2 = 0;
 		}
 
-		if (g_ScissorX1 > viGetBufWidth()) {
-			g_ScissorX1 = viGetBufWidth();
+		if (g_ScissorX1 > vi_get_buf_width()) {
+			g_ScissorX1 = vi_get_buf_width();
 		}
 
-		if (g_ScissorX2 > viGetBufWidth()) {
-			g_ScissorX2 = viGetBufWidth();
+		if (g_ScissorX2 > vi_get_buf_width()) {
+			g_ScissorX2 = vi_get_buf_width();
 		}
 
-		if (g_ScissorY1 > viGetBufHeight()) {
-			g_ScissorY1 = viGetBufHeight();
+		if (g_ScissorY1 > vi_get_buf_height()) {
+			g_ScissorY1 = vi_get_buf_height();
 		}
 
-		if (g_ScissorY2 > viGetBufHeight()) {
-			g_ScissorY2 = viGetBufHeight();
+		if (g_ScissorY2 > vi_get_buf_height()) {
+			g_ScissorY2 = vi_get_buf_height();
 		}
 
 		if (g_ScissorX2 < g_ScissorX1) {
@@ -3725,20 +3725,20 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 					// Name
 					x = context->x + 29;
 					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, loopmpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+					gdl = text_render_projected(gdl, &x, &y, loopmpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0x00ffffff, context->width, context->height, 0, 0);
 
 					// Num deaths
 					sprintf(buffer, "%d\n", loopmpchr->killcounts[playernum]);
-					textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+					text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 					x = context->x - textwidth + 120;
 					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+					gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0xff4040ff, context->width, context->height, 0, 0);
 
 					// Num kills
 					sprintf(buffer, "%d\n", mpchr->killcounts[i]);
-					textMeasure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
+					text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 #if VERSION == VERSION_JPN_FINAL
 					x = context->x + 4;
@@ -3747,7 +3747,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 #endif
 
 					y = context->y + ypos;
-					gdl = textRenderProjected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+					gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0x00ff00ff, context->width, context->height, 0, 0);
 
 #if VERSION == VERSION_JPN_FINAL
@@ -3763,7 +3763,7 @@ Gfx *menuitemPlayerStatsRender(Gfx *gdl, struct menurendercontext *context)
 	return text0f153780(gdl);
 }
 
-bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+bool menuitem_player_stats_tick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	f32 floatval;
 	s32 intval;
@@ -3795,27 +3795,27 @@ bool menuitemPlayerStatsTick(struct menuitem *item, struct menudialog *dialog, s
 		}
 	}
 
-	return menuitemDropdownTick(item, dialog, inputs, tickflags, data);
+	return menuitem_dropdown_tick(item, dialog, inputs, tickflags, data);
 }
 
-Gfx *menuitemPlayerStatsOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
+Gfx *menuitem_player_stats_overlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	return menuitemDropdownOverlay(gdl, x + 1, y, -1, y2, item, dialog, data);
+	return menuitem_dropdown_overlay(gdl, x + 1, y, -1, y2, item, dialog, data);
 #else
-	return menuitemDropdownOverlay(gdl, x, y, 56, y2, item, dialog, data);
+	return menuitem_dropdown_overlay(gdl, x, y, 56, y2, item, dialog, data);
 #endif
 }
 
-void menuitemPlayerStatsInit(struct menuitem *item, union menuitemdata *data)
+void menuitem_player_stats_init(struct menuitem *item, union menuitemdata *data)
 {
 	data->dropdown.scrolloffset = 0;
 	g_MpSelectedPlayersForStats[g_MpPlayerNum] = g_MpPlayerNum;
 
-	menuitemDropdownInit(item, data);
+	menuitem_dropdown_init(item, data);
 }
 
-Gfx *menuitemControllerRenderLine(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s32 y2)
+Gfx *menuitem_controller_render_line(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	speed = speed + (x1 % 4);
 
@@ -3830,7 +3830,7 @@ Gfx *menuitemControllerRenderLine(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2, s
 	return gdl;
 }
 
-Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha)
+Gfx *menuitem_controller_render_texture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32 alpha)
 {
 	gDPPipeSync(gdl++);
 	gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -3838,7 +3838,7 @@ Gfx *menuitemControllerRenderTexture(Gfx *gdl, s32 x, s32 y, s32 texturenum, u32
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	texSelect(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[texturenum], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -3867,7 +3867,7 @@ struct lineconfig {
 	s32 y2;
 };
 
-Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, s32 firstindex, s32 lastindex, s32 padx, s32 pady, u32 alpha)
+Gfx *menuitem_controller_render_lines(Gfx *gdl, struct menurendercontext *context, s32 firstindex, s32 lastindex, s32 padx, s32 pady, u32 alpha)
 {
 	s32 speed;
 	s32 i;
@@ -3955,7 +3955,7 @@ Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, 
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	texSelect(&gdl, &g_TexGeneralConfigs[55], 2, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[55], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -4009,7 +4009,7 @@ Gfx *menuitemControllerRenderLines(Gfx *gdl, struct menurendercontext *context, 
 			break;
 		}
 
-		gdl = menuitemControllerRenderLine(gdl, thisspeed,
+		gdl = menuitem_controller_render_line(gdl, thisspeed,
 				linecfgs[i].x1 + context->x + padx, linecfgs[i].y1 + context->y + pady,
 				linecfgs[i].x2 + context->x + padx, linecfgs[i].y2 + context->y + pady);
 	}
@@ -4033,22 +4033,22 @@ u16 var80071354[][9] = {
 	/*11*/ { L_OPTIONS_003,   L_OPTIONS_003,   L_MPWEAPONS_212, L_OPTIONS_003,   L_MPWEAPONS_203, L_MPWEAPONS_204, L_MPWEAPONS_208, L_MPWEAPONS_205, L_OPTIONS_003   },
 };
 
-u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum)
+u16 menuitem_controller_get_button_action(s32 mode, s32 buttonnum)
 {
 	u32 textid = var80071354[mode][buttonnum];
 
 	if (textid == L_MPWEAPONS_194 // "AIM"
-			&& optionsGetAimControl(g_Menus[g_MpPlayerNum].main.mpindex) == AIMCONTROL_TOGGLE) {
+			&& options_get_aim_control(g_Menus[g_MpPlayerNum].main.mpindex) == AIMCONTROL_TOGGLE) {
 		textid = L_MPWEAPONS_195; // "AIM TOGGLE"
 	}
 
 	if (textid == L_MPWEAPONS_196 // "LOOK UP"
-			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].main.mpindex) == false) {
+			&& options_get_forward_pitch(g_Menus[g_MpPlayerNum].main.mpindex) == false) {
 		textid = L_MPWEAPONS_198; // "LOOK DOWN"
 	}
 
 	if (textid == L_MPWEAPONS_197 // "LOOK DOWN"
-			&& optionsGetForwardPitch(g_Menus[g_MpPlayerNum].main.mpindex) == false) {
+			&& options_get_forward_pitch(g_Menus[g_MpPlayerNum].main.mpindex) == false) {
 		textid = L_MPWEAPONS_199; // "LOOK UP"
 	}
 
@@ -4064,7 +4064,7 @@ u16 menuitemControllerGetButtonAction(s32 mode, s32 buttonnum)
  * Note that the valuecolour argument is mostly unused - only the alpha channel
  * is used because the rest is bitwise or'ed to white.
  */
-Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 padx, s32 pady, u32 valuecolour, u32 labelcolour, s8 prevmode)
+Gfx *menuitem_controller_render_text(Gfx *gdl, s32 curmode, struct menurendercontext *context, s32 padx, s32 pady, u32 valuecolour, u32 labelcolour, s8 prevmode)
 {
 	s32 rx;
 	s32 ry;
@@ -4103,11 +4103,11 @@ Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontex
 #if VERSION < VERSION_NTSC_1_0
 			ry = i * 7 + context->y + pady;
 #endif
-			gdl = textRenderProjected(gdl, &rx, &ry, langGet(labels[i]),
-					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, viGetWidth(), viGetHeight(), 0, 0);
+			gdl = text_render_projected(gdl, &rx, &ry, lang_get(labels[i]),
+					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, vi_get_width(), vi_get_height(), 0, 0);
 		}
 
-		textnum = menuitemControllerGetButtonAction(curmode, i);
+		textnum = menuitem_controller_get_button_action(curmode, i);
 		colour = valuecolour;
 
 		// If there's a prevmode, get the text ID that was in this position for
@@ -4118,11 +4118,11 @@ Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontex
 			// choose their control style separately to player 1, in which case
 			// there would have been 2.5, 2.6, 2.7 and 2.8 for player 2.
 			if (curmode > CONTROLMODE_24) {
-				if (textnum == menuitemControllerGetButtonAction(prevmode + 4, i)) {
+				if (textnum == menuitem_controller_get_button_action(prevmode + 4, i)) {
 					colour = labelcolour;
 				}
 			} else {
-				if (textnum == menuitemControllerGetButtonAction(prevmode, i)) {
+				if (textnum == menuitem_controller_get_button_action(prevmode, i)) {
 					colour = labelcolour;
 				}
 			}
@@ -4138,42 +4138,42 @@ Gfx *menuitemControllerRenderText(Gfx *gdl, s32 curmode, struct menurendercontex
 			colour |= 0xffffff00;
 		}
 
-		gdl = textRenderProjected(gdl, &rx, &ry, langGet(textnum),
-				g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &rx, &ry, lang_get(textnum),
+				g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, vi_get_width(), vi_get_height(), 0, 0);
 	}
 
 	return text0f153780(gdl);
 }
 
-Gfx *menuitemControllerRenderPad(Gfx *gdl, struct menurendercontext *context, s32 padx, s32 pady, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
+Gfx *menuitem_controller_render_pad(Gfx *gdl, struct menurendercontext *context, s32 padx, s32 pady, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
 {
 	s32 rx = context->x + padx;
 	s32 ry = context->y + pady + (VERSION == VERSION_JPN_FINAL ? 25 : 4);
 
 	// The controller graphic is split into 4 textures
-	gdl = menuitemControllerRenderTexture(gdl, rx, ry, 0x33, alpha);
-	gdl = menuitemControllerRenderTexture(gdl, rx + 32, ry, 0x34, alpha);
-	gdl = menuitemControllerRenderTexture(gdl, rx, ry + 32, 0x35, alpha);
-	gdl = menuitemControllerRenderTexture(gdl, rx + 32, ry + 32, 0x36, alpha);
+	gdl = menuitem_controller_render_texture(gdl, rx, ry, 0x33, alpha);
+	gdl = menuitem_controller_render_texture(gdl, rx + 32, ry, 0x34, alpha);
+	gdl = menuitem_controller_render_texture(gdl, rx, ry + 32, 0x35, alpha);
+	gdl = menuitem_controller_render_texture(gdl, rx + 32, ry + 32, 0x36, alpha);
 
 #if VERSION >= VERSION_JPN_FINAL
 	if (curmode >= CONTROLMODE_21) {
-		gdl = menuitemControllerRenderLines(gdl, context, 13, 20, padx, pady, alpha);
+		gdl = menuitem_controller_render_lines(gdl, context, 13, 20, padx, pady, alpha);
 	} else {
-		gdl = menuitemControllerRenderLines(gdl, context, 0, 22, padx, pady, alpha);
+		gdl = menuitem_controller_render_lines(gdl, context, 0, 22, padx, pady, alpha);
 	}
 #else
 	if (curmode >= CONTROLMODE_21) {
-		gdl = menuitemControllerRenderLines(gdl, context, 13, 19, padx, pady, alpha);
+		gdl = menuitem_controller_render_lines(gdl, context, 13, 19, padx, pady, alpha);
 	} else {
-		gdl = menuitemControllerRenderLines(gdl, context, 0, 21, padx, pady, alpha);
+		gdl = menuitem_controller_render_lines(gdl, context, 0, 21, padx, pady, alpha);
 	}
 #endif
 
-	return menuitemControllerRenderText(gdl, curmode, context, padx, pady, colour1, colour2, prevmode);
+	return menuitem_controller_render_text(gdl, curmode, context, padx, pady, colour1, colour2, prevmode);
 }
 
-Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_controller_render(Gfx *gdl, struct menurendercontext *context)
 {
 	struct menuitemdata_controller *data = &context->data->controller;
 	u32 colour;
@@ -4185,7 +4185,7 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	u32 contalpha;
 	u32 textalpha;
 
-	textBackupAndResetBlends();
+	text_backup_and_reset_blends();
 
 	// If changing modes within the same group (eg. within 1.x)
 	if (data->curmode != (g_Menus[g_MpPlayerNum].main.controlmode & 0xff)) {
@@ -4238,48 +4238,48 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 	if (dialog->transitionfrac < 0) {
 		colour = g_MenuColours[dialog->type].item_unfocused;
 	} else {
-		colour = colourBlend(
+		colour = colour_blend(
 				g_MenuColours[dialog->type2].item_unfocused,
 				g_MenuColours[dialog->type].item_unfocused,
 				dialog->colourweight);
 	}
 
 	if (dialog->dimmed) {
-		colour = (colourBlend(colour, 0, 44) & 0xffffff00) | (colour & 0xff);
+		colour = (colour_blend(colour, 0, 44) & 0xffffff00) | (colour & 0xff);
 	}
 
-	textSetWaveColours(
+	text_set_wave_colours(
 			g_MenuWave2Colours[dialog->type].item_unfocused,
 			g_MenuWave1Colours[dialog->type].item_unfocused);
 
 	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
-		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
-				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].main.controlmode]),
-				langGet(L_MPWEAPONS_215)); // "(Two-Handed)"
+		sprintf(text, lang_get(L_MPWEAPONS_213), // "Control Style %s %s"
+				lang_get(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].main.controlmode]),
+				lang_get(L_MPWEAPONS_215)); // "(Two-Handed)"
 	} else {
-		sprintf(text, langGet(L_MPWEAPONS_213), // "Control Style %s %s"
-				langGet(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].main.controlmode]),
-				langGet(L_MPWEAPONS_214)); // "(One-Handed)"
+		sprintf(text, lang_get(L_MPWEAPONS_213), // "Control Style %s %s"
+				lang_get(g_ControlStyleOptions[g_Menus[g_MpPlayerNum].main.controlmode]),
+				lang_get(L_MPWEAPONS_214)); // "(One-Handed)"
 	}
 
 	x = context->x + 2;
 	y = context->y + 2;
-	gdl = textRenderProjected(gdl, &x, &y, text,
-			g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+	gdl = text_render_projected(gdl, &x, &y, text,
+			g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, vi_get_width(), vi_get_height(), 0, 0);
 	gdl = text0f153780(gdl);
 
-	textcolour = colourBlend(colour, colour & 0xffffff00, textalpha);
-	colour = colourBlend(colour, colour & 0xffffff00, contalpha);
+	textcolour = colour_blend(colour, colour & 0xffffff00, textalpha);
+	colour = colour_blend(colour, colour & 0xffffff00, contalpha);
 
 	if (g_Menus[g_MpPlayerNum].main.controlmode >= CONTROLMODE_21) {
-		gdl = menuitemControllerRenderPad(gdl, context, 0, VERSION == VERSION_JPN_FINAL ? -4 : 12,
+		gdl = menuitem_controller_render_pad(gdl, context, 0, VERSION == VERSION_JPN_FINAL ? -4 : 12,
 				g_Menus[g_MpPlayerNum].main.controlmode,
 				contalpha, textcolour, colour, data->prevmode);
-		gdl = menuitemControllerRenderPad(gdl, context, 0, VERSION == VERSION_JPN_FINAL ? 74 : 80,
+		gdl = menuitem_controller_render_pad(gdl, context, 0, VERSION == VERSION_JPN_FINAL ? 74 : 80,
 				g_Menus[g_MpPlayerNum].main.controlmode + 4,
 				contalpha, textcolour, colour, data->prevmode);
 	} else {
-		gdl = menuitemControllerRenderPad(gdl, context, 0, PAL ? 19 : 15,
+		gdl = menuitem_controller_render_pad(gdl, context, 0, PAL ? 19 : 15,
 				g_Menus[g_MpPlayerNum].main.controlmode,
 				contalpha, textcolour, colour, data->prevmode);
 
@@ -4291,17 +4291,17 @@ Gfx *menuitemControllerRender(Gfx *gdl, struct menurendercontext *context)
 #endif
 
 		gdl = text0f153628(gdl);
-		gdl = textRenderProjected(gdl, &x, &y, langGet(L_MPWEAPONS_216), // "Hold weapon button for ..."
-				g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPWEAPONS_216), // "Hold weapon button for ..."
+				g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, vi_get_width(), vi_get_height(), 0, 0);
 		gdl = text0f153780(gdl);
 	}
 
-	textRestoreBlends();
+	text_restore_blends();
 
 	return gdl;
 }
 
-void menuitemControllerInit(union menuitemdata *data)
+void menuitem_controller_init(union menuitemdata *data)
 {
 	data->controller.textfadetimer = 0;
 	data->controller.contfadetimer = 0;
@@ -4310,27 +4310,27 @@ void menuitemControllerInit(union menuitemdata *data)
 	data->controller.prevmode = -1;
 }
 
-Gfx *menuitemRender(Gfx *gdl, struct menurendercontext *context)
+Gfx *menuitem_render(Gfx *gdl, struct menurendercontext *context)
 {
 	switch (context->item->type) {
-	case MENUITEMTYPE_LIST:        return menuitemListRender(gdl, context);
-	case MENUITEMTYPE_SELECTABLE:  return menuitemSelectableRender(gdl, context);
-	case MENUITEMTYPE_SLIDER:      return menuitemSliderRender(gdl, context);
-	case MENUITEMTYPE_CHECKBOX:    return menuitemCheckboxRender(gdl, context);
-	case MENUITEMTYPE_SCROLLABLE:  return menuitemScrollableRender(gdl, context);
-	case MENUITEMTYPE_MARQUEE:     return menuitemMarqueeRender(gdl, context);
-	case MENUITEMTYPE_LABEL:       return menuitemLabelRender(gdl, context);
-	case MENUITEMTYPE_METER:       return menuitemMeterRender(gdl, context);
-	case MENUITEMTYPE_SEPARATOR:   return menuitemSeparatorRender(gdl, context);
-	case MENUITEMTYPE_OBJECTIVES:  return menuitemObjectivesRender(gdl, context);
-	case MENUITEMTYPE_07:          return menuitem07Render(gdl);
-	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownRender(gdl, context);
-	case MENUITEMTYPE_KEYBOARD:    return menuitemKeyboardRender(gdl, context);
-	case MENUITEMTYPE_RANKING:     return menuitemRankingRender(gdl, context);
-	case MENUITEMTYPE_PLAYERSTATS: return menuitemPlayerStatsRender(gdl, context);
-	case MENUITEMTYPE_CAROUSEL:    return menuitemCarouselRender(gdl, context);
-	case MENUITEMTYPE_MODEL:       return menuitemModelRender(gdl, context);
-	case MENUITEMTYPE_CONTROLLER:  return menuitemControllerRender(gdl, context);
+	case MENUITEMTYPE_LIST:        return menuitem_list_render(gdl, context);
+	case MENUITEMTYPE_SELECTABLE:  return menuitem_selectable_render(gdl, context);
+	case MENUITEMTYPE_SLIDER:      return menuitem_slider_render(gdl, context);
+	case MENUITEMTYPE_CHECKBOX:    return menuitem_checkbox_render(gdl, context);
+	case MENUITEMTYPE_SCROLLABLE:  return menuitem_scrollable_render(gdl, context);
+	case MENUITEMTYPE_MARQUEE:     return menuitem_marquee_render(gdl, context);
+	case MENUITEMTYPE_LABEL:       return menuitem_label_render(gdl, context);
+	case MENUITEMTYPE_METER:       return menuitem_meter_render(gdl, context);
+	case MENUITEMTYPE_SEPARATOR:   return menuitem_separator_render(gdl, context);
+	case MENUITEMTYPE_OBJECTIVES:  return menuitem_objectives_render(gdl, context);
+	case MENUITEMTYPE_07:          return menuitem07_render(gdl);
+	case MENUITEMTYPE_DROPDOWN:    return menuitem_dropdown_render(gdl, context);
+	case MENUITEMTYPE_KEYBOARD:    return menuitem_keyboard_render(gdl, context);
+	case MENUITEMTYPE_RANKING:     return menuitem_ranking_render(gdl, context);
+	case MENUITEMTYPE_PLAYERSTATS: return menuitem_player_stats_render(gdl, context);
+	case MENUITEMTYPE_CAROUSEL:    return menuitem_carousel_render(gdl, context);
+	case MENUITEMTYPE_MODEL:       return menuitem_model_render(gdl, context);
+	case MENUITEMTYPE_CONTROLLER:  return menuitem_controller_render(gdl, context);
 	}
 
 	return gdl;
@@ -4339,62 +4339,62 @@ Gfx *menuitemRender(Gfx *gdl, struct menurendercontext *context)
 /**
  * Return true if default up/down/left/right/back behaviour should be used.
  */
-bool menuitemTick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
+bool menuitem_tick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_LIST:        return menuitemListTick(item, inputs, tickflags, data);
-	case MENUITEMTYPE_SELECTABLE:  return menuitemSelectableTick(item, inputs, tickflags);
-	case MENUITEMTYPE_SLIDER:      return menuitemSliderTick(item, dialog, inputs, tickflags, data);
-	case MENUITEMTYPE_CHECKBOX:    return menuitemCheckboxTick(item, inputs, tickflags);
-	case MENUITEMTYPE_SCROLLABLE:  return menuitemScrollableTick(item, dialog, inputs, tickflags, data);
-	case MENUITEMTYPE_MARQUEE:     return menuitemMarqueeTick(item, data);
-	case MENUITEMTYPE_RANKING:     return menuitemRankingTick(inputs, tickflags, data);
-	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownTick(item, dialog, inputs, tickflags, data);
-	case MENUITEMTYPE_KEYBOARD:    return menuitemKeyboardTick(item, inputs, tickflags, data);
-	case MENUITEMTYPE_CAROUSEL:    return menuitemCarouselTick(item, inputs, tickflags);
-	case MENUITEMTYPE_PLAYERSTATS: return menuitemPlayerStatsTick(item, dialog, inputs, tickflags, data);
+	case MENUITEMTYPE_LIST:        return menuitem_list_tick(item, inputs, tickflags, data);
+	case MENUITEMTYPE_SELECTABLE:  return menuitem_selectable_tick(item, inputs, tickflags);
+	case MENUITEMTYPE_SLIDER:      return menuitem_slider_tick(item, dialog, inputs, tickflags, data);
+	case MENUITEMTYPE_CHECKBOX:    return menuitem_checkbox_tick(item, inputs, tickflags);
+	case MENUITEMTYPE_SCROLLABLE:  return menuitem_scrollable_tick(item, dialog, inputs, tickflags, data);
+	case MENUITEMTYPE_MARQUEE:     return menuitem_marquee_tick(item, data);
+	case MENUITEMTYPE_RANKING:     return menuitem_ranking_tick(inputs, tickflags, data);
+	case MENUITEMTYPE_DROPDOWN:    return menuitem_dropdown_tick(item, dialog, inputs, tickflags, data);
+	case MENUITEMTYPE_KEYBOARD:    return menuitem_keyboard_tick(item, inputs, tickflags, data);
+	case MENUITEMTYPE_CAROUSEL:    return menuitem_carousel_tick(item, inputs, tickflags);
+	case MENUITEMTYPE_PLAYERSTATS: return menuitem_player_stats_tick(item, dialog, inputs, tickflags, data);
 	}
 
 	return true;
 }
 
-void menuitemInit(struct menuitem *item, union menuitemdata *data)
+void menuitem_init(struct menuitem *item, union menuitemdata *data)
 {
 	switch (item->type) {
 	case MENUITEMTYPE_LIST:
 	case MENUITEMTYPE_DROPDOWN:
-		menuitemDropdownInit(item, data);
+		menuitem_dropdown_init(item, data);
 		break;
 	case MENUITEMTYPE_SCROLLABLE:
-		menuitemScrollableInit(data);
+		menuitem_scrollable_init(data);
 		break;
 	case MENUITEMTYPE_MARQUEE:
-		menuitemMarqueeInit(data);
+		menuitem_marquee_init(data);
 		break;
 	case MENUITEMTYPE_RANKING:
-		menuitemRankingInit(data);
+		menuitem_ranking_init(data);
 		break;
 	case MENUITEMTYPE_SLIDER:
-		menuitemSliderInit(data);
+		menuitem_slider_init(data);
 		break;
 	case MENUITEMTYPE_PLAYERSTATS:
-		menuitemPlayerStatsInit(item, data);
+		menuitem_player_stats_init(item, data);
 		break;
 	case MENUITEMTYPE_KEYBOARD:
-		menuitemKeyboardInit(item, data);
+		menuitem_keyboard_init(item, data);
 		break;
 	case MENUITEMTYPE_CONTROLLER:
-		menuitemControllerInit(data);
+		menuitem_controller_init(data);
 		break;
 	}
 }
 
-Gfx *menuitemOverlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
+Gfx *menuitem_overlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct menuitem *item, struct menudialog *dialog, union menuitemdata *data)
 {
 	switch (item->type) {
-	case MENUITEMTYPE_LIST:        return menuitemListOverlay(gdl, x, y, x2, y2);
-	case MENUITEMTYPE_DROPDOWN:    return menuitemDropdownOverlay(gdl, x, y, x2, y2, item, dialog, data);
-	case MENUITEMTYPE_PLAYERSTATS: return menuitemPlayerStatsOverlay(gdl, x, y, x2, y2, item, dialog, data);
+	case MENUITEMTYPE_LIST:        return menuitem_list_overlay(gdl, x, y, x2, y2);
+	case MENUITEMTYPE_DROPDOWN:    return menuitem_dropdown_overlay(gdl, x, y, x2, y2, item, dialog, data);
+	case MENUITEMTYPE_PLAYERSTATS: return menuitem_player_stats_overlay(gdl, x, y, x2, y2, item, dialog, data);
 	}
 
 	return gdl;

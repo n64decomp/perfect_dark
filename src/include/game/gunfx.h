@@ -4,34 +4,34 @@
 #include "data.h"
 #include "types.h"
 
-void boltbeamsReset(void);
-void lasersightsReset(void);
+void boltbeams_reset(void);
+void lasersights_reset(void);
 
-void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to);
-void beamCreateForHand(s32 handnum);
-Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *arg1, f32 arg2, struct coord *arg3, u32 colour1, f32 arg5, struct coord *arg6, u32 colour2);
-Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3);
-void beamTick(struct beam *beam);
+void beam_create(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to);
+void beam_create_for_hand(s32 handnum);
+Gfx *beam_render_generic(Gfx *gdl, struct textureconfig *arg1, f32 arg2, struct coord *arg3, u32 colour1, f32 arg5, struct coord *arg6, u32 colour2);
+Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3);
+void beam_tick(struct beam *beam);
 
-struct casing *casingCreate(struct modeldef *modeldef, Mtxf *mtx);
-void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx);
-void casingRender(struct casing *casing, Gfx **gdlptr);
-void casingsRender(Gfx **gdlptr);
+struct casing *casing_create(struct modeldef *modeldef, Mtxf *mtx);
+void casing_create_for_hand(s32 handnum, f32 ground, Mtxf *mtx);
+void casing_render(struct casing *casing, Gfx **gdlptr);
+void casings_render(Gfx **gdlptr);
 
-s32 boltbeamFindByProp(struct prop *prop);
-s32 boltbeamCreate(struct prop *prop);
-void boltbeamSetHeadPos(s32 beamnum, struct coord *pos);
-void boltbeamSetTailPos(s32 beamnum, struct coord *pos);
-void boltbeamIncrementHeadPos(s32 beamnum, f32 newlength, bool arg2);
-void boltbeamSetAutomatic(s32 beamnum, f32 speed);
-Gfx *boltbeamsRender(Gfx *gdl);
-void boltbeamsTick(void);
+s32 boltbeam_find_by_prop(struct prop *prop);
+s32 boltbeam_create(struct prop *prop);
+void boltbeam_set_head_pos(s32 beamnum, struct coord *pos);
+void boltbeam_set_tail_pos(s32 beamnum, struct coord *pos);
+void boltbeam_increment_head_pos(s32 beamnum, f32 newlength, bool arg2);
+void boltbeam_set_automatic(s32 beamnum, f32 speed);
+Gfx *boltbeams_render(Gfx *gdl);
+void boltbeams_tick(void);
 
-bool lasersightExists(s32 id, s32 *index);
-Gfx *lasersightRenderDot(Gfx *gdl);
-Gfx *lasersightRenderBeam(Gfx *gdl);
-void lasersightSetBeam(s32 id, s32 arg1, struct coord *near, struct coord *far);
-void lasersightSetDot(s32 arg0, struct coord *pos, struct coord *rot);
-void lasersightFree(s32 arg0);
+bool lasersight_exists(s32 id, s32 *index);
+Gfx *lasersight_render_dot(Gfx *gdl);
+Gfx *lasersight_render_beam(Gfx *gdl);
+void lasersight_set_beam(s32 id, s32 arg1, struct coord *near, struct coord *far);
+void lasersight_set_dot(s32 arg0, struct coord *pos, struct coord *rot);
+void lasersight_free(s32 arg0);
 
 #endif

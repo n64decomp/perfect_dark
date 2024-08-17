@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-Gfx *healthbarDraw(Gfx *gdl, struct chrdata *chr, s32 offy, f32 heightfrac);
+Gfx *healthbar_draw(Gfx *gdl, struct chrdata *chr, s32 offy, f32 heightfrac);
 
 #endif

@@ -4,17 +4,17 @@
 #include "data.h"
 #include "types.h"
 
-romptr_t fileGetRomAddress(s32 filenum);
-s32 fileGetRomSize(s32 filenum);
-void filesInit(void);
-void fileLoadPartToAddr(u16 filenum, void *memaddr, s32 offset, u32 len);
-u32 fileGetInflatedSize(s32 filenum);
-void *fileLoadToNew(s32 filenum, u32 method);
-void *fileLoadToAddr(s32 filenum, s32 method, u8 *ptr, u32 size);
-u32 fileGetLoadedSize(s32 filenum);
-u32 fileGetAllocationSize(s32 filenum);
-void fileSetSize(s32 filenum, void *ptr, u32 size, bool reallocate);
-void filesStop(u8 arg0);
+romptr_t file_get_rom_address(s32 filenum);
+s32 file_get_rom_size(s32 filenum);
+void files_init(void);
+void file_load_part_to_addr(u16 filenum, void *memaddr, s32 offset, u32 len);
+u32 file_get_inflated_size(s32 filenum);
+void *file_load_to_new(s32 filenum, u32 method);
+void *file_load_to_addr(s32 filenum, s32 method, u8 *ptr, u32 size);
+u32 file_get_loaded_size(s32 filenum);
+u32 file_get_allocation_size(s32 filenum);
+void file_set_size(s32 filenum, void *ptr, u32 size, bool reallocate);
+void files_stop(u8 arg0);
 void func0f167330(void);
 
 #endif

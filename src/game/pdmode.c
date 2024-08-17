@@ -10,12 +10,12 @@
 #include "data.h"
 #include "types.h"
 
-f32 pdmodeGetEnemyReactionSpeed(void)
+f32 pdmode_get_enemy_reaction_speed(void)
 {
 	return 0;
 }
 
-f32 pdmodeGetEnemyHealth(void)
+f32 pdmode_get_enemy_health(void)
 {
 	if (g_MissionConfig.pdmode) {
 		return g_MissionConfig.pdmodehealthf;
@@ -24,7 +24,7 @@ f32 pdmodeGetEnemyHealth(void)
 	return 1;
 }
 
-f32 pdmodeGetEnemyDamage(void)
+f32 pdmode_get_enemy_damage(void)
 {
 	if (g_MissionConfig.pdmode) {
 		return g_MissionConfig.pdmodedamagef;
@@ -33,7 +33,7 @@ f32 pdmodeGetEnemyDamage(void)
 	return 1;
 }
 
-f32 pdmodeGetEnemyAccuracy(void)
+f32 pdmode_get_enemy_accuracy(void)
 {
 	if (g_MissionConfig.pdmode) {
 		return g_MissionConfig.pdmodeaccuracyf;
@@ -47,7 +47,7 @@ void func0f01b148(u32 arg0)
 	var800624e0 = arg0;
 }
 
-void titleSetNextStage(s32 stagenum)
+void title_set_next_stage(s32 stagenum)
 {
 	g_TitleNextStage = stagenum;
 }

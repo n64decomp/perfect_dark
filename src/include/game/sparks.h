@@ -4,13 +4,13 @@
 #include "data.h"
 #include "types.h"
 
-void sparksReset(void);
+void sparks_reset(void);
 
-void sparksTick(void);
+void sparks_tick(void);
 
-void sparkCreate(struct coord *pos, struct sparktype *type);
-void sparkgroupEnsureFreeSparkSlot(struct sparkgroup *group);
-void sparksCreate(s32 room, struct prop *prop, struct coord *pos, struct coord *arg3, struct coord *dir, s32 type);
-Gfx *sparksRender(Gfx *gdl);
+void spark_create(struct coord *pos, struct sparktype *type);
+void sparkgroup_ensure_free_spark_slot(struct sparkgroup *group);
+void sparks_create(s32 room, struct prop *prop, struct coord *pos, struct coord *arg3, struct coord *dir, s32 type);
+Gfx *sparks_render(Gfx *gdl);
 
 #endif

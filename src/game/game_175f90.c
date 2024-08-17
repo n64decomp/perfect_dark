@@ -15,12 +15,12 @@ void func0f175f90(void)
 void func0f175f98(void)
 {
 	func0f167330();
-	mempResetPool(MEMPOOL_5);
-	filesStop(5);
+	memp_reset_pool(MEMPOOL_5);
+	files_stop(5);
 }
 
 void func0f175fc8(void)
 {
-	mempDisablePool(MEMPOOL_5);
-	filesStop(5);
+	memp_disable_pool(MEMPOOL_5);
+	files_stop(5);
 }

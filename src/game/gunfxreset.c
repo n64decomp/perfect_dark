@@ -12,7 +12,7 @@
 #include "data.h"
 #include "types.h"
 
-void boltbeamsReset(void)
+void boltbeams_reset(void)
 {
 	s32 i;
 
@@ -21,7 +21,7 @@ void boltbeamsReset(void)
 	}
 }
 
-void lasersightsReset(void)
+void lasersights_reset(void)
 {
 	s32 i;
 

@@ -4,11 +4,11 @@
 #include "data.h"
 #include "types.h"
 
-void dyntexTickRoom(s32 roomnum, Vtx *vertices);
-void dyntexAddVertex(Vtx *vertex);
-void dyntexSetCurrentType(s16 type);
-void dyntexSetCurrentRoom(RoomNum roomnum);
-void dyntexReset(void);
-bool dyntexHasRoom(void);
+void dyntex_tick_room(s32 roomnum, Vtx *vertices);
+void dyntex_add_vertex(Vtx *vertex);
+void dyntex_set_current_type(s16 type);
+void dyntex_set_current_room(RoomNum roomnum);
+void dyntex_reset(void);
+bool dyntex_has_room(void);
 
 #endif

@@ -47,8 +47,8 @@
  * - Pop a Cap (PAC)
  *
  * Each scenario registers callback functions for certain events. For example,
- * code elsewhere in the game may call scenarioTick, then scenarioTick checks
- * if the current scenario has a tick callback defined (eg. htbTick). If so,
+ * code elsewhere in the game may call scenario_tick, then scenario_tick checks
+ * if the current scenario has a tick callback defined (eg. htb_tick). If so,
  * that scenario's callback is run.
  */
 
@@ -74,7 +74,7 @@ struct mpscenario {
 };
 
 #if VERSION >= VERSION_JPN_FINAL
-char *scenarioRemoveLineBreaks(char *src, s32 stringnum)
+char *scenario_remove_line_breaks(char *src, s32 stringnum)
 {
 	static char strings[2][30];
 	char *out = strings[stringnum];
@@ -95,7 +95,7 @@ char *scenarioRemoveLineBreaks(char *src, s32 stringnum)
 
 struct scenariodata g_ScenarioData;
 
-MenuItemHandlerResult menuhandlerMpDisplayTeam(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_mp_display_team(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED) {
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
@@ -105,23 +105,23 @@ MenuItemHandlerResult menuhandlerMpDisplayTeam(s32 operation, struct menuitem *i
 		return true;
 	}
 
-	return menuhandlerMpCheckboxOption(operation, item, data);
+	return menuhandler_mp_checkbox_option(operation, item, data);
 }
 
-MenuItemHandlerResult menuhandlerMpOneHitKills(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_mp_one_hit_kills(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_CHECKDISABLED || operation == MENUOP_CHECKHIDDEN) {
-		if (challengeIsFeatureUnlocked(MPFEATURE_ONEHITKILLS)) {
+		if (challenge_is_feature_unlocked(MPFEATURE_ONEHITKILLS)) {
 			return false;
 		}
 
 		return true;
 	}
 
-	return menuhandlerMpCheckboxOption(operation, item, data);
+	return menuhandler_mp_checkbox_option(operation, item, data);
 }
 
-MenuItemHandlerResult menuhandlerMpSlowMotion(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_mp_slow_motion(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u16 labels[] = {
 		L_MPMENU_240, // "Off"
@@ -132,7 +132,7 @@ MenuItemHandlerResult menuhandlerMpSlowMotion(s32 operation, struct menuitem *it
 	switch (operation) {
 	case MENUOP_CHECKDISABLED:
 	case MENUOP_CHECKHIDDEN:
-		if (challengeIsFeatureUnlocked(MPFEATURE_SLOWMOTION)) {
+		if (challenge_is_feature_unlocked(MPFEATURE_SLOWMOTION)) {
 			return false;
 		}
 		return true;
@@ -140,7 +140,7 @@ MenuItemHandlerResult menuhandlerMpSlowMotion(s32 operation, struct menuitem *it
 		data->dropdown.value = 3;
 		break;
 	case MENUOP_GETOPTIONTEXT:
-		return (s32)langGet(labels[data->dropdown.value]);
+		return (s32)lang_get(labels[data->dropdown.value]);
 	case MENUOP_SET:
 		g_MpSetup.options &= ~(MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART);
 
@@ -178,75 +178,75 @@ struct mpscenario g_MpScenarios[] = {
 		&g_MpCombatOptionsMenuDialog,
 	}, {
 		&g_HtbOptionsMenuDialog,
-		htbInit,
-		htbNumProps,
-		htbInitProps,
-		htbTick,
-		htbTickChr,
-		htbRenderHud,
-		htbCalculatePlayerScore,
-		htbRadarExtra,
-		htbRadarChr,
-		htbHighlightProp,
+		htb_init,
+		htb_num_props,
+		htb_init_props,
+		htb_tick,
+		htb_tick_chr,
+		htb_render_hud,
+		htb_calculate_player_score,
+		htb_radar_extra,
+		htb_radar_chr,
+		htb_highlight_prop,
 	}, {
 		&g_HtmOptionsMenuDialog,
-		htmInit,
-		htmNumProps,
-		htmInitProps,
-		htmTick,
-		htmTickChr,
-		htmRenderHud,
-		htmCalculatePlayerScore,
-		htmRadarExtra,
-		htmRadarChr,
-		htmHighlightProp,
+		htm_init,
+		htm_num_props,
+		htm_init_props,
+		htm_tick,
+		htm_tick_chr,
+		htm_render_hud,
+		htm_calculate_player_score,
+		htm_radar_extra,
+		htm_radar_chr,
+		htm_highlight_prop,
 	}, {
 		&g_PacOptionsMenuDialog,
-		pacInit,
+		pac_init,
 		NULL,
-		pacInitProps,
-		pacTick,
+		pac_init_props,
+		pac_tick,
 		NULL,
-		pacRenderHud,
-		pacCalculatePlayerScore,
-		pacRadarExtra,
-		pacRadarChr,
-		pacHighlightProp,
+		pac_render_hud,
+		pac_calculate_player_score,
+		pac_radar_extra,
+		pac_radar_chr,
+		pac_highlight_prop,
 	}, {
 		&g_KohOptionsMenuDialog,
-		kohInit,
+		koh_init,
 		NULL,
-		kohInitProps,
-		kohTick,
+		koh_init_props,
+		koh_tick,
 		NULL,
-		kohRenderHud,
-		kohCalculatePlayerScore,
-		kohRadarExtra,
-		NULL,
-		NULL,
+		koh_render_hud,
+		koh_calculate_player_score,
+		koh_radar_extra,
 		NULL,
 		NULL,
-		kohIsRoomHighlighted,
-		kohHighlightRoom,
 		NULL,
-		kohReadSave,
-		kohWriteSave
+		NULL,
+		koh_is_room_highlighted,
+		koh_highlight_room,
+		NULL,
+		koh_read_save,
+		koh_write_save
 	}, {
 		&g_CtcOptionsMenuDialog,
-		ctcInit,
-		ctcNumProps,
-		ctcInitProps,
-		ctcTick,
-		ctcTickChr,
+		ctc_init,
+		ctc_num_props,
+		ctc_init_props,
+		ctc_tick,
+		ctc_tick_chr,
 		NULL,
-		ctcCalculatePlayerScore,
-		ctcRadarExtra,
-		ctcRadarChr,
-		ctcHighlightProp,
-		ctcChooseSpawnLocation,
-		ctcGetMaxTeams,
-		ctcIsRoomHighlighted,
-		ctcHighlightRoom,
+		ctc_calculate_player_score,
+		ctc_radar_extra,
+		ctc_radar_chr,
+		ctc_highlight_prop,
+		ctc_choose_spawn_location,
+		ctc_get_max_teams,
+		ctc_is_room_highlighted,
+		ctc_highlight_room,
 	},
 };
 
@@ -264,7 +264,7 @@ struct mpscenariooverview g_MpScenarioOverviews[] = {
  * While the options dialog is open, check if another player has changed the
  * scenario to a different one. If so, replace this dialog with the new one.
  */
-MenuDialogHandlerResult mpOptionsMenuDialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult mp_options_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog->definition != g_MpScenarios[g_MpSetup.scenario].optionsdialog) {
@@ -278,8 +278,8 @@ MenuDialogHandlerResult mpOptionsMenuDialog(s32 operation, struct menudialogdef 
 			}
 
 			if (i < end) {
-				menuPopDialog();
-				menuPushDialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);
+				menu_pop_dialog();
+				menu_push_dialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);
 			}
 		}
 	}
@@ -287,15 +287,15 @@ MenuDialogHandlerResult mpOptionsMenuDialog(s32 operation, struct menudialogdef 
 	return 0;
 }
 
-char *mpMenuTextScenarioShortName(struct menuitem *item)
+char *mp_menu_text_scenario_short_name(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].shortname));
+	sprintf(g_StringPointer, "%s\n", lang_get(g_MpScenarioOverviews[g_MpSetup.scenario].shortname));
 	return g_StringPointer;
 }
 
-char *mpMenuTextScenarioName(struct menuitem *item)
+char *mp_menu_text_scenario_name(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].name));
+	sprintf(g_StringPointer, "%s\n", lang_get(g_MpScenarioOverviews[g_MpSetup.scenario].name));
 	return g_StringPointer;
 }
 
@@ -304,7 +304,7 @@ struct scenariogroup {
 	u16 textid;
 };
 
-MenuItemHandlerResult scenarioScenarioMenuHandler(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult scenario_scenario_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	struct scenariogroup groups[] = {
 		{ 0, L_MPMENU_244 }, // "Free for All!"
@@ -324,7 +324,7 @@ MenuItemHandlerResult scenarioScenarioMenuHandler(s32 operation, struct menuitem
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
-			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				count++;
 			}
@@ -334,10 +334,10 @@ MenuItemHandlerResult scenarioScenarioMenuHandler(s32 operation, struct menuitem
 		break;
 	case MENUOP_GETOPTIONTEXT:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
-			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				if (count == data->list.value) {
-					return (s32)langGet(g_MpScenarioOverviews[i].name);
+					return (s32)lang_get(g_MpScenarioOverviews[i].name);
 				}
 
 				count++;
@@ -347,7 +347,7 @@ MenuItemHandlerResult scenarioScenarioMenuHandler(s32 operation, struct menuitem
 		break;
 	case MENUOP_SET:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
-			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				if (count == data->list.value) {
 					g_MpSetup.scenario = i;
@@ -358,11 +358,11 @@ MenuItemHandlerResult scenarioScenarioMenuHandler(s32 operation, struct menuitem
 			}
 		}
 
-		scenarioInit();
+		scenario_init();
 		break;
 	case MENUOP_GETSELECTEDINDEX:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
-			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				if (i == g_MpSetup.scenario) {
 					data->list.value = count;
@@ -377,15 +377,15 @@ MenuItemHandlerResult scenarioScenarioMenuHandler(s32 operation, struct menuitem
 	case MENUOP_GETOPTGROUPCOUNT:
 		data->list.value = 2;
 
-		if (!teamgame || (!challengeIsFeatureUnlocked(MPFEATURE_SCENARIO_KOH) && !challengeIsFeatureUnlocked(MPFEATURE_SCENARIO_CTC))) {
+		if (!teamgame || (!challenge_is_feature_unlocked(MPFEATURE_SCENARIO_KOH) && !challenge_is_feature_unlocked(MPFEATURE_SCENARIO_CTC))) {
 			data->list.value--;
 		}
 		break;
 	case MENUOP_GETOPTGROUPTEXT:
-		return (s32)langGet(groups[data->list.value].textid);
+		return (s32)lang_get(groups[data->list.value].textid);
 	case MENUOP_GETGROUPSTARTINDEX:
 		for (i = 0; i < groups[data->list.value].startindex; i++) {
-			if (challengeIsFeatureUnlocked(g_MpScenarioOverviews[i].requirefeature)
+			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
 				count++;
 			}
@@ -398,10 +398,10 @@ MenuItemHandlerResult scenarioScenarioMenuHandler(s32 operation, struct menuitem
 	return 0;
 }
 
-MenuItemHandlerResult menuhandlerMpOpenOptions(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_mp_open_options(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		menuPushDialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);
+		menu_push_dialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);
 	}
 
 	return 0;
@@ -415,12 +415,12 @@ MenuItemHandlerResult menuhandlerMpOpenOptions(s32 operation, struct menuitem *i
  *
  * Used by KOH to read the mphilltime.
  */
-void scenarioReadSave(struct savebuffer *buffer)
+void scenario_read_save(struct savebuffer *buffer)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].readsavefunc) {
 		g_MpScenarios[g_MpSetup.scenario].readsavefunc(buffer);
 	} else {
-		savebufferReadBits(buffer, 8);
+		savebuffer_read_bits(buffer, 8);
 	}
 }
 
@@ -432,12 +432,12 @@ void scenarioReadSave(struct savebuffer *buffer)
  *
  * Used by KOH to write the mphilltime.
  */
-void scenarioWriteSave(struct savebuffer *buffer)
+void scenario_write_save(struct savebuffer *buffer)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].writesavefunc) {
 		g_MpScenarios[g_MpSetup.scenario].writesavefunc(buffer);
 	} else {
-		savebufferOr(buffer, 0, 8);
+		savebuffer_or(buffer, 0, 8);
 	}
 }
 
@@ -446,7 +446,7 @@ void scenarioWriteSave(struct savebuffer *buffer)
  *
  * The callback should initialise all the properties in g_ScenarioData.
  */
-void scenarioInit(void)
+void scenario_init(void)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].initfunc) {
 		g_MpScenarios[g_MpSetup.scenario].initfunc();
@@ -457,7 +457,7 @@ void scenarioInit(void)
  * Return the number of additional props that will be created, such as
  * briefcases and uplinks.
  */
-s32 scenarioNumProps(void)
+s32 scenario_num_props(void)
 {
 	s32 result = 0;
 
@@ -471,7 +471,7 @@ s32 scenarioNumProps(void)
 /**
  * Create the additional props, such as briefcases and uplinks.
  */
-void scenarioInitProps(void)
+void scenario_init_props(void)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].initpropsfunc) {
 		g_MpScenarios[g_MpSetup.scenario].initpropsfunc();
@@ -482,7 +482,7 @@ void scenarioInitProps(void)
  * At the start of each match, a hud message appears for all players containing
  * the challenge name if it's a challenge, or the scenario name if not.
  */
-void scenarioCreateMatchStartHudmsgs(void)
+void scenario_create_match_start_hudmsgs(void)
 {
 	s32 i;
 	s32 prevplayernum = g_Vars.currentplayernum;
@@ -491,45 +491,45 @@ void scenarioCreateMatchStartHudmsgs(void)
 
 	if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 #if VERSION >= VERSION_JPN_FINAL
-		sprintf(challengename, "%s\n", challengeGetNameBySlot(challengeGetCurrent()));
+		sprintf(challengename, "%s\n", challenge_get_name_by_slot(challenge_get_current()));
 #else
-		sprintf(challengename, "%s:\n", challengeGetNameBySlot(challengeGetCurrent()));
+		sprintf(challengename, "%s:\n", challenge_get_name_by_slot(challenge_get_current()));
 #endif
 	}
 
-	sprintf(scenarioname, "%s\n", langGet(g_MpScenarioOverviews[g_MpSetup.scenario].name));
+	sprintf(scenarioname, "%s\n", lang_get(g_MpScenarioOverviews[g_MpSetup.scenario].name));
 
 	for (i = 0; i < g_MpNumChrs; i++) {
 		if (g_MpAllChrPtrs[i]->aibot == NULL) {
-			setCurrentPlayerNum(i);
+			set_current_player_num(i);
 
 			if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 #if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+				hudmsg_create_with_flags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
-				hudmsgCreateWithFlags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
+				hudmsg_create_with_flags(challengename, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 #endif
 			}
 
 #if VERSION >= VERSION_JPN_FINAL
-			hudmsgCreateWithFlags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+			hudmsg_create_with_flags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
-			hudmsgCreateWithFlags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
+			hudmsg_create_with_flags(scenarioname, HUDMSGTYPE_DEFAULT, HUDMSGFLAG_ONLYIFALIVE);
 #endif
 		}
 	}
 
-	setCurrentPlayerNum(prevplayernum);
+	set_current_player_num(prevplayernum);
 }
 
 /**
  * Called on every frame during a match, including while paused.
  */
-void scenarioTick(void)
+void scenario_tick(void)
 {
 	if (g_Vars.normmplayerisrunning) {
 		if (g_Vars.lvframenum == 5) {
-			scenarioCreateMatchStartHudmsgs();
+			scenario_create_match_start_hudmsgs();
 		}
 
 		if (g_MpScenarios[g_MpSetup.scenario].tickfunc) {
@@ -544,7 +544,7 @@ void scenarioTick(void)
  * If chr is provided then it will be a bot.
  * If chr is NULL then the handler should tick the current player instead.
  */
-void scenarioTickChr(struct chrdata *chr)
+void scenario_tick_chr(struct chrdata *chr)
 {
 	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].tickchrfunc) {
 		g_MpScenarios[g_MpSetup.scenario].tickchrfunc(chr);
@@ -554,7 +554,7 @@ void scenarioTickChr(struct chrdata *chr)
 /**
  * Render any HUD information such as timers.
  */
-Gfx *scenarioRenderHud(Gfx *gdl)
+Gfx *scenario_render_hud(Gfx *gdl)
 {
 	s32 viewleft;
 	s32 viewright;
@@ -602,13 +602,13 @@ Gfx *scenarioRenderHud(Gfx *gdl)
 			gDPSetRenderMode(gdl++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 			gDPPipelineMode(gdl++, G_PM_1PRIMITIVE);
 
-			colour = var80087ce4[radarGetTeamIndex(chr->team)];
+			colour = var80087ce4[radar_get_team_index(chr->team)];
 			gDPSetFillColor(gdl++, colour);
 
-			viewleft = viGetViewLeft();
-			viewright = viewleft + viGetViewWidth();
-			viewtop = viGetViewTop();
-			viewheight = viGetViewHeight();
+			viewleft = vi_get_view_left();
+			viewright = viewleft + vi_get_view_width();
+			viewtop = vi_get_view_top();
+			viewheight = vi_get_view_height();
 
 			if (playercount >= 3) {
 				if (cplayernum <= 1) {
@@ -648,7 +648,7 @@ Gfx *scenarioRenderHud(Gfx *gdl)
  *
  * If no callback is registered, the default calculation below will apply.
  */
-void scenarioCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths)
+void scenario_calculate_player_score(struct mpchrconfig *mpchr, s32 chrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *othermpchr;
 	s32 i;
@@ -681,7 +681,7 @@ void scenarioCalculatePlayerScore(struct mpchrconfig *mpchr, s32 chrnum, s32 *sc
 /**
  * Draw anything extra to the radar, such as props or the king of the hill room.
  */
-Gfx *scenarioRadarExtra(Gfx *gdl)
+Gfx *scenario_radar_extra(Gfx *gdl)
 {
 	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].radarextrafunc) {
 		return g_MpScenarios[g_MpSetup.scenario].radarextrafunc(gdl);
@@ -695,7 +695,7 @@ Gfx *scenarioRadarExtra(Gfx *gdl)
  *
  * Return true if handled or false if the generic radar code should render it.
  */
-bool scenarioRadarChr(Gfx **gdl, struct prop *prop)
+bool scenario_radar_chr(Gfx **gdl, struct prop *prop)
 {
 	if (g_Vars.normmplayerisrunning && g_MpScenarios[g_MpSetup.scenario].radarchrfunc) {
 		return g_MpScenarios[g_MpSetup.scenario].radarchrfunc(gdl, prop);
@@ -709,7 +709,7 @@ bool scenarioRadarChr(Gfx **gdl, struct prop *prop)
  *
  * The prop may be a chr, weapon or object.
  */
-bool scenarioHighlightProp(struct prop *prop, s32 *colour)
+bool scenario_highlight_prop(struct prop *prop, s32 *colour)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].highlightpropfunc) {
 		if (g_MpScenarios[g_MpSetup.scenario].highlightpropfunc(prop, colour)) {
@@ -731,7 +731,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 				colour[0] = 0;
 				colour[1] = 0xcd;
 				colour[2] = 0xff;
-				colour[3] = menuGetSinOscFrac(20) * 255;
+				colour[3] = menu_get_sin_osc_frac(20) * 255;
 				return true;
 			}
 		}
@@ -742,7 +742,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 		bool useteamcolour = false;
 
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-			struct chrdata *botchr = currentPlayerGetCommandingAibot();
+			struct chrdata *botchr = current_player_get_commanding_aibot();
 
 			if (botchr) {
 				if (botchr == prop->chr) {
@@ -765,12 +765,12 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 		}
 
 		if (useteamcolour) {
-			u32 tmp = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
+			u32 tmp = g_TeamColours[radar_get_team_index(prop->chr->team)];
 
 			colour[0] = tmp >> 24 & 0xff;
 			colour[1] = tmp >> 16 & 0xff;
 			colour[2] = tmp >> 8 & 0xff;
-			colour[3] = pulse ? (s32)(menuGetSinOscFrac(20) * 128) : 75;
+			colour[3] = pulse ? (s32)(menu_get_sin_osc_frac(20) * 128) : 75;
 			return true;
 		}
 
@@ -778,7 +778,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
 			colour[0] = 0;
 			colour[1] = 0xcd;
 			colour[2] = 0xff;
-			colour[3] = menuGetSinOscFrac(20) * 205;
+			colour[3] = menu_get_sin_osc_frac(20) * 205;
 			return true;
 		}
 	}
@@ -791,7 +791,7 @@ bool scenarioHighlightProp(struct prop *prop, s32 *colour)
  *
  * CTC uses this to ensure the chrs spawn near their base.
  */
-f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, RoomNum *rooms, struct prop *prop)
+f32 scenario_choose_spawn_location(f32 chrradius, struct coord *pos, RoomNum *rooms, struct prop *prop)
 {
 	f32 result;
 
@@ -800,7 +800,7 @@ f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, RoomNum *rooms
 		return result;
 	}
 
-	return playerChooseGeneralSpawnLocation(chrradius, pos, rooms, prop);
+	return player_choose_general_spawn_location(chrradius, pos, rooms, prop);
 }
 
 /**
@@ -810,7 +810,7 @@ f32 scenarioChooseSpawnLocation(f32 chrradius, struct coord *pos, RoomNum *rooms
  * stage specific such as pad and room numbers, then re-reads the setup
  * file to reload that information.
  */
-void scenarioReset(void)
+void scenario_reset(void)
 {
 	s32 i;
 	s32 j;
@@ -836,10 +836,10 @@ void scenarioReset(void)
 		}
 		break;
 	case MPSCENARIO_HACKERCENTRAL:
-		htmReset();
+		htm_reset();
 		break;
 	case MPSCENARIO_HOLDTHEBRIEFCASE:
-		htbReset();
+		htb_reset();
 		break;
 	case MPSCENARIO_POPACAP:
 		break;
@@ -854,17 +854,17 @@ void scenarioReset(void)
 			case INTROCMD_CASE:
 			case INTROCMD_CASERESPAWN:
 				if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
-					ctcAddPad(cmd);
+					ctc_add_pad(cmd);
 				} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
-					htmAddPad(cmd[2]);
+					htm_add_pad(cmd[2]);
 				} else if (g_MpSetup.scenario == MPSCENARIO_HOLDTHEBRIEFCASE) {
-					htbAddPad(cmd[2]);
+					htb_add_pad(cmd[2]);
 				}
 				cmd += 3;
 				break;
 			case INTROCMD_HILL:
 				if (g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
-					kohAddHill(cmd);
+					koh_add_hill(cmd);
 				}
 				cmd += 2;
 				break;
@@ -905,7 +905,7 @@ void scenarioReset(void)
  *
  * CTC sets this to 4, while the others use the default limit of 8.
  */
-s32 scenarioGetMaxTeams(void)
+s32 scenario_get_max_teams(void)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].maxteamsfunc) {
 		return g_MpScenarios[g_MpSetup.scenario].maxteamsfunc();
@@ -917,7 +917,7 @@ s32 scenarioGetMaxTeams(void)
 /**
  * This callback is unused.
  */
-bool scenarioIsRoomHighlighted(RoomNum room)
+bool scenario_is_room_highlighted(RoomNum room)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc) {
 		return g_MpScenarios[g_MpSetup.scenario].isroomhighlightedfunc(room);
@@ -931,7 +931,7 @@ bool scenarioIsRoomHighlighted(RoomNum room)
  *
  * Used in CTC for the team bases and in KOH for the hill.
  */
-void scenarioHighlightRoom(RoomNum room, s32 *arg1, s32 *arg2, s32 *arg3)
+void scenario_highlight_room(RoomNum room, s32 *arg1, s32 *arg2, s32 *arg3)
 {
 	if (g_MpScenarios[g_MpSetup.scenario].highlightroomfunc) {
 		g_MpScenarios[g_MpSetup.scenario].highlightroomfunc(room, arg1, arg2, arg3);
@@ -945,7 +945,7 @@ struct menuitem g_MpScenarioMenuItems[] = {
 		MENUITEMFLAG_LIST_WIDE | MENUITEMFLAG_LOCKABLEMINOR,
 		0x00000078,
 		0x0000004d,
-		scenarioScenarioMenuHandler,
+		scenario_scenario_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -966,7 +966,7 @@ struct menuitem g_MpQuickTeamScenarioMenuItems[] = {
 		MENUITEMFLAG_LIST_WIDE | MENUITEMFLAG_LOCKABLEMINOR,
 		0x00000078,
 		0x0000004d,
-		scenarioScenarioMenuHandler,
+		scenario_scenario_menu_handler,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -985,7 +985,7 @@ struct menudialogdef g_MpQuickTeamScenarioMenuDialog = {
  *
  * This is a helper function used by HTM to create the terminal.
  */
-struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u32 flags2, u32 flags3)
+struct prop *scenario_create_obj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u32 flags2, u32 flags3)
 {
 	struct defaultobj template = {
 		256,                    // extrascale
@@ -1012,7 +1012,7 @@ struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u3
 		0,                      // tiles
 	};
 
-	struct defaultobj *obj = mempAlloc(ALIGN16(sizeof(struct defaultobj)), MEMPOOL_STAGE);
+	struct defaultobj *obj = memp_alloc(ALIGN16(sizeof(struct defaultobj)), MEMPOOL_STAGE);
 	*obj = template;
 
 	obj->modelnum = modelnum;
@@ -1023,9 +1023,9 @@ struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u3
 	obj->extrascale = arg2 * 256;
 	obj->hidden2 &= ~OBJHFLAG_DELETING;
 
-	setupCreateObject(obj, 123);
-	propActivate(obj->prop);
-	propEnable(obj->prop);
+	setup_create_object(obj, 123);
+	prop_activate(obj->prop);
+	prop_enable(obj->prop);
 
 	return obj->prop;
 }
@@ -1035,18 +1035,18 @@ struct prop *scenarioCreateObj(s32 modelnum, s16 padnum, f32 arg2, u32 flags, u3
  *
  * This is a helper function used by PAC.
  */
-void scenarioCreateHudmsg(s32 playernum, char *message)
+void scenario_create_hudmsg(s32 playernum, char *message)
 {
 	if (playernum >= 0 && playernum < PLAYERCOUNT()) {
 		s32 prevplayernum = g_Vars.currentplayernum;
 
-		setCurrentPlayerNum(playernum);
+		set_current_player_num(playernum);
 #if VERSION >= VERSION_JPN_FINAL
-		hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+		hudmsg_create_with_flags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
-		hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+		hudmsg_create_with_flags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
-		setCurrentPlayerNum(prevplayernum);
+		set_current_player_num(prevplayernum);
 	}
 }
 
@@ -1055,7 +1055,7 @@ void scenarioCreateHudmsg(s32 playernum, char *message)
  *
  * This is a helper function used by PAC.
  */
-bool scenarioChrsAreSameTeam(s32 playernum1, s32 playernum2)
+bool scenario_chrs_are_same_team(s32 playernum1, s32 playernum2)
 {
 	struct mpchrconfig *achr;
 	struct mpchrconfig *bchr;
@@ -1081,7 +1081,7 @@ bool scenarioChrsAreSameTeam(s32 playernum1, s32 playernum2)
  *
  * The return value is a TICKOP constant.
  */
-s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
+s32 scenario_pick_up_briefcase(struct chrdata *chr, struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 	struct weaponobj *weapon = prop->weapon;
@@ -1098,43 +1098,43 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 		g_ScenarioData.htb.token = chr->prop;
 
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
-			propPlayPickupSound(prop, weapon->weaponnum);
+			mpchr = g_MpAllChrConfigPtrs[mp_player_get_index(chr)];
+			prop_play_pickup_sound(prop, weapon->weaponnum);
 			chr->aibot->hasbriefcase = true;
-			botinvGiveSingleWeapon(chr, WEAPON_BRIEFCASE2);
+			botinv_give_single_weapon(chr, WEAPON_BRIEFCASE2);
 		} else {
 			mpchr = MPCHR(g_Vars.playerstats[g_Vars.currentplayernum].mpindex);
 
-			invGiveSingleWeapon(WEAPON_BRIEFCASE2);
-			currentPlayerQueuePickupWeaponHudmsg(WEAPON_BRIEFCASE2, false);
-			weaponPlayPickupSound(WEAPON_BRIEFCASE2);
+			inv_give_single_weapon(WEAPON_BRIEFCASE2);
+			current_player_queue_pickup_weapon_hudmsg(WEAPON_BRIEFCASE2, false);
+			weapon_play_pickup_sound(WEAPON_BRIEFCASE2);
 		}
 
 #if VERSION >= VERSION_JPN_FINAL
 		// "%shas the Briefcase"
-		sprintf(text1, langGet(L_MPWEAPONS_000_2), scenarioRemoveLineBreaks(mpchr->name, 0), bgunGetShortName(WEAPON_BRIEFCASE2));
+		sprintf(text1, lang_get(L_MPWEAPONS_000_2), scenario_remove_line_breaks(mpchr->name, 0), bgun_get_short_name(WEAPON_BRIEFCASE2));
 #elif VERSION >= VERSION_PAL_BETA
 		// "%shas the Briefcase"
-		sprintf(text1, langGet(L_MPWEAPONS_000_2), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+		sprintf(text1, lang_get(L_MPWEAPONS_000_2), mpchr->name, bgun_get_short_name(WEAPON_BRIEFCASE2));
 #else
 		// "%shas the\n%s"
-		sprintf(text1, langGet(L_MPWEAPONS_000), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+		sprintf(text1, lang_get(L_MPWEAPONS_000), mpchr->name, bgun_get_short_name(WEAPON_BRIEFCASE2));
 #endif
 
 		prevplayernum = g_Vars.currentplayernum;
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (chr->aibot || i != prevplayernum) {
-				setCurrentPlayerNum(i);
+				set_current_player_num(i);
 #if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+				hudmsg_create_with_flags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
-				hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+				hudmsg_create_with_flags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
 			}
 		}
 
-		setCurrentPlayerNum(prevplayernum);
+		set_current_player_num(prevplayernum);
 
 		if (chr->aibot) {
 			obj->hidden |= OBJHFLAG_DELETING;
@@ -1142,20 +1142,20 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
-		objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+		obj_free(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 		return TICKOP_FREE;
 #else
 		return TICKOP_GIVETOPLAYER;
 #endif
 	} else if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
+			mpchr = g_MpAllChrConfigPtrs[mp_player_get_index(chr)];
 		} else {
 			mpchr = MPCHR(g_Vars.playerstats[g_Vars.currentplayernum].mpindex);
 		}
 
 		if (weapon->team == mpchr->team) {
-			if ((chr->aibot && chr->aibot->hascase) || (!chr->aibot && invHasBriefcase())) {
+			if ((chr->aibot && chr->aibot->hascase) || (!chr->aibot && inv_has_briefcase())) {
 				// The chr already has a case and they are "picking up"
 				// their home case. ie. A point has just been scored
 				mpchr->numpoints++;
@@ -1167,41 +1167,41 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 				}
 
 				if (chr->aibot) {
-					botinvDropOne(chr, WEAPON_BRIEFCASE2);
+					botinv_drop_one(chr, WEAPON_BRIEFCASE2);
 					chr->aibot->hascase = false;
 				} else {
-					sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-					weaponCreateForPlayerDrop(WEAPON_BRIEFCASE2);
-					invRemoveItemByNum(WEAPON_BRIEFCASE2);
+					snd_start(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
+					weapon_create_for_player_drop(WEAPON_BRIEFCASE2);
+					inv_remove_item_by_num(WEAPON_BRIEFCASE2);
 				}
 
 #if VERSION >= VERSION_JPN_FINAL
 				// "You captured the %s Briefcase"
-				sprintf(text1, langGet(L_MPWEAPONS_004), scenarioRemoveLineBreaks(g_BossFile.teamnames[i], 0));
+				sprintf(text1, lang_get(L_MPWEAPONS_004), scenario_remove_line_breaks(g_BossFile.teamnames[i], 0));
 
 				// "%scaptured our Briefcase"
-				sprintf(text2, langGet(L_MPWEAPONS_005), scenarioRemoveLineBreaks(mpchr->name, 0));
+				sprintf(text2, lang_get(L_MPWEAPONS_005), scenario_remove_line_breaks(mpchr->name, 0));
 
 				// "%scaptured the %s Briefcase"
-				sprintf(text3, langGet(L_MPWEAPONS_006), scenarioRemoveLineBreaks(mpchr->name, 0), scenarioRemoveLineBreaks(g_BossFile.teamnames[i], 1));
+				sprintf(text3, lang_get(L_MPWEAPONS_006), scenario_remove_line_breaks(mpchr->name, 0), scenario_remove_line_breaks(g_BossFile.teamnames[i], 1));
 #elif VERSION >= VERSION_PAL_BETA
 				// "You captured the %s Briefcase"
-				sprintf(text1, langGet(L_MPWEAPONS_004), g_BossFile.teamnames[i]);
+				sprintf(text1, lang_get(L_MPWEAPONS_004), g_BossFile.teamnames[i]);
 
 				// "%scaptured our Briefcase"
-				sprintf(text2, langGet(L_MPWEAPONS_005), mpchr->name);
+				sprintf(text2, lang_get(L_MPWEAPONS_005), mpchr->name);
 
 				// "%scaptured the %s Briefcase"
-				sprintf(text3, langGet(L_MPWEAPONS_006), mpchr->name, g_BossFile.teamnames[i]);
+				sprintf(text3, lang_get(L_MPWEAPONS_006), mpchr->name, g_BossFile.teamnames[i]);
 #else
 				// "You captured the %s%s"
-				sprintf(text1, langGet(L_MPWEAPONS_004), g_BossFile.teamnames[i], bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text1, lang_get(L_MPWEAPONS_004), g_BossFile.teamnames[i], bgun_get_short_name(WEAPON_BRIEFCASE2));
 
 				// "%scaptured our %s"
-				sprintf(text2, langGet(L_MPWEAPONS_005), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text2, lang_get(L_MPWEAPONS_005), mpchr->name, bgun_get_short_name(WEAPON_BRIEFCASE2));
 
 				// "%scaptured the %s%s"
-				sprintf(text3, langGet(L_MPWEAPONS_006), mpchr->name, g_BossFile.teamnames[i], bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text3, lang_get(L_MPWEAPONS_006), mpchr->name, g_BossFile.teamnames[i], bgun_get_short_name(WEAPON_BRIEFCASE2));
 #endif
 
 				prevplayernum = g_Vars.currentplayernum;
@@ -1211,28 +1211,28 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 				if (caseteam);
 
 				for (i = 0; i < PLAYERCOUNT(); i++) {
-					setCurrentPlayerNum(i);
+					set_current_player_num(i);
 
 #if VERSION >= VERSION_JPN_FINAL
 					if (!chr->aibot && i == prevplayernum) {
-						hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+						hudmsg_create_with_flags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 					} else if (caseteam == g_MpAllChrConfigPtrs[i]->team) {
-						hudmsgCreateWithFlags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+						hudmsg_create_with_flags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 					} else {
-						hudmsgCreateWithFlags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+						hudmsg_create_with_flags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 					}
 #else
 					if (!chr->aibot && i == prevplayernum) {
-						hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+						hudmsg_create_with_flags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					} else if (caseteam == g_MpAllChrConfigPtrs[i]->team) {
-						hudmsgCreateWithFlags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+						hudmsg_create_with_flags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					} else {
-						hudmsgCreateWithFlags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+						hudmsg_create_with_flags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					}
 #endif
 				}
 
-				setCurrentPlayerNum(prevplayernum);
+				set_current_player_num(prevplayernum);
 			}
 
 			if (chr->aibot) {
@@ -1242,78 +1242,78 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
 			return TICKOP_NONE;
 		} else {
 			// Picking up another team's case
-			if ((chr->aibot && !chr->aibot->hascase) || (!chr->aibot && !invHasBriefcase())) {
+			if ((chr->aibot && !chr->aibot->hascase) || (!chr->aibot && !inv_has_briefcase())) {
 				// And we have no case currently, so go ahead and pick it up
 				if (chr->aibot) {
 					chr->aibot->hascase = true;
-					propPlayPickupSound(prop, weapon->weaponnum);
+					prop_play_pickup_sound(prop, weapon->weaponnum);
 				}
 
 				g_ScenarioData.ctc.tokens[weapon->team] = chr->prop;
 
 #if VERSION >= VERSION_JPN_FINAL
 				// "%shas the %s Briefcase"
-				sprintf(text1, langGet(L_MPWEAPONS_000_3), scenarioRemoveLineBreaks(mpchr->name, 0), scenarioRemoveLineBreaks(g_BossFile.teamnames[weapon->team], 1));
+				sprintf(text1, lang_get(L_MPWEAPONS_000_3), scenario_remove_line_breaks(mpchr->name, 0), scenario_remove_line_breaks(g_BossFile.teamnames[weapon->team], 1));
 
 				// "%shas our\nBriefcase"
-				sprintf(text2, langGet(L_MPWEAPONS_002), scenarioRemoveLineBreaks(mpchr->name, 0));
+				sprintf(text2, lang_get(L_MPWEAPONS_002), scenario_remove_line_breaks(mpchr->name, 0));
 
 				// "Got the %s Briefcase"
-				sprintf(text3, langGet(L_MPWEAPONS_003), scenarioRemoveLineBreaks(g_BossFile.teamnames[weapon->team], 0));
+				sprintf(text3, lang_get(L_MPWEAPONS_003), scenario_remove_line_breaks(g_BossFile.teamnames[weapon->team], 0));
 #elif VERSION >= VERSION_PAL_BETA
 				// "%shas the %s Briefcase"
-				sprintf(text1, langGet(L_MPWEAPONS_000_3), mpchr->name, g_BossFile.teamnames[weapon->team]);
+				sprintf(text1, lang_get(L_MPWEAPONS_000_3), mpchr->name, g_BossFile.teamnames[weapon->team]);
 
 				// "%shas our\nBriefcase"
-				sprintf(text2, langGet(L_MPWEAPONS_002), mpchr->name);
+				sprintf(text2, lang_get(L_MPWEAPONS_002), mpchr->name);
 
 				// "Got the %s Briefcase"
-				sprintf(text3, langGet(L_MPWEAPONS_003), g_BossFile.teamnames[weapon->team]);
+				sprintf(text3, lang_get(L_MPWEAPONS_003), g_BossFile.teamnames[weapon->team]);
 #else
 				// "%shas the %s%s"
-				sprintf(text1, langGet(L_MPWEAPONS_001), mpchr->name, g_BossFile.teamnames[weapon->team], bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text1, lang_get(L_MPWEAPONS_001), mpchr->name, g_BossFile.teamnames[weapon->team], bgun_get_short_name(WEAPON_BRIEFCASE2));
 
 				// "%shas our %s"
-				sprintf(text2, langGet(L_MPWEAPONS_002), mpchr->name, bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text2, lang_get(L_MPWEAPONS_002), mpchr->name, bgun_get_short_name(WEAPON_BRIEFCASE2));
 
 				// "Got the %s%s"
-				sprintf(text3, langGet(L_MPWEAPONS_003), g_BossFile.teamnames[weapon->team], bgunGetShortName(WEAPON_BRIEFCASE2));
+				sprintf(text3, lang_get(L_MPWEAPONS_003), g_BossFile.teamnames[weapon->team], bgun_get_short_name(WEAPON_BRIEFCASE2));
 #endif
 
 				prevplayernum = g_Vars.currentplayernum;
 
 				for (i = 0; i < PLAYERCOUNT(); i++) {
-					setCurrentPlayerNum(i);
+					set_current_player_num(i);
 
 #if VERSION >= VERSION_JPN_FINAL
 					if (!chr->aibot && i == prevplayernum) {
-						hudmsgCreateWithFlags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+						hudmsg_create_with_flags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 					} else if (weapon->team == g_MpAllChrConfigPtrs[i]->team) {
-						hudmsgCreateWithFlags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+						hudmsg_create_with_flags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 					} else {
-						hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+						hudmsg_create_with_flags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 					}
 #else
 					if (!chr->aibot && i == prevplayernum) {
-						hudmsgCreateWithFlags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+						hudmsg_create_with_flags(text3, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					} else if (weapon->team == g_MpAllChrConfigPtrs[i]->team) {
-						hudmsgCreateWithFlags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+						hudmsg_create_with_flags(text2, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					} else {
-						hudmsgCreateWithFlags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+						hudmsg_create_with_flags(text1, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 					}
 #endif
 				}
 
-				setCurrentPlayerNum(prevplayernum);
+				set_current_player_num(prevplayernum);
 
 				if (chr->aibot) {
-					botinvGiveSingleWeapon(chr, WEAPON_BRIEFCASE2);
+					botinv_give_single_weapon(chr, WEAPON_BRIEFCASE2);
 					obj->hidden |= OBJHFLAG_DELETING;
 					return TICKOP_NONE;
 				} else {
-					invGiveWeaponsByProp(prop);
+					inv_give_weapons_by_prop(prop);
 #if VERSION >= VERSION_NTSC_1_0
-					objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+					obj_free(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 					return TICKOP_FREE;
 #else
 					return TICKOP_GIVETOPLAYER;
@@ -1344,7 +1344,7 @@ s32 scenarioPickUpBriefcase(struct chrdata *chr, struct prop *prop)
  *
  * For CTC, the token is warped back to its home base.
  */
-void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
+void scenario_handle_dropped_token(struct chrdata *chr, struct prop *prop)
 {
 	s32 i;
 	struct weaponobj *weapon = prop->weapon;
@@ -1356,13 +1356,13 @@ void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
 	if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
 		for (i = 0; i < ARRAYCOUNT(g_ScenarioData.ctc.tokens); i++) {
 			if (chr->prop == g_ScenarioData.ctc.tokens[i]) {
-				objFreeProjectile(&weapon->base);
+				obj_free_projectile(&weapon->base);
 
 				g_ScenarioData.ctc.tokens[i] = prop;
 				weapon->team = i;
 				obj = prop->obj;
 
-				padUnpack(g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[i]].homepad,
+				pad_unpack(g_ScenarioData.ctc.spawnpadsperteam[g_ScenarioData.ctc.teamindexes[i]].homepad,
 						PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_ROOM, &pad);
 				mtx00016d58(&mtx, 0, 0, 0, -pad.look.x, -pad.look.y, -pad.look.z, pad.up.x, pad.up.y, pad.up.z);
 
@@ -1385,7 +1385,7 @@ void scenarioHandleDroppedToken(struct chrdata *chr, struct prop *prop)
  *
  * The return value is a TICKOP constant.
  */
-s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
+s32 scenario_pick_up_uplink(struct chrdata *chr, struct prop *prop)
 {
 	s32 i;
 	char message[64];
@@ -1400,40 +1400,40 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 		g_ScenarioData.htm.uplink = chr->prop;
 
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)];
+			mpchr = g_MpAllChrConfigPtrs[mp_player_get_index(chr)];
 		} else {
 			mpchr = MPCHR(g_Vars.playerstats[g_Vars.currentplayernum].mpindex);
 		}
 
 #if VERSION >= VERSION_JPN_FINAL
 		// "%shas the\nData Uplink%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), scenarioRemoveLineBreaks(mpchr->name, 0));
+		sprintf(message, lang_get(L_MPWEAPONS_000), scenario_remove_line_breaks(mpchr->name, 0));
 #elif VERSION >= VERSION_PAL_BETA
 		// "%shas the\nData Uplink%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name);
+		sprintf(message, lang_get(L_MPWEAPONS_000), mpchr->name);
 #else
 		// "%shas the\n%s"
-		sprintf(message, langGet(L_MPWEAPONS_000), mpchr->name, bgunGetShortName(WEAPON_DATAUPLINK));
+		sprintf(message, lang_get(L_MPWEAPONS_000), mpchr->name, bgun_get_short_name(WEAPON_DATAUPLINK));
 #endif
 		playernum = g_Vars.currentplayernum;
 
 		for (i = 0; i < PLAYERCOUNT(); i++) {
 			if (chr->aibot || i != playernum) {
-				setCurrentPlayerNum(i);
+				set_current_player_num(i);
 
 #if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
+				hudmsg_create_with_flags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP);
 #else
-				hudmsgCreateWithFlags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
+				hudmsg_create_with_flags(message, HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
 			}
 		}
 
-		setCurrentPlayerNum(playernum);
+		set_current_player_num(playernum);
 
 		if (chr->aibot) {
-			propPlayPickupSound(prop, WEAPON_DATAUPLINK);
-			botinvGiveSingleWeapon(chr, WEAPON_DATAUPLINK);
+			prop_play_pickup_sound(prop, WEAPON_DATAUPLINK);
+			botinv_give_single_weapon(chr, WEAPON_DATAUPLINK);
 			chr->aibot->hasuplink = true;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1444,12 +1444,12 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 
 			return TICKOP_NONE;
 		} else {
-			invGiveSingleWeapon(WEAPON_DATAUPLINK);
-			currentPlayerQueuePickupWeaponHudmsg(WEAPON_DATAUPLINK, false);
-			weaponPlayPickupSound(WEAPON_DATAUPLINK);
+			inv_give_single_weapon(WEAPON_DATAUPLINK);
+			current_player_queue_pickup_weapon_hudmsg(WEAPON_DATAUPLINK, false);
+			weapon_play_pickup_sound(WEAPON_DATAUPLINK);
 
 #if VERSION >= VERSION_NTSC_1_0
-			objFree(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
+			obj_free(obj, false, obj->hidden2 & OBJH2FLAG_CANREGEN);
 			return TICKOP_FREE;
 #else
 			return TICKOP_GIVETOPLAYER;
@@ -1466,13 +1466,13 @@ s32 scenarioPickUpUplink(struct chrdata *chr, struct prop *prop)
 /**
  * Handle a terminal being activated with the data uplink.
  */
-void scenarioHandleActivatedProp(struct chrdata *chr, struct prop *prop)
+void scenario_handle_activated_prop(struct chrdata *chr, struct prop *prop)
 {
 	if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
 		struct defaultobj *obj = prop->obj;
 
 		if (obj->flags3 & OBJFLAG3_HTMTERMINAL) {
-			u32 mpindex = mpPlayerGetIndex(chr);
+			u32 mpindex = mp_player_get_index(chr);
 
 			if ((obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND) == 0) {
 				obj->hidden &= 0x0fffffff;

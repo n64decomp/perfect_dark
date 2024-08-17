@@ -70,9 +70,9 @@
 #include "data.h"
 #include "types.h"
 
-// mainLoop calls rngSetSeed with a u32 argument,
+// main_loop calls rng_set_seed with a u32 argument,
 // but the function takes a u64 so an incorrect declaration is needed.
-void rngSetSeed(u32 seed);
+void rng_set_seed(u32 seed);
 
 bool var8005d9b0 = false;
 s32 g_StageNum = STAGE_TITLE;
@@ -315,7 +315,7 @@ extern u8 _bssSegmentEnd;
  * Initialise various subsystems, display the copyright or accessing pak texture,
  * then initialise more subsystems.
  */
-void mainInit(void)
+void main_init(void)
 {
 	s32 x;
 	s32 dsty;
@@ -330,16 +330,16 @@ void mainInit(void)
 	u32 addr;
 	u8 *start;
 
-	faultInit();
-	dmaInit();
-	amgrInit();
-	varsInit();
-	mempInit();
-	memaInit();
-	videbugInit();
-	viConfigureForLogos();
-	var8005d9b0 = rmonIsDisabled();
-	joyInit();
+	fault_init();
+	dma_init();
+	amgr_init();
+	vars_init();
+	memp_init();
+	mema_init();
+	videbug_init();
+	vi_configure_for_logos();
+	var8005d9b0 = rmon_is_disabled();
+	joy_init();
 	osCreateMesgQueue(&queue, &msg, 1);
 
 	// Wait a bit, reset the controllers and wait a bit more
@@ -348,9 +348,9 @@ void mainInit(void)
 		osRecvMesg(&queue, &msg, OS_MESG_BLOCK);
 
 		if (i == 1) {
-			joyReset();
+			joy_reset();
 		} else if (i >= 2) {
-			joyDebugJoy();
+			joy_debug_joy();
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -359,16 +359,16 @@ void mainInit(void)
 #endif
 	}
 
-	if (argFindByPrefix(1, "-level_") == NULL) {
+	if (arg_find_by_prefix(1, "-level_") == NULL) {
 		var8005d9b0 = true;
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
 	// If holding start on any controller, open boot pak menu
-	if (joyGetButtons(0, START_BUTTON) == 0
-			&& joyGetButtons(1, START_BUTTON) == 0
-			&& joyGetButtons(2, START_BUTTON) == 0
-			&& joyGetButtons(3, START_BUTTON) == 0) {
+	if (joy_get_buttons(0, START_BUTTON) == 0
+			&& joy_get_buttons(1, START_BUTTON) == 0
+			&& joy_get_buttons(2, START_BUTTON) == 0
+			&& joy_get_buttons(3, START_BUTTON) == 0) {
 		g_DoBootPakMenu = false;
 	} else {
 		g_DoBootPakMenu = true;
@@ -380,10 +380,10 @@ void mainInit(void)
 	// and the crash screen will be shown if the game crashes.
 #define BUTTON_MASK (U_CBUTTONS | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS)
 
-	if (joyGetButtons(0, BUTTON_MASK) == BUTTON_MASK
-			|| joyGetButtons(1, BUTTON_MASK) == BUTTON_MASK
-			|| joyGetButtons(2, BUTTON_MASK) == BUTTON_MASK
-			|| joyGetButtons(3, BUTTON_MASK) == BUTTON_MASK) {
+	if (joy_get_buttons(0, BUTTON_MASK) == BUTTON_MASK
+			|| joy_get_buttons(1, BUTTON_MASK) == BUTTON_MASK
+			|| joy_get_buttons(2, BUTTON_MASK) == BUTTON_MASK
+			|| joy_get_buttons(3, BUTTON_MASK) == BUTTON_MASK) {
 		g_CrashEnabled = true;
 	}
 #endif
@@ -401,7 +401,7 @@ void mainInit(void)
 		// In 4MB mode, place it close to the end of memory,
 		// but before the thread stacks and VM system.
 		// In 8MB mode, put it at the end of the expansion pak.
-		if (bootGetMemSize() <= 4 * 1024 * 1024) {
+		if (boot_get_mem_size() <= 4 * 1024 * 1024) {
 			addr = K0BASE + 4 * 1024 * 1024;
 			addr -= STACKSIZE_MAIN;
 			addr -= STACKSIZE_IDLE;
@@ -429,9 +429,9 @@ void mainInit(void)
 		// DMA the compressed texture from the ROM to the framebuffer.
 		// It's using the framebuffer as a temporary data buffer.
 		if (g_DoBootPakMenu) {
-			dmaExec(fb, (romptr_t) &_accessingpakSegmentRomStart, &_accessingpakSegmentRomEnd - &_accessingpakSegmentRomStart);
+			dma_exec(fb, (romptr_t) &_accessingpakSegmentRomStart, &_accessingpakSegmentRomEnd - &_accessingpakSegmentRomStart);
 		} else {
-			dmaExec(fb, (romptr_t) &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
+			dma_exec(fb, (romptr_t) &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
 		}
 
 		// This is required for a match
@@ -439,7 +439,7 @@ void mainInit(void)
 		if ((f64) numpages && (f64) numpages);
 
 		// Unzip the compressed texture from fb to texture
-		rzipInflate(fb, texture, scratch);
+		rzip_inflate(fb, texture, scratch);
 
 		// Clear the framebuffer except for the bottom 48 rows,
 		// because that's where the texture will go.
@@ -472,8 +472,8 @@ void mainInit(void)
 			}
 		}
 
-		viSetMode(VIMODE_HI);
-		viConfigureForCopyright(fb);
+		vi_set_mode(VIMODE_HI);
+		vi_configure_for_copyright(fb);
 
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
@@ -488,8 +488,8 @@ void mainInit(void)
 			osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_BLOCK);
 
 			if (*(s16 *) receivedmsg == OS_SC_RETRACE_MSG) {
-				viUpdateMode();
-				rdpCreateTask(var8005dcc8, var8005dcc8 + ARRAYCOUNT(var8005dcc8), 0, (s32) &scdonemsg);
+				vi_update_mode();
+				rdp_create_task(var8005dcc8, var8005dcc8 + ARRAYCOUNT(var8005dcc8), 0, (s32) &scdonemsg);
 				j++;
 			}
 		}
@@ -524,10 +524,10 @@ void mainInit(void)
 		while (1);
 	}
 
-	if (joyGetButtons(0, START_BUTTON) == 0
-			&& joyGetButtons(1, START_BUTTON) == 0
-			&& joyGetButtons(2, START_BUTTON) == 0
-			&& joyGetButtons(3, START_BUTTON) == 0) {
+	if (joy_get_buttons(0, START_BUTTON) == 0
+			&& joy_get_buttons(1, START_BUTTON) == 0
+			&& joy_get_buttons(2, START_BUTTON) == 0
+			&& joy_get_buttons(3, START_BUTTON) == 0) {
 		s32 numpages;
 		OSMesg receivedmsg = NULL;
 		OSScMsg scdonemsg = { OS_SC_DONE_MSG };
@@ -565,13 +565,13 @@ void mainInit(void)
 
 		// DMA the compressed texture from the ROM to the framebuffer.
 		// It's using the framebuffer as a temporary data buffer.
-		dmaExec(fb, (romptr_t) &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
+		dma_exec(fb, (romptr_t) &_copyrightSegmentRomStart, &_copyrightSegmentRomEnd - &_copyrightSegmentRomStart);
 
 		numpages = g_VmNumPages;
 		if ((f64) numpages && (f64) numpages);
 
 		// Unzip the compressed texture from fb to texture
-		rzipInflate(fb, texture, scratch);
+		rzip_inflate(fb, texture, scratch);
 
 		// Clear the framebuffer except for the bottom 48 rows,
 		// because that's where the texture will go.
@@ -596,8 +596,8 @@ void mainInit(void)
 			dsty += 576;
 		}
 
-		viSetMode(VIMODE_HI);
-		viConfigureForCopyright(fb);
+		vi_set_mode(VIMODE_HI);
+		vi_configure_for_copyright(fb);
 
 		g_RdpOutBufferStart = texture;
 		g_RdpOutBufferEnd = texture + 0x400; // 0x800 bytes, because texture is u16
@@ -610,8 +610,8 @@ void mainInit(void)
 			osRecvMesg(&g_MainMesgQueue, &receivedmsg, OS_MESG_BLOCK);
 
 			if (*(s16 *) receivedmsg == OS_SC_RETRACE_MSG) {
-				viUpdateMode();
-				rdpCreateTask(var8005dcc8, var8005dcc8 + ARRAYCOUNT(var8005dcc8), 0, (s32) &scdonemsg);
+				vi_update_mode();
+				rdp_create_task(var8005dcc8, var8005dcc8 + ARRAYCOUNT(var8005dcc8), 0, (s32) &scdonemsg);
 				i++;
 			}
 		}
@@ -620,57 +620,57 @@ void mainInit(void)
 	}
 #endif
 
-	vmInit();
+	vm_init();
 	func0f1a78b0();
-	filesInit();
+	files_init();
 	stub0f175f50();
 	func0f175f90();
 
 	if (var8005d9b0) {
-		argSetString("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
+		arg_set_string("          -ml0 -me0 -mgfx100 -mvtx50 -mt700 -ma400");
 	}
 
 	start = (u8 *) PHYS_TO_K0(osVirtualToPhysical(&_bssSegmentEnd));
 	if (g_VmMarker);
-	mempSetHeap(start, g_VmMarker - start);
+	memp_set_heap(start, g_VmMarker - start);
 
-	mempResetPool(MEMPOOL_8);
-	mempResetPool(MEMPOOL_PERMANENT);
-	crashReset();
-	challengesInit();
-	utilsInit();
+	memp_reset_pool(MEMPOOL_8);
+	memp_reset_pool(MEMPOOL_PERMANENT);
+	crash_reset();
+	challenges_init();
+	utils_init();
 	func000034d0();
-	texInit();
-	langInit();
-	lvInit();
-	cheatsInit();
+	tex_init();
+	lang_init();
+	lv_init();
+	cheats_init();
 	func0000e9c0();
-	textInit();
-	dhudInit();
-	playermgrInit();
-	frametimeInit();
+	text_init();
+	dhud_init();
+	playermgr_init();
+	frametime_init();
 	stub0f00b200();
-	profileInit();
+	profile_init();
 	stub0f000870();
-	smokesInit();
+	smokes_init();
 	stub0f0008e0();
 	stub0f0008f0();
 	stub0f000900();
 	stub0f00b180();
 	stub0f000910();
 	stub0f000840();
-	mpInit();
-	pheadInit();
-	paksInit();
-	pheadInit2();
-	animsInit();
-	racesInit();
-	bodiesInit();
+	mp_init();
+	phead_init();
+	paks_init();
+	phead_init2();
+	anims_init();
+	races_init();
+	bodies_init();
 	stub0f000850();
 	stub0f000860();
-	titleInit();
-	viConfigureForLegal();
-	viBlack(true);
+	title_init();
+	vi_configure_for_legal();
+	vi_black(true);
 
 	g_MainIsBooting = 0;
 
@@ -702,14 +702,14 @@ void main000e010nb(void)
 }
 #endif
 
-void mainProc(void)
+void main_proc(void)
 {
-	mainInit();
-	rdpInit();
-	sndInit();
+	main_init();
+	rdp_init();
+	snd_init();
 
 	while (true) {
-		mainLoop();
+		main_loop();
 	}
 }
 
@@ -722,7 +722,7 @@ void mainProc(void)
  * then this function would have looked up the given variable name in the table
  * and written the new value to the variable's address.
  */
-void mainOverrideVariable(char *name, void *value)
+void main_override_variable(char *name, void *value)
 {
 	// empty
 }
@@ -730,14 +730,14 @@ void mainOverrideVariable(char *name, void *value)
 /**
  * This function enters an infinite loop which iterates once per stage load.
  * Within this loop is an inner loop which runs very frequently and decides
- * whether to run mainTick on each iteration.
+ * whether to run main_tick on each iteration.
  *
  * NTSC beta checks two shorts at an offset 64MB into the development board
  * and refuses to continue if they are not any of the allowed values.
  * Decomp patches these reads in its build system so it can be played
  * without the development board.
  */
-void mainLoop(void)
+void main_loop(void)
 {
 	s32 ending = false;
 	OSScMsg msg2 = {OS_SC_DONE_MSG};
@@ -764,7 +764,7 @@ void mainLoop(void)
 	func0f175f98();
 
 	var8005d9c4 = 0;
-	argGetLevel(&g_StageNum);
+	arg_get_level(&g_StageNum);
 
 	if (g_DoBootPakMenu) {
 #if VERSION >= VERSION_NTSC_1_0
@@ -774,13 +774,13 @@ void mainLoop(void)
 	}
 
 	if (g_StageNum != STAGE_TITLE) {
-		titleSetNextStage(g_StageNum);
+		title_set_next_stage(g_StageNum);
 
 		if (g_StageNum < STAGE_TITLE) {
 			func0f01b148(0);
 
-			if (argFindByPrefix(1, "-hard")) {
-				lvSetDifficulty(argFindByPrefix(1, "-hard")[0] - '0');
+			if (arg_find_by_prefix(1, "-hard")) {
+				lv_set_difficulty(arg_find_by_prefix(1, "-hard")[0] - '0');
 			}
 		}
 	}
@@ -789,7 +789,7 @@ void mainLoop(void)
 		g_StageNum = STAGE_4MBMENU;
 	}
 
-	rngSetSeed(osGetCount());
+	rng_set_seed(osGetCount());
 
 	// Outer loop - this is infinite because ending is never changed
 	while (!ending) {
@@ -802,7 +802,7 @@ void mainLoop(void)
 			index = -1;
 
 			if (IS4MB()) {
-				if (g_StageNum < STAGE_TITLE && getNumPlayers() >= 2) {
+				if (g_StageNum < STAGE_TITLE && get_num_players() >= 2) {
 					index = 0; \
 					while (g_StageAllocations4Mb[index].stagenum) { \
 						if (g_StageAllocations4Mb[index].stagenum == g_StageNum + 400) { \
@@ -829,10 +829,10 @@ void mainLoop(void)
 					}
 				}
 
-				argSetString(g_StageAllocations4Mb[index].string);
+				arg_set_string(g_StageAllocations4Mb[index].string);
 			} else {
 				// 8MB
-				if (g_StageNum < STAGE_TITLE && getNumPlayers() >= 2) {
+				if (g_StageNum < STAGE_TITLE && get_num_players() >= 2) {
 					index = 0; \
 					while (g_StageAllocations8Mb[index].stagenum) { \
 						if (g_StageNum + 400 == g_StageAllocations8Mb[index].stagenum) { \
@@ -858,35 +858,35 @@ void mainLoop(void)
 					}
 				}
 
-				argSetString(g_StageAllocations8Mb[index].string);
+				arg_set_string(g_StageAllocations8Mb[index].string);
 			}
 		}
 
 		var8005d9c4 = 0;
 
-		mempResetPool(MEMPOOL_7);
-		mempResetPool(MEMPOOL_STAGE);
-		filesStop(4);
+		memp_reset_pool(MEMPOOL_7);
+		memp_reset_pool(MEMPOOL_STAGE);
+		files_stop(4);
 
-		if (argFindByPrefix(1, "-ma")) {
-			g_MainMemaHeapSize = strtol(argFindByPrefix(1, "-ma"), NULL, 0) * 1024;
+		if (arg_find_by_prefix(1, "-ma")) {
+			g_MainMemaHeapSize = strtol(arg_find_by_prefix(1, "-ma"), NULL, 0) * 1024;
 		}
 
-		memaReset(mempAlloc(g_MainMemaHeapSize, MEMPOOL_STAGE), g_MainMemaHeapSize);
-		langReset(g_StageNum);
-		playermgrReset();
+		mema_reset(memp_alloc(g_MainMemaHeapSize, MEMPOOL_STAGE), g_MainMemaHeapSize);
+		lang_reset(g_StageNum);
+		playermgr_reset();
 
 		if (g_StageNum >= STAGE_TITLE) {
 			numplayers = 0;
 		} else {
-			if (argFindByPrefix(1, "-play")) {
-				numplayers = strtol(argFindByPrefix(1, "-play"), NULL, 0);
+			if (arg_find_by_prefix(1, "-play")) {
+				numplayers = strtol(arg_find_by_prefix(1, "-play"), NULL, 0);
 			} else {
 				numplayers = 1;
 			}
 
-			if (getNumPlayers() >= 2) {
-				numplayers = getNumPlayers();
+			if (get_num_players() >= 2) {
+				numplayers = get_num_players();
 			}
 		}
 
@@ -894,29 +894,29 @@ void mainLoop(void)
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = -1;
-		} else if (argFindByPrefix(1, "-coop")) {
+		} else if (arg_find_by_prefix(1, "-coop")) {
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = 1;
 			g_Vars.antiplayernum = -1;
-		} else if (argFindByPrefix(1, "-anti")) {
+		} else if (arg_find_by_prefix(1, "-anti")) {
 			g_Vars.bondplayernum = 0;
 			g_Vars.coopplayernum = -1;
 			g_Vars.antiplayernum = 1;
 		}
 
-		playermgrAllocatePlayers(numplayers);
+		playermgr_allocate_players(numplayers);
 
-		if (argFindByPrefix(1, "-mpbots")) {
+		if (arg_find_by_prefix(1, "-mpbots")) {
 			g_Vars.lvmpbotlevel = 1;
 		}
 
 		if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 			g_MpSetup.chrslots = 0x03;
-			mpReset();
+			mp_reset();
 		} else if (g_Vars.perfectbuddynum) {
-			mpReset();
+			mp_reset();
 		} else if (g_Vars.mplayerisrunning == false
-				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || argFindByPrefix(1, "-play"))) {
+				&& (numplayers >= 2 || g_Vars.lvmpbotlevel || arg_find_by_prefix(1, "-play"))) {
 			g_MpSetup.chrslots = 1;
 
 			if (numplayers >= 2) {
@@ -932,17 +932,17 @@ void mainLoop(void)
 			}
 
 			g_MpSetup.stagenum = g_StageNum;
-			mpReset();
+			mp_reset();
 		}
 
-		gfxReset();
-		joyReset();
-		dhudReset();
-		zbufReset(g_StageNum);
-		lvReset(g_StageNum);
-		viReset(g_StageNum);
-		frametimeCalculate();
-		profileReset();
+		gfx_reset();
+		joy_reset();
+		dhud_reset();
+		zbuf_reset(g_StageNum);
+		lv_reset(g_StageNum);
+		vi_reset(g_StageNum);
+		frametime_calculate();
+		profile_reset();
 
 		while (osRecvMesg(&g_MainMesgQueue, &msg, OS_MESG_NOBLOCK) != -1) {
 			// empty
@@ -954,7 +954,7 @@ void mainLoop(void)
 			osRecvMesg(&g_MainMesgQueue, &msg, OS_MESG_BLOCK);
 
 #if VERSION < VERSION_NTSC_1_0
-			bootCheckStackOverflow();
+			boot_check_stack_overflow();
 #endif
 
 			switch (*(s16 *) msg) {
@@ -962,7 +962,7 @@ void mainLoop(void)
 				cycles = osGetCount() - g_Vars.thisframestartt;
 
 				if (cycles >= g_Vars.mininc60 * CYCLES_PER_FRAME - CYCLES_PER_FRAME / 2) {
-					mainTick();
+					main_tick();
 				}
 				break;
 			case OS_SC_DONE_MSG:
@@ -979,7 +979,7 @@ void mainLoop(void)
 					char message[80];
 					u32 stack2;
 					sprintf(message, "boss.c default: %08x type %d\n", (s32) msg, *(s16 *) msg);
-					crashSetMessage(message);
+					crash_set_message(message);
 					CRASH();
 				}
 				break;
@@ -987,11 +987,11 @@ void mainLoop(void)
 			}
 		}
 
-		lvStop();
-		mempDisablePool(MEMPOOL_STAGE);
-		mempDisablePool(MEMPOOL_7);
-		filesStop(4);
-		viBlack(true);
+		lv_stop();
+		memp_disable_pool(MEMPOOL_STAGE);
+		memp_disable_pool(MEMPOOL_7);
+		files_stop(4);
+		vi_black(true);
 #if VERSION >= VERSION_NTSC_1_0
 		pak0f116994();
 #endif
@@ -1004,7 +1004,7 @@ void mainLoop(void)
 	func0f175fc8();
 }
 
-void mainTick(void)
+void main_tick(void)
 {
 	Gfx *gdl;
 	Gfx *gdlstart;
@@ -1012,74 +1012,74 @@ void mainTick(void)
 	s32 i;
 
 	if (g_MainChangeToStageNum < 0 && g_MainNumGfxTasks < NUM_GFXTASKS) {
-		frametimeCalculate();
+		frametime_calculate();
 		profile00009a98();
-		profileReset();
-		profileSetMarker(PROFILE_MAINTICK_START);
+		profile_reset();
+		profile_set_marker(PROFILE_MAINTICK_START);
 		func000034d8();
-		joyDebugJoy();
-		schedSetCrashEnable2(false);
+		joy_debug_joy();
+		sched_set_crash_enable2(false);
 
 		if (g_MainGameLogicEnabled) {
-			gdl = gdlstart = gfxGetMasterDisplayList();
+			gdl = gdlstart = gfx_get_master_display_list();
 
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, G_TX_LOADTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 			gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0100, 6, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 
 #ifdef DEBUG
-			if (g_MainIsDebugMenuOpen || joyGetButtons(0, U_CBUTTONS | D_CBUTTONS) == (U_CBUTTONS | D_CBUTTONS)) {
-				g_MainIsDebugMenuOpen = debugProcessInput(joyGetStickX(0), joyGetStickY(0), joyGetButtons(0, 0xffff), joyGetButtonsPressedThisFrame(0, 0xffff));
-			} else if (joyGetButtons(0, START_BUTTON) == 0) {
+			if (g_MainIsDebugMenuOpen || joy_get_buttons(0, U_CBUTTONS | D_CBUTTONS) == (U_CBUTTONS | D_CBUTTONS)) {
+				g_MainIsDebugMenuOpen = debug_process_input(joy_get_stick_x(0), joy_get_stick_y(0), joy_get_buttons(0, 0xffff), joy_get_buttons_pressed_this_frame(0, 0xffff));
+			} else if (joy_get_buttons(0, START_BUTTON) == 0) {
 				var80075d68 = var800786f4nb;
 			} else {
-				g_MainIsDebugMenuOpen = debugProcessInput(joyGetStickX(0), joyGetStickY(0), joyGetButtons(0, 0xffff), joyGetButtonsPressedThisFrame(0, 0xffff));
+				g_MainIsDebugMenuOpen = debug_process_input(joy_get_stick_x(0), joy_get_stick_y(0), joy_get_buttons(0, 0xffff), joy_get_buttons_pressed_this_frame(0, 0xffff));
 			}
 #endif
 
-			lvTick();
-			playermgrShuffle();
+			lv_tick();
+			playermgr_shuffle();
 
 			if (g_StageNum < STAGE_TITLE) {
 				for (i = 0; i < PLAYERCOUNT(); i++) {
-					setCurrentPlayerNum(playermgrGetPlayerAtOrder(i));
+					set_current_player_num(playermgr_get_player_at_order(i));
 
-					if (g_StageNum != STAGE_TEST_OLD || !titleIsKeepingMode()) {
-						viSetViewPosition(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
-						viSetFovAspectAndSize(
+					if (g_StageNum != STAGE_TEST_OLD || !title_is_keeping_mode()) {
+						vi_set_view_position(g_Vars.currentplayer->viewleft, g_Vars.currentplayer->viewtop);
+						vi_set_fov_aspect_and_size(
 								g_Vars.currentplayer->fovy, g_Vars.currentplayer->aspect,
 								g_Vars.currentplayer->viewwidth, g_Vars.currentplayer->viewheight);
 					}
 
-					lvTickPlayer();
+					lv_tick_player();
 				}
 			}
 
-			gdl = lvRender(gdl);
+			gdl = lv_render(gdl);
 			func000034e0(&gdl);
 
 #ifdef DEBUG
-			if (debugIsLineModeEnabled()) {
+			if (debug_is_line_mode_enabled()) {
 				gDPPipeSync(gdl++);
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetBlendColor(gdl++, 0xff, 0xff, 0xff, 0xff);
 				gDPSetPrimDepth(gdl++, 0xffff, 0xffff);
 				gDPSetDepthSource(gdl++, G_ZS_PRIM);
 				gDPSetRenderMode(gdl++, G_RM_VISCVG, G_RM_VISCVG2);
-				gDPFillRectangle(gdl++, 0, 0, viGetWidth() - 1, viGetHeight() - 1);
+				gDPFillRectangle(gdl++, 0, 0, vi_get_width() - 1, vi_get_height() - 1);
 			}
 
-			gdl = dhudRender(gdl);
-			dhudClear();
+			gdl = dhud_render(gdl);
+			dhud_clear();
 #endif
 
-			if (debugGetProfileMode() >= 2) {
-				gdl = profileRender(gdl);
+			if (debug_get_profile_mode() >= 2) {
+				gdl = profile_render(gdl);
 			}
 
 #ifdef DEBUG
 			if (g_MainIsDebugMenuOpen) {
-				debugUpdateMenu();
-				gdl = dmenuRender(gdl);
+				debug_update_menu();
+				gdl = dmenu_render(gdl);
 			}
 #endif
 
@@ -1088,15 +1088,15 @@ void mainTick(void)
 		}
 
 		if (g_MainGameLogicEnabled) {
-			gfxSwapBuffers();
-			viUpdateMode();
+			gfx_swap_buffers();
+			vi_update_mode();
 		}
 
-		rdpCreateTask(gdlstart, gdl, 0, (s32) &msg);
+		rdp_create_task(gdlstart, gdl, 0, (s32) &msg);
 		g_MainNumGfxTasks++;
-		memaPrint();
+		mema_print();
 		func0f16cf94();
-		profileSetMarker(PROFILE_MAINTICK_END);
+		profile_set_marker(PROFILE_MAINTICK_END);
 
 #if VERSION == VERSION_PAL_BETA
 #ifdef DEBUG
@@ -1106,43 +1106,43 @@ void mainTick(void)
 	}
 }
 
-void mainEndStage(void)
+void main_end_stage(void)
 {
-	sndStopNosedive();
+	snd_stop_nosedive();
 
 	if (!g_MainIsEndscreen) {
 #if VERSION >= VERSION_NTSC_1_0
 		pak0f11c6d0();
 #endif
-		joyDisableTemporarily();
+		joy_disable_temporarily();
 
 		if (g_Vars.coopplayernum >= 0) {
 			s32 prevplayernum = g_Vars.currentplayernum;
 			s32 i;
 
 			for (i = 0; i < PLAYERCOUNT(); i++) {
-				setCurrentPlayerNum(i);
-				endscreenPushCoop();
+				set_current_player_num(i);
+				endscreen_push_coop();
 			}
 
-			setCurrentPlayerNum(prevplayernum);
-			musicStartMenu();
+			set_current_player_num(prevplayernum);
+			music_start_menu();
 		} else if (g_Vars.antiplayernum >= 0) {
 			s32 prevplayernum = g_Vars.currentplayernum;
 			s32 i;
 
 			for (i = 0; i < PLAYERCOUNT(); i++) {
-				setCurrentPlayerNum(i);
-				endscreenPushAnti();
+				set_current_player_num(i);
+				endscreen_push_anti();
 			}
 
-			setCurrentPlayerNum(prevplayernum);
-			musicStartMenu();
+			set_current_player_num(prevplayernum);
+			music_start_menu();
 		} else if (g_Vars.normmplayerisrunning) {
-			mpEndMatch();
+			mp_end_match();
 		} else {
-			endscreenPrepare();
-			musicStartMenu();
+			endscreen_prepare();
+			music_start_menu();
 		}
 	}
 
@@ -1152,7 +1152,7 @@ void mainEndStage(void)
 /**
  * Change to the given stage at the end of the current frame.
  */
-void mainChangeToStage(s32 stagenum)
+void main_change_to_stage(s32 stagenum)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	pak0f11c6d0();
@@ -1161,16 +1161,16 @@ void mainChangeToStage(s32 stagenum)
 	g_MainChangeToStageNum = stagenum;
 }
 
-s32 mainGetStageNum(void)
+s32 main_get_stage_num(void)
 {
 	return g_StageNum;
 }
 
 void func0000e990(void)
 {
-	objectivesCheckAll();
-	objectivesDisableChecking();
-	mainEndStage();
+	objectives_check_all();
+	objectives_disable_checking();
+	main_end_stage();
 }
 
 void func0000e9c0(void)

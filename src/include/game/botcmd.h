@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void botcmdTickDistMode(struct chrdata *chr);
-void botcmdApply(struct chrdata *chr, u32 command);
+void botcmd_tick_dist_mode(struct chrdata *chr);
+void botcmd_apply(struct chrdata *chr, u32 command);
 
 #endif

@@ -24,7 +24,7 @@ struct casing g_Casings[20];
 struct boltbeam g_BoltBeams[8];
 struct lasersight g_LaserSights[MAX_PLAYERS];
 
-void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to)
+void beam_create(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to)
 {
 	f32 distance;
 
@@ -101,11 +101,11 @@ void beamCreate(struct beam *beam, s32 weaponnum, struct coord *from, struct coo
 	}
 }
 
-void beamCreateForHand(s32 handnum)
+void beam_create_for_hand(s32 handnum)
 {
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand = player->hands + handnum;
-	Mtxf *mtx = camGetWorldToScreenMtxf();
+	Mtxf *mtx = cam_get_world_to_screen_mtxf();
 	f32 tmp;
 
 	tmp = hand->hitpos.f[0] * mtx->m[0][2] + hand->hitpos.f[1] * mtx->m[1][2] + hand->hitpos.f[2] * mtx->m[2][2] + mtx->m[3][2];
@@ -115,14 +115,14 @@ void beamCreateForHand(s32 handnum)
 		// empty
 	} else {
 		struct beam *beam;
-		s32 weaponnum = bgunGetWeaponNum(handnum);
+		s32 weaponnum = bgun_get_weapon_num(handnum);
 
 		if (hand->gset.weaponnum == WEAPON_LASER && hand->gset.weaponfunc == FUNC_SECONDARY) {
 			weaponnum = -2;
 		}
 
 		beam = &hand->beam;
-		beamCreate(beam, weaponnum, &hand->muzzlepos, &hand->hitpos);
+		beam_create(beam, weaponnum, &hand->muzzlepos, &hand->hitpos);
 
 		if (beam->weaponnum == WEAPON_MAULER) {
 			beam->weaponnum = -3 - (s32)player->hands[handnum].matmot1;
@@ -135,7 +135,7 @@ void beamCreateForHand(s32 handnum)
 			f32 radians;
 
 			if (chr->fireslots[handnum] == -1) {
-				chr->fireslots[handnum] = bgunAllocateFireslot();
+				chr->fireslots[handnum] = bgun_allocate_fireslot();
 			}
 
 			if (chr->fireslots[handnum] != -1) {
@@ -154,7 +154,7 @@ void beamCreateForHand(s32 handnum)
 				radians = acosf(disttolast.f[0] * disttocur.f[0] + disttolast.f[1] * disttocur.f[1] + disttolast.f[2] * disttocur.f[2]);
 
 				if (!(radians > RAD(5, 0.08725257f)) || weaponnum == -2) {
-					beamCreate(&g_Fireslots[chr->fireslots[handnum]].beam, weaponnum, &player->chrmuzzlelastpos[handnum], &hand->hitpos);
+					beam_create(&g_Fireslots[chr->fireslots[handnum]].beam, weaponnum, &player->chrmuzzlelastpos[handnum], &hand->hitpos);
 
 					if (g_Fireslots[chr->fireslots[handnum]].beam.weaponnum == WEAPON_MAULER) {
 						g_Fireslots[chr->fireslots[handnum]].beam.weaponnum = -3 - (s32)player->hands[handnum].matmot1;
@@ -165,7 +165,7 @@ void beamCreateForHand(s32 handnum)
 	}
 }
 
-Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
+Gfx *beam_render_generic(Gfx *gdl, struct textureconfig *texconfig,
 		f32 arg2, struct coord *headpos, u32 headcolour,
 		f32 arg5, struct coord *tailpos, u32 tailcolour)
 {
@@ -175,9 +175,9 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 	struct coord spd0;
 	struct coord *campos = &g_Vars.currentplayer->cam_pos;
 	Mtxf *spc8;
-	Col *colours = gfxAllocateColours(2);
+	Col *colours = gfx_allocate_colours(2);
 	Mtxf sp84;
-	Mtxf *worldtoscreenmtx = camGetWorldToScreenMtxf();
+	Mtxf *worldtoscreenmtx = cam_get_world_to_screen_mtxf();
 	struct coord sp74 = {0, 0, 0};
 	f32 mult;
 	u32 stack[2];
@@ -197,7 +197,7 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 	spe4.f[1] /= length;
 	spe4.f[2] /= length;
 
-	mtx4TransformVec(camGetWorldToScreenMtxf(), headpos, &sp5c);
+	mtx4_transform_vec(cam_get_world_to_screen_mtxf(), headpos, &sp5c);
 
 	if (sp5c.f[0] * arg2 > 10000.0f || sp5c.f[0] * arg2 < -10000.0f) {
 		return gdl;
@@ -211,7 +211,7 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 		return gdl;
 	}
 
-	mtx4TransformVec(camGetWorldToScreenMtxf(), tailpos, &sp5c);
+	mtx4_transform_vec(cam_get_world_to_screen_mtxf(), tailpos, &sp5c);
 
 	if (sp5c.f[0] * arg2 > 10000.0f || sp5c.f[0] * arg2 < -10000.0f) {
 		return gdl;
@@ -240,14 +240,14 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 		spd0.f[2] = 0.0f;
 	}
 
-	vertices = gfxAllocateVertices(4);
-	spc8 = gfxAllocateMatrix();
+	vertices = gfx_allocate_vertices(4);
+	spc8 = gfx_allocate_matrix();
 
-	mtx4LoadTranslation(headpos, &sp84);
+	mtx4_load_translation(headpos, &sp84);
 
 	mtx00015f04(1.0f / arg2, &sp84);
 	mtx00015be0(worldtoscreenmtx, &sp84);
-	mtxF2L(&sp84, spc8);
+	mtx_f2l(&sp84, spc8);
 
 	mult = arg5 * arg2;
 
@@ -287,7 +287,7 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 	gSPMatrix(gdl++, osVirtualToPhysical(spc8), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 	gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
-	texSelect(&gdl, texconfig, 4, 1, 2, true, NULL);
+	tex_select(&gdl, texconfig, 4, 1, 2, true, NULL);
 
 	gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
 	gSPTri2(gdl++, 0, 1, 2, 2, 3, 0);
@@ -295,14 +295,14 @@ Gfx *beamRenderGeneric(Gfx *gdl, struct textureconfig *texconfig,
 	return gdl;
 }
 
-Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
+Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 {
 	u32 stack;
 	Mtxf *sp188;
 	Mtxf sp148;
 
 	if (arg3 < 5 && beam->age >= 0) {
-		Col *colours = gfxAllocateColours(1);
+		Col *colours = gfx_allocate_colours(1);
 		struct coord sp138;
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
 		f32 sp130;
@@ -316,7 +316,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 		f32 spf0 = 1.4142f;
 		struct textureconfig *texconfig = &g_TexBeamConfigs[arg3];
 		s32 i;
-		Mtxf *worldtoscreenmtx = camGetWorldToScreenMtxf();
+		Mtxf *worldtoscreenmtx = cam_get_world_to_screen_mtxf();
 		s32 j;
 		u32 stack1;
 		s32 spd8;
@@ -420,19 +420,19 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 		sp118.f[2] *= sp130;
 
 		if (beam->weaponnum == WEAPON_LASER) {
-			vertices = gfxAllocateVertices(8);
+			vertices = gfx_allocate_vertices(8);
 		} else {
-			vertices = gfxAllocateVertices(4);
+			vertices = gfx_allocate_vertices(4);
 		}
 
-		sp188 = gfxAllocateMatrix();
+		sp188 = gfx_allocate_matrix();
 
 		if (sp12c > 0.0f
 				&& sp138.f[0] > -32000.0f && sp138.f[0] < 32000.0f
 				&& sp138.f[1] > -32000.0f && sp138.f[1] < 32000.0f
 				&& sp138.f[2] > -32000.0f && sp138.f[2] < 32000.0f) {
 			spd8 = true;
-			mtx4LoadTranslation(&sp138, &sp148);
+			mtx4_load_translation(&sp138, &sp148);
 			mtx00015f04(0.1f, &sp148);
 			mtx00015be0(worldtoscreenmtx, &sp148);
 
@@ -446,7 +446,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 			}
 
 			if (spd8) {
-				mtxF2L(&sp148, sp188);
+				mtx_f2l(&sp148, sp188);
 
 				if (beam->weaponnum);
 
@@ -455,7 +455,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 					spcc.f[1] = sp138.f[1] + beam->dir.f[1] * sp12c;
 					spcc.f[2] = sp138.f[2] + beam->dir.f[2] * sp12c;
 
-					mtx4TransformVecInPlace(worldtoscreenmtx, &spcc);
+					mtx4_transform_vec_in_place(worldtoscreenmtx, &spcc);
 
 					spb8[0] = spb8[1] = sp130 / 10;
 					tmp = -spcc.f[2];
@@ -468,7 +468,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 						spcc.f[2] *= spc0[0] * 0.5f;
 					}
 
-					mtx4TransformVecInPlace(camGetProjectionMtxF(), &spcc);
+					mtx4_transform_vec_in_place(cam_get_projection_mtxf(), &spcc);
 
 					spcc.f[0] -= sp138.f[0];
 					spcc.f[1] -= sp138.f[1];
@@ -575,16 +575,16 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 					gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 
 					if (beam->weaponnum == WEAPON_LASER) {
-						texSelect(&gdl, &g_TexGroup03Configs[0], 4, arg2, 2, true, NULL);
+						tex_select(&gdl, &g_TexGroup03Configs[0], 4, arg2, 2, true, NULL);
 
 						gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
 						gSPTri2(gdl++, 4, 5, 6, 4, 5, 7);
 
-						texSelect(&gdl, texconfig, 4, arg2, 2, true, NULL);
+						tex_select(&gdl, texconfig, 4, arg2, 2, true, NULL);
 
 						gSPTri2(gdl++, 0, 2, 3, 0, 3, 1);
 					} else {
-						texSelect(&gdl, texconfig, 4, arg2, 2, true, NULL);
+						tex_select(&gdl, texconfig, 4, arg2, 2, true, NULL);
 
 						gSPVertex(gdl++, osVirtualToPhysical(vertices), 4, 0);
 						gSPTri2(gdl++, 0, 2, 3, 0, 3, 1);
@@ -597,7 +597,7 @@ Gfx *beamRender(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 	return gdl;
 }
 
-void beamTick(struct beam *beam)
+void beam_tick(struct beam *beam)
 {
 	if (beam->age >= 0) {
 		if (beam->weaponnum == -2) {
@@ -624,7 +624,7 @@ void beamTick(struct beam *beam)
 
 bool g_CasingsActive = false;
 
-struct casing *casingCreate(struct modeldef *modeldef, Mtxf *mtx)
+struct casing *casing_create(struct modeldef *modeldef, Mtxf *mtx)
 {
 	s32 i;
 	s32 j;
@@ -643,7 +643,7 @@ struct casing *casingCreate(struct modeldef *modeldef, Mtxf *mtx)
 		casing->pos.y = mtx->m[3][1];
 		casing->pos.z = mtx->m[3][2];
 
-		mtx4ToMtx3(mtx, rot);
+		mtx4_to_mtx3(mtx, rot);
 
 		for (i = 0; i < 3; i++) {
 			for (j = 0; j < 3; j++) {
@@ -659,7 +659,7 @@ struct casing *casingCreate(struct modeldef *modeldef, Mtxf *mtx)
 	return NULL;
 }
 
-void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
+void casing_create_for_hand(s32 handnum, f32 ground, Mtxf *mtx)
 {
 	f32 oldyspeed;
 	struct casing *casing = NULL;
@@ -668,10 +668,10 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 	s32 j;
 	Mtxf spec;
 	f32 spc8[3][3];
-	s32 weaponnum = bgunGetWeaponNum(handnum);
+	s32 weaponnum = bgun_get_weapon_num(handnum);
 	s32 casingtype = -1;
-	struct weaponfunc *func = gsetGetWeaponFunction2(&player->hands[handnum].gset);
-	struct weapon *weapondef = weaponFindById(player->gunctrl.weaponnum);
+	struct weaponfunc *func = gset_get_weapon_function2(&player->hands[handnum].gset);
+	struct weapon *weapondef = weapon_find_by_id(player->gunctrl.weaponnum);
 	struct weaponfunc_shoot *shootfunc = NULL;
 	struct modeldef *modeldef;
 
@@ -697,12 +697,12 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 		return;
 	}
 
-	mtx4Copy(mtx, &spec);
+	mtx4_copy(mtx, &spec);
 
-	modeldef = bgunGetCartModeldef();
+	modeldef = bgun_get_cart_modeldef();
 
 	if (modeldef != NULL) {
-		casing = casingCreate(modeldef, &spec);
+		casing = casing_create(modeldef, &spec);
 	}
 
 	if (casing != NULL) {
@@ -723,14 +723,14 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 			casing->speed.y = RANDOMFRAC() * 2.5f * 0.0625f + 2.5f;
 			casing->speed.z = 0.0f;
 
-			mtx4RotateVecInPlace(mtx, &casing->speed);
+			mtx4_rotate_vec_in_place(mtx, &casing->speed);
 
 			spa4.x = 2.0f * RANDOMFRAC() * M_BADTAU * 0.0625f - 0.39263657f;
 			spa4.y = 2.0f * RANDOMFRAC() * M_BADTAU * 0.0625f - 0.39263657f;
 			spa4.z = 2.0f * RANDOMFRAC() * M_BADTAU * 0.0625f - 0.39263657f;
 
-			mtx4LoadRotation(&spa4, &sp64);
-			mtx4ToMtx3(&sp64, spc8);
+			mtx4_load_rotation(&spa4, &sp64);
+			mtx4_to_mtx3(&sp64, spc8);
 
 			for (i = 0; i < 3; i++) {
 				for (j = 0; j < 3; j++) {
@@ -771,23 +771,23 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 				casing->speed.z = -1.0f;
 			}
 
-			mtx4RotateVecInPlace(mtx, &casing->speed);
+			mtx4_rotate_vec_in_place(mtx, &casing->speed);
 
 			if (weaponnum == WEAPON_REAPER) {
 				spa4.x = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
 				spa4.y = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
 				spa4.z = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
 
-				mtx4LoadRotation(&spa4, &sp64);
-				mtx4RotateVecInPlace(&sp64, &casing->speed);
+				mtx4_load_rotation(&spa4, &sp64);
+				mtx4_rotate_vec_in_place(&sp64, &casing->speed);
 			}
 
 			spa4.x = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
 			spa4.y = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
 			spa4.z = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
 
-			mtx4LoadRotation(&spa4, &sp64);
-			mtx4ToMtx3(&sp64, spc8);
+			mtx4_load_rotation(&spa4, &sp64);
+			mtx4_to_mtx3(&sp64, spc8);
 
 			for (i = 0; i < 3; i++) {
 				for (j = 0; j < 3; j++) {
@@ -815,11 +815,11 @@ void casingCreateForHand(s32 handnum, f32 ground, Mtxf *mtx)
 	}
 }
 
-void casingRender(struct casing *casing, Gfx **gdlptr)
+void casing_render(struct casing *casing, Gfx **gdlptr)
 {
 	Gfx *gdl = *gdlptr;
 	struct modeldef *modeldef = casing->modeldef;
-	Mtxf *matrices = gfxAllocate(modeldef->nummatrices * sizeof(Mtxf));
+	Mtxf *matrices = gfx_allocate(modeldef->nummatrices * sizeof(Mtxf));
 	struct model model;
 	struct modelrenderdata renderdata = { NULL, true, 3 };
 	Mtxf mtx;
@@ -827,8 +827,8 @@ void casingRender(struct casing *casing, Gfx **gdlptr)
 	s32 j;
 	bool render = true;
 
-	modelAllocateRwData(modeldef);
-	modelInit(&model, modeldef, NULL, true);
+	model_allocate_rw_data(modeldef);
+	model_init(&model, modeldef, NULL, true);
 
 	model.matrices = matrices;
 
@@ -848,8 +848,8 @@ void casingRender(struct casing *casing, Gfx **gdlptr)
 	mtx.m[3][3] = 1.0f;
 
 	mtx00015f04(0.1000000089407f, &mtx);
-	mtx4SetTranslation(&casing->pos, &mtx);
-	mtx00015be4(camGetWorldToScreenMtxf(), &mtx, model.matrices);
+	mtx4_set_translation(&casing->pos, &mtx);
+	mtx00015be4(cam_get_world_to_screen_mtxf(), &mtx, model.matrices);
 
 	// Check if any coordinate is out of range
 	for (i = 0; i < 3; i++) {
@@ -870,15 +870,15 @@ void casingRender(struct casing *casing, Gfx **gdlptr)
 			| g_Vars.currentplayer->gunshadecol[2] << 8
 			| g_Vars.currentplayer->gunshadecol[3];
 
-		modelRender(&renderdata, &model);
+		model_render(&renderdata, &model);
 
 		*gdlptr = renderdata.gdl;
 
-		mtxF2LBulk(matrices, modeldef->nummatrices);
+		mtx_f2l_bulk(matrices, modeldef->nummatrices);
 	}
 }
 
-void casingsRender(Gfx **gdlptr)
+void casings_render(Gfx **gdlptr)
 {
 	if (g_CasingsActive) {
 		struct casing *end = g_Casings + ARRAYCOUNT(g_Casings);
@@ -886,7 +886,7 @@ void casingsRender(Gfx **gdlptr)
 
 		while (casing < end) {
 			if (casing->modeldef) {
-				casingRender(casing, gdlptr);
+				casing_render(casing, gdlptr);
 			}
 
 			casing++;
@@ -894,7 +894,7 @@ void casingsRender(Gfx **gdlptr)
 	}
 }
 
-s32 boltbeamFindByProp(struct prop *prop)
+s32 boltbeam_find_by_prop(struct prop *prop)
 {
 	s32 result = -1;
 	s32 i = 0;
@@ -908,9 +908,9 @@ s32 boltbeamFindByProp(struct prop *prop)
 	return result;
 }
 
-s32 boltbeamCreate(struct prop *prop)
+s32 boltbeam_create(struct prop *prop)
 {
-	s32 beamnum = boltbeamFindByProp((struct prop *) -1);
+	s32 beamnum = boltbeam_find_by_prop((struct prop *) -1);
 
 	if (beamnum >= 0) {
 		g_BoltBeams[beamnum].tickmode = BOLTBEAMTICKMODE_MANUAL;
@@ -920,30 +920,30 @@ s32 boltbeamCreate(struct prop *prop)
 	return beamnum;
 }
 
-void boltbeamFree(struct prop *prop)
+void boltbeam_free(struct prop *prop)
 {
-	s32 beamnum = boltbeamFindByProp(prop);
+	s32 beamnum = boltbeam_find_by_prop(prop);
 
 	if (beamnum != -1) {
 		g_BoltBeams[beamnum].unk00 = -1;
 	}
 }
 
-void boltbeamSetHeadPos(s32 beamnum, struct coord *pos)
+void boltbeam_set_head_pos(s32 beamnum, struct coord *pos)
 {
 	g_BoltBeams[beamnum].headpos.x = pos->x;
 	g_BoltBeams[beamnum].headpos.y = pos->y;
 	g_BoltBeams[beamnum].headpos.z = pos->z;
 }
 
-void boltbeamSetTailPos(s32 beamnum, struct coord *pos)
+void boltbeam_set_tail_pos(s32 beamnum, struct coord *pos)
 {
 	g_BoltBeams[beamnum].tailpos.x = pos->x;
 	g_BoltBeams[beamnum].tailpos.y = pos->y;
 	g_BoltBeams[beamnum].tailpos.z = pos->z;
 }
 
-void boltbeamIncrementHeadPos(s32 beamnum, f32 arg1, bool arg2)
+void boltbeam_increment_head_pos(s32 beamnum, f32 arg1, bool arg2)
 {
 	f32 dist;
 
@@ -967,27 +967,27 @@ void boltbeamIncrementHeadPos(s32 beamnum, f32 arg1, bool arg2)
 	}
 }
 
-void boltbeamSetAutomatic(s32 beamnum, f32 speed)
+void boltbeam_set_automatic(s32 beamnum, f32 speed)
 {
 	g_BoltBeams[beamnum].tickmode = BOLTBEAMTICKMODE_AUTOMATIC;
 	g_BoltBeams[beamnum].unk00 = 0;
 	g_BoltBeams[beamnum].speed = speed;
 }
 
-Gfx *boltbeamsRender(Gfx *gdl)
+Gfx *boltbeams_render(Gfx *gdl)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_BoltBeams); i++) {
 		if (g_BoltBeams[i].unk00 != -1) {
-			gdl = beamRenderGeneric(gdl, g_TexLaserConfigs, 1, &g_BoltBeams[i].headpos, 0xafafff00, 2, &g_BoltBeams[i].tailpos, 0xafafff7f);
+			gdl = beam_render_generic(gdl, g_TexLaserConfigs, 1, &g_BoltBeams[i].headpos, 0xafafff00, 2, &g_BoltBeams[i].tailpos, 0xafafff7f);
 		}
 	}
 
 	return gdl;
 }
 
-void boltbeamsTick(void)
+void boltbeams_tick(void)
 {
 	s32 i;
 
@@ -1003,7 +1003,7 @@ void boltbeamsTick(void)
 			if (length < 0) {
 				g_BoltBeams[i].unk00 = -1;
 			} else {
-				boltbeamIncrementHeadPos(i, length, false);
+				boltbeam_increment_head_pos(i, length, false);
 			}
 		}
 	}
@@ -1015,7 +1015,7 @@ void boltbeamsTick(void)
  * Additionally, populate the index pointer with the index of the lasersight
  * if it exists, or any free slot if it doesn't.
  */
-bool lasersightExists(s32 id, s32 *index)
+bool lasersight_exists(s32 id, s32 *index)
 {
 	s32 fallback = -1;
 	s32 exact = -1;
@@ -1040,7 +1040,7 @@ bool lasersightExists(s32 id, s32 *index)
 	return true;
 }
 
-Gfx *lasersightRenderDot(Gfx *gdl)
+Gfx *lasersight_render_dot(Gfx *gdl)
 {
 	Mtxf *mtx;
 	f32 f0;
@@ -1058,11 +1058,11 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 	static u32 spb = 24;
 	static u32 spi = 6;
 
-	mainOverrideVariable("sp1", &sp1);
-	mainOverrideVariable("sp2", &sp2);
-	mainOverrideVariable("sp3", &sp3);
-	mainOverrideVariable("spb", &spb);
-	mainOverrideVariable("spi", &spi);
+	main_override_variable("sp1", &sp1);
+	main_override_variable("sp2", &sp2);
+	main_override_variable("sp3", &sp3);
+	main_override_variable("spb", &spb);
+	main_override_variable("spi", &spi);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
@@ -1077,15 +1077,15 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 
 	if (f20);
 
-	mtx4LoadIdentity(&sp164);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp164);
-	mtx4LoadIdentity(&sp124);
-	mtx00015be0(camGetProjectionMtxF(), &sp124);
+	mtx4_load_identity(&sp164);
+	mtx00015be0(cam_get_world_to_screen_mtxf(), &sp164);
+	mtx4_load_identity(&sp124);
+	mtx00015be0(cam_get_projection_mtxf(), &sp124);
 
 	sp124.m[3][0] = sp124.m[3][1] = sp124.m[3][2] = 0.0f;
 
-	mtx4LoadIdentity(&sp1b0);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp1b0);
+	mtx4_load_identity(&sp1b0);
+	mtx00015be0(cam_get_world_to_screen_mtxf(), &sp1b0);
 
 	campos.x = player->cam_pos.x;
 	campos.y = player->cam_pos.y;
@@ -1097,8 +1097,8 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 
 	mtx00015f88(0.2f, &sp1b0);
 
-	mtx = gfxAllocateMatrix();
-	mtxF2L(&sp1b0, mtx);
+	mtx = gfx_allocate_matrix();
+	mtx_f2l(&sp1b0, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -1117,7 +1117,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 			rot.y = g_LaserSights[i].dotrot.y;
 			rot.z = g_LaserSights[i].dotrot.z;
 
-			colours = gfxAllocateColours(2);
+			colours = gfx_allocate_colours(2);
 
 			colours[0].word = 0xff00005f;
 			colours[1].word = 0xff00000f;
@@ -1167,7 +1167,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 						}
 					}
 
-					texSelect(&gdl, &g_TexGeneralConfigs[4], 4, 0, 2, true, NULL);
+					tex_select(&gdl, &g_TexGeneralConfigs[4], 4, 0, 2, true, NULL);
 
 					if (rot.f[0] == 0.0f && rot.f[2] == 0.0f) {
 						spcc = 0.0f;
@@ -1194,7 +1194,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 						f00 = 0;
 					}
 
-					vertices = gfxAllocateVertices(4);
+					vertices = gfx_allocate_vertices(4);
 
 					vertices[3].colour = 0;
 					vertices[2].colour = 0;
@@ -1237,7 +1237,7 @@ Gfx *lasersightRenderDot(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *lasersightRenderBeam(Gfx *gdl)
+Gfx *lasersight_render_beam(Gfx *gdl)
 {
 	u32 stack;
 	struct player *player = g_Vars.currentplayer;
@@ -1260,19 +1260,19 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	texSelect(&gdl, &g_TexGeneralConfigs[3], 4, 0, 2, 1, NULL);
-	mtx4LoadIdentity(&sp14c);
+	tex_select(&gdl, &g_TexGeneralConfigs[3], 4, 0, 2, 1, NULL);
+	mtx4_load_identity(&sp14c);
 
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp14c);
-	mtx4LoadIdentity(&sp10c);
-	mtx00015be0(camGetProjectionMtxF(), &sp10c);
+	mtx00015be0(cam_get_world_to_screen_mtxf(), &sp14c);
+	mtx4_load_identity(&sp10c);
+	mtx00015be0(cam_get_projection_mtxf(), &sp10c);
 
 	sp10c.m[3][1] = 0;
 	sp10c.m[3][0] = 0;
 	sp10c.m[3][2] = 0;
 
-	mtx4LoadIdentity(&sp198);
-	mtx00015be0(camGetWorldToScreenMtxf(), &sp198);
+	mtx4_load_identity(&sp198);
+	mtx00015be0(cam_get_world_to_screen_mtxf(), &sp198);
 
 	campos.x = player->cam_pos.x;
 	campos.y = player->cam_pos.y;
@@ -1283,8 +1283,8 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 	sp198.m[3][2] = 0;
 
 	mtx00015f88(0.2f, &sp198);
-	mtx = gfxAllocateMatrix();
-	mtxF2L(&sp198, mtx);
+	mtx = gfx_allocate_matrix();
+	mtx_f2l(&sp198, mtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(mtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
@@ -1302,7 +1302,7 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 			sp98.y = g_LaserSights[i].beamnear.y;
 			sp98.z = g_LaserSights[i].beamnear.z;
 
-			mtx4TransformVecInPlace(&sp14c, &sp98);
+			mtx4_transform_vec_in_place(&sp14c, &sp98);
 
 			spa8.x = sp98.f[0] < 0.0f ? 1.0f : -1.0f;
 			spa8.y = 2.0f;
@@ -1310,7 +1310,7 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 
 			guNormalize(&spa8.x, &spa8.y, &spa8.z);
 
-			mtx4RotateVecInPlace(&sp10c, &spa8);
+			mtx4_rotate_vec_in_place(&sp10c, &spa8);
 
 			spcc.x = g_LaserSights[i].beamnear.x;
 			spcc.y = g_LaserSights[i].beamnear.y;
@@ -1334,14 +1334,14 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 
 			guNormalize(&spb4.x, &spb4.y, &spb4.z);
 
-			colours = gfxAllocateColours(2);
+			colours = gfx_allocate_colours(2);
 
 			colours[0].word = 0xff00005f;
 			colours[1].word = 0xff00000f;
 
 			gSPColor(gdl++, osVirtualToPhysical(colours), 2);
 
-			vertices = gfxAllocateVertices(6);
+			vertices = gfx_allocate_vertices(6);
 
 			vertices[0].colour = 0;
 			vertices[1].colour = 0;
@@ -1396,11 +1396,11 @@ Gfx *lasersightRenderBeam(Gfx *gdl)
 	return gdl;
 }
 
-void lasersightSetBeam(s32 id, s32 arg1, struct coord *near, struct coord *far)
+void lasersight_set_beam(s32 id, s32 arg1, struct coord *near, struct coord *far)
 {
 	s32 i;
 
-	if (!lasersightExists(id, &i)) {
+	if (!lasersight_exists(id, &i)) {
 		if (i == -1) {
 			return;
 		}
@@ -1424,11 +1424,11 @@ void lasersightSetBeam(s32 id, s32 arg1, struct coord *near, struct coord *far)
 	g_LaserSights[i].unk28 = 0;
 }
 
-void lasersightSetDot(s32 arg0, struct coord *pos, struct coord *rot)
+void lasersight_set_dot(s32 arg0, struct coord *pos, struct coord *rot)
 {
 	s32 i;
 
-	if (lasersightExists(arg0, &i)) {
+	if (lasersight_exists(arg0, &i)) {
 		g_LaserSights[i].unk28 += 1.0f;
 
 		g_LaserSights[i].dotpos.x = pos->x;
@@ -1441,11 +1441,11 @@ void lasersightSetDot(s32 arg0, struct coord *pos, struct coord *rot)
 	}
 }
 
-void lasersightFree(s32 arg0)
+void lasersight_free(s32 arg0)
 {
 	s32 i;
 
-	if (lasersightExists(arg0, &i)) {
+	if (lasersight_exists(arg0, &i)) {
 		g_LaserSights[i].id = -1;
 	}
 }

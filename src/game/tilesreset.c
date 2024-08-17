@@ -7,27 +7,27 @@
 #include "data.h"
 #include "types.h"
 
-void stageParseTiles(void);
+void stage_parse_tiles(void);
 
-void tilesReset(void)
+void tiles_reset(void)
 {
-	s32 index = bgGetStageIndex(g_Vars.stagenum);
+	s32 index = bg_get_stage_index(g_Vars.stagenum);
 
 	if (index < 0) {
 		index = 0;
 	}
 
 	g_LoadType = LOADTYPE_TILES;
-	g_TileFileData.u8 = fileLoadToNew(g_Stages[index].tilefileid, FILELOADMETHOD_DEFAULT);
+	g_TileFileData.u8 = file_load_to_new(g_Stages[index].tilefileid, FILELOADMETHOD_DEFAULT);
 	g_TileNumRooms = *g_TileFileData.u32;
 	g_TileRooms = g_TileFileData.u32 + 1;
 
-	stageParseTiles();
+	stage_parse_tiles();
 }
 
 #define mult6(a) (((a) << 1) + ((a) << 2))
 
-void stageParseTiles(void)
+void stage_parse_tiles(void)
 {
 	struct geo *geo = (struct geo *)(g_TileFileData.u8 + g_TileRooms[0]);
 	struct geo *end = (struct geo *)(g_TileFileData.u8 + g_TileRooms[g_TileNumRooms]);

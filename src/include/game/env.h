@@ -10,18 +10,18 @@ struct distfadesettings {
     f32 refdist;
 };
 
-struct environment *envGetCurrent(void);
-f32 envGetSquaredFogMax(void);
-void envTick(void);
-void envApplyFogEnvironment(struct fogenvironment *sky);
-void envApplyNoFogEnvironment(struct nofogenvironment *sky);
-void envSetStageNum(s32 stagenum);
-void envChooseAndApply(s32 stagenum, bool allowoverride);
-void envApplyTransitionFrac(f32 arg0);
-Gfx *envStartFog(Gfx *gdl, bool xlupass);
-Gfx *envStopFog(Gfx *gdl);
-bool envIsPosInFogMaxDistance(struct coord *pos, f32 tolerance);
-struct distfadesettings *envGetDistFadeSettings(void);
-s32 envGetObjShadeMode(struct prop *prop, f32 arg1[4]);
+struct environment *env_get_current(void);
+f32 env_get_squared_fog_max(void);
+void env_tick(void);
+void env_apply_fog_environment(struct fogenvironment *sky);
+void env_apply_no_fog_environment(struct nofogenvironment *sky);
+void env_set_stage_num(s32 stagenum);
+void env_choose_and_apply(s32 stagenum, bool allowoverride);
+void env_apply_transition_frac(f32 arg0);
+Gfx *env_start_fog(Gfx *gdl, bool xlupass);
+Gfx *env_stop_fog(Gfx *gdl);
+bool env_is_pos_in_fog_max_distance(struct coord *pos, f32 tolerance);
+struct distfadesettings *env_get_dist_fade_settings(void);
+s32 env_get_obj_shade_mode(struct prop *prop, f32 arg1[4]);
 
 #endif

@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-void skyTick(void)
+void sky_tick(void)
 {
 	g_SkyCloudOffset += g_Vars.lvupdate60freal * g_SkyWindSpeed;
 

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void casingsReset(void)
+void casings_reset(void)
 {
 	s32 i;
 	struct casing *end;

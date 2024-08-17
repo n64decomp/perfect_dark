@@ -38,17 +38,17 @@ s32 g_ObjectiveLastIndex = -1;
 bool g_ObjectiveChecksDisabled = false;
 
 #if PIRACYCHECKS
-u32 xorBaffbeff(u32 value)
+u32 xor_baffbeff(u32 value)
 {
 	return value ^ 0xbaffbeff;
 }
 
-u32 xorBabeffff(u32 value)
+u32 xor_babeffff(u32 value)
 {
 	return value ^ 0xbabeffff;
 }
 
-u32 xorBoobless(u32 value)
+u32 xor_boobless(u32 value)
 {
 	return value ^ 0xb00b1e55;
 }
@@ -60,7 +60,7 @@ void func0f095350(u32 arg0, u32 *arg1)
 
 	__osPiGetAccess();
 
-	ptr = (u32 *)(xorBoobless(0x04600010 ^ 0xb00b1e55) | 0xa0000000);
+	ptr = (u32 *)(xor_boobless(0x04600010 ^ 0xb00b1e55) | 0xa0000000);
 
 	value = *ptr;
 
@@ -74,7 +74,7 @@ void func0f095350(u32 arg0, u32 *arg1)
 }
 #endif
 
-void tagsReset(void)
+void tags_reset(void)
 {
 	s32 index = 0;
 	struct tag *tag = g_TagsLinkedList;
@@ -91,7 +91,7 @@ void tagsReset(void)
 
 	if (g_NumTags) {
 		u32 size = index * 4;
-		g_TagPtrs = mempAlloc(ALIGN16(size), MEMPOOL_STAGE);
+		g_TagPtrs = memp_alloc(ALIGN16(size), MEMPOOL_STAGE);
 
 		for (index = 0; index < g_NumTags; index++) {
 			g_TagPtrs[index] = NULL;
@@ -107,22 +107,22 @@ void tagsReset(void)
 
 #if PIRACYCHECKS
 	{
-		// mtxGetObfuscatedRomBase() returns the value at ROM offset 0xa5c.
+		// mtx_get_obfuscated_rom_base() returns the value at ROM offset 0xa5c.
 		// This value should be 0x1740fff9.
-		u32 dummy = xorBaffbeff(0xb0000a5c ^ 0xbaffbeff);
-		u32 expected = xorBabeffff(0x1740fff9 ^ 0xbabeffff);
+		u32 dummy = xor_baffbeff(0xb0000a5c ^ 0xbaffbeff);
+		u32 expected = xor_babeffff(0x1740fff9 ^ 0xbabeffff);
 
-		if (mtxGetObfuscatedRomBase() != expected) {
+		if (mtx_get_obfuscated_rom_base() != expected) {
 			// Read 4KB from a random ROM location within 128KB from the start of
 			// the ROM, and write it to a random memory location between 0x80010000
 			// and 0x80030ff8. This will corrupt instructions in the lib segment.
-			dmaExec((u8 *)((random() & 0x1fff8) + 0x80010000), random() & 0x1fffe, 0x1000);
+			dma_exec((u8 *)((random() & 0x1fff8) + 0x80010000), random() & 0x1fffe, 0x1000);
 		}
 	}
 #endif
 }
 
-struct tag *tagFindById(s32 tag_id)
+struct tag *tag_find_by_id(s32 tag_id)
 {
 	struct tag *tag = NULL;
 
@@ -133,7 +133,7 @@ struct tag *tagFindById(s32 tag_id)
 	return tag;
 }
 
-s32 objGetTagNum(struct defaultobj *obj)
+s32 obj_get_tag_num(struct defaultobj *obj)
 {
 	struct tag *tag = g_TagsLinkedList;
 
@@ -150,9 +150,9 @@ s32 objGetTagNum(struct defaultobj *obj)
 	return -1;
 }
 
-struct defaultobj *objFindByTagId(s32 tag_id)
+struct defaultobj *obj_find_by_tag_id(s32 tag_id)
 {
-	struct tag *tag = tagFindById(tag_id);
+	struct tag *tag = tag_find_by_id(tag_id);
 	struct defaultobj *obj = NULL;
 
 	if (tag) {
@@ -166,21 +166,21 @@ struct defaultobj *objFindByTagId(s32 tag_id)
 	return obj;
 }
 
-s32 objectiveGetCount(void)
+s32 objective_get_count(void)
 {
 	return g_ObjectiveLastIndex + 1;
 }
 
-char *objectiveGetText(s32 index)
+char *objective_get_text(s32 index)
 {
 	if (index < 10 && g_Objectives[index]) {
-		return langGet(g_Objectives[index]->text);
+		return lang_get(g_Objectives[index]->text);
 	}
 
 	return NULL;
 }
 
-u32 objectiveGetDifficultyBits(s32 index)
+u32 objective_get_difficulty_bits(s32 index)
 {
 	if (index < 10 && g_Objectives[index]) {
 		return g_Objectives[index]->difficulties;
@@ -196,7 +196,7 @@ u32 objectiveGetDifficultyBits(s32 index)
  * requirement in the objective to decide whether to change it to incomplete or
  * failed.
  */
-s32 objectiveCheck(s32 index)
+s32 objective_check(s32 index)
 {
 	u32 stack[5];
 	s32 objstatus = OBJECTIVE_COMPLETE;
@@ -217,46 +217,46 @@ s32 objectiveCheck(s32 index)
 				switch ((u8)cmd[0]) {
 				case OBJECTIVETYPE_DESTROYOBJ:
 					{
-						struct defaultobj *obj = objFindByTagId(cmd[1]);
-						if (obj && obj->prop && objIsHealthy(obj)) {
+						struct defaultobj *obj = obj_find_by_tag_id(cmd[1]);
+						if (obj && obj->prop && obj_is_healthy(obj)) {
 							reqstatus = OBJECTIVE_INCOMPLETE;
 						}
 					}
 					break;
 				case OBJECTIVETYPE_COMPFLAGS:
-					if (!chrHasStageFlag(NULL, cmd[1])) {
+					if (!chr_has_stage_flag(NULL, cmd[1])) {
 						reqstatus = OBJECTIVE_INCOMPLETE;
 					}
 					break;
 				case OBJECTIVETYPE_FAILFLAGS:
-					if (chrHasStageFlag(NULL, cmd[1])) {
+					if (chr_has_stage_flag(NULL, cmd[1])) {
 						reqstatus = OBJECTIVE_FAILED;
 					}
 					break;
 				case OBJECTIVETYPE_COLLECTOBJ:
 					{
-						struct defaultobj *obj = objFindByTagId(cmd[1]);
+						struct defaultobj *obj = obj_find_by_tag_id(cmd[1]);
 						s32 prevplayernum;
 						s32 collected = false;
 						s32 i;
 
-						if (!obj || !obj->prop || !objIsHealthy(obj)) {
+						if (!obj || !obj->prop || !obj_is_healthy(obj)) {
 							reqstatus = OBJECTIVE_FAILED;
 						} else {
 							prevplayernum = g_Vars.currentplayernum;
 
 							for (i = 0; i < PLAYERCOUNT(); i++) {
 								if (g_Vars.players[i] == g_Vars.bond || g_Vars.players[i] == g_Vars.coop) {
-									setCurrentPlayerNum(i);
+									set_current_player_num(i);
 
-									if (invHasProp(obj->prop)) {
+									if (inv_has_prop(obj->prop)) {
 										collected = true;
 										break;
 									}
 								}
 							}
 
-							setCurrentPlayerNum(prevplayernum);
+							set_current_player_num(prevplayernum);
 
 							if (!collected) {
 								reqstatus = OBJECTIVE_INCOMPLETE;
@@ -266,7 +266,7 @@ s32 objectiveCheck(s32 index)
 					break;
 				case OBJECTIVETYPE_THROWOBJ:
 					{
-						struct defaultobj *obj = objFindByTagId(cmd[1]);
+						struct defaultobj *obj = obj_find_by_tag_id(cmd[1]);
 
 						if (obj && obj->prop) {
 							s32 i;
@@ -274,25 +274,25 @@ s32 objectiveCheck(s32 index)
 
 							for (i = 0; i < PLAYERCOUNT(); i++) {
 								if (g_Vars.players[i] == g_Vars.bond || g_Vars.players[i] == g_Vars.coop) {
-									setCurrentPlayerNum(i);
+									set_current_player_num(i);
 
-									if (invHasProp(obj->prop)) {
+									if (inv_has_prop(obj->prop)) {
 										reqstatus = OBJECTIVE_INCOMPLETE;
 										break;
 									}
 								}
 							}
 
-							setCurrentPlayerNum(prevplayernum);
+							set_current_player_num(prevplayernum);
 						}
 					}
 					break;
 				case OBJECTIVETYPE_HOLOGRAPH:
 					{
-						struct defaultobj *obj = objFindByTagId(cmd[1]);
+						struct defaultobj *obj = obj_find_by_tag_id(cmd[1]);
 
 						if (cmd[2] == 0) {
-							if (!obj || !obj->prop || !objIsHealthy(obj)) {
+							if (!obj || !obj->prop || !obj_is_healthy(obj)) {
 								reqstatus = OBJECTIVE_FAILED;
 							} else {
 								reqstatus = OBJECTIVE_INCOMPLETE;
@@ -329,27 +329,27 @@ s32 objectiveCheck(s32 index)
 					}
 				}
 
-				cmd = cmd + setupGetCmdLength(cmd);
+				cmd = cmd + setup_get_cmd_length(cmd);
 			}
 		}
 	}
 
-	if (debugForceAllObjectivesComplete()) {
+	if (debug_force_all_objectives_complete()) {
 		objstatus = OBJECTIVE_COMPLETE;
 	}
 
 	return objstatus;
 }
 
-bool objectiveIsAllComplete(void)
+bool objective_is_all_complete(void)
 {
 	s32 i;
 
-	for (i = 0; i < objectiveGetCount(); i++) {
-		u32 diffbits = objectiveGetDifficultyBits(i);
+	for (i = 0; i < objective_get_count(); i++) {
+		u32 diffbits = objective_get_difficulty_bits(i);
 
-		if ((1 << lvGetDifficulty() & diffbits) &&
-				objectiveCheck(i) != OBJECTIVE_COMPLETE) {
+		if ((1 << lv_get_difficulty() & diffbits) &&
+				objective_check(i) != OBJECTIVE_COMPLETE) {
 			return false;
 		}
 	}
@@ -357,30 +357,30 @@ bool objectiveIsAllComplete(void)
 	return true;
 }
 
-void objectivesDisableChecking(void)
+void objectives_disable_checking(void)
 {
 	g_ObjectiveChecksDisabled = true;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-void objectivesShowHudmsg(char *buffer, s32 hudmsgtype)
+void objectives_show_hudmsg(char *buffer, s32 hudmsgtype)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
 	s32 i;
 
 	for (i = 0; i < PLAYERCOUNT(); i++) {
-		setCurrentPlayerNum(i);
+		set_current_player_num(i);
 
 		if (g_Vars.currentplayer == g_Vars.bond || g_Vars.currentplayer == g_Vars.coop) {
-			hudmsgCreateWithFlags(buffer, hudmsgtype, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
+			hudmsg_create_with_flags(buffer, hudmsgtype, HUDMSGFLAG_DELAY | HUDMSGFLAG_ALLOWDUPES);
 		}
 	}
 
-	setCurrentPlayerNum(prevplayernum);
+	set_current_player_num(prevplayernum);
 }
 #endif
 
-void objectivesCheckAll(void)
+void objectives_check_all(void)
 {
 	s32 availableindex = 0;
 	s32 i;
@@ -388,63 +388,63 @@ void objectivesCheckAll(void)
 
 	if (!g_ObjectiveChecksDisabled) {
 		for (i = 0; i <= g_ObjectiveLastIndex; i++) {
-			s32 status = objectiveCheck(i);
+			s32 status = objective_check(i);
 
 			if (g_ObjectiveStatuses[i] != status) {
 				g_ObjectiveStatuses[i] = status;
 
-				if (objectiveGetDifficultyBits(i) & (1 << lvGetDifficulty())) {
+				if (objective_get_difficulty_bits(i) & (1 << lv_get_difficulty())) {
 #if VERSION >= VERSION_JPN_FINAL
 					u8 jpnstr[] = {0, 0, 0};
 					jpnstr[0] = 0x80;
 					jpnstr[1] = 0x80 | (0x11 + availableindex);
-					sprintf(buffer, "%s %s: ", langGet(L_MISC_044), jpnstr); // "Objective"
+					sprintf(buffer, "%s %s: ", lang_get(L_MISC_044), jpnstr); // "Objective"
 #else
-					sprintf(buffer, "%s %d: ", langGet(L_MISC_044), availableindex + 1); // "Objective"
+					sprintf(buffer, "%s %d: ", lang_get(L_MISC_044), availableindex + 1); // "Objective"
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
 					// NTSC 1.0 and above shows objective messages to everyone,
 					// while beta only shows them to the current player.
 					if (status == OBJECTIVE_COMPLETE) {
-						strcat(buffer, langGet(L_MISC_045)); // "Completed"
-						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
+						strcat(buffer, lang_get(L_MISC_045)); // "Completed"
+						objectives_show_hudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
 					} else if (status == OBJECTIVE_INCOMPLETE) {
-						strcat(buffer, langGet(L_MISC_046)); // "Incomplete"
-						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
+						strcat(buffer, lang_get(L_MISC_046)); // "Incomplete"
+						objectives_show_hudmsg(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE);
 					} else if (status == OBJECTIVE_FAILED) {
-						strcat(buffer, langGet(L_MISC_047)); // "Failed"
-						objectivesShowHudmsg(buffer, HUDMSGTYPE_OBJECTIVEFAILED);
+						strcat(buffer, lang_get(L_MISC_047)); // "Failed"
+						objectives_show_hudmsg(buffer, HUDMSGTYPE_OBJECTIVEFAILED);
 					}
 #else
 					if (status == OBJECTIVE_COMPLETE) {
-						strcat(buffer, langGet(L_MISC_045)); // "Completed"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_ALLOWDUPES);
+						strcat(buffer, lang_get(L_MISC_045)); // "Completed"
+						hudmsg_create_with_flags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_ALLOWDUPES);
 					} else if (status == OBJECTIVE_INCOMPLETE) {
-						strcat(buffer, langGet(L_MISC_046)); // "Incomplete"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_ALLOWDUPES);
+						strcat(buffer, lang_get(L_MISC_046)); // "Incomplete"
+						hudmsg_create_with_flags(buffer, HUDMSGTYPE_OBJECTIVECOMPLETE, HUDMSGFLAG_ALLOWDUPES);
 					} else if (status == OBJECTIVE_FAILED) {
-						strcat(buffer, langGet(L_MISC_047)); // "Failed"
-						hudmsgCreateWithFlags(buffer, HUDMSGTYPE_OBJECTIVEFAILED, HUDMSGFLAG_ALLOWDUPES);
+						strcat(buffer, lang_get(L_MISC_047)); // "Failed"
+						hudmsg_create_with_flags(buffer, HUDMSGTYPE_OBJECTIVEFAILED, HUDMSGFLAG_ALLOWDUPES);
 					}
 #endif
 				}
 			}
 
-			if (objectiveGetDifficultyBits(i) & (1 << lvGetDifficulty())) {
+			if (objective_get_difficulty_bits(i) & (1 << lv_get_difficulty())) {
 				availableindex++;
 			}
 		}
 	}
 }
 
-void objectiveCheckRoomEntered(s32 currentroom)
+void objective_check_room_entered(s32 currentroom)
 {
 	struct criteria_roomentered *criteria = g_RoomEnteredCriterias;
 
 	while (criteria) {
 		if (criteria->status == OBJECTIVE_INCOMPLETE) {
-			s32 room = chrGetPadRoom(NULL, criteria->pad);
+			s32 room = chr_get_pad_room(NULL, criteria->pad);
 
 			if (room >= 0 && room == currentroom) {
 				criteria->status = OBJECTIVE_COMPLETE;
@@ -455,20 +455,20 @@ void objectiveCheckRoomEntered(s32 currentroom)
 	}
 }
 
-void objectiveCheckThrowInRoom(s32 arg0, RoomNum *inrooms)
+void objective_check_throw_in_room(s32 arg0, RoomNum *inrooms)
 {
 	struct criteria_throwinroom *criteria = g_ThrowInRoomCriterias;
 
 	while (criteria) {
 		if (criteria->status == OBJECTIVE_INCOMPLETE && criteria->unk04 == arg0) {
-			s32 room = chrGetPadRoom(NULL, criteria->pad);
+			s32 room = chr_get_pad_room(NULL, criteria->pad);
 
 			if (room >= 0) {
 				RoomNum requirerooms[2];
 				requirerooms[0] = room;
 				requirerooms[1] = -1;
 
-				if (arrayIntersects(requirerooms, inrooms)) {
+				if (array_intersects(requirerooms, inrooms)) {
 					criteria->status = OBJECTIVE_COMPLETE;
 				}
 			}
@@ -478,7 +478,7 @@ void objectiveCheckThrowInRoom(s32 arg0, RoomNum *inrooms)
 	}
 }
 
-void objectiveCheckHolograph(f32 maxdist)
+void objective_check_holograph(f32 maxdist)
 {
 	struct criteria_holograph *criteria = g_HolographCriterias;
 
@@ -488,12 +488,12 @@ void objectiveCheckHolograph(f32 maxdist)
 		}
 
 		if (criteria->status == OBJECTIVE_INCOMPLETE) {
-			struct defaultobj *obj = objFindByTagId(criteria->obj);
+			struct defaultobj *obj = obj_find_by_tag_id(criteria->obj);
 
 			if (obj && obj->prop
 					&& (obj->prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)
 					&& obj->prop->z >= 0
-					&& objIsHealthy(obj)) {
+					&& obj_is_healthy(obj)) {
 				struct coord sp9c;
 				f32 sp94[2];
 				f32 sp8c[2];
@@ -511,18 +511,18 @@ void objectiveCheckHolograph(f32 maxdist)
 					f32 sp70[2];
 					func0f06803c(&sp9c, sp94, sp8c, sp78, sp70);
 
-					if (sp78[0] > camGetScreenLeft()
-							&& sp78[0] < camGetScreenLeft() + camGetScreenWidth()
-							&& sp70[0] > camGetScreenLeft()
-							&& sp70[0] < camGetScreenLeft() + camGetScreenWidth()
-							&& sp78[1] > camGetScreenTop()
-							&& sp78[1] < camGetScreenTop() + camGetScreenHeight()
-							&& sp70[1] > camGetScreenTop()
-							&& sp70[1] < camGetScreenTop() + camGetScreenHeight()) {
+					if (sp78[0] > cam_get_screen_left()
+							&& sp78[0] < cam_get_screen_left() + cam_get_screen_width()
+							&& sp70[0] > cam_get_screen_left()
+							&& sp70[0] < cam_get_screen_left() + cam_get_screen_width()
+							&& sp78[1] > cam_get_screen_top()
+							&& sp78[1] < cam_get_screen_top() + cam_get_screen_height()
+							&& sp70[1] > cam_get_screen_top()
+							&& sp70[1] < cam_get_screen_top() + cam_get_screen_height()) {
 						criteria->status = OBJECTIVE_COMPLETE;
 
 						if (g_Vars.stagenum == STAGE_CITRAINING) {
-							struct trainingdata *data = dtGetData();
+							struct trainingdata *data = dt_get_data();
 							data->holographedpc = true;
 						}
 					}

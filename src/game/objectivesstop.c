@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void objectivesStop(void)
+void objectives_stop(void)
 {
 	s32 i;
 

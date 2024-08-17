@@ -10,7 +10,7 @@ glabel var7f1b76d0
 
 .text
 
-glabel portalConvertCoordinates
+glabel portal_convert_coordinates
 	mfc1   $t7, $f20
 	lui    $a3, %hi(g_Vars)
 	addiu  $a3, $a3, %lo(g_Vars)

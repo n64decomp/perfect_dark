@@ -11,14 +11,14 @@
 #include "textureconfig.h"
 #include "types.h"
 
-void texSetBitstring(u8 *bitstring)
+void tex_set_bitstring(u8 *bitstring)
 {
 	g_TexBitstring = bitstring;
 	g_TexAccumValue = 0;
 	g_TexAccumNumBits = 0;
 }
 
-s32 texReadBits(s32 wantnumbits)
+s32 tex_read_bits(s32 wantnumbits)
 {
 	while (g_TexAccumNumBits < wantnumbits) {
 		g_TexAccumValue = g_TexAccumValue << 8 | *g_TexBitstring;
@@ -41,14 +41,14 @@ extern u8 _textureconfigSegmentRomStart;
 extern u8 _textureconfigSegmentStart;
 extern u8 _textureconfigSegmentEnd;
 
-void texReset(void)
+void tex_reset(void)
 {
 	s32 stage;
 	u32 len = &_textureconfigSegmentEnd - &_textureconfigSegmentStart;
 	s32 i;
 
-	g_TextureConfigSegment = mempAlloc(len, MEMPOOL_STAGE);
-	dmaExec(g_TextureConfigSegment, (romptr_t)&_textureconfigSegmentRomStart, len);
+	g_TextureConfigSegment = memp_alloc(len, MEMPOOL_STAGE);
+	dma_exec(g_TextureConfigSegment, (romptr_t)&_textureconfigSegmentRomStart, len);
 
 	g_TexBase = (uintptr_t)g_TextureConfigSegment - ROM_SIZE * 1024 * 1024;
 	g_TexGdl1 = (Gfx *)(g_TexBase + (uintptr_t)g_TcGdl1);
@@ -73,49 +73,49 @@ void texReset(void)
 	g_TexRadarConfigs = (struct textureconfig *)(g_TexBase + (uintptr_t)g_TcRadarConfigs);
 
 	g_TexNumConfigs = (len - (uintptr_t)&g_TcWallhitConfigs + ROM_SIZE * 1024 * 1024) / sizeof(struct textureconfig);
-	g_TexWords = mempAlloc(ALIGN16(g_TexNumConfigs * 4), MEMPOOL_STAGE);
+	g_TexWords = memp_alloc(ALIGN16(g_TexNumConfigs * 4), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_TexNumConfigs; i++) {
 		g_TexWords[i] = NULL;
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_TcExplosionTexturePairs); i++) {
-		texLoad(&g_ExplosionTexturePairs[i].texturenum1, NULL, false);
-		texLoad(&g_ExplosionTexturePairs[i].texturenum2, NULL, false);
+		tex_load(&g_ExplosionTexturePairs[i].texturenum1, NULL, false);
+		tex_load(&g_ExplosionTexturePairs[i].texturenum2, NULL, false);
 	}
 
-	texLoadFromDisplayList(g_TexGdl1, 0, 0);
-	texLoadFromDisplayList(g_TexGdl3, 0, 0);
+	tex_load_from_display_list(g_TexGdl1, 0, 0);
+	tex_load_from_display_list(g_TexGdl3, 0, 0);
 
-	stage = mainGetStageNum();
+	stage = main_get_stage_num();
 
 	if (IS4MB() && stage != STAGE_TITLE && stage != STAGE_CITRAINING && stage != STAGE_4MBMENU) {
 		for (i = 0; i < ARRAYCOUNT(g_TcWallhitConfigs); i++) {
-			texLoadFromConfig(&g_TexWallhitConfigs[i]);
+			tex_load_from_config(&g_TexWallhitConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcBeamConfigs); i++) {
-			texLoadFromConfig(&g_TexBeamConfigs[i]);
+			tex_load_from_config(&g_TexBeamConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcSkyWaterConfigs); i++) {
-			texLoadFromConfig(&g_TexSkyWaterConfigs[i]);
+			tex_load_from_config(&g_TexSkyWaterConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcShadowConfigs); i++) {
-			texLoadFromConfig(&g_TexShadowConfigs[i]);
+			tex_load_from_config(&g_TexShadowConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcShieldConfigs); i++) {
-			texLoadFromConfig(&g_TexShieldConfigs[i]);
+			tex_load_from_config(&g_TexShieldConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcRadarConfigs); i++) {
-			texLoadFromConfig(&g_TexRadarConfigs[i]);
+			tex_load_from_config(&g_TexRadarConfigs[i]);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_TcSparkConfigs); i++) {
-			texLoadFromConfig(&g_TexSparkConfigs[i]);
+			tex_load_from_config(&g_TexSparkConfigs[i]);
 		}
 	}
 }

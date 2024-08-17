@@ -6,10 +6,10 @@
 
 void func0f110bf0(void);
 void func0f110bf8(void);
-void filelistCreate(s32 listnum, u8 filetype);
-s32 filelistFindOrCreate(u8 filetype);
-void filelistInvalidatePak(s32 device);
-void filelistsTick(void);
-void filelistUpdate(struct filelist *list);
+void filelist_create(s32 listnum, u8 filetype);
+s32 filelist_find_or_create(u8 filetype);
+void filelist_invalidate_pak(s32 device);
+void filelists_tick(void);
+void filelist_update(struct filelist *list);
 
 #endif

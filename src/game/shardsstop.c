@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void shardsStop(void)
+void shards_stop(void)
 {
 	s32 i;
 

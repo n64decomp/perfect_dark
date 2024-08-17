@@ -5,7 +5,7 @@
 
 .text
 
-glabel mtxF2LBulk
+glabel mtx_f2l_bulk
 	lui    $t0, %hi(var8005ef10)
 	addiu  $t0, $t0, %lo(var8005ef10)
 	lui    $t1, 0xffff

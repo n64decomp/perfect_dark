@@ -20,18 +20,18 @@ u16 g_ArtifactsCfb2[0x180];
 u16 *g_ZbufPtr1 = NULL;
 u16 *g_ZbufPtr2 = NULL;
 
-void *zbufGetAllocation(void)
+void *zbuf_get_allocation(void)
 {
 	return g_ZbufPtr1;
 }
 
-void zbufReset(s32 stagenum)
+void zbuf_reset(s32 stagenum)
 {
 	g_ZbufPtr1 = NULL;
 	g_ZbufPtr2 = NULL;
 
 	if (stagenum != STAGE_TITLE) {
-		zbufAllocate();
+		zbuf_allocate();
 	}
 }
 
@@ -48,7 +48,7 @@ void zbufReset(s32 stagenum)
  * The allocation sizes need to enforce a minimum because the allocation is also
  * used by lighting initialisation code.
  */
-void zbufAllocate(void)
+void zbuf_allocate(void)
 {
 	if (IS4MB()) {
 		g_ZbufWidth = MAX(320, FBALLOC_WIDTH_LO);
@@ -68,7 +68,7 @@ void zbufAllocate(void)
 		}
 	}
 
-	g_ZbufPtr1 = mempAlloc(g_ZbufWidth * g_ZbufHeight * sizeof(u16) + 0x40, MEMPOOL_STAGE);
+	g_ZbufPtr1 = memp_alloc(g_ZbufWidth * g_ZbufHeight * sizeof(u16) + 0x40, MEMPOOL_STAGE);
 	g_ZbufPtr1 = (void *) (((uintptr_t) g_ZbufPtr1 + 0x3f) & ~0x3f);
 	g_ZbufPtr2 = g_ZbufPtr1;
 }
@@ -81,7 +81,7 @@ void zbufAllocate(void)
  * Perhaps the developers implemented two buffers with swapping before realising
  * they only needed one.
  */
-void zbufSwap(void)
+void zbuf_swap(void)
 {
 	g_ZbufPtr2 = g_ZbufPtr1;
 }
@@ -92,19 +92,19 @@ void zbufSwap(void)
  * a scissor on the viewport.
  *
  * This allows the z-buffer allocation to be half a screen instead of a full
- * screen, however zbufAllocate allocates the full hi-res screen for 8MB,
+ * screen, however zbuf_allocate allocates the full hi-res screen for 8MB,
  * so this benefit is not realised. The shifting code is likely from GE.
  */
-Gfx *zbufConfigureRdp(Gfx *gdl)
+Gfx *zbuf_configure_rdp(Gfx *gdl)
 {
 	u32 subamount;
 	uintptr_t addr;
 
 	if (g_Vars.normmplayerisrunning
 			&& (g_Vars.currentplayernum >= 2 || (PLAYERCOUNT() == 2 && g_Vars.currentplayernum == 1))) {
-		subamount = playerGetFbWidth() * playerGetFbHeight();
+		subamount = player_get_fb_width() * player_get_fb_height();
 
-		if (IS4MB() || optionsGetScreenSplit() == SCREENSPLIT_VERTICAL) {
+		if (IS4MB() || options_get_screen_split() == SCREENSPLIT_VERTICAL) {
 			subamount = 0;
 		}
 	} else {
@@ -123,36 +123,36 @@ Gfx *zbufConfigureRdp(Gfx *gdl)
 /**
  * Clear the current player's portion of the z-buffer.
  */
-Gfx *zbufClear(Gfx *gdl)
+Gfx *zbuf_clear(Gfx *gdl)
 {
 	s32 left;
 	s32 right;
 
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_NOOP, G_RM_NOOP2);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetWidth(), OS_PHYSICAL_TO_K0(g_ZbufPtr2));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, vi_get_width(), OS_PHYSICAL_TO_K0(g_ZbufPtr2));
 	gDPSetCycleType(gdl++, G_CYC_FILL);
 	gDPSetFillColor(gdl++, 0xfffcfffc);
-	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, playerGetFbWidth() * 4.0f, playerGetFbHeight() * 4.0f);
+	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, player_get_fb_width() * 4.0f, player_get_fb_height() * 4.0f);
 
 	if (PLAYERCOUNT() <= 2) {
 		left = 0;
-		right = playerGetFbWidth() - 1;
+		right = player_get_fb_width() - 1;
 	} else if (g_Vars.currentplayernum == 0 || g_Vars.currentplayernum == 2) {
 		left = 0;
-		right = playerGetFbWidth() / 2 - 1;
+		right = player_get_fb_width() / 2 - 1;
 	} else {
-		left = playerGetFbWidth() / 2;
-		right = playerGetFbWidth() - 1;
+		left = player_get_fb_width() / 2;
+		right = player_get_fb_width() - 1;
 	}
 
-	gDPFillRectangle(gdl++, left, 0, right, playerGetFbHeight() - 1);
+	gDPFillRectangle(gdl++, left, 0, right, player_get_fb_height() - 1);
 	gDPPipeSync(gdl++);
 
 	return gdl;
 }
 
-u16 *zbufGetArtifactsCfb(s32 index)
+u16 *zbuf_get_artifacts_cfb(s32 index)
 {
 	u16 *addr;
 
@@ -173,9 +173,9 @@ u16 *zbufGetArtifactsCfb(s32 index)
 	return addr;
 }
 
-Gfx *zbufDrawArtifactsOffscreen(Gfx *gdl)
+Gfx *zbuf_draw_artifacts_offscreen(Gfx *gdl)
 {
-	struct artifact *artifacts = schedGetWriteArtifacts();
+	struct artifact *artifacts = sched_get_write_artifacts();
 	u32 stack;
 	u16 *sp4c = g_ZbufPtr1;
 	u32 s4 = 0;
@@ -184,12 +184,12 @@ Gfx *zbufDrawArtifactsOffscreen(Gfx *gdl)
 	u16 *image;
 	s32 i;
 
-	viGetBackBuffer();
-	sp44 = zbufGetArtifactsCfb(g_SchedWriteArtifactsIndex);
+	vi_get_back_buffer();
+	sp44 = zbuf_get_artifacts_cfb(g_SchedWriteArtifactsIndex);
 	g_SchedSpecialArtifactIndexes[g_SchedWriteArtifactsIndex] = 1;
 
 	gDPPipeSync(gdl++);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(sp44));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, vi_get_buf_width(), OS_PHYSICAL_TO_K0(sp44));
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, SCREEN_320, SCREEN_240);
 	gDPSetCycleType(gdl++, G_CYC_COPY);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -217,12 +217,12 @@ Gfx *zbufDrawArtifactsOffscreen(Gfx *gdl)
 
 		if (artifacts[i].type != ARTIFACTTYPE_FREE) {
 			s2 = &sp44[s4];
-			image = &sp4c[artifacts[i].unk0c.u16_1 * viGetWidth()];
+			image = &sp4c[artifacts[i].unk0c.u16_1 * vi_get_width()];
 
 			gDPPipeSync(gdl++);
 			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_320, image);
 			gDPLoadSync(gdl++);
-			gDPLoadBlock(gdl++, 5, 0, 0, viGetWidth() - 1, 0);
+			gDPLoadBlock(gdl++, 5, 0, 0, vi_get_width() - 1, 0);
 			gDPPipeSync(gdl++);
 
 			gSPTextureRectangle(gdl++,
@@ -240,8 +240,8 @@ Gfx *zbufDrawArtifactsOffscreen(Gfx *gdl)
 	gDPPipeSync(gdl++);
 	gDPLoadSync(gdl++);
 	gDPTileSync(gdl++);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, viGetBufWidth(), OS_PHYSICAL_TO_K0(viGetBackBuffer()));
-	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, viGetWidth() * 4.0f, viGetHeight() * 4.0f);
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, vi_get_buf_width(), OS_PHYSICAL_TO_K0(vi_get_back_buffer()));
+	gDPSetScissorFrac(gdl++, G_SC_NON_INTERLACE, 0, 0, vi_get_width() * 4.0f, vi_get_height() * 4.0f);
 	gSPSetGeometryMode(gdl++, G_ZBUFFER);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);

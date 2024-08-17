@@ -13,7 +13,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_222, // "One-Hit Kills"
 		MPOPTION_ONEHITKILLS,
-		menuhandlerMpOneHitKills,
+		menuhandler_mp_one_hit_kills,
 	},
 	{
 		MENUITEMTYPE_DROPDOWN,
@@ -21,7 +21,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_223, // "Slow Motion"
 		0,
-		menuhandlerMpSlowMotion,
+		menuhandler_mp_slow_motion,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -29,7 +29,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_224, // "Fast Movement"
 		MPOPTION_FASTMOVEMENT,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -37,7 +37,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_225, // "Display Team"
 		MPOPTION_DISPLAYTEAM,
-		menuhandlerMpDisplayTeam,
+		menuhandler_mp_display_team,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -45,7 +45,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_226, // "No Radar"
 		MPOPTION_NORADAR,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -53,7 +53,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_227, // "No Auto-Aim"
 		MPOPTION_NOAUTOAIM,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -69,7 +69,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_228, // "No Player Highlight"
 		MPOPTION_NOPLAYERHIGHLIGHT,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -77,7 +77,7 @@ struct menuitem g_MpCombatOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_229, // "No Pickup Highlight"
 		MPOPTION_NOPICKUPHIGHLIGHT,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -102,7 +102,7 @@ struct menudialogdef g_MpCombatOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_215, // "Combat Options"
 	g_MpCombatOptionsMenuItems,
-	mpOptionsMenuDialog,
+	mp_options_menu_dialog,
 	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };

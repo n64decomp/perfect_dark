@@ -91,19 +91,19 @@ bool mp3main00043ef8(struct asistream *stream, s32 arg1)
 	stream->unk18 += 2;
 	stream->count = 12;
 
-	stream->version = mp3utilGetBits(stream->buffer, &stream->count, 1);
-	stream->layer = mp3utilGetBits(stream->buffer, &stream->count, 2);
-	stream->crctype = mp3utilGetBits(stream->buffer, &stream->count, 1);
-	stream->bitrateindex = mp3utilGetBits(stream->buffer, &stream->count, 4);
-	stream->samplerateindex = mp3utilGetBits(stream->buffer, &stream->count, 2);
-	stream->haspadding = mp3utilGetBits(stream->buffer, &stream->count, 1);
-	stream->privatebit = mp3utilGetBits(stream->buffer, &stream->count, 1);
-	stream->channelmode = mp3utilGetBits(stream->buffer, &stream->count, 2);
+	stream->version = mp3util_get_bits(stream->buffer, &stream->count, 1);
+	stream->layer = mp3util_get_bits(stream->buffer, &stream->count, 2);
+	stream->crctype = mp3util_get_bits(stream->buffer, &stream->count, 1);
+	stream->bitrateindex = mp3util_get_bits(stream->buffer, &stream->count, 4);
+	stream->samplerateindex = mp3util_get_bits(stream->buffer, &stream->count, 2);
+	stream->haspadding = mp3util_get_bits(stream->buffer, &stream->count, 1);
+	stream->privatebit = mp3util_get_bits(stream->buffer, &stream->count, 1);
+	stream->channelmode = mp3util_get_bits(stream->buffer, &stream->count, 2);
 
-	stream->unk3bc4 = mp3utilGetBits(stream->buffer, &stream->count, 2);
-	stream->unk3bc8 = mp3utilGetBits(stream->buffer, &stream->count, 1);
-	stream->unk3bcc = mp3utilGetBits(stream->buffer, &stream->count, 1);
-	stream->unk3bd0 = mp3utilGetBits(stream->buffer, &stream->count, 2);
+	stream->unk3bc4 = mp3util_get_bits(stream->buffer, &stream->count, 2);
+	stream->unk3bc8 = mp3util_get_bits(stream->buffer, &stream->count, 1);
+	stream->unk3bcc = mp3util_get_bits(stream->buffer, &stream->count, 1);
+	stream->unk3bd0 = mp3util_get_bits(stream->buffer, &stream->count, 2);
 
 	if (stream->bitrateindex == 15 || stream->samplerateindex == 3) {
 		return mp3main00043ef8(stream, -1);
@@ -143,8 +143,8 @@ bool mp3main00043ef8(struct asistream *stream, s32 arg1)
 	}
 
 	if (stream->layer == LAYER_3) {
-		stream->unk8478 = mp3decDecodeFrame;
-		stream->unk847c = mp3decSetSideInfo;
+		stream->unk8478 = mp3dec_decode_frame;
+		stream->unk847c = mp3dec_set_side_info;
 	} else if (stream->layer == LAYER_2) {
 		return false;
 	} else if (stream->layer == LAYER_1) {
@@ -158,13 +158,13 @@ bool mp3main00043ef8(struct asistream *stream, s32 arg1)
 	return true;
 }
 
-u32 mp3mainInit(void)
+u32 mp3main_init(void)
 {
 	if (var8005f704++) {
 		return 2;
 	}
 
-	mp3decInit();
+	mp3dec_init();
 	return 0;
 }
 

@@ -5,7 +5,7 @@
 #include "game/padhalllv.h"
 #include "types.h"
 
-void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked)
+void obj_set_blocked_path_unblocked(struct defaultobj *blocker, bool unblocked)
 {
 	if (blocker->hidden & OBJHFLAG_BLOCKEDPATH) {
 		struct blockedpathobj *bp = g_BlockedPaths;
@@ -13,10 +13,10 @@ void objSetBlockedPathUnblocked(struct defaultobj *blocker, bool unblocked)
 		while (bp) {
 			if (bp->blocker == blocker) {
 				if (unblocked) {
-					navEnableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
+					nav_enable_segment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
 					break;
 				} else {
-					navDisableSegment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
+					nav_disable_segment(&g_StageSetup.waypoints[bp->waypoint1], &g_StageSetup.waypoints[bp->waypoint2]);
 					break;
 				}
 			}

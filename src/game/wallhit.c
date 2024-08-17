@@ -67,7 +67,7 @@ struct wallhittex g_WallhitTexes[] = {
 	/*0x11*/ { 6,   6,   WALLHITTYPE_BULLET }, // WALLHITTEX_METAL
 };
 
-s16 wallhitFinaliseAxis(f32 value)
+s16 wallhit_finalise_axis(f32 value)
 {
 	if (value > var8007f754) {
 		var8007f754 = value;
@@ -90,7 +90,7 @@ s16 wallhitFinaliseAxis(f32 value)
 	return value;
 }
 
-void wallhitFree(struct wallhit *wallhit)
+void wallhit_free(struct wallhit *wallhit)
 {
 	struct wallhit *iter;
 	s32 i;
@@ -192,46 +192,46 @@ void wallhitFree(struct wallhit *wallhit)
 	}
 }
 
-void wallhitsFreeByProp(struct prop *prop, s8 layer)
+void wallhits_free_by_prop(struct prop *prop, s8 layer)
 {
 	struct prop *copy = prop;
 
 	if (layer) {
 		while (copy->xluwallhits) {
-			wallhitFade(copy->xluwallhits, 1);
-			wallhitFree(copy->xluwallhits);
+			wallhit_fade(copy->xluwallhits, 1);
+			wallhit_free(copy->xluwallhits);
 		}
 	} else {
 		while (copy->opawallhits) {
-			wallhitFade(copy->opawallhits, 1);
-			wallhitFree(copy->opawallhits);
+			wallhit_fade(copy->opawallhits, 1);
+			wallhit_free(copy->opawallhits);
 		}
 	}
 }
 
-bool chrIsUsingPaintball(struct chrdata *chr)
+bool chr_is_using_paintball(struct chrdata *chr)
 {
 	s32 prevplayernum = g_Vars.currentplayernum;
 	bool paintball;
 
 	if (chr && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
-		setCurrentPlayerNum(playermgrGetPlayerNumByProp(chr->prop));
+		set_current_player_num(playermgr_get_player_num_by_prop(chr->prop));
 	} else {
-		setCurrentPlayerNum(random() % PLAYERCOUNT());
+		set_current_player_num(random() % PLAYERCOUNT());
 	}
 
-	paintball = optionsGetPaintball(g_Vars.currentplayerstats->mpindex);
+	paintball = options_get_paintball(g_Vars.currentplayerstats->mpindex);
 
-	setCurrentPlayerNum(prevplayernum);
+	set_current_player_num(prevplayernum);
 
 	return paintball;
 }
 
-void wallhitChooseBloodColour(struct prop *prop)
+void wallhit_choose_blood_colour(struct prop *prop)
 {
 	if (prop && prop->chr && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER)) {
 		struct chrdata *chr = prop->chr;
-		chrGetBloodColour(chr->bodynum, g_WallhitBloodColour, NULL);
+		chr_get_blood_colour(chr->bodynum, g_WallhitBloodColour, NULL);
 	} else {
 		g_WallhitBloodColour[0] = 0x40;
 		g_WallhitBloodColour[1] = 0x0a;
@@ -239,7 +239,7 @@ void wallhitChooseBloodColour(struct prop *prop)
 	}
 }
 
-void wallhitFade(struct wallhit *wallhit, u32 arg1)
+void wallhit_fade(struct wallhit *wallhit, u32 arg1)
 {
 	if (!wallhit->fading) {
 		if (wallhit->objprop) {
@@ -279,7 +279,7 @@ void wallhitFade(struct wallhit *wallhit, u32 arg1)
  * be favoured over a blood puddle. The actual wallhit to be removed will
  * be the oldest one that meets that criteria.
  */
-bool wallhitRemoveOneInRoom(s32 room)
+bool wallhit_remove_one_in_room(s32 room)
 {
 	if (room == -1 || g_WallhitCountsPerRoom[room]) {
 		f32 ratio = 0.0f;
@@ -333,15 +333,15 @@ bool wallhitRemoveOneInRoom(s32 room)
 
 		if (ratio > g_WallhitTargetBloodRatio && (blooddropindex != -1 || bloodpuddleindex != -1)) {
 			if (blooddropindex != -1) {
-				wallhitFade(&g_Wallhits[blooddropindex], TICKS(30));
+				wallhit_fade(&g_Wallhits[blooddropindex], TICKS(30));
 				return true;
 			} else {
-				wallhitFade(&g_Wallhits[bloodpuddleindex], TICKS(30));
+				wallhit_fade(&g_Wallhits[bloodpuddleindex], TICKS(30));
 				return true;
 			}
 		} else {
 			if (otherindex != -1) {
-				wallhitFade(&g_Wallhits[otherindex], TICKS(30));
+				wallhit_fade(&g_Wallhits[otherindex], TICKS(30));
 				return true;
 			}
 		}
@@ -360,7 +360,7 @@ bool wallhitRemoveOneInRoom(s32 room)
  * The chosen room will be the one with the most wallhits within one of those
  * three categories.
  */
-void wallhitRemoveOne(void)
+void wallhit_remove_one(void)
 {
 	s32 room;
 	u32 i;
@@ -398,7 +398,7 @@ void wallhitRemoveOne(void)
 			s32 min = bestroom == 0 ? g_MinPropWallhits : g_MinBgWallhitsPerRoom;
 
 			if (g_WallhitCountsPerRoom[bestroom] > min) {
-				if (wallhitRemoveOneInRoom(bestroom)) {
+				if (wallhit_remove_one_in_room(bestroom)) {
 					done = true;
 				}
 			}
@@ -406,13 +406,13 @@ void wallhitRemoveOne(void)
 	}
 
 	if (!done) {
-		wallhitRemoveOneInRoom(-1);
+		wallhit_remove_one_in_room(-1);
 	}
 
 	if (1);
 }
 
-void wallhitsTick(void)
+void wallhits_tick(void)
 {
 	f32 sp12c;
 	f32 fov;
@@ -432,9 +432,9 @@ void wallhitsTick(void)
 	static s32 var8007f834 = 0;
 
 	sp12c = (g_Vars.lvupdate240 + 2.0f) * 0.25f;
-	fov = currentPlayerGetGunZoomFov();
+	fov = current_player_get_gun_zoom_fov();
 
-	mainOverrideVariable("wallhit", &var8007f750);
+	main_override_variable("wallhit", &var8007f750);
 
 	var8007f740 = 0;
 
@@ -450,13 +450,13 @@ void wallhitsTick(void)
 	numallocated = g_WallhitsNumFree + g_WallhitsNumUsed;
 
 	if (numallocated < g_WallhitsCriticalSpareLimit) {
-		wallhitRemoveOne();
+		wallhit_remove_one();
 	} else if (numallocated < g_WallhitsGoalSpareLimit) {
 		var8007f834++;
 
 		if (var8007f834 == 8) {
 			var8007f834 = 0;
-			wallhitRemoveOne();
+			wallhit_remove_one();
 		}
 	}
 
@@ -488,7 +488,7 @@ void wallhitsTick(void)
 				if (amount < wallhit->timercur) {
 					wallhit->timercur -= amount;
 				} else {
-					wallhitFree(wallhit);
+					wallhit_free(wallhit);
 				}
 			}
 
@@ -512,7 +512,7 @@ void wallhitsTick(void)
 					f30 = (1.0f - frac) * sinf(tmp);
 					f22 = 1.0f - tmp + 0.6f;
 
-					wallhit->vertices2 = gfxAllocateVertices(4);
+					wallhit->vertices2 = gfx_allocate_vertices(4);
 
 					midx = var800845dc.x; \
 					midy = var800845dc.y; \
@@ -632,7 +632,7 @@ const char var7f1b5c24[] = "tLifeTime=%s%s%f, tScalarGbl=%f";
 const char var7f1b5c44[] = "";
 const char var7f1b5c48[] = "";
 
-void wallhitCreate(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
+void wallhit_create(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
 		s16 arg4[3], s16 texnum, RoomNum room, struct prop *objprop,
 		s8 mtxindex, s8 arg9, struct chrdata *chr, bool xlu)
 {
@@ -640,14 +640,14 @@ void wallhitCreate(struct coord *relpos, struct coord *arg1, struct coord *arg2,
 	f32 width = g_WallhitTexes[texnum].width * scale;
 	f32 height = g_WallhitTexes[texnum].height * scale;
 
-	wallhitCreateWith20Args(relpos, arg1, arg2, arg3,
+	wallhit_create_with_20_args(relpos, arg1, arg2, arg3,
 			arg4, texnum, room, objprop,
 			NULL, mtxindex, arg9, chr,
 			width, height, 0xff, 0xff,
 			0, 0, 0, xlu);
 }
 
-void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
+void wallhit_create_with_20_args(struct coord *relpos, struct coord *arg1, struct coord *arg2, s16 arg3[3],
 		s16 arg4[3], s16 texnum, RoomNum room, struct prop *objprop,
 		struct prop *chrprop, s8 mtxindex, s8 arg10, struct chrdata *chr,
 		f32 width, f32 height, u8 minalpha, u8 maxalpha,
@@ -693,7 +693,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-	paintball = chrIsUsingPaintball(chr);
+	paintball = chr_is_using_paintball(chr);
 
 	if (paintball && g_WallhitTexes[texnum].type != WALLHITTYPE_BLOOD) {
 		if (texnum != WALLHITTEX_SCORCH) {
@@ -745,7 +745,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 		break;
 	}
 
-	if (chrIsUsingPaintball(chr) && g_WallhitTexes[texnum].type != WALLHITTYPE_BLOOD) {
+	if (chr_is_using_paintball(chr) && g_WallhitTexes[texnum].type != WALLHITTYPE_BLOOD) {
 		if (texnum != WALLHITTEX_SCORCH) {
 			width = 15.0f;
 			height = 15.0f;
@@ -771,11 +771,11 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 		}
 
 		if (g_WallhitCountsPerRoom[room2] > max) {
-			if (!wallhitRemoveOneInRoom(room2)) {
+			if (!wallhit_remove_one_in_room(room2)) {
 				return;
 			}
 		} else if (g_WallhitCountsPerRoom[room] > g_MaxBgWallhitsPerRoom) {
-			if (!wallhitRemoveOneInRoom(room)) {
+			if (!wallhit_remove_one_in_room(room)) {
 				return;
 			}
 		}
@@ -948,8 +948,8 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 			sp78.y = sp1d0.y;
 			sp78.z = sp1d0.z;
 
-			mtx4RotateVecInPlace(mtx, &sp84);
-			mtx4RotateVecInPlace(mtx, &sp78);
+			mtx4_rotate_vec_in_place(mtx, &sp84);
+			mtx4_rotate_vec_in_place(mtx, &sp78);
 
 			width /= sqrtf(sp84.x * sp84.x + sp84.y * sp84.y + sp84.z * sp84.z);
 			height /= sqrtf(sp78.x * sp78.x + sp78.y * sp78.y + sp78.z * sp78.z);
@@ -960,7 +960,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 				obj->hidden2 |= OBJH2FLAG_HASOPA;
 			}
 		} else {
-			struct coord *roompos = roomGetPosPtr(room);
+			struct coord *roompos = room_get_pos_ptr(room);
 
 			if (arg2 != NULL) {
 				f32 xdist = arg2->x - relpos->x;
@@ -1041,9 +1041,9 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 			sp58.y = sp17c[i].y + sp1ac.y;
 			sp58.z = sp17c[i].z + sp1ac.z;
 
-			x = wallhitFinaliseAxis(sp58.x);
-			y = wallhitFinaliseAxis(sp58.y);
-			z = wallhitFinaliseAxis(sp58.z);
+			x = wallhit_finalise_axis(sp58.x);
+			y = wallhit_finalise_axis(sp58.y);
+			z = wallhit_finalise_axis(sp58.z);
 
 			wallhit->vertices[i].x = x;
 			wallhit->vertices[i].y = y;
@@ -1078,7 +1078,7 @@ void wallhitCreateWith20Args(struct coord *relpos, struct coord *arg1, struct co
 			u8 b;
 			u8 a;
 
-			brightnessfrac = roomGetFinalBrightnessForPlayer(room2) * (1.0f / 255.0f);
+			brightnessfrac = room_get_final_brightness_for_player(room2) * (1.0f / 255.0f);
 
 			range = maxalpha - (u32)minalpha;
 
@@ -1196,7 +1196,7 @@ s32 wallhit0f140750(struct coord *coord)
 	return 128;
 }
 
-Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
+Gfx *wallhit_render_opa_bg_hits(s32 roomnum, Gfx *gdl)
 {
 	struct wallhit *wallhit;
 	Col *colours;
@@ -1214,7 +1214,7 @@ Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 	prevtexturenum = -1;
 	prev6b = -1;
 
-	gdl = roomApplyMtx(gdl, roomnum);
+	gdl = room_apply_mtx(gdl, roomnum);
 
 	wallhit = g_Rooms[roomnum].opawallhits;
 
@@ -1227,13 +1227,13 @@ Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 			}
 
 			if (wallhit->texturenum != prevtexturenum || wallhit->unk6b != prev6b) {
-				texSelect(&gdl, &g_TexWallhitConfigs[wallhit->texturenum], 2, wallhit->unk6b, 2, 1, NULL);
+				tex_select(&gdl, &g_TexWallhitConfigs[wallhit->texturenum], 2, wallhit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = wallhit->texturenum;
 				prev6b = wallhit->unk6b;
 			}
 
-			colours = gfxAllocateColours(4);
+			colours = gfx_allocate_colours(4);
 			colours[0] = wallhit->finalcolours[0];
 			colours[1] = wallhit->finalcolours[1];
 			colours[2] = wallhit->finalcolours[2];
@@ -1259,7 +1259,7 @@ Gfx *wallhitRenderOpaBgHits(s32 roomnum, Gfx *gdl)
 	return gdl;
 }
 
-Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
+Gfx *wallhit_render_xlu_bg_hits(s32 roomnum, Gfx *gdl)
 {
 	struct wallhit *wallhit;
 	Col *colours;
@@ -1276,7 +1276,7 @@ Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 	prevtexturenum = -1;
 	prev6b = -1;
 
-	gdl = roomApplyMtx(gdl, roomnum);
+	gdl = room_apply_mtx(gdl, roomnum);
 
 	wallhit = g_Rooms[roomnum].xluwallhits;
 
@@ -1285,13 +1285,13 @@ Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 			wallhit->unk6b = 1;
 
 			if (wallhit->texturenum != prevtexturenum || wallhit->unk6b != prev6b) {
-				texSelect(&gdl, &g_TexWallhitConfigs[wallhit->texturenum], 2, wallhit->unk6b, 2, 1, NULL);
+				tex_select(&gdl, &g_TexWallhitConfigs[wallhit->texturenum], 2, wallhit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = wallhit->texturenum;
 				prev6b = wallhit->unk6b;
 			}
 
-			colours = gfxAllocateColours(4);
+			colours = gfx_allocate_colours(4);
 			colours[0] = wallhit->finalcolours[0];
 			colours[1] = wallhit->finalcolours[1];
 			colours[2] = wallhit->finalcolours[2];
@@ -1317,7 +1317,7 @@ Gfx *wallhitRenderXluBgHits(s32 roomnum, Gfx *gdl)
 	return gdl;
 }
 
-Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool xlu)
+Gfx *wallhit_render_prop_hits(Gfx *gdl, struct prop *prop, bool xlu)
 {
 	Col *colours;
 	struct defaultobj *obj = prop->obj;
@@ -1372,13 +1372,13 @@ Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool xlu)
 			}
 
 			if (prevtexturenum != wallhit->texturenum || prev6b != wallhit->unk6b) {
-				texSelect(&gdl, &g_TexWallhitConfigs[wallhit->texturenum], 2, wallhit->unk6b, 2, 1, NULL);
+				tex_select(&gdl, &g_TexWallhitConfigs[wallhit->texturenum], 2, wallhit->unk6b, 2, 1, NULL);
 
 				prevtexturenum = wallhit->texturenum;
 				prev6b = wallhit->unk6b;
 			}
 
-			colours = gfxAllocateColours(4);
+			colours = gfx_allocate_colours(4);
 			colours[0] = wallhit->finalcolours[0];
 			colours[1] = wallhit->finalcolours[1];
 			colours[2] = wallhit->finalcolours[2];
@@ -1408,20 +1408,20 @@ Gfx *wallhitRenderPropHits(Gfx *gdl, struct prop *prop, bool xlu)
 	return gdl;
 }
 
-Gfx *wallhitRenderBgHits(s32 roomnum, Gfx *gdl)
+Gfx *wallhit_render_bg_hits(s32 roomnum, Gfx *gdl)
 {
 	if (g_Rooms[roomnum].opawallhits != NULL) {
-		gdl = wallhitRenderOpaBgHits(roomnum, gdl);
+		gdl = wallhit_render_opa_bg_hits(roomnum, gdl);
 	}
 
 	if (g_Rooms[roomnum].xluwallhits != NULL) {
-		gdl = wallhitRenderXluBgHits(roomnum, gdl);
+		gdl = wallhit_render_xlu_bg_hits(roomnum, gdl);
 	}
 
 	return gdl;
 }
 
-void wallhitsRecolour(void)
+void wallhits_recolour(void)
 {
 	s32 i;
 	s32 j;
@@ -1475,7 +1475,7 @@ void wallhitsRecolour(void)
 	}
 }
 
-void wallhitFadeSplatsForRemovedChr(struct prop *chrprop)
+void wallhit_fade_splats_for_removed_chr(struct prop *chrprop)
 {
 	s32 i;
 
@@ -1487,7 +1487,7 @@ void wallhitFadeSplatsForRemovedChr(struct prop *chrprop)
 				&& wallhit->chrprop == chrprop
 				&& g_WallhitTexes[wallhit->texturenum].type == WALLHITTYPE_BLOOD) {
 			if (IS_BLOOD_DROP(wallhit->texturenum) || (random() % 100) < 35) {
-				wallhitFade(wallhit, TICKS(120));
+				wallhit_fade(wallhit, TICKS(120));
 			} else {
 				wallhit->createdframe = g_Vars.lvframenum;
 			}
@@ -1495,7 +1495,7 @@ void wallhitFadeSplatsForRemovedChr(struct prop *chrprop)
 	}
 }
 
-void wallhitRemoveOldestWoundedSplatByChr(struct prop *chrprop)
+void wallhit_remove_oldest_wounded_splat_by_chr(struct prop *chrprop)
 {
 	s32 oldestframe = 0x0fffffff;
 	s32 oldestindex = -1;
@@ -1517,7 +1517,7 @@ void wallhitRemoveOldestWoundedSplatByChr(struct prop *chrprop)
 	}
 
 	if (oldestindex != -1) {
-		wallhitFade(&g_Wallhits[oldestindex], TICKS(120));
+		wallhit_fade(&g_Wallhits[oldestindex], TICKS(120));
 	}
 }
 

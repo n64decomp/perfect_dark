@@ -6,7 +6,7 @@
 #include "data.h"
 #include "types.h"
 
-void objsStop(void)
+void objs_stop(void)
 {
 	u32 *ptr = g_StageSetup.props;
 
@@ -42,7 +42,7 @@ void objsStop(void)
 			case OBJTYPE_HOVERCAR:
 			case OBJTYPE_CHOPPER:
 			case OBJTYPE_ESCASTEP:
-				objFreePermanently((struct defaultobj *) ptr, true);
+				obj_free_permanently((struct defaultobj *) ptr, true);
 				break;
 			case OBJTYPE_DOORSCALE:
 			case OBJTYPE_CHR:
@@ -77,7 +77,7 @@ void objsStop(void)
 				break;
 			}
 
-			ptr = ptr + setupGetCmdLength(ptr);
+			ptr = ptr + setup_get_cmd_length(ptr);
 		}
 	}
 }

@@ -6,12 +6,12 @@
 #include "data.h"
 #include "types.h"
 
-void faultInit(void)
+void fault_init(void)
 {
-	crashCreateThread();
+	crash_create_thread();
 }
 
-void faultAssert(char *message, char *file, s32 line)
+void fault_assert(char *message, char *file, s32 line)
 {
-	rmonPrintf("ASSERTION : %s, %d: (\"%s\")\n", file, line, message);
+	rmon_printf("ASSERTION : %s, %d: (\"%s\")\n", file, line, message);
 }

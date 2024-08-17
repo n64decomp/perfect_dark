@@ -10,7 +10,7 @@ u32 var8009e6b0[4];
 
 struct g_vars g_Vars;
 
-void varsInit(void)
+void vars_init(void)
 {
 	g_Vars.diffframe60f = 1;
 	g_Vars.lvframe60 = 0;

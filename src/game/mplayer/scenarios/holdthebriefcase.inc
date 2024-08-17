@@ -16,7 +16,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_222, // "One-Hit Kills"
 		MPOPTION_ONEHITKILLS,
-		menuhandlerMpOneHitKills,
+		menuhandler_mp_one_hit_kills,
 	},
 	{
 		MENUITEMTYPE_DROPDOWN,
@@ -24,7 +24,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_223, // "Slow Motion"
 		0,
-		menuhandlerMpSlowMotion,
+		menuhandler_mp_slow_motion,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -32,7 +32,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_224, // "Fast Movement"
 		MPOPTION_FASTMOVEMENT,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -40,7 +40,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_225, // "Display Team"
 		MPOPTION_DISPLAYTEAM,
-		menuhandlerMpDisplayTeam,
+		menuhandler_mp_display_team,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -48,7 +48,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_226, // "No Radar"
 		MPOPTION_NORADAR,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -56,7 +56,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_227, // "No Auto-Aim"
 		MPOPTION_NOAUTOAIM,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -64,7 +64,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_OPTIONS_493, // "Kills Score"
 		MPOPTION_KILLSSCORE,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -80,7 +80,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_237, // "Highlight Briefcase"
 		MPOPTION_HTB_HIGHLIGHTBRIEFCASE,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_CHECKBOX,
@@ -88,7 +88,7 @@ struct menuitem g_HtbOptionsMenuItems[] = {
 		MENUITEMFLAG_LOCKABLEMINOR,
 		L_MPMENU_238, // "Show on Radar"
 		MPOPTION_HTB_SHOWONRADAR,
-		menuhandlerMpCheckboxOption,
+		menuhandler_mp_checkbox_option,
 	},
 	{
 		MENUITEMTYPE_SEPARATOR,
@@ -113,7 +113,7 @@ struct menudialogdef g_HtbOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_MPMENU_216, // "Briefcase Options"
 	g_HtbOptionsMenuItems,
-	mpOptionsMenuDialog,
+	mp_options_menu_dialog,
 	MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
@@ -122,12 +122,12 @@ struct defaultobj *var800869ec = NULL;
 
 struct weaponobj g_HtbTokenObj;
 
-void htbInit(void)
+void htb_init(void)
 {
 	g_ScenarioData.htb.token = NULL;
 }
 
-void htbAddPad(s16 padnum)
+void htb_add_pad(s16 padnum)
 {
 	struct scenariodata_htb *data = &g_ScenarioData.htb;
 
@@ -142,12 +142,12 @@ void htbAddPad(s16 padnum)
 	}
 }
 
-s32 htbNumProps(void)
+s32 htb_num_props(void)
 {
 	return 1;
 }
 
-void htbRemoveAmmoCrateAtPad(s16 padnum)
+void htb_remove_ammo_crate_at_pad(s16 padnum)
 {
 	struct prop *prop = g_Vars.activeprops;
 
@@ -168,7 +168,7 @@ void htbRemoveAmmoCrateAtPad(s16 padnum)
 	}
 }
 
-void htbReset(void)
+void htb_reset(void)
 {
 	s32 i;
 
@@ -179,7 +179,7 @@ void htbReset(void)
 	}
 }
 
-void htbCreateToken(void)
+void htb_create_token(void)
 {
 	struct weaponobj template = {
 		256,                    // extrascale
@@ -255,7 +255,7 @@ void htbCreateToken(void)
 	g_HtbTokenObj = template;
 	g_HtbTokenObj.base.pad = g_ScenarioData.htb.tokenpad;
 
-	setupPlaceWeapon(&g_HtbTokenObj, 999);
+	setup_place_weapon(&g_HtbTokenObj, 999);
 
 	g_HtbTokenObj.base.hidden2 &= ~OBJH2FLAG_CANREGEN;
 
@@ -266,13 +266,13 @@ void htbCreateToken(void)
 	}
 }
 
-void htbInitProps(void)
+void htb_init_props(void)
 {
 	var800869ec = NULL;
-	htbCreateToken();
+	htb_create_token();
 }
 
-void htbTick(void)
+void htb_tick(void)
 {
 	s32 i;
 	u32 prevplayernum = g_Vars.currentplayernum;
@@ -306,16 +306,16 @@ void htbTick(void)
 	// Check if a player is holding it
 	if (g_ScenarioData.htb.token == NULL) {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
-			setCurrentPlayerNum(i);
+			set_current_player_num(i);
 
-			if (invHasBriefcase()) {
+			if (inv_has_briefcase()) {
 				g_ScenarioData.htb.token = g_Vars.currentplayer->prop;
 				break;
 			}
 		}
 	}
 
-	setCurrentPlayerNum(prevplayernum);
+	set_current_player_num(prevplayernum);
 
 	// Check if a simulant is holding it
 	if (g_ScenarioData.htb.token == NULL) {
@@ -333,7 +333,7 @@ void htbTick(void)
 	}
 
 	if (g_ScenarioData.htb.token == NULL) {
-		htbCreateToken();
+		htb_create_token();
 	}
 
 	if (g_ScenarioData.htb.token == NULL) {
@@ -348,31 +348,31 @@ void htbTick(void)
 	}
 }
 
-void htbTickChr(struct chrdata *chr)
+void htb_tick_chr(struct chrdata *chr)
 {
 	if (chr) {
 		if (chr->aibot->hasbriefcase) {
 			chr->aibot->htbheldtimer60 += g_Vars.lvupdate240;
 
 			if (chr->aibot->htbheldtimer60 >= TICKS(7200)) {
-				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-				g_MpAllChrConfigPtrs[mpPlayerGetIndex(chr)]->numpoints++;
+				snd_start(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
+				g_MpAllChrConfigPtrs[mp_player_get_index(chr)]->numpoints++;
 				chr->aibot->htbheldtimer60 = 0;
 			}
 		} else {
 			chr->aibot->htbheldtimer60 = 0;
 		}
 	} else {
-		if (invHasBriefcase()) {
+		if (inv_has_briefcase()) {
 			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= TICKS(7200)) {
-				sndStart(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->numpoints++;
 #if VERSION >= VERSION_JPN_FINAL
-				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "1 Point!"
+				hudmsg_create_with_flags(lang_get(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "1 Point!"
 #else
-				hudmsgCreateWithFlags(langGet(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "1 Point!"
+				hudmsg_create_with_flags(lang_get(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "1 Point!"
 #endif
 				g_Vars.currentplayerstats->tokenheldtime = 0;
 			}
@@ -389,7 +389,7 @@ void htbTickChr(struct chrdata *chr)
  *
  * PAL recognises that mins will always be 0 and simplifies the calculation.
  */
-Gfx *htbRenderHud(Gfx *gdl)
+Gfx *htb_render_hud(Gfx *gdl)
 {
 	s32 time240;
 	s32 mins;
@@ -400,9 +400,9 @@ Gfx *htbRenderHud(Gfx *gdl)
 	s32 y;
 	char text[64];
 
-	if (invHasBriefcase()) {
-		x = viGetViewLeft() + viGetViewWidth() / 2;
-		y = viGetViewTop() + 10;
+	if (inv_has_briefcase()) {
+		x = vi_get_view_left() + vi_get_view_width() / 2;
+		y = vi_get_view_top() + 10;
 
 		time240 = TICKS(7200) - g_Vars.currentplayerstats->tokenheldtime;
 
@@ -417,7 +417,7 @@ Gfx *htbRenderHud(Gfx *gdl)
 #endif
 
 		gdl = text0f153628(gdl);
-		textMeasure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
+		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 		x -= textwidth / 2;
 		textwidth += x;
@@ -425,10 +425,10 @@ Gfx *htbRenderHud(Gfx *gdl)
 
 #if VERSION >= VERSION_NTSC_1_0
 		gdl = text0f153990(gdl, x, y, textwidth, textheight);
-		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, vi_get_width(), vi_get_height(), 0, 0);
 #else
 		gdl = text0f153858(gdl, &x, &y, &textwidth, &textheight);
-		gdl = textRender(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, viGetWidth(), viGetHeight(), 0, 0);
+		gdl = text_render(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, vi_get_width(), vi_get_height(), 0, 0);
 #endif
 
 		gdl = text0f153780(gdl);
@@ -437,7 +437,7 @@ Gfx *htbRenderHud(Gfx *gdl)
 	return gdl;
 }
 
-void htbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
+void htb_calculate_player_score(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score, s32 *deaths)
 {
 	struct mpchrconfig *loopmpchr;
 	s32 i;
@@ -466,7 +466,7 @@ void htbCalculatePlayerScore(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *score
 	*deaths = mpchr->numdeaths;
 }
 
-Gfx *htbRadarExtra(Gfx *gdl)
+Gfx *htb_radar_extra(Gfx *gdl)
 {
 	if ((g_MpSetup.options & MPOPTION_HTB_SHOWONRADAR) &&
 			g_ScenarioData.htb.token != NULL &&
@@ -476,13 +476,13 @@ Gfx *htbRadarExtra(Gfx *gdl)
 		dist.x = g_ScenarioData.htb.pos.x - g_Vars.currentplayer->prop->pos.x;
 		dist.y = g_ScenarioData.htb.pos.y - g_Vars.currentplayer->prop->pos.y;
 		dist.z = g_ScenarioData.htb.pos.z - g_Vars.currentplayer->prop->pos.z;
-		gdl = radarDrawDot(gdl, g_ScenarioData.htb.token, &dist, 0x00ff0000, 0, 1);
+		gdl = radar_draw_dot(gdl, g_ScenarioData.htb.token, &dist, 0x00ff0000, 0, 1);
 	}
 
 	return gdl;
 }
 
-bool htbRadarChr(Gfx **gdl, struct prop *prop)
+bool htb_radar_chr(Gfx **gdl, struct prop *prop)
 {
 	if ((g_MpSetup.options & MPOPTION_HTB_SHOWONRADAR) &&
 			g_ScenarioData.htb.token &&
@@ -494,10 +494,10 @@ bool htbRadarChr(Gfx **gdl, struct prop *prop)
 			dist.z = prop->pos.z - g_Vars.currentplayer->prop->pos.z;
 
 			if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
-				u32 colour = g_TeamColours[radarGetTeamIndex(prop->chr->team)];
-				*gdl = radarDrawDot(*gdl, g_ScenarioData.htb.token, &dist, colour, 0, 1);
+				u32 colour = g_TeamColours[radar_get_team_index(prop->chr->team)];
+				*gdl = radar_draw_dot(*gdl, g_ScenarioData.htb.token, &dist, colour, 0, 1);
 			} else {
-				*gdl = radarDrawDot(*gdl, g_ScenarioData.htb.token, &dist, 0x00ff0000, 0, 1);
+				*gdl = radar_draw_dot(*gdl, g_ScenarioData.htb.token, &dist, 0x00ff0000, 0, 1);
 			}
 
 			return true;
@@ -507,7 +507,7 @@ bool htbRadarChr(Gfx **gdl, struct prop *prop)
 	return false;
 }
 
-bool htbHighlightProp(struct prop *prop, s32 *colour)
+bool htb_highlight_prop(struct prop *prop, s32 *colour)
 {
 	if ((g_MpSetup.options & MPOPTION_HTB_HIGHLIGHTBRIEFCASE) && prop == g_ScenarioData.htb.token) {
 		colour[0] = 0;

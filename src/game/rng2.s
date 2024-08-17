@@ -36,11 +36,11 @@ glabel random2
 	dsra32  $v0, $v0, 0
 
 /**
- * void rng2SetSeed(u64 seed)
+ * void rng2_set_seed(u64 seed)
  *
  * Set the given seed as the RNG seed. Add 1 to make sure it isn't 0.
  */
-glabel rng2SetSeed
+glabel rng2_set_seed
 	daddiu  $a0, $a0, 1
 	lui     $at, %hi(g_Rng2Seed)
 	sd      $a0, %lo(g_Rng2Seed)($at)

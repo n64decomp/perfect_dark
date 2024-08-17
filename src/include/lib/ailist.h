@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-u8 *ailistFindById(s32 ailistid);
+u8 *ailist_find_by_id(s32 ailistid);
 
 #endif

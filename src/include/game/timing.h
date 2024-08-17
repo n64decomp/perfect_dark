@@ -4,9 +4,9 @@
 #include "data.h"
 #include "types.h"
 
-void frametimeInit(void);
-void frametimeApply(s32 diffframe60, s32 diffframe240, s32 frametime);
-void frametimeCalculate(void);
+void frametime_init(void);
+void frametime_apply(s32 diffframe60, s32 diffframe240, s32 frametime);
+void frametime_calculate(void);
 void func0f16cf94(void);
 
 extern const char var7f1b78c0[];

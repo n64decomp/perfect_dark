@@ -21,126 +21,126 @@
 #include "data.h"
 #include "types.h"
 
-u8 *gamefileGetFlags(void)
+u8 *gamefile_get_flags(void)
 {
 	return g_GameFile.flags;
 }
 
-void gamefileSetFlag(u32 value)
+void gamefile_set_flag(u32 value)
 {
-	pakSetBitflag(value, g_GameFile.flags, true);
+	pak_set_bitflag(value, g_GameFile.flags, true);
 }
 
-void gamefileUnsetFlag(u32 value)
+void gamefile_unset_flag(u32 value)
 {
-	pakSetBitflag(value, g_GameFile.flags, false);
+	pak_set_bitflag(value, g_GameFile.flags, false);
 }
 
-u32 gamefileHasFlag(u32 value)
+u32 gamefile_has_flag(u32 value)
 {
-	return pakHasBitflag(value, g_GameFile.flags);
+	return pak_has_bitflag(value, g_GameFile.flags);
 }
 
-void gamefilePrintFlags(void)
+void gamefile_print_flags(void)
 {
 	s32 i;
 
 	for (i = 0x23; i != 0x4f; i++) {
 		osSyncPrintf("Flag %d = %s", i,
-				pakHasBitflag(i, g_GameFile.flags) ? "TRUE" : "FALSE");
+				pak_has_bitflag(i, g_GameFile.flags) ? "TRUE" : "FALSE");
 	}
 }
 
-void gamefileApplyOptions(struct gamefile *file)
+void gamefile_apply_options(struct gamefile *file)
 {
 	s32 player1 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 0 : 4;
 	s32 player2 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 1 : 5;
 
-	optionsSetForwardPitch(player1, pakHasBitflag(GAMEFILEFLAG_P1_FORWARDPITCH, file->flags));
-	optionsSetAutoAim(player1, pakHasBitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags));
-	optionsSetAimControl(player1, pakHasBitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags));
-	optionsSetSightOnScreen(player1, pakHasBitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags));
-	optionsSetLookAhead(player1, pakHasBitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags));
-	optionsSetAmmoOnScreen(player1, pakHasBitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, file->flags));
-	optionsSetHeadRoll(player1, pakHasBitflag(GAMEFILEFLAG_P1_HEADROLL, file->flags));
-	optionsSetShowGunFunction(player1, pakHasBitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags));
-	optionsSetAlwaysShowTarget(player1, pakHasBitflag(GAMEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags));
-	optionsSetShowZoomRange(player1, pakHasBitflag(GAMEFILEFLAG_P1_SHOWZOOMRANGE, file->flags));
-	optionsSetShowMissionTime(player1, pakHasBitflag(GAMEFILEFLAG_P1_SHOWMISSIONTIME, file->flags));
-	optionsSetPaintball(player1, pakHasBitflag(GAMEFILEFLAG_P1_PAINTBALL, file->flags));
+	options_set_forward_pitch(player1, pak_has_bitflag(GAMEFILEFLAG_P1_FORWARDPITCH, file->flags));
+	options_set_auto_aim(player1, pak_has_bitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags));
+	options_set_aim_control(player1, pak_has_bitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags));
+	options_set_sight_on_screen(player1, pak_has_bitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags));
+	options_set_look_ahead(player1, pak_has_bitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags));
+	options_set_ammo_on_screen(player1, pak_has_bitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, file->flags));
+	options_set_head_roll(player1, pak_has_bitflag(GAMEFILEFLAG_P1_HEADROLL, file->flags));
+	options_set_show_gun_function(player1, pak_has_bitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags));
+	options_set_always_show_target(player1, pak_has_bitflag(GAMEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags));
+	options_set_show_zoom_range(player1, pak_has_bitflag(GAMEFILEFLAG_P1_SHOWZOOMRANGE, file->flags));
+	options_set_show_mission_time(player1, pak_has_bitflag(GAMEFILEFLAG_P1_SHOWMISSIONTIME, file->flags));
+	options_set_paintball(player1, pak_has_bitflag(GAMEFILEFLAG_P1_PAINTBALL, file->flags));
 
-	optionsSetForwardPitch(player2, pakHasBitflag(GAMEFILEFLAG_P2_FORWARDPITCH, file->flags));
-	optionsSetAutoAim(player2, pakHasBitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags));
-	optionsSetAimControl(player2, pakHasBitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags));
-	optionsSetSightOnScreen(player2, pakHasBitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, file->flags));
-	optionsSetLookAhead(player2, pakHasBitflag(GAMEFILEFLAG_P2_LOOKAHEAD, file->flags));
-	optionsSetAmmoOnScreen(player2, pakHasBitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, file->flags));
-	optionsSetHeadRoll(player2, pakHasBitflag(GAMEFILEFLAG_P2_HEADROLL, file->flags));
-	optionsSetShowGunFunction(player2, pakHasBitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags));
-	optionsSetAlwaysShowTarget(player2, pakHasBitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags));
-	optionsSetShowZoomRange(player2, pakHasBitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, file->flags));
-	optionsSetShowMissionTime(player2, pakHasBitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, file->flags));
-	optionsSetPaintball(player2, pakHasBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags));
+	options_set_forward_pitch(player2, pak_has_bitflag(GAMEFILEFLAG_P2_FORWARDPITCH, file->flags));
+	options_set_auto_aim(player2, pak_has_bitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags));
+	options_set_aim_control(player2, pak_has_bitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags));
+	options_set_sight_on_screen(player2, pak_has_bitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, file->flags));
+	options_set_look_ahead(player2, pak_has_bitflag(GAMEFILEFLAG_P2_LOOKAHEAD, file->flags));
+	options_set_ammo_on_screen(player2, pak_has_bitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, file->flags));
+	options_set_head_roll(player2, pak_has_bitflag(GAMEFILEFLAG_P2_HEADROLL, file->flags));
+	options_set_show_gun_function(player2, pak_has_bitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags));
+	options_set_always_show_target(player2, pak_has_bitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags));
+	options_set_show_zoom_range(player2, pak_has_bitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, file->flags));
+	options_set_show_mission_time(player2, pak_has_bitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, file->flags));
+	options_set_paintball(player2, pak_has_bitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags));
 
-	optionsSetInGameSubtitles(pakHasBitflag(GAMEFILEFLAG_INGAMESUBTITLES, file->flags));
-	optionsSetCutsceneSubtitles(pakHasBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags));
+	options_set_in_game_subtitles(pak_has_bitflag(GAMEFILEFLAG_INGAMESUBTITLES, file->flags));
+	options_set_cutscene_subtitles(pak_has_bitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags));
 
 	// Duplicate
-	optionsSetPaintball(player2, pakHasBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags));
+	options_set_paintball(player2, pak_has_bitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags));
 
-	g_Vars.langfilteron = pakHasBitflag(GAMEFILEFLAG_LANGFILTERON, file->flags);
+	g_Vars.langfilteron = pak_has_bitflag(GAMEFILEFLAG_LANGFILTERON, file->flags);
 
-	if (pakHasBitflag(GAMEFILEFLAG_HIRES, file->flags)) {
+	if (pak_has_bitflag(GAMEFILEFLAG_HIRES, file->flags)) {
 		if (IS4MB()) {
-			playerSetHiResEnabled(false);
+			player_set_hi_res_enabled(false);
 		} else {
-			playerSetHiResEnabled(true);
+			player_set_hi_res_enabled(true);
 		}
 	} else {
-		playerSetHiResEnabled(false);
+		player_set_hi_res_enabled(false);
 	}
 
 	if (IS4MB()) {
-		optionsSetScreenSplit(SCREENSPLIT_HORIZONTAL);
-		optionsSetScreenRatio(SCREENRATIO_NORMAL);
+		options_set_screen_split(SCREENSPLIT_HORIZONTAL);
+		options_set_screen_ratio(SCREENRATIO_NORMAL);
 	} else {
-		optionsSetScreenSplit(pakHasBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags));
-		optionsSetScreenRatio(pakHasBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags));
+		options_set_screen_split(pak_has_bitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags));
+		options_set_screen_ratio(pak_has_bitflag(GAMEFILEFLAG_SCREENRATIO, file->flags));
 	}
 
-	if (pakHasBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags)) {
-		optionsSetScreenSize(SCREENSIZE_CINEMA);
-	} else if (pakHasBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, file->flags)) {
-		optionsSetScreenSize(SCREENSIZE_WIDE);
+	if (pak_has_bitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags)) {
+		options_set_screen_size(SCREENSIZE_CINEMA);
+	} else if (pak_has_bitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, file->flags)) {
+		options_set_screen_size(SCREENSIZE_WIDE);
 	} else {
-		optionsSetScreenSize(SCREENSIZE_FULL);
+		options_set_screen_size(SCREENSIZE_FULL);
 	}
 
-	g_Vars.pendingantiplayernum = pakHasBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags) ? 1 : 0;
-	g_Vars.coopradaron = pakHasBitflag(GAMEFILEFLAG_COOPRADARON, file->flags) ? true : false;
-	g_Vars.coopfriendlyfire = pakHasBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags) ? true : false;
-	g_Vars.antiradaron = pakHasBitflag(GAMEFILEFLAG_ANTIRADARON, file->flags) ? true : false;
+	g_Vars.pendingantiplayernum = pak_has_bitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags) ? 1 : 0;
+	g_Vars.coopradaron = pak_has_bitflag(GAMEFILEFLAG_COOPRADARON, file->flags) ? true : false;
+	g_Vars.coopfriendlyfire = pak_has_bitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags) ? true : false;
+	g_Vars.antiradaron = pak_has_bitflag(GAMEFILEFLAG_ANTIRADARON, file->flags) ? true : false;
 
 #if VERSION >= VERSION_PAL_BETA
 	g_Vars.language = 0;
 
-	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT1, file->flags)) {
+	if (pak_has_bitflag(GAMEFILEFLAG_LANGBIT1, file->flags)) {
 		g_Vars.language |= 0x01;
 	}
 
-	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT2, file->flags)) {
+	if (pak_has_bitflag(GAMEFILEFLAG_LANGBIT2, file->flags)) {
 		g_Vars.language |= 0x02;
 	}
 
-	if (pakHasBitflag(GAMEFILEFLAG_LANGBIT3, file->flags)) {
+	if (pak_has_bitflag(GAMEFILEFLAG_LANGBIT3, file->flags)) {
 		g_Vars.language |= 0x04;
 	}
 
-	langSetEuropean(g_Vars.language);
+	lang_set_european(g_Vars.language);
 #endif
 }
 
-void gamefileLoadDefaults(struct gamefile *file)
+void gamefile_load_defaults(struct gamefile *file)
 {
 	s32 player1 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 0 : 4;
 	s32 player2 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 1 : 5;
@@ -153,74 +153,74 @@ void gamefileLoadDefaults(struct gamefile *file)
 	file->autostageindex = 0;
 	file->totaltime = 0;
 #if VERSION >= VERSION_NTSC_1_0
-	sndSetSfxVolume(0x5000);
-	optionsSetMusicVolume(0x5000);
+	snd_set_sfx_volume(0x5000);
+	options_set_music_volume(0x5000);
 #else
-	sndSetSfxVolume(0x7f80);
-	optionsSetMusicVolume(0x7f80);
+	snd_set_sfx_volume(0x7f80);
+	options_set_music_volume(0x7f80);
 #endif
-	sndSetSoundMode(SOUNDMODE_STEREO);
-	optionsSetControlMode(player1, CONTROLMODE_11);
-	optionsSetControlMode(player2, CONTROLMODE_11);
-	pakClearAllBitflags(file->flags);
+	snd_set_sound_mode(SOUNDMODE_STEREO);
+	options_set_control_mode(player1, CONTROLMODE_11);
+	options_set_control_mode(player2, CONTROLMODE_11);
+	pak_clear_all_bitflags(file->flags);
 
-	pakSetBitflag(GAMEFILEFLAG_P1_FORWARDPITCH, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_HEADROLL, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_INGAMESUBTITLES, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_SHOWZOOMRANGE, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P1_SHOWMISSIONTIME, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_P1_PAINTBALL, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_P1_FORWARDPITCH, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P1_HEADROLL, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_INGAMESUBTITLES, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P1_ALWAYSSHOWTARGET, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P1_SHOWZOOMRANGE, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P1_SHOWMISSIONTIME, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_P1_PAINTBALL, file->flags, false);
 
-	pakSetBitflag(GAMEFILEFLAG_P2_FORWARDPITCH, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P2_LOOKAHEAD, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P2_HEADROLL, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P2_FORWARDPITCH, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P2_LOOKAHEAD, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P2_HEADROLL, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, file->flags, true);
 
 #if VERSION >= VERSION_JPN_FINAL
-	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags, true);
 #else
-	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, file->flags, false);
 #endif
 
-	pakSetBitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_P2_PAINTBALL, file->flags, false);
 
-	pakSetBitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_SCREENRATIO, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_SCREENSPLIT, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_SCREENRATIO, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, file->flags, false);
 
-	pakSetBitflag(GAMEFILEFLAG_HIRES, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_LANGFILTERON, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_HIRES, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_LANGFILTERON, file->flags, false);
 
 #if VERSION >= VERSION_NTSC_1_0
-	pakSetBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, file->flags, false);
-	pakSetBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_FOUNDPROXYMINE, file->flags, false);
+	pak_set_bitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, file->flags, false);
 #endif
 
-	pakSetBitflag(GAMEFILEFLAG_COOPRADARON, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_ANTIRADARON, file->flags, true);
-	pakSetBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_COOPRADARON, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_ANTIRADARON, file->flags, true);
+	pak_set_bitflag(GAMEFILEFLAG_ANTIPLAYERNUM, file->flags, true);
 
 #if VERSION >= VERSION_PAL_BETA
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, ((g_Vars.language & 0x01) == 0x01));
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT2, g_GameFile.flags, ((g_Vars.language & 0x02) == 0x02));
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT3, g_GameFile.flags, ((g_Vars.language & 0x04) == 0x04));
+	pak_set_bitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, ((g_Vars.language & 0x01) == 0x01));
+	pak_set_bitflag(GAMEFILEFLAG_LANGBIT2, g_GameFile.flags, ((g_Vars.language & 0x02) == 0x02));
+	pak_set_bitflag(GAMEFILEFLAG_LANGBIT3, g_GameFile.flags, ((g_Vars.language & 0x04) == 0x04));
 #endif
 
 	file->unk1e = 0;
@@ -233,11 +233,11 @@ void gamefileLoadDefaults(struct gamefile *file)
 
 	for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 		for (j = 1; j < MAX_PLAYERS + 1; j++) {
-			challengeSetCompletedByAnyPlayerWithNumPlayers(i, j, false);
+			challenge_set_completed_by_any_player_with_num_players(i, j, false);
 		}
 	}
 
-	challengeDetermineUnlockedFeatures();
+	challenge_determine_unlocked_features();
 
 	for (i = 0; i < ARRAYCOUNT(g_GameFile.coopcompletions); i++) {
 		g_GameFile.coopcompletions[i] = 0;
@@ -256,7 +256,7 @@ void gamefileLoadDefaults(struct gamefile *file)
 		g_GameFile.weaponsfound[i] = 0;
 	}
 
-	gamefileApplyOptions(file);
+	gamefile_apply_options(file);
 }
 
 const char var7f1b38e8[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
@@ -266,7 +266,7 @@ const char var7f1b395c[] = "pdoptions.c";
 const char var7f1b3968[] = "MAX_FUDGE_DATA_SIZE>=sizeof(PakFileTypeGameSetup_s)";
 const char var7f1b399c[] = "pdoptions.c";
 
-s32 gamefileLoad(s32 device)
+s32 gamefile_load(s32 device)
 {
 	s32 p1index;
 	s32 p2index;
@@ -281,87 +281,87 @@ s32 gamefileLoad(s32 device)
 	p2index = g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 ? 1 : 5;
 
 	if (device >= 0) {
-		savebufferClear(&buffer);
-		ret = pakReadBodyAtGuid(device, g_GameFileGuid.fileid, buffer.bytes, 0);
+		savebuffer_clear(&buffer);
+		ret = pak_read_body_at_guid(device, g_GameFileGuid.fileid, buffer.bytes, 0);
 		g_FilemgrLastPakError = ret;
 
 		if (ret == 0) {
-			cheatsInit();
-			savebufferReadString(&buffer, g_GameFile.name, 0);
-			g_GameFile.thumbnail = savebufferReadBits(&buffer, 5);
-			g_GameFile.totaltime = savebufferReadBits(&buffer, 32);
-			g_GameFile.autodifficulty = savebufferReadBits(&buffer, 2);
-			g_GameFile.autostageindex = savebufferReadBits(&buffer, 5);
+			cheats_init();
+			savebuffer_read_string(&buffer, g_GameFile.name, 0);
+			g_GameFile.thumbnail = savebuffer_read_bits(&buffer, 5);
+			g_GameFile.totaltime = savebuffer_read_bits(&buffer, 32);
+			g_GameFile.autodifficulty = savebuffer_read_bits(&buffer, 2);
+			g_GameFile.autostageindex = savebuffer_read_bits(&buffer, 5);
 
-			volume = savebufferReadBits(&buffer, 6) * 4;
-
-			if (volume >= 252) {
-				volume = 255;
-			}
-
-			sndSetSfxVolume((volume & 0x1ff) * 128);
-
-			volume = savebufferReadBits(&buffer, 6) * 4;
+			volume = savebuffer_read_bits(&buffer, 6) * 4;
 
 			if (volume >= 252) {
 				volume = 255;
 			}
 
-			optionsSetMusicVolume((volume & 0x1ff) * 128);
+			snd_set_sfx_volume((volume & 0x1ff) * 128);
 
-			sndSetSoundMode(savebufferReadBits(&buffer, 2));
-			optionsSetControlMode(p1index, savebufferReadBits(&buffer, 3));
-			optionsSetControlMode(p2index, savebufferReadBits(&buffer, 3));
+			volume = savebuffer_read_bits(&buffer, 6) * 4;
+
+			if (volume >= 252) {
+				volume = 255;
+			}
+
+			options_set_music_volume((volume & 0x1ff) * 128);
+
+			snd_set_sound_mode(savebuffer_read_bits(&buffer, 2));
+			options_set_control_mode(p1index, savebuffer_read_bits(&buffer, 3));
+			options_set_control_mode(p2index, savebuffer_read_bits(&buffer, 3));
 
 			for (i = 0; i < ARRAYCOUNT(g_GameFile.flags); i++) {
-				g_GameFile.flags[i] = savebufferReadBits(&buffer, 8);
+				g_GameFile.flags[i] = savebuffer_read_bits(&buffer, 8);
 			}
 
-			g_GameFile.unk1e = savebufferReadBits(&buffer, 16);
+			g_GameFile.unk1e = savebuffer_read_bits(&buffer, 16);
 
 			for (i = 0; i < ARRAYCOUNT(g_GameFile.besttimes); i++) {
 				for (j = 0; j < ARRAYCOUNT(g_GameFile.besttimes[i]); j++) {
-					g_GameFile.besttimes[i][j] = savebufferReadBits(&buffer, 12);
+					g_GameFile.besttimes[i][j] = savebuffer_read_bits(&buffer, 12);
 				}
 			}
 
 			for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 				for (j = 1; j < MAX_PLAYERS + 1; j++) {
-					challengeSetCompletedByAnyPlayerWithNumPlayers(i, j, savebufferReadBits(&buffer, 1));
+					challenge_set_completed_by_any_player_with_num_players(i, j, savebuffer_read_bits(&buffer, 1));
 				}
 			}
 
-			challengeDetermineUnlockedFeatures();
+			challenge_determine_unlocked_features();
 
 			for (i = 0; i < ARRAYCOUNT(g_GameFile.coopcompletions); i++) {
-				g_GameFile.coopcompletions[i] = savebufferReadBits(&buffer, NUM_SOLOSTAGES);
+				g_GameFile.coopcompletions[i] = savebuffer_read_bits(&buffer, NUM_SOLOSTAGES);
 			}
 
 			for (i = 0; i < ARRAYCOUNT(g_GameFile.firingrangescores); i++) {
 				s32 numbits = i == ARRAYCOUNT(g_GameFile.firingrangescores) - 1 ? 2 : 8;
-				g_GameFile.firingrangescores[i] = savebufferReadBits(&buffer, numbits);
+				g_GameFile.firingrangescores[i] = savebuffer_read_bits(&buffer, numbits);
 			}
 
 			for (i = 0; i < 4; i++) {
-				g_GameFile.weaponsfound[i] = savebufferReadBits(&buffer, 8);
+				g_GameFile.weaponsfound[i] = savebuffer_read_bits(&buffer, 8);
 			}
 
 #if VERSION >= VERSION_NTSC_1_0
-			if (pakHasBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags)) {
-				frSetWeaponFound(WEAPON_TIMEDMINE);
+			if (pak_has_bitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags)) {
+				fr_set_weapon_found(WEAPON_TIMEDMINE);
 			}
 
-			if (pakHasBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, g_GameFile.flags)) {
-				frSetWeaponFound(WEAPON_PROXIMITYMINE);
+			if (pak_has_bitflag(GAMEFILEFLAG_FOUNDPROXYMINE, g_GameFile.flags)) {
+				fr_set_weapon_found(WEAPON_PROXIMITYMINE);
 			}
 
-			if (pakHasBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags)) {
-				frSetWeaponFound(WEAPON_REMOTEMINE);
+			if (pak_has_bitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags)) {
+				fr_set_weapon_found(WEAPON_REMOTEMINE);
 			}
 #endif
 
 			func0f0d54c4(&buffer);
-			gamefileApplyOptions(&g_GameFile);
+			gamefile_apply_options(&g_GameFile);
 
 			return 0;
 		}
@@ -372,7 +372,7 @@ s32 gamefileLoad(s32 device)
 	return -1;
 }
 
-s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
+s32 gamefile_save(s32 device, s32 fileid, u16 deviceserial)
 {
 	u32 value;
 	s32 newfileid;
@@ -388,58 +388,58 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 
 	var80075bd0[0] = 1;
 
-	pakSetBitflag(GAMEFILEFLAG_P1_FORWARDPITCH, g_GameFile.flags, optionsGetForwardPitch(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_AUTOAIM, g_GameFile.flags, optionsGetAutoAim(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_AIMCONTROL, g_GameFile.flags, optionsGetAimControl(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, g_GameFile.flags, optionsGetSightOnScreen(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_LOOKAHEAD, g_GameFile.flags, optionsGetLookAhead(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, g_GameFile.flags, optionsGetAmmoOnScreen(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_HEADROLL, g_GameFile.flags, optionsGetHeadRoll(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, g_GameFile.flags, optionsGetShowGunFunction(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_ALWAYSSHOWTARGET, g_GameFile.flags, optionsGetAlwaysShowTarget(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_SHOWZOOMRANGE, g_GameFile.flags, optionsGetShowZoomRange(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_SHOWMISSIONTIME, g_GameFile.flags, optionsGetShowMissionTime(p1index));
-	pakSetBitflag(GAMEFILEFLAG_P1_PAINTBALL, g_GameFile.flags, optionsGetPaintball(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_FORWARDPITCH, g_GameFile.flags, options_get_forward_pitch(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_AUTOAIM, g_GameFile.flags, options_get_auto_aim(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_AIMCONTROL, g_GameFile.flags, options_get_aim_control(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, g_GameFile.flags, options_get_sight_on_screen(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_LOOKAHEAD, g_GameFile.flags, options_get_look_ahead(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_AMMOONSCREEN, g_GameFile.flags, options_get_ammo_on_screen(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_HEADROLL, g_GameFile.flags, options_get_head_roll(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_SHOWGUNFUNCTION, g_GameFile.flags, options_get_show_gun_function(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_ALWAYSSHOWTARGET, g_GameFile.flags, options_get_always_show_target(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_SHOWZOOMRANGE, g_GameFile.flags, options_get_show_zoom_range(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_SHOWMISSIONTIME, g_GameFile.flags, options_get_show_mission_time(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_PAINTBALL, g_GameFile.flags, options_get_paintball(p1index));
 
-	pakSetBitflag(GAMEFILEFLAG_P2_FORWARDPITCH, g_GameFile.flags, optionsGetForwardPitch(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_AUTOAIM, g_GameFile.flags, optionsGetAutoAim(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_AIMCONTROL, g_GameFile.flags, optionsGetAimControl(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, g_GameFile.flags, optionsGetSightOnScreen(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_LOOKAHEAD, g_GameFile.flags, optionsGetLookAhead(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, g_GameFile.flags, optionsGetAmmoOnScreen(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_HEADROLL, g_GameFile.flags, optionsGetHeadRoll(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, g_GameFile.flags, optionsGetShowGunFunction(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, g_GameFile.flags, optionsGetAlwaysShowTarget(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, g_GameFile.flags, optionsGetShowZoomRange(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, g_GameFile.flags, optionsGetShowMissionTime(p2index));
-	pakSetBitflag(GAMEFILEFLAG_P2_PAINTBALL, g_GameFile.flags, optionsGetPaintball(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_FORWARDPITCH, g_GameFile.flags, options_get_forward_pitch(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_AUTOAIM, g_GameFile.flags, options_get_auto_aim(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_AIMCONTROL, g_GameFile.flags, options_get_aim_control(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, g_GameFile.flags, options_get_sight_on_screen(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_LOOKAHEAD, g_GameFile.flags, options_get_look_ahead(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_AMMOONSCREEN, g_GameFile.flags, options_get_ammo_on_screen(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_HEADROLL, g_GameFile.flags, options_get_head_roll(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_SHOWGUNFUNCTION, g_GameFile.flags, options_get_show_gun_function(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_ALWAYSSHOWTARGET, g_GameFile.flags, options_get_always_show_target(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_SHOWZOOMRANGE, g_GameFile.flags, options_get_show_zoom_range(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_SHOWMISSIONTIME, g_GameFile.flags, options_get_show_mission_time(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_PAINTBALL, g_GameFile.flags, options_get_paintball(p2index));
 
-	pakSetBitflag(GAMEFILEFLAG_SCREENSPLIT, g_GameFile.flags, optionsGetScreenSplit());
-	pakSetBitflag(GAMEFILEFLAG_SCREENRATIO, g_GameFile.flags, optionsGetScreenRatio());
+	pak_set_bitflag(GAMEFILEFLAG_SCREENSPLIT, g_GameFile.flags, options_get_screen_split());
+	pak_set_bitflag(GAMEFILEFLAG_SCREENRATIO, g_GameFile.flags, options_get_screen_ratio());
 
 #if VERSION >= VERSION_NTSC_1_0
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, g_GameFile.flags, optionsGetScreenSize() == SCREENSIZE_WIDE);
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, g_GameFile.flags, optionsGetScreenSize() == SCREENSIZE_CINEMA);
+	pak_set_bitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, g_GameFile.flags, options_get_screen_size() == SCREENSIZE_WIDE);
+	pak_set_bitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, g_GameFile.flags, options_get_screen_size() == SCREENSIZE_CINEMA);
 #else
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, g_GameFile.flags, optionsGetEffectiveScreenSize() == SCREENSIZE_WIDE);
-	pakSetBitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, g_GameFile.flags, optionsGetEffectiveScreenSize() == SCREENSIZE_CINEMA);
+	pak_set_bitflag(GAMEFILEFLAG_SCREENSIZE_WIDE, g_GameFile.flags, options_get_effective_screen_size() == SCREENSIZE_WIDE);
+	pak_set_bitflag(GAMEFILEFLAG_SCREENSIZE_CINEMA, g_GameFile.flags, options_get_effective_screen_size() == SCREENSIZE_CINEMA);
 #endif
 
-	pakSetBitflag(GAMEFILEFLAG_HIRES, g_GameFile.flags, g_ViRes == VIRES_HI);
-	pakSetBitflag(GAMEFILEFLAG_INGAMESUBTITLES, g_GameFile.flags, optionsGetInGameSubtitles());
-	pakSetBitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, g_GameFile.flags, optionsGetCutsceneSubtitles());
-	pakSetBitflag(GAMEFILEFLAG_LANGFILTERON, g_GameFile.flags, g_Vars.langfilteron);
+	pak_set_bitflag(GAMEFILEFLAG_HIRES, g_GameFile.flags, g_ViRes == VIRES_HI);
+	pak_set_bitflag(GAMEFILEFLAG_INGAMESUBTITLES, g_GameFile.flags, options_get_in_game_subtitles());
+	pak_set_bitflag(GAMEFILEFLAG_CUTSCENESUBTITLES, g_GameFile.flags, options_get_cutscene_subtitles());
+	pak_set_bitflag(GAMEFILEFLAG_LANGFILTERON, g_GameFile.flags, g_Vars.langfilteron);
 
 #if VERSION >= VERSION_NTSC_1_0
-	pakSetBitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_TIMEDMINE));
-	pakSetBitflag(GAMEFILEFLAG_FOUNDPROXYMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_PROXIMITYMINE));
-	pakSetBitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags, frIsWeaponFound(WEAPON_REMOTEMINE));
+	pak_set_bitflag(GAMEFILEFLAG_FOUNDTIMEDMINE, g_GameFile.flags, fr_is_weapon_found(WEAPON_TIMEDMINE));
+	pak_set_bitflag(GAMEFILEFLAG_FOUNDPROXYMINE, g_GameFile.flags, fr_is_weapon_found(WEAPON_PROXIMITYMINE));
+	pak_set_bitflag(GAMEFILEFLAG_FOUNDREMOTEMINE, g_GameFile.flags, fr_is_weapon_found(WEAPON_REMOTEMINE));
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
-	switch (optionsGetScreenSize())
+	switch (options_get_screen_size())
 #else
-	switch (optionsGetEffectiveScreenSize())
+	switch (options_get_effective_screen_size())
 #endif
 	{
 	case SCREENSIZE_FULL:
@@ -450,71 +450,71 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 		break;
 	}
 
-	pakSetBitflag(GAMEFILEFLAG_ANTIPLAYERNUM, g_GameFile.flags, g_Vars.pendingantiplayernum == 1);
-	pakSetBitflag(GAMEFILEFLAG_COOPRADARON, g_GameFile.flags, g_Vars.coopradaron == true);
-	pakSetBitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, g_GameFile.flags, g_Vars.coopfriendlyfire == true);
-	pakSetBitflag(GAMEFILEFLAG_ANTIRADARON, g_GameFile.flags, g_Vars.antiradaron == true);
+	pak_set_bitflag(GAMEFILEFLAG_ANTIPLAYERNUM, g_GameFile.flags, g_Vars.pendingantiplayernum == 1);
+	pak_set_bitflag(GAMEFILEFLAG_COOPRADARON, g_GameFile.flags, g_Vars.coopradaron == true);
+	pak_set_bitflag(GAMEFILEFLAG_COOPFRIENDLYFIRE, g_GameFile.flags, g_Vars.coopfriendlyfire == true);
+	pak_set_bitflag(GAMEFILEFLAG_ANTIRADARON, g_GameFile.flags, g_Vars.antiradaron == true);
 
 #if VERSION >= VERSION_PAL_BETA
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, (g_Vars.language & 0x01) == 0x01);
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT2, g_GameFile.flags, (g_Vars.language & 0x02) == 0x02);
-	pakSetBitflag(GAMEFILEFLAG_LANGBIT3, g_GameFile.flags, (g_Vars.language & 0x04) == 0x04);
+	pak_set_bitflag(GAMEFILEFLAG_LANGBIT1, g_GameFile.flags, (g_Vars.language & 0x01) == 0x01);
+	pak_set_bitflag(GAMEFILEFLAG_LANGBIT2, g_GameFile.flags, (g_Vars.language & 0x02) == 0x02);
+	pak_set_bitflag(GAMEFILEFLAG_LANGBIT3, g_GameFile.flags, (g_Vars.language & 0x04) == 0x04);
 #endif
 
 	if (device >= 0) {
-		savebufferClear(&buffer);
+		savebuffer_clear(&buffer);
 		func0f0d55a4(&buffer, g_GameFile.name);
 
-		savebufferOr(&buffer, g_GameFile.thumbnail, 5);
-		savebufferOr(&buffer, g_GameFile.totaltime, 32);
-		savebufferOr(&buffer, g_GameFile.autodifficulty, 2);
-		savebufferOr(&buffer, g_GameFile.autostageindex, 5);
+		savebuffer_or(&buffer, g_GameFile.thumbnail, 5);
+		savebuffer_or(&buffer, g_GameFile.totaltime, 32);
+		savebuffer_or(&buffer, g_GameFile.autodifficulty, 2);
+		savebuffer_or(&buffer, g_GameFile.autostageindex, 5);
 
 		value = VOLUME(g_SfxVolume) >> 7;
-		savebufferOr(&buffer, value >> 2, 6);
+		savebuffer_or(&buffer, value >> 2, 6);
 
-		value = optionsGetMusicVolume() >> 7;
-		savebufferOr(&buffer, value >> 2, 6);
+		value = options_get_music_volume() >> 7;
+		savebuffer_or(&buffer, value >> 2, 6);
 
 		value = g_SoundMode;
-		savebufferOr(&buffer, value, 2);
+		savebuffer_or(&buffer, value, 2);
 
-		savebufferOr(&buffer, optionsGetControlMode(p1index), 3);
-		savebufferOr(&buffer, optionsGetControlMode(p2index), 3);
+		savebuffer_or(&buffer, options_get_control_mode(p1index), 3);
+		savebuffer_or(&buffer, options_get_control_mode(p2index), 3);
 
 		for (i = 0; i < ARRAYCOUNT(g_GameFile.flags); i++) {
-			savebufferOr(&buffer, g_GameFile.flags[i], 8);
+			savebuffer_or(&buffer, g_GameFile.flags[i], 8);
 		}
 
-		savebufferOr(&buffer, g_GameFile.unk1e, 16);
+		savebuffer_or(&buffer, g_GameFile.unk1e, 16);
 
 		for (i = 0; i < ARRAYCOUNT(g_GameFile.besttimes); i++) {
 			for (j = 0; j < ARRAYCOUNT(g_GameFile.besttimes[i]); j++) {
-				savebufferOr(&buffer, g_GameFile.besttimes[i][j], 12);
+				savebuffer_or(&buffer, g_GameFile.besttimes[i][j], 12);
 			}
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 			for (j = 1; j < MAX_PLAYERS + 1; j++) {
-				savebufferOr(&buffer, challengeIsCompletedByAnyPlayerWithNumPlayers(i, j), 1);
+				savebuffer_or(&buffer, challenge_is_completed_by_any_player_with_num_players(i, j), 1);
 			}
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_GameFile.coopcompletions); i++) {
-			savebufferOr(&buffer, g_GameFile.coopcompletions[i], NUM_SOLOSTAGES);
+			savebuffer_or(&buffer, g_GameFile.coopcompletions[i], NUM_SOLOSTAGES);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_GameFile.firingrangescores); i++) {
-			savebufferOr(&buffer, g_GameFile.firingrangescores[i], i == 8 ? 2 : 8);
+			savebuffer_or(&buffer, g_GameFile.firingrangescores[i], i == 8 ? 2 : 8);
 		}
 
 		for (i = 0; i < 4; i++) {
-			savebufferOr(&buffer, g_GameFile.weaponsfound[i], 8);
+			savebuffer_or(&buffer, g_GameFile.weaponsfound[i], 8);
 		}
 
 		func0f0d54c4(&buffer);
 
-		ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_GAME, buffer.bytes, &newfileid, 0);
+		ret = pak_save_at_guid(device, fileid, PAKFILETYPE_GAME, buffer.bytes, &newfileid, 0);
 		g_FilemgrLastPakError = ret;
 
 		if (ret == 0) {
@@ -530,20 +530,20 @@ s32 gamefileSave(s32 device, s32 fileid, u16 deviceserial)
 	return -1;
 }
 
-void gamefileGetOverview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time)
+void gamefile_get_overview(char *arg0, char *name, u8 *stage, u8 *difficulty, u32 *time)
 {
 	struct savebuffer buffer;
 
 	func0f0d5484(&buffer, arg0, 15);
-	savebufferReadString(&buffer, name, false);
+	savebuffer_read_string(&buffer, name, false);
 
-	*stage = savebufferReadBits(&buffer, 5);
+	*stage = savebuffer_read_bits(&buffer, 5);
 
 #if VERSION >= VERSION_NTSC_1_0
-	*time = savebufferReadBits(&buffer, 32);
+	*time = savebuffer_read_bits(&buffer, 32);
 #else
-	*time = (u16) savebufferReadBits(&buffer, 32);
+	*time = (u16) savebuffer_read_bits(&buffer, 32);
 #endif
 
-	*difficulty = savebufferReadBits(&buffer, 2);
+	*difficulty = savebuffer_read_bits(&buffer, 2);
 }

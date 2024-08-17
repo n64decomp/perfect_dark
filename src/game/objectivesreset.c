@@ -6,11 +6,11 @@
 #include "data.h"
 #include "types.h"
 
-void objectivesReset(void)
+void objectives_reset(void)
 {
 	s32 i;
 
-	if (mainGetStageNum() < STAGE_TITLE) {
+	if (main_get_stage_num() < STAGE_TITLE) {
 		g_ObjectiveLastIndex = -1;
 
 		for (i = 0; i < ARRAYCOUNT(g_ObjectiveStatuses); i++) {
@@ -31,19 +31,19 @@ void objectivesReset(void)
 	g_HolographCriterias = NULL;
 }
 
-void tagInsert(struct tag *tag)
+void tag_insert(struct tag *tag)
 {
 	tag->next = g_TagsLinkedList;
 	g_TagsLinkedList = tag;
 }
 
-void briefingInsert(struct briefingobj *briefing)
+void briefing_insert(struct briefingobj *briefing)
 {
 	briefing->next = g_BriefingObjs;
 	g_BriefingObjs = briefing;
 }
 
-void objectiveInsert(struct objective *objective)
+void objective_insert(struct objective *objective)
 {
 	g_Objectives[objective->index] = objective;
 
@@ -52,19 +52,19 @@ void objectiveInsert(struct objective *objective)
 	}
 }
 
-void objectiveAddRoomEnteredCriteria(struct criteria_roomentered *criteria)
+void objective_add_room_entered_criteria(struct criteria_roomentered *criteria)
 {
 	criteria->next = g_RoomEnteredCriterias;
 	g_RoomEnteredCriterias = criteria;
 }
 
-void objectiveAddThrowInRoomCriteria(struct criteria_throwinroom *criteria)
+void objective_add_throw_in_room_criteria(struct criteria_throwinroom *criteria)
 {
 	criteria->next = g_ThrowInRoomCriterias;
 	g_ThrowInRoomCriterias = criteria;
 }
 
-void objectiveAddHolographCriteria(struct criteria_holograph *criteria)
+void objective_add_holograph_criteria(struct criteria_holograph *criteria)
 {
 	criteria->next = g_HolographCriterias;
 	g_HolographCriterias = criteria;

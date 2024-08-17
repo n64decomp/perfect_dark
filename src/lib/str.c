@@ -7,11 +7,11 @@ char *strcpy(char *dst, const char *src)
 	char c;
 
 	if (dst == NULL) {
-		faultAssert("s1", "str.c", 44);
+		fault_assert("s1", "str.c", 44);
 	}
 
 	if (src == NULL) {
-		faultAssert("s2", "str.c", 45);
+		fault_assert("s2", "str.c", 45);
 	}
 
 	*ptr = c = *src;

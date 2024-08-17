@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void pimgrCreate(void);
+void pimgr_create(void);
 
 #endif

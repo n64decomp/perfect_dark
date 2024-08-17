@@ -9,7 +9,7 @@
 u32 var80062950 = 100;
 bool g_WeatherTickEnabled = true;
 
-void weatherTick(void)
+void weather_tick(void)
 {
 	if (!g_WeatherData
 			|| (g_StageIndex == STAGEINDEX_AIRBASE && g_Vars.currentplayer->cam_pos.z < -2000.0f)
@@ -17,16 +17,16 @@ void weatherTick(void)
 		return;
 	}
 
-	mainOverrideVariable("wettick", (u32 *)&g_WeatherTickEnabled);
-	mainOverrideVariable("windspeed", &var80062950);
+	main_override_variable("wettick", (u32 *)&g_WeatherTickEnabled);
+	main_override_variable("windspeed", &var80062950);
 
 	if (g_WeatherTickEnabled) {
 		switch (g_WeatherData->type) {
 		case WEATHERTYPE_RAIN:
-			weatherTickRain(g_WeatherData);
+			weather_tick_rain(g_WeatherData);
 			break;
 		case WEATHERTYPE_SNOW:
-			weatherTickSnow(g_WeatherData);
+			weather_tick_snow(g_WeatherData);
 			break;
 		}
 	}

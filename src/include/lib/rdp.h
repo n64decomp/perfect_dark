@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void rdpInit(void);
-void rdpCreateTask(Gfx *gdlstart, Gfx *gdlend, u32 arg2, s32 msg);
+void rdp_init(void);
+void rdp_create_task(Gfx *gdlstart, Gfx *gdlend, u32 arg2, s32 msg);
 
 #endif

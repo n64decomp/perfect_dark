@@ -30,7 +30,7 @@ f32 g_Lv80SecIntervalFrac = 0;
  * The aweight argument is how much weight is given to colour A, on a scale of
  * 0 to 255.
  */
-u32 colourBlend(u32 a, u32 b, u32 aweight)
+u32 colour_blend(u32 a, u32 b, u32 aweight)
 {
 	u32 bweight = 0xff - aweight;
 
@@ -40,7 +40,7 @@ u32 colourBlend(u32 a, u32 b, u32 aweight)
 		| ((aweight * (a & 0xff) + bweight * (b & 0xff)) >> 8);
 }
 
-void menuTickTimers(void)
+void menu_tick_timers(void)
 {
 #if VERSION >= VERSION_PAL_BETA
 	g_20SecIntervalFrac = g_20SecIntervalFrac + g_Vars.diffframe240freal / 4800.0f;
@@ -60,8 +60,8 @@ void menuTickTimers(void)
 
 #if PIRACYCHECKS
 	{
-		u32 *ptr = (u32 *)&mtxGetObfuscatedRomBase;
-		u32 *end = (u32 *)&mtxF2L;
+		u32 *ptr = (u32 *)&mtx_get_obfuscated_rom_base;
+		u32 *end = (u32 *)&mtx_f2l;
 		u32 checksum = 0;
 
 		while (ptr < end) {
@@ -71,7 +71,7 @@ void menuTickTimers(void)
 		}
 
 		if (checksum != CHECKSUM_PLACEHOLDER) {
-			u32 *ptr = (u32 *)&bgReset;
+			u32 *ptr = (u32 *)&bg_reset;
 			ptr += random() % 0x40;
 			end = &ptr[4];
 
@@ -91,7 +91,7 @@ void menuTickTimers(void)
  *
  * freq is the amount of oscillations per 20 seconds.
  */
-f32 menuGetSinOscFrac(f32 freq)
+f32 menu_get_sin_osc_frac(f32 freq)
 {
 	return sinf((freq * g_20SecIntervalFrac + freq * g_20SecIntervalFrac) * M_PI) / 2.0f + 0.5f;
 }
@@ -103,7 +103,7 @@ f32 menuGetSinOscFrac(f32 freq)
  *
  * freq is the amount of oscillations per 20 seconds.
  */
-f32 menuGetCosOscFrac(f32 freq)
+f32 menu_get_cos_osc_frac(f32 freq)
 {
 	return cosf((freq * g_20SecIntervalFrac + freq * g_20SecIntervalFrac) * M_PI) / 2.0f + 0.5f;
 }
@@ -116,7 +116,7 @@ f32 menuGetCosOscFrac(f32 freq)
  *
  * freq is the amount of intervals per 20 seconds.
  */
-f32 menuGetLinearIntervalFrac(f32 freq)
+f32 menu_get_linear_interval_frac(f32 freq)
 {
 	f32 tmp = g_20SecIntervalFrac * freq;
 
@@ -136,7 +136,7 @@ f32 menuGetLinearIntervalFrac(f32 freq)
  * It's used on the Combat Simulator's character selection menu
  * to determine the camera's zoom.
  */
-f32 menuGetLinearOscPauseFrac(f32 frac)
+f32 menu_get_linear_osc_pause_frac(f32 frac)
 {
 	s32 ival = frac * 4.0f;
 	f32 fval = frac * 4.0f - (f32)(ival / 4) * 4.0f;

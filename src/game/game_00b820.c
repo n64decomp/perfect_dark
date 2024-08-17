@@ -14,7 +14,7 @@
 
 struct prop *g_DangerousProps[12];
 
-void resetSomeStageThings(void)
+void reset_some_stage_things(void)
 {
 	s32 i;
 
@@ -32,7 +32,7 @@ void resetSomeStageThings(void)
 	g_NumChrsSeenPlayerRecently2 = 0;
 }
 
-void stageAllocateBgChrs(void)
+void stage_allocate_bg_chrs(void)
 {
 	bool modified;
 	struct chrdata tmp;
@@ -65,8 +65,8 @@ void stageAllocateBgChrs(void)
 		struct chrdata blankchr = {0};
 
 		// Allocate BG chrs
-		g_BgChrs = mempAlloc(ALIGN16(g_NumBgChrs * sizeof(struct chrdata)), MEMPOOL_STAGE);
-		g_BgChrnums = mempAlloc(ALIGN16(g_NumBgChrs * sizeof(s16)), MEMPOOL_STAGE);
+		g_BgChrs = memp_alloc(ALIGN16(g_NumBgChrs * sizeof(struct chrdata)), MEMPOOL_STAGE);
+		g_BgChrnums = memp_alloc(ALIGN16(g_NumBgChrs * sizeof(s16)), MEMPOOL_STAGE);
 
 		// Initialise BG chrs
 		i = 0;
@@ -123,11 +123,11 @@ void stageAllocateBgChrs(void)
 		}
 	}
 
-	g_TeamList = mempAlloc((MAX_CHRSPERTEAM + 1) * MAX_TEAMS * sizeof(s16), MEMPOOL_STAGE);
-	g_SquadronList = mempAlloc((MAX_CHRSPERSQUADRON + 1) * MAX_SQUADRONS * sizeof(s16), MEMPOOL_STAGE);
+	g_TeamList = memp_alloc((MAX_CHRSPERTEAM + 1) * MAX_TEAMS * sizeof(s16), MEMPOOL_STAGE);
+	g_SquadronList = memp_alloc((MAX_CHRSPERSQUADRON + 1) * MAX_SQUADRONS * sizeof(s16), MEMPOOL_STAGE);
 }
 
-void stageLoadAllAilistModels(void)
+void stage_load_all_ailist_models(void)
 {
 	u8 *cmd = g_StageSetup.ailists[0].list;
 	s32 i = 0;
@@ -146,26 +146,26 @@ void stageLoadAllAilistModels(void)
 			switch (cmd[0]) {
 			case AICMD_DROPITEM:
 				id = cmd[3] | (cmd[2] << 8);
-				if (setupLoadModeldef(id));
+				if (setup_load_modeldef(id));
 				break;
 			case AICMD_SPAWNCHRATPAD:
-				bodyLoad(cmd[2]);
-				if ((s8)cmd[3] >= 0 && bodyLoad((s8)cmd[3]));
+				body_load(cmd[2]);
+				if ((s8)cmd[3] >= 0 && body_load((s8)cmd[3]));
 				break;
 			case AICMD_SPAWNCHRATCHR:
-				bodyLoad(cmd[2]);
-				if ((s8)cmd[3] >= 0 && bodyLoad((s8)cmd[3]));
+				body_load(cmd[2]);
+				if ((s8)cmd[3] >= 0 && body_load((s8)cmd[3]));
 				break;
 			case AICMD_EQUIPWEAPON:
-				setupLoadModeldef(cmd[3] | (cmd[2] << 8));
-				if (modelmgrLoadProjectileModeldefs(cmd[4]));
+				setup_load_modeldef(cmd[3] | (cmd[2] << 8));
+				if (modelmgr_load_projectile_modeldefs(cmd[4]));
 				break;
 			case AICMD_EQUIPHAT:
-				setupLoadModeldef(cmd[3] | (cmd[2] << 8));
+				setup_load_modeldef(cmd[3] | (cmd[2] << 8));
 				break;
 			}
 
-			cmd += chraiGetCommandLength(cmd, 0);
+			cmd += chrai_get_command_length(cmd, 0);
 		}
 
 		i++;

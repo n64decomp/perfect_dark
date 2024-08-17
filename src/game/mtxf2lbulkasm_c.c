@@ -5,7 +5,7 @@
 #include "data.h"
 #include "types.h"
 
-void mtxF2LBulk(Mtxf *mtx, s32 count)
+void mtx_f2l_bulk(Mtxf *mtx, s32 count)
 {
 	do {
 		u32 m00 = (s32) (mtx->m[0][0] * var8005ef10[0]);

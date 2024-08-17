@@ -134,22 +134,22 @@ void env0f1657c0(s32 arg0, s32 arg1)
 	// empty
 }
 
-struct environment *envGetCurrent(void)
+struct environment *env_get_current(void)
 {
 	return &g_Env;
 }
 
-f32 envGetFogMax(void)
+f32 env_get_fog_max(void)
 {
 	return g_EnvFogMax;
 }
 
-f32 envGetSquaredFogMax(void)
+f32 env_get_squared_fog_max(void)
 {
 	return g_EnvFogMax * g_EnvFogMax;
 }
 
-void envTick(void)
+void env_tick(void)
 {
 	struct zrange zrange;
 	f32 scale;
@@ -162,9 +162,9 @@ void envTick(void)
 		return;
 	}
 
-	viGetZRange(&zrange);
+	vi_get_z_range(&zrange);
 
-	scale = bgGetScaleBg2Gfx();
+	scale = bg_get_scale_bg2gfx();
 
 	zrange.near /= scale;
 	zrange.far /= scale;
@@ -189,12 +189,12 @@ void envTick(void)
 	g_EnvShadeSettings.alphanear = (sp28 * (zfar + 1.0f) / (zfar - znear) + sp24) / 255.0f;
 }
 
-void envApplyFogEnvironment(struct fogenvironment *env)
+void env_apply_fog_environment(struct fogenvironment *env)
 {
 	g_FogEnabled = true;
 	g_EnvHasTransparency = false;
 
-	viSetZRange(env->near, env->far);
+	vi_set_z_range(env->near, env->far);
 
 	g_Env.fogmin = env->fogmin;
 	g_Env.fogmax = env->fogmax;
@@ -233,14 +233,14 @@ void envApplyFogEnvironment(struct fogenvironment *env)
 		g_EnvDistFadeSettingsPtr = &g_EnvDistFadeSettings;
 	}
 
-	envTick();
+	env_tick();
 }
 
-void envApplyNoFogEnvironment(struct nofogenvironment *env)
+void env_apply_no_fog_environment(struct nofogenvironment *env)
 {
 	struct zrange zrange;
 
-	viSetZRange(env->near, env->far);
+	vi_set_z_range(env->near, env->far);
 
 	g_Env.sky_r = env->sky_r;
 	g_Env.sky_g = env->sky_g;
@@ -283,7 +283,7 @@ void envApplyNoFogEnvironment(struct nofogenvironment *env)
 	g_EnvHasTransparency = env->transparency;
 }
 
-void envDisableSky(void)
+void env_disable_sky(void)
 {
 	g_Env.sky_r = 0;
 	g_Env.sky_g = 0;
@@ -294,12 +294,12 @@ void envDisableSky(void)
 	g_Env.skybluefrac = 0;
 }
 
-void envSetStageNum(s32 stagenum)
+void env_set_stage_num(s32 stagenum)
 {
 	// empty
 }
 
-void envChooseAndApply(s32 stagenum, bool allowoverride)
+void env_choose_and_apply(s32 stagenum, bool allowoverride)
 {
 	struct nofogenvironment *finalenv = NULL;
 	struct nofogenvironment *env2;
@@ -318,7 +318,7 @@ void envChooseAndApply(s32 stagenum, bool allowoverride)
 				g_EnvOrigFogEnvironment = env1;
 				g_EnvTransitionFrom = env1;
 				g_EnvTransitionTo = env1 + 1;
-				envApplyFogEnvironment(g_EnvOrigFogEnvironment);
+				env_apply_fog_environment(g_EnvOrigFogEnvironment);
 				return;
 			}
 		}
@@ -330,7 +330,7 @@ void envChooseAndApply(s32 stagenum, bool allowoverride)
 			g_EnvOrigFogEnvironment = env1;
 			g_EnvTransitionFrom = env1;
 			g_EnvTransitionTo = env1 + 1;
-			envApplyFogEnvironment(g_EnvOrigFogEnvironment);
+			env_apply_fog_environment(g_EnvOrigFogEnvironment);
 			return;
 		}
 	}
@@ -348,12 +348,12 @@ void envChooseAndApply(s32 stagenum, bool allowoverride)
 		finalenv = &g_NoFogEnvironments[0];
 	}
 
-	envApplyNoFogEnvironment(finalenv);
+	env_apply_no_fog_environment(finalenv);
 
 	g_EnvOrigFogEnvironment = NULL;
 }
 
-void envApplyTransitionFrac(f32 frac)
+void env_apply_transition_frac(f32 frac)
 {
 	static struct fogenvironment tmp;
 
@@ -372,10 +372,10 @@ void envApplyTransitionFrac(f32 frac)
 	tmp.sky_g &= 0xf8;
 	tmp.sky_b &= 0xf8;
 
-	envApplyFogEnvironment(&tmp);
+	env_apply_fog_environment(&tmp);
 }
 
-Gfx *envStartFog(Gfx *gdl, bool xlupass)
+Gfx *env_start_fog(Gfx *gdl, bool xlupass)
 {
 	if (!g_FogEnabled) {
 		return gdl;
@@ -395,7 +395,7 @@ Gfx *envStartFog(Gfx *gdl, bool xlupass)
 	return gdl;
 }
 
-Gfx *envStopFog(Gfx *gdl)
+Gfx *env_stop_fog(Gfx *gdl)
 {
 	if (!g_FogEnabled) {
 		return gdl;
@@ -406,7 +406,7 @@ Gfx *envStopFog(Gfx *gdl)
 	return gdl;
 }
 
-bool envIsPosInFogMaxDistance(struct coord *pos, f32 tolerance)
+bool env_is_pos_in_fog_max_distance(struct coord *pos, f32 tolerance)
 {
 	struct coord sp24;
 	Mtxf *mtx;
@@ -423,7 +423,7 @@ bool envIsPosInFogMaxDistance(struct coord *pos, f32 tolerance)
 		return true;
 	}
 
-	mtx = camGetWorldToScreenMtxf();
+	mtx = cam_get_world_to_screen_mtxf();
 
 	sp24.x = pos->x - campos->x;
 	sp24.y = pos->y - campos->y;
@@ -438,12 +438,12 @@ bool envIsPosInFogMaxDistance(struct coord *pos, f32 tolerance)
 	return true;
 }
 
-struct distfadesettings *envGetDistFadeSettings(void)
+struct distfadesettings *env_get_dist_fade_settings(void)
 {
 	return g_EnvDistFadeSettingsPtr;
 }
 
-s32 envGetObjShadeMode(struct prop *prop, f32 out[4])
+s32 env_get_obj_shade_mode(struct prop *prop, f32 out[4])
 {
 	if (!g_FogEnabled) {
 		return SHADEMODE_OPA;

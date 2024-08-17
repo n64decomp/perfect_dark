@@ -11,7 +11,7 @@
 #include "data.h"
 #include "types.h"
 
-void playermgrInit(void)
+void playermgr_init(void)
 {
 	s32 i;
 
@@ -24,7 +24,7 @@ void playermgrInit(void)
 	g_Vars.antiplayernum = -1;
 }
 
-void playermgrReset(void)
+void playermgr_reset(void)
 {
 	g_Vars.players[0] = NULL;
 	g_Vars.players[1] = NULL;
@@ -46,7 +46,7 @@ void playermgrReset(void)
 	g_Vars.anti = NULL;
 }
 
-void playermgrAllocatePlayers(s32 count)
+void playermgr_allocate_players(s32 count)
 {
 	g_Vars.players[0] = NULL;
 	g_Vars.players[1] = NULL;
@@ -57,10 +57,10 @@ void playermgrAllocatePlayers(s32 count)
 		s32 i;
 
 		for (i = 0; i < count; i++) {
-			playermgrAllocatePlayer(i);
+			playermgr_allocate_player(i);
 		}
 
-		setCurrentPlayerNum(0);
+		set_current_player_num(0);
 		g_Vars.bond = g_Vars.players[g_Vars.bondplayernum];
 
 		if (g_Vars.coopplayernum >= 0) {
@@ -71,13 +71,13 @@ void playermgrAllocatePlayers(s32 count)
 			g_Vars.anti = g_Vars.players[g_Vars.antiplayernum];
 		}
 	} else {
-		playermgrAllocatePlayer(0);
-		setCurrentPlayerNum(0);
+		playermgr_allocate_player(0);
+		set_current_player_num(0);
 
 		if (g_Vars.fourmeg2player) {
-			playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight() * 2);
+			playermgr_set_view_size(player_get_fb_width(), player_get_fb_height() * 2);
 		} else {
-			playermgrSetViewSize(playerGetFbWidth(), playerGetFbHeight());
+			playermgr_set_view_size(player_get_fb_width(), player_get_fb_height());
 		}
 
 		g_Vars.coop = NULL;
@@ -86,7 +86,7 @@ void playermgrAllocatePlayers(s32 count)
 	}
 }
 
-void playermgrAllocatePlayer(s32 index)
+void playermgr_allocate_player(s32 index)
 {
 	struct hand hand = {
 		{0},
@@ -214,7 +214,7 @@ void playermgrAllocatePlayer(s32 index)
 
 	s32 i;
 
-	g_Vars.players[index] = mempAlloc(sizeof(struct player), MEMPOOL_STAGE);
+	g_Vars.players[index] = memp_alloc(sizeof(struct player), MEMPOOL_STAGE);
 
 	g_Vars.players[index]->cameramode = CAMERAMODE_DEFAULT;
 	g_Vars.players[index]->memcampos.x = 0;
@@ -542,7 +542,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.players[index]->equipcuritem = 0;
 
 	g_Vars.players[index]->angleoffset = 0;
-	g_Vars.players[index]->invincible = cheatIsActive(CHEAT_INVINCIBLE);
+	g_Vars.players[index]->invincible = cheat_is_active(CHEAT_INVINCIBLE);
 	g_Vars.players[index]->healthdamagetype = 7;
 	g_Vars.players[index]->vv_height = 1;
 	g_Vars.players[index]->vv_eyeheight = 1;
@@ -647,7 +647,7 @@ void playermgrAllocatePlayer(s32 index)
 	g_Vars.bondcollisions = true;
 }
 
-void playermgrCalculateAiBuddyNums(void)
+void playermgr_calculate_ai_buddy_nums(void)
 {
 	s32 i;
 	s32 playernum = g_Vars.currentplayernum;
@@ -661,15 +661,15 @@ void playermgrCalculateAiBuddyNums(void)
 	}
 }
 
-void setCurrentPlayerNum(s32 playernum)
+void set_current_player_num(s32 playernum)
 {
 	g_Vars.currentplayernum = playernum;
 	g_Vars.currentplayer = g_Vars.players[playernum];
 	g_Vars.currentplayerstats = &g_Vars.playerstats[playernum];
-	g_Vars.currentplayerindex = playermgrGetOrderOfPlayer(playernum);
+	g_Vars.currentplayerindex = playermgr_get_order_of_player(playernum);
 }
 
-s32 playermgrGetPlayerNumByProp(struct prop *prop)
+s32 playermgr_get_player_num_by_prop(struct prop *prop)
 {
 	s32 i;
 
@@ -682,29 +682,29 @@ s32 playermgrGetPlayerNumByProp(struct prop *prop)
 	return -1;
 }
 
-void playermgrSetViewSize(s32 width, s32 height)
+void playermgr_set_view_size(s32 width, s32 height)
 {
 	g_Vars.currentplayer->viewwidth = width;
 	g_Vars.currentplayer->viewheight = height;
 }
 
-void playermgrSetViewPosition(s32 viewleft, s32 viewtop)
+void playermgr_set_view_position(s32 viewleft, s32 viewtop)
 {
 	g_Vars.currentplayer->viewleft = viewleft;
 	g_Vars.currentplayer->viewtop = viewtop;
 }
 
-void playermgrSetFovY(f32 fovy)
+void playermgr_set_fov_y(f32 fovy)
 {
 	g_Vars.currentplayer->fovy = fovy;
 }
 
-void playermgrSetAspectRatio(f32 aspect)
+void playermgr_set_aspect_ratio(f32 aspect)
 {
 	g_Vars.currentplayer->aspect = aspect;
 }
 
-s32 playermgrGetModelOfWeapon(s32 weapon)
+s32 playermgr_get_model_of_weapon(s32 weapon)
 {
 	s32 model;
 
@@ -766,18 +766,18 @@ s32 playermgrGetModelOfWeapon(s32 weapon)
 	return model;
 }
 
-void playermgrDeleteWeapon(s32 hand)
+void playermgr_delete_weapon(s32 hand)
 {
-	weaponDeleteFromChr(g_Vars.currentplayer->prop->chr, hand);
+	weapon_delete_from_chr(g_Vars.currentplayer->prop->chr, hand);
 }
 
-void playermgrCreateWeapon(s32 hand)
+void playermgr_create_weapon(s32 hand)
 {
 	struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 	if (chr->weapons_held[hand] == NULL) {
-		s32 weaponnum = bgunGetWeaponNum(hand);
-		s32 modelnum = playermgrGetModelOfWeapon(weaponnum);
+		s32 weaponnum = bgun_get_weapon_num(hand);
+		s32 modelnum = playermgr_get_model_of_weapon(weaponnum);
 
 		if (hand == HAND_LEFT && weaponnum == WEAPON_REMOTEMINE) {
 			modelnum = -1;
@@ -792,12 +792,12 @@ void playermgrCreateWeapon(s32 hand)
 				flags = OBJFLAG_WEAPON_LEFTHANDED;
 			}
 
-			weaponCreateForChr(chr, modelnum, weaponnum, flags, NULL, NULL);
+			weapon_create_for_chr(chr, modelnum, weaponnum, flags, NULL, NULL);
 		}
 	}
 }
 
-void playermgrShuffle(void)
+void playermgr_shuffle(void)
 {
 	s32 i;
 
@@ -816,7 +816,7 @@ void playermgrShuffle(void)
 	}
 }
 
-s32 playermgrGetOrderOfPlayer(s32 playernum)
+s32 playermgr_get_order_of_player(s32 playernum)
 {
 	s32 index = 0;
 	s32 i;
@@ -836,7 +836,7 @@ s32 playermgrGetOrderOfPlayer(s32 playernum)
 	return index;
 }
 
-s32 playermgrGetPlayerAtOrder(s32 ordernum)
+s32 playermgr_get_player_at_order(s32 ordernum)
 {
 	s32 i;
 

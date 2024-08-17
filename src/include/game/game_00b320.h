@@ -4,6 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void langReset(s32 stagenum);
+void lang_reset(s32 stagenum);
 
 #endif

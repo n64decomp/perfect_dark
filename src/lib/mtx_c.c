@@ -7,7 +7,7 @@
 
 f32 var8005ef10[] = {65536, 65536};
 
-void mtx4LoadIdentity(Mtxf *mtx)
+void mtx4_load_identity(Mtxf *mtx)
 {
 	mtx->m[0][0] = 1;
 	mtx->m[0][1] = 0;
@@ -30,12 +30,12 @@ void mtx4LoadIdentity(Mtxf *mtx)
 	mtx->m[3][3] = 1;
 }
 
-void mtx4MultMtx4InPlace(Mtxf *multmtx, Mtxf *subject)
+void mtx4_mult_mtx4_in_place(Mtxf *multmtx, Mtxf *subject)
 {
-	mtx4MultMtx4(multmtx, subject, subject);
+	mtx4_mult_mtx4(multmtx, subject, subject);
 }
 
-void mtx4MultMtx4(Mtxf *mtx1, Mtxf *mtx2, Mtxf *dst)
+void mtx4_mult_mtx4(Mtxf *mtx1, Mtxf *mtx2, Mtxf *dst)
 {
 	s32 i;
 	f32 m00 = mtx2->m[0][0];
@@ -63,12 +63,12 @@ void mtx4MultMtx4(Mtxf *mtx1, Mtxf *mtx2, Mtxf *dst)
 	}
 }
 
-void mtx4RotateVecInPlace(Mtxf *mtx, struct coord *vec)
+void mtx4_rotate_vec_in_place(Mtxf *mtx, struct coord *vec)
 {
-	mtx4RotateVec(mtx, vec, vec);
+	mtx4_rotate_vec(mtx, vec, vec);
 }
 
-void mtx4RotateVec(Mtxf *mtx, struct coord *vec, struct coord *dst)
+void mtx4_rotate_vec(Mtxf *mtx, struct coord *vec, struct coord *dst)
 {
 	f32 x = vec->x;
 	f32 y = vec->y;
@@ -79,12 +79,12 @@ void mtx4RotateVec(Mtxf *mtx, struct coord *vec, struct coord *dst)
 	dst->z = mtx->m[0][2] * x + mtx->m[1][2] * y + mtx->m[2][2] * z;
 }
 
-void mtx4TransformVecInPlace(Mtxf *mtx, struct coord *vec)
+void mtx4_transform_vec_in_place(Mtxf *mtx, struct coord *vec)
 {
-	mtx4TransformVec(mtx, vec, vec);
+	mtx4_transform_vec(mtx, vec, vec);
 }
 
-void mtx4TransformVec(Mtxf *mtx, struct coord *vec, struct coord *dst)
+void mtx4_transform_vec(Mtxf *mtx, struct coord *vec, struct coord *dst)
 {
 	f32 x = vec->x;
 	f32 y = vec->y;
@@ -144,7 +144,7 @@ void mtx00015be4(Mtxf *arg0, Mtxf *arg1, Mtxf *dst)
 	dst->m[3][3] = 1;
 }
 
-void mtx3Copy(f32 src[3][3], f32 dst[3][3])
+void mtx3_copy(f32 src[3][3], f32 dst[3][3])
 {
 	dst[0][0] = src[0][0];
 	dst[0][1] = src[0][1];
@@ -159,12 +159,12 @@ void mtx3Copy(f32 src[3][3], f32 dst[3][3])
 	dst[2][2] = src[2][2];
 }
 
-void mtx4Copy(Mtxf *src, Mtxf *dst)
+void mtx4_copy(Mtxf *src, Mtxf *dst)
 {
 	*dst = *src;
 }
 
-void mtx3ToMtx4(f32 src[3][3], Mtxf *dst)
+void mtx3_to_mtx4(f32 src[3][3], Mtxf *dst)
 {
 	dst->m[0][0] = src[0][0];
 	dst->m[0][1] = src[0][1];
@@ -187,7 +187,7 @@ void mtx3ToMtx4(f32 src[3][3], Mtxf *dst)
 	dst->m[3][3] = 1;
 }
 
-void mtx4ToMtx3(Mtxf *src, f32 dst[3][3])
+void mtx4_to_mtx3(Mtxf *src, f32 dst[3][3])
 {
 	dst[0][0] = src->m[0][0];
 	dst[0][1] = src->m[0][1];
@@ -202,7 +202,7 @@ void mtx4ToMtx3(Mtxf *src, f32 dst[3][3])
 	dst[2][2] = src->m[2][2];
 }
 
-void mtx4SetTranslation(struct coord *pos, Mtxf *mtx)
+void mtx4_set_translation(struct coord *pos, Mtxf *mtx)
 {
 	mtx->m[3][0] = pos->x;
 	mtx->m[3][1] = pos->y;
@@ -306,7 +306,7 @@ void mtx00015f88(f32 mult, Mtxf *mtx)
 	mtx->m[3][2] *= mult;
 }
 
-u32 mtxGetObfuscatedRomBase(void)
+u32 mtx_get_obfuscated_rom_base(void)
 {
 	u32 value;
 
@@ -324,7 +324,7 @@ u32 mtxGetObfuscatedRomBase(void)
 	return value;
 }
 
-void mtxF2L(Mtxf *src, Mtxf *dst)
+void mtx_f2l(Mtxf *src, Mtxf *dst)
 {
 	u32 src00 = (s32) (src->m[0][0] * var8005ef10[0]);
 	u32 src01 = (s32) (src->m[0][1] * var8005ef10[0]);

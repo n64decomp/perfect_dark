@@ -54,27 +54,27 @@ Mtxf *g_RoomMtxMatrices;
 
 s32 g_RoomMtxNumSlots = 0;
 
-void roomSetLastForOffset(s32 room)
+void room_set_last_for_offset(s32 room)
 {
 	g_Vars.currentplayer->lastroomforoffset = room;
 }
 
-void roomLinkMtx(s32 index, s32 roomnum)
+void room_link_mtx(s32 index, s32 roomnum)
 {
 	g_Rooms[roomnum].roommtxindex = index;
 	g_RoomMtxLinkedRooms[index] = roomnum;
 }
 
-void roomUnlinkMtx(s32 index, s32 roomnum)
+void room_unlink_mtx(s32 index, s32 roomnum)
 {
 	g_Rooms[roomnum].roommtxindex = -1;
 	g_RoomMtxLinkedRooms[index] = -1;
 }
 
-void roomFreeMtx(s32 index)
+void room_free_mtx(s32 index)
 {
 	if (g_RoomMtxLinkedRooms[index] != -1) {
-		roomUnlinkMtx(index, g_RoomMtxLinkedRooms[index]);
+		room_unlink_mtx(index, g_RoomMtxLinkedRooms[index]);
 	}
 
 	g_RoomMtxAges[index] = NUM_GFXTASKS;
@@ -82,7 +82,7 @@ void roomFreeMtx(s32 index)
 	g_RoomMtxScales[index] = 1;
 }
 
-s32 roomAllocateMtx(void)
+s32 room_allocate_mtx(void)
 {
 	s32 i;
 
@@ -95,11 +95,11 @@ s32 roomAllocateMtx(void)
 	return 0;
 }
 
-void roomPopulateMtx(Mtxf *mtx, s32 roomnum)
+void room_populate_mtx(Mtxf *mtx, s32 roomnum)
 {
 	s32 stagenum = g_Vars.stagenum;
 
-	mtx4LoadIdentity(mtx);
+	mtx4_load_identity(mtx);
 
 	mtx->m[0][0] = 1;
 	mtx->m[1][1] = 1;
@@ -135,7 +135,7 @@ void roomPopulateMtx(Mtxf *mtx, s32 roomnum)
  * missing and updates the modification time. The function creates the cache
  * entry if missing and resets the cache entry's age to 0.
  */
-s32 roomTouchMtx(s32 roomnum)
+s32 room_touch_mtx(s32 roomnum)
 {
 	s32 index = g_Rooms[roomnum].roommtxindex;
 	Mtxf mtx;
@@ -146,12 +146,12 @@ s32 roomTouchMtx(s32 roomnum)
 		// There's no cache for this room or it's invalid.
 		// Unlink the old cache item if any and create a new one.
 		if (index != -1) {
-			roomUnlinkMtx(index, roomnum);
+			room_unlink_mtx(index, roomnum);
 		}
 
-		index = roomAllocateMtx();
+		index = room_allocate_mtx();
 
-		roomLinkMtx(index, roomnum);
+		room_link_mtx(index, roomnum);
 		g_RoomMtxAges[index] = 0;
 	} else {
 		// The room has an existing, valid cache entry.
@@ -162,8 +162,8 @@ s32 roomTouchMtx(s32 roomnum)
 	g_RoomMtxBaseRooms[index] = g_Vars.currentplayer->lastroomforoffset;
 	g_RoomMtxScales[index] = var8005ef10[0];
 
-	roomPopulateMtx(&mtx, roomnum);
-	mtxF2L(&mtx, &g_RoomMtxMatrices[index]);
+	room_populate_mtx(&mtx, roomnum);
+	mtx_f2l(&mtx, &g_RoomMtxMatrices[index]);
 
 	return index;
 }
@@ -172,21 +172,21 @@ s32 roomTouchMtx(s32 roomnum)
  * Retrieve a room's modelview matrix from cache, or create a new one and cache
  * it, and apply it to the displaylist.
  */
-Gfx *roomApplyMtx(Gfx *gdl, s32 roomnum)
+Gfx *room_apply_mtx(Gfx *gdl, s32 roomnum)
 {
-	s32 index = roomTouchMtx(roomnum);
+	s32 index = room_touch_mtx(roomnum);
 
 	gSPMatrix(gdl++, &g_RoomMtxMatrices[index], G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
 	return gdl;
 }
 
-struct coord *roomGetPosPtr(s32 room)
+struct coord *room_get_pos_ptr(s32 room)
 {
 	return &g_BgRooms[room].pos;
 }
 
-void roomGetPos(s32 room, struct coord *pos)
+void room_get_pos(s32 room, struct coord *pos)
 {
 	pos->x = g_BgRooms[room].pos.x;
 	pos->y = g_BgRooms[room].pos.y;

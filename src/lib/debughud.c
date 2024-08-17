@@ -112,7 +112,7 @@ void dhud00014000nb(void)
 }
 #endif
 
-void dhudInit(void)
+void dhud_init(void)
 {
 #ifdef DEBUG
 	s32 i;
@@ -142,17 +142,17 @@ void dhudInit(void)
 #endif
 }
 
-void dhudReset(void)
+void dhud_reset(void)
 {
 #ifdef DEBUG
 	if (g_DHudInitialised) {
-		dhudClear();
+		dhud_clear();
 	}
 #endif
 }
 
 #ifdef DEBUG
-void dhudPutCharAt(s32 x, s32 y, char c)
+void dhud_put_char_at(s32 x, s32 y, char c)
 {
 	s32 i;
 
@@ -180,7 +180,7 @@ havepalette:
 }
 #endif
 
-void dhudResetPos(void)
+void dhud_reset_pos(void)
 {
 #ifdef DEBUG
 	if (g_DHudInitialised) {
@@ -190,7 +190,7 @@ void dhudResetPos(void)
 #endif
 }
 
-void dhudClear(void)
+void dhud_clear(void)
 {
 #ifdef DEBUG
 	s32 x;
@@ -199,13 +199,13 @@ void dhudClear(void)
 	if (g_DHudInitialised && g_DHudIsEmpty != true) {
 		for (y = 0; y < NUM_ROWS; y++) {
 			for (x = 0; x < NUM_COLS; x++) {
-				dhudPutCharAt(x, y, '\0');
+				dhud_put_char_at(x, y, '\0');
 			}
 		}
 
 		g_DHudIsEmpty = true;
 
-		dhudResetPos();
+		dhud_reset_pos();
 		dhud00014000nb();
 
 		g_DHudNextPaletteIndex = 0;
@@ -213,15 +213,15 @@ void dhudClear(void)
 #endif
 }
 
-void dhudSetPos(s32 x, s32 y)
+void dhud_set_pos(s32 x, s32 y)
 {
 #ifdef DEBUG
 	if (g_DHudInitialised) {
 		x += g_DHudBaseX;
 		y += g_DHudBaseY;
 
-		if (y >= (viGetHeight() - 10) / CHAR_H) {
-			y = (viGetHeight() - 10) / CHAR_H - 1;
+		if (y >= (vi_get_height() - 10) / CHAR_H) {
+			y = (vi_get_height() - 10) / CHAR_H - 1;
 		}
 
 		g_DHudPosX = x;
@@ -230,7 +230,7 @@ void dhudSetPos(s32 x, s32 y)
 #endif
 }
 
-void dhudSetFgColour(s32 r, s32 g, s32 b, s32 a)
+void dhud_set_fg_colour(s32 r, s32 g, s32 b, s32 a)
 {
 #ifdef DEBUG
 	if (g_DHudInitialised) {
@@ -239,7 +239,7 @@ void dhudSetFgColour(s32 r, s32 g, s32 b, s32 a)
 #endif
 }
 
-void dhudSetBgColour(s32 r, s32 g, s32 b, s32 a)
+void dhud_set_bg_colour(s32 r, s32 g, s32 b, s32 a)
 {
 #ifdef DEBUG
 	if (g_DHudInitialised) {
@@ -248,15 +248,15 @@ void dhudSetBgColour(s32 r, s32 g, s32 b, s32 a)
 #endif
 }
 
-void dhudPrintChar(u8 c)
+void dhud_print_char(u8 c)
 {
 #ifdef DEBUG
-	s32 maxwidth = (viGetWidth() - 13) / CHAR_W;
-	s32 maxheight = (viGetHeight() - 10) / CHAR_H;
+	s32 maxwidth = (vi_get_width() - 13) / CHAR_W;
+	s32 maxheight = (vi_get_height() - 10) / CHAR_H;
 
 	if (g_DHudInitialised) {
 		if (c == '\0' || (c >= ' ' && c <= '~')) {
-			dhudPutCharAt(g_DHudPosX, g_DHudPosY, c);
+			dhud_put_char_at(g_DHudPosX, g_DHudPosY, c);
 		}
 
 		g_DHudPosX++;
@@ -274,44 +274,44 @@ void dhudPrintChar(u8 c)
 }
 
 #if VERSION != VERSION_PAL_BETA
-void dhudPrintCharAt(s32 x, s32 y, char c)
+void dhud_print_char_at(s32 x, s32 y, char c)
 {
 #ifdef DEBUG
 	if (g_DHudInitialised) {
-		dhudSetPos(x, y);
-		dhudPrintChar(c);
+		dhud_set_pos(x, y);
+		dhud_print_char(c);
 	}
 #endif
 }
 #endif
 
-void dhudPrintString(char *str)
+void dhud_print_string(char *str)
 {
 #ifdef DEBUG
 	if (g_DHudInitialised) {
 		while (*str != '\0') {
-			dhudPrintChar(*str++);
+			dhud_print_char(*str++);
 		}
 	}
 #endif
 }
 
 #if VERSION != VERSION_PAL_BETA
-void dhudPrintStringAt(s32 x, s32 y, char *str)
+void dhud_print_string_at(s32 x, s32 y, char *str)
 {
 #ifdef DEBUG
 	if (g_DHudInitialised) {
-		dhudSetPos(x, y);
+		dhud_set_pos(x, y);
 
 		while (*str != '\0') {
-			dhudPrintChar(*str++);
+			dhud_print_char(*str++);
 		}
 	}
 #endif
 }
 #endif
 
-Gfx *dhudRender(Gfx *gdl)
+Gfx *dhud_render(Gfx *gdl)
 {
 #ifdef DEBUG
 	if (!g_DHudInitialised) {
@@ -353,7 +353,7 @@ Gfx *dhudRender(Gfx *gdl)
 		}
 
 		// Make sure there'll be a least 256 GBI commands free (2KB)
-		available = gfxGetFreeGfx(gdl) - 256 * sizeof(Gfx);
+		available = gfx_get_free_gfx(gdl) - 256 * sizeof(Gfx);
 		needed = (uintptr_t) gdl2 - (uintptr_t) gdl;
 
 		if (needed <= 0) { // shouldn't be possible
@@ -402,7 +402,7 @@ Gfx *dhudRender(Gfx *gdl)
 
 						if (1);
 
-						if (gfxGetFreeGfx(gdl) >= 1024) {
+						if (gfx_get_free_gfx(gdl) >= 1024) {
 							gSPTextureRectangle(gdl++,
 									// Screen coords to draw at
 									x * CHAR_W * 4,

@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void botmgrRemoveAll(void);
-void botmgrAllocateBot(s32 chrnum, s32 aibotnum);
+void botmgr_remove_all(void);
+void botmgr_allocate_bot(s32 chrnum, s32 aibotnum);
 
 #endif

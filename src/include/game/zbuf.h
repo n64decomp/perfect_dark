@@ -4,12 +4,12 @@
 #include "data.h"
 #include "types.h"
 
-void *zbufGetAllocation(void);
-void zbufReset(s32 stagenum);
-void zbufAllocate(void);
-void zbufSwap(void);
-Gfx *zbufConfigureRdp(Gfx *gdl);
-Gfx *zbufClear(Gfx *gdl);
-Gfx *zbufDrawArtifactsOffscreen(Gfx *gdl);
+void *zbuf_get_allocation(void);
+void zbuf_reset(s32 stagenum);
+void zbuf_allocate(void);
+void zbuf_swap(void);
+Gfx *zbuf_configure_rdp(Gfx *gdl);
+Gfx *zbuf_clear(Gfx *gdl);
+Gfx *zbuf_draw_artifacts_offscreen(Gfx *gdl);
 
 #endif

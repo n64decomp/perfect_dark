@@ -15,7 +15,7 @@
 #include "data.h"
 #include "types.h"
 
-void botmgrRemoveAll(void)
+void botmgr_remove_all(void)
 {
 	s32 i;
 
@@ -26,7 +26,7 @@ void botmgrRemoveAll(void)
 	g_BotCount = 0;
 }
 
-void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
+void botmgr_allocate_bot(s32 chrnum, s32 aibotnum)
 {
 	RoomNum rooms[1];
 	struct prop *prop;
@@ -39,29 +39,29 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 
 	rooms[0] = -1;
 
-	headnum = mpGetHeadId(g_BotConfigsArray[aibotnum].base.mpheadnum);
-	bodynum = mpGetBodyId(g_BotConfigsArray[aibotnum].base.mpbodynum);
+	headnum = mp_get_head_id(g_BotConfigsArray[aibotnum].base.mpheadnum);
+	bodynum = mp_get_body_id(g_BotConfigsArray[aibotnum].base.mpbodynum);
 
 	if (IS4MB()) {
 		headnum = HEAD_DDSHOCK;
 		bodynum = BODY_DDSHOCK;
 	}
 
-	model = bodyAllocateModel(bodynum, headnum, 0);
+	model = body_allocate_model(bodynum, headnum, 0);
 
 	if (model != NULL) {
 		struct coord pos = {0.0f, 0.0f, 0.0f};
 		u32 stack;
 
-		prop = chrAllocate(model, &pos, rooms, 0.0f, ailistFindById(GAILIST_AIBOT_INIT));
+		prop = chr_allocate(model, &pos, rooms, 0.0f, ailist_find_by_id(GAILIST_AIBOT_INIT));
 
 		if (prop != NULL) {
-			propActivate(prop);
-			propEnable(prop);
+			prop_activate(prop);
+			prop_enable(prop);
 
 			chr = prop->chr;
 
-			chrSetChrnum(chr, chrnum);
+			chr_set_chrnum(chr, chrnum);
 
 			chr->chrnum = chrnum;
 			chr->padpreset1 = -1;
@@ -70,7 +70,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 			chr->visionrange = 80;
 			chr->headnum = headnum;
 			chr->bodynum = bodynum;
-			chr->race = bodyGetRace(chr->bodynum);
+			chr->race = body_get_race(chr->bodynum);
 			chr->flags = CHRFLAG0_CAN_EXAMINE_BODY; // reused flag?
 			chr->flags2 = 0;
 			chr->team = 1 << g_BotConfigsArray[aibotnum].base.team;
@@ -80,7 +80,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 				g_MpBotChrPtrs[g_BotCount] = chr;
 				g_BotCount++;
 
-				aibot = mempAlloc(sizeof(struct aibot), MEMPOOL_STAGE);
+				aibot = memp_alloc(sizeof(struct aibot), MEMPOOL_STAGE);
 				chr->aibot = aibot;
 
 				if (aibot != NULL) {
@@ -103,7 +103,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					g_MpAllChrConfigPtrs[g_MpNumChrs] = &g_BotConfigsArray[aibotnum].base;
 					g_MpNumChrs++;
 
-					aibot->ammoheld = mempAlloc(36 * sizeof(s32), MEMPOOL_STAGE);
+					aibot->ammoheld = memp_alloc(36 * sizeof(s32), MEMPOOL_STAGE);
 
 					for (i = 0; i < 33; i++) {
 						aibot->ammoheld[i] = 0;
@@ -201,10 +201,10 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					aibot->reaperspeed[HAND_RIGHT] = 0;
 					aibot->maulercharge[HAND_LEFT] = 0.0f;
 					aibot->maulercharge[HAND_RIGHT] = 0.0f;
-					aibot->roty = modelGetChrRotY(chr->model);
+					aibot->roty = model_get_chr_rot_y(chr->model);
 					aibot->angleoffset = 0.0f;
 					aibot->speedtheta = 0.0f;
-					aibot->lookangle = modelGetChrRotY(chr->model);
+					aibot->lookangle = model_get_chr_rot_y(chr->model);
 
 					aibot->moveratex = 0.0f;
 					aibot->moveratey = 0.0f;
@@ -271,7 +271,7 @@ void botmgrAllocateBot(s32 chrnum, s32 aibotnum)
 					return;
 				}
 
-				botinvInit(chr, 10);
+				botinv_init(chr, 10);
 			}
 		}
 	}

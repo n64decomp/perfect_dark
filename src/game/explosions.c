@@ -81,12 +81,12 @@ struct explosiontype g_ExplosionTypes[] = {
 	/*25*/ { 640, 480, 32,  11.2, 1600, 1000, 1000, 180, 2, 5, SMOKETYPE_NONE,         SFX_80A4,           4     },
 };
 
-bool explosionCreateSimple(struct prop *prop, struct coord *pos, RoomNum *rooms, s16 type, s32 playernum)
+bool explosion_create_simple(struct prop *prop, struct coord *pos, RoomNum *rooms, s16 type, s32 playernum)
 {
-	return explosionCreate(prop, pos, rooms, type, playernum, false, NULL, 0, NULL);
+	return explosion_create(prop, pos, rooms, type, playernum, false, NULL, 0, NULL);
 }
 
-bool explosionCreateComplex(struct prop *prop, struct coord *pos, RoomNum *rooms, s16 type, s32 playernum)
+bool explosion_create_complex(struct prop *prop, struct coord *pos, RoomNum *rooms, s16 type, s32 playernum)
 {
 	struct coord sp100;
 	struct coord sp88;
@@ -101,12 +101,12 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, RoomNum *rooms
 	}
 
 	if (prop) {
-		room = cdFindFloorRoomYColourNormalPropAtPos(&prop->pos, prop->rooms, &y, NULL, &sp88, &collisionprop);
+		room = cd_find_floor_room_y_colour_normal_prop_at_pos(&prop->pos, prop->rooms, &y, NULL, &sp88, &collisionprop);
 		sp100.x = prop->pos.x;
 		sp100.y = y;
 		sp100.z = prop->pos.z;
 	} else {
-		room = cdFindFloorRoomYColourNormalPropAtPos(pos, rooms, &y, NULL, &sp88, &collisionprop);
+		room = cd_find_floor_room_y_colour_normal_prop_at_pos(pos, rooms, &y, NULL, &sp88, &collisionprop);
 		sp100.x = pos->x;
 		sp100.y = y;
 		sp100.z = pos->z;
@@ -119,10 +119,10 @@ bool explosionCreateComplex(struct prop *prop, struct coord *pos, RoomNum *rooms
 		makescorch = false;
 	}
 
-	return explosionCreate(prop, pos, rooms, type, playernum, makescorch, &sp100, room, &sp88);
+	return explosion_create(prop, pos, rooms, type, playernum, makescorch, &sp100, room, &sp88);
 }
 
-f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
+f32 explosion_get_horizontal_range_at_frame(struct explosion *exp, s32 frame)
 {
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
 	f32 changerate = PALUPF(type->changerateh);
@@ -141,7 +141,7 @@ f32 explosionGetHorizontalRangeAtFrame(struct explosion *exp, s32 frame)
 	return result;
 }
 
-f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
+f32 explosion_get_vertical_range_at_frame(struct explosion *exp, s32 frame)
 {
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
 	f32 changerate = PALUPF(type->changeratev);
@@ -156,13 +156,13 @@ f32 explosionGetVerticalRangeAtFrame(struct explosion *exp, s32 frame)
 	return result;
 }
 
-void explosionGetBboxAtFrame(struct coord *lower, struct coord *upper, s32 frame, struct prop *prop)
+void explosion_get_bbox_at_frame(struct coord *lower, struct coord *upper, s32 frame, struct prop *prop)
 {
 	struct explosion *exp = prop->explosion;
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
 
-	f32 rangeh = explosionGetHorizontalRangeAtFrame(exp, frame);
-	f32 rangev = explosionGetVerticalRangeAtFrame(exp, frame);
+	f32 rangeh = explosion_get_horizontal_range_at_frame(exp, frame);
+	f32 rangev = explosion_get_vertical_range_at_frame(exp, frame);
 
 	rangeh = rangeh * 0.5f + type->innersize * 1.5f;
 	rangev = rangev * 0.5f + type->innersize * 1.5f;
@@ -176,19 +176,19 @@ void explosionGetBboxAtFrame(struct coord *lower, struct coord *upper, s32 frame
 	upper->z = prop->pos.z + rangeh;
 }
 
-void explosionAlertChrs(f32 *radius, struct coord *noisepos)
+void explosion_alert_chrs(f32 *radius, struct coord *noisepos)
 {
 	u32 stack[2];
-	s32 *end = (s32 *)&doorDestroyGlass;
+	s32 *end = (s32 *)&door_destroy_glass;
 	s32 i;
 
 	for (i = 0; i < g_NumChrSlots; i++) {
 		if (g_ChrSlots[i].model
-				&& chrGetTargetProp(&g_ChrSlots[i]) == g_Vars.currentplayer->prop
+				&& chr_get_target_prop(&g_ChrSlots[i]) == g_Vars.currentplayer->prop
 				&& g_ChrSlots[i].prop
 				&& g_ChrSlots[i].prop->type == PROPTYPE_CHR
 				&& (g_ChrSlots[i].prop->flags & PROPFLAG_ENABLED)) {
-			f32 distance = chrGetDistanceToCoord(&g_ChrSlots[i], noisepos);
+			f32 distance = chr_get_distance_to_coord(&g_ChrSlots[i], noisepos);
 
 			if (distance == 0) {
 				distance = 2;
@@ -197,7 +197,7 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 			}
 
 			if (distance > 1) {
-				chrRecordLastHearTargetTime(&g_ChrSlots[i]);
+				chr_record_last_hear_target_time(&g_ChrSlots[i]);
 			}
 		}
 	}
@@ -205,7 +205,7 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 #if PIRACYCHECKS
 	{
 		u32 checksum = 0;
-		s32 *ptr = (s32 *)&glassDestroy;
+		s32 *ptr = (s32 *)&glass_destroy;
 
 		while (ptr < end) {
 			checksum ^= *ptr;
@@ -232,7 +232,7 @@ void explosionAlertChrs(f32 *radius, struct coord *noisepos)
 #endif
 }
 
-bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exprooms,
+bool explosion_create(struct prop *sourceprop, struct coord *exppos, RoomNum *exprooms,
 		s16 type, s32 playernum, bool makescorch, struct coord *arg6, RoomNum room, struct coord *arg8)
 {
 	u32 stack;
@@ -245,7 +245,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
 
 	// Bullet holes: only crate the flame (explosion) if within 4 metres
 	if (type == EXPLOSIONTYPE_BULLETHOLE) {
-		f32 lodscale = camGetLodScaleZ();
+		f32 lodscale = cam_get_lod_scale_z();
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
 		f32 xdist = exppos->x - campos->x;
 		f32 ydist = exppos->y - campos->y;
@@ -255,9 +255,9 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
 		if (sum * lodscale * lodscale > 400 * 400) {
 			if (random() % 2 == 0) {
 				if (sourceprop) {
-					smokeCreateSimple(&sourceprop->pos, sourceprop->rooms, g_ExplosionTypes[type].smoketype);
+					smoke_create_simple(&sourceprop->pos, sourceprop->rooms, g_ExplosionTypes[type].smoketype);
 				} else {
-					smokeCreateSimple(exppos, exprooms, g_ExplosionTypes[type].smoketype);
+					smoke_create_simple(exppos, exprooms, g_ExplosionTypes[type].smoketype);
 				}
 			}
 
@@ -286,14 +286,14 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
 		}
 
 		if (index >= 0) {
-			propExecuteTickOperation(g_Explosions[index].prop, TICKOP_FREE);
+			prop_execute_tick_operation(g_Explosions[index].prop, TICKOP_FREE);
 			g_Explosions[index].prop = NULL;
 			exp = &g_Explosions[index];
 		}
 	}
 
 	if (exp) {
-		struct prop *expprop = propAllocate();
+		struct prop *expprop = prop_allocate();
 
 		if (type != EXPLOSIONTYPE_16 && type != EXPLOSIONTYPE_BULLETHOLE) {
 			g_ExplosionShakeTotalTimer = 6;
@@ -333,13 +333,13 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
 			for (i = 0; exprooms[i] != -1 && i < ARRAYCOUNT(expprop->rooms) - 1; i++) {
 				expprop->rooms[i] = exprooms[i];
 
-				roomFlashLighting(exprooms[i], g_ExplosionTypes[type].rangeh, 255);
+				room_flash_lighting(exprooms[i], g_ExplosionTypes[type].rangeh, 255);
 			}
 
 			expprop->rooms[i] = -1;
 
-			propActivateThisFrame(expprop);
-			propEnable(expprop);
+			prop_activate_this_frame(expprop);
+			prop_enable(expprop);
 
 			exp->type = type;
 			exp->prop = expprop;
@@ -349,12 +349,12 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
 			exp->owner = playernum;
 
 			if (type != EXPLOSIONTYPE_BULLETHOLE && type != EXPLOSIONTYPE_PHOENIX) {
-				propSetDangerous(expprop);
+				prop_set_dangerous(expprop);
 			}
 
 			exproom = expprop->rooms[0];
 
-			explosionGetBboxAtFrame(&spd4, &spc8, g_ExplosionTypes[type].duration, expprop);
+			explosion_get_bbox_at_frame(&spd4, &spc8, g_ExplosionTypes[type].duration, expprop);
 
 			spd4.x *= mult;
 			spd4.y *= mult;
@@ -390,9 +390,9 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
 				for (k = 0; k < g_Rooms[exproom].numportals; k++) {
 					portalnum = g_RoomPortals[g_Rooms[exproom].roomportallistoffset + k];
 
-					bgCalculatePortalBbox(portalnum, &portalbbmin, &portalbbmax);
+					bg_calculate_portal_bbox(portalnum, &portalbbmin, &portalbbmax);
 
-					if (bgIsBboxOverlapping(&portalbbmin, &portalbbmax, &spd4, &spc8)) {
+					if (bg_is_bbox_overlapping(&portalbbmin, &portalbbmax, &spd4, &spc8)) {
 						otherroom2 = -1;
 						index = 0;
 
@@ -459,7 +459,7 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
 							portalnum2 = g_RoomPortals[g_Rooms[otherroom].roomportallistoffset + j];
 
 							if (portalnum2 != portalnum) {
-								bgCalculatePortalBbox(portalnum2, &portal2bbmin, &portal2bbmax);
+								bg_calculate_portal_bbox(portalnum2, &portal2bbmin, &portal2bbmax);
 
 								if (portal2bbmin.f[indexplus1] <= portalbbmin.f[indexplus1] + 10.0f * mult
 										&& portal2bbmin.f[indexplus2] <= portalbbmin.f[indexplus2] + 10.0f * mult
@@ -537,10 +537,10 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
 			exp->parts[0].bb = 0;
 
 			if (g_Vars.mplayerisrunning) {
-				smokeClearSomeTypes();
+				smoke_clear_some_types();
 			}
 
-			explosionAlertChrs(&g_ExplosionTypes[type].rangeh, exppos);
+			explosion_alert_chrs(&g_ExplosionTypes[type].rangeh, exppos);
 		}
 	}
 
@@ -552,13 +552,13 @@ bool explosionCreate(struct prop *sourceprop, struct coord *exppos, RoomNum *exp
  *
  * This function is unused.
  */
-void explosionShake(void)
+void explosion_shake(void)
 {
 	g_ExplosionShakeTotalTimer = 6;
 	g_ExplosionShakeIntensityTimer = 6;
 }
 
-void explosionsUpdateShake(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+void explosions_update_shake(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	u32 stack[4];
 	f32 sp54;
@@ -567,7 +567,7 @@ void explosionsUpdateShake(struct coord *arg0, struct coord *arg1, struct coord 
 	f32 intensity;
 
 	if (g_ExplosionShakeTotalTimer == 0) {
-		viShake(0);
+		vi_shake(0);
 		return;
 	}
 
@@ -614,7 +614,7 @@ void explosionsUpdateShake(struct coord *arg0, struct coord *arg1, struct coord 
 	arg2->x = intensity * sp54;
 	arg2->z = intensity * sp50;
 
-	viShake(g_ExplosionShakeTotalTimer * intensity);
+	vi_shake(g_ExplosionShakeTotalTimer * intensity);
 }
 
 /**
@@ -622,7 +622,7 @@ void explosionsUpdateShake(struct coord *arg0, struct coord *arg1, struct coord 
  *
  * minpos and maxpos are the bounding boxes of the prop.
  */
-bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, struct coord *minpos, struct coord *maxpos)
+bool explosion_overlaps_prop(struct explosion *exp, struct prop *prop, struct coord *minpos, struct coord *maxpos)
 {
 	bool result = false;
 	s32 i;
@@ -642,7 +642,7 @@ bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, struct coor
 
 			rooms[2] = -1;
 
-			if (arrayIntersects(prop->rooms, rooms)
+			if (array_intersects(prop->rooms, rooms)
 					&& minpos->x <= exp->bbs[i].bbmax.x
 					&& minpos->y <= exp->bbs[i].bbmax.y
 					&& minpos->z <= exp->bbs[i].bbmax.z
@@ -658,7 +658,7 @@ bool explosionOverlapsProp(struct explosion *exp, struct prop *prop, struct coor
 	return result;
 }
 
-void explosionInflictDamage(struct prop *expprop)
+void explosion_inflict_damage(struct prop *expprop)
 {
 	s32 stack;
 	struct explosion *exp = expprop->explosion;
@@ -706,7 +706,7 @@ void explosionInflictDamage(struct prop *expprop)
 	// Flicker room lighting
 	for (i = 0; expprop->rooms[i] != -1; i++) {
 		if (random() % 2048 <= 240) {
-			roomFlashLighting(expprop->rooms[i], type->rangeh, 255);
+			room_flash_lighting(expprop->rooms[i], type->rangeh, 255);
 		}
 	}
 
@@ -726,9 +726,9 @@ void explosionInflictDamage(struct prop *expprop)
 			zdist -= g_BgRooms[roomnum].pos.f[2];
 
 			for (j = 0; j < numlights; j++) {
-				if (lightIsHealthy(roomnum, j)
-						&& lightIsVulnerable(roomnum, j)
-						&& lightGetBboxCentre(roomnum, j, &sp164)) {
+				if (light_is_healthy(roomnum, j)
+						&& light_is_vulnerable(roomnum, j)
+						&& light_get_bbox_centre(roomnum, j, &sp164)) {
 					struct coord sp158;
 					struct coord sp14c;
 
@@ -741,7 +741,7 @@ void explosionInflictDamage(struct prop *expprop)
 					sp158.f[2] = damageradius;
 
 					if (func0f1773c8(&sp14c, &sp158)) {
-						roomSetLightBroken(roomnum, j);
+						room_set_light_broken(roomnum, j);
 					}
 				}
 			}
@@ -749,7 +749,7 @@ void explosionInflictDamage(struct prop *expprop)
 	}
 
 	// Damage props
-	roomGetProps(expprop->rooms, propnums, 256);
+	room_get_props(expprop->rooms, propnums, 256);
 
 	propnumptr = propnums;
 
@@ -781,7 +781,7 @@ void explosionInflictDamage(struct prop *expprop)
 							&& zdist <= damageradius && zdist >= -damageradius) {
 
 						if (setup0f092304(obj, &sp130, &sp124)) {
-							if (explosionOverlapsProp(exp, prop, &sp130, &sp124)) {
+							if (explosion_overlaps_prop(exp, prop, &sp130, &sp124)) {
 								candamage = true;
 							}
 						} else {
@@ -846,7 +846,7 @@ void explosionInflictDamage(struct prop *expprop)
 							// anti cannot damage this obj
 						} else if (isfirstframe) {
 							// Unblock path if this object is a path blocker
-							objUpdateLinkedScenery(obj, expprop);
+							obj_update_linked_scenery(obj, expprop);
 
 							// Damage the object
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
@@ -874,9 +874,9 @@ void explosionInflictDamage(struct prop *expprop)
 									}
 								}
 
-								objApplyMomentum(obj, &spf4, 0.0f, true, true);
+								obj_apply_momentum(obj, &spf4, 0.0f, true, true);
 							}
-						} else if (objIsHealthy(obj)) {
+						} else if (obj_is_healthy(obj)) {
 							// Sustained damage
 							minfrac *= 0.05f * g_Vars.lvupdate60freal;
 
@@ -905,7 +905,7 @@ void explosionInflictDamage(struct prop *expprop)
 				if (xdist <= damageradius && xdist >= -damageradius
 						&& ydist <= damageradius && ydist >= -damageradius
 						&& zdist <= damageradius && zdist >= -damageradius) {
-					propGetBbox(prop, &radius, &ymax, &ymin);
+					prop_get_bbox(prop, &radius, &ymax, &ymin);
 
 					radius -= 20.0f;
 
@@ -921,7 +921,7 @@ void explosionInflictDamage(struct prop *expprop)
 					spc0.f[1] = ymax;
 					spc0.f[2] = prop->pos.f[2] + radius;
 
-					if (explosionOverlapsProp(exp, prop, &spcc, &spc0)) {
+					if (explosion_overlaps_prop(exp, prop, &spcc, &spc0)) {
 						candamage = true;
 					}
 				}
@@ -982,7 +982,7 @@ void explosionInflictDamage(struct prop *expprop)
 					}
 
 					if (g_Vars.normmplayerisrunning) {
-						struct chrdata *ownerchr = mpGetChrFromPlayerIndex(exp->owner);
+						struct chrdata *ownerchr = mp_get_chr_from_player_index(exp->owner);
 
 						if (ownerchr) {
 							ownerprop = ownerchr->prop;
@@ -995,10 +995,10 @@ void explosionInflictDamage(struct prop *expprop)
 						ownerprop = g_Vars.anti->prop;
 					}
 
-					chrDamageByExplosion(chr, minfrac, &spa0, ownerprop, &expprop->pos);
+					chr_damage_by_explosion(chr, minfrac, &spa0, ownerprop, &expprop->pos);
 
 					if (prop->type == PROPTYPE_CHR && !isfirstframe) {
-						chrDisfigure(chr, &expprop->pos, damageradius);
+						chr_disfigure(chr, &expprop->pos, damageradius);
 					}
 				}
 			}
@@ -1008,7 +1008,7 @@ void explosionInflictDamage(struct prop *expprop)
 	}
 }
 
-u32 explosionTick(struct prop *prop)
+u32 explosion_tick(struct prop *prop)
 {
 	struct explosion *exp = prop->explosion;
 	struct explosiontype *type = &g_ExplosionTypes[exp->type];
@@ -1047,8 +1047,8 @@ u32 explosionTick(struct prop *prop)
 	if (exp->age >= 8 && exp->age < maxage)
 #endif
 	{
-		hrange = explosionGetHorizontalRangeAtFrame(exp, exp->age);
-		vrange = explosionGetVerticalRangeAtFrame(exp, exp->age);
+		hrange = explosion_get_horizontal_range_at_frame(exp, exp->age);
+		vrange = explosion_get_vertical_range_at_frame(exp, exp->age);
 
 		sp11c.x = prop->pos.x - hrange * 0.5f;
 		sp11c.y = prop->pos.y - vrange * 0.5f;
@@ -1164,13 +1164,13 @@ u32 explosionTick(struct prop *prop)
 		}
 	}
 
-	explosionGetBboxAtFrame(&bbmin, &bbmax, exp->age, prop);
-	bgFindEnteredRooms(&bbmin, &bbmax, prop->rooms, 7, false);
-	explosionInflictDamage(prop);
+	explosion_get_bbox_at_frame(&bbmin, &bbmax, exp->age, prop);
+	bg_find_entered_rooms(&bbmin, &bbmax, prop->rooms, 7, false);
+	explosion_inflict_damage(prop);
 
 	// Play boom sound if this is the first frame
 	if (exp->age == 0) {
-		psCreate(NULL, NULL, type->sound, -1, -1, 0, 0, PSTYPE_NONE, &exp->prop->pos, -1.0f, exp->prop->rooms, -1, -1.0f, -1.0f, -1.0f);
+		ps_create(NULL, NULL, type->sound, -1, -1, 0, 0, PSTYPE_NONE, &exp->prop->pos, -1.0f, exp->prop->rooms, -1, -1.0f, -1.0f, -1.0f);
 	}
 
 	for (k = 0; k < (s32)lvupdate; k++) {
@@ -1187,9 +1187,9 @@ u32 explosionTick(struct prop *prop)
 					|| (exp->age == maxage - TICKS(20) && exp->type != EXPLOSIONTYPE_GASBARREL))
 				&& (exp->type != EXPLOSIONTYPE_BULLETHOLE || (random() % 2) == 0)) {
 			if (exp->source) {
-				smokeCreateSimple(&exp->source->pos, exp->source->rooms, type->smoketype);
+				smoke_create_simple(&exp->source->pos, exp->source->rooms, type->smoketype);
 			} else {
-				smokeCreateSimple(&prop->pos, prop->rooms, type->smoketype);
+				smoke_create_simple(&prop->pos, prop->rooms, type->smoketype);
 			}
 		}
 
@@ -1205,7 +1205,7 @@ u32 explosionTick(struct prop *prop)
 			scorchsize *= 0.8f + 0.2f * RANDOMFRAC();
 
 			if (g_Vars.normmplayerisrunning) {
-				chr = mpGetChrFromPlayerIndex(exp->owner);
+				chr = mp_get_chr_from_player_index(exp->owner);
 			} else if (g_Vars.antiplayernum >= 0 && exp->owner == g_Vars.antiplayernum) {
 				chr = g_Vars.anti->prop->chr;
 			} else if (g_Vars.coopplayernum >= 0 && exp->owner == g_Vars.coopplayernum) {
@@ -1215,11 +1215,11 @@ u32 explosionTick(struct prop *prop)
 			}
 
 			if (g_Rooms[exp->room].gfxdata) {
-				if (g_Rooms[exp->room].gfxdata->xlublocks && bgTestHitInRoom(&prop->pos, &exp->unk3d0, exp->room, &hitthing)) {
+				if (g_Rooms[exp->room].gfxdata->xlublocks && bg_test_hit_in_room(&prop->pos, &exp->unk3d0, exp->room, &hitthing)) {
 					xlu = hitthing.unk2c == 2;
 				}
 
-				wallhitCreateWith20Args(&exp->unk3d0, &exp->unk3dc, &prop->pos, NULL,
+				wallhit_create_with_20_args(&exp->unk3d0, &exp->unk3dc, &prop->pos, NULL,
 						0, WALLHITTEX_SCORCH, exp->room, 0,
 						0, -1, 0, chr,
 						scorchsize, scorchsize, 0xff, 0xff,
@@ -1236,7 +1236,7 @@ u32 explosionTick(struct prop *prop)
 #endif
 	{
 		if (exp->type != EXPLOSIONTYPE_BULLETHOLE) {
-			propUnsetDangerous(exp->prop);
+			prop_unset_dangerous(exp->prop);
 		}
 
 		exp->prop = NULL;
@@ -1246,9 +1246,9 @@ u32 explosionTick(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-u32 explosionTickPlayer(struct prop *prop)
+u32 explosion_tick_player(struct prop *prop)
 {
-	Mtxf *matrix = camGetWorldToScreenMtxf();
+	Mtxf *matrix = cam_get_world_to_screen_mtxf();
 
 	prop->z = -(matrix->m[0][2] * prop->pos.x + matrix->m[1][2] * prop->pos.y + matrix->m[2][2] * prop->pos.z + matrix->m[3][2]);
 
@@ -1263,7 +1263,7 @@ u32 explosionTickPlayer(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
+Gfx *explosion_render(struct prop *prop, Gfx *gdl, bool xlupass)
 {
 	struct explosion *exp = prop->explosion;
 	s32 roomnum;
@@ -1288,24 +1288,24 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 
 	if (roomnum != -1) {
 		struct screenbox screenbox;
-		struct coord *coord = roomGetPosPtr(roomnum);
+		struct coord *coord = room_get_pos_ptr(roomnum);
 		Col *colours;
 		s32 tmp;
 
 		if (func0f08e5a8(prop->rooms, &screenbox) > 0) {
-			gdl = bgScissorWithinViewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
+			gdl = bg_scissor_within_viewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
-			gdl = bgScissorToViewport(gdl);
+			gdl = bg_scissor_to_viewport(gdl);
 		}
 
 		gSPClearGeometryMode(gdl++, G_CULL_BOTH | G_FOG);
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetOrthogonalMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
-		gdl = roomApplyMtx(gdl, roomnum);
+		gdl = room_apply_mtx(gdl, roomnum);
 
 		gSPDisplayList(gdl++, g_TexGdl2);
 
-		colours = gfxAllocateColours(1);
+		colours = gfx_allocate_colours(1);
 
 		if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
 			colours[0].word = 0xffffffff;
@@ -1335,7 +1335,7 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 			colours[0].word = red << 24 | green << 16 | alpha | 0x80800000;
 		} else {
 			static u32 var8007e93c = 0xffffffff;
-			mainOverrideVariable("ecol", &var8007e93c);
+			main_override_variable("ecol", &var8007e93c);
 			colours[0].word = 0xffffffff;
 			colours[0].word = var8007e93c;
 		}
@@ -1357,18 +1357,18 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 				if (exp->parts[j].frame > 0) {
 #if PAL
 					if (i == (s32)((f32)(exp->parts[j].frame - 1) / (g_ExplosionTypes[exp->type].flarespeed * 0.83333331346512f))) {
-						gdl = explosionRenderPart(exp, &exp->parts[j], gdl, coord, i);
+						gdl = explosion_render_part(exp, &exp->parts[j], gdl, coord, i);
 					}
 #else
 					if (i == (s32)((f32)(exp->parts[j].frame - 1) / g_ExplosionTypes[exp->type].flarespeed)) {
-						gdl = explosionRenderPart(exp, &exp->parts[j], gdl, coord, i);
+						gdl = explosion_render_part(exp, &exp->parts[j], gdl, coord, i);
 					}
 #endif
 				}
 			}
 		}
 
-		gSPMatrix(gdl++, osVirtualToPhysical(camGetPerspectiveMtxL()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
+		gSPMatrix(gdl++, osVirtualToPhysical(cam_get_perspective_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 #if PAL
 		tmp = (g_ExplosionTypes[exp->type].flarespeed * 15.0f) * 0.83333331346512f;
@@ -1386,10 +1386,10 @@ Gfx *explosionRender(struct prop *prop, Gfx *gdl, bool xlupass)
 	return gdl;
 }
 
-Gfx *explosionRenderPart(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4)
+Gfx *explosion_render_part(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4)
 {
-	Vtx *vertices = gfxAllocateVertices(4);
-	Mtxf *mtx = camGetProjectionMtxF();
+	Vtx *vertices = gfx_allocate_vertices(4);
+	Mtxf *mtx = cam_get_projection_mtxf();
 	struct coord spbc;
 	struct coord spb0;
 	struct coord spa4;

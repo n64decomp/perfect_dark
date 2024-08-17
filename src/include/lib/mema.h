@@ -4,15 +4,15 @@
 #include "data.h"
 #include "types.h"
 
-void memaDefrag(void);
-void memaInit(void);
-void memaReset(void *ptr, u32 size);
-void memaPrint(void);
-void *memaAlloc(u32 size);
-s32 memaGrow(s32 addr, u32 amount);
-void _memaFree(s32 addr, s32 size);
-void memaFree(void *addr, s32 size);
-s32 memaGetLongestFree(void);
-bool memaRealloc(s32 addr, u32 oldsize, u32 newsize);
+void mema_defrag(void);
+void mema_init(void);
+void mema_reset(void *ptr, u32 size);
+void mema_print(void);
+void *mema_alloc(u32 size);
+s32 mema_grow(s32 addr, u32 amount);
+void _mema_free(s32 addr, s32 size);
+void mema_free(void *addr, s32 size);
+s32 mema_get_longest_free(void);
+bool mema_realloc(s32 addr, u32 oldsize, u32 newsize);
 
 #endif

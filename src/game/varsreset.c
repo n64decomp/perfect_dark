@@ -7,14 +7,14 @@
 #include "data.h"
 #include "types.h"
 
-void varsResetRoomProps(void);
+void vars_reset_room_props(void);
 
-void varsReset(void)
+void vars_reset(void)
 {
 	s32 i;
 
-	g_Vars.props = mempAlloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), MEMPOOL_STAGE);
-	g_Vars.onscreenprops = mempAlloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
+	g_Vars.props = memp_alloc(ALIGN64(g_Vars.maxprops * sizeof(struct prop)), MEMPOOL_STAGE);
+	g_Vars.onscreenprops = memp_alloc(ALIGN64(200 * sizeof(void *)), MEMPOOL_STAGE);
 
 	g_AutoAimScale = 1;
 
@@ -34,7 +34,7 @@ void varsReset(void)
 		g_Vars.props[i].next = &g_Vars.props[i + 1];
 	}
 
-	varsResetRoomProps();
+	vars_reset_room_props();
 
 	if (g_Vars.normmplayerisrunning) {
 		g_Vars.numpropstates = 4;
@@ -58,13 +58,13 @@ void varsReset(void)
 	}
 }
 
-void varsResetRoomProps(void)
+void vars_reset_room_props(void)
 {
 	s32 i;
 	s32 j;
 
-	g_RoomPropListChunkIndexes = mempAlloc(ALIGN16(g_Vars.roomcount * sizeof(s16)), MEMPOOL_STAGE);
-	g_RoomPropListChunks = mempAlloc(MAX_ROOMPROPLISTCHUNKS * sizeof(struct roomproplistchunk), MEMPOOL_STAGE);
+	g_RoomPropListChunkIndexes = memp_alloc(ALIGN16(g_Vars.roomcount * sizeof(s16)), MEMPOOL_STAGE);
+	g_RoomPropListChunks = memp_alloc(MAX_ROOMPROPLISTCHUNKS * sizeof(struct roomproplistchunk), MEMPOOL_STAGE);
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		g_RoomPropListChunkIndexes[i] = -1;

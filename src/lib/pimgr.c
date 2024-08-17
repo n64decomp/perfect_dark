@@ -8,7 +8,7 @@
 OSMesg var80099900[64];
 OSMesgQueue g_PimgrMesgQueue;
 
-void pimgrCreate(void)
+void pimgr_create(void)
 {
 	osCreatePiManager(150, &g_PimgrMesgQueue, var80099900, 64);
 }

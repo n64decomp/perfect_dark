@@ -50,19 +50,19 @@ f32 f23;
 
 s32 gp;
 
-static bool modelasmIterateThings1(void);
-static bool modelasmIterateThings2(void);
-static u32 modelasmReadFrameData(void);
-static union modelrwdata *modelasmGetNodeRwData(struct model *model, struct modelnode *node, bool is_head);
-static void modelasmMathPain1(f32 f30);
-static void modelasmMathPain2(void);
-static void modelasmPrepareRotMtx180(s32 t2, s32 t3, s32 t4);
-static void modelasmPrepareRotMtx360(s32 t2, s32 t3, s32 t4);
-static void modelasmMathPain3(void);
-static void modelasmMathPain4(void);
-static void modelasmMtxMultiply(Mtxf *src, Mtxf *dst);
-static Mtxf *modelasmFindNodeMtx(struct model *model, struct modelnode *node);
-static f32 modelasmAcosOrAsin(f32 f6);
+static bool modelasm_iterate_things1(void);
+static bool modelasm_iterate_things2(void);
+static u32 modelasm_read_frame_data(void);
+static union modelrwdata *modelasm_get_node_rw_data(struct model *model, struct modelnode *node, bool is_head);
+static void modelasm_math_pain1(f32 f30);
+static void modelasm_math_pain2(void);
+static void modelasm_prepare_rot_mtx180(s32 t2, s32 t3, s32 t4);
+static void modelasm_prepare_rot_mtx360(s32 t2, s32 t3, s32 t4);
+static void modelasm_math_pain3(void);
+static void modelasm_math_pain4(void);
+static void modelasm_mtx_multiply(Mtxf *src, Mtxf *dst);
+static Mtxf *modelasm_find_node_mtx(struct model *model, struct modelnode *node);
+static f32 modelasm_acos_or_asin(f32 f6);
 
 /**
  * Reads animation data for the given model and applies matrix transformations
@@ -118,7 +118,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 		if (t2ptr8 != t3ptr8) {
 			t6ptr8 = g_AnimFrameBytes[anim->frameslot1];
 
-			if (!modelasmIterateThings1()) {
+			if (!modelasm_iterate_things1()) {
 				return false;
 			}
 
@@ -137,7 +137,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 				if (t2ptr8 != t3ptr8) {
 					t6ptr8 = g_AnimFrameBytes[anim->frameslot2];
 
-					if (!modelasmIterateThings2()) {
+					if (!modelasm_iterate_things2()) {
 						return false;
 					}
 				}
@@ -155,7 +155,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 			if (t2ptr8 != t3ptr8) {
 				t6ptr8 = g_AnimFrameBytes[anim->frameslot3];
 
-				if (!modelasmIterateThings1()) {
+				if (!modelasm_iterate_things1()) {
 					return false;
 				}
 
@@ -169,7 +169,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 					if (t2ptr8 != t3ptr8) {
 						t6ptr8 = g_AnimFrameBytes[anim->frameslot4];
 
-						if (!modelasmIterateThings2()) {
+						if (!modelasm_iterate_things2()) {
 							return false;
 						}
 					}
@@ -242,8 +242,8 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						}
 
 						sp7e8slot = t0slot;
-						modelasmPrepareRotMtx360(t2, t3, t4);
-						modelasmMathPain2();
+						modelasm_prepare_rot_mtx360(t2, t3, t4);
+						modelasm_math_pain2();
 
 						f16 = f0;
 						f17 = f1;
@@ -254,9 +254,9 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						t3 = s3;
 						t4 = s4;
 
-						modelasmPrepareRotMtx360(t2, t3, t4);
-						modelasmMathPain2();
-						modelasmMathPain1(f30);
+						modelasm_prepare_rot_mtx360(t2, t3, t4);
+						modelasm_math_pain2();
+						modelasm_math_pain1(f30);
 
 						sp7e4 = true;
 						t0slot = sp7e8slot;
@@ -266,7 +266,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						sp7f0 = f2;
 						sp7f4 = f3;
 
-						modelasmMathPain4();
+						modelasm_math_pain4();
 					} else {
 						if (anim->flip) {
 							t2ptr8 = skeleton->things[t1];
@@ -312,8 +312,8 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 							s1 = t3;
 							s2 = t4;
 
-							modelasmPrepareRotMtx180(t2, t3, t4);
-							modelasmMathPain3();
+							modelasm_prepare_rot_mtx180(t2, t3, t4);
+							modelasm_math_pain3();
 						}
 					}
 				} else {
@@ -363,10 +363,10 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 					}
 				}
 
-				t0mtx = node->parent ? modelasmFindNodeMtx(model, node->parent) : renderdata->unk00;
+				t0mtx = node->parent ? modelasm_find_node_mtx(model, node->parent) : renderdata->unk00;
 				t1mtx = &model->matrices[node->rodata->position.mtxindex0];
 
-				modelasmMtxMultiply(t0mtx, t1mtx);
+				modelasm_mtx_multiply(t0mtx, t1mtx);
 
 				if (g_ModelJointPositionedFunc) {
 					g_ModelJointPositionedFunc(node->rodata->position.mtxindex0, &model->matrices[node->rodata->position.mtxindex0]);
@@ -382,8 +382,8 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						t2 = s0;
 						t3 = s1;
 						t4 = s2;
-						modelasmPrepareRotMtx360(t2, t3, t4);
-						modelasmMathPain2();
+						modelasm_prepare_rot_mtx360(t2, t3, t4);
+						modelasm_math_pain2();
 					}
 
 					f4 = 0;
@@ -410,7 +410,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						f4 = f5 * 0.5f;
 						f0 += f4;
 					} else {
-						f7 = modelasmAcosOrAsin(f6);
+						f7 = modelasm_acos_or_asin(f6);
 						f17 = f0;
 						f12 = f6 * 0.5f;
 						s1 = t1;
@@ -424,16 +424,16 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						f0 += f5;
 					}
 
-					modelasmMathPain4();
+					modelasm_math_pain4();
 					t1mtx = &model->matrices[node->rodata->position.mtxindex1];
-					modelasmMtxMultiply(t0mtx, t1mtx);
+					modelasm_mtx_multiply(t0mtx, t1mtx);
 				}
 			}
 			break;
 		case MODELNODETYPE_DISTANCE:
-			t0mtx = modelasmFindNodeMtx(model, node);
+			t0mtx = modelasm_find_node_mtx(model, node);
 
-			rwdata = modelasmGetNodeRwData(model, node, sp7f8);
+			rwdata = modelasm_get_node_rw_data(model, node, sp7f8);
 			f0 = 0;
 
 			if (!g_ModelDistanceDisabled && t0mtx) {
@@ -510,8 +510,8 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						}
 
 						sp7e8slot = t0slot;
-						modelasmPrepareRotMtx360(t2, t3, t4);
-						modelasmMathPain2();
+						modelasm_prepare_rot_mtx360(t2, t3, t4);
+						modelasm_math_pain2();
 
 						f16 = f0;
 						f17 = f1;
@@ -522,11 +522,11 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						t3 = s3;
 						t4 = s4;
 
-						modelasmPrepareRotMtx360(t2, t3, t4);
-						modelasmMathPain2();
-						modelasmMathPain1(f30);
+						modelasm_prepare_rot_mtx360(t2, t3, t4);
+						modelasm_math_pain2();
+						modelasm_math_pain1(f30);
 						t0slot = sp7e8slot;
-						modelasmMathPain4();
+						modelasm_math_pain4();
 					} else {
 						if (anim->flip) {
 							t2ptr8 = skeleton->things[t1];
@@ -545,7 +545,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 								t3 = (0x10000 - t3) & 0xffff;
 							}
 
-							modelasmPrepareRotMtx180(t2, t3, t4);
+							modelasm_prepare_rot_mtx180(t2, t3, t4);
 						} else {
 							t0slot = &sp00[t1];
 
@@ -554,10 +554,10 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 							t3 = t0slot->unk04;
 							t2 = t0slot->unk02;
 
-							modelasmPrepareRotMtx180(t2, t3, t4);
+							modelasm_prepare_rot_mtx180(t2, t3, t4);
 						}
 
-						modelasmMathPain3();
+						modelasm_math_pain3();
 					}
 				} else {
 					f12 = 1;
@@ -578,7 +578,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 
 				f0 = 0;
 
-				rwdata = modelasmGetNodeRwData(model, node, sp7f8);
+				rwdata = modelasm_get_node_rw_data(model, node, sp7f8);
 
 				yrot = rwdata->chrinfo.yrot;
 
@@ -653,11 +653,11 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 				t0mtx = renderdata->unk00;
 				t1mtx = &model->matrices[node->rodata->chrinfo.mtxindex];
 
-				modelasmMtxMultiply(t0mtx, t1mtx);
+				modelasm_mtx_multiply(t0mtx, t1mtx);
 			}
 			break;
 		case MODELNODETYPE_HEADSPOT:
-			rwdata = modelasmGetNodeRwData(model, node, sp7f8);
+			rwdata = modelasm_get_node_rw_data(model, node, sp7f8);
 
 			if (rwdata->headspot.headmodeldef) {
 				struct modelnode *iternode = rwdata->headspot.headmodeldef->rootnode;
@@ -671,7 +671,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 			}
 			break;
 		case MODELNODETYPE_POSITIONHELD:
-			t0mtx = node->parent ? modelasmFindNodeMtx(model, node->parent) : renderdata->unk00;
+			t0mtx = node->parent ? modelasm_find_node_mtx(model, node->parent) : renderdata->unk00;
 
 			f12 = 1;
 			f13 = 0;
@@ -691,12 +691,12 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 
 			t1mtx = &model->matrices[node->rodata->positionheld.mtxindex];
 
-			modelasmMtxMultiply(t0mtx, t1mtx);
+			modelasm_mtx_multiply(t0mtx, t1mtx);
 			break;
 		case MODELNODETYPE_REORDER:
 			break;
 		case MODELNODETYPE_TOGGLE:
-			rwdata = modelasmGetNodeRwData(model, node, sp7f8);
+			rwdata = modelasm_get_node_rw_data(model, node, sp7f8);
 
 			node->child = rwdata->toggle.visible ? node->rodata->toggle.target : NULL;
 			break;
@@ -716,7 +716,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 						if ((node->type & 0xff) == MODELNODETYPE_HEADSPOT) {
 							// @bug:
 							// sp7f8 tracks whether we are under the head node
-							// which allows modelasmGetNodeRwData to avoid
+							// which allows modelasm_get_node_rw_data to avoid
 							// searching for the head node if we're already
 							// above it. The code here is ascending back out of
 							// the head node, so it should be setting it to
@@ -741,7 +741,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
  * t3 = pointer to end of anim header
  * t6 = pointer to anim frame bytes
  */
-static bool modelasmIterateThings1(void)
+static bool modelasm_iterate_things1(void)
 {
 	s32 t7;
 	s32 t8;
@@ -761,7 +761,7 @@ static bool modelasmIterateThings1(void)
 		if (t7 & 2) {
 			// 0, 1, 2
 			v1 = t2ptr8[2];
-			s0 = modelasmReadFrameData();
+			s0 = modelasm_read_frame_data();
 			v1 = t2ptr8[2];
 			s3 = 1;
 
@@ -786,7 +786,7 @@ static bool modelasmIterateThings1(void)
 
 			// 3, 4, 5
 			v1 = t2ptr8[5];
-			s1 = modelasmReadFrameData();
+			s1 = modelasm_read_frame_data();
 			v1 = t2ptr8[5];
 			s3 = 1;
 
@@ -811,7 +811,7 @@ static bool modelasmIterateThings1(void)
 
 			// 6, 7, 8
 			v1 = t2ptr8[8];
-			s2 = modelasmReadFrameData();
+			s2 = modelasm_read_frame_data();
 			v1 = t2ptr8[8];
 			s3 = 1;
 
@@ -867,19 +867,19 @@ static bool modelasmIterateThings1(void)
 
 		if (t7 & 1) {
 			v1 = t2ptr8[2];
-			s0 = modelasmReadFrameData();
+			s0 = modelasm_read_frame_data();
 			s0 += (t2ptr8[0] << 8) + t2ptr8[1];
 			v0 = 16 - t4;
 			s0 = (s0 << v0) & 0xffff;
 
 			v1 = t2ptr8[5];
-			s1 = modelasmReadFrameData();
+			s1 = modelasm_read_frame_data();
 			s1 += (t2ptr8[3] << 8) + t2ptr8[4];
 			v0 = 16 - t4;
 			s1 = (s1 << v0) & 0xffff;
 
 			v1 = t2ptr8[8];
-			s2 = modelasmReadFrameData();
+			s2 = modelasm_read_frame_data();
 			s2 += (t2ptr8[6] << 8) + t2ptr8[7];
 			v0 = 16 - t4;
 			s2 = (s2 << v0) & 0xffff;
@@ -909,7 +909,7 @@ static bool modelasmIterateThings1(void)
  * t6 = pointer to anim frame bytes
  * f0 containing an integer
  */
-static bool modelasmIterateThings2(void)
+static bool modelasm_iterate_things2(void)
 {
 	s32 t7;
 	s32 t8;
@@ -978,19 +978,19 @@ static bool modelasmIterateThings2(void)
 			s2 = 0;
 		} else {
 			v1 = t2ptr8[2];
-			s0 = modelasmReadFrameData();
+			s0 = modelasm_read_frame_data();
 			s0 += (t2ptr8[0] << 8) + t2ptr8[1];
 			v0 = 16 - t4;
 			s0 = (s0 << v0) & 0xffff;
 
 			v1 = t2ptr8[5];
-			s1 = modelasmReadFrameData();
+			s1 = modelasm_read_frame_data();
 			s1 += (t2ptr8[3] << 8) + t2ptr8[4];
 			v0 = 16 - t4;
 			s1 = (s1 << v0) & 0xffff;
 
 			v1 = t2ptr8[8];
-			s2 = modelasmReadFrameData();
+			s2 = modelasm_read_frame_data();
 			s2 += (t2ptr8[6] << 8) + t2ptr8[7];
 			v0 = 16 - t4;
 			s2 = (s2 << v0) & 0xffff;
@@ -1094,7 +1094,7 @@ static bool modelasmIterateThings2(void)
 /**
  * Expects: t3 t6 v1 gp s8
  */
-static u32 modelasmReadFrameData(void)
+static u32 modelasm_read_frame_data(void)
 {
 	u32 v0 = 0;
 	s32 s6;
@@ -1168,7 +1168,7 @@ u8 var8005ef90[] = {
 	0x14, 0x00,
 };
 
-static union modelrwdata *modelasmGetNodeRwData(struct model *model, struct modelnode *node, bool is_head)
+static union modelrwdata *modelasm_get_node_rw_data(struct model *model, struct modelnode *node, bool is_head)
 {
 	u32 index = 0;
 	u32 *rwdatas = model->rwdatas;
@@ -1185,7 +1185,7 @@ static union modelrwdata *modelasmGetNodeRwData(struct model *model, struct mode
 			node = node->parent;
 
 			if ((node->type & 0xff) == MODELNODETYPE_HEADSPOT) {
-				union modelrwdata *tmp = modelasmGetNodeRwData(model, node, false);
+				union modelrwdata *tmp = modelasm_get_node_rw_data(model, node, false);
 				rwdatas = tmp->headspot.rwdatas;
 				break;
 			}
@@ -1196,7 +1196,7 @@ static union modelrwdata *modelasmGetNodeRwData(struct model *model, struct mode
 }
 
 #if VERSION < VERSION_NTSC_1_0
-void *modelGetNodeRwData(struct model *model, struct modelnode *node)
+void *model_get_node_rw_data(struct model *model, struct modelnode *node)
 {
 	u32 index = 0;
 	u32 *rwdatas = model->rwdatas;
@@ -1213,7 +1213,7 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 			node = node->parent;
 
 			if ((node->type & 0xff) == MODELNODETYPE_HEADSPOT) {
-				struct modelrwdata_headspot *tmp = modelGetNodeRwData(model, node);
+				struct modelrwdata_headspot *tmp = model_get_node_rw_data(model, node);
 				rwdatas = tmp->rwdatas;
 				break;
 			}
@@ -1227,7 +1227,7 @@ void *modelGetNodeRwData(struct model *model, struct modelnode *node)
 /**
  * Expects: f0-f3, f16-f22
  */
-static void modelasmMathPain1(f32 f30)
+static void modelasm_math_pain1(f32 f30)
 {
 	f32 f6;
 	f32 f7;
@@ -1273,7 +1273,7 @@ static void modelasmMathPain1(f32 f30)
 	}
 
 	if (f6 <= 0.99994999170303f) {
-		f7 = modelasmAcosOrAsin(f6);
+		f7 = modelasm_acos_or_asin(f6);
 		f20 = f0;
 		f21 = sinf(f7);
 		f22 = sinf((1.0f - f30) * f7);
@@ -1303,7 +1303,7 @@ static void modelasmMathPain1(f32 f30)
 /**
  * Expects: f0 f1 f2 f3 f4 f5
  */
-static void modelasmMathPain2(void)
+static void modelasm_math_pain2(void)
 {
 	f32 f6;
 	f32 f7;
@@ -1332,7 +1332,7 @@ static void modelasmMathPain2(void)
 	f3 = f26 - f10;
 }
 
-static void modelasmPrepareRotMtx180(s32 t2, s32 t3, s32 t4)
+static void modelasm_prepare_rot_mtx180(s32 t2, s32 t3, s32 t4)
 {
 	// Very close to: 1.0f / (180 * 180 / M_PI)
 	f32 f8 = t4 * 0.000095873801910784f;
@@ -1347,7 +1347,7 @@ static void modelasmPrepareRotMtx180(s32 t2, s32 t3, s32 t4)
 	f0 = sinf(f6 + RAD(90, 1.570796251297f));
 }
 
-static void modelasmPrepareRotMtx360(s32 t2, s32 t3, s32 t4)
+static void modelasm_prepare_rot_mtx360(s32 t2, s32 t3, s32 t4)
 {
 	// Very close to: 1.0f / (360 * 180 / M_PI)
 	f32 f8 = t4 * 0.000047936900955392f;
@@ -1365,7 +1365,7 @@ static void modelasmPrepareRotMtx360(s32 t2, s32 t3, s32 t4)
 /**
  * Expects: f0 f1 f2 f3 f4 f5
  */
-static void modelasmMathPain3(void)
+static void modelasm_math_pain3(void)
 {
 	f32 f6 = f1 * f5;
 	f32 f7 = f0 * f5;
@@ -1388,7 +1388,7 @@ static void modelasmMathPain3(void)
 /**
  * Expects: f0 f1 f2 f3
  */
-static void modelasmMathPain4(void)
+static void modelasm_math_pain4(void)
 {
 	f32 f6;
 	f32 f7;
@@ -1439,7 +1439,7 @@ static void modelasmMathPain4(void)
 /**
  * Expects: f12-f23
  */
-static void modelasmMtxMultiply(Mtxf *src, Mtxf *dst)
+static void modelasm_mtx_multiply(Mtxf *src, Mtxf *dst)
 {
 	f32 f0;
 	f32 f1;
@@ -1491,7 +1491,7 @@ static void modelasmMtxMultiply(Mtxf *src, Mtxf *dst)
 	dst->m[3][3] = 1;
 }
 
-static Mtxf *modelasmFindNodeMtx(struct model *model, struct modelnode *node)
+static Mtxf *modelasm_find_node_mtx(struct model *model, struct modelnode *node)
 {
 	do {
 		u8 type = node->type & 0xff;
@@ -1517,7 +1517,7 @@ static Mtxf *modelasmFindNodeMtx(struct model *model, struct modelnode *node)
 /**
  * See similar function func0f096890.
  */
-static f32 modelasmAcosOrAsin(f32 f6)
+static f32 modelasm_acos_or_asin(f32 f6)
 {
 	s32 t2;
 	s32 t3;

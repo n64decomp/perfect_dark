@@ -43,26 +43,26 @@ void *g_AudioSp;
 u32 var8005cf90 = 0x00000000;
 u8 var8005cf94 = 1;
 
-void amgrHandleDoneMsg(AudioInfo *info);
-void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo);
-void amgrMain(void *arg);
+void amgr_handle_done_msg(AudioInfo *info);
+void amgr_handle_frame_msg(AudioInfo *info, AudioInfo *previnfo);
+void amgr_main(void *arg);
 
-void amgrInit(void)
+void amgr_init(void)
 {
-	g_AudioSp = bootAllocateStack(THREAD_AUDIO, STACKSIZE_AUDIO);
+	g_AudioSp = boot_allocate_stack(THREAD_AUDIO, STACKSIZE_AUDIO);
 }
 
 #if VERSION >= VERSION_PAL_BETA
-void amgrCreate(ALSynConfig *config, u32 *settings)
+void amgr_create(ALSynConfig *config, u32 *settings)
 #else
-void amgrCreate(ALSynConfig *config)
+void amgr_create(ALSynConfig *config)
 #endif
 {
 	f32 freqpertick;
 	s32 i;
 
 	config->outputRate = osAiSetFrequency(22020);
-	config->dmaproc = admaNew;
+	config->dmaproc = adma_new;
 
 #if VERSION >= VERSION_JPN_FINAL
 	freqpertick = settings[1] * (f32)config->outputRate / 30.0f;
@@ -91,7 +91,7 @@ void amgrCreate(ALSynConfig *config)
 	var800918e4 = g_AmgrFreqPerTick + 80;
 	var8005cf94 = 0;
 
-	admaInit();
+	adma_init();
 
 	osCreateMesgQueue(&g_AudioManager.audioReplyMsgQ, g_AudioManager.audioReplyMsgBuf, ARRAYCOUNT(g_AudioManager.audioFrameMsgBuf));
 	osCreateMesgQueue(&g_AudioManager.audioFrameMsgQ, g_AudioManager.audioFrameMsgBuf, ARRAYCOUNT(g_AudioManager.audioFrameMsgBuf));
@@ -142,18 +142,18 @@ void amgrCreate(ALSynConfig *config)
 
 	n_alInit(&g_AudioManager.g, config);
 	func00030bfc(0, 60);
-	osCreateThread(&g_AudioManager.thread, THREAD_AUDIO, &amgrMain, 0, g_AudioSp, THREADPRI_AUDIO);
+	osCreateThread(&g_AudioManager.thread, THREAD_AUDIO, &amgr_main, 0, g_AudioSp, THREADPRI_AUDIO);
 }
 
 s8 g_AudioIsThreadRunning = false;
 
-void amgrStartThread(void)
+void amgr_start_thread(void)
 {
 	osStartThread(&g_AudioManager.thread);
 	g_AudioIsThreadRunning = true;
 }
 
-OSMesgQueue *amgrGetFrameMesgQueue(void)
+OSMesgQueue *amgr_get_frame_mesg_queue(void)
 {
 	return &g_AudioManager.audioFrameMsgQ;
 }
@@ -163,7 +163,7 @@ OSMesgQueue *amgrGetFrameMesgQueue(void)
  * this is only called when resetting the console, and when that happens the
  * variable is likely reset too.
  */
-void amgrStopThread(void)
+void amgr_stop_thread(void)
 {
 	if (g_AudioIsThreadRunning) {
 		osStopThread(&g_AudioManager.thread);
@@ -172,7 +172,7 @@ void amgrStopThread(void)
 
 extern u32 g_AdmaCurFrame;
 
-void amgrMain(void *arg)
+void amgr_main(void *arg)
 {
 	s32 count = 0;
 	bool done = false;
@@ -196,12 +196,12 @@ void amgrMain(void *arg)
 		switch (*msg) {
 		case OS_SC_RSP_MSG:
 			var80091588 = osGetTime();
-			profileSetMarker(PROFILE_AUDIOFRAME_START);
-			amgrHandleFrameMsg(g_AudioManager.audioInfo[g_AdmaCurFrame % 3], info);
-			admaReceiveAll();
+			profile_set_marker(PROFILE_AUDIOFRAME_START);
+			amgr_handle_frame_msg(g_AudioManager.audioInfo[g_AdmaCurFrame % 3], info);
+			adma_receive_all();
 
 			count++;
-			profileSetMarker(PROFILE_AUDIOFRAME_END);
+			profile_set_marker(PROFILE_AUDIOFRAME_END);
 
 			var80091590 = osGetTime();
 			var80091570 = var80091590 - var80091588;
@@ -222,7 +222,7 @@ void amgrMain(void *arg)
 			}
 
 			var8005d514 = 0;
-			amgrHandleDoneMsg(info);
+			amgr_handle_done_msg(info);
 			break;
 		case OS_SC_PRE_NMI_MSG:
 			done = true;
@@ -236,7 +236,7 @@ void amgrMain(void *arg)
 	n_alClose(&g_AudioManager.g);
 }
 
-void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
+void amgr_handle_frame_msg(AudioInfo *info, AudioInfo *previnfo)
 {
 	u32 somevalue;
 	s16 *outbuffer;
@@ -249,10 +249,10 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	extern u8 aspDataStart;
 
 	if (g_AmgrCurrentCmdList) {
-		schedSubmitTask(&g_Sched, g_AmgrCurrentCmdList);
+		sched_submit_task(&g_Sched, g_AmgrCurrentCmdList);
 	}
 
-	admaBeginFrame();
+	adma_begin_frame();
 
 	somevalue = IO_READ(OS_PHYSICAL_TO_K1(AI_LEN_REG)) / 4;
 	datastart = g_AudioManager.ACMDList[var8005cf90];
@@ -297,7 +297,7 @@ void amgrHandleFrameMsg(AudioInfo *info, AudioInfo *previnfo)
 	var8005cf90 ^= 1;
 }
 
-void amgrHandleDoneMsg(AudioInfo *info)
+void amgr_handle_done_msg(AudioInfo *info)
 {
 	static bool firsttime = true;
 

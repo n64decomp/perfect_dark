@@ -46,7 +46,7 @@ struct vtxstoretype g_VtxstoreTypes[] = {
  * Search all props and their model data for something, and replace it with
  * something else.
  */
-void vtxstoreFixRefs(void *find, void *replacement)
+void vtxstore_fix_refs(void *find, void *replacement)
 {
 	u32 stack;
 	struct prop *prop = g_Vars.activeprops;
@@ -69,13 +69,13 @@ void vtxstoreFixRefs(void *find, void *replacement)
 					}
 					break;
 				case MODELNODETYPE_DISTANCE:
-					modelApplyDistanceRelations(obj->model, node);
+					model_apply_distance_relations(obj->model, node);
 					break;
 				case MODELNODETYPE_TOGGLE:
-					modelApplyToggleRelations(obj->model, node);
+					model_apply_toggle_relations(obj->model, node);
 					break;
 				case MODELNODETYPE_HEADSPOT:
-					modelApplyHeadRelations(obj->model, node);
+					model_apply_head_relations(obj->model, node);
 					break;
 				}
 
@@ -98,7 +98,7 @@ void vtxstoreFixRefs(void *find, void *replacement)
 	}
 }
 
-void vtxstoreTick(void)
+void vtxstore_tick(void)
 {
 	s32 i;
 	s32 j;
@@ -111,9 +111,9 @@ void vtxstoreTick(void)
 							&& g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].node == g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].node
 							&& g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].level == g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].level) {
 						s32 size = ALIGN16(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].count * 0x0c);
-						vtxstoreFixRefs(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk00, g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk00);
+						vtxstore_fix_refs(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk00, g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk00);
 						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[i].unk0e += g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0e;
-						memaFree(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk00, size);
+						mema_free(g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk00, size);
 						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].unk0e = 0;
 						g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].val2 += g_VtxstoreTypes[VTXSTORETYPE_OBJVTX].unk24[j].count;
 					}
@@ -127,7 +127,7 @@ void vtxstoreTick(void)
 	}
 }
 
-void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
+void *vtxstore_allocate(s32 count, s32 index, struct modelnode *node, s32 level)
 {
 	s32 i;
 	s32 numchrs;
@@ -146,12 +146,12 @@ void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 		for (i = 0; i < g_VtxstoreTypes[index].numallocated; i++) {
 			if (g_VtxstoreTypes[index].unk24[i].unk0e == 0) {
 				size = ALIGN16(count * 0xc);
-				g_VtxstoreTypes[index].unk24[i].unk00 = memaAlloc(size);
+				g_VtxstoreTypes[index].unk24[i].unk00 = mema_alloc(size);
 
 #if VERSION < VERSION_NTSC_1_0
 				if (!g_VtxstoreTypes[index].unk24[i].unk00) {
-					bgGarbageCollectRooms(size, false);
-					g_VtxstoreTypes[index].unk24[i].unk00 = memaAlloc(size);
+					bg_garbage_collect_rooms(size, false);
+					g_VtxstoreTypes[index].unk24[i].unk00 = mema_alloc(size);
 				}
 #endif
 
@@ -174,7 +174,7 @@ void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 	// reaping on a random corpse and replace its entry in the array.
 	// So at the end, we'll have an array of up to six unreapable corpses and
 	// all other corpses will be flagged for reaping.
-	numchrs = chrsGetNumSlots();
+	numchrs = chrs_get_num_slots();
 	tally = 0;
 
 	for (i = 0; i < numchrs; i++) {
@@ -190,7 +190,7 @@ void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 				tally++;
 			} else {
 				rand = random() % tally;
-				chrFadeCorpseWhenOffScreen(chrs[rand]);
+				chr_fade_corpse_when_off_screen(chrs[rand]);
 				chrs[rand] = chr;
 			}
 		}
@@ -205,7 +205,7 @@ void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 		i = random() % tally;
 
 		if (chrs[i]) {
-			chrFadeCorpseWhenOffScreen(chrs[i]);
+			chr_fade_corpse_when_off_screen(chrs[i]);
 			chrs[i] = NULL;
 			rand--;
 		}
@@ -214,7 +214,7 @@ void *vtxstoreAllocate(s32 count, s32 index, struct modelnode *node, s32 level)
 	return NULL;
 }
 
-void vtxstoreFree(s32 type, void *arg1)
+void vtxstore_free(s32 type, void *arg1)
 {
 	s32 i;
 
@@ -226,7 +226,7 @@ void vtxstoreFree(s32 type, void *arg1)
 				return;
 			}
 
-			memaFree(g_VtxstoreTypes[type].unk24[i].unk00, ALIGN16(g_VtxstoreTypes[type].unk24[i].count * 0xc));
+			mema_free(g_VtxstoreTypes[type].unk24[i].unk00, ALIGN16(g_VtxstoreTypes[type].unk24[i].count * 0xc));
 
 			g_VtxstoreTypes[type].val2 += g_VtxstoreTypes[type].unk24[i].count;
 			return;

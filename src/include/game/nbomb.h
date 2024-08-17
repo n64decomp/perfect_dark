@@ -5,18 +5,18 @@
 #include "types.h"
 
 Gfx *func0f008558(Gfx *gdl, s32 depth);
-void nbombReset(struct nbomb *nbomb);
-s32 nbombCalculateAlpha(struct nbomb *nbomb);
-Gfx *nbombCreateGdl(void);
-Gfx *nbombRender(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl);
+void nbomb_reset(struct nbomb *nbomb);
+s32 nbomb_calculate_alpha(struct nbomb *nbomb);
+Gfx *nbomb_create_gdl(void);
+Gfx *nbomb_render(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl);
 void func0f0099a4(void);
-void nbombInflictDamage(struct nbomb *nbomb);
-void nbombTick(struct nbomb *nbomb);
-void nbombsTick(void);
-Gfx *nbombsRender(Gfx *gdl);
-void nbombCreateStorm(struct coord *pos, struct prop *ownerprop);
-f32 gasGetDoorFrac(s32 tagnum);
-Gfx *nbombRenderOverlay(Gfx *gdl);
-Gfx *gasRender(Gfx *gdl);
+void nbomb_inflict_damage(struct nbomb *nbomb);
+void nbomb_tick(struct nbomb *nbomb);
+void nbombs_tick(void);
+Gfx *nbombs_render(Gfx *gdl);
+void nbomb_create_storm(struct coord *pos, struct prop *ownerprop);
+f32 gas_get_door_frac(s32 tagnum);
+Gfx *nbomb_render_overlay(Gfx *gdl);
+Gfx *gas_render(Gfx *gdl);
 
 #endif

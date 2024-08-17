@@ -96,7 +96,7 @@ struct asistream {
 	/*0x847c*/ bool (*unk847c)(struct asistream *stream);
 };
 
-u32 mp3mainInit(void);
+u32 mp3main_init(void);
 struct asistream *mp3main00044460(s32 arg0, void *arg1, s32 arg2);
 s32 mp3main0004453c(struct asistream *stream, struct mp3thing **arg1, s32 *arg2);
 

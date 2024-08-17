@@ -42,16 +42,16 @@
  * It's a simple fade between the source framebuffer and the blurred image.
  * Only one blurred image is made.
  */
-void menugfxCreateBlur(void)
+void menugfx_create_blur(void)
 {
-	u8 *fb = (u8 *) viGetFrontBuffer();
+	u8 *fb = (u8 *) vi_get_front_buffer();
 	s32 dstx;
 	s32 dsty;
 #if PAL
-	s32 fbwidthinbytes = viGetWidth() * 2;
-	f32 scale = viGetWidth() / (f32) SCREEN_WIDTH_LO;
+	s32 fbwidthinbytes = vi_get_width() * 2;
+	f32 scale = vi_get_width() / (f32) SCREEN_WIDTH_LO;
 #else
-	s32 fbwidthinbytes = PXTOBYTES(viGetWidth());
+	s32 fbwidthinbytes = PXTOBYTES(vi_get_width());
 #endif
 	s32 srcx;
 	s32 srcy;
@@ -69,10 +69,10 @@ void menugfxCreateBlur(void)
 #endif
 
 	if (cccc == 1) {
-		fb = (u8 *) viGetFrontBuffer();
+		fb = (u8 *) vi_get_front_buffer();
 	}
 
-	mainOverrideVariable("cccc", &cccc);
+	main_override_variable("cccc", &cccc);
 
 	for (dsty = 0; dsty < BLURIMG_HEIGHT; dsty++) {
 
@@ -115,7 +115,7 @@ void menugfxCreateBlur(void)
 	g_ScaleX = 1;
 }
 
-Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
+Gfx *menugfx_render_bg_blur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 {
 	Col *colours;
 	Vtx *vertices;
@@ -125,11 +125,11 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 #endif
 
 	if (IS4MB()) {
-		return menugfxRenderGradient(gdl, 0, 0, viGetWidth(), viGetHeight(), 0xff, 0xff, 0xff);
+		return menugfx_render_gradient(gdl, 0, 0, vi_get_width(), vi_get_height(), 0xff, 0xff, 0xff);
 	}
 
-	colours = gfxAllocateColours(1);
-	vertices = gfxAllocateVertices(4);
+	colours = gfx_allocate_colours(1);
+	vertices = gfx_allocate_vertices(4);
 
 	gDPPipeSync(gdl++);
 	gSPTexture(gdl++, 0xffff, 0xffff, 0, G_TX_RENDERTILE, G_ON);
@@ -148,8 +148,8 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
 #if VERSION >= VERSION_JPN_FINAL
-	width = viGetWidth() * 10;
-	height = viGetHeight() * 10;
+	width = vi_get_width() * 10;
+	height = vi_get_height() * 10;
 
 	*(u16 *)&vertices[0].x = arg2;
 	*(u16 *)&vertices[0].y = arg3;
@@ -164,8 +164,8 @@ Gfx *menugfxRenderBgBlur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
 	*(u16 *)&vertices[3].y = arg3 + SCREEN_240 * 10u + 50;
 	vertices[3].z = -10;
 #elif PAL
-	width = viGetWidth() * 10;
-	height = viGetHeight() * 10;
+	width = vi_get_width() * 10;
+	height = vi_get_height() * 10;
 
 	*(u16 *)&vertices[0].x = arg2;
 	*(u16 *)&vertices[0].y = arg3;
@@ -232,20 +232,20 @@ void func0f0e0cbc(s32 arg0, s32 arg1, s16 arg2, s16 arg3, Vtx *vertex, Mtxf *arg
 
 	vertex->colour = 0;
 
-	mtx4TransformVecInPlace(arg5, &sp24);
+	mtx4_transform_vec_in_place(arg5, &sp24);
 
 	vertex->s = sp24.x * 32;
 	vertex->t = sp24.y * 32;
 }
 
-Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct menudialog *dialog, u32 colour1, u32 colour2, f32 arg8)
+Gfx *menugfx_render_dialog_background(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct menudialog *dialog, u32 colour1, u32 colour2, f32 arg8)
 {
 	u32 stack[1];
 	u32 leftcolour;
 	u32 rightcolour;
 
 	// Render the dialog's background fill
-	gdl = textSetPrimColour(gdl, colour1);
+	gdl = text_set_prim_colour(gdl, colour1);
 
 	gDPFillRectangleScaled(gdl++, x1, y1, x2, y2);
 
@@ -254,19 +254,19 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
 	if (dialog->transitionfrac < 0.0f) {
 		leftcolour = g_MenuColours[dialog->type].dialog_border1;
 	} else {
-		leftcolour = colourBlend(g_MenuColours[dialog->type2].dialog_border1, g_MenuColours[dialog->type].dialog_border1, dialog->colourweight);
+		leftcolour = colour_blend(g_MenuColours[dialog->type2].dialog_border1, g_MenuColours[dialog->type].dialog_border1, dialog->colourweight);
 	}
 
 	if (dialog->transitionfrac < 0.0f) {
 		rightcolour = g_MenuColours[dialog->type].dialog_border2;
 	} else {
-		rightcolour = colourBlend(g_MenuColours[dialog->type2].dialog_border2, g_MenuColours[dialog->type].dialog_border2, dialog->colourweight);
+		rightcolour = colour_blend(g_MenuColours[dialog->type2].dialog_border2, g_MenuColours[dialog->type].dialog_border2, dialog->colourweight);
 	}
 
 	// Right, left, bottom border
-	gdl = menugfxDrawDialogBorderLine(gdl, x2 - 1, y1, x2, y2, rightcolour, rightcolour);
-	gdl = menugfxDrawDialogBorderLine(gdl, x1, y1, x1 + 1, y2, leftcolour, leftcolour);
-	gdl = menugfxDrawDialogBorderLine(gdl, x1, y2 - 1, x2, y2, leftcolour, rightcolour);
+	gdl = menugfx_draw_dialog_border_line(gdl, x2 - 1, y1, x2, y2, rightcolour, rightcolour);
+	gdl = menugfx_draw_dialog_border_line(gdl, x1, y1, x1 + 1, y2, leftcolour, leftcolour);
+	gdl = menugfx_draw_dialog_border_line(gdl, x1, y2 - 1, x2, y2, leftcolour, rightcolour);
 
 	return gdl;
 }
@@ -277,7 +277,7 @@ Gfx *menugfxRenderDialogBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, str
  * The background consists of two layers of a green hazy texture.
  * Both layers spin slowly in opposite directions.
  */
-Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+Gfx *menugfx_render_bg_green_haze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
 	s32 i;
 	Col *colours;
@@ -295,8 +295,8 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	f32 f2;
 	u32 stack;
 
-	colours = gfxAllocateColours(4);
-	vertices = gfxAllocateVertices(8);
+	colours = gfx_allocate_colours(4);
+	vertices = gfx_allocate_vertices(8);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -305,7 +305,7 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 
-	texSelect(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -394,10 +394,10 @@ Gfx *menugfxRenderBgGreenHaze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	return gdl;
 }
 
-Gfx *menugfxDrawDropdownBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
+Gfx *menugfx_draw_dropdown_background(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 {
-	Col *colours = gfxAllocateColours(3);
-	Vtx *vertices = gfxAllocateVertices(6);
+	Col *colours = gfx_allocate_colours(3);
+	Vtx *vertices = gfx_allocate_vertices(6);
 	u32 colour1;
 	u32 colour2;
 
@@ -408,7 +408,7 @@ Gfx *menugfxDrawDropdownBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 
-	texSelect(&gdl, NULL, 2, 0, 2, true, NULL);
+	tex_select(&gdl, NULL, 2, 0, 2, true, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -459,13 +459,13 @@ Gfx *menugfxDrawDropdownBackground(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3, u8 alpha)
+Gfx *menugfx_draw_list_group_header(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3, u8 alpha)
 #else
-Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3)
+Gfx *menugfx_draw_list_group_header(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3)
 #endif
 {
-	Col *colours = gfxAllocateColours(7);
-	Vtx *vertices = gfxAllocateVertices(9);
+	Col *colours = gfx_allocate_colours(7);
+	Vtx *vertices = gfx_allocate_vertices(9);
 	u32 alpha1;
 	u32 alpha2;
 
@@ -476,7 +476,7 @@ Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 
-	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
+	tex_select(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -544,15 +544,15 @@ Gfx *menugfxDrawListGroupHeader(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3
 	gSPTri4(gdl++, 0, 1, 3, 3, 2, 0, 2, 3, 4, 4, 3, 5);
 	gSPTri4(gdl++, 1, 6, 7, 7, 3, 1, 3, 7, 8, 8, 5, 3);
 
-	gdl = menugfxDrawShimmer(gdl, x1, y1, x2, y1 + 1, (alpha1 & 0xff) >> 2, 1, 0x28, 0);
-	gdl = menugfxDrawShimmer(gdl, x1, y2, x2, y2 + 1, (alpha1 & 0xff) >> 2, 0, 0x28, 1);
+	gdl = menugfx_draw_shimmer(gdl, x1, y1, x2, y1 + 1, (alpha1 & 0xff) >> 2, 1, 0x28, 0);
+	gdl = menugfx_draw_shimmer(gdl, x1, y2, x2, y2 + 1, (alpha1 & 0xff) >> 2, 0, 0x28, 1);
 
 	return gdl;
 }
 
 #if MATCHING
 GLOBAL_ASM(
-glabel menugfxRenderGradient
+glabel menugfx_render_gradient
 /*  f0e1ce8:	27bdffa0 */ 	addiu	$sp,$sp,-96
 /*  f0e1cec:	afbf002c */ 	sw	$ra,0x2c($sp)
 /*  f0e1cf0:	afa40060 */ 	sw	$a0,0x60($sp)
@@ -561,10 +561,10 @@ glabel menugfxRenderGradient
 /*  f0e1cfc:	afa50064 */ 	sw	$a1,0x64($sp)
 /*  f0e1d00:	afa60068 */ 	sw	$a2,0x68($sp)
 /*  f0e1d04:	afa7006c */ 	sw	$a3,0x6c($sp)
-/*  f0e1d08:	0fc59e73 */ 	jal	gfxAllocateColours
+/*  f0e1d08:	0fc59e73 */ 	jal	gfx_allocate_colours
 /*  f0e1d0c:	24040003 */ 	addiu	$a0,$zero,0x3
 /*  f0e1d10:	00408825 */ 	or	$s1,$v0,$zero
-/*  f0e1d14:	0fc59e59 */ 	jal	gfxAllocateVertices
+/*  f0e1d14:	0fc59e59 */ 	jal	gfx_allocate_vertices
 /*  f0e1d18:	24040006 */ 	addiu	$a0,$zero,0x6
 /*  f0e1d1c:	8fae0060 */ 	lw	$t6,0x60($sp)
 /*  f0e1d20:	3c18e700 */ 	lui	$t8,0xe700
@@ -618,7 +618,7 @@ glabel menugfxRenderGradient
 /*  f0e1de0:	27a40060 */ 	addiu	$a0,$sp,0x60
 /*  f0e1de4:	00002825 */ 	or	$a1,$zero,$zero
 /*  f0e1de8:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f0e1dec:	0fc2ce70 */ 	jal	texSelect
+/*  f0e1dec:	0fc2ce70 */ 	jal	tex_select
 /*  f0e1df0:	00003825 */ 	or	$a3,$zero,$zero
 /*  f0e1df4:	8fb90060 */ 	lw	$t9,0x60($sp)
 /*  f0e1df8:	8fab0070 */ 	lw	$t3,0x70($sp)
@@ -735,10 +735,10 @@ glabel menugfxRenderGradient
 );
 #else
 	// Mismatch: Goal has the if statement with empty contents
-Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourstart, u32 colourmid, u32 colourend)
+Gfx *menugfx_render_gradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colourstart, u32 colourmid, u32 colourend)
 {
-	Col *colours = gfxAllocateColours(3);
-	Vtx *vertices = gfxAllocateVertices(6);
+	Col *colours = gfx_allocate_colours(3);
+	Vtx *vertices = gfx_allocate_vertices(6);
 	s32 ymid;
 
 	gDPPipeSync(gdl++);
@@ -748,7 +748,7 @@ Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colours
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 
-	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
+	tex_select(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -808,10 +808,10 @@ Gfx *menugfxRenderGradient(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colours
 }
 #endif
 
-Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, u32 colour)
+Gfx *menugfx_render_slider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, u32 colour)
 {
-	Col *colours = gfxAllocateColours(3);
-	Vtx *vertices = gfxAllocateVertices(6);
+	Col *colours = gfx_allocate_colours(3);
+	Vtx *vertices = gfx_allocate_vertices(6);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -820,7 +820,7 @@ Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, 
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 
-	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
+	tex_select(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
@@ -873,10 +873,10 @@ Gfx *menugfxRenderSlider(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s32 markerx, 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
 	// Line to the left of the marker: blue -> white gradient
-	gdl = menugfxDrawLine(gdl, x1, y2, markerx, y2 + 1, 0x0000ffff, 0xffffffff);
+	gdl = menugfx_draw_line(gdl, x1, y2, markerx, y2 + 1, 0x0000ffff, 0xffffffff);
 
 	// Line to the right of the marker: solid blue
-	gdl = menugfxDrawLine(gdl, markerx, y2, x2, y2 + 1, 0x0000ffff, 0x0000ffff);
+	gdl = menugfx_draw_line(gdl, markerx, y2, x2, y2 + 1, 0x0000ffff, 0x0000ffff);
 
 	return gdl;
 }
@@ -910,20 +910,20 @@ Gfx *menugfx0f0e2498(Gfx *gdl)
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	texSelect(&gdl, 0, 2, 0, 2, 1, NULL);
+	tex_select(&gdl, 0, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
 	return gdl;
 }
 
-Gfx *menugfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, bool arg7)
+Gfx *menugfx_draw_tri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2, bool arg7)
 {
 	Vtx *vertices;
 	Col *colours;
 
-	colours = gfxAllocateColours(2);
-	vertices = gfxAllocateVertices(4);
+	colours = gfx_allocate_colours(2);
+	vertices = gfx_allocate_vertices(4);
 
 	vertices[0].x = x1 * 10;
 	vertices[0].y = y1 * 10;
@@ -963,15 +963,15 @@ Gfx *menugfxDrawTri2(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 
 	return gdl;
 }
 
-Gfx *menugfxDrawLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfx_draw_line(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
 	gdl = menugfx0f0e2498(gdl);
-	gdl = menugfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
+	gdl = menugfx_draw_tri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
 
 	return gdl;
 }
 
-Gfx *menugfxDrawProjectedLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfx_draw_projected_line(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
 	s32 numfullblocks;
 	s32 i;
@@ -981,33 +981,33 @@ Gfx *menugfxDrawProjectedLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colo
 	s32 parttop;
 	u32 stack[2];
 
-	if (textHasDiagonalBlend()) {
+	if (text_has_diagonal_blend()) {
 		if (x2 - x1 < y2 - y1) {
 			// Portrait
 			numfullblocks = (y2 - y1) / 15;
 			parttop = y1;
-			partcolourtop = textApplyProjectionColour(x1, y1, colour1);
+			partcolourtop = text_apply_projection_colour(x1, y1, colour1);
 
 			for (i = 0; i < numfullblocks; i++) {
 				partbottom = y1 + i * 15;
 
 				if (y2 - partbottom < 3) {
 					partbottom = y2;
-					partcolourbottom = textApplyProjectionColour(x2, partbottom, colour2);
+					partcolourbottom = text_apply_projection_colour(x2, partbottom, colour2);
 				} else {
-					partcolourbottom = colourBlend(colour2, colour1, (partbottom - y1) * 255 / (y2 - y1));
+					partcolourbottom = colour_blend(colour2, colour1, (partbottom - y1) * 255 / (y2 - y1));
 					// @bug: y1 should be x1
-					partcolourbottom = textApplyProjectionColour(y1, partbottom, partcolourbottom);
+					partcolourbottom = text_apply_projection_colour(y1, partbottom, partcolourbottom);
 				}
 
-				gdl = menugfxDrawTri2(gdl, x1, parttop, x2, partbottom, partcolourtop, partcolourbottom, false);
+				gdl = menugfx_draw_tri2(gdl, x1, parttop, x2, partbottom, partcolourtop, partcolourbottom, false);
 
 				parttop = partbottom;
 				partcolourtop = partcolourbottom;
 			}
 
-			partcolourbottom = textApplyProjectionColour(x2, y2, colour2);
-			gdl = menugfxDrawTri2(gdl, x1, parttop, x2, y2, partcolourtop, partcolourbottom, false);
+			partcolourbottom = text_apply_projection_colour(x2, y2, colour2);
+			gdl = menugfx_draw_tri2(gdl, x1, parttop, x2, y2, partcolourtop, partcolourbottom, false);
 		} else {
 			// Landscape
 			s32 numfullblocks;
@@ -1020,20 +1020,20 @@ Gfx *menugfxDrawProjectedLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colo
 
 			numfullblocks = (x2 - x1) / 15;
 			partleft = x1;
-			partcolourleft = textApplyProjectionColour(x1, y1, colour1);
+			partcolourleft = text_apply_projection_colour(x1, y1, colour1);
 
 			for (i = 0; i < numfullblocks; i++) {
 				partright = x1 + i * 15;
 
 				if (x2 - partright < 3) {
 					partright = x2;
-					partcolourright = textApplyProjectionColour(x2, y2, colour2);
+					partcolourright = text_apply_projection_colour(x2, y2, colour2);
 				} else {
-					partcolourright = colourBlend(colour2, colour1, (partright - x1) * 255 / (x2 - x1));
-					partcolourright = textApplyProjectionColour(partright, y1, partcolourright);
+					partcolourright = colour_blend(colour2, colour1, (partright - x1) * 255 / (x2 - x1));
+					partcolourright = text_apply_projection_colour(partright, y1, partcolourright);
 				}
 
-				gdl = menugfxDrawTri2(gdl, partleft, y1, partright, y2, partcolourleft, partcolourright, false);
+				gdl = menugfx_draw_tri2(gdl, partleft, y1, partright, y2, partcolourleft, partcolourright, false);
 
 				partleft = partright;
 				partcolourleft = partcolourright;
@@ -1041,11 +1041,11 @@ Gfx *menugfxDrawProjectedLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colo
 
 			if (partcolourtop);
 
-			partcolourright = textApplyProjectionColour(x2, y2, colour2);
-			gdl = menugfxDrawTri2(gdl, partleft, y1, x2, y2, partcolourleft, partcolourright, false);
+			partcolourright = text_apply_projection_colour(x2, y2, colour2);
+			gdl = menugfx_draw_tri2(gdl, partleft, y1, x2, y2, partcolourleft, partcolourright, false);
 		}
 	} else {
-		gdl = menugfxDrawTri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
+		gdl = menugfx_draw_tri2(gdl, x1, y1, x2, y2, colour1, colour2, false);
 	}
 
 	return gdl;
@@ -1063,7 +1063,7 @@ Gfx *menugfxDrawProjectedLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colo
  * The shimmer will go right to left or bottom to top unless the reverse
  * argument is set to true.
  */
-Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bool arg6, s32 arg7, bool reverse)
+Gfx *menugfx_draw_shimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bool arg6, s32 arg7, bool reverse)
 {
 	s32 shimmerleft;
 	s32 shimmertop;
@@ -1119,10 +1119,10 @@ Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bo
 
 			if (reverse) {
 				// Left to right
-				gdl = menugfxDrawTri2(gdl, shimmerleft, y1, shimmerright, y2, 0xffffff00, tailcolour, 0);
+				gdl = menugfx_draw_tri2(gdl, shimmerleft, y1, shimmerright, y2, 0xffffff00, tailcolour, 0);
 			} else {
 				// Right to left
-				gdl = menugfxDrawTri2(gdl, shimmerleft, y1, shimmerright, y2, tailcolour, 0xffffff00, 0);
+				gdl = menugfx_draw_tri2(gdl, shimmerleft, y1, shimmerright, y2, tailcolour, 0xffffff00, 0);
 			}
 		}
 	} else {
@@ -1161,10 +1161,10 @@ Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bo
 
 			if (reverse) {
 				// Top to bottom
-				gdl = menugfxDrawTri2(gdl, x1, shimmertop, x2, shimmerbottom, 0xffffff00, tailcolour, 1);
+				gdl = menugfx_draw_tri2(gdl, x1, shimmertop, x2, shimmerbottom, 0xffffff00, tailcolour, 1);
 			} else {
 				// Bottom to top
-				gdl = menugfxDrawTri2(gdl, x1, shimmertop, x2, shimmerbottom, tailcolour, 0xffffff00, 1);
+				gdl = menugfx_draw_tri2(gdl, x1, shimmertop, x2, shimmerbottom, tailcolour, 0xffffff00, 1);
 			}
 		}
 	}
@@ -1172,19 +1172,19 @@ Gfx *menugfxDrawShimmer(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour, bo
 	return gdl;
 }
 
-Gfx *menugfxDrawDialogBorderLine(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfx_draw_dialog_border_line(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
-	gdl = menugfxDrawLine(gdl, x1, y1, x2, y2, colour1, colour2);
-	gdl = menugfxDrawShimmer(gdl, x1, y1, x2, y2, colour1, 0, 10, false);
+	gdl = menugfx_draw_line(gdl, x1, y1, x2, y2, colour1, colour2);
+	gdl = menugfx_draw_shimmer(gdl, x1, y1, x2, y2, colour1, 0, 10, false);
 
 	return gdl;
 }
 
-Gfx *menugfxDrawFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
+Gfx *menugfx_draw_filled_rect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1, u32 colour2)
 {
 	gdl = menugfx0f0e2498(gdl);
-	gdl = menugfxDrawProjectedLine(gdl, x1, y1, x2, y2, colour1, colour2);
-	gdl = menugfxDrawShimmer(gdl, x1, y1, x2, y2, colour1, 0, 10, false);
+	gdl = menugfx_draw_projected_line(gdl, x1, y1, x2, y2, colour1, colour2);
+	gdl = menugfx_draw_shimmer(gdl, x1, y1, x2, y2, colour1, 0, 10, false);
 
 	return gdl;
 }
@@ -1197,7 +1197,7 @@ Gfx *menugfxDrawFilledRect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour1
  * The x and y arguments refer to the apex of the chevron. Size is the distance
  * from the apex to the opposite side.
  */
-Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1, u32 colour2)
+Gfx *menugfx_draw_carousel_chevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1, u32 colour2)
 {
 	Vtx *vertices;
 	Col *colours;
@@ -1232,8 +1232,8 @@ Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction,
 		break;
 	}
 
-	colours = gfxAllocateColours(2);
-	vertices = gfxAllocateVertices(3);
+	colours = gfx_allocate_colours(2);
+	vertices = gfx_allocate_vertices(3);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -1241,7 +1241,7 @@ Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction,
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
+	tex_select(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -1280,7 +1280,7 @@ Gfx *menugfxDrawCarouselChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction,
  * The x and y arguments refer to the apex of the chevron. Size is the distance
  * from the apex to the opposite side.
  */
-Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1, u32 colour2, f32 arg7)
+Gfx *menugfx_draw_dialog_chevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u32 colour1, u32 colour2, f32 arg7)
 {
 	u32 stack;
 	Col *colours;
@@ -1316,8 +1316,8 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 		break;
 	}
 
-	colours = gfxAllocateColours(2);
-	vertices = gfxAllocateVertices(4);
+	colours = gfx_allocate_colours(2);
+	vertices = gfx_allocate_vertices(4);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -1325,7 +1325,7 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	texSelect(&gdl, NULL, 2, 0, 2, 1, NULL);
+	tex_select(&gdl, NULL, 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 
@@ -1365,15 +1365,15 @@ Gfx *menugfxDrawDialogChevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction, u
 	return gdl;
 }
 
-Gfx *menugfxDrawCheckbox(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour)
+Gfx *menugfx_draw_checkbox(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour)
 {
 	if (fill) {
-		gdl = textSetPrimColour(gdl, fillcolour);
+		gdl = text_set_prim_colour(gdl, fillcolour);
 		gDPFillRectangleScaled(gdl++, x, y, x + size, y + size);
 		gdl = text0f153838(gdl);
 	}
 
-	gdl = textSetPrimColour(gdl, bordercolour);
+	gdl = text_set_prim_colour(gdl, bordercolour);
 
 	gDPFillRectangleScaled(gdl++, x, y, x + size + 1, y + 1);
 	gDPFillRectangleScaled(gdl++, x, y + size, x + size + 1, y + size + 1);
@@ -1385,7 +1385,7 @@ Gfx *menugfxDrawCheckbox(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 border
 	return gdl;
 }
 
-Gfx *menugfxRenderBgFailure(Gfx *gdl)
+Gfx *menugfx_render_bg_failure(Gfx *gdl)
 {
 	f32 spb4;
 	s32 i;
@@ -1408,8 +1408,8 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 	var8009de90 = -100000;
 	var8009de94 = 100000;
 
-	gdl = menugfxDrawPlane(gdl, -10000, 0, 10000, 0, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
-	gdl = menugfxDrawPlane(gdl, -10000, 300, 10000, 300, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
+	gdl = menugfx_draw_plane(gdl, -10000, 0, 10000, 0, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
+	gdl = menugfx_draw_plane(gdl, -10000, 300, 10000, 300, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
 
 	for (i = 0; i < 3; i++) {
 		angle = (2.0f * i * M_PI) / 3.0f + spb4;
@@ -1431,8 +1431,8 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, MENUPLANE_02);
-		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, MENUPLANE_03);
+		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, MENUPLANE_02);
+		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, MENUPLANE_03);
 
 		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f;
 		s6 = sinf(angle) * 600.0f;
@@ -1453,11 +1453,11 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		alpha1 = menuGetCosOscFrac(4) * 127.0f;
-		alpha2 = menuGetCosOscFrac(4) * 55.0f;
+		alpha1 = menu_get_cos_osc_frac(4) * 127.0f;
+		alpha2 = menu_get_cos_osc_frac(4) * 55.0f;
 
-		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
-		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
+		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
+		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
 
 		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f + M_PI;
 		s6 = sinf(angle) * 600.0f;
@@ -1478,11 +1478,11 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		alpha1 = (1.0f - menuGetCosOscFrac(4)) * 99.0f;
-		alpha2 = (1.0f - menuGetCosOscFrac(4)) * 33.0f;
+		alpha1 = (1.0f - menu_get_cos_osc_frac(4)) * 99.0f;
+		alpha2 = (1.0f - menu_get_cos_osc_frac(4)) * 33.0f;
 
-		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, MENUPLANE_02);
-		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, MENUPLANE_03);
+		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, MENUPLANE_02);
+		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, MENUPLANE_03);
 	}
 
 	gdl = func0f0d4c80(gdl);
@@ -1496,7 +1496,7 @@ Gfx *menugfxRenderBgFailure(Gfx *gdl)
  * The background has two "cones" being projected into the camera's eye and
  * rotating in opposite directions.
  */
-Gfx *menugfxRenderBgCone(Gfx *gdl)
+Gfx *menugfx_render_bg_cone(Gfx *gdl)
 {
 	f32 baseangle;
 	f32 angle;
@@ -1510,7 +1510,7 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
 
 	// Cone 1
 	baseangle = M_TAU * g_20SecIntervalFrac * 2.0f;
-	colourupper = (u32) (menuGetSinOscFrac(1.0f) * 255.0f) << 16;
+	colourupper = (u32) (menu_get_sin_osc_frac(1.0f) * 255.0f) << 16;
 
 	gdl = func0f0d4a3c(gdl, 0);
 
@@ -1534,11 +1534,11 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
 
 		colour = colourupper | 0xff00007f;
 
-		gdl = menugfxDrawPlane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_08);
+		gdl = menugfx_draw_plane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_08);
 	}
 
 	// Cone 2
-	colourupper = (u32) (255.0f - menuGetCosOscFrac(1.0f) * 255.0f) << 16;
+	colourupper = (u32) (255.0f - menu_get_cos_osc_frac(1.0f) * 255.0f) << 16;
 
 	baseangle = M_TAU * g_20SecIntervalFrac;
 
@@ -1561,7 +1561,7 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
 
 		colour = colourupper | 0xff00007f;
 
-		gdl = menugfxDrawPlane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_09);
+		gdl = menugfx_draw_plane(gdl, x1, y1, x2, y2, colour, colour, MENUPLANE_09);
 	}
 
 	gdl = func0f0d4c80(gdl);
@@ -1579,15 +1579,15 @@ Gfx *menugfxRenderBgCone(Gfx *gdl)
 Gfx *func0f0e458c(Gfx *gdl)
 {
 	g_MenuProjectFromX = 0;
-	g_MenuProjectFromY = -20 - viGetHeight() / 2;
+	g_MenuProjectFromY = -20 - vi_get_height() / 2;
 
 	gdl = func0f0d4a3c(gdl, 0);
 
 	var8009de90 = -100000;
 	var8009de94 = 100000;
 
-	gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x00ff00bf, 0x00ff00bf, MENUPLANE_06);
-	gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0xffff00af, 0xffff00af, MENUPLANE_05);
+	gdl = menugfx_draw_plane(gdl, -1000, vi_get_height() + 10, 2000, vi_get_height() + 10, 0x00ff00bf, 0x00ff00bf, MENUPLANE_06);
+	gdl = menugfx_draw_plane(gdl, -1000, vi_get_height() + 10, 2000, vi_get_height() + 10, 0xffff00af, 0xffff00af, MENUPLANE_05);
 	gdl = func0f0d4c80(gdl);
 
 	g_MenuProjectFromX = g_MenuProjectFromY = 0;
@@ -1605,10 +1605,10 @@ Gfx *func0f0e46b0(Gfx *gdl, f32 arg1)
 	var8009de90 = -100000;
 	var8009de94 = 100000;
 
-	gdl = menugfxDrawPlane(gdl, -1000, y1, 2000, y1, 0xffff007f, 0xffff007f, MENUPLANE_05);
-	gdl = menugfxDrawPlane(gdl, -1000, y1, 2000, y1, 0x00aa007f, 0x00aa007f, MENUPLANE_06);
-	gdl = menugfxDrawPlane(gdl, -1000, y2, 2000, y2, 0xffff007f, 0xffff007f, MENUPLANE_05);
-	gdl = menugfxDrawPlane(gdl, -1000, y2, 2000, y2, 0x00aa007f, 0x00aa007f, MENUPLANE_06);
+	gdl = menugfx_draw_plane(gdl, -1000, y1, 2000, y1, 0xffff007f, 0xffff007f, MENUPLANE_05);
+	gdl = menugfx_draw_plane(gdl, -1000, y1, 2000, y1, 0x00aa007f, 0x00aa007f, MENUPLANE_06);
+	gdl = menugfx_draw_plane(gdl, -1000, y2, 2000, y2, 0xffff007f, 0xffff007f, MENUPLANE_05);
+	gdl = menugfx_draw_plane(gdl, -1000, y2, 2000, y2, 0x00aa007f, 0x00aa007f, MENUPLANE_06);
 
 	gdl = func0f0d4c80(gdl);
 
@@ -1616,9 +1616,9 @@ Gfx *func0f0e46b0(Gfx *gdl, f32 arg1)
 }
 
 /**
- * This is an exact copy of menugfxRenderBgFailure.
+ * This is an exact copy of menugfx_render_bg_failure.
  */
-Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
+Gfx *menugfx_render_bg_failure_copy(Gfx *gdl)
 {
 	f32 spb4;
 	s32 i;
@@ -1641,8 +1641,8 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 	var8009de90 = -100000;
 	var8009de94 = 100000;
 
-	gdl = menugfxDrawPlane(gdl, -10000, 0, 10000, 0, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
-	gdl = menugfxDrawPlane(gdl, -10000, 300, 10000, 300, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
+	gdl = menugfx_draw_plane(gdl, -10000, 0, 10000, 0, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
+	gdl = menugfx_draw_plane(gdl, -10000, 300, 10000, 300, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
 
 	for (i = 0; i < 3; i++) {
 		angle = (2.0f * i * M_PI) / 3.0f + spb4;
@@ -1664,8 +1664,8 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, MENUPLANE_02);
-		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, MENUPLANE_03);
+		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, MENUPLANE_02);
+		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, MENUPLANE_03);
 
 		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f;
 		s6 = sinf(angle) * 600.0f;
@@ -1686,11 +1686,11 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		alpha1 = menuGetCosOscFrac(4) * 127.0f;
-		alpha2 = menuGetCosOscFrac(4) * 55.0f;
+		alpha1 = menu_get_cos_osc_frac(4) * 127.0f;
+		alpha2 = menu_get_cos_osc_frac(4) * 55.0f;
 
-		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
-		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
+		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
+		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
 
 		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f + M_PI;
 		s6 = sinf(angle) * 600.0f;
@@ -1711,11 +1711,11 @@ Gfx *menugfxRenderBgFailureCopy(Gfx *gdl)
 		s0 += 120;
 		s7 += 120;
 
-		alpha1 = (1.0f - menuGetCosOscFrac(4)) * 99.0f;
-		alpha2 = (1.0f - menuGetCosOscFrac(4)) * 33.0f;
+		alpha1 = (1.0f - menu_get_cos_osc_frac(4)) * 99.0f;
+		alpha2 = (1.0f - menu_get_cos_osc_frac(4)) * 33.0f;
 
-		gdl = menugfxDrawPlane(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, MENUPLANE_02);
-		gdl = menugfxDrawPlane(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, MENUPLANE_03);
+		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xffffff00 | alpha2, 0xffffff00 | alpha1, MENUPLANE_02);
+		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xffffff00 | alpha1, 0xffffff00 | alpha2, MENUPLANE_03);
 	}
 
 	gdl = func0f0d4c80(gdl);
@@ -1730,12 +1730,12 @@ struct coord *g_MenuParticles = NULL;
  * the memory gets reused for other things, so all that needs to happen here is
  * clearing the pointer that the menugfx system maintains.
  */
-void menugfxFreeParticles(void)
+void menugfx_free_particles(void)
 {
 	g_MenuParticles = NULL;
 }
 
-u32 menugfxGetParticleArraySize(void)
+u32 menugfx_get_particle_array_size(void)
 {
 	return align16(NUM_SUCCESS_PARTICLES * sizeof(struct coord));
 }
@@ -1749,7 +1749,7 @@ u32 menugfxGetParticleArraySize(void)
  *
  * In the Defense stage, everything is gray and the particles move slower.
  */
-Gfx *menugfxRenderBgSuccess(Gfx *gdl)
+Gfx *menugfx_render_bg_success(Gfx *gdl)
 {
 	Mtxf sp110;
 	Mtxf *modelmtx;
@@ -1768,7 +1768,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 
 	// Initialise particles if they haven't been already
 	if (g_MenuParticles == NULL) {
-		g_MenuParticles = (struct coord *) bgunGetGunMem();
+		g_MenuParticles = (struct coord *) bgun_get_gun_mem();
 
 		if (g_MenuParticles == NULL) {
 			return gdl;
@@ -1806,7 +1806,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 		}
 	}
 
-	f0 = menuGetLinearIntervalFrac(10.0f);
+	f0 = menu_get_linear_interval_frac(10.0f);
 
 	// Draw the two haze layers
 	g_MenuProjectFromX = 0;
@@ -1818,18 +1818,18 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 	var8009de94 = 100000;
 
 	if (gray) {
-		gdl = menugfxDrawPlane(gdl, -1000, -10, 2000, -10, 0x6060607f, 0x6060607f, MENUPLANE_05);
-		gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x9090907f, 0x9090907f, MENUPLANE_05);
+		gdl = menugfx_draw_plane(gdl, -1000, -10, 2000, -10, 0x6060607f, 0x6060607f, MENUPLANE_05);
+		gdl = menugfx_draw_plane(gdl, -1000, vi_get_height() + 10, 2000, vi_get_height() + 10, 0x9090907f, 0x9090907f, MENUPLANE_05);
 	} else {
-		gdl = menugfxDrawPlane(gdl, -1000, -10, 2000, -10, 0x0000947f, 0x0000947f, MENUPLANE_10);
-		gdl = menugfxDrawPlane(gdl, -1000, viGetHeight() + 10, 2000, viGetHeight() + 10, 0x6200947f, 0x6200947f, MENUPLANE_06);
+		gdl = menugfx_draw_plane(gdl, -1000, -10, 2000, -10, 0x0000947f, 0x0000947f, MENUPLANE_10);
+		gdl = menugfx_draw_plane(gdl, -1000, vi_get_height() + 10, 2000, vi_get_height() + 10, 0x6200947f, 0x6200947f, MENUPLANE_06);
 	}
 
 	// Prepare stuff for drawing the particles
 	gdl = func0f0d4c80(gdl);
 	gdl = func0f0d49c8(gdl);
 
-	texSelect(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, true, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, true, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -1841,15 +1841,15 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 
-	mtx4LoadIdentity(&sp110);
+	mtx4_load_identity(&sp110);
 
-	modelmtx = gfxAllocateMatrix();
+	modelmtx = gfx_allocate_matrix();
 
-	mtxF2L(&sp110, modelmtx);
+	mtx_f2l(&sp110, modelmtx);
 
 	gSPMatrix(gdl++, osVirtualToPhysical(modelmtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-	colours = gfxAllocateColours(20);
+	colours = gfx_allocate_colours(20);
 
 	if (gray) {
 		for (j = 0, ptr = colours; j < 5;) {
@@ -1928,7 +1928,7 @@ Gfx *menugfxRenderBgSuccess(Gfx *gdl)
 				f32 invsine2 = -sine;
 				f32 invsine = -sine;
 				f32 invcosine = -cosine;
-				Vtx *vertices = gfxAllocateVertices(5);
+				Vtx *vertices = gfx_allocate_vertices(5);
 
 				vertices[0].x = pos.f[0];
 				vertices[0].y = pos.f[1];

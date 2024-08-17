@@ -258,10 +258,10 @@ void *func0f149d58(u32 size, u32 line, char *file)
 
 	size = align16(size);
 
-	bgGarbageCollectRooms(size, 1);
+	bg_garbage_collect_rooms(size, 1);
 
 	var8007f9d0 += size;
-	allocation = memaAlloc(size);
+	allocation = mema_alloc(size);
 	var8007f9d4++;
 
 	for (i = 0; i < var800a45a0->unk37c; i++) {
@@ -290,7 +290,7 @@ void func0f149e58(u8 *arg0, u32 size)
 
 	for (i = 0; i < var800a45a0->unk37c; i++) {
 		if (arg0 == NULL || arg0 == var800a45a0->unk380[i]) {
-			memaFree(var800a45a0->unk380[i], var800a45a0->unk3f8[i]);
+			mema_free(var800a45a0->unk380[i], var800a45a0->unk3f8[i]);
 			var800a45a0->unk380[i] = 0;
 		}
 	}
@@ -387,9 +387,9 @@ bool func0f14a194(void)
  * 2 returns "Style 3"
  * 3 returns "Style 4"
  */
-char *phGetStyleName(s32 stylenum)
+char *ph_get_style_name(s32 stylenum)
 {
-	return langGet(L_MISC_429 + stylenum);
+	return lang_get(L_MISC_429 + stylenum);
 }
 
 /**
@@ -398,9 +398,9 @@ char *phGetStyleName(s32 stylenum)
  * 2 returns "Auburn"
  * 3 returns "Blue Rinse"
  */
-char *phGetColourName(s32 colournum)
+char *ph_get_colour_name(s32 colournum)
 {
-	return langGet(L_MISC_433 + colournum);
+	return lang_get(L_MISC_433 + colournum);
 }
 
 struct var8007f8dc *func0f14a20c(void)
@@ -444,7 +444,7 @@ bool func0f14a2fc(s32 index, u32 line, char *file)
 	return thing->unk3f4_00;
 }
 
-void pheadInit(void)
+void phead_init(void)
 {
 	s32 i;
 
@@ -452,8 +452,8 @@ void pheadInit(void)
 		u32 size1 = align16(sizeof(struct var8007f8dc) * 4);
 		u32 size2 = align16(sizeof(struct var800a45a0));
 
-		var8007f8dc = mempAlloc(size1, MEMPOOL_PERMANENT);
-		var800a45a0 = mempAlloc(size2, MEMPOOL_PERMANENT);
+		var8007f8dc = memp_alloc(size1, MEMPOOL_PERMANENT);
+		var800a45a0 = memp_alloc(size2, MEMPOOL_PERMANENT);
 
 		func0f14a240();
 
@@ -463,12 +463,12 @@ void pheadInit(void)
 	}
 }
 
-void pheadInit2(void)
+void phead_init2(void)
 {
 	// empty
 }
 
-void pheadReset(void)
+void phead_reset(void)
 {
 	s32 i;
 
@@ -707,7 +707,7 @@ void func0f14aa94(s32 colournum)
 {
 	struct var8007f8e0 *thing;
 
-	phGetColourName(colournum);
+	ph_get_colour_name(colournum);
 
 	thing = func0f14a06c(-1);
 	thing->colournum = colournum;
@@ -731,7 +731,7 @@ void func0f14ab0c(s32 stylenum)
 {
 	struct var8007f8e0 *thing;
 
-	phGetStyleName(stylenum);
+	ph_get_style_name(stylenum);
 
 	thing = func0f14a06c(-1);
 	thing->stylenum = stylenum;
@@ -914,7 +914,7 @@ void func0f14aee0(void)
 		totalsize = align16(sizeof(struct textureconfig) * count);
 		totalsize += align16(texturesize * count);
 
-		ptr = mempAlloc(totalsize, MEMPOOL_STAGE);
+		ptr = memp_alloc(totalsize, MEMPOOL_STAGE);
 
 		var800a45a0->unk484 = (struct textureconfig *)ptr;
 		ptr += sizeof(struct textureconfig) * count;
@@ -1174,13 +1174,13 @@ void func0f14b8ac(s32 index)
 {
 	struct var8007f8dc *thing = &var8007f8dc[index];
 
-	mainOverrideVariable("kg", &var8007f8e8);
-	mainOverrideVariable("Kp", &var8007f8ec);
-	mainOverrideVariable("Ki", &var8007f8f0);
-	mainOverrideVariable("Kd", &var8007f8f4);
-	mainOverrideVariable("tInt", &var8007f8f8);
-	mainOverrideVariable("gocal", &var8007f8fc);
-	mainOverrideVariable("aim", &var8007f900);
+	main_override_variable("kg", &var8007f8e8);
+	main_override_variable("Kp", &var8007f8ec);
+	main_override_variable("Ki", &var8007f8f0);
+	main_override_variable("Kd", &var8007f8f4);
+	main_override_variable("tInt", &var8007f8f8);
+	main_override_variable("gocal", &var8007f8fc);
+	main_override_variable("aim", &var8007f900);
 
 	if (thing->unk0d4_00) {
 		func0f14cf6c();
@@ -1199,7 +1199,7 @@ void func0f14b8ac(s32 index)
 			return;
 		}
 
-		switch (pakGetUnk008(func0f14a5a4())) {
+		switch (pak_get_unk008(func0f14a5a4())) {
 		case PAK008_12:
 			func0f14a95c();
 			func0f14aa48();
@@ -1348,14 +1348,14 @@ void func0f14bdbc(s32 index)
 	if (value == 4 || value == 5) {
 		thing->unk0f4 = 6;
 		g_MpPlayerNum = index;
-		menuSetBanner(-1, false);
+		menu_set_banner(-1, false);
 
 		thing2 = func0f14a06c(-1);
 		thing2->unk3f4_00 = false;
 
 		g_MpPlayerNum = index;
 
-		menuPopDialog();
+		menu_pop_dialog();
 
 		g_MpPlayerNum = 0;
 	} else {
@@ -1423,7 +1423,7 @@ void func0f14bec8(s32 index)
 		func0f14bc04();
 		pak0f11d478(func0f14a5a4());
 		g_MpPlayerNum = index;
-		menuSetBanner(-1, false);
+		menu_set_banner(-1, false);
 		func0f14a678();
 		thing2->unk3f4_00 = true;
 		g_MpPlayerNum = index;
@@ -1509,7 +1509,7 @@ void func0f14c3a4(s32 index)
 	} else {
 		pak0f11d620(func0f14a5a4());
 
-		switch (pakGetUnk008(func0f14a5a4())) {
+		switch (pak_get_unk008(func0f14a5a4())) {
 		case PAK008_01:
 			func0f14c1cc(index);
 			break;
@@ -1528,7 +1528,7 @@ void func0f14c4c0(s32 index)
 	var8007f8dc[index].unk0f4 = 4;
 	g_MpPlayerNum = index;
 
-	menuSetBanner(MENUBANNER_DOWNLOADINGIMAGE, false);
+	menu_set_banner(MENUBANNER_DOWNLOADINGIMAGE, false);
 }
 
 void func0f14c50c(struct var8007f8e0 *dst, struct var8007f8e0 *src, u32 line, char *file)
@@ -1669,7 +1669,7 @@ Gfx *func0f14c870(Gfx *gdl, struct textureconfig *tconfig, f32 *arg2, f32 arg3, 
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 	gDPSetCombineMode(gdl++, G_CC_MODULATEI, G_CC_MODULATEI);
 
-	texSelect(&gdl, tconfig, 1, 0, 2, 1, &var800a45a8);
+	tex_select(&gdl, tconfig, 1, 0, 2, 1, &var800a45a8);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -1712,7 +1712,7 @@ void func0f14cdb8(s32 index, u8 *arg1)
 void func0f14ce84(void)
 {
 	if (pak0f11d3f8(func0f14a5a4())) {
-		if (pakGetUnk008(func0f14a5a4()) != PAK008_12) {
+		if (pak_get_unk008(func0f14a5a4()) != PAK008_12) {
 			var8007f8dc[func0f14a5a4()].unk0f8 = 1;
 			var8007f8dc[func0f14a5a4()].unk0d4_00 = false;
 
@@ -1730,7 +1730,7 @@ void func0f14cf6c(void)
 {
 	g_MpPlayerNum = 0;
 
-	menuSetBanner(-1, false);
+	menu_set_banner(-1, false);
 
 	if (var8007f8dc[func0f14a5a4()].unk0f8) {
 		switch (var8007f8dc[func0f14a5a4()].unk0f8) {
@@ -1741,7 +1741,7 @@ void func0f14cf6c(void)
 		case 6:
 			pak0f1171b4(func0f14a5a4(), PAK00C_03, 0);
 			g_MpPlayerNum = 0;
-			menuSetBanner(-1, false);
+			menu_set_banner(-1, false);
 			break;
 		}
 
@@ -1760,7 +1760,7 @@ void func0f14d064(s32 index, u8 *arg1)
 		thing->unk064 = 0x2000;
 		thing->unk060 = 6;
 		g_MpPlayerNum = index;
-		menuSetBanner(MENUBANNER_CALIBRATINGCAMERA, false);
+		menu_set_banner(MENUBANNER_CALIBRATINGCAMERA, false);
 		func0f14a16c(1);
 		pak0f1171b4(func0f14a5a4(), PAK00C_01, 1);
 		thing->unk0f8 = 3;
@@ -1805,7 +1805,7 @@ void func0f14d064(s32 index, u8 *arg1)
 		thing->unk0f8 = 6;
 		thing->unk100 = thing->unk0fc;
 		g_MpPlayerNum = index;
-		menuSetBanner(-1, false);
+		menu_set_banner(-1, false);
 		pak0f1171b4(func0f14a5a4(), PAK00C_03, 0);
 		var8007f8dc[var800a45a0->unk000].unk0d4_04 = true;
 		thing->unk0f8 = 0;
@@ -2654,9 +2654,9 @@ void func0f14f1d4(s16 *src, s32 len, s32 *dst)
 
 s32 func0f14f2b4(struct modeldef *modeldef, Vtx **dst, u32 *len)
 {
-	struct modelnode *node1 = modelGetPart(modeldef, MODELPART_HEAD_0190);
-	struct modelnode *node2 = modelGetPart(modeldef, MODELPART_HEAD_0191);
-	struct modelnode *node3 = modelGetPart(modeldef, MODELPART_HEAD_0192);
+	struct modelnode *node1 = model_get_part(modeldef, MODELPART_HEAD_0190);
+	struct modelnode *node2 = model_get_part(modeldef, MODELPART_HEAD_0191);
+	struct modelnode *node3 = model_get_part(modeldef, MODELPART_HEAD_0192);
 
 	s32 totalverts = 0;
 
@@ -3136,7 +3136,7 @@ bool func0f15015c(s8 device, s32 filenum, u8 *arg2)
 	s32 ret;
 	s32 i;
 
-	ret = pakReadBodyAtGuid(device, filenum, buffer, 128);
+	ret = pak_read_body_at_guid(device, filenum, buffer, 128);
 
 	if (ret == 0) {
 		for (i = 0; i < sizeof(buffer); i++) {
@@ -3160,7 +3160,7 @@ bool func0f15015c(s8 device, s32 filenum, u8 *arg2)
 	return false;
 }
 
-bool pheadLoadFile(s8 device, s32 fileid, u16 serial, s32 arg3)
+bool phead_load_file(s8 device, s32 fileid, u16 serial, s32 arg3)
 {
 	s32 i;
 	s32 ret;
@@ -3170,7 +3170,7 @@ bool pheadLoadFile(s8 device, s32 fileid, u16 serial, s32 arg3)
 	struct var8007f8e0 *s0 = func0f14a06c(arg3 == -1 ? -1 : arg3);
 	struct var8007f8e0 *s1 = func0f14a06c(-1);
 
-	ret = pakReadBodyAtGuid(device, fileid, (u8 *)&file, 0);
+	ret = pak_read_body_at_guid(device, fileid, (u8 *)&file, 0);
 
 	if (ret == 0) {
 		s0->fileguid.fileid = fileid;
@@ -3238,7 +3238,7 @@ const char var7f1b727c[] = "\nCam_SaveEditSlotToParamPakItem -> Save failed\n";
 const char var7f1b72ac[] = "Camera Save Error Result: %d\n";
 const char var7f1b72cc[] = "Magic Guid set to %d\n";
 
-s32 pheadSaveFile(s8 device, s32 fileid, u16 serial)
+s32 phead_save_file(s8 device, s32 fileid, u16 serial)
 {
 	u32 stack[2];
 	struct camerafile file;
@@ -3308,7 +3308,7 @@ s32 pheadSaveFile(s8 device, s32 fileid, u16 serial)
 
 	var80075bd0[3] = true;
 
-	ret = pakSaveAtGuid(device, fileid, PAKFILETYPE_CAMERA, (u8 *)&file, &writtenfileid, NULL);
+	ret = pak_save_at_guid(device, fileid, PAKFILETYPE_CAMERA, (u8 *)&file, &writtenfileid, NULL);
 
 	if (ret == 0) {
 		s32 i;
@@ -3337,7 +3337,7 @@ s32 pheadSaveFile(s8 device, s32 fileid, u16 serial)
 	return -1;
 }
 
-void phGetGuid(s32 index, struct fileguid *guid)
+void ph_get_guid(s32 index, struct fileguid *guid)
 {
 	struct var8007f8e0 *thing = func0f14a06c(index);
 
@@ -3345,7 +3345,7 @@ void phGetGuid(s32 index, struct fileguid *guid)
 	guid->deviceserial = thing->fileguid.deviceserial;
 }
 
-void phSetFileId(s32 fileid)
+void ph_set_file_id(s32 fileid)
 {
 	struct var8007f8e0 *thing = func0f14a06c(-1);
 

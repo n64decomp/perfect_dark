@@ -6,19 +6,19 @@
 #include "data.h"
 #include "types.h"
 
-void explosionsStop(void)
+void explosions_stop(void)
 {
 	s32 i;
 
 	g_ExplosionShakeTotalTimer = 0;
-	viShake(0);
+	vi_shake(0);
 
 	if (g_Explosions) {
 		for (i = 0; i < MAX_EXPLOSIONS; i++) {
 			if (g_Explosions[i].prop) {
-				propDelist(g_Explosions[i].prop);
-				propDisable(g_Explosions[i].prop);
-				propFree(g_Explosions[i].prop);
+				prop_delist(g_Explosions[i].prop);
+				prop_disable(g_Explosions[i].prop);
+				prop_free(g_Explosions[i].prop);
 
 				g_Explosions[i].prop = NULL;
 			}

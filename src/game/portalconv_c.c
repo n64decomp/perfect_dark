@@ -11,7 +11,7 @@
  * C that can be dropped in place of the handwritten function by linking the
  * different file.
  */
-s32 portalConvertCoordinates(s32 portalnum, s32 *start, struct portalthing2 *things)
+s32 portal_convert_coordinates(s32 portalnum, s32 *start, struct portalthing2 *things)
 {
 	Mtxf *mtx = g_Vars.currentplayer->worldtoscreenmtx;
 	struct portalvertices *pvertices = (struct portalvertices *) ((uintptr_t) g_BgPortals + g_BgPortals[portalnum].verticesoffset);

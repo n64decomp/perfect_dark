@@ -73,7 +73,7 @@ struct var8009dd78 var8009dd78[10];
 u16 *g_PortalXluFracs;
 s32 g_NumPortalXluFracs;
 
-void portalSetXluFrac2(s32 portalnum, f32 frac)
+void portal_set_xlu_frac2(s32 portalnum, f32 frac)
 {
 	if (portalnum >= 0) {
 		u8 value = (u32)(255 * frac);
@@ -82,7 +82,7 @@ void portalSetXluFrac2(s32 portalnum, f32 frac)
 	}
 }
 
-void portalSetXluFrac(s32 portalnum, f32 frac)
+void portal_set_xlu_frac(s32 portalnum, f32 frac)
 {
 	if (portalnum >= 0) {
 		u8 value = (u32)(15 * frac) & 0xf;
@@ -90,14 +90,14 @@ void portalSetXluFrac(s32 portalnum, f32 frac)
 	}
 }
 
-f32 portalGetXluFrac2(s32 arg0)
+f32 portal_get_xlu_frac2(s32 arg0)
 {
 	f32 value = (g_PortalXluFracs[arg0] & 0xff) * 0.0039215688593686f;
 
 	return value;
 }
 
-f32 portalGetXluFrac(s32 arg0)
+f32 portal_get_xlu_frac(s32 arg0)
 {
 	f32 value = ((g_PortalXluFracs[arg0] & 0xf00) >> 8) * 0.06666667f;
 
@@ -108,21 +108,21 @@ void portal0f0b65a8(s32 numportals)
 {
 	if (numportals > 0) {
 		g_NumPortalXluFracs = numportals;
-		g_PortalXluFracs = mempAlloc(ALIGN16(numportals * 2), MEMPOOL_STAGE);
+		g_PortalXluFracs = memp_alloc(ALIGN16(numportals * 2), MEMPOOL_STAGE);
 	} else {
 		g_PortalXluFracs = NULL;
 	}
 }
 
-void portalsReset(void)
+void portals_reset(void)
 {
 	if (g_PortalXluFracs) {
 		struct prop *prop;
 		s32 i;
 
 		for (i = 0; i < g_NumPortalXluFracs; i++) {
-			portalSetXluFrac(i, 1);
-			portalSetXluFrac2(i, 1);
+			portal_set_xlu_frac(i, 1);
+			portal_set_xlu_frac2(i, 1);
 		}
 
 		prop = g_Vars.activeprops;
@@ -136,13 +136,13 @@ void portalsReset(void)
 						struct tintedglassobj *glass = (struct tintedglassobj *)obj;
 
 						if (glass->portalnum >= 0) {
-							portalSetXluFrac(glass->portalnum, 0);
+							portal_set_xlu_frac(glass->portalnum, 0);
 						}
 					} else if (obj->type == OBJTYPE_GLASS) {
 						struct glassobj *glass = (struct glassobj *)obj;
 
 						if (glass->portalnum >= 0) {
-							portalSetXluFrac(glass->portalnum, 0);
+							portal_set_xlu_frac(glass->portalnum, 0);
 						}
 					}
 				}
@@ -152,13 +152,13 @@ void portalsReset(void)
 		}
 
 		for (i = 0; i < g_NumPortalXluFracs; i++) {
-			portalGetXluFrac(i);
-			portalGetXluFrac2(i);
+			portal_get_xlu_frac(i);
+			portal_get_xlu_frac2(i);
 		}
 	}
 }
 
-void acousticReset(void)
+void acoustic_reset(void)
 {
 	s32 i;
 	s32 j;
@@ -171,7 +171,7 @@ void acousticReset(void)
 
 	osSyncPrintf("Acoustic Reset -> Allocating %d bytes for %d roomacousticdata structures\n", size, g_Vars.roomcount);
 
-	g_RoomAcousticData = mempAlloc(size, MEMPOOL_STAGE);
+	g_RoomAcousticData = memp_alloc(size, MEMPOOL_STAGE);
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		bool allgood = true;

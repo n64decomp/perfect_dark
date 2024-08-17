@@ -582,7 +582,7 @@ u32 inflate(void)
 {
 	s32 e;           /* last block flag */
 	s32 r;           /* result code */
-	u32 h;           /* maximum struct huft's mempAlloc'ed */
+	u32 h;           /* maximum struct huft's memp_alloc'ed */
 
 	/* initialize window, bit buffer */
 	wp = 0;
