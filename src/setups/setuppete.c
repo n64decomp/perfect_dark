@@ -485,7 +485,7 @@ s32 path13[] = {
 #define chicago_car_do_animation(object, animation) \
 	enable_object(object) \
 	set_object_flag2(object, OBJFLAG2_CANFILLVIEWPORT) \
-	set_object_flag3(object, OBJFLAG3_00000010) \
+	set_object_flag3(object, OBJFLAG3_FINDROOMSFAST) \
 	object_do_animation(animation, object, 0x04, 0xffff)
 
 #define chicago_wait_for_camera \
@@ -559,7 +559,7 @@ u8 func0403_3c74[] = {
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	enable_object(OBJ_CAR4)
 	set_object_flag2(OBJ_CAR4, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(OBJ_CAR4, OBJFLAG3_00000010)
+	set_object_flag3(OBJ_CAR4, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_PETE_INTRO_VEHICLE_09, OBJ_CAR4, 0x04, 0xffff)
 	set_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
@@ -580,13 +580,13 @@ u8 func0403_3c74[] = {
 u8 func0404_3ce0[] = {
 	enable_object(OBJ_WIREFENCE)
 	set_object_flag2(OBJ_WIREFENCE, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(OBJ_WIREFENCE, OBJFLAG3_00000010)
+	set_object_flag3(OBJ_WIREFENCE, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_PETE_INTRO_FENCE, OBJ_WIREFENCE, 0x01, 0xffff)
 
 	if_controller_button_pressed(/*goto*/ 0x00)
 	camera_movement(ANIM_CUT_PETE_INTRO_CAM_04)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PETE_INTRO_JO_01, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
@@ -604,7 +604,7 @@ u8 func0405_3d50[] = {
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x00)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PETE_INTRO_JO_02, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
@@ -635,7 +635,7 @@ u8 func0405_3d50[] = {
 	unset_chr_chrflag(CHR_CIA1, CHRCFLAG_HIDDEN)
 
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PETE_INTRO_JO_02, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 
 	stop_cutscene_track
@@ -898,7 +898,7 @@ u8 func040d_limo[] = {
 
 	label(0x04)
 	set_object_flag2(OBJ_LIMO, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(OBJ_LIMO, OBJFLAG3_00000010)
+	set_object_flag3(OBJ_LIMO, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_02D6, OBJ_LIMO, 0x04, 0xffff)
 
 	assign_sound(SFX_BIKE_ENGINE, CHANNEL_1)
@@ -2060,7 +2060,7 @@ u8 func041a_robot[] = {
 	label(0x38)
 	set_chr_chrflag(CHR_ROBOT, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ROBOT, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_ROBOT, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ROBOT, CHRHFLAG_FINDROOMSFAST)
 	set_self_chrflag(CHRCFLAG_INVINCIBLE)
 	unset_chr_hiddenflag(CHR_SELF, CHRHFLAG_INFINITESHIELD)
 #if VERSION >= VERSION_NTSC_1_0
@@ -2690,7 +2690,7 @@ u8 func040b_outro[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 #endif
-	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PETE_OUTRO_JO, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 
 	restart_timer

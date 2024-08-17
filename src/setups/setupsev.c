@@ -1543,10 +1543,10 @@ u8 func1002_intro[] = {
 	camera_movement(ANIM_CUT_SEV_INTRO_CAM)
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_SEV_INTRO_ELVIS, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_object_flag2(OBJ_TROLLEY, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_00000010)
+	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_SEV_INTRO_BED, OBJ_TROLLEY, 0x04, 0xffff)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -1585,10 +1585,10 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_SEV_INTRO_ELVIS, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	unset_object_flag2(OBJ_TROLLEY, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_00000010)
+	set_object_flag3(OBJ_TROLLEY, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_SEV_INTRO_BED, OBJ_TROLLEY, 0x04, 0xfffe)
 	stop_cutscene_track
 	stop_ambient_track
@@ -1605,12 +1605,12 @@ u8 func041b_outro[] = {
 	camera_movement(ANIM_CUT_SEV_OUTRO_CAM)
 
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_SEV_OUTRO_ELVIS, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 
 	unset_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_OUTRO_GUARD, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_OUTRO_GUARD, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_SEV_OUTRO_GUARD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_OUTRO_GUARD, 4)
 
 	show_nonessential_chrs(FALSE)

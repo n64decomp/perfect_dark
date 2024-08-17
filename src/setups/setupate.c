@@ -101,7 +101,7 @@ u8 func1002_first_walk[] = {
 	camera_movement(ANIM_CUT_ATE_INTRO_CAM)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	show_hudmsg_middle(0x00, COLOR_02_WHITE, L_ATE_007) // "THE DUEL"
 	chr_do_animation(ANIM_RELOAD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_GUARD, 2)
 	label(0x2d)
@@ -165,7 +165,7 @@ u8 func1007_second_walk[] = {
 	yield
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_GRAB_CROTCH, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_JONATHAN, 2)
 
 	label(0x2d)
@@ -246,7 +246,7 @@ u8 func1008_third_walk[] = {
 	yield
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_HEAD_ROLL, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_TRENT, 2)
 	label(0x2d)
 	show_hudmsg(CHR_BOND, L_ATE_014) // "Opponent skill level: PERFECT AGENT"

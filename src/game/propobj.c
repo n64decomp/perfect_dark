@@ -2291,7 +2291,7 @@ void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum
 		pos2.y = centre->y - sp70.m[row][1] * min;
 		pos2.z = centre->z - sp70.m[row][2] * min;
 
-		func0f065e74(arg1, rooms, &pos2, rooms2);
+		los_find_final_room_exhaustive(arg1, rooms, &pos2, rooms2);
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (cd_find_floor_room_y_colour_flags_at_pos(&pos2, rooms2, &y, &obj->floorcol, NULL) > 0)
@@ -2323,7 +2323,7 @@ void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum
 		}
 	}
 
-	func0f065e74(arg1, rooms, &pos2, rooms2);
+	los_find_final_room_exhaustive(arg1, rooms, &pos2, rooms2);
 	func0f06a580(obj, &pos2, &sp70, rooms2);
 }
 
@@ -2348,7 +2348,7 @@ void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, RoomNu
 	newpos.y = arg4->y - sp5c.m[2][1] * mult;
 	newpos.z = arg4->z - sp5c.m[2][2] * mult;
 
-	func0f065e74(arg1, rooms, &newpos, newrooms);
+	los_find_final_room_exhaustive(arg1, rooms, &newpos, newrooms);
 	func0f06a580(obj, &newpos, &sp5c, newrooms);
 }
 
@@ -3254,7 +3254,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 	if ((prop->pos.x != pos->x || prop->pos.y != pos->y || prop->pos.z != pos->z)
 			&& (obj->hidden & OBJHFLAG_PROJECTILE)
 			&& (obj->projectile->flags & PROJECTILEFLAG_STICKY)) {
-		portal00018148(&prop->pos, &sp1c4, prop->rooms, spb8, spcc, 20);
+		portal_find_rooms(&prop->pos, &sp1c4, prop->rooms, spb8, spcc, 20);
 
 		ptr = spcc;
 
@@ -3510,7 +3510,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 					sp4c.y = sp80.y;
 					sp4c.z = prop->pos.z;
 
-					func0f065e74(&prop->pos, prop->rooms, &sp4c, rooms);
+					los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp4c, rooms);
 
 					prop->pos.y = sp4c.y;
 
@@ -3975,7 +3975,7 @@ void obj_land2(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	newpos.y = arg1->y - sp40.m[1][1] * ymin;
 	newpos.z = arg1->z - sp40.m[1][2] * ymin;
 
-	func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
+	los_find_final_room_exhaustive(&prop->pos, prop->rooms, &newpos, newrooms);
 	func0f06a580(obj, &newpos, &sp40, newrooms);
 }
 
@@ -4003,7 +4003,7 @@ void bolt_land(struct weaponobj *weapon, struct coord *arg1)
 	newpos.y = arg1->y - mtx.m[2][1] * zmax;
 	newpos.z = arg1->z - mtx.m[2][2] * zmax;
 
-	func0f065dd8(&prop->pos, prop->rooms, &newpos, newrooms);
+	los_find_final_room_properly(&prop->pos, prop->rooms, &newpos, newrooms);
 	func0f06a580(&weapon->base, &newpos, &mtx, newrooms);
 
 	beamnum = boltbeam_find_by_prop(prop);
@@ -4043,7 +4043,7 @@ void knife_land(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	newpos.y = arg1->y - zero;
 	newpos.z = arg1->z - zero;
 
-	func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
+	los_find_final_room_exhaustive(&prop->pos, prop->rooms, &newpos, newrooms);
 	func0f06a580(obj, &newpos, &spd0, newrooms);
 }
 
@@ -4195,7 +4195,7 @@ bool prop_explode(struct prop *prop, s32 exptype)
 			pos.z = parent->pos.z;
 		}
 
-		func0f065e74(&parent->pos, parent->rooms, &pos, rooms);
+		los_find_final_room_exhaustive(&parent->pos, parent->rooms, &pos, rooms);
 
 		result = explosion_create_complex(NULL, &pos, rooms, exptype, playernum);
 	} else if ((obj->hidden & (OBJHFLAG_EMBEDDED | OBJHFLAG_PROJECTILE | OBJHFLAG_00020000)) == OBJHFLAG_00020000) {
@@ -5258,11 +5258,11 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 
 			setup0f09233c(obj, &sp90, obj->realrot, sp9c);
 
-			func0f065e74(&prop->pos, prop->rooms, &sp1b4, sp198);
+			los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp1b4, sp198);
 			rooms_append(sp9c, sp198, ARRAYCOUNT(sp198));
 			ground1 = cd_find_ground_at_cyl(&sp1b4, 5, sp198, &obj->floorcol, NULL);
 
-			func0f065e74(&prop->pos, prop->rooms, &sp1a8, sp188);
+			los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp1a8, sp188);
 			rooms_append(sp9c, sp188, ARRAYCOUNT(sp188));
 			ground2 = cd_find_ground_at_cyl(&sp1a8, 5, sp188, NULL, NULL);
 
@@ -5540,7 +5540,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		pos.x += arg1->x;
 		pos.z += arg1->z;
 
-		func0f065e74(&prop->pos, prop->rooms, &pos, rooms);
+		los_find_final_room_exhaustive(&prop->pos, prop->rooms, &pos, rooms);
 		setup0f09233c(obj, &pos, sp460, rooms);
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
@@ -5978,7 +5978,7 @@ void platform_displace_props2(struct prop *platform, Mtxf *arg1)
 					prop->pos.z = sp58.m[3][2];
 
 					prop_deregister_rooms(prop);
-					func0f065e74(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
+					los_find_final_room_exhaustive(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
 					func0f069c70(obj, true, true);
 				}
 			}
@@ -6092,7 +6092,7 @@ bool rocket_tick_fbw(struct weaponobj *rocket)
 	}
 
 	if (cdresult == CDRESULT_NOCOLLISION) {
-		func0f065e74(&rocketprop->pos, rocketprop->rooms, &newpos, newrooms);
+		los_find_final_room_exhaustive(&rocketprop->pos, rocketprop->rooms, &newpos, newrooms);
 
 		rocketprop->pos.x = newpos.x;
 		rocketprop->pos.y = newpos.y;
@@ -6192,7 +6192,7 @@ s32 projectile_launch(struct defaultobj *obj, struct projectile *projectile, str
 	if (cdresult == CDRESULT_NOCOLLISION) {
 		RoomNum rooms[8];
 
-		func0f065e74(&prop->pos, prop->rooms, &projectile->nextsteppos, rooms);
+		los_find_final_room_exhaustive(&prop->pos, prop->rooms, &projectile->nextsteppos, rooms);
 
 		prop->pos.x = projectile->nextsteppos.x;
 		prop->pos.y = projectile->nextsteppos.y;
@@ -6207,7 +6207,7 @@ s32 projectile_launch(struct defaultobj *obj, struct projectile *projectile, str
 		if (weapon->weaponnum == WEAPON_ROCKET || weapon->weaponnum == WEAPON_HOMINGROCKET) {
 			weapon->timer240 = 0;
 
-			func0f065e74(&prop->pos, prop->rooms, arg2, rooms);
+			los_find_final_room_exhaustive(&prop->pos, prop->rooms, arg2, rooms);
 
 			prop->pos.x = arg2->x;
 			prop->pos.y = arg2->y;
@@ -6848,7 +6848,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 				sp5dc.z += projectile->speed.z * g_Vars.lvupdate60freal;
 
 				mtx3_to_mtx4(obj->realrot, &sp30c);
-				func0f096698(&sp30c, &projectile->mtx, g_Vars.lvupdate240);
+				projectile_update_matrix(&sp30c, &projectile->mtx, g_Vars.lvupdate240);
 				mtx4_to_mtx3(&sp30c, obj->realrot);
 
 				sp5c8.x = prop->pos.x;
@@ -7154,7 +7154,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 						if (cdresult != CDRESULT_COLLISION) {
 							RoomNum rooms[8];
 
-							func0f065e74(&prop->pos, prop->rooms, &sp5dc, rooms);
+							los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp5dc, rooms);
 
 							prop->pos.x = sp5dc.x;
 							prop->pos.y = sp5dc.y;
@@ -7174,7 +7174,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 								sp5dc.z = sp5e8.z;
 							}
 
-							func0f065e74(&prop->pos, prop->rooms, &sp5dc, rooms);
+							los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp5dc, rooms);
 
 							prop->pos.x = sp5dc.x;
 							prop->pos.y = sp5dc.y;
@@ -7303,7 +7303,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 
 						if ((projectile->flags & PROJECTILEFLAG_00000100) == 0
 								&& (projectile->bounceframe < 0 || projectile->bounceframe < g_Vars.lvframe60 - TICKS(60))) {
-							mtx_load_random_rotation(&projectile->mtx);
+							projectile_load_random_rotation(&projectile->mtx);
 						}
 
 						projectile->bouncecount++;
@@ -7829,7 +7829,7 @@ void platform_displace_props(struct prop *platform, s16 *propnums, struct coord 
 
 					prop_deregister_rooms(prop);
 
-					func0f065e74(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
+					los_find_final_room_exhaustive(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
 					func0f069c70(obj, true, true);
 				}
 			}
@@ -7848,8 +7848,8 @@ void platform_displace_props(struct prop *platform, s16 *propnums, struct coord 
 
 				prop_deregister_rooms(prop);
 
-				func0f065e74(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
-				chr0f0220ac(chr);
+				los_find_final_room_exhaustive(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
+				chr_detect_rooms(chr);
 				model_set_root_position(chr->model, &prop->pos);
 
 				nodetype = chr->model->definition->rootnode->type;
@@ -7904,7 +7904,7 @@ void platform_displace_props(struct prop *platform, s16 *propnums, struct coord 
 								sp78.y = prop->pos.y + ydist;
 								sp78.z = prop->pos.z;
 
-								func0f065e74(&prop->pos, prop->rooms, &sp78, sp68);
+								los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp78, sp68);
 
 								prop->pos.x = sp78.x;
 								prop->pos.y = sp78.y;
@@ -8078,7 +8078,7 @@ void lift_tick(struct prop *prop)
 				}
 			}
 
-			func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
+			los_find_final_room_exhaustive(&prop->pos, prop->rooms, &newpos, newrooms);
 
 			prop->pos.x = newpos.x;
 			prop->pos.y = newpos.y;
@@ -9273,7 +9273,7 @@ void autogun_tick_shoot(struct prop *autogunprop)
 				}
 
 				if (missed) {
-					portal00018148(&gunpos, &hitpos, gunrooms, hitrooms, NULL, 0);
+					portal_find_rooms(&gunpos, &hitpos, gunrooms, hitrooms, NULL, 0);
 
 					if (chr_is_using_paintball(ownerchr)) {
 						sparks_create(hitrooms[0], NULL, &hitpos, 0, 0, SPARKTYPE_PAINT);
@@ -9934,7 +9934,7 @@ void chopper_increment_movement(struct prop *prop, f32 goalroty, f32 goalrotx, s
 	newpos.y = prop->pos.y + chopper->vy * g_Vars.lvupdate60freal;
 	newpos.z = prop->pos.z + chopper->vz * g_Vars.lvupdate60freal;
 
-	func0f065e74(&prop->pos, prop->rooms, &newpos, newrooms);
+	los_find_final_room_exhaustive(&prop->pos, prop->rooms, &newpos, newrooms);
 
 	prop->pos.x = newpos.x;
 	prop->pos.y = newpos.y;
@@ -10094,7 +10094,7 @@ void chopper_tick_fall(struct prop *chopperprop)
 			newpos.y = ground + 20;
 			newpos.z = sp64.z;
 
-			func0f065e74(&chopperprop->pos, chopperprop->rooms, &newpos, newrooms);
+			los_find_final_room_exhaustive(&chopperprop->pos, chopperprop->rooms, &newpos, newrooms);
 
 			chopperprop->pos.x = newpos.x;
 			chopperprop->pos.y = newpos.y;
@@ -10457,7 +10457,7 @@ void hovercar_tick(struct prop *prop)
 					hovercar->speedtime60 = 1;
 				}
 
-				func0f065e74(&prop->pos, prop->rooms, &sp1c0, sp1b0);
+				los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp1c0, sp1b0);
 
 				prop->pos.x = sp1c0.x;
 				prop->pos.y = sp1c0.y;
@@ -10648,7 +10648,7 @@ void hovercar_tick(struct prop *prop)
 		sp150.y = prop->pos.y + sp194.f[1] * (hovercar->speed * g_Vars.lvupdate60freal);
 		sp150.z = prop->pos.z + sp194.f[2] * (hovercar->speed * g_Vars.lvupdate60freal);
 
-		func0f065e74(&prop->pos, prop->rooms, &sp150, sp140);
+		los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp150, sp140);
 
 		if (ishoverbot) {
 			sp150.y = cd_find_ground_at_cyl(&sp150, 5, sp140, NULL, NULL) + 35;
@@ -11067,10 +11067,10 @@ s32 obj_tick_player(struct prop *prop)
 						sp400.y = sp412.m[3][1];
 						sp400.z = sp412.m[3][2];
 
-						if (obj->flags3 & OBJFLAG3_00000010) {
-							func0f065e98(&prop->pos, prop->rooms, &sp400, sp384);
+						if (obj->flags3 & OBJFLAG3_FINDROOMSFAST) {
+							los_find_final_room_fast(&prop->pos, prop->rooms, &sp400, sp384);
 						} else {
-							func0f065e74(&prop->pos, prop->rooms, &sp400, sp384);
+							los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp400, sp384);
 						}
 
 						prop->pos.x = sp400.x;
@@ -11162,10 +11162,10 @@ s32 obj_tick_player(struct prop *prop)
 				sp236.y = prop->pos.y;
 				sp236.z = (f32)sp116.z + prop->pos.z;
 
-				if (obj->flags3 & OBJFLAG3_00000010) {
-					func0f065e98(&prop->pos, prop->rooms, &sp236, sp220);
+				if (obj->flags3 & OBJFLAG3_FINDROOMSFAST) {
+					los_find_final_room_fast(&prop->pos, prop->rooms, &sp236, sp220);
 				} else {
-					func0f065e74(&prop->pos, prop->rooms, &sp236, sp220);
+					los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp236, sp220);
 				}
 
 				if (model_get_cur_anim_frame(model) >= model_get_num_anim_frames(model) - 1) {
@@ -14459,7 +14459,7 @@ bool obj_drop(struct prop *prop, bool lazy)
 			spe4.z += root->pos.z;
 
 			mtx4_set_translation(&spe4, &spf0);
-			func0f065e74(&root->pos, root->rooms, &spe4, rooms);
+			los_find_final_room_exhaustive(&root->pos, root->rooms, &spe4, rooms);
 		} else {
 			if (projectile->droptype == DROPTYPE_SURRENDER && parent->type == PROPTYPE_CHR) {
 				struct chrdata *chr = parent->chr;
@@ -14531,7 +14531,7 @@ bool obj_drop(struct prop *prop, bool lazy)
 				mtx4_load_rotation(&rot, (Mtxf *)&projectile->mtx);
 			} else {
 				// DROPTYPE_OWNERREAP
-				func0f0964b4(&projectile->speed, (Mtxf *)&projectile->mtx);
+				projectile_load_random_speed_rotation(&projectile->speed, (Mtxf *)&projectile->mtx);
 			}
 
 			if (!lazy && (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
@@ -14725,7 +14725,7 @@ void obj_check_destroyed(struct defaultobj *obj, struct coord *pos, s32 playernu
 			obj->damage = 0;
 			obj->hidden2 |= OBJH2FLAG_DESTROYED;
 
-			func0f065e74(&rootprop->pos, rootprop->rooms, pos, rooms);
+			los_find_final_room_exhaustive(&rootprop->pos, rootprop->rooms, pos, rooms);
 			explosion_create_complex(prop, pos, rooms, exptype, playernum);
 
 			if (obj->flags2 & OBJFLAG2_REMOVEWHENDESTROYED) {
@@ -14785,7 +14785,7 @@ void obj_check_destroyed(struct defaultobj *obj, struct coord *pos, s32 playernu
 					obj_deform(obj, (shotstaken >> 2) + 1);
 				}
 
-				func0f065e74(&rootprop->pos, rootprop->rooms, pos, rooms);
+				los_find_final_room_exhaustive(&rootprop->pos, rootprop->rooms, pos, rooms);
 
 				if (exptype != EXPLOSIONTYPE_NONE) {
 					explosion_create_simple(prop, pos, rooms, EXPLOSIONTYPE_6, playernum);
@@ -19354,7 +19354,7 @@ struct prop *door_init(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomN
 			mtx4_to_mtx3(&sp38, door->mtx98);
 		}
 
-		func0f065e74(pos, rooms, centre, sp28);
+		los_find_final_room_exhaustive(pos, rooms, centre, sp28);
 
 		prop->type = PROPTYPE_DOOR;
 		prop->door = door;
@@ -21327,7 +21327,7 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 							bgun_play_prop_hit_sound(&gset, obstacle, -1);
 						}
 
-						func0f065e74(pos, fromprop->rooms, &endpos, sp1c8);
+						los_find_final_room_exhaustive(pos, fromprop->rooms, &endpos, sp1c8);
 						sparks_create(sp1c8[0], obstacle, &endpos, NULL, NULL, SPARKTYPE_DEFAULT);
 						obj_take_gunfire(obstacle->obj, gset_get_damage(&gset), &endpos, weaponnum, -1);
 
@@ -21340,7 +21340,7 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 						}
 					}
 				} else {
-					func0f065e74(pos, fromprop->rooms, &endpos, sp1c8);
+					los_find_final_room_exhaustive(pos, fromprop->rooms, &endpos, sp1c8);
 
 					if (weaponnum != WEAPON_CHOPPERGUN) {
 						bgun_play_bg_hit_sound(&gset, &endpos, -1, sp1c8);

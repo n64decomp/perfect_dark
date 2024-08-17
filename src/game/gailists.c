@@ -6005,7 +6005,7 @@ u8 func0020_buddy_warp[] = {
 	// Move to pad worked
 	label(0x13)
 	stop_chr
-	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_FINDROOMSFAST)
 	set_chr_hiddenflag(CHR_SELF, CHRHFLAG_UNTARGETABLE)
 
 	// Wait until flag unset (timer is not checked)

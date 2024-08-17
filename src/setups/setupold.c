@@ -64,7 +64,7 @@ u8 func0c00_017c[] = {
 	camera_movement(ANIM_CUT_OLD_TITLE_CAM_01)
 	enable_object(0x00)
 	set_object_flag2(0x00, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x00, OBJFLAG3_00000010)
+	set_object_flag3(0x00, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_OLD_TITLE_CRATE1_01, 0x00, 0x04, 0xffff)
 
 	beginloop(0x08)
@@ -81,7 +81,7 @@ u8 func0c00_017c[] = {
 	camera_movement(ANIM_CUT_OLD_TITLE_CAM_02)
 	enable_object(0x01)
 	set_object_flag2(0x01, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x01, OBJFLAG3_00000010)
+	set_object_flag3(0x01, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_OLD_TITLE_CRATE2_01, 0x01, 0x04, 0xffff)
 
 	beginloop(0x0b)
@@ -99,12 +99,12 @@ u8 func0c00_017c[] = {
 
 	enable_object(0x00)
 	set_object_flag2(0x00, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x00, OBJFLAG3_00000010)
+	set_object_flag3(0x00, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_OLD_TITLE_CRATE1_02, 0x00, 0x04, 0xffff)
 
 	enable_object(0x01)
 	set_object_flag2(0x01, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x01, OBJFLAG3_00000010)
+	set_object_flag3(0x01, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_OLD_TITLE_CRATE2_02, 0x01, 0x04, 0xffff)
 
 	beginloop(0x0a)
@@ -123,17 +123,17 @@ u8 func0c00_017c[] = {
 
 	enable_object(0x01)
 	unset_object_flag2(0x01, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x01, OBJFLAG3_00000010)
+	set_object_flag3(0x01, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_OLD_TITLE_CRATE2_03, 0x01, 0x04, 0xffff)
 
 	enable_object(0x00)
 	set_object_flag2(0x00, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x00, OBJFLAG3_00000010)
+	set_object_flag3(0x00, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_OLD_TITLE_CRATE1_03, 0x00, 0x04, 0xffff)
 
 	enable_object(0x02)
 	set_object_flag2(0x02, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x02, OBJFLAG3_00000010)
+	set_object_flag3(0x02, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_OLD_TITLE_CRATE3, 0x02, 0x04, 0xffff)
 
 	beginloop(0x0e)

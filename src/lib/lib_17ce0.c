@@ -59,7 +59,7 @@ void portal00018e74nb(s32 portalnum)
  * The list is assumed to have 16 slots, with the last being reserved for the
  * -1 terminator.
  */
-void portal00017dc4(RoomNum *rooms, RoomNum roomnum)
+void portal_append_room(RoomNum *rooms, RoomNum roomnum)
 {
 	s32 i;
 
@@ -169,22 +169,35 @@ s32 portal_calculate_intersection(s32 portalnum, struct coord *pos1, struct coor
 		: PORTALINTERSECTION_FRONTTOBEHIND;
 }
 
-void portal00018148(struct coord *pos1, struct coord *pos2, RoomNum *rooms1, RoomNum *rooms2, RoomNum *rooms3, s32 arg5)
+/**
+ * Given frompos, fromrooms and a topos,
+ * use portals to figure out the new rooms list.
+ *
+ * The final rooms are written to results1,
+ * which should only ever have 0 or 1 room in it.
+ *
+ * The caller may optionally pass results2 and its length,
+ * which will be populated with all traversed rooms.
+ *
+ * This is overengineered. It allows a room to have multiple
+ * *overlapping* portals. This is dumb and never happens.
+ */
+void portal_find_rooms(struct coord *frompos, struct coord *topos, RoomNum *fromrooms, RoomNum *finalrooms, RoomNum *intersecting, s32 maxintersecting)
 {
 	s32 i;
 	s32 j;
 	s32 roomnum;
 	s32 numportals;
 	s16 *portalnums;
-	RoomNum rooms9c[16];
-	RoomNum rooms7c[16];
-	RoomNum rooms5c[16];
+	RoomNum srcrooms[16];
+	RoomNum foundrooms[16];
+	RoomNum allrooms[16];
 
 	for (i = 0; i < 8; i++) {
-		rooms9c[i] = rooms1[i];
-		rooms5c[i] = rooms1[i];
+		srcrooms[i] = fromrooms[i];
+		allrooms[i] = fromrooms[i];
 
-		if (rooms1[i] == -1) {
+		if (fromrooms[i] == -1) {
 			break;
 		}
 	}
@@ -199,35 +212,38 @@ void portal00018148(struct coord *pos1, struct coord *pos2, RoomNum *rooms1, Roo
 		var8005ef20 = 0;
 	}
 
+	// Iterate outwards
 	do {
-		rooms7c[0] = -1;
+		foundrooms[0] = -1;
 
-		for (j = 0; (roomnum = rooms9c[j]) != -1 && j < 16; j++) {
+		// Iterate source rooms
+		for (j = 0; (roomnum = srcrooms[j]) != -1 && j < 16; j++) {
 			numportals = g_Rooms[roomnum].numportals;
 			portalnums = &g_RoomPortals[g_Rooms[roomnum].roomportallistoffset];
 
+			// Iterate this source room's portals
 			for (i = 0; i < numportals; i++) {
 				s32 portalnum = *portalnums;
 				u8 *s1 = var8009a4e0[portalnum];
 
 				if (s1[0] != var8005ef20) {
 					s1[0] = var8005ef20;
-					s1[1] = portal_calculate_intersection(portalnum, pos1, pos2);
+					s1[1] = portal_calculate_intersection(portalnum, frompos, topos);
 				}
 
 				if (s1[1] != PORTALINTERSECTION_NONE) {
 					if (s1[1] == PORTALINTERSECTION_BEHINDTOFRONT) {
 						if (roomnum == g_BgPortals[portalnum].roomnum1) {
-							portal00017dc4(rooms7c, g_BgPortals[portalnum].roomnum2);
-							portal00017dc4(rooms5c, g_BgPortals[portalnum].roomnum2);
+							portal_append_room(foundrooms, g_BgPortals[portalnum].roomnum2);
+							portal_append_room(allrooms, g_BgPortals[portalnum].roomnum2);
 							s1[1] = PORTALINTERSECTION_NONE;
 						}
 					}
 
 					if (s1[1] == PORTALINTERSECTION_FRONTTOBEHIND) {
 						if (roomnum == g_BgPortals[portalnum].roomnum2) {
-							portal00017dc4(rooms7c, g_BgPortals[portalnum].roomnum1);
-							portal00017dc4(rooms5c, g_BgPortals[portalnum].roomnum1);
+							portal_append_room(foundrooms, g_BgPortals[portalnum].roomnum1);
+							portal_append_room(allrooms, g_BgPortals[portalnum].roomnum1);
 							s1[1] = PORTALINTERSECTION_NONE;
 						}
 					}
@@ -237,34 +253,36 @@ void portal00018148(struct coord *pos1, struct coord *pos2, RoomNum *rooms1, Roo
 			}
 		}
 
-		if (rooms7c[0] == -1) {
+		if (foundrooms[0] == -1) {
 			break;
 		}
 
+		// Replace srcrooms with the newly found rooms so the newly
+		// found rooms are used as the source on the next iteration.
 		for (i = 0; i < 16; i++) {
-			rooms9c[i] = rooms7c[i];
+			srcrooms[i] = foundrooms[i];
 
-			if (rooms7c[i] == -1) {
+			if (foundrooms[i] == -1) {
 				break;
 			}
 		}
-	} while (rooms7c[0] != -1);
+	} while (foundrooms[0] != -1);
 
-	for (i = 0; i < 7 && rooms9c[i] != -1; i++) {
-		rooms2[i] = rooms9c[i];
+	for (i = 0; i < 7 && srcrooms[i] != -1; i++) {
+		finalrooms[i] = srcrooms[i];
 	}
 
-	rooms2[i] = -1;
+	finalrooms[i] = -1;
 
-	if (rooms3 != NULL) {
-		for (i = 0; i < arg5; i++) {
-			rooms3[i] = rooms5c[i];
+	if (intersecting != NULL) {
+		for (i = 0; i < maxintersecting; i++) {
+			intersecting[i] = allrooms[i];
 
-			if (rooms5c[i] == -1) {
+			if (allrooms[i] == -1) {
 				break;
 			}
 		}
 
-		rooms3[i] = -1;
+		intersecting[i] = -1;
 	}
 }

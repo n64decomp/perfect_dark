@@ -679,8 +679,8 @@ struct prop *shot_calculate_hits(s32 handnum, bool isshooting, struct coord *gun
 		hitpos.z = shotdata.gunpos3d.z + shotdata.gundir3d.z * 65536;
 	}
 
-	portal00018148(&playerprop->pos, &shotdata.gunpos3d, playerprop->rooms, spc8, 0, 0);
-	portal00018148(&shotdata.gunpos3d, &hitpos, spc8, spb8, rooms, 30);
+	portal_find_rooms(&playerprop->pos, &shotdata.gunpos3d, playerprop->rooms, spc8, 0, 0);
+	portal_find_rooms(&shotdata.gunpos3d, &hitpos, spc8, spb8, rooms, 30);
 
 	if (shotdata.gset.weaponnum != WEAPON_FARSIGHT || g_Vars.currentplayer->visionmode != VISIONMODE_XRAY) {
 		roomsptr = rooms;
@@ -805,7 +805,7 @@ struct prop *shot_calculate_hits(s32 handnum, bool isshooting, struct coord *gun
 					exppos.y = shotdata.hits[i].pos.y;
 					exppos.z = shotdata.hits[i].pos.z;
 
-					func0f065e74(&root->pos, root->rooms, &exppos, exprooms);
+					los_find_final_room_exhaustive(&root->pos, root->rooms, &exppos, exprooms);
 					explosion_create_simple(0, &exppos, exprooms, EXPLOSIONTYPE_PHOENIX, g_Vars.currentplayernum);
 				}
 			}
@@ -3079,57 +3079,89 @@ void prop_register_rooms(struct prop *prop)
 	}
 }
 
-void func0f065d1c(struct coord *pos, RoomNum *rooms, struct coord *newpos, RoomNum *newrooms, RoomNum *morerooms, u32 arg5)
+/**
+ * Given a line from frompos to pos, use portals to get all rooms the line
+ * intersects as well as the final room.
+ *
+ * If the line goes out of bounds, the intersecting list up until that point
+ * will be returned.
+ */
+void los_find_intersecting_rooms_properly(struct coord *frompos, RoomNum *fromrooms, struct coord *topos, RoomNum *finalrooms, RoomNum *intersecting, s32 maxintersecting)
 {
-	RoomNum stackrooms[8];
-	s32 index;
+	RoomNum tmprooms[8];
+	s32 len;
 	s32 i;
 
-	portal00018148(pos, newpos, rooms, stackrooms, morerooms, arg5);
+	portal_find_rooms(frompos, topos, fromrooms, tmprooms, intersecting, maxintersecting);
 
-	index = 0;
+	len = 0;
 
-	for (i = 0; stackrooms[i] != -1; i++) {
-		if (bg_room_contains_coord(newpos, stackrooms[i])) {
-			newrooms[index] = stackrooms[i];
-			index++;
+	for (i = 0; tmprooms[i] != -1; i++) {
+		if (bg_room_contains_coord(topos, tmprooms[i])) {
+			finalrooms[len] = tmprooms[i];
+			len++;
 		}
 	}
 
-	newrooms[index] = -1;
+	finalrooms[len] = -1;
 }
 
-void func0f065dd8(struct coord *pos, RoomNum *rooms, struct coord *newpos, RoomNum *newrooms)
+/**
+ * Given a line from frompos to topos, use portals to get the final room if both
+ * pos coords are in bounds and there is visibility between the two.
+ */
+void los_find_final_room_properly(struct coord *frompos, RoomNum *fromrooms, struct coord *topos, RoomNum *finalrooms)
 {
-	func0f065d1c(pos, rooms, newpos, newrooms, NULL, 0);
+	los_find_intersecting_rooms_properly(frompos, fromrooms, topos, finalrooms, NULL, 0);
 }
 
-void func0f065dfc(struct coord *pos, RoomNum *rooms, struct coord *newpos, RoomNum *newrooms, RoomNum *morerooms, u32 arg5)
+/**
+ * Given a line from frompos to topos, use portals to get all rooms the line
+ * intersects as well as the final room.
+ *
+ * If the line goes out of bounds, run the fast test to try and find the room
+ * that topos is above and add it to both room lists.
+ */
+void los_find_intersecting_rooms_exhaustive(struct coord *frompos, RoomNum *fromrooms, struct coord *topos, RoomNum *finalrooms, RoomNum *intersecting, s32 maxintersecting)
 {
-	func0f065d1c(pos, rooms, newpos, newrooms, morerooms, arg5);
+	los_find_intersecting_rooms_properly(frompos, fromrooms, topos, finalrooms, intersecting, maxintersecting);
 
-	if (newrooms[0] == -1) {
-		func0f065e98(pos, rooms, newpos, newrooms);
+	if (finalrooms[0] == -1) {
+		los_find_final_room_fast(frompos, fromrooms, topos, finalrooms);
 
-		if (morerooms) {
-			rooms_append(newrooms, morerooms, arg5);
+		if (intersecting) {
+			rooms_append(finalrooms, intersecting, maxintersecting);
 		}
 	}
 }
 
-void func0f065e74(struct coord *pos, RoomNum *rooms, struct coord *newpos, RoomNum *newrooms)
+/**
+ * Given a line from frompos to topos, use portals to find the final room.
+ *
+ * If this fails (eg. because either pos is out of bounds)
+ * then fall back to the fast single point test.
+ */
+void los_find_final_room_exhaustive(struct coord *frompos, RoomNum *fromrooms, struct coord *topos, RoomNum *finalrooms)
 {
-	func0f065dfc(pos, rooms, newpos, newrooms, NULL, 0);
+	los_find_intersecting_rooms_exhaustive(frompos, fromrooms, topos, finalrooms, NULL, 0);
 }
 
-void func0f065e98(struct coord *pos, RoomNum *rooms, struct coord *pos2, RoomNum *dstrooms)
+/**
+ * Find a room for the given topos without taking any consideration into portals
+ * or overlapping rooms.
+ *
+ * Populate finalrooms with the room that topos is in, if any.
+ * Otherwise, populate finalrooms with the room that topos is above.
+ * Otherwise, populate finalrooms with fromrooms.
+ */
+void los_find_final_room_fast(struct coord *frompos, RoomNum *fromrooms, struct coord *topos, RoomNum *finalrooms)
 {
 	RoomNum inrooms[21];
 	RoomNum aboverooms[21];
 	RoomNum *ptr = NULL;
 	s32 i;
 
-	bg_find_rooms_by_pos(pos2, inrooms, aboverooms, 20, NULL);
+	bg_find_rooms_by_pos(topos, inrooms, aboverooms, 20, NULL);
 
 	if (inrooms[0] != -1) {
 		ptr = inrooms;
@@ -3138,21 +3170,21 @@ void func0f065e98(struct coord *pos, RoomNum *rooms, struct coord *pos2, RoomNum
 	}
 
 	if (ptr) {
-		s32 room = cd_find_floor_room_at_pos(pos2, ptr);
+		s32 room = cd_find_floor_room_at_pos(topos, ptr);
 
 		if (room > 0) {
-			dstrooms[0] = room;
-			dstrooms[1] = -1;
+			finalrooms[0] = room;
+			finalrooms[1] = -1;
 		} else {
-			dstrooms[0] = *ptr;
-			dstrooms[1] = -1;
+			finalrooms[0] = *ptr;
+			finalrooms[1] = -1;
 		}
 	} else {
-		for (i = 0; rooms[i] != -1; i++) {
-			dstrooms[i] = rooms[i];
+		for (i = 0; fromrooms[i] != -1; i++) {
+			finalrooms[i] = fromrooms[i];
 		}
 
-		dstrooms[i] = -1;
+		finalrooms[i] = -1;
 	}
 }
 

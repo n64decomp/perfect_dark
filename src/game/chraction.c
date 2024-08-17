@@ -5322,7 +5322,7 @@ bool chr_is_room_off_screen(struct chrdata *chr, struct coord *waypos, RoomNum *
 	RoomNum sp50[8];
 
 	if ((chr->hidden & CHRHFLAG_CLOAKED) == 0 || USINGDEVICE(DEVICE_IRSCANNER)) {
-		func0f065dfc(&prop->pos, prop->rooms, waypos, sp64, sp7c, 20);
+		los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, waypos, sp64, sp7c, 20);
 
 		if (g_Vars.mplayerisrunning) {
 			for (i = 0; sp7c[i] != -1; i++) {
@@ -5343,7 +5343,7 @@ bool chr_is_room_off_screen(struct chrdata *chr, struct coord *waypos, RoomNum *
 
 	if (offscreen) {
 		for (i = 0; i < PLAYERCOUNT(); i++) {
-			portal00018148(waypos, &g_Vars.players[i]->prop->pos, wayrooms, sp50, 0, 0);
+			portal_find_rooms(waypos, &g_Vars.players[i]->prop->pos, wayrooms, sp50, 0, 0);
 
 			if (array_intersects(g_Vars.players[i]->prop->rooms, sp50)) {
 				offscreen = false;
@@ -5684,7 +5684,7 @@ void chr_nav_tick_magic(struct chrdata *chr, struct waydata *waydata, f32 speed,
 		// Reached end of segment
 		chr_set_perim_enabled(chr, false);
 		rooms_copy(rooms, sp118);
-		chr0f021fa8(chr, arg3, sp118);
+		chr_find_entered_rooms_at_pos(chr, arg3, sp118);
 
 		ground = cd_find_ground_info_at_cyl(arg3, chr->radius, sp118, &floorcol, &floortype, 0, &floorroom, NULL, NULL);
 
@@ -5693,7 +5693,7 @@ void chr_nav_tick_magic(struct chrdata *chr, struct waydata *waydata, f32 speed,
 		spf4.z = arg3->z;
 
 		rooms_copy(rooms, sp118);
-		chr0f021fa8(chr, &spf4, sp118);
+		chr_find_entered_rooms_at_pos(chr, &spf4, sp118);
 		chr_get_bbox(chr->prop, &radius, &ymax, &ymin);
 
 		if (cd_test_volume(&spf4, chr->radius, sp118, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
@@ -6419,7 +6419,7 @@ bool chr_has_los_to_entity(struct chrdata *chr, struct coord *chrpos, RoomNum *c
 					frompos.y = chrpos->y + 70;
 					frompos.z = chrpos->z;
 
-					func0f065dd8(chrpos, chrrooms, &frompos, fromrooms);
+					los_find_final_room_properly(chrpos, chrrooms, &frompos, fromrooms);
 
 					if (cd_test_los05(&frompos, fromrooms, &targetpos, targetrooms, types, GEOFLAG_BLOCK_SHOOT)) {
 						chr_record_last_visible_target_time(chr);
@@ -6491,7 +6491,7 @@ bool chr_has_los_to_chr(struct chrdata *chr, struct chrdata *target, RoomNum *ro
 		chr_set_perim_enabled(chr, false);
 		chr_set_perim_enabled(target, false);
 
-		func0f065e74(&prop->pos, prop->rooms, &pos, rooms);
+		los_find_final_room_exhaustive(&prop->pos, prop->rooms, &pos, rooms);
 
 		if (cd_test_los07(&pos, rooms, &target->prop->pos, target->prop->rooms, sp88,
 					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
@@ -6550,7 +6550,7 @@ bool chr_has_los_to_pos(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 	eyepos.z = prop->pos.z;
 
 	chr_set_perim_enabled(chr, false);
-	func0f065e74(&prop->pos, prop->rooms, &eyepos, chrrooms);
+	los_find_final_room_exhaustive(&prop->pos, prop->rooms, &eyepos, chrrooms);
 
 	if (cd_test_los05(&eyepos, chrrooms, pos, rooms,
 				CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
@@ -7437,7 +7437,7 @@ bool chr_try_run_from_target(struct chrdata *chr)
 				}
 			}
 
-			func0f065e74(&prop->pos, prop->rooms, &dst, rooms);
+			los_find_final_room_exhaustive(&prop->pos, prop->rooms, &dst, rooms);
 			chr_go_to_room_pos(chr, &dst, rooms, speed);
 
 			return true;
@@ -7526,7 +7526,7 @@ bool chr_go_to_cover_prop(struct chrdata *chr)
 									}
 								}
 
-								func0f065e74(&chrprop->pos, chrprop->rooms, &dstpos, dstrooms);
+								los_find_final_room_exhaustive(&chrprop->pos, chrprop->rooms, &dstpos, dstrooms);
 								chr_go_to_room_pos(chr, &dstpos, dstrooms, speed);
 
 								chr->proppreset1 = prop - g_Vars.props;
@@ -10368,7 +10368,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 								}
 
 								bgun_play_prop_hit_sound(&gset, hitprop, -1);
-								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+								los_find_final_room_exhaustive(&gunpos, gunrooms, &hitpos, hitrooms);
 								queriedhitrooms = true;
 
 								if (chr_is_using_paintball(chr)) {
@@ -10386,7 +10386,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 							}
 						} else if (hitsomething) {
 							// Hit the background
-							func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+							los_find_final_room_exhaustive(&gunpos, gunrooms, &hitpos, hitrooms);
 							queriedhitrooms = true;
 							bgun_play_bg_hit_sound(&gset, &hitpos, -1, hitrooms);
 
@@ -10402,7 +10402,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 							s32 playernum = chr->aibot ? mp_player_get_index(chr) : g_Vars.currentplayernum;
 
 							if (!queriedhitrooms) {
-								func0f065e74(&gunpos, gunrooms, &hitpos, hitrooms);
+								los_find_final_room_exhaustive(&gunpos, gunrooms, &hitpos, hitrooms);
 							}
 
 							explosion_create_simple(NULL, &hitpos, hitrooms, EXPLOSIONTYPE_PHOENIX, playernum);
@@ -15001,7 +15001,7 @@ bool chr_adjust_pos_for_spawn(f32 chrradius, struct coord *pos, RoomNum *rooms, 
 
 		if ((onlysurrounding && cd_test_cyl_move04(pos, rooms, &testpos, testrooms, CDTYPE_ALL & ~CDTYPE_PLAYERS, 1, ymax, -200) != CDRESULT_COLLISION)
 				|| (!onlysurrounding && cd_test_los11(pos, rooms, &testpos, testrooms, CDTYPE_BG))) {
-			chr0f021fa8(NULL, &testpos, testrooms);
+			chr_find_entered_rooms_at_pos(NULL, &testpos, testrooms);
 			ground = cd_find_ground_at_cyl(&testpos, chrradius, testrooms, 0, 0);
 			ymin = -200;
 
@@ -15292,7 +15292,7 @@ bool chr_move_to_pos(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32
 
 		prop_deregister_rooms(chr->prop);
 		rooms_copy(rooms2, chr->prop->rooms);
-		chr0f0220ac(chr);
+		chr_detect_rooms(chr);
 		model_set_root_position(chr->model, &pos2);
 
 		nodetype = chr->model->definition->rootnode->type;
@@ -15659,7 +15659,7 @@ bool chr_run_from_pos(struct chrdata *chr, u32 goposflags, f32 rundist, struct c
 
 		chr_set_perim_enabled(chr, true);
 
-		func0f065e74(&chr->prop->pos, chr->prop->rooms, &delta, rooms);
+		los_find_final_room_exhaustive(&chr->prop->pos, chr->prop->rooms, &delta, rooms);
 
 		return chr_go_to_room_pos(chr, &delta, rooms, goposflags);
 	}
@@ -16174,8 +16174,8 @@ void chr_avoid(struct chrdata *chr)
 
 			halfchrradius = radius * 0.5f;
 
-			func0f065e74(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms);
-			chr0f021fa8(chr, &dstpos, dstrooms);
+			los_find_final_room_exhaustive(&chr->prop->pos, chr->prop->rooms, &dstpos, dstrooms);
+			chr_find_entered_rooms_at_pos(chr, &dstpos, dstrooms);
 
 			xdiff = dstpos.x - chr->prop->pos.x;
 			zdiff = dstpos.z - chr->prop->pos.z;

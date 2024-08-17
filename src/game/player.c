@@ -4943,8 +4943,8 @@ void player_move_camera_from_pos_rooms(struct coord *pos, struct coord *up, stru
 	s32 room;
 
 	if (prevgoodrooms != NULL && *prevgoodrooms != -1) {
-		// Get rooms which are visible from the prevgoodpos+prevgoodroom?
-		portal00018148(prevgoodpos, pos, prevgoodrooms, rooms, NULL, 0);
+		// Get rooms which are visible from the prevgoodpos+prevgoodroom
+		portal_find_rooms(prevgoodpos, pos, prevgoodrooms, rooms, NULL, 0);
 
 		// Remove values from rooms if that room doesn't contain the coord,
 		// and shuffle the array back when removing values.
@@ -5298,7 +5298,7 @@ s32 player_tick_third_person(struct prop *prop)
 			player->vv_ground = chr->ground;
 			player->vv_manground = chr->ground;
 
-			chr0f0220ac(prop->chr);
+			chr_detect_rooms(prop->chr);
 
 			if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 				if (player->model00d4->definition->skel == &g_SkelChr) {

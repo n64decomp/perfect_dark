@@ -877,13 +877,13 @@ u8 func0c01_outro[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 #endif
-	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_OUTRO_JO_01, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 
 	#define show_object_with_animation(object, animation) \
 		enable_object(object) \
 		set_object_flag2(object, OBJFLAG2_CANFILLVIEWPORT) \
-		set_object_flag3(object, OBJFLAG3_00000010) \
+		set_object_flag3(object, OBJFLAG3_FINDROOMSFAST) \
 		object_do_animation(animation, object, 0x04, 0xffff)
 
 	show_object_with_animation(0x0e, ANIM_CUT_IMP_OUTRO_CRATE1_01)
@@ -897,7 +897,7 @@ u8 func0c01_outro[] = {
 	enable_object(0x0d)
 	unset_object_flag(0x0d, OBJFLAG_DEACTIVATED)
 	set_object_flag2(0x0d, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x0d, OBJFLAG3_00000010)
+	set_object_flag3(0x0d, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_IMP_OUTRO_DROPSHIP_01, 0x0d, 0x01, 0xffff)
 
 	show_nonessential_chrs(FALSE)
@@ -949,12 +949,12 @@ u8 func0c01_outro[] = {
 
 	set_chr_chrflag(CHR_SKEDAR1, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_SKEDAR1, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_SKEDAR1, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_SKEDAR1, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_OUTRO_SKEDAR1_01, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SKEDAR1, 4)
 
 	set_chr_chrflag(CHR_SKEDAR2, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_SKEDAR2, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_SKEDAR2, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_SKEDAR2, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_OUTRO_SKEDAR2, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SKEDAR2, 4)
 
 	wait_until(16, 0x78)
@@ -979,7 +979,7 @@ u8 func0c01_outro[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 #endif
-	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_OUTRO_JO_02, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 
 	show_object_with_animation(0x0e, ANIM_CUT_IMP_OUTRO_CRATE1_02)
@@ -993,7 +993,7 @@ u8 func0c01_outro[] = {
 
 	enable_object(0x16)
 	set_object_flag2(0x16, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x16, OBJFLAG3_00000010)
+	set_object_flag3(0x16, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_IMP_OUTRO_LASER1, 0x16, 0x02, 0xffff)
 
 	wait_until(372, 0x7a)
@@ -1094,12 +1094,12 @@ u8 func0c01_outro[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 #endif
-	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_OUTRO_JO_03, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 
 	set_chr_chrflag(CHR_SKEDAR1, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_SKEDAR1, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_SKEDAR1, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_SKEDAR1, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_OUTRO_SKEDAR1_02, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SKEDAR1, 4)
 
 	show_object_with_animation(0x0e, ANIM_CUT_IMP_OUTRO_CRATE1_03)
@@ -1169,23 +1169,23 @@ u8 func1002_intro[] = {
 	set_chr_chrflag(0x16, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_JO_01, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_CARRINGTON, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_CARRINGTON, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_CARR, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CARRINGTON, 4)
 	set_chr_chrflag(0x19, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x19, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x19, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x19, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_SOLDIER1, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x19, 4)
 	set_chr_chrflag(0x1a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x1a, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x1a, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x1a, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_SOLDIER2, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x1a, 4)
 	enable_object(0x0d)
 	set_object_flag2(0x0d, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x0d, OBJFLAG3_00000010)
+	set_object_flag3(0x0d, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_IMP_INTRO_DROPSHIP, 0x0d, 0x04, 0xffff)
 	restart_timer
 	set_cutscene_weapon(0x1a, WEAPON_NONE, WEAPON_NONE)
@@ -1413,18 +1413,18 @@ u8 func1002_intro[] = {
 	if_controller_button_pressed(/*goto*/ 0xcc)
 	unset_chr_chrflag(CHR_SKEDAR4, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_SKEDAR4, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_SKEDAR4, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_SKEDAR4, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_SKEDAR, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SKEDAR4, 4)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_JO_02, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	enable_object(0x52)
 	set_object_flag2(0x52, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x52, OBJFLAG3_00000010)
+	set_object_flag3(0x52, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_IMP_INTRO_DOOR1, 0x52, 0x04, 0xffff)
 	enable_object(0x53)
 	set_object_flag2(0x53, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x53, OBJFLAG3_00000010)
+	set_object_flag3(0x53, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_IMP_INTRO_DOOR2, 0x53, 0x04, 0xffff)
 	restart_timer
 
@@ -1496,32 +1496,32 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_CUTSCENE)
 	set_cutscene_weapon(CHR_BOND, WEAPON_AR34, WEAPON_NONE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_JO_02, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	unset_chr_chrflag(CHR_CARRINGTON, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_CARRINGTON, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_CARRINGTON, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_CARR, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_CARRINGTON, 2)
 	unset_chr_chrflag(0x19, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(0x19, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x19, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_SOLDIER1, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x19, 2)
 	unset_chr_chrflag(0x1a, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(0x1a, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x1a, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_SOLDIER2, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x1a, 2)
 	unset_chr_chrflag(CHR_SKEDAR4, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_SKEDAR4, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_SKEDAR4, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_SKEDAR4, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_IMP_INTRO_SKEDAR, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_SKEDAR4, 2)
 	unset_object_flag2(0x0d, OBJFLAG2_CANFILLVIEWPORT)
 	set_object_flag(0x0d, OBJFLAG_DEACTIVATED)
-	set_object_flag3(0x0d, OBJFLAG3_00000010)
+	set_object_flag3(0x0d, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_IMP_OUTRO_DROPSHIP_01, 0x0d, 0x01, 0xffff)
 	enable_object(0x52)
 	set_object_flag2(0x52, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x52, OBJFLAG3_00000010)
+	set_object_flag3(0x52, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_IMP_INTRO_DOOR1, 0x52, 0x04, 0xfffe)
 	enable_object(0x53)
 	set_object_flag2(0x53, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x53, OBJFLAG3_00000010)
+	set_object_flag3(0x53, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_IMP_INTRO_DOOR2, 0x53, 0x04, 0xfffe)
 	set_stage_flag(STAGEFLAG_INTRO_FINISHED)
 	stop_cutscene_track
@@ -3233,7 +3233,7 @@ u8 func1022_skedar_shuttle[] = {
 	label(0x08)
 	enable_object(OBJ_SKEDAR_SHUTTLE)
 	set_object_flag2(OBJ_SKEDAR_SHUTTLE, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_00000010)
+	set_object_flag3(OBJ_SKEDAR_SHUTTLE, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_045A, OBJ_SKEDAR_SHUTTLE, 0x04, 0xffff)
 	object_set_modelpart_visible(OBJ_SKEDAR_SHUTTLE, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 	set_object_flag(OBJ_SKEDAR_SHUTTLE, OBJFLAG_00000100)

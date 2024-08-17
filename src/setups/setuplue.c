@@ -1821,18 +1821,18 @@ u8 func040e_outro[] = {
 
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_OUTRO_JO, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 	set_chr_hudpiece_visible(CHR_P1P2, TRUE)
 
 	set_chr_chrflag(CHR_JONATHAN, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_JONATHAN, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_JONATHAN, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_JONATHAN, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_OUTRO_JON, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_JONATHAN, 4)
 
 	set_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_OUTRO_GUARD, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_OUTRO_GUARD, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_OUTRO_GUARD, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_OUTRO_GUARD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_OUTRO_GUARD, 4)
 
 	restart_timer
@@ -1960,7 +1960,7 @@ u8 func0410_intro[] = {
 	set_chr_chrflag(0x0d, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(0x32, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x32, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x32, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x32, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_INTRO_GUARD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x32, 4)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	restart_timer
@@ -2004,21 +2004,21 @@ u8 func0410_intro[] = {
 
 	set_chr_chrflag(0x29, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x29, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x29, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x29, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_INTRO_LAB_01, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x29, 4)
 
 	set_chr_chrflag(0x2a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2a, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x2a, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x2a, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_INTRO_BIO1_01, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2a, 4)
 
 	set_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x2b, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_INTRO_BIO2_01, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2b, 4)
 
 	set_object_flag2(0x2f, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x2f, OBJFLAG3_00000010)
+	set_object_flag3(0x2f, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_LUE_INTRO_BED_01, 0x2f, 0x04, 0xffff)
 	restart_timer
 
@@ -2050,16 +2050,16 @@ u8 func0410_intro[] = {
 
 	set_chr_chrflag(0x2a, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2a, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x2a, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x2a, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_INTRO_BIO1_02, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2a, 4)
 
 	set_chr_chrflag(0x2b, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x2b, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x2b, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x2b, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_INTRO_BIO2_02, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x2b, 4)
 
 	set_object_flag2(0x2f, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x2f, OBJFLAG3_00000010)
+	set_object_flag3(0x2f, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_LUE_INTRO_BED_02, 0x2f, 0x04, 0xffff)
 	restart_timer
 
@@ -2088,10 +2088,10 @@ u8 func0410_intro[] = {
 	cmd0175(60)
 	if_controller_button_pressed(/*goto*/ 0x54)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_INTRO_JO, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(0x03, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(0x03, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x03, CHRHFLAG_FINDROOMSFAST)
 	unset_chr_chrflag(0x03, CHRCFLAG_HIDDEN)
 	restart_timer
 
@@ -2156,7 +2156,7 @@ u8 func0410_intro[] = {
 	disable_object(0x2f)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LUE_INTRO_JO, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	unset_chr_chrflag(0x03, CHRCFLAG_UNPLAYABLE)
 	set_ailist(0x02, 0x0426)

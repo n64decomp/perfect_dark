@@ -4375,7 +4375,7 @@ struct defaultobj *bgun_create_thrown_projectile2(struct chrdata *chr, struct gs
 		guRotateF(mtx.m, 90.0f / (RANDOMFRAC() + 12.1f),
 				arg4->m[1][0], arg4->m[1][1], arg4->m[1][2]);
 	} else {
-		mtx_load_random_rotation(&mtx);
+		projectile_load_random_rotation(&mtx);
 	}
 
 	if (gset->weaponnum == WEAPON_LAPTOPGUN) {

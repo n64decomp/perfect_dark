@@ -5002,7 +5002,7 @@ bool ai_enable_chr(void)
 	if (chr && chr->prop && chr->model) {
 		prop_activate(chr->prop);
 		prop_enable(chr->prop);
-		chr0f0220ac(chr);
+		chr_detect_rooms(chr);
 	}
 
 	g_Vars.aioffset += 3;
@@ -9889,7 +9889,7 @@ bool ai_remove_references_to_chr(void)
 bool ai01b4(void)
 {
 	if (g_Vars.chrdata && g_Vars.chrdata->prop &&
-			chr0f01f264(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false)) {
+			chr_ascend(g_Vars.chrdata, &g_Vars.chrdata->prop->pos, g_Vars.chrdata->prop->rooms, 0, false)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {

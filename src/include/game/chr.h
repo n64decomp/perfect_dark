@@ -9,9 +9,9 @@ void chr_deregister(s32 chrnum);
 void chr_calculate_push_pos(struct chrdata *chr, struct coord *pos, RoomNum *rooms, bool arg3);
 
 #if VERSION >= VERSION_NTSC_1_0
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg3, bool arg4);
+bool chr_ascend(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 amount, bool writerooms);
 #else
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg3);
+bool chr_ascend(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 amount);
 #endif
 
 bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f32 *mangroundptr);
@@ -23,7 +23,7 @@ void chr_update_aim_properties(struct chrdata *chr);
 void chr_flinch_body(struct chrdata *chr);
 void chr_flinch_head(struct chrdata *chr, f32 arg1);
 f32 chr_get_flinch_amount(struct chrdata *chr);
-void chr0f021fa8(struct chrdata *chr, struct coord *pos, RoomNum *rooms);
+void chr_find_entered_rooms_at_pos(struct chrdata *chr, struct coord *pos, RoomNum *rooms);
 void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2);
 void chr0f022214(struct chrdata *chr, struct prop *child, bool fulltick);
 void chr_update_cloak(struct chrdata *chr);
@@ -82,8 +82,8 @@ f32 chr_get_armor(struct chrdata *chr);
 void chr_init(struct prop *prop, u8 *ailist);
 struct prop *chr_allocate(struct model *model, struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist);
 void chr_clear_references(s32 propnum);
-void chr0f022084(struct chrdata *chr, RoomNum *room);
-void chr0f0220ac(struct chrdata *chr);
+void chr_find_entered_rooms(struct chrdata *chr, RoomNum *room);
+void chr_detect_rooms(struct chrdata *chr);
 void chr_cloak(struct chrdata *chr, bool arg1);
 void chr_uncloak(struct chrdata *chr, bool value);
 void chr_uncloak_temporarily(struct chrdata *chr);

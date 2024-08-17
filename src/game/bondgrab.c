@@ -294,7 +294,7 @@ bool bgrab_try_move_upwards(f32 y)
 	newpos.z = g_Vars.currentplayer->prop->pos.z;
 
 	player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
-	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
+	los_find_final_room_exhaustive(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &newpos, rooms);
 	bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &newpos, rooms);
 	prop_set_perim_enabled(g_Vars.currentplayer->prop, false);
 
@@ -349,7 +349,7 @@ s32 bgrab_calculate_new_position(struct coord *delta, f32 angle, bool arg2)
 		pos.y += delta->y;
 		pos.z += delta->z;
 
-		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
+		los_find_final_room_exhaustive(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
 
 #if VERSION < VERSION_NTSC_1_0
 		{

@@ -571,7 +571,7 @@
 #define CHRHFLAG_TRIGGER_BUDDY_WARP   0x00004000
 #define CHRHFLAG_PERFECTACCURACY      0x00008000 // Duel opponents
 #define CHRHFLAG_DISGUISE_UNCOVERED   0x00010000
-#define CHRHFLAG_00020000             0x00020000
+#define CHRHFLAG_FINDROOMSFAST        0x00020000 // Can use if chr never goes out of bounds or in overlapping rooms
 #define CHRHFLAG_00040000             0x00040000 // Not used
 #define CHRHFLAG_DISGUISED            0x00080000
 #define CHRHFLAG_WARPONSCREEN         0x00100000 // Allow chr warp to occur onscreen
@@ -3093,7 +3093,7 @@
 #define OBJFLAG3_GRABBABLE          0x00000002
 #define OBJFLAG3_DOOR_STICKY        0x00000004 // eg. Skedar Ruins
 #define OBJFLAG3_00000008           0x00000008 // Not used in scripts
-#define OBJFLAG3_00000010           0x00000010 // Used heaps
+#define OBJFLAG3_FINDROOMSFAST      0x00000010 // Can use if obj never goes out of bounds or in overlapping rooms
 #define OBJFLAG3_AUTOCUTSCENESOUNDS 0x00000020 // For doors and objs - play default open/close noises
 #define OBJFLAG3_RTRACKED_YELLOW    0x00000040
 #define OBJFLAG3_CANHARDFREE        0x00000080 // Can free prop while on screen (MP weapons only)

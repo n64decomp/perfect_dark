@@ -1981,7 +1981,7 @@ u8 func0416_intro[] = {
 	camera_movement(ANIM_CUT_WAX_INTRO_CAM)
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_WAX_INTRO_MRB, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	restart_timer
 	fade_to_color(0x000000ff, 0)
@@ -2040,7 +2040,7 @@ u8 func0416_intro[] = {
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_WAX_INTRO_MRB, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	stop_cutscene_track
 	stop_ambient_track
@@ -2057,13 +2057,13 @@ u8 func0417_outro[] = {
 	play_cutscene_track(MUSIC_G5_OUTRO)
 	camera_movement(ANIM_CUT_WAX_OUTRO_CAM)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_HIDDEN)
 	set_chr_chrflag(CHR_CASS, CHRCFLAG_INVINCIBLE)
 	enable_object(OBJ_SHUTTLE2)
 	set_object_flag2(OBJ_SHUTTLE2, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(OBJ_SHUTTLE2, OBJFLAG3_00000010)
+	set_object_flag3(OBJ_SHUTTLE2, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_WAX_OUTRO_SKSHUTTLE, OBJ_SHUTTLE2, 0x04, 0xffff)
 	show_nonessential_chrs(FALSE)
 	restart_timer
@@ -2161,7 +2161,7 @@ u8 func1010_init_lighting[] = {
 u8 func1011_shuttle_animation[] = {
 	yield
 	enable_object(OBJ_SHUTTLE1)
-	set_object_flag3(OBJ_SHUTTLE1, OBJFLAG3_00000010)
+	set_object_flag3(OBJ_SHUTTLE1, OBJFLAG3_FINDROOMSFAST)
 	object_set_modelpart_visible(OBJ_SHUTTLE1, MODELPART_SKSHUTTLE_GANGWAY, FALSE)
 	label(0x09)
 	restart_timer

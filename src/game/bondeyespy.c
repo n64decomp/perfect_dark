@@ -94,8 +94,8 @@ s32 eyespy_try_move_upwards(f32 yvel)
 		f0 = g_Vars.currentplayer->eyespy->oldground - prop->pos.y;
 	}
 
-	func0f065e74(&prop->pos, prop->rooms, &dstpos, dstrooms);
-	chr0f021fa8(prop->chr, &dstpos, dstrooms);
+	los_find_final_room_exhaustive(&prop->pos, prop->rooms, &dstpos, dstrooms);
+	chr_find_entered_rooms_at_pos(prop->chr, &dstpos, dstrooms);
 	prop_set_perim_enabled(prop, false);
 
 	f0 -= 0.1f;
@@ -152,7 +152,7 @@ s32 eyespy_calculate_new_position(struct coord *vel)
 		}
 
 		// This must be populating dstrooms at least
-		func0f065dfc(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, sp74, 20);
+		los_find_intersecting_rooms_exhaustive(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, sp74, 20);
 
 		// Check if dstrooms contains the eyespy's old room.
 		// If so, simplify dstrooms so it only contains that room.
@@ -164,7 +164,7 @@ s32 eyespy_calculate_new_position(struct coord *vel)
 			}
 		}
 
-		chr0f021fa8(eyespyprop->chr, &dstpos, dstrooms);
+		chr_find_entered_rooms_at_pos(eyespyprop->chr, &dstpos, dstrooms);
 
 		// Check if the eyespy is moving 13cm or more along either the X or Z
 		// axis in a single frame. If less, only do a collision check for the
@@ -539,7 +539,7 @@ void eyespy_update_vertical(void)
 		g_EyespyHit = hit;
 	}
 
-	chr0f0220ac(chr);
+	chr_detect_rooms(chr);
 
 	dist.x = prop->pos.x - origpos.x;
 	dist.y = prop->pos.y - origpos.y;
@@ -674,10 +674,10 @@ bool eyespy_try_launch(void)
 
 	player_set_perim_enabled(g_Vars.currentplayer->prop, true);
 	prop_deregister_rooms(g_Vars.currentplayer->eyespy->prop);
-	func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+	los_find_final_room_exhaustive(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms);
 
-	chr0f0220ac(chr);
+	chr_detect_rooms(chr);
 
 	return launched;
 }

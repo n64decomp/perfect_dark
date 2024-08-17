@@ -11,46 +11,46 @@
 #include "data.h"
 #include "types.h"
 
-void mtx_load_random_rotation(Mtxf *mtx)
+void projectile_load_random_rotation(Mtxf *mtx)
 {
-	struct coord coord = {0, 0, 0};
+	struct coord rot = {0, 0, 0};
 
-	coord.x = RANDOMFRAC() * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
-	coord.y = RANDOMFRAC() * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
-	coord.z = RANDOMFRAC() * PALUPF(M_BADTAU) * 0.0078125f - PALUPF(0.024539785459638f);
+	rot.x = RANDOMFRAC() * PALUPF(M_BADTAU) * (1.0f / 128.0f) - PALUPF(M_BADPI / 128.0f);
+	rot.y = RANDOMFRAC() * PALUPF(M_BADTAU) * (1.0f / 128.0f) - PALUPF(M_BADPI / 128.0f);
+	rot.z = RANDOMFRAC() * PALUPF(M_BADTAU) * (1.0f / 128.0f) - PALUPF(M_BADPI / 128.0f);
 
-	mtx4_load_rotation(&coord, mtx);
+	mtx4_load_rotation(&rot, mtx);
 }
 
-void func0f0964b4(struct coord *coord, Mtxf *mtx)
+void projectile_load_random_speed_rotation(struct coord *speed, Mtxf *mtx)
 {
-	coord->x = RANDOMFRAC() * 1.6666666269302f * 4.0f - 3.3333332538605f;
-	coord->y = RANDOMFRAC() * 1.6666666269302f * 4.0f;
-	coord->z = RANDOMFRAC() * 1.6666666269302f * 4.0f - 3.3333332538605f;
+	speed->x = RANDOMFRAC() * (10.0f / 6.0f) * 4.0f - (10.0f / 3.0f);
+	speed->y = RANDOMFRAC() * (10.0f / 6.0f) * 4.0f;
+	speed->z = RANDOMFRAC() * (10.0f / 6.0f) * 4.0f - (10.0f / 3.0f);
 
-	mtx_load_random_rotation(mtx);
+	projectile_load_random_rotation(mtx);
 }
 
-void func0f0965e4(f32 *arg0, f32 *arg1, f32 arg2)
+void projectile_update_fall(f32 *yincrement, f32 *speedptr, f32 lvupdate60)
 {
-	f32 tmp = arg1[0] - arg2 * 0.27777779f;
-	arg0[0] += arg2 * (arg1[0] + tmp) * 0.5f;
-	arg1[0] = tmp;
+	f32 speed = *speedptr - lvupdate60 * 0.27777779f;
+	*yincrement += lvupdate60 * (*speedptr + speed) * 0.5f;
+	*speedptr = speed;
 }
 
-void func0f096628(f32 *arg0, f32 *arg1, f32 arg2)
+void projectile_update_3d(f32 *increment, f32 *speed, f32 lvupdate60)
 {
-	func0f0965e4(&arg0[1], &arg1[1], arg2);
+	projectile_update_fall(&increment[1], &speed[1], lvupdate60);
 
-	arg0[0] += arg2 * arg1[0];
-	arg0[2] += arg2 * arg1[2];
+	increment[0] += lvupdate60 * speed[0];
+	increment[2] += lvupdate60 * speed[2];
 }
 
-void func0f096698(Mtxf *arg0, Mtxf *arg1, s32 count)
+void projectile_update_matrix(Mtxf *arg0, Mtxf *arg1, s32 lvupdate240)
 {
 	s32 i;
 
-	for (i = 0; i < count; i++) {
+	for (i = 0; i < lvupdate240; i++) {
 		mtx00015be0(arg1, arg0);
 	}
 }

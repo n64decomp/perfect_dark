@@ -134,7 +134,7 @@ void bbike_try_dismount_angle(f32 relativeangle, f32 distance)
 		prop_set_perim_enabled(g_Vars.currentplayer->hoverbike, false);
 		prop_set_perim_enabled(g_Vars.currentplayer->prop, false);
 
-		func0f065e74(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
+		los_find_final_room_exhaustive(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
 		bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &pos, rooms);
 
 		result = cd_test_cyl_move02(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
@@ -395,7 +395,7 @@ s32 bbike_calculate_new_position(struct coord *vel, f32 angledelta)
 		dstpos.z += vel->z;
 
 		obj_get_bbox(g_Vars.currentplayer->hoverbike, &radius, &ymax, &ymin);
-		func0f065dfc(&g_Vars.currentplayer->hoverbike->pos,
+		los_find_intersecting_rooms_exhaustive(&g_Vars.currentplayer->hoverbike->pos,
 				g_Vars.currentplayer->hoverbike->rooms,
 				&dstpos, dstrooms, spa8, 20);
 
@@ -537,7 +537,7 @@ void bbike_update_vertical(struct coord *pos)
 
 	angle = hoverprop_get_turn_angle(bike);
 
-	func0f065e74(&bike->prop->pos, bike->prop->rooms, pos, newrooms);
+	los_find_final_room_exhaustive(&bike->prop->pos, bike->prop->rooms, pos, newrooms);
 
 #if VERSION < VERSION_NTSC_1_0
 	{

@@ -1497,19 +1497,19 @@ u8 func0c01_midcutscene[] = {
 #if VERSION >= VERSION_NTSC_1_0
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_HIDDEN)
 #endif
-	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_MID_JO, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 4)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_MID_ELVIS, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 4)
 	set_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_MID_DRC, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 4)
 	enable_object(0xbb)
 	set_object_flag2(0xbb, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0xbb, OBJFLAG3_00000010)
+	set_object_flag3(0xbb, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_PAM_MID_CARD, 0xbb, 0x04, 0xffff)
 	restart_timer
 	set_cutscene_weapon(CHR_P1P2, WEAPON_NONE, WEAPON_NONE)
@@ -1821,13 +1821,13 @@ u8 func0c01_midcutscene[] = {
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_P1P2, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_P1P2, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_MID_JO, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_P1P2, 2)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_MID_ELVIS, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 2)
 	unset_chr_chrflag(CHR_DRCAROLL, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_DRCAROLL, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_MID_DRC, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_DRCAROLL, 2)
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_NONE, WEAPON_NONE)
 	yield
@@ -1836,10 +1836,10 @@ u8 func0c01_midcutscene[] = {
 	yield
 	chr_move_to_pad(CHR_ELVIS, PAD_PAM_0013, TRUE, /*goto*/ 0x2e)
 	label(0x2e)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	chr_move_to_pad(CHR_BOND, PAD_PAM_019F, TRUE, /*goto*/ 0x2e)
 	label(0x2e)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	stop_cutscene_track
 	stop_ambient_track
 	play_x_track(XREASON_DEFAULT, 10, 60)
@@ -1864,7 +1864,7 @@ u8 func042d_elvis_warp_to_outside_drcaroll[] = {
 
 	label(0x2e)
 	dprint 'T','E','L','E','P','O','R','T',' ','G','O','O','D','\n',0,
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	stop_chr
 	set_ailist(CHR_SELF, AILIST_ELVIS_RUN_TO_EXIT)
 	endlist
@@ -2030,19 +2030,19 @@ u8 func1002_intro[] = {
 	camera_movement(ANIM_CUT_PAM_INTRO_CAM)
 	cmd0175(60)
 	set_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_INTRO_JO, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 4)
 	set_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_INTRO_ELVIS, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 4)
 	set_object_flag(0x07, OBJFLAG_DEACTIVATED)
 	set_object_flag2(0x07, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x07, OBJFLAG3_00000010)
+	set_object_flag3(0x07, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_PAM_INTRO_LIFT, 0x07, 0x04, 0xffff)
 	set_chr_chrflag(0x40, CHRCFLAG_UNPLAYABLE)
 	unset_chr_chrflag(0x40, CHRCFLAG_HIDDEN)
-	set_chr_hiddenflag(0x40, CHRHFLAG_00020000)
+	set_chr_hiddenflag(0x40, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_INTRO_GUARD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, 0x40, 4)
 	restart_timer
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
@@ -2188,15 +2188,15 @@ u8 func1002_intro[] = {
 	unset_chr_chrflag(CHR_COOP, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_ANTI, CHRCFLAG_HIDDEN)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_INTRO_JO, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)
 	unset_chr_chrflag(CHR_ELVIS, CHRCFLAG_UNPLAYABLE)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_PAM_INTRO_ELVIS, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_ELVIS, 2)
 	if_coop_mode(/*goto*/ 0x45)
 	unset_object_flag(0x07, OBJFLAG_DEACTIVATED)
 	unset_object_flag2(0x07, OBJFLAG2_CANFILLVIEWPORT)
-	set_object_flag3(0x07, OBJFLAG3_00000010)
+	set_object_flag3(0x07, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_CUT_PAM_INTRO_LIFT, 0x07, 0x01, 0xfffe)
 	goto_next(0x46)
 
@@ -2521,7 +2521,7 @@ u8 func0414_teleport_bond_to_sapa[] = {
 	endloop(0x63)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	label(0x62)
 
 	beginloop(0x64)
@@ -2563,7 +2563,7 @@ u8 func0415_teleport_bond_to_drcaroll[] = {
 	endloop(0x65)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	goto_next(0x63)
 	label(0x07)
 	show_hudmsg(CHR_BOND, L_PAM_014) // "Elvis has been killed."
@@ -2629,7 +2629,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	endloop(0x66)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	label(0x62)
 	label(0x07)
 
@@ -2676,7 +2676,7 @@ u8 func0416_teleport_bond_to_a_pa_drcaroll[] = {
 	endloop(0x6b)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	label(0x62)
 	label(0x07)
 
@@ -2890,7 +2890,7 @@ u8 func0417_teleport_coop_to_sapa[] = {
 	endloop(0x63)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	label(0x62)
 
 	beginloop(0x64)
@@ -2933,7 +2933,7 @@ u8 func0418_teleport_coop_to_drcaroll[] = {
 	endloop(0x65)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	goto_next(0x63)
 
 	label(0x07)
@@ -2996,7 +2996,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	endloop(0x66)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	label(0x62)
 	label(0x07)
 
@@ -3041,7 +3041,7 @@ u8 func0419_teleport_coop_to_a_pa_drcaroll[] = {
 	endloop(0x6b)
 
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	label(0x62)
 	label(0x07)
 
@@ -4282,7 +4282,7 @@ u8 unregistered_function1[] = {
 	label(0x04)
 	chr_move_to_pad(CHR_ELVIS, PAD_PAM_01BF, TRUE, /*goto*/ 0x06)
 	label(0x06)
-	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_00020000)
+	set_chr_hiddenflag(CHR_ELVIS, CHRHFLAG_FINDROOMSFAST)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_FOLLOW_AND_REACTIVATE_TELEPORTALS)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

@@ -246,7 +246,7 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 		}
 	}
 
-	func0f065dfc(&prop->pos, prop->rooms, dstpos, dstrooms, sp84, 20);
+	los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, dstpos, dstrooms, sp84, 20);
 
 #if VERSION < VERSION_NTSC_1_0
 	for (i = 0; dstrooms[i] != -1; i++) {
@@ -258,7 +258,7 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 	}
 #endif
 
-	chr0f021fa8(chr, dstpos, dstrooms);
+	chr_find_entered_rooms_at_pos(chr, dstpos, dstrooms);
 
 	movex = dstpos->x - prop->pos.x;
 	movez = dstpos->z - prop->pos.z;
@@ -312,7 +312,7 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 				sp44.y = dstpos->y;
 				sp44.z = sp54.z * value + prop->pos.z;
 
-				func0f065dfc(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
+				los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
 
 #if VERSION < VERSION_NTSC_1_0
 				for (j = 0; dstrooms[j] != -1; j++) {
@@ -324,7 +324,7 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 				}
 #endif
 
-				chr0f021fa8(chr, &sp44, dstrooms);
+				chr_find_entered_rooms_at_pos(chr, &sp44, dstrooms);
 
 				movex = sp44.x - prop->pos.x;
 				movez = sp44.z - prop->pos.z;
@@ -368,7 +368,7 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 						sp44.y = dstpos->y;
 						sp44.z = sp54.z * value + prop->pos.z;
 
-						func0f065dfc(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
+						los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
 
 #if VERSION < VERSION_NTSC_1_0
 						for (k = 0; dstrooms[k] != -1; k++) {
@@ -380,7 +380,7 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 						}
 #endif
 
-						chr0f021fa8(chr, &sp44, dstrooms);
+						chr_find_entered_rooms_at_pos(chr, &sp44, dstrooms);
 
 						movex = sp44.x - prop->pos.x;
 						movez = sp44.z - prop->pos.z;
@@ -422,7 +422,7 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 							sp44.y = dstpos->y;
 							sp44.z = sp54.z * value + prop->pos.z;
 
-							func0f065dfc(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
+							los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
 
 #if VERSION < VERSION_NTSC_1_0
 							for (l = 0; dstrooms[l] != -1; l++) {
@@ -434,7 +434,7 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 							}
 #endif
 
-							chr0f021fa8(chr, &sp44, dstrooms);
+							chr_find_entered_rooms_at_pos(chr, &sp44, dstrooms);
 
 							movex = sp44.x - prop->pos.x;
 							movez = sp44.z - prop->pos.z;
@@ -478,9 +478,9 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg3, bool arg4)
+bool chr_ascend(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 amount, bool writerooms)
 #else
-bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg3)
+bool chr_ascend(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 amount)
 #endif
 {
 	bool result;
@@ -491,12 +491,12 @@ bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg
 	f32 radius;
 
 	newpos.x = pos->x;
-	newpos.y = pos->y + arg3;
+	newpos.y = pos->y + amount;
 	newpos.z = pos->z;
 
 	chr_get_bbox(chr->prop, &radius, &ymax, &ymin);
-	func0f065e74(pos, rooms, &newpos, newrooms);
-	chr0f021fa8(chr, &newpos, newrooms);
+	los_find_final_room_exhaustive(pos, rooms, &newpos, newrooms);
+	chr_find_entered_rooms_at_pos(chr, &newpos, newrooms);
 	chr_set_perim_enabled(chr, false);
 	result = cd_test_volume(&newpos, radius, newrooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 			ymax - chr->prop->pos.y,
@@ -504,7 +504,7 @@ bool chr0f01f264(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 arg
 	chr_set_perim_enabled(chr, true);
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (result == true && arg4) {
+	if (result == true && writerooms) {
 		pos->y = newpos.y;
 		rooms_copy(newrooms, rooms);
 	}
@@ -548,10 +548,10 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 #endif
 
 	if (g_Anims[model->anim->animnum].flags & ANIMFLAG_ABSOLUTETRANSLATION) {
-		if (chr->hidden & CHRHFLAG_00020000) {
-			func0f065e98(&prop->pos, prop->rooms, arg2, spfc);
+		if (chr->hidden & CHRHFLAG_FINDROOMSFAST) {
+			los_find_final_room_fast(&prop->pos, prop->rooms, arg2, spfc);
 		} else {
-			func0f065e74(&prop->pos, prop->rooms, arg2, spfc);
+			los_find_final_room_exhaustive(&prop->pos, prop->rooms, arg2, spfc);
 		}
 
 		ground = cd_find_ground_info_at_cyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
@@ -760,11 +760,11 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 				&& !chr->act_skjump.needsnewanim
 				&& g_Vars.lvupdate60 != 0) {
 #if VERSION >= VERSION_NTSC_1_0
-			if (chr0f01f264(chr, arg2, spfc, yincrement, true)) {
+			if (chr_ascend(chr, arg2, spfc, yincrement, true)) {
 				chr->manground += yincrement;
 			}
 #else
-			if (chr0f01f264(chr, arg2, spfc, yincrement)) {
+			if (chr_ascend(chr, arg2, spfc, yincrement)) {
 				chr->manground += yincrement;
 				arg2->y += yincrement;
 			}
@@ -781,16 +781,16 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 			f32 ground;
 			struct modelnode *node;
 			u16 nodetype;
-			f32 sp68;
+			f32 fallspeed;
 			u8 die;
 
 			if (chr->onladder) {
 #if VERSION >= VERSION_NTSC_1_0
-				if (chr0f01f264(chr, arg2, spfc, yincrement, true)) {
+				if (chr_ascend(chr, arg2, spfc, yincrement, true)) {
 					chr->manground += yincrement;
 				}
 #else
-				if (chr0f01f264(chr, arg2, spfc, yincrement)) {
+				if (chr_ascend(chr, arg2, spfc, yincrement)) {
 					chr->manground += yincrement;
 					arg2->y += yincrement;
 				}
@@ -816,8 +816,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 						sp88.y = manground + 69.0f;
 						sp88.z = arg2->z;
 
-						func0f065e74(arg2, spfc, &sp88, sp78);
-						chr0f021fa8(chr, &sp88, sp78);
+						los_find_final_room_exhaustive(arg2, spfc, &sp88, sp78);
+						chr_find_entered_rooms_at_pos(chr, &sp88, sp78);
 					} else {
 						sp98 = arg2;
 						sp94 = spfc;
@@ -890,18 +890,18 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 							die = true;
 						}
 
-						sp68 = chr->fallspeed.y;
+						fallspeed = chr->fallspeed.y;
 
-						func0f0965e4(&yincrement, &sp68, VAR(lvupdate60freal));
+						projectile_update_fall(&yincrement, &fallspeed, VAR(lvupdate60freal));
 
 #if VERSION >= VERSION_NTSC_1_0
-						if (chr0f01f264(chr, arg2, spfc, yincrement, false))
+						if (chr_ascend(chr, arg2, spfc, yincrement, false))
 #else
-						if (chr0f01f264(chr, arg2, spfc, yincrement))
+						if (chr_ascend(chr, arg2, spfc, yincrement))
 #endif
 						{
 							chr->manground += yincrement;
-							chr->fallspeed.y = sp68;
+							chr->fallspeed.y = fallspeed;
 						}
 
 						if (chr->manground <= chr->ground) {
@@ -961,8 +961,8 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 
 						arg2->y += chr->manground - manground;
 
-						func0f065e74(&spd0, spc0, arg2, spfc);
-						chr0f021fa8(chr, arg2, spfc);
+						los_find_final_room_exhaustive(&spd0, spc0, arg2, spfc);
+						chr_find_entered_rooms_at_pos(chr, arg2, spfc);
 					}
 #endif
 				}
@@ -1011,7 +1011,7 @@ bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f3
 	}
 #endif
 
-	chr0f0220ac(chr);
+	chr_detect_rooms(chr);
 	prop_calculate_shade_colour(prop, chr->nextcol, chr->floorcol);
 
 	return true;
@@ -1326,7 +1326,7 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 
 	prop_deregister_rooms(prop);
 	rooms_copy(rooms, prop->rooms);
-	chr0f0220ac(chr);
+	chr_detect_rooms(chr);
 	model_set_root_position(model, &prop->pos);
 
 	nodetype = chr->model->definition->rootnode->type;
@@ -1871,7 +1871,7 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 	}
 }
 
-void chr0f021fa8(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
+void chr_find_entered_rooms_at_pos(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 {
 	struct coord lower;
 	struct coord upper;
@@ -1904,15 +1904,15 @@ void chr0f021fa8(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 	bg_find_entered_rooms(&lower, &upper, rooms, 7, true);
 }
 
-void chr0f022084(struct chrdata *chr, RoomNum *room)
+void chr_find_entered_rooms(struct chrdata *chr, RoomNum *room)
 {
-	chr0f021fa8(chr, &chr->prop->pos, room);
+	chr_find_entered_rooms_at_pos(chr, &chr->prop->pos, room);
 }
 
-void chr0f0220ac(struct chrdata *chr)
+void chr_detect_rooms(struct chrdata *chr)
 {
 	prop_deregister_rooms(chr->prop);
-	chr0f022084(chr, chr->prop->rooms);
+	chr_find_entered_rooms(chr, chr->prop->rooms);
 	prop_register_rooms(chr->prop);
 }
 
@@ -4815,12 +4815,12 @@ void chr0f0284f4(s32 arg0)
 	}
 }
 
-void chr0f028544(void)
+void chrs_toggle_anim_debug(void)
 {
 	var80062974 = !var80062974;
 }
 
-void chr0f02855c(s32 arg0)
+void chrs_set_anims_playing(s32 arg0)
 {
 	var80062978 = arg0;
 
