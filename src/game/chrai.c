@@ -459,7 +459,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01b9*/ ai_shuffle_pelagic_switches,
 	/*0x01ba*/ ai_try_attack_lie,
 	/*0x01bb*/ ai_noop_01bb,
-	/*0x01bc*/ ai01bc,
+	/*0x01bc*/ ai_if_pouncebits_eq,
 	/*0x01bd*/ ai_if_training_pc_holographed,
 	/*0x01be*/ ai_if_player_using_device,
 	/*0x01bf*/ ai_chr_begin_or_end_teleport,

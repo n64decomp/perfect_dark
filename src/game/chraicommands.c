@@ -9168,7 +9168,7 @@ bool ai_noop_01bb(void)
 /**
  * @cmd 01bc
  */
-bool ai01bc(void)
+bool ai_if_pouncebits_eq(void)
 {
 	struct bytelist *cmd = (struct bytelist *)(g_Vars.ailist + g_Vars.aioffset);
 

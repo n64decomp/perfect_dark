@@ -165,7 +165,7 @@ bool chr_go_pos_update_lift_action(struct chrdata *chr, u32 curpadflags, bool ar
 s16 chr_go_pos_get_next_pad_num(struct chrdata *chr);
 void chr_tick_go_pos(struct chrdata *chr);
 void chr_tick_patrol(struct chrdata *chr);
-bool chr_start_sk_jump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4);
+bool chr_start_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4);
 void chr_tick_sk_jump(struct chrdata *chr);
 void chra_tick(struct chrdata *chr);
 void cutscene_start(u32 ailistid);
@@ -274,7 +274,7 @@ void prop_set_dangerous(struct prop *prop);
 bool chr_detect_dangerous_object(struct chrdata *chr, u8 flags);
 void chr_tick_bond_die(struct chrdata *chr);
 s32 chr_is_using_lift(struct chrdata *chr);
-bool chr_try_sk_jump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4);
+bool chr_try_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4);
 bool chr_saw_target_recently(struct chrdata *chr);
 bool chr_heard_target_recently(struct chrdata *chr);
 f32 chr_get_angle_to_target(struct chrdata *chr);

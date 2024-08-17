@@ -3944,9 +3944,12 @@
 	mkshort(0x01bb), \
 	mkshort(0),
 
-#define cmd01bc(u1, label) \
+/**
+ * Pouncebits are unused, and this command is not called.
+ */
+#define if_pouncebits_eq(pouncebits, label) \
 	mkshort(0x01bc), \
-	u1, \
+	pouncebits, \
 	label,
 
 /**

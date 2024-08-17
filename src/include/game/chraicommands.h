@@ -408,7 +408,7 @@
 /*0x01b9*/ bool ai_shuffle_pelagic_switches(void);
 /*0x01ba*/ bool ai_try_attack_lie(void);
 /*0x01bb*/ bool ai_noop_01bb(void);
-/*0x01bc*/ bool ai01bc(void);
+/*0x01bc*/ bool ai_if_pouncebits_eq(void);
 /*0x01bd*/ bool ai_if_training_pc_holographed(void);
 /*0x01be*/ bool ai_if_player_using_device(void);
 /*0x01bf*/ bool ai_chr_begin_or_end_teleport(void);

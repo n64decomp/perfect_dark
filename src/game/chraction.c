@@ -13096,18 +13096,18 @@ void chr_tick_patrol(struct chrdata *chr)
 	}
 }
 
-bool chr_try_sk_jump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
+bool chr_try_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4)
 {
 	if (chr && chr->actiontype != ACT_SKJUMP
 			&& chr_is_ready_for_orders(chr)
 			&& CHRRACE(chr) == RACE_SKEDAR) {
-		return chr_start_sk_jump(chr, arg1, arg2, arg3, arg4);
+		return chr_start_sk_jump(chr, pouncebits, arg2, arg3, arg4);
 	}
 
 	return false;
 }
 
-bool chr_start_sk_jump(struct chrdata *chr, u8 arg1, u8 arg2, s32 arg3, u8 arg4)
+bool chr_start_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4)
 {
 	f32 radius;
 	f32 ymax;
