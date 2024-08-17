@@ -48,11 +48,11 @@ void chr_knock_out(struct chrdata *chr, f32 angle, s32 hitpart, struct gset *gse
 bool chr_is_anim_preventing_argh(struct chrdata *chr, f32 *arg1);
 void chr_choke(struct chrdata *chr, s32 choketype);
 void chr_set_shield(struct chrdata *chr, f32 shield);
-bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s16 *arg5);
-void chr_damage_by_misc(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop);
+bool chr_try_create_shieldhit(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s16 *arg5);
+void chr_damage_by_dizziness(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop);
 void chr_damage_by_laser(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop);
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 hitpart, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10);
-void chr_damage_by_impact(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 arg5);
+void chr_damage_by_impact(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 hitpart, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *hitpos);
+void chr_damage_by_general(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 arg5);
 void chr_damage_by_explosion(struct chrdata *chr, f32 damage, struct coord *vector, struct prop *prop, struct coord *explosionpos);
 void player_update_damage_stats(struct prop *attacker, struct prop *victim, f32 damage);
 void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *aprop, s32 hitpart, bool damageshield, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg11, bool explosion, struct coord *explosionpos);

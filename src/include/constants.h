@@ -26,6 +26,7 @@
 #define MAX_PLAYERS            4
 #define MAX_PROPSPERROOMCHUNK  7
 #define MAX_ROOMPROPLISTCHUNKS 256
+#define MAX_SHIELDHITS         20
 #define MAX_SQUADRONS          16
 #define MAX_TEAMS              8
 
@@ -2291,7 +2292,7 @@
 #define MODELPART_BASIC_0064             0x0064 // type19
 #define MODELPART_BASIC_0065             0x0065 // type19
 #define MODELPART_BASIC_0066             0x0066 // type19
-#define MODELPART_BASIC_0067             0x0067 // bbox
+#define MODELPART_BASIC_SHIELD           0x0067 // bbox
 #define MODELPART_BASIC_00C8             0x00c8 // toggle
 #define MODELPART_BASIC_00C9             0x00c9 // toggle
 #define MODELPART_BASIC_00CA             0x00ca // toggle

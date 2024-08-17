@@ -5065,9 +5065,9 @@ struct shieldhit {
 	/*0x0c*/ s32 lvframe60;
 	/*0x10*/ s8 side;
 	/*0x11*/ s8 unk011;
-	/*0x12*/ s16 unk012;
-	/*0x14*/ s16 unk014;
-	/*0x14*/ s16 unk016;
+	/*0x12*/ s16 hitposx;
+	/*0x14*/ s16 hitposy;
+	/*0x14*/ s16 hitposz;
 	/*0x18*/ s8 unk018[32];
 	/*0x38*/ u8 unk038[32];
 	/*0x58*/ f32 shield;

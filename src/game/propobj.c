@@ -120,9 +120,9 @@ struct linksceneryobj *g_LinkedScenery = NULL;
 struct blockedpathobj *g_BlockedPaths = NULL;
 struct prop *g_EmbedProp = NULL;
 s32 g_EmbedHitPart = 0;
-u32 g_EmbedSide = 0x00000000;
-s16 var8006993c[3] = {0};
-u32 var80069944 = 0x00000000;
+u32 g_EmbedSide = 0;
+s16 g_EmbedHitPos[3] = {0};
+s32 g_EmbedTextureNum = 0;
 f32 g_CctvWaitScale = 1;
 f32 g_CctvDamageRxScale = 1;
 f32 g_AutogunAccuracyScale = 1;
@@ -2715,9 +2715,9 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 							g_EmbedNode = spe4;
 
 							g_EmbedSide = thing1.unk28 / 2;
-							var8006993c[0] = thing1.pos.x;
-							var8006993c[1] = thing1.pos.y;
-							var8006993c[2] = thing1.pos.z;
+							g_EmbedHitPos[0] = thing1.pos.x;
+							g_EmbedHitPos[1] = thing1.pos.y;
+							g_EmbedHitPos[2] = thing1.pos.z;
 
 							result = 1;
 						}
@@ -2737,7 +2737,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 				} while (hitpart > 0);
 
 				if (obj->flags3 & OBJFLAG3_HOVERBEDSHIELD) {
-					node = model_get_part(model->definition, MODELPART_BASIC_0067);
+					node = model_get_part(model->definition, MODELPART_BASIC_SHIELD);
 
 					if (node && func0f084594(model, node, arg5, arg6, &thing2, &mtxindex2, &node2)) {
 						if (hitpart <= 0 ||
@@ -2792,15 +2792,15 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 						g_EmbedModel = model;
 						g_EmbedNode = node1;
 
-						var80069944 = thing1.texturenum;
+						g_EmbedTextureNum = thing1.texturenum;
 
 						result = true;
 
 						if (thing1.texturenum == 10000) {
 							g_EmbedSide = thing1.unk28 / 2;
-							var8006993c[0] = thing1.pos.x;
-							var8006993c[1] = thing1.pos.y;
-							var8006993c[2] = thing1.pos.z;
+							g_EmbedHitPos[0] = thing1.pos.x;
+							g_EmbedHitPos[1] = thing1.pos.y;
+							g_EmbedHitPos[2] = thing1.pos.z;
 						}
 					}
 				}
@@ -3047,9 +3047,9 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 							g_EmbedNode = spcc;
 							g_EmbedSide = sp7c.unk28 / 2;
 
-							var8006993c[0] = sp7c.pos.x;
-							var8006993c[1] = sp7c.pos.y;
-							var8006993c[2] = sp7c.pos.z;
+							g_EmbedHitPos[0] = sp7c.pos.x;
+							g_EmbedHitPos[1] = sp7c.pos.y;
+							g_EmbedHitPos[2] = sp7c.pos.z;
 
 							result = true;
 						}
@@ -3245,7 +3245,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 	}
 
 	g_EmbedProp = 0;
-	var80069944 = 0;
+	g_EmbedTextureNum = 0;
 
 	sp1c4.x = pos->x;
 	sp1c4.y = pos->y;
@@ -3274,7 +3274,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 					hitthing.pos.y *= scale;
 					hitthing.pos.z *= scale;
 
-					var80069944 = hitthing.texturenum;
+					g_EmbedTextureNum = hitthing.texturenum;
 
 					s0 = true;
 
@@ -3384,7 +3384,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	f32 f2;
 
 	g_EmbedProp = NULL;
-	var80069944 = 0;
+	g_EmbedTextureNum = 0;
 
 	sp80.x = arg1->x;
 	sp80.y = arg1->y;
@@ -6947,7 +6947,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 										stick = false;
 									}
 
-									if (var80069944 == 10000) {
+									if (g_EmbedTextureNum == 10000) {
 										stick = false;
 									}
 
@@ -6989,8 +6989,8 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 										ownerprop = obj->projectile->ownerprop;
 										ownershield = chr_get_shield(hitchr);
 
-										func0f0341dc(hitchr, gset_get_damage(&weapon->gset), &var8009ce78, &weapon->gset, ownerprop,
-												g_EmbedHitPart, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
+										chr_damage_by_impact(hitchr, gset_get_damage(&weapon->gset), &var8009ce78, &weapon->gset, ownerprop,
+												g_EmbedHitPart, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, g_EmbedHitPos);
 
 										if (ownershield <= 0.0f) {
 											chr_emit_sparks(hitchr, g_EmbedProp, g_EmbedHitPart, &sp5e8, &sp5f4, ownerprop ? ownerprop->chr : NULL);
@@ -7014,13 +7014,13 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 								} else if (hitprop->type == PROPTYPE_OBJ) {
 									struct defaultobj *hitobj = hitprop->obj;
 
-									if (var80069944 == 10000) {
+									if (g_EmbedTextureNum == 10000) {
 										shield = (hitobj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4 : 8;
 
-										shieldhit_create(hitprop, shield, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
+										shieldhit_create(hitprop, shield, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, g_EmbedHitPos);
 									}
 
-									if (hitobj->modelnum == MODEL_TARGET && var80069944 == TEXTURE_0B9E) {
+									if (hitobj->modelnum == MODEL_TARGET && g_EmbedTextureNum == TEXTURE_0B9E) {
 										fr_calculate_hit(hitobj, &sp5e8, 0.0f);
 									}
 								}
@@ -7041,13 +7041,13 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 										}
 									}
 
-									func0f0341dc(g_EmbedProp->chr, 2.0f, &var8009ce78, &weapon->gset, ownerprop2,
-											g_EmbedHitPart, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
+									chr_damage_by_impact(g_EmbedProp->chr, 2.0f, &var8009ce78, &weapon->gset, ownerprop2,
+											g_EmbedHitPart, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, g_EmbedHitPos);
 								} else if (g_EmbedProp->type == PROPTYPE_OBJ || g_EmbedProp->type == PROPTYPE_WEAPON) {
-									if (var80069944 == 10000) {
+									if (g_EmbedTextureNum == 10000) {
 										f32 shield = (g_EmbedProp->obj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4 : 8;
 
-										shieldhit_create(hitprop, shield, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
+										shieldhit_create(hitprop, shield, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, g_EmbedHitPos);
 									}
 
 									obj_damage(g_EmbedProp->obj, 100, &prop->pos, weapon->weaponnum, ownerplayernum);
@@ -7059,11 +7059,11 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 							} else {
 								if (hitprop->type == PROPTYPE_CHR || (hitprop->type == PROPTYPE_PLAYER && hitprop->chr)) {
 									struct chrdata *chr = hitprop->chr;
-									func0f034080(chr, g_EmbedNode, g_EmbedProp, g_EmbedModel, g_EmbedSide, var8006993c);
-								} else if ((hitprop->type == PROPTYPE_OBJ || hitprop->type == PROPTYPE_WEAPON) && var80069944 == 10000) {
+									chr_try_create_shieldhit(chr, g_EmbedNode, g_EmbedProp, g_EmbedModel, g_EmbedSide, g_EmbedHitPos);
+								} else if ((hitprop->type == PROPTYPE_OBJ || hitprop->type == PROPTYPE_WEAPON) && g_EmbedTextureNum == 10000) {
 									shield = (hitprop->obj->flags3 & OBJFLAG3_SHOWSHIELD) ? 4 : 8;
 
-									shieldhit_create(hitprop, shield, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, var8006993c);
+									shieldhit_create(hitprop, shield, g_EmbedProp, g_EmbedNode, g_EmbedModel, g_EmbedSide, g_EmbedHitPos);
 								}
 							}
 						}
@@ -9144,7 +9144,7 @@ void autogun_tick_shoot(struct prop *autogunprop)
 								}
 
 								chr_emit_sparks(hitchr, hitprop, hitpart, &hitpos, &dir, ownerchr);
-								func0f0341dc(hitchr, damage, &dir, &gset, ownerprop, HITPART_GENERAL, hitprop, hitnode, hitmodel, hitside, NULL);
+								chr_damage_by_impact(hitchr, damage, &dir, &gset, ownerprop, HITPART_GENERAL, hitprop, hitnode, hitmodel, hitside, NULL);
 							}
 						} else {
 							missed = true;
@@ -9256,7 +9256,7 @@ void autogun_tick_shoot(struct prop *autogunprop)
 
 								damage = 0.5f * g_AutogunDamageTxScale;
 
-								chr_damage_by_impact(targetprop->chr, damage, &dir, &gset, 0, HITPART_GENERAL);
+								chr_damage_by_general(targetprop->chr, damage, &dir, &gset, 0, HITPART_GENERAL);
 
 								autogun->shotbondsum = 0.0f;
 							}
@@ -20790,7 +20790,7 @@ void gas_tick(void)
 				if (g_GasReleaseTimer240 >= 1800) {
 					struct coord dir = {0, 0, 0};
 
-					chr_damage_by_misc(g_Vars.currentplayer->prop->chr, 0.125f, &dir, NULL, NULL);
+					chr_damage_by_dizziness(g_Vars.currentplayer->prop->chr, 0.125f, &dir, NULL, NULL);
 				}
 			}
 
@@ -21290,7 +21290,7 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 						}
 
 						bgun_play_prop_hit_sound(&gset, targetprop, -1);
-						chr_damage_by_impact(targetprop->chr, gset_get_damage(&gset) * arg1->unk10, dir, &gset, 0, 200);
+						chr_damage_by_general(targetprop->chr, gset_get_damage(&gset) * arg1->unk10, dir, &gset, 0, HITPART_GENERAL);
 						arg1->unk14 = 0.0f;
 					}
 				}
@@ -21319,7 +21319,7 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 							chr->blurdrugamount = TICKS(5000);
 						}
 
-						func0f0341dc(chr, gset_get_damage(&gset), dir, &gset, 0, hitpart, obstacle, node, model, side, NULL);
+						chr_damage_by_impact(chr, gset_get_damage(&gset), dir, &gset, 0, hitpart, obstacle, node, model, side, NULL);
 					} else if (obstacle->type == PROPTYPE_OBJ || obstacle->type == PROPTYPE_WEAPON || obstacle->type == PROPTYPE_DOOR) {
 						struct defaultobj *obj = obstacle->obj;
 

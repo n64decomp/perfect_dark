@@ -267,7 +267,7 @@ bool botact_shoot_farsight(struct chrdata *chr, s32 arg1, struct coord *vector, 
 					}
 
 					chr_emit_sparks(oppchr, oppprop, hitpart, &oppprop->pos, vector, chr);
-					func0f0341dc(oppchr, damage, vector, &gset, chr->prop, HITPART_GENERAL, oppprop, node, model, side, 0);
+					chr_damage_by_impact(oppchr, damage, vector, &gset, chr->prop, HITPART_GENERAL, oppprop, node, model, side, NULL);
 				}
 			}
 

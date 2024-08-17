@@ -1262,8 +1262,8 @@ void hand_inflict_melee_damage(s32 handnum, struct gset *gset, bool arg2)
 									hitpart = HITPART_TORSO;
 								}
 
-								func0f0341dc(chr, gset_get_damage(gset), &gundir2d, gset,
-										g_Vars.currentplayer->prop, hitpart, chr->prop, node, model, side, 0);
+								chr_damage_by_impact(chr, gset_get_damage(gset), &gundir2d, gset,
+										g_Vars.currentplayer->prop, hitpart, chr->prop, node, model, side, NULL);
 							}
 						}
 					}

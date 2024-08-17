@@ -4072,11 +4072,11 @@ void chr_set_shield(struct chrdata *chr, f32 amount)
 	}
 }
 
-bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s16 *arg5)
+bool chr_try_create_shieldhit(struct chrdata *chr, struct modelnode *node, struct prop *prop, struct model *model, s32 side, s16 *hitpos)
 {
 	if (chr_get_shield(chr) > 0) {
 		if (node && (node->type & 0xff) == MODELNODETYPE_BBOX) {
-			shieldhit_create(chr->prop, chr_get_shield(chr), prop, node, model, side, arg5);
+			shieldhit_create(chr->prop, chr_get_shield(chr), prop, node, model, side, hitpos);
 		}
 
 		return true;
@@ -4090,7 +4090,7 @@ bool func0f034080(struct chrdata *chr, struct modelnode *node, struct prop *prop
  *
  * Used for knife poison, nbomb damage, Investigation radioactivity and Escape gas.
  */
-void chr_damage_by_misc(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop)
+void chr_damage_by_dizziness(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop)
 {
 	chr_damage(chr, damage, vector, gset, prop, HITPART_GENERAL,
 			false,     // damageshield
@@ -4098,7 +4098,7 @@ void chr_damage_by_misc(struct chrdata *chr, f32 damage, struct coord *vector, s
 			NULL,      // node
 			NULL,      // model
 			-1,        // side
-			NULL,      // arg11
+			NULL,      // hitpos
 			false,     // explosion
 			NULL);     // explosionpos
 }
@@ -4111,12 +4111,20 @@ void chr_damage_by_laser(struct chrdata *chr, f32 damage, struct coord *vector, 
 			NULL,      // node
 			NULL,      // model
 			-1,        // side
-			NULL,      // arg11
+			NULL,      // hitpos
 			false,     // explosion
 			NULL);     // explosionpos
 }
 
-void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 hitpart, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *arg10)
+/**
+ * Damage the chr due to an impact with a direction.
+ *
+ * Used by:
+ * - Players doing melee attacks
+ * - Being shot
+ * - Hit by knife
+ */
+void chr_damage_by_impact(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 hitpart, struct prop *prop2, struct modelnode *node, struct model *model, s32 side, s16 *hitpos)
 {
 	chr_damage(chr, damage, vector, gset, prop, hitpart,
 			true,      // damageshield
@@ -4124,15 +4132,15 @@ void func0f0341dc(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 			node,      // node
 			model,     // model
 			side,      // side
-			arg10,     // arg11
+			hitpos,    // hitpos
 			false,     // explosion
 			NULL);     // explosionpos
 }
 
 /**
- * Unused, and same as chr_damage_by_impact but sets hitpart to HITPART_GENERAL instead of argument.
+ * Unused, and same as chr_damage_by_general but sets hitpart to HITPART_GENERAL instead of argument.
  */
-void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop)
+void chr_damage_by_general_unused(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop)
 {
 	struct modelnode *node = NULL;
 	struct model *model = NULL;
@@ -4149,15 +4157,19 @@ void func0f034248(struct chrdata *chr, f32 damage, struct coord *vector, struct 
 			node,      // node
 			model,     // model
 			side,      // side
-			NULL,      // arg11
+			NULL,      // hitpos
 			false,     // explosion
 			NULL);     // explosionpos
 }
 
 /**
- * Used for punching, but also used by AI commands to make chrs take damage.
+ * Used by:
+ * - AI when killing chrs at end of Infilration
+ * - NPCs when punching or kicking
+ * - Autoguns shooting a player
+ * - Non-rocket projectiles being created directly in a chr's bbox
  */
-void chr_damage_by_impact(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 hitpart)
+void chr_damage_by_general(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset, struct prop *prop, s32 hitpart)
 {
 	struct modelnode *node = NULL;
 	struct model *model = NULL;
@@ -4173,7 +4185,7 @@ void chr_damage_by_impact(struct chrdata *chr, f32 damage, struct coord *vector,
 			node,      // node
 			model,     // model
 			side,      // side
-			NULL,      // arg11
+			NULL,      // hitpos
 			false,     // explosion
 			NULL);     // explosionpos
 }
@@ -4186,7 +4198,7 @@ void chr_damage_by_explosion(struct chrdata *chr, f32 damage, struct coord *vect
 			NULL,      // node
 			NULL,      // model
 			-1,        // side
-			NULL,      // arg11
+			NULL,      // hitpos
 			true,      // explosion
 			explosionpos);
 }
@@ -4232,13 +4244,13 @@ void player_update_damage_stats(struct prop *attacker, struct prop *victim, f32 
  * node - if shielded, model node (of type bbox) which was hit
  * model - if shielded, model of chr
  * side - if shielded, side of the model node's bounding box which was hit (0-5)
- * arg11 - ?
+ * hitpos - ?
  * explosion - true if damage is coming from an explosion
  * explosionpos - position of said explosion
  */
 void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset,
 		struct prop *aprop, s32 hitpart, bool damageshield, struct prop *prop2,
-		struct modelnode *node, struct model *model, s32 side, s16 *arg11,
+		struct modelnode *node, struct model *model, s32 side, s16 *hitpos,
 		bool explosion, struct coord *explosionpos)
 {
 	bool onehitko = false;
@@ -4525,19 +4537,19 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 		if (shield > 0) {
 			if (g_Vars.normmplayerisrunning) {
 #if VERSION >= VERSION_PAL_FINAL
-				// Fixing a @bug?
+				// Fixing a @bug
 				damage = damage * mp_handicap_to_damage_scale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
 #else
-				damage /= mp_handicap_to_damage_scale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
+				damage = damage / mp_handicap_to_damage_scale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
 #endif
 			}
 
 			chr->chrflags |= CHRCFLAG_SHIELDDAMAGED;
 
 			if (prop2 && node && chr->model) {
-				func0f034080(chr, node, prop2, model, side, arg11);
+				chr_try_create_shieldhit(chr, node, prop2, model, side, hitpos);
 			} else {
-				shieldhit_create(chr->prop, chr_get_shield(chr), NULL, NULL, NULL, 0, 0);
+				shieldhit_create(chr->prop, chr_get_shield(chr), NULL, NULL, NULL, 0, NULL);
 			}
 
 			if (g_Vars.normmplayerisrunning && (g_MpSetup.options & MPOPTION_ONEHITKILLS)) {
@@ -7702,7 +7714,7 @@ void chr_punch_inflict_damage(struct chrdata *chr, s32 damage, s32 range, u8 rev
 		bgun_play_prop_hit_sound(&gset, targetprop, -1);
 
 		if (targetprop->type == PROPTYPE_PLAYER || targetprop->type == PROPTYPE_CHR) {
-			chr_damage_by_impact(targetprop->chr, gset_get_damage(&gset) * damage, &vector, &gset, chr->prop, 200);
+			chr_damage_by_general(targetprop->chr, gset_get_damage(&gset) * damage, &vector, &gset, chr->prop, 200);
 		}
 	}
 
@@ -7717,27 +7729,27 @@ struct punchanim {
 };
 
 struct punchanim g_HumanPunchAnims[] = {
-	{ 0x027c, 5, 20, 60 },
-	{ 0x027d, 5, 20, 31 },
-	{ 0x027e, 5, 20, 48 },
-	{ 0x027f, 5, 20, 69 },
-	{ 0x0212, 5, 20, 64 },
-	{ 0x0213, 5, 20, 52 },
-	{ 0x0214, 5, 20, 51 },
-	{ 0x020e, 5, 20, 53 },
-	{ 0x020f, 5, 20, 89 },
-	{ 0x0210, 5, 20, 71 },
-	{ 0x0215, 5, 20, 62 },
-	{ 0x0211, 5, 20, 72 },
+	{ ANIM_027C, 5, 20, 60 },
+	{ ANIM_027D, 5, 20, 31 },
+	{ ANIM_027E, 5, 20, 48 },
+	{ ANIM_027F, 5, 20, 69 },
+	{ ANIM_0212, 5, 20, 64 },
+	{ ANIM_0213, 5, 20, 52 },
+	{ ANIM_0214, 5, 20, 51 },
+	{ ANIM_020E, 5, 20, 53 },
+	{ ANIM_020F, 5, 20, 89 },
+	{ ANIM_0210, 5, 20, 71 },
+	{ ANIM_0215, 5, 20, 62 },
+	{ ANIM_0211, 5, 20, 72 },
 };
 
 struct punchanim g_SkedarPunchAnims[] = {
-	{ 0x034c, 15, 25, 100 },
-	{ 0x034d, 15, 25, -1  },
-	{ 0x0395, 15, 25, -1  },
-	{ 0x0346, 15, 25, -1  },
-	{ 0x0347, 15, 25, -1  },
-	{ 0x034f, 15, 25, -1  },
+	{ ANIM_034C, 15, 25, 100 },
+	{ ANIM_034D, 15, 25, -1  },
+	{ ANIM_0395, 15, 25, -1  },
+	{ ANIM_0346, 15, 25, -1  },
+	{ ANIM_0347, 15, 25, -1  },
+	{ ANIM_034F, 15, 25, -1  },
 };
 
 /**
@@ -10307,7 +10319,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 								chr_calculate_shield_hit(targetchr, &hitpos, &vector, &node, &hitpart, &model, &side);
 							}
 
-							func0f0341dc(targetchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, targetprop, node, model, side, NULL);
+							chr_damage_by_impact(targetchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, targetprop, node, model, side, NULL);
 						} else if ((hitprop == NULL || (hitprop->type != PROPTYPE_CHR && hitprop->type != PROPTYPE_PLAYER))
 								&& sqshotdist < 100.0f * 100.0f) {
 							// Hit the background or something other than a
@@ -10339,7 +10351,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 									}
 
 									chr_emit_sparks(hitchr, hitprop, hitpart, &hitpos, &vector, chr);
-									func0f0341dc(hitchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, hitprop, node, model, side, NULL);
+									chr_damage_by_impact(hitchr, damage, &vector, &gset, chr->prop, HITPART_GENERAL, hitprop, node, model, side, NULL);
 								} else {
 									makebeam = false;
 									firingthisframe = false;
@@ -12750,7 +12762,7 @@ void chr_tick_go_pos(struct chrdata *chr)
 			// Try and warp the chr past whatever obstacle is blocking them?
 			struct coord sp196 = {0, 0, 0};
 
-			chr_damage_by_misc(chr, 1, &sp196, NULL, NULL);
+			chr_damage_by_dizziness(chr, 1, &sp196, NULL, NULL);
 
 			chr->lastmoveok60 = g_Vars.lvframe60;
 			return;

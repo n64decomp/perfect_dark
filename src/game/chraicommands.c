@@ -811,7 +811,7 @@ bool ai0019(void)
 
 	if (chr && chr->prop) {
 		f32 damage = gset_get_damage((struct gset *)&cmd[4]);
-		chr_damage_by_impact(chr, damage, &pos, (struct gset *)&cmd[4], NULL, (s8)cmd[3]);
+		chr_damage_by_general(chr, damage, &pos, (struct gset *)&cmd[4], NULL, (s8)cmd[3]);
 	}
 
 	g_Vars.aioffset += 8;
@@ -845,7 +845,7 @@ bool ai_chr_damage_chr(void)
 			guNormalize(&vector.x, &vector.y, &vector.z);
 			weapon = prop->weapon;
 			damage = gset_get_damage(&weapon->gset);
-			chr_damage_by_impact(chr2, damage, &vector, &weapon->gset, chr1->prop, (s8)cmd[4]);
+			chr_damage_by_general(chr2, damage, &vector, &weapon->gset, chr1->prop, (s8)cmd[4]);
 		}
 	}
 
@@ -8049,11 +8049,11 @@ bool ai_damage_chr_by_amount(void)
 	if (chr && chr->prop) {
 		if (cmd[4] == 2) {
 			struct gset gset = {WEAPON_COMBATKNIFE, 0, 0, FUNC_POISON};
-			chr_damage_by_misc(chr, (s32)cmd[3] * 0.03125f, &coord, &gset, NULL);
+			chr_damage_by_dizziness(chr, (s32)cmd[3] * 0.03125f, &coord, &gset, NULL);
 		} else if (cmd[4] == 0) {
-			chr_damage_by_misc(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, NULL);
+			chr_damage_by_dizziness(chr, (s32)cmd[3] * 0.03125f, &coord, NULL, NULL);
 		} else {
-			chr_damage_by_misc(chr, (s32)cmd[3] * -0.03125f, &coord, NULL, NULL);
+			chr_damage_by_dizziness(chr, (s32)cmd[3] * -0.03125f, &coord, NULL, NULL);
 		}
 	}
 

@@ -21,9 +21,9 @@ void chrmgr_reset(void)
 	g_ChrSlots = NULL;
 	g_NumChrSlots = 0;
 
-	g_ShieldHits = memp_alloc(sizeof(struct shieldhit) * 20, MEMPOOL_STAGE);
+	g_ShieldHits = memp_alloc(sizeof(struct shieldhit) * MAX_SHIELDHITS, MEMPOOL_STAGE);
 
-	for (i = 0; i < 20; i++) {
+	for (i = 0; i < MAX_SHIELDHITS; i++) {
 		g_ShieldHits[i].prop = NULL;
 	}
 

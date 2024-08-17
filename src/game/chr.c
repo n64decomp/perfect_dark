@@ -2295,7 +2295,7 @@ void chr_tick_poisoned(struct chrdata *chr)
 
 			if (chr->poisoncounter <= 0) {
 				if (!g_Vars.normmplayerisrunning) {
-					chr_damage_by_misc(chr, 100, &coord, &gset, chr->poisonprop);
+					chr_damage_by_dizziness(chr, 100, &coord, &gset, chr->poisonprop);
 					chr_flinch_head(chr, M_PI);
 				}
 
@@ -2306,7 +2306,7 @@ void chr_tick_poisoned(struct chrdata *chr)
 
 			if (g_Vars.normmplayerisrunning) {
 				if (chr->poisoncounter / TICKS(720) != (chr->poisoncounter + g_Vars.lvupdate240) / TICKS(720)) {
-					chr_damage_by_misc(chr, 1.3f, &coord, &gset, chr->poisonprop);
+					chr_damage_by_dizziness(chr, 1.3f, &coord, &gset, chr->poisonprop);
 				}
 			}
 		}
@@ -3543,7 +3543,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		if (chr->race == RACE_DRCAROLL) {
-			chr_set_dr_caroll_images(chr, chr->drcarollimage_left, chr->drcarollimage_right);
+			chr_set_drcaroll_images(chr, chr->drcarollimage_left, chr->drcarollimage_right);
 		}
 
 		g_Vars.currentplayerstats->drawplayercount++;
@@ -3834,7 +3834,7 @@ void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struc
 	}
 
 	// Do a pass over the entire model's tree, looking for vertices that share
-	// the chosen vertex, and darken then.
+	// the chosen vertex, and darken them.
 	curnode = model->definition->rootnode;
 
 	while (curnode) {
@@ -4587,7 +4587,7 @@ void chr_hit(struct shotdata *shotdata, struct hit *hit)
 	Mtxf spb0;
 	struct coord hitpos;
 	struct coord sp98;
-	s16 sp90[3];
+	s16 hitpos_s16[3];
 	u8 ismelee = false;
 	struct weaponfunc *func = gset_get_weapon_function(&shotdata->gset);
 	f32 shield;
@@ -4617,15 +4617,15 @@ void chr_hit(struct shotdata *shotdata, struct hit *hit)
 
 		chr_emit_sparks(chr, hit->prop, hit->hitpart, &hitpos, &shotdata->gundir3d, g_Vars.currentplayer->prop->chr);
 
-		sp90[0] = hit->hitthing.pos.x;
-		sp90[1] = hit->hitthing.pos.y;
-		sp90[2] = hit->hitthing.pos.z;
+		hitpos_s16[0] = hit->hitthing.pos.x;
+		hitpos_s16[1] = hit->hitthing.pos.y;
+		hitpos_s16[2] = hit->hitthing.pos.z;
 
 		shield = chr_get_shield(chr);
 
-		func0f0341dc(chr, gset_get_damage(&shotdata->gset), &shotdata->gundir3d, &shotdata->gset,
+		chr_damage_by_impact(chr, gset_get_damage(&shotdata->gset), &shotdata->gundir3d, &shotdata->gset,
 				g_Vars.currentplayer->prop, hit->hitpart, hit->prop, hit->bboxnode,
-				hit->model, hit->hitthing.unk28 / 2, sp90);
+				hit->model, hit->hitthing.unk28 / 2, hitpos_s16);
 
 		if (g_Vars.antiplayernum >= 0
 				&& g_Vars.currentplayer == g_Vars.anti
@@ -5051,38 +5051,63 @@ bool chr_calculate_auto_aim(struct prop *prop, struct coord *arg1, f32 *arg2, f3
 	return false;
 }
 
-bool chr0f028d50(struct prop *arg0, struct prop *arg1, struct modelnode *node, struct model *model, s32 *total)
+/**
+ * Iterate the iterprop, its children and siblings to find wantprop.
+ * Sum the number of matrix slots in the model data of each model that has been iterated.
+ *
+ * This function is recursive, where each recursion is for an attached child
+ * or sibling.
+ *
+ * @bug: The matrices are counted from the same model definition
+ * regardless of what model the children have.
+ */
+bool shieldhit_find_cmnum_for_prop(struct prop *iterprop, struct prop *wantprop, struct modelnode *node, struct model *model, s32 *total)
 {
-	if (arg1 == arg0) {
+	if (wantprop == iterprop) {
 		*total += model_find_node_mtx_index(node, 0);
 		return true;
 	}
 
 	*total += model->definition->nummatrices;
 
-	if (arg0->child && chr0f028d50(arg0->child, arg1, node, model, total) > 0) {
+	if (iterprop->child && shieldhit_find_cmnum_for_prop(iterprop->child, wantprop, node, model, total) > 0) {
 		return true;
 	}
 
-	if (arg0->next && chr0f028d50(arg0->next, arg1, node, model, total) > 0) {
+	if (iterprop->next && shieldhit_find_cmnum_for_prop(iterprop->next, wantprop, node, model, total) > 0) {
 		return true;
 	}
 
 	return false;
 }
 
-s32 chr0f028e18(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3)
+/**
+ * Given a model node, find the associated cmnum.
+ *
+ * The node may be on the root prop (chr or obj). It may also be a node on an
+ * attached prop such as a knife or mine.
+ */
+s32 shieldhit_node_to_cmnum(struct prop *wantprop, struct modelnode *node, struct model *model, struct prop *rootprop)
 {
-	s32 result = 0;
+	s32 cmnum = 0;
 
-	if (chr0f028d50(arg3, arg0, node, model, &result)) {
-		return result;
+	if (shieldhit_find_cmnum_for_prop(rootprop, wantprop, node, model, &cmnum)) {
+		return cmnum;
 	}
 
 	return -1;
 }
 
-bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr)
+/**
+ * Convert a cmnum to a prop, model and node.
+ *
+ * For example, a chr might have 14 matrices, and they might have a mine
+ * attached to them which has one matrix. cmnums 0-13 will refer to matrices in
+ * the chr's model, while cmnum 14 will be the mine.
+ *
+ * Return true if the cmnum was valid and values were written to the pointers.
+ */
+bool shieldhit_cmnum_to_node(s32 cmnum, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr)
 { \
 	while (true) {
 		bool result = false;
@@ -5097,11 +5122,11 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 
 		if (1);
 
-		if (arg0 >= model->definition->nummatrices) {
-			arg0 -= model->definition->nummatrices;
+		if (cmnum >= model->definition->nummatrices) {
+			cmnum -= model->definition->nummatrices;
 
 			if (prop->child) {
-				result = chr0f028e6c(arg0, prop->child, propptr, nodeptr, modelptr);
+				result = shieldhit_cmnum_to_node(cmnum, prop->child, propptr, nodeptr, modelptr);
 			}
 
 			if (prop->next && !result) {
@@ -5110,7 +5135,7 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 			}
 		} else {
 			*propptr = prop;
-			*nodeptr = model_find_node_by_mtx_index(model, arg0);
+			*nodeptr = model_find_node_by_mtx_index(model, cmnum);
 			*modelptr = model;
 			result = true;
 		}
@@ -5119,14 +5144,14 @@ bool chr0f028e6c(s32 arg0, struct prop *prop, struct prop **propptr, struct mode
 	}
 }
 
-void shieldhit_create(struct prop *prop, f32 shield, struct prop *arg2, struct modelnode *node, struct model *model, s32 side, s16 *arg6)
+void shieldhit_create(struct prop *rootprop, f32 shield, struct prop *hitprop, struct modelnode *node, struct model *model, s32 side, s16 *hitpos)
 {
 	struct shieldhit *shieldhit = NULL;
 	s32 i;
 	s32 j;
 
 	// Find any slot that isn't in use (ie. prop is NULL)
-	for (i = 0; i < 20; i++) {
+	for (i = 0; i < MAX_SHIELDHITS; i++) {
 		if (g_ShieldHits[i].prop == NULL) {
 			shieldhit = &g_ShieldHits[i];
 			break;
@@ -5138,7 +5163,7 @@ void shieldhit_create(struct prop *prop, f32 shield, struct prop *arg2, struct m
 		struct shieldhit *oldesthit = NULL;
 		s32 oldestframe = g_Vars.lvframe60;
 
-		for (i = 0; i < 20; i++) {
+		for (i = 0; i < MAX_SHIELDHITS; i++) {
 			if (g_ShieldHits[i].lvframe60 < oldestframe) {
 				oldesthit = &g_ShieldHits[i];
 				oldestframe = g_ShieldHits[i].lvframe60;
@@ -5149,7 +5174,7 @@ void shieldhit_create(struct prop *prop, f32 shield, struct prop *arg2, struct m
 	}
 
 	if (shieldhit) {
-		shieldhit->prop = prop;
+		shieldhit->prop = rootprop;
 		shieldhit->node = node;
 		shieldhit->model = model;
 		shieldhit->side = side;
@@ -5162,19 +5187,19 @@ void shieldhit_create(struct prop *prop, f32 shield, struct prop *arg2, struct m
 		shieldhit->unk011 = 2 + (random() % 6);
 		shieldhit->shield = shield;
 
-		if (arg6) {
-			shieldhit->unk012 = arg6[0];
-			shieldhit->unk014 = arg6[1];
-			shieldhit->unk016 = arg6[2];
+		if (hitpos) {
+			shieldhit->hitposx = hitpos[0];
+			shieldhit->hitposy = hitpos[1];
+			shieldhit->hitposz = hitpos[2];
 		} else {
-			shieldhit->unk012 = 0x7fff;
+			shieldhit->hitposx = 0x7fff;
 		}
 
 		if (node) {
 			bool pass = true;
 
-			for (i = 0; i < 20; i++) {
-				if (g_ShieldHits[i].prop == prop) {
+			for (i = 0; i < MAX_SHIELDHITS; i++) {
+				if (g_ShieldHits[i].prop == rootprop) {
 					for (j = 0; j < 32; j++) {
 						if (shieldhit->unk018[j] != -1 && shieldhit->unk018[j] != -2) {
 							pass = false;
@@ -5189,7 +5214,7 @@ void shieldhit_create(struct prop *prop, f32 shield, struct prop *arg2, struct m
 			}
 
 			if (pass) {
-				s32 index = chr0f028e18(arg2, node, model, prop);
+				s32 index = shieldhit_node_to_cmnum(hitprop, node, model, rootprop);
 
 				if (index < 32) {
 					shieldhit->unk018[index] = 0;
@@ -5198,10 +5223,10 @@ void shieldhit_create(struct prop *prop, f32 shield, struct prop *arg2, struct m
 			}
 		}
 
-		if (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER) {
-			prop->chr->hidden2 |= CHRH2FLAG_SHIELDHIT;
-		} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON || prop->type == PROPTYPE_DOOR) {
-			prop->obj->flags3 |= OBJFLAG3_SHIELDHIT;
+		if (rootprop->type == PROPTYPE_CHR || rootprop->type == PROPTYPE_PLAYER) {
+			rootprop->chr->hidden2 |= CHRH2FLAG_SHIELDHIT;
+		} else if (rootprop->type == PROPTYPE_OBJ || rootprop->type == PROPTYPE_WEAPON || rootprop->type == PROPTYPE_DOOR) {
+			rootprop->obj->flags3 |= OBJFLAG3_SHIELDHIT;
 		}
 	}
 
@@ -5218,7 +5243,7 @@ void shieldhit_remove(struct shieldhit *shieldhit)
 	// Check if there are other shield hits active
 	g_ShieldHitActive = false;
 
-	for (i = 0; i < 20; i++) {
+	for (i = 0; i < MAX_SHIELDHITS; i++) {
 		if (g_ShieldHits[i].prop) {
 			g_ShieldHitActive = true;
 			break;
@@ -5226,7 +5251,7 @@ void shieldhit_remove(struct shieldhit *shieldhit)
 	}
 
 	// Check if the prop being removed has other shield hits too
-	for (i = 0; i < 20; i++) {
+	for (i = 0; i < MAX_SHIELDHITS; i++) {
 		if (prop == g_ShieldHits[i].prop) {
 			exists = true;
 			break;
@@ -5251,47 +5276,47 @@ void shieldhits_remove_by_prop(struct prop *prop)
 {
 	s32 i;
 
-	for (i = 0; i < 20; i++) {
+	for (i = 0; i < MAX_SHIELDHITS; i++) {
 		if (prop == g_ShieldHits[i].prop) {
 			shieldhit_remove(&g_ShieldHits[i]);
 		}
 	}
 }
 
-s32 chr0f02932c(struct prop *prop, s32 arg1)
+s32 shieldhit_find_parentnode_cmnum(struct prop *prop, s32 prevcmnum)
 {
-	s32 result = -1;
+	s32 cmnum = -1;
 	struct modelnode *node2;
 	struct prop *prop2;
 	struct modelnode *node;
 	struct model *model;
 
-	if (chr0f028e6c(arg1, prop, &prop2, &node, &model) && node) {
+	if (shieldhit_cmnum_to_node(prevcmnum, prop, &prop2, &node, &model) && node) {
 		node2 = model_node_find_parent_mtx_node(node);
 
 		if (node2) {
-			result = chr0f028e18(prop2, node2, model, prop);
+			cmnum = shieldhit_node_to_cmnum(prop2, node2, model, prop);
 		} else if (prop2->parent && model->attachedtomodel && model->attachedtonode) {
-			result = chr0f028e18(prop2->parent, model->attachedtonode, model->attachedtomodel, prop);
+			cmnum = shieldhit_node_to_cmnum(prop2->parent, model->attachedtonode, model->attachedtomodel, prop);
 		}
 	}
 
-	return result;
+	return cmnum;
 }
 
-s32 chr0f0293ec(struct prop *prop, s32 cmnum)
+s32 shieldhit_find_childnode_cmnum(struct prop *prop, s32 prevcmnum)
 {
-	s32 result = -1;
+	s32 cmnum = -1;
 	struct modelnode *node2;
 	struct prop *prop2;
 	struct modelnode *node;
 	struct model *model;
 
-	if (chr0f028e6c(cmnum, prop, &prop2, &node, &model) && node) {
+	if (shieldhit_cmnum_to_node(prevcmnum, prop, &prop2, &node, &model) && node) {
 		node2 = model_node_find_child_mtx_node(node);
 
 		if (node2) {
-			result = chr0f028e18(prop2, node2, model, prop);
+			cmnum = shieldhit_node_to_cmnum(prop2, node2, model, prop);
 		} else {
 			struct prop *child = prop2->child;
 
@@ -5300,7 +5325,7 @@ s32 chr0f0293ec(struct prop *prop, s32 cmnum)
 
 				if (model == parentmodel->attachedtomodel) {
 					if (node == parentmodel->attachedtonode) {
-						result = chr0f028e18(child, parentmodel->definition->rootnode, parentmodel, prop);
+						cmnum = shieldhit_node_to_cmnum(child, parentmodel->definition->rootnode, parentmodel, prop);
 						break;
 					}
 				}
@@ -5310,22 +5335,22 @@ s32 chr0f0293ec(struct prop *prop, s32 cmnum)
 		}
 	}
 
-	return result;
+	return cmnum;
 }
 
-s32 chr0f0294cc(struct prop *prop, s32 arg1)
+s32 shieldhit_find_anynode_cmnum(struct prop *prop, s32 prevcmnum)
 {
-	s32 result = -1;
+	s32 cmnum = -1;
 	struct prop *child;
 	struct prop *prop2;
 	struct modelnode *node2;
 	struct model *model2;
 
-	if (chr0f028e6c(arg1, prop, &prop2, &node2, &model2) && node2) {
+	if (shieldhit_cmnum_to_node(prevcmnum, prop, &prop2, &node2, &model2) && node2) {
 		struct modelnode *node3 = model_node_find_child_or_parent_mtx_node(node2);
 
 		if (node3) {
-			result = chr0f028e18(prop2, node3, model2, prop);
+			cmnum = shieldhit_node_to_cmnum(prop2, node3, model2, prop);
 		} else if (model_node_find_parent_mtx_node(node2) == NULL && prop2->parent) {
 			child = prop2->parent->child;
 
@@ -5341,7 +5366,7 @@ s32 chr0f0294cc(struct prop *prop, s32 arg1)
 
 					if (parent->attachedtomodel == model2->attachedtomodel) {
 						if (parent->attachedtonode == model2->attachedtonode) {
-							result = chr0f028e18(child, parent->definition->rootnode, parent, prop);
+							cmnum = shieldhit_node_to_cmnum(child, parent->definition->rootnode, parent, prop);
 							break;
 						}
 					}
@@ -5352,45 +5377,35 @@ s32 chr0f0294cc(struct prop *prop, s32 arg1)
 		}
 	}
 
-	return result;
+	return cmnum;
 }
 
-void chr0f0295f8(f32 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
+void shieldhit_health_to_rgb(f32 health, s32 *r, s32 *g, s32 *b)
 {
-	if (arg0 < 1.5f) {
-		*arg1 = 57 - (s32)((1.5f - arg0) * 28.0f);
-		*arg2 = 75 - (s32)((1.5f - arg0) * 20.0f);
-		*arg3 = 0;
-		return;
+	if (health < 1.5f) {
+		*r = 57 - (s32) ((1.5f - health) * 28);
+		*g = 75 - (s32) ((1.5f - health) * 20);
+		*b = 0;
+	} else if (health < 3.0f) {
+		*r = 102 - (s32) ((3.0f - health) * 30);
+		*g = 90 - (s32) ((3.0f - health) * 10);
+		*b = 0;
+	} else if (health < 4.5f) {
+		*r = 174 - (s32) ((4.5f - health) * 48);
+		*g = 129 - (s32) ((4.5f - health) * 26);
+		*b = 0;
+	} else if (health < 6.0f) {
+		*r = 162 - (s32) ((6.0f - health) * -8);
+		*g = 54 - (s32) ((6.0f - health) * -50);
+		*b = 0;
+	} else {
+		*r = 162;
+		*g = 54;
+		*b = 0;
 	}
-
-	if (arg0 < 3.0f) {
-		*arg1 = 102 - (s32)((3.0f - arg0) * 30.0f);
-		*arg2 = 90 - (s32)((3.0f - arg0) * 10.0f);
-		*arg3 = 0;
-		return;
-	}
-
-	if (arg0 < 4.5f) {
-		*arg1 = 174 - (s32)((4.5f - arg0) * 48.0f);
-		*arg2 = 129 - (s32)((4.5f - arg0) * 26.0f);
-		*arg3 = 0;
-		return;
-	}
-
-	if (arg0 < 6.0f) {
-		*arg1 = 162 - (s32)((6.0f - arg0) * -8.0f);
-		*arg2 = 54 - (s32)((6.0f - arg0) * -50.0f);
-		*arg3 = 0;
-		return;
-	}
-
-	*arg1 = 162;
-	*arg2 = 54;
-	*arg3 = 0;
 }
 
-f32 prop_get_shield_thing(struct prop **propptr)
+f32 shieldhit_get_health(struct prop **propptr)
 {
 	struct prop *prop = *propptr;
 
@@ -5405,8 +5420,8 @@ f32 prop_get_shield_thing(struct prop **propptr)
 			return 4;
 		}
 
-		// If this function is returning the shield amount,
-		// why would it return 8 for all objects here?
+		// Objects don't have shields with health,
+		// hence why the max health is returned here.
 		return 8;
 	}
 
@@ -5415,7 +5430,7 @@ f32 prop_get_shield_thing(struct prop **propptr)
 
 bool g_ShieldHitActive = false;
 
-Gfx *chr_render_shield_component(Gfx *gdl, struct shieldhit *hit, struct prop *prop, struct model *model,
+Gfx *shieldhit_render_component(Gfx *gdl, struct shieldhit *hit, struct prop *prop, struct model *model,
 		struct modelnode *node, s32 side, s32 arg6, s32 arg7, s32 alpha)
 {
 	struct modelrodata_bbox *bbox = &node->rodata->bbox;
@@ -5582,7 +5597,7 @@ Gfx *chr_render_shield_component(Gfx *gdl, struct shieldhit *hit, struct prop *p
 			}
 		}
 
-		chr0f0295f8(shield, &red1, &green1, &blue1);
+		shieldhit_health_to_rgb(shield, &red1, &green1, &blue1);
 
 		red2 = red1 - 20;
 		green2 = green1 - 20;
@@ -5985,14 +6000,14 @@ Gfx *chr_render_shield_component(Gfx *gdl, struct shieldhit *hit, struct prop *p
 
 			vertices[4] = vtxtemplate;
 
-			if (hit->unk012 == 0x7fff) {
+			if (hit->hitposx == 0x7fff) {
 				vertices[4].x = (vertices[0].x + vertices[1].x + vertices[2].x + vertices[3].x) >> 2;
 				vertices[4].y = (vertices[0].y + vertices[1].y + vertices[2].y + vertices[3].y) >> 2;
 				vertices[4].z = (vertices[0].z + vertices[1].z + vertices[2].z + vertices[3].z) >> 2;
 			} else {
-				vertices[4].x = hit->unk012;
-				vertices[4].y = hit->unk014;
-				vertices[4].z = hit->unk016;
+				vertices[4].x = hit->hitposx;
+				vertices[4].y = hit->hitposy;
+				vertices[4].z = hit->hitposz;
 			}
 
 			vertices[4].colour = 0xc;
@@ -6158,7 +6173,7 @@ Gfx *shieldhit_render(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alph
 			model = chr->model;
 		} else {
 			model = prop2->obj->model;
-			specificnode = model_get_part(model->definition, MODELPART_BASIC_0067);
+			specificnode = model_get_part(model->definition, MODELPART_BASIC_SHIELD);
 		}
 
 		node = model->definition->rootnode;
@@ -6169,10 +6184,10 @@ Gfx *shieldhit_render(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alph
 					struct shieldhit *s0 = NULL;
 					struct shieldhit *s1 = NULL;
 					struct shieldhit *s2 = NULL;
-					s32 index = chr0f028e18(prop2, node, model, prop1);
+					s32 index = shieldhit_node_to_cmnum(prop2, node, model, prop1);
 					s32 i;
 
-					for (i = 0; i < 20; i++) {
+					for (i = 0; i < MAX_SHIELDHITS; i++) {
 						struct shieldhit *iter = &g_ShieldHits[i];
 
 						if (iter->prop == prop1) {
@@ -6197,11 +6212,11 @@ Gfx *shieldhit_render(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alph
 					}
 
 					if (s0) {
-						gdl = chr_render_shield_component(gdl, s0, prop1, s0->model, s0->node, s0->side, -1, -1, 255);
+						gdl = shieldhit_render_component(gdl, s0, prop1, s0->model, s0->node, s0->side, -1, -1, 255);
 					} else if (s1) {
-						gdl = chr_render_shield_component(gdl, s1, prop1, model, node, -1, -1, -1, 255);
+						gdl = shieldhit_render_component(gdl, s1, prop1, model, node, -1, -1, -1, 255);
 					} else if (s2) {
-						gdl = chr_render_shield_component(gdl, s2, prop1, model, node, -2, s2->unk018[index], s2->unk038[index], 255);
+						gdl = shieldhit_render_component(gdl, s2, prop1, model, node, -2, s2->unk018[index], s2->unk038[index], 255);
 					} else {
 						if (arg4) {
 							if (specificnode) {
@@ -6222,16 +6237,16 @@ Gfx *shieldhit_render(Gfx *gdl, struct prop *prop1, struct prop *prop2, s32 alph
 							gDPSetTextureFilter(gdl++, G_TF_BILERP);
 							gDPSetColorDither(gdl++, G_CD_BAYER);
 
-							gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -7, -1, -1, 255);
+							gdl = shieldhit_render_component(gdl, NULL, prop1, model, node, -7, -1, -1, 255);
 						} else {
 							if (index == cmnum1) {
-								gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -3, -1, -1, alpha);
+								gdl = shieldhit_render_component(gdl, NULL, prop1, model, node, -3, -1, -1, alpha);
 							} else if (index == cmnum2) {
-								gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -4, -1, -1, alpha);
+								gdl = shieldhit_render_component(gdl, NULL, prop1, model, node, -4, -1, -1, alpha);
 							} else if (index == cmnum3) {
-								gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -5, -1, -1, alpha);
+								gdl = shieldhit_render_component(gdl, NULL, prop1, model, node, -5, -1, -1, alpha);
 							} else if (index == cmnum4) {
-								gdl = chr_render_shield_component(gdl, NULL, prop1, model, node, -6, -1, -1, alpha);
+								gdl = shieldhit_render_component(gdl, NULL, prop1, model, node, -6, -1, -1, alpha);
 							}
 						}
 					}
@@ -6283,7 +6298,7 @@ Gfx *chr_render_cloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 			model = thisprop->chr->model;
 		} else {
 			model = thisprop->obj->model;
-			bbox = model_get_part(model->definition, MODELPART_BASIC_0067);
+			bbox = model_get_part(model->definition, MODELPART_BASIC_SHIELD);
 		}
 
 		if (thisprop->parent == NULL) {
@@ -6317,7 +6332,7 @@ Gfx *chr_render_cloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop)
 		while (node) {
 			if ((node->type & 0xff) == MODELNODETYPE_BBOX) {
 				if (bbox == NULL || node == bbox) {
-					s32 index = chr0f028e18(thisprop, node, model, chrprop);
+					s32 index = shieldhit_node_to_cmnum(thisprop, node, model, chrprop);
 
 					if (bbox) {
 						index = 19;
@@ -6455,7 +6470,7 @@ Gfx *chr_render_shield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 
 			for (i = 0; i <= numiterations; ) {
 				if (operation == 0) {
-					candidate = chr0f02932c(chr->prop, chr->cmnum);
+					candidate = shieldhit_find_parentnode_cmnum(chr->prop, chr->cmnum);
 					operation = 1;
 
 					if (candidate >= 0) {
@@ -6468,7 +6483,7 @@ Gfx *chr_render_shield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 						again = false;
 					}
 				} else if (operation == 1) {
-					candidate = chr0f0293ec(chr->prop, chr->cmnum);
+					candidate = shieldhit_find_childnode_cmnum(chr->prop, chr->cmnum);
 
 					if (candidate >= 0) {
 						operation = 2;
@@ -6486,7 +6501,7 @@ Gfx *chr_render_shield(Gfx *gdl, struct chrdata *chr, u32 alpha)
 						}
 					}
 				} else if (operation == 2) {
-					candidate = chr0f0294cc(chr->prop, candidate);
+					candidate = shieldhit_find_anynode_cmnum(chr->prop, candidate);
 
 					if (candidate >= 0) {
 						if (candidate != chr->cmnum2) {
@@ -6530,11 +6545,11 @@ void shieldhits_tick(void)
 	s32 j;
 
 	if (g_ShieldHitActive) {
-		for (i = 0; i < 20; i++) {
+		for (i = 0; i < MAX_SHIELDHITS; i++) {
 			if (g_ShieldHits[i].prop) {
 				if (g_ShieldHits[i].lvframe60 >= g_Vars.lvframe60 - TICKS(80)) {
 					changed = true;
-					g_ShieldHits[i].shield += (prop_get_shield_thing(&g_ShieldHits[i].prop) - g_ShieldHits[i].shield) * g_Vars.lvupdate60f * (PAL ? 0.0151515156f : 0.0125f);
+					g_ShieldHits[i].shield += (shieldhit_get_health(&g_ShieldHits[i].prop) - g_ShieldHits[i].shield) * g_Vars.lvupdate60f * (PAL ? 0.0151515156f : 0.0125f);
 				}
 
 				for (j = 0; j < 32; j++) {
@@ -6543,7 +6558,7 @@ void shieldhits_tick(void)
 						time60 = g_ShieldHits[i].unk018[j] + g_Vars.lvupdate60;
 
 						if (g_ShieldHits[i].unk018[j] < 1 && time60 > 0) {
-							index = chr0f02932c(g_ShieldHits[i].prop, j);
+							index = shieldhit_find_parentnode_cmnum(g_ShieldHits[i].prop, j);
 
 							if (index >= 0 && index < 32) {
 								if (g_ShieldHits[i].unk018[index] == -1) {
@@ -6552,7 +6567,7 @@ void shieldhits_tick(void)
 								}
 							}
 
-							index = chr0f0293ec(g_ShieldHits[i].prop, j);
+							index = shieldhit_find_childnode_cmnum(g_ShieldHits[i].prop, j);
 
 							while (index >= 0) {
 								if (index < 32) {
@@ -6562,7 +6577,7 @@ void shieldhits_tick(void)
 									}
 								}
 
-								index = chr0f0294cc(g_ShieldHits[i].prop, index);
+								index = shieldhit_find_anynode_cmnum(g_ShieldHits[i].prop, index);
 							}
 						}
 
@@ -6588,7 +6603,7 @@ void shieldhits_tick(void)
 	}
 }
 
-void chr_set_dr_caroll_images(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
+void chr_set_drcaroll_images(struct chrdata *drcaroll, s32 imageleft, s32 imageright)
 {
 	if (drcaroll
 			&& imageleft >= DRCAROLLIMAGE_EYESDEFAULT && imageleft <= DRCAROLLIMAGE_BINARY

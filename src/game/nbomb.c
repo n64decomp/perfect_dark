@@ -497,7 +497,7 @@ void nbomb_inflict_damage(struct nbomb *nbomb)
 						struct coord vector = {0, 0, 0};
 						f32 damage = 0.01f * g_Vars.lvupdate60freal;
 
-						chr_damage_by_misc(chr, damage, &vector, &gset, nbomb->ownerprop);
+						chr_damage_by_dizziness(chr, damage, &vector, &gset, nbomb->ownerprop);
 
 #if VERSION >= VERSION_NTSC_1_0
 						if (chr->actiontype);
