@@ -448,7 +448,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01b2*/ ai_set_wind_speed,
 	/*0x01b3*/ ai_toggle_p1p2,
 #if VERSION >= VERSION_NTSC_1_0
-	/*0x01b4*/ ai01b4,
+	/*0x01b4*/ ai_if_nothing_in_my_space,
 #else
 	/*0x01b4*/ NULL,
 #endif

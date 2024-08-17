@@ -400,7 +400,7 @@
 /*0x01b1*/ bool ai_shuffle_ruins_pillars(void);
 /*0x01b2*/ bool ai_set_wind_speed(void);
 /*0x01b3*/ bool ai_toggle_p1p2(void);
-/*0x01b4*/ bool ai01b4(void);
+/*0x01b4*/ bool ai_if_nothing_in_my_space(void);
 /*0x01b5*/ bool ai_chr_set_p1p2(void);
 /*0x01b6*/ bool ai_configure_snow(void);
 /*0x01b7*/ bool ai_chr_set_cloaked(void);

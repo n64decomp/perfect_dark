@@ -5583,6 +5583,11 @@ u8 func0023_dodge[] = {
  *
  * In co-op mode with an AI buddy, this ailist is applied to the buddy when you
  * give them the Stealth command.
+ *
+ * Make the buddy cloak, then hide/remove them. Wait a few seconds, and until
+ * there's no cutscene, and until nothing is in the buddy's space, then unhide
+ * them. While waiting for these conditions, periodically relocate the buddy to
+ * near the player.
  */
 u8 func0015_buddy_stealth[] = {
 	stop_chr
@@ -5610,9 +5615,8 @@ u8 func0015_buddy_stealth[] = {
 
 	label(0x16)
 
-	// Wait for intro to finish and for 1 second to have passed
-	// (in case intro was cut by player)
-	#define wait_intro(loopid) \
+	// Wait for any (mid level) cutscene to finish and for 1 second to have passed
+	#define wait_for_cutscene(loopid) \
 		restart_timer \
 		beginloop(loopid) \
 			if_camera_animating(/*goto*/ 0x13) \
@@ -5621,26 +5625,26 @@ u8 func0015_buddy_stealth[] = {
 		endloop(loopid) \
 		label(0x16)
 
-	wait_intro(0x05)
-	cmd01b4_if_something(/*goto*/ 0x17)
+	wait_for_cutscene(0x05)
+	if_nothing_in_my_space(/*goto*/ 0x17)
 
-	wait_intro(0x06)
-	cmd01b4_if_something(/*goto*/ 0x17)
+	wait_for_cutscene(0x06)
+	if_nothing_in_my_space(/*goto*/ 0x17)
 
-	wait_intro(0x07)
-	cmd01b4_if_something(/*goto*/ 0x17)
+	wait_for_cutscene(0x07)
+	if_nothing_in_my_space(/*goto*/ 0x17)
 
-	wait_intro(0x08)
-	cmd01b4_if_something(/*goto*/ 0x17)
+	wait_for_cutscene(0x08)
+	if_nothing_in_my_space(/*goto*/ 0x17)
 
-	wait_intro(0x09)
-	cmd01b4_if_something(/*goto*/ 0x17)
+	wait_for_cutscene(0x09)
+	if_nothing_in_my_space(/*goto*/ 0x17)
 
-	wait_intro(0x0a)
-	cmd01b4_if_something(/*goto*/ 0x17)
+	wait_for_cutscene(0x0a)
+	if_nothing_in_my_space(/*goto*/ 0x17)
 
 	label(0x19)
-	wait_intro(0x0b)
+	wait_for_cutscene(0x0b)
 
 	// This will execute every second after the initial 7ish seconds and while
 	// cutscene is not running. The chr is being moved back to the player
@@ -5649,6 +5653,7 @@ u8 func0015_buddy_stealth[] = {
 	chr_move_to_pad(CHR_SELF, CHR_BOND, 88, /*goto*/ 0x17)
 	goto_first(0x19)
 
+	// Unhide
 	label(0x17)
 	unset_self_chrflag(CHRCFLAG_HIDDEN | CHRCFLAG_PERIMDISABLEDTMP | CHRCFLAG_NEVERSLEEP)
 	unset_self_chrflag(CHRCFLAG_INVINCIBLE)

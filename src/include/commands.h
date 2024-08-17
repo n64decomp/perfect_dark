@@ -3880,7 +3880,10 @@
 	mkshort(0x01b3), \
 	chr,
 
-#define cmd01b4_if_something(label) \
+/**
+ * Follow the label if nothing is colliding with the current chr's geometry.
+ */
+#define if_nothing_in_my_space(label) \
 	mkshort(0x01b4), \
 	label,
 
