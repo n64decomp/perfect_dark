@@ -312,7 +312,7 @@
 /*0x0136*/ bool ai_retreat(void);
 /*0x0137*/ bool ai_if_chr_in_squadron_doing_action(void);
 /*0x0138*/ bool ai_if_channel_free(void);
-/*0x0139*/ bool ai0139(void);
+/*0x0139*/ bool ai_flank(void);
 /*0x013a*/ bool ai_set_chr_preset_to_unalerted_teammate(void);
 /*0x013b*/ bool ai_set_squadron(void);
 /*0x013c*/ bool ai_face_cover(void);

@@ -15718,7 +15718,7 @@ bool chr_is_nearly_in_targets_sight(struct chrdata *chr, u32 distance)
 	return cd_is_nearly_in_sight(&target->pos, target->rooms, &chr->prop->pos, distance, CDTYPE_BG);
 }
 
-f32 func0f04c784(struct chrdata *chr)
+f32 chr_get_angle_from_targets_pov(struct chrdata *chr)
 {
 	f32 targetfacingangle = 0;
 	u32 stack;
@@ -15743,11 +15743,11 @@ f32 func0f04c784(struct chrdata *chr)
 	return result;
 }
 
-bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, u8 arg4)
+bool chr_flank(struct chrdata *chr, u32 angle360, struct coord *pos, u8 use_closest_side, u8 goposflags)
 {
 	struct prop *target = chr_get_target_prop(chr);
 	f32 sqdist = 0;
-	f32 f24 = func0f04c784(chr);
+	f32 targets_pov_angle = chr_get_angle_from_targets_pov(chr);
 	f32 cosine;
 	f32 sine;
 	struct coord chrpos;
@@ -15773,8 +15773,8 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 			angle360f -= 360;
 		}
 
-		angle360f -= f24;
-		angle360f *= 0.017450513318181f;
+		angle360f -= targets_pov_angle;
+		angle360f *= M_BADPI / 180.0f;
 
 		cosine = cosf(angle360f);
 		sine = sinf(angle360f);
@@ -15828,7 +15828,7 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 			}
 		}
 
-		if (arg3) {
+		if (use_closest_side) {
 			xdiff = chrpos.x - pos->x;
 			ydiff = chrpos.y - pos->y;
 			zdiff = chrpos.z - pos->z;
@@ -15841,7 +15841,7 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 
 			angle360 = 360 - angle360;
 			again = true;
-			arg3 = 0;
+			use_closest_side = 0;
 		} else {
 			again = false;
 		}
@@ -15862,7 +15862,7 @@ bool chr0f04c874(struct chrdata *chr, u32 angle360, struct coord *pos, u8 arg3, 
 		}
 	}
 
-	chr_go_to_pos(chr, pos, arg4);
+	chr_go_to_pos(chr, pos, goposflags);
 
 	return true;
 }

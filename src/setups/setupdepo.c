@@ -2293,7 +2293,7 @@ u8 func0412_cloak_guard[] = {
 		set_target_chr(CHR_P1P2)
 		label(0x06)
 		restart_timer
-		cmd0139(70, 0x02, TRUE)
+		flank(70, GOPOSFLAG_RUN, TRUE)
 
 		// Wait 3 seconds or until stopped
 		beginloop(0x55)

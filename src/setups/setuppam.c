@@ -3163,7 +3163,7 @@ u8 func041d_sniper[] = {
 	// Alive
 	label(0x03)
 	restart_timer
-	cmd0139(70, 0x02, TRUE)
+	flank(70, GOPOSFLAG_RUN, TRUE)
 
 	beginloop(0x63)
 		chr_toggle_p1p2(CHR_SELF)

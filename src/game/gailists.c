@@ -1968,7 +1968,7 @@ u8 func0007_alerted[] = {
 	label(0x13)
 	dprint 'F','L','A','N','K',' ','B','E','S','T','\n',0,
 	unset_self_flag_bankx(CHRFLAG1_DODGED, BANK_1)
-	cmd0139(25, 0x02, TRUE)
+	flank(25, GOPOSFLAG_RUN, TRUE)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
 	set_team_orders(MA_FLANKLEFT, /*goto*/ 0x16)
 	set_team_orders(MA_FLANKRIGHT, /*goto*/ 0x16)
@@ -1979,7 +1979,7 @@ u8 func0007_alerted[] = {
 	label(LABEL_FLANK_LEFT)
 	dprint 'F','L','A','N','K',' ','L','E','F','T','\n',0,
 	set_action(MA_FLANKLEFT, FALSE)
-	cmd0139(335, 0x02, FALSE)
+	flank(335, GOPOSFLAG_RUN, FALSE)
 	if_self_flag_bankx_eq(CHRFLAG0_CAN_FLANK, FALSE, BANK_0, /*goto*/ 0x16)
 	set_team_orders(MA_FLANKLEFT, /*goto*/ 0x16)
 
@@ -1993,7 +1993,7 @@ u8 func0007_alerted[] = {
 	set_team_orders(MA_FLANKRIGHT, /*goto*/ 0x16)
 
 	label(0x16)
-	cmd0139(25, 0x02, FALSE)
+	flank(25, GOPOSFLAG_RUN, FALSE)
 
 	label(0x33)
 	set_self_flag_bankx(CHRFLAG1_FLANKED, BANK_1)
@@ -5560,7 +5560,7 @@ u8 func0023_dodge[] = {
 
 	// Unreachable
 	label(0xbb)
-	cmd0139(25, 0x01, TRUE)
+	flank(25, GOPOSFLAG_JOG, TRUE)
 	goto_next(0x2c)
 
 	// Was able to start dodge

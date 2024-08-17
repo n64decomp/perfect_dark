@@ -3002,18 +3002,22 @@
 	channel, \
 	label,
 
-// value is either 25, 70 or 335.
-// u1 is either 1 or 2.
-// It seems related to the chr's prop properties
-// Used by G5 cloaked guards, Deep Sea cloaked purple guards and globals.c
-// I think this is related to flanking, where the value arg is the angle
-// relative to the player's direction. 335 is the same as 25 degress to the
-// right (360 - 25).
-#define cmd0139(angle, u1, bool) \
+/**
+ * Make the guard flank their target.
+ *
+ * The angle argument is in degrees (0-360). It determines the position that
+ * they will run to, relative to the target's point of view. If the position is
+ * out of bounds or there's no direct line to it then the position is shortened
+ * to what is achievable.
+ *
+ * If use_closest_side is TRUE, the other side will also be tested.
+ * The position closest to the chr's current position is used.
+ */
+#define flank(angle, goposflags, use_closest_side) \
 	mkshort(0x0139), \
 	mkword(angle), \
-	u1, \
-	bool,
+	goposflags, \
+	use_closest_side,
 
 /**
  * Set the current chr's chrpreset to an unalerted teammate. The teammate must

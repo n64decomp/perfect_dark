@@ -324,7 +324,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x0136*/ ai_retreat,
 	/*0x0137*/ ai_if_chr_in_squadron_doing_action,
 	/*0x0138*/ ai_if_channel_free,
-	/*0x0139*/ ai0139,
+	/*0x0139*/ ai_flank,
 	/*0x013a*/ ai_set_chr_preset_to_unalerted_teammate,
 	/*0x013b*/ ai_set_squadron,
 	/*0x013c*/ ai_face_cover,

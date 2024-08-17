@@ -7408,13 +7408,13 @@ bool ai_if_chr_in_squadron_doing_action(void)
 /**
  * @cmd 0139
  */
-bool ai0139(void)
+bool ai_flank(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u32 angle = (cmd[3] << 16) | (cmd[4] << 8) | cmd[5] | (cmd[2] << 24);
 	struct coord pos;
 
-	chr0f04c874(g_Vars.chrdata, angle, &pos, cmd[7], cmd[6]);
+	chr_flank(g_Vars.chrdata, angle, &pos, cmd[7], cmd[6]);
 
 	g_Vars.aioffset += 8;
 
