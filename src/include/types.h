@@ -3559,7 +3559,7 @@ struct room {
 	/*0x02*/ s16 loaded240; // 0 when unloaded, 1 when visible, ticks up to 120 when recently visible
 	/*0x04*/ u8 portalrecursioncount;
 	/*0x05*/ s8 numportals;
-	/*0x06*/ u8 snakecount;
+	/*0x06*/ u8 queuecount;
 	/*0x07*/ u8 unk07;
 	/*0x08*/ s8 numlights;
 	/*0x09*/ u8 numwaypoints; // note: excludes waypoints with PADFLAG_AIDROP
@@ -4878,7 +4878,7 @@ struct zrange {
 	};
 };
 
-struct bgsnakeitem {
+struct bgqueueitem {
 	/*0x00*/ RoomNum roomnum;
 	/*0x02*/ RoomNum fromroomnums[5];
 	/*0x0c*/ u8 depth;
@@ -4887,12 +4887,12 @@ struct bgsnakeitem {
 	/*0x10*/ struct screenbox screenbox;
 };
 
-struct bgsnake {
+struct bgqueue {
 	s16 count;
 	s16 headindex;
 	s16 tailindex;
 	struct zrange zrange;
-	struct bgsnakeitem items[250];
+	struct bgqueueitem items[250];
 };
 
 struct menuinputs {

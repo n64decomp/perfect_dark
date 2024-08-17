@@ -105,7 +105,7 @@ s16 g_BgMinDrawOrder;
 s16 g_BgMaxDrawOrder;
 struct drawslotpointer *g_BgDrawSlotsByRoom;
 struct portalcamcacheitem *g_PortalCameraCache;
-struct bgsnake g_BgSnake;
+struct bgqueue g_BgQueue;
 
 s32 g_StageIndex = 1;
 u32 var8007fc04 = 0;
@@ -1863,7 +1863,7 @@ void bg_build_tables(s32 stagenum)
 
 		for (i = 0; i < g_Vars.roomcount; i++) {
 			g_Rooms[i].flags = 0;
-			g_Rooms[i].snakecount = 0;
+			g_Rooms[i].queuecount = 0;
 			g_Rooms[i].unk07 = 1;
 			g_Rooms[i].loaded240 = 0;
 			g_Rooms[i].gfxdata = NULL;
@@ -2258,7 +2258,7 @@ bool bg_room_intersects_screen_box(s32 room, struct screenbox *screen)
 
 		if (bg_3d_pos_to_2d_pos(&corner, &roomscreenpos) == 0) {
 			// Corner is behind the camera
-			if (g_BgSnake.zrange.far <= -roomscreenpos.z) {
+			if (g_BgQueue.zrange.far <= -roomscreenpos.z) {
 				numfar++;
 			}
 
@@ -2281,7 +2281,7 @@ bool bg_room_intersects_screen_box(s32 room, struct screenbox *screen)
 			numbehind++;
 		} else {
 			// Corner is in front of the camera
-			if (g_BgSnake.zrange.far <= -roomscreenpos.z) {
+			if (g_BgQueue.zrange.far <= -roomscreenpos.z) {
 				numfar++;
 			}
 
@@ -5332,9 +5332,9 @@ void bg_tick_portals_xray(void)
 	bg_choose_rooms_to_load();
 }
 
-void bg_add_to_snake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct screenbox *box)
+void bg_add_to_queue(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct screenbox *box)
 {
-	struct bgsnakeitem *item;
+	struct bgqueueitem *item;
 	s32 i;
 	s32 j;
 
@@ -5352,11 +5352,11 @@ void bg_add_to_snake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct scr
 		}
 	}
 
-	if (g_Rooms[roomnum].snakecount != 0 && g_Rooms[roomnum].unk07) {
-		i = g_BgSnake.tailindex;
-		item = &g_BgSnake.items[i];
+	if (g_Rooms[roomnum].queuecount != 0 && g_Rooms[roomnum].unk07) {
+		i = g_BgQueue.tailindex;
+		item = &g_BgQueue.items[i];
 
-		while (i != g_BgSnake.headindex) {
+		while (i != g_BgQueue.headindex) {
 			if (item->roomnum == roomnum) {
 				for (j = 0; j < ARRAYCOUNT(item->fromroomnums); j++) {
 					if (item->fromroomnums[j] == -1) {
@@ -5370,14 +5370,14 @@ void bg_add_to_snake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct scr
 			i++;
 			item++;
 
-			if (i == ARRAYCOUNT(g_BgSnake.items)) {
+			if (i == ARRAYCOUNT(g_BgQueue.items)) {
 				i = 0;
-				item = &g_BgSnake.items[0];
+				item = &g_BgQueue.items[0];
 			}
 		}
 	}
 
-	item = &g_BgSnake.items[g_BgSnake.headindex];
+	item = &g_BgQueue.items[g_BgQueue.headindex];
 	item->fromroomnums[0] = fromroomnum;
 	item->roomnum = roomnum;
 	item->depth = depth;
@@ -5389,20 +5389,20 @@ void bg_add_to_snake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct scr
 	item->screenbox.xmax = box->xmax;
 	item->screenbox.ymax = box->ymax;
 
-	g_Rooms[roomnum].snakecount++;
+	g_Rooms[roomnum].queuecount++;
 
 	for (i = 1; i < ARRAYCOUNT(item->fromroomnums); i++) {
 		item->fromroomnums[i] = -1;
 	}
 
-	g_BgSnake.headindex++;
+	g_BgQueue.headindex++;
 
-	if (g_BgSnake.headindex == 250) {
-		g_BgSnake.headindex = 0;
+	if (g_BgQueue.headindex == 250) {
+		g_BgQueue.headindex = 0;
 	}
 
-	if (g_BgSnake.headindex == g_BgSnake.tailindex) {
-		g_BgSnake.headindex--;
+	if (g_BgQueue.headindex == g_BgQueue.tailindex) {
+		g_BgQueue.headindex--;
 	}
 }
 
@@ -5411,9 +5411,9 @@ void bg_add_to_snake(RoomNum fromroomnum, RoomNum roomnum, s16 depth, struct scr
  * rooms should be onscreen or not.
  *
  * Those that should be onscreen are added to the draw list and appended to the
- * snake so its neighbours will be processed recursively.
+ * queue so its neighbours will be processed recursively.
  */
-void bg_consume_snake_item(struct bgsnakeitem *item)
+void bg_process_queue_item(struct bgqueueitem *item)
 {
 	struct coord *campos;
 	s32 i;
@@ -5429,8 +5429,8 @@ void bg_consume_snake_item(struct bgsnakeitem *item)
 	struct screenbox newbox;
 	f32 sum;
 
-	g_Rooms[item->roomnum].snakecount--;
-	g_BgSnake.count++;
+	g_Rooms[item->roomnum].queuecount--;
+	g_BgQueue.count++;
 	campos = &g_Vars.currentplayer->cam_pos;
 	prevvalidcount = 0;
 	prevfoundroom = -1;
@@ -5484,7 +5484,7 @@ void bg_consume_snake_item(struct bgsnakeitem *item)
 		if (prevfoundroom != newfoundroom) {
 			if (prevvalidcount) {
 				bg_set_room_onscreen(prevfoundroom, item->depth, &prevbox);
-				bg_add_to_snake(item->roomnum, prevfoundroom, item->depth + 1, &prevbox);
+				bg_add_to_queue(item->roomnum, prevfoundroom, item->depth + 1, &prevbox);
 			}
 
 			prevvalidcount = 0;
@@ -5537,30 +5537,29 @@ void bg_consume_snake_item(struct bgsnakeitem *item)
 
 	if (prevvalidcount != 0) {
 		bg_set_room_onscreen(prevfoundroom, item->depth, &prevbox);
-		bg_add_to_snake(item->roomnum, prevfoundroom, item->depth + 1, &prevbox);
+		bg_add_to_queue(item->roomnum, prevfoundroom, item->depth + 1, &prevbox);
 	}
 }
 
 /**
- * The "snake" is a circular array with a head index and tail index.
- * Items (rooms) are added to the head of the snake and consumed from the tail.
- * Consuming an item may cause more items to be added to the head.
- * Eventually the tail catches up to the head and the snake is finished.
- *
- * The structure is used for discovering onscreen rooms.
+ * The queue is used for discovering onscreen rooms.
+ * The queue is a circular array with a head index and tail index.
+ * Items (rooms) are added to the head of the queue and processed from the tail.
+ * Processing an item may cause more items to be added to the head.
+ * Eventually the tail catches up to the head and the queue is finished.
  */
-bool bg_try_consume_snake(void)
+bool bg_try_process_queue(void)
 {
-	if (g_BgSnake.tailindex == g_BgSnake.headindex) {
+	if (g_BgQueue.tailindex == g_BgQueue.headindex) {
 		return false;
 	}
 
-	bg_consume_snake_item(&g_BgSnake.items[g_BgSnake.tailindex]);
+	bg_process_queue_item(&g_BgQueue.items[g_BgQueue.tailindex]);
 
-	g_BgSnake.tailindex++;
+	g_BgQueue.tailindex++;
 
-	if (g_BgSnake.tailindex == ARRAYCOUNT(g_BgSnake.items)) {
-		g_BgSnake.tailindex = 0;
+	if (g_BgQueue.tailindex == ARRAYCOUNT(g_BgQueue.items)) {
+		g_BgQueue.tailindex = 0;
 	}
 
 	return true;
@@ -5689,13 +5688,13 @@ void bg_tick_portals(void)
 	box.xmax = player->screenxmaxf;
 	box.ymax = player->screenymaxf;
 
-	vi_get_z_range(&g_BgSnake.zrange);
-	g_BgSnake.zrange.far = g_BgSnake.zrange.far / g_Vars.currentplayerstats->scale_bg2gfx;
+	vi_get_z_range(&g_BgQueue.zrange);
+	g_BgQueue.zrange.far = g_BgQueue.zrange.far / g_Vars.currentplayerstats->scale_bg2gfx;
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		g_Rooms[i].flags &= ~(ROOMFLAG_DISABLEDBYSCRIPT | ROOMFLAG_ONSCREEN | ROOMFLAG_STANDBY | ROOMFLAG_LOADCANDIDATE);
 		g_Rooms[i].portalrecursioncount = 0;
-		g_Rooms[i].snakecount = 0;
+		g_Rooms[i].queuecount = 0;
 		g_Rooms[i].unk07 = 1;
 	}
 
@@ -5712,9 +5711,9 @@ void bg_tick_portals(void)
 		g_BgMinDrawOrder = 32767;
 		g_BgDrawSlots[60].roomnum = -1;
 		g_BgDrawSlots[60].draworder = 255;
-		g_BgSnake.count = 0;
-		g_BgSnake.headindex = 0;
-		g_BgSnake.tailindex = 0;
+		g_BgQueue.count = 0;
+		g_BgQueue.headindex = 0;
+		g_BgQueue.tailindex = 0;
 		g_BgRoomTestsDisabled = false;
 		g_BgDrawSlots[60].box.xmin = box.xmin;
 		g_BgDrawSlots[60].box.ymin = box.ymin;
@@ -5737,13 +5736,13 @@ void bg_tick_portals(void)
 			} else {
 				bg_set_room_onscreen(g_CamRoom, 0, &box);
 
-				g_BgSnake.count = 0;
-				g_BgSnake.headindex = 0;
-				g_BgSnake.tailindex = 0;
+				g_BgQueue.count = 0;
+				g_BgQueue.headindex = 0;
+				g_BgQueue.tailindex = 0;
 
-				bg_add_to_snake(g_CamRoom, g_CamRoom, 1, &box);
+				bg_add_to_queue(g_CamRoom, g_CamRoom, 1, &box);
 
-				while (bg_try_consume_snake());
+				while (bg_try_process_queue());
 			}
 		}
 

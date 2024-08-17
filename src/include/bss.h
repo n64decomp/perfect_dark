@@ -219,7 +219,7 @@ extern struct bgportal *g_BgPortals;
 extern struct portalmetric *g_PortalMetrics;
 extern u8 *g_BgLightsFileData;
 extern s16 *g_RoomPortals;
-extern struct bgsnake g_BgSnake;
+extern struct bgqueue g_BgQueue;
 extern f32 var800a6470[16 * 3];
 extern struct var800a6538 var800a6538[16];
 extern u32 g_BgRoomTestsDisabled;
