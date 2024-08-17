@@ -37,7 +37,7 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 s32 bgunTickIncChangeFunc(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate);
 s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func);
 void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, struct weaponfunc *func);
-bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func);
+bool bgunTickRecoil(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func);
 bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct hand *hand);
 bool bgunTickIncAttackingThrow(s32 handnum, struct hand *hand);
 s32 bgunGetMinClipQty(s32 weaponnum, s32 funcnum);

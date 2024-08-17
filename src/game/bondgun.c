@@ -1572,11 +1572,11 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 		} else {
 			if (info->definition->ammos[func->ammoindex]->flags & AMMOFLAG_INCREMENTALRELOAD) {
 				if (bgun0f098a44(hand, 1)) {
-					if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+					if ((hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
 						s32 value;
 
 						bgun0f098df8(hand->gset.weaponfunc, info, hand, 1, 0);
-						hand->stateflags |= HANDSTATEFLAG_00000010;
+						hand->stateflags |= HANDSTATEFLAG_BUSY;
 						value = bgun0f098ca0(hand->gset.weaponfunc, info, hand);
 
 						if (value >= 2) {
@@ -1601,10 +1601,10 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 				}
 #endif
 			} else {
-				if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+				if ((hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
 					if (bgun0f098a44(hand, 1)) {
 						bgun0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
-						hand->stateflags |= HANDSTATEFLAG_00000010;
+						hand->stateflags |= HANDSTATEFLAG_BUSY;
 					}
 				}
 			}
@@ -1640,7 +1640,7 @@ s32 bgunTickIncReload(struct handweaponinfo *info, s32 handnum, struct hand *han
 				hand->unk0cc8_02 = true;
 			}
 
-			if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+			if ((hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
 				bgun0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
 			}
 
@@ -1774,7 +1774,7 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 		burst = true;
 	}
 
-	if (hand->triggeron || (hand->stateflags & HANDSTATEFLAG_00000010) == 0 || burst) {
+	if (hand->triggeron || (hand->stateflags & HANDSTATEFLAG_BUSY) == 0 || burst) {
 		if (func->ammoindex >= 0
 				&& hand->loadedammo[func->ammoindex] == 0
 				&& ctrl->ammotypes[func->ammoindex] >= 0) {
@@ -1886,7 +1886,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 		hand->shotremainder = tmp2 - hand->shotstotake;
 
 		if (hand->shotstotake <= 0) {
-			if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+			if ((hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
 				hand->shotstotake++;
 			} else {
 				hand->firing = false;
@@ -1914,8 +1914,8 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 
 	if (hand->firing) {
 		hand->statevar1 = hand->stateframes;
-		hand->stateflags |= HANDSTATEFLAG_00000020;
-		hand->stateflags |= HANDSTATEFLAG_00000010;
+		hand->stateflags |= HANDSTATEFLAG_FIRED;
+		hand->stateflags |= HANDSTATEFLAG_BUSY;
 
 		bgunRumble(handnum, info->weaponnum);
 
@@ -2003,7 +2003,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 	}
 }
 
-bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func)
+bool bgunTickRecoil(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func)
 {
 	s32 unk24;
 	s32 unk25;
@@ -2011,7 +2011,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	s32 unk26;
 	s32 unk27;
 	s32 recoverytime60;
-	s32 frames;
+	s32 curframe;
 	struct weapon *weapondef;
 	f32 mult1;
 	f32 recoildist;
@@ -2060,26 +2060,27 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 	unk24 = func->unk24;
 	unk25 = func->unk25;
 	sum = unk24 + unk25;
-	unk26 = func->unk26;
-	unk27 = func->unk27;
+	unk26 = func->unk26; // refire
+	unk27 = func->unk27; // refire
 	recoverytime60 = func->recoverytime60;
 	weapondef = info->definition;
 #endif
 
-	frames = hand->stateframes - hand->statevar1;
+	curframe = hand->stateframes - hand->statevar1;
 
-	if (sum < 1) {
+	if (sum <= 0) {
 		sum = 0;
 	} else {
 		if (hand->triggerreleased
 				&& hand->triggeron
-				&& frames >= unk26
+				&& curframe >= unk26
 				&& unk26 > 0
 				&& unk27 >= 0
 				&& (hand->stateflags & HANDSTATEFLAG_00000040) == 0
-				&& frames + unk27 < sum) {
+				&& curframe + unk27 < sum) {
+			// Fired during recoil
 			hand->stateflags |= HANDSTATEFLAG_00000040;
-			hand->statevar1 = frames;
+			hand->statevar1 = curframe;
 
 			hand->rotxstart = hand->rotxoffset;
 			hand->rotxend = 0;
@@ -2094,8 +2095,8 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 		}
 
 		if (hand->stateflags & HANDSTATEFLAG_00000040) {
-			if (unk27 > frames - hand->statevar1) {
-				mult1 = cosf((f32)(unk27 - frames + hand->statevar1) * RAD(90, 1.5707963705063f) / (f32)unk27) * 0.5f + 0.5f;
+			if (curframe - hand->statevar1 < unk27) {
+				mult1 = cosf((f32)(unk27 - curframe + hand->statevar1) * RAD(90, 1.5707963705063f) / (f32)unk27) * 0.5f + 0.5f;
 
 				hand->rotxoffset = modelTweenRotAxis(hand->rotxstart, hand->rotxend, mult1);
 				hand->useposrot = true;
@@ -2113,7 +2114,7 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 			}
 		}
 
-		if (frames < sum && (hand->stateflags & HANDSTATEFLAG_00000040) == 0) {
+		if (curframe < sum && (hand->stateflags & HANDSTATEFLAG_00000040) == 0) {
 			recoildist = func->recoildist;
 			recoilangle = func->recoilangle;
 
@@ -2131,10 +2132,10 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 			hand->posend.y = 0;
 			hand->posend.z = (weapondef->posz - hand->aimpos.z) * recoildist / 1000.0f;
 
-			if (frames < unk24) {
-				mult2 = sinf(frames * RAD(90, 1.5707963705063f) / (f32)unk24);
+			if (curframe < unk24) {
+				mult2 = sinf(curframe * RAD(90, 1.5707963705063f) / (f32)unk24);
 			} else {
-				mult2 = cosf((f32)(frames - unk24) * M_PI / (f32)unk25) * 0.5f + 0.5f;
+				mult2 = cosf((f32)(curframe - unk24) * M_PI / (f32)unk25) * 0.5f + 0.5f;
 			}
 
 			hand->rotxoffset = modelTweenRotAxis(hand->rotxstart, hand->rotxend, mult2);
@@ -2149,10 +2150,10 @@ bool bgun0f09aba4(struct hand *hand, struct handweaponinfo *info, s32 handnum, s
 		}
 	}
 
-	if (sum <= frames) {
+	if (curframe >= sum) {
 		if (unk27 >= 0 && hand->triggerreleased && hand->triggeron) {
 			return true;
-		} else if (sum + recoverytime60 <= frames) {
+		} else if (sum + recoverytime60 <= curframe) {
 			return true;
 		}
 	}
@@ -2165,7 +2166,7 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 	static u32 var80070128 = 99;
 
 	struct weaponfunc *func = gsetGetWeaponFunction(&hand->gset);
-	bool sp68;
+	bool canfireagain;
 	s32 sp64;
 	s32 sp60;
 
@@ -2235,19 +2236,19 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 	}
 
 	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SHOOT_2) {
-		if (hand->stateflags & HANDSTATEFLAG_00000020) {
-			sp68 = bgun0f09aba4(hand, info, handnum, (struct weaponfunc_shoot *) func);
+		if (hand->stateflags & HANDSTATEFLAG_FIRED) {
+			canfireagain = bgunTickRecoil(hand, info, handnum, (struct weaponfunc_shoot *) func);
 		} else {
-			sp68 = true;
+			canfireagain = true;
 		}
 
 		if (hand->gset.weaponnum == WEAPON_SHOTGUN && hand->animmode == HANDANIMMODE_BUSY) {
-			sp68 = false;
+			canfireagain = false;
 		}
 
 		hand->matmot2 = hand->gs_float1;
 
-		if (sp68 && !hand->triggeron) {
+		if (canfireagain && !hand->triggeron) {
 			hand->matmot2 = 0;
 		}
 
@@ -2255,7 +2256,7 @@ bool bgunTickIncAttackingShoot(struct handweaponinfo *info, s32 handnum, struct 
 			hand->matmot1 = 0;
 		}
 
-		return sp68;
+		return canfireagain;
 	}
 
 	return false;
@@ -2550,7 +2551,7 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 		if (hand->animmode != HANDANIMMODE_BUSY) {
 			bool restartedanim = false;
 
-			if ((hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
+			if ((hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
 				struct weaponfunc *func = NULL;
 
 				if (info->definition) {
@@ -2587,8 +2588,8 @@ s32 bgunTickIncAttackEmpty(struct handweaponinfo *info, s32 handnum, struct hand
 	hand->count60 = 0;
 	hand->count = 0;
 
-	if (playsound && (hand->stateflags & HANDSTATEFLAG_00000010) == 0) {
-		hand->stateflags |= HANDSTATEFLAG_00000010;
+	if (playsound && (hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
+		hand->stateflags |= HANDSTATEFLAG_BUSY;
 
 		switch (info->weaponnum) {
 		case WEAPON_PHOENIX:

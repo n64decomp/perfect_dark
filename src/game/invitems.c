@@ -82,7 +82,7 @@ struct recoilsettings invrecoilsettings_reaper      = { 0.6, 0.6, 2.6, 0.2, 1 };
  * The aimdamp value is only used on NTSC, while aimdamppal is only used on PAL.
  *
  * tracktype is what kind of red box tracking is used when aiming.
- * See the SIGHTRACKTYPE constants for possible values.
+ * See the SIGHTTRACKTYPE constants for possible values.
  *
  * flags is a bitfield of INVAIMFLAG constants.
  */
