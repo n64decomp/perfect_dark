@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-extern bool (*var8005efc4)(struct model *model, struct modelnode *node);
+extern bool (*g_ModelShouldRenderGunDlCallback)(struct model *model, struct modelnode *node);
 extern Vtx *(*g_ModelVtxAllocatorFunc)(s32 numvertices);
 extern void (*g_ModelJointPositionedFunc)(s32 mtxindex, Mtxf *mtx);
 

@@ -56,15 +56,15 @@ s16 *g_Chrnums;
 s16 *g_ChrIndexes;
 struct chrdata *g_CurModelChr;
 
-struct var80062960 *var80062960 = NULL;
-s32 var80062964 = 0;
-f32 var80062968 = 0;
-bool var8006296c = false;
-s32 g_SelectedAnimNum = 0;
-u32 var80062974 = 0x00000000;
-u32 var80062978 = 0x00000000;
-u32 var8006297c = 0;
-u32 var80062980 = 0;
+struct onscreendoor *g_ChrsOnscreenDoors = NULL;
+s32 g_ChrsNumOnscreenDoors = 0;
+f32 g_ChrsAnimSpeed = 0;
+bool g_ChrsAnimDebugSetAll = false;
+s32 g_ChrsAnimDebugAnimNum = 0;
+u32 g_ChrsAnimDebugPaused = 0x00000000;
+u32 g_ChrsAnimDebugSlow = 0x00000000;
+bool g_ChrsDebugPatrols = false;
+bool g_ChrsDebugSomething = false;
 s32 g_NextChrnum = 5000;
 
 struct chrdata *g_ChrSlots = NULL;
@@ -161,24 +161,24 @@ Vtx *chr_allocate_vertices(s32 numvertices)
 	return (Vtx *) gfx_allocate(numvertices * sizeof(Vtx));
 }
 
-void chrs_set_var8006297c(u32 arg0)
+void chrs_set_debug_patrols(bool enabled)
 {
-	var8006297c = arg0;
+	g_ChrsDebugPatrols = enabled;
 }
 
-u32 chrs_get_var8006297c(void)
+bool chrs_get_debug_patrols(void)
 {
-	return var8006297c;
+	return g_ChrsDebugPatrols;
 }
 
-void chrs_set_var80062980(u32 arg0)
+void chrs_set_debug_something(bool enabled)
 {
-	var80062980 = arg0;
+	g_ChrsDebugSomething = enabled;
 }
 
-u32 chrs_get_var80062980(void)
+bool chrs_get_debug_something(void)
 {
-	return var80062980;
+	return g_ChrsDebugSomething;
 }
 
 void chr_set_perim_enabled(struct chrdata *chr, bool enable)
@@ -513,7 +513,7 @@ bool chr_ascend(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 amou
 	return result == CDRESULT_NOCOLLISION;
 }
 
-bool chr0f01f378(struct model *model, struct coord *arg1, struct coord *arg2, f32 *mangroundptr)
+bool chr_update_position(struct model *model, struct coord *arg1, struct coord *arg2, f32 *mangroundptr)
 {
 	struct chrdata *chr = model->chr;
 	struct prop *prop = chr->prop;
@@ -1073,7 +1073,11 @@ s16 chrs_get_next_unused_chrnum(void)
 	return chrnum;
 }
 
-void chr_init(struct prop *prop, u8 *ailist)
+/**
+ * Allocate a chr from the pool, set default values, register a chrnum
+ * and assign it to the prop.
+ */
+void chr_allocate(struct prop *prop, u8 *ailist)
 {
 	s32 i;
 	struct chrdata *chr = NULL;
@@ -1289,7 +1293,11 @@ void chr_init(struct prop *prop, u8 *ailist)
 	splat_reset_chr(chr);
 }
 
-struct prop *chr0f020b14(struct prop *prop, struct model *model,
+/**
+ * Place the chr in the stage at the given position.
+ * Allocate a chr struct if the prop doesn't have one yet.
+ */
+struct prop *chr_place(struct prop *prop, struct model *model,
 		struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist)
 {
 	struct chrdata *chr;
@@ -1300,17 +1308,17 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	prop->type = PROPTYPE_CHR;
 
 	if (prop->chr == NULL) {
-		chr_init(prop, ailist);
+		chr_allocate(prop, ailist);
 	}
 
 	chr = prop->chr;
 
-	model_set_anim70(model, chr0f01f378);
+	model_set_anim70(model, chr_update_position);
 	model->chr = chr;
 	model->unk01 = 1;
 	chr->model = model;
 	chr_set_look_angle(chr, faceangle);
-	model_set_anim_play_speed(model, PALUPF(var80062968), 0);
+	model_set_anim_play_speed(model, PALUPF(g_ChrsAnimSpeed), 0);
 
 	testpos.x = pos->x;
 	testpos.y = pos->y + 100;
@@ -1345,12 +1353,12 @@ struct prop *chr0f020b14(struct prop *prop, struct model *model,
 	return prop;
 }
 
-struct prop *chr_allocate(struct model *model, struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist)
+struct prop *chr_create_with_model(struct model *model, struct coord *pos, RoomNum *rooms, f32 faceangle, u8 *ailist)
 {
 	struct prop *prop = prop_allocate();
 
 	if (prop) {
-		prop = chr0f020b14(prop, model, pos, rooms, faceangle, ailist);
+		prop = chr_place(prop, model, pos, rooms, faceangle, ailist);
 
 		if (cheat_is_active(CHEAT_ENEMYSHIELDS)) {
 			chr_set_shield(prop->chr, 8);
@@ -1466,22 +1474,28 @@ void chr_clear_references(s32 propnum)
 	}
 }
 
-void chr0f0211a8(f32 arg0)
+/**
+ * For the fast animation cheat from GE.
+ *
+ * The cheat doesn't exist in PD, but the functions are still here.
+ * These functions are not called.
+ */
+void chrs_set_anim_speed(f32 speed)
 {
 	s32 i;
 
-	var80062968 = arg0;
+	g_ChrsAnimSpeed = speed;
 
 	for (i = 0; i < g_NumChrSlots; i++) {
 		if (g_ChrSlots[i].model) {
-			model_set_anim_play_speed(g_ChrSlots[i].model, PALUPF(var80062968), 600);
+			model_set_anim_play_speed(g_ChrSlots[i].model, PALUPF(g_ChrsAnimSpeed), 600);
 		}
 	}
 }
 
-f32 chr0f02124c(void)
+f32 chrs_get_anim_speed(void)
 {
-	return var80062968;
+	return g_ChrsAnimSpeed;
 }
 
 void chr_update_aim_properties(struct chrdata *chr)
@@ -1916,7 +1930,7 @@ void chr_detect_rooms(struct chrdata *chr)
 	prop_register_rooms(chr->prop);
 }
 
-void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2)
+void chr_update_anim(struct chrdata *chr, s32 lvupdate240, bool arg2)
 {
 	struct model *model = chr->model;
 
@@ -1946,7 +1960,7 @@ void chr0f0220ec(struct chrdata *chr, s32 lvupdate240, bool arg2)
 	}
 }
 
-void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
+void chr_tick_child(struct chrdata *chr, struct prop *prop, bool fulltick)
 {
 	struct defaultobj *obj = prop->obj;
 	struct model *model = obj->model;
@@ -2000,7 +2014,7 @@ void chr0f022214(struct chrdata *chr, struct prop *prop, bool fulltick)
 			if (prop);
 
 			next = child->next;
-			chr0f022214(chr, child, fulltick);
+			chr_tick_child(chr, child, fulltick);
 			child = next;
 		}
 	} else {
@@ -2423,10 +2437,10 @@ s32 chr_tick(struct prop *prop)
 		chr_tick_poisoned(chr);
 
 		if ((chr->chrflags & CHRCFLAG_HIDDEN) == 0 || (chr->chrflags & CHRCFLAG_NEVERSLEEP)) {
-			if (var8006296c) {
-				if (anim_has_frames(g_SelectedAnimNum)) {
-					if (model_get_anim_num(model) != g_SelectedAnimNum || !anim_has_frames(model_get_anim_num(model))) {
-						model_set_animation(model, g_SelectedAnimNum, 0, 0.0f, 0.5f, 0.0f);
+			if (g_ChrsAnimDebugSetAll) {
+				if (anim_has_frames(g_ChrsAnimDebugAnimNum)) {
+					if (model_get_anim_num(model) != g_ChrsAnimDebugAnimNum || !anim_has_frames(model_get_anim_num(model))) {
+						model_set_animation(model, g_ChrsAnimDebugAnimNum, 0, 0.0f, 0.5f, 0.0f);
 					}
 				}
 			} else {
@@ -2437,10 +2451,10 @@ s32 chr_tick(struct prop *prop)
 				}
 			}
 
-			if (var80062974) {
+			if (g_ChrsAnimDebugPaused) {
 				lvupdate240 = 0;
 
-				if (var80062978) {
+				if (g_ChrsAnimDebugSlow) {
 					lvupdate240 = 1;
 				}
 			}
@@ -2467,7 +2481,7 @@ s32 chr_tick(struct prop *prop)
 			}
 
 			if (fulltick) {
-				chr0f0220ec(chr, lvupdate240, true);
+				chr_update_anim(chr, lvupdate240, true);
 			}
 		} else {
 			needsupdate = false;
@@ -2486,9 +2500,9 @@ s32 chr_tick(struct prop *prop)
 			model->anim->average = false;
 
 			if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis && chr->act_anim.lockpos) {
-				chr0f0220ec(chr, lvupdate240, false);
+				chr_update_anim(chr, lvupdate240, false);
 			} else {
-				chr0f0220ec(chr, lvupdate240, true);
+				chr_update_anim(chr, lvupdate240, true);
 			}
 		}
 
@@ -2517,7 +2531,7 @@ s32 chr_tick(struct prop *prop)
 			}
 		} else {
 			if (fulltick) {
-				chr0f0220ec(chr, lvupdate240, true);
+				chr_update_anim(chr, lvupdate240, true);
 			}
 
 			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
@@ -2540,16 +2554,16 @@ s32 chr_tick(struct prop *prop)
 			model->anim->average = false;
 
 			if (needsupdate && !chr->act_anim.lockpos) {
-				chr0f0220ec(chr, lvupdate240, true);
+				chr_update_anim(chr, lvupdate240, true);
 			} else {
-				chr0f0220ec(chr, lvupdate240, false);
+				chr_update_anim(chr, lvupdate240, false);
 			}
 		}
 	} else if (chr->actiontype == ACT_STAND) {
 		model->anim->average = false;
 
 		if (chr->chrflags & CHRCFLAG_FORCETOGROUND) {
-			chr0f0220ec(chr, lvupdate240, true);
+			chr_update_anim(chr, lvupdate240, true);
 			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 		} else {
 			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
@@ -2558,22 +2572,22 @@ s32 chr_tick(struct prop *prop)
 				if (fulltick) {
 					if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 						if (needsupdate) {
-							chr0f0220ec(chr, lvupdate240, true);
+							chr_update_anim(chr, lvupdate240, true);
 						} else if (model->anim->animnum2 != 0) {
-							chr0f0220ec(chr, lvupdate240, false);
+							chr_update_anim(chr, lvupdate240, false);
 						}
 					} else {
-						chr0f0220ec(chr, lvupdate240, true);
+						chr_update_anim(chr, lvupdate240, true);
 					}
 				}
 			} else if (needsupdate) {
 				if (chr->act_stand.playwalkanim == true) {
-					chr0f0220ec(chr, lvupdate240, false);
+					chr_update_anim(chr, lvupdate240, false);
 				} else {
-					chr0f0220ec(chr, lvupdate240, true);
+					chr_update_anim(chr, lvupdate240, true);
 				}
 			} else if (model->anim->animnum2 != 0) {
-				chr0f0220ec(chr, lvupdate240, false);
+				chr_update_anim(chr, lvupdate240, false);
 			}
 		}
 	} else if (chr->actiontype == ACT_DEAD) {
@@ -2583,14 +2597,14 @@ s32 chr_tick(struct prop *prop)
 				|| (player = g_Vars.players[playermgr_get_player_num_by_prop(prop)], player->cameramode == CAMERAMODE_EYESPY)
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		model->anim->average = false;
-		chr0f0220ec(chr, lvupdate240, true);
+		chr_update_anim(chr, lvupdate240, true);
 		needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
 	} else {
 		isrepeatframe2 = false;
 
 		if (fulltick) {
 			model->anim->average = false;
-			chr0f0220ec(chr, lvupdate240, true);
+			chr_update_anim(chr, lvupdate240, true);
 		}
 
 		if (chr->model && chr->model->anim && (g_Anims[chr->model->anim->animnum].flags & ANIMFLAG_HASREPEATFRAMES)) {
@@ -2789,7 +2803,7 @@ s32 chr_tick(struct prop *prop)
 
 			while (child) {
 				next = child->next;
-				chr0f022214(chr, child, fulltick);
+				chr_tick_child(chr, child, fulltick);
 				child = next;
 			}
 
@@ -2943,38 +2957,38 @@ void chr_drop_items_for_owner_reap(struct chrdata *chr)
 	chr->hidden |= CHRHFLAG_DROPPINGITEM;
 }
 
-u8 var80062a48[] = { 64, 10, 10 };
+u8 g_ChrBloodColour[] = { 0x40, 0x0a, 0x0a };
 
-void chr0f0246e4(u8 *arg0)
+void chrs_set_blood_colour(u8 *rgb)
 {
-	var80062a48[0] = arg0[0];
-	var80062a48[1] = arg0[1];
-	var80062a48[2] = arg0[2];
+	g_ChrBloodColour[0] = rgb[0];
+	g_ChrBloodColour[1] = rgb[1];
+	g_ChrBloodColour[2] = rgb[2];
 }
 
-void chr0f024708(u8 *arg0)
+void chrs_get_blood_colour(u8 *rgb)
 {
-	arg0[0] = var80062a48[0];
-	arg0[1] = var80062a48[1];
-	arg0[2] = var80062a48[2];
+	rgb[0] = g_ChrBloodColour[0];
+	rgb[1] = g_ChrBloodColour[1];
+	rgb[2] = g_ChrBloodColour[2];
 }
 
-void chr0f02472c(void)
+void chrs_reset_onscreen_doors(void)
 {
-	var80062964 = 0;
+	g_ChrsNumOnscreenDoors = 0;
 }
 
-bool chr0f024738(struct chrdata *chr)
+bool chr_find_onscreen_doors(struct chrdata *chr)
 {
 	s16 *propnumptr;
 	s16 propnums[256];
 	s32 i;
-	struct var80062960 *thing;
+	struct onscreendoor *osd;
 	struct coord *campos;
 	bool result = false;
 
-	for (i = 0; i < var80062964; i++) {
-		var80062960[i].unk004 = 0;
+	for (i = 0; i < g_ChrsNumOnscreenDoors; i++) {
+		g_ChrsOnscreenDoors[i].unk004 = false;
 	}
 
 	room_get_props(chr->prop->rooms, propnums, 256);
@@ -2997,57 +3011,57 @@ bool chr0f024738(struct chrdata *chr)
 						&& (obj->flags & (OBJFLAG_00000010 | OBJFLAG_AISEETHROUGH)) == 0
 						&& (obj->flags2 & OBJFLAG2_DOOR_ALTCOORDSYSTEM) == 0
 						&& !((door->doorflags & DOORFLAG_0080) == 0 && door->frac > 0)) {
-					for (i = 0; i < var80062964; i++) {
-						if (var80062960[i].prop == prop) {
+					for (i = 0; i < g_ChrsNumOnscreenDoors; i++) {
+						if (g_ChrsOnscreenDoors[i].prop == prop) {
 							break;
 						}
 					}
 
-					if (i < var80062964) {
-						thing = &var80062960[i];
+					if (i < g_ChrsNumOnscreenDoors) {
+						osd = &g_ChrsOnscreenDoors[i];
 					} else {
-						if (var80062964 > 14) {
+						if (g_ChrsNumOnscreenDoors > 14) {
 							goto next;
 						}
 
-						thing = &var80062960[var80062964];
-						thing->prop = prop;
-						thing->unk00c = 0;
-						thing->unk130 = 0;
-						thing->unk004 = 0;
+						osd = &g_ChrsOnscreenDoors[g_ChrsNumOnscreenDoors];
+						osd->prop = prop;
+						osd->unk00c = 0;
+						osd->unk130 = 0;
+						osd->unk004 = 0;
 
-						var80062964++;
+						g_ChrsNumOnscreenDoors++;
 					}
 
-					if (!thing->unk00c) {
+					if (!osd->unk00c) {
 						struct modelrodata_bbox *bbox = obj_find_bbox_rodata(obj);
-						thing->bbox = *bbox;
+						osd->bbox = *bbox;
 
-						mtx3_to_mtx4(obj->realrot, &thing->unk02c);
-						mtx4_set_translation(&obj->prop->pos, &thing->unk02c);
-						mtx000172f0(thing->unk02c.m, thing->unk06c.m);
+						mtx3_to_mtx4(obj->realrot, &osd->unk02c);
+						mtx4_set_translation(&obj->prop->pos, &osd->unk02c);
+						mtx000172f0(osd->unk02c.m, osd->unk06c.m);
 
 						campos = &g_Vars.currentplayer->cam_pos;
 
-						thing->unk12c = (
-								+ thing->unk06c.m[0][2] * campos->f[0]
-								+ thing->unk06c.m[1][2] * campos->f[1]
-								+ thing->unk06c.m[2][2] * campos->f[2]) + thing->unk06c.m[3][2];
+						osd->unk12c = (
+								+ osd->unk06c.m[0][2] * campos->f[0]
+								+ osd->unk06c.m[1][2] * campos->f[1]
+								+ osd->unk06c.m[2][2] * campos->f[2]) + osd->unk06c.m[3][2];
 
-						mtx00015be4(&thing->unk06c, cam_get_projection_mtxf(), &thing->unk0ac);
-						thing->unk00c = true;
+						mtx00015be4(&osd->unk06c, cam_get_projection_mtxf(), &osd->unk0ac);
+						osd->unk00c = true;
 					}
 
 					model_get_root_position(chr->model, &pos);
 
-					thing->unk008 = (
-							thing->unk06c.m[0][2] * pos.f[0] +
-							thing->unk06c.m[1][2] * pos.f[1] +
-							thing->unk06c.m[2][2] * pos.f[2]) + thing->unk06c.m[3][2];
+					osd->unk008 = (
+							osd->unk06c.m[0][2] * pos.f[0] +
+							osd->unk06c.m[1][2] * pos.f[1] +
+							osd->unk06c.m[2][2] * pos.f[2]) + osd->unk06c.m[3][2];
 
-					if ((thing->unk008 > thing->bbox.zmax && thing->unk12c < thing->bbox.zmin)
-							|| (thing->unk008 < thing->bbox.zmin && thing->unk12c > thing->bbox.zmax)) {
-						thing->unk004 = true;
+					if ((osd->unk008 > osd->bbox.zmax && osd->unk12c < osd->bbox.zmin)
+							|| (osd->unk008 < osd->bbox.zmin && osd->unk12c > osd->bbox.zmax)) {
+						osd->unk004 = true;
 						result = true;
 					}
 				}
@@ -3061,14 +3075,14 @@ next:
 	return result;
 }
 
-bool chr0f024b18(struct model *model, struct modelnode *node)
+bool chr_should_render_gundl(struct model *model, struct modelnode *node)
 {
 	struct model *rootmodel;
 	struct modelnode *bboxnode;
 	f32 value;
 	struct doorobj *door;
 	struct modelrodata_bbox *bbox;
-	struct var80062960 *thing;
+	struct onscreendoor *osd;
 	s32 i;
 	s32 j;
 	bool done;
@@ -3106,55 +3120,55 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 			bbox = &bboxnode->rodata->bbox;
 			mtx = model_find_node_mtx(model, node, 0);
 
-			for (i = 0; i < var80062964; i++) {
-				if (var80062960[i].unk004) {
-					thing = &var80062960[i];
+			for (i = 0; i < g_ChrsNumOnscreenDoors; i++) {
+				if (g_ChrsOnscreenDoors[i].unk004) {
+					osd = &g_ChrsOnscreenDoors[i];
 					done = false;
 					spb0 = false;
-					door = thing->prop->door;
+					door = osd->prop->door;
 
-					mtx00015be4(&thing->unk0ac, mtx, &spb4);
+					mtx00015be4(&osd->unk0ac, mtx, &spb4);
 
-					if (thing->unk130 == 0) {
+					if (osd->unk130 == 0) {
 						if (door->doortype == DOORTYPE_VERTICAL) {
-							spa0.x = thing->bbox.xmin;
-							spa0.y = thing->bbox.ymin;
-							spa0.z = thing->bbox.zmin;
+							spa0.x = osd->bbox.xmin;
+							spa0.y = osd->bbox.ymin;
+							spa0.z = osd->bbox.zmin;
 
-							sp94.x = thing->bbox.xmax;
-							sp94.y = thing->bbox.ymin;
-							sp94.z = thing->bbox.zmin;
+							sp94.x = osd->bbox.xmax;
+							sp94.y = osd->bbox.ymin;
+							sp94.z = osd->bbox.zmin;
 
-							sp88.x = thing->bbox.xmax;
-							sp88.y = thing->bbox.ymax;
-							sp88.z = thing->bbox.zmin;
+							sp88.x = osd->bbox.xmax;
+							sp88.y = osd->bbox.ymax;
+							sp88.z = osd->bbox.zmin;
 						} else {
-							spa0.x = thing->bbox.xmax;
-							spa0.y = thing->bbox.ymax;
-							spa0.z = thing->bbox.zmin;
+							spa0.x = osd->bbox.xmax;
+							spa0.y = osd->bbox.ymax;
+							spa0.z = osd->bbox.zmin;
 
-							sp94.x = thing->bbox.xmax;
-							sp94.y = thing->bbox.ymin;
-							sp94.z = thing->bbox.zmin;
+							sp94.x = osd->bbox.xmax;
+							sp94.y = osd->bbox.ymin;
+							sp94.z = osd->bbox.zmin;
 
-							sp88.x = thing->bbox.xmin;
-							sp88.y = thing->bbox.ymin;
-							sp88.z = thing->bbox.zmin;
+							sp88.x = osd->bbox.xmin;
+							sp88.y = osd->bbox.ymin;
+							sp88.z = osd->bbox.zmin;
 						}
 
-						mtx00015be4(cam_get_world_to_screen_mtxf(), &thing->unk02c, &thing->unk0ec);
-						mtx4_transform_vec(&thing->unk0ec, &spa0, &sp70);
-						cam0f0b4dec(&sp70, thing->unk134);
-						mtx4_transform_vec(&thing->unk0ec, &sp94, &sp70);
-						cam0f0b4dec(&sp70, thing->unk13c);
-						mtx4_transform_vec(&thing->unk0ec, &sp88, &sp70);
-						cam0f0b4dec(&sp70, thing->unk144);
+						mtx00015be4(cam_get_world_to_screen_mtxf(), &osd->unk02c, &osd->unk0ec);
+						mtx4_transform_vec(&osd->unk0ec, &spa0, &sp70);
+						cam0f0b4dec(&sp70, osd->unk134);
+						mtx4_transform_vec(&osd->unk0ec, &sp94, &sp70);
+						cam0f0b4dec(&sp70, osd->unk13c);
+						mtx4_transform_vec(&osd->unk0ec, &sp88, &sp70);
+						cam0f0b4dec(&sp70, osd->unk144);
 
-						thing->unk130 = 1;
-						thing->unk14c = thing->unk13c[1] - thing->unk134[1];
-						thing->unk150 = -(thing->unk13c[0] - thing->unk134[0]);
-						thing->unk154 = thing->unk14c * thing->unk134[0] + thing->unk150 * thing->unk134[1];
-						thing->unk158 = thing->unk14c * thing->unk144[0] + thing->unk150 * thing->unk144[1] - thing->unk154;
+						osd->unk130 = 1;
+						osd->unk14c = osd->unk13c[1] - osd->unk134[1];
+						osd->unk150 = -(osd->unk13c[0] - osd->unk134[0]);
+						osd->unk154 = osd->unk14c * osd->unk134[0] + osd->unk150 * osd->unk134[1];
+						osd->unk158 = osd->unk14c * osd->unk144[0] + osd->unk150 * osd->unk144[1] - osd->unk154;
 					}
 
 					for (j = 0; j < 8; j++) {
@@ -3204,10 +3218,9 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 						mtx4_transform_vec(mtx, &sp64, &sp70);
 						cam0f0b4dec(&sp70, sp80);
 
-						value = thing->unk14c * sp80[0] + thing->unk150 * sp80[1] - thing->unk154;
+						value = osd->unk14c * sp80[0] + osd->unk150 * sp80[1] - osd->unk154;
 
-						if ((thing->unk158 >= 0.0f && value < 0.0f)
-								|| (thing->unk158 <= 0.0f && value > 0.0f)) {
+						if ((osd->unk158 >= 0.0f && value < 0.0f) || (osd->unk158 <= 0.0f && value > 0.0f)) {
 							spb0 = true;
 							break;
 						}
@@ -3215,12 +3228,12 @@ bool chr0f024b18(struct model *model, struct modelnode *node)
 						if (!done) {
 							mtx4_transform_vec(&spb4, &sp64, &sp70);
 
-							if (sp70.x >= thing->bbox.xmin
-									&& sp70.x <= thing->bbox.xmax
-									&& sp70.y >= thing->bbox.ymin
-									&& sp70.y <= thing->bbox.ymax
-									&& ((thing->bbox.zmax < thing->unk008 && sp70.z < thing->bbox.zmax)
-										|| (thing->unk008 < thing->bbox.zmin && thing->bbox.zmin < sp70.z))) {
+							if (sp70.x >= osd->bbox.xmin
+									&& sp70.x <= osd->bbox.xmax
+									&& sp70.y >= osd->bbox.ymin
+									&& sp70.y <= osd->bbox.ymax
+									&& ((osd->bbox.zmax < osd->unk008 && sp70.z < osd->bbox.zmax)
+										|| (osd->unk008 < osd->bbox.zmin && osd->bbox.zmin < sp70.z))) {
 								done = true;
 							}
 						}
@@ -3280,9 +3293,9 @@ void chr_get_blood_colour(s16 bodynum, u8 *colour1, u32 *colour2)
 	case BODY_THEKING:
 	case BODY_ELVISWAISTCOAT:
 		if (colour1) {
-			colour1[0] = 10;
+			colour1[0] = 0x0a;
 			colour1[1] = 0x40;
-			colour1[2] = 10;
+			colour1[2] = 0x0a;
 		}
 		if (colour2) {
 			colour2[0] = 0x103010ff;
@@ -3294,9 +3307,9 @@ void chr_get_blood_colour(s16 bodynum, u8 *colour1, u32 *colour2)
 	case BODY_EYESPY:
 	case BODY_CHICROB:
 		if (colour1) {
-			colour1[0] = 10;
-			colour1[1] = 10;
-			colour1[2] = 10;
+			colour1[0] = 0x0a;
+			colour1[1] = 0x0a;
+			colour1[2] = 0x0a;
 		}
 		if (colour2) {
 			colour2[0] = 0xb0b030a0;
@@ -3311,7 +3324,7 @@ void chr_get_blood_colour(s16 bodynum, u8 *colour1, u32 *colour2)
 		if (colour1) {
 			colour1[0] = 0x40;
 			colour1[1] = 0x19;
-			colour1[2] = 10;
+			colour1[2] = 0x0a;
 		}
 		if (colour2) {
 			colour2[0] = 0x302010ff;
@@ -3323,8 +3336,8 @@ void chr_get_blood_colour(s16 bodynum, u8 *colour1, u32 *colour2)
 
 	if (colour1) {
 		colour1[0] = 0x40;
-		colour1[1] = 10;
-		colour1[2] = 10;
+		colour1[1] = 0x0a;
+		colour1[2] = 0x0a;
 	}
 
 	if (colour2) {
@@ -3374,7 +3387,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 	}
 
 	chr_get_blood_colour(chr->bodynum, spec, NULL);
-	chr0f0246e4(spec);
+	chrs_set_blood_colour(spec);
 	alpha *= obj_calculate_fade_dist_opacity_frac(prop, model_get_effective_scale(model));
 
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
@@ -3491,7 +3504,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 			colour[3] = 0xff;
 		}
 
-		renderdata.envcolour = var80062a48[0] << 24 | var80062a48[1] << 16 | var80062a48[2] << 8;
+		renderdata.envcolour = g_ChrBloodColour[0] << 24 | g_ChrBloodColour[1] << 16 | g_ChrBloodColour[2] << 8;
 		renderdata.fogcolour = colour[0] << 24 | colour[1] << 16 | colour[2] << 8 | colour[3];
 
 		if (alpha < 0xff) {
@@ -3548,8 +3561,8 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 
 		g_Vars.currentplayerstats->drawplayercount++;
 
-		if (chr0f024738(chr)) {
-			var8005efc4 = chr0f024b18;
+		if (chr_find_onscreen_doors(chr)) {
+			g_ModelShouldRenderGunDlCallback = chr_should_render_gundl;
 		}
 
 		// Render the chr's model
@@ -3565,7 +3578,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 
 		gdl = renderdata.gdl;
 
-		var8005efc4 = NULL;
+		g_ModelShouldRenderGunDlCallback = NULL;
 
 		// Render shadow
 		if (xlupass) {
@@ -3684,7 +3697,7 @@ void chr_emit_sparks(struct chrdata *chr, struct prop *prop, s32 hitpart, struct
 #endif
 }
 
-void chr0f0260c4(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
+void chr_bruise_from_stabby_projectile(struct model *model, s32 hitpart, struct modelnode *node, struct coord *arg3)
 {
 	struct modelnode *bestnode = NULL;
 	s32 mindist = 0x7fffffff;
@@ -4786,45 +4799,45 @@ void chr_hit(struct shotdata *shotdata, struct hit *hit)
 	}
 }
 
-void chr0f028490(f32 arg1)
+void chrs_set_stage_translation_thing(f32 arg1)
 {
 	// empty
 }
 
-void chr0f028498(bool value)
+void chranimdebug_everyone(bool enable)
 {
-	var8006296c = value;
-	var8005efbc = value;
+	g_ChrsAnimDebugSetAll = enable;
+	g_ChrsAnimDebugForceLoop = enable;
 }
 
-void chr0f0284ac(s32 arg0)
+void chranimdebug_decrement_anim(s32 quantity)
 {
-	g_SelectedAnimNum -= arg0;
+	g_ChrsAnimDebugAnimNum -= quantity;
 
-	if (g_SelectedAnimNum <= 0) {
-		g_SelectedAnimNum = anim_get_num_animations() - 1;
+	if (g_ChrsAnimDebugAnimNum <= 0) {
+		g_ChrsAnimDebugAnimNum = anim_get_num_animations() - 1;
 	}
 }
 
-void chr0f0284f4(s32 arg0)
+void chranimdebug_increment_anim(s32 quantity)
 {
-	g_SelectedAnimNum += arg0;
+	g_ChrsAnimDebugAnimNum += quantity;
 
-	if (g_SelectedAnimNum >= anim_get_num_animations()) {
-		g_SelectedAnimNum = 1;
+	if (g_ChrsAnimDebugAnimNum >= anim_get_num_animations()) {
+		g_ChrsAnimDebugAnimNum = 1;
 	}
 }
 
-void chrs_toggle_anim_debug(void)
+void chranimdebug_toggle_paused(void)
 {
-	var80062974 = !var80062974;
+	g_ChrsAnimDebugPaused = !g_ChrsAnimDebugPaused;
 }
 
-void chrs_set_anims_playing(s32 arg0)
+void chranimdebug_select_anim(bool enable)
 {
-	var80062978 = arg0;
+	g_ChrsAnimDebugSlow = enable;
 
-	main_override_variable("selectanimnum", &g_SelectedAnimNum);
+	main_override_variable("selectanimnum", &g_ChrsAnimDebugAnimNum);
 }
 
 void chrs_check_for_noise(f32 noiseradius)

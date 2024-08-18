@@ -1452,8 +1452,8 @@ void player_tick_chr_body(void)
 
 		g_Vars.currentplayer->model00d4 = body_instantiate_model_to_addr(bodynum, headnum, bodymodeldef, headmodeldef, false, model, true, true);
 
-		chr0f020b14(g_Vars.currentplayer->prop, g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos,
-				g_Vars.currentplayer->prop->rooms, turnangle, 0);
+		chr_place(g_Vars.currentplayer->prop, g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos,
+				g_Vars.currentplayer->prop->rooms, turnangle, NULL);
 		g_Vars.currentplayer->prop->type = PROPTYPE_PLAYER;
 		chr = g_Vars.currentplayer->prop->chr;
 

@@ -53,7 +53,7 @@ void botmgr_allocate_bot(s32 chrnum, s32 aibotnum)
 		struct coord pos = {0.0f, 0.0f, 0.0f};
 		u32 stack;
 
-		prop = chr_allocate(model, &pos, rooms, 0.0f, ailist_find_by_id(GAILIST_AIBOT_INIT));
+		prop = chr_create_with_model(model, &pos, rooms, 0.0f, ailist_find_by_id(GAILIST_AIBOT_INIT));
 
 		if (prop != NULL) {
 			prop_activate(prop);

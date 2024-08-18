@@ -1300,7 +1300,7 @@ Gfx *lv_render(Gfx *gdl)
 
 				props_test_for_pickup();
 				gdl = bg_render(gdl);
-				chr0f028498(var80075d68 == 15 || g_AnimHostEnabled);
+				chranimdebug_everyone(var80075d68 == 15 || g_AnimHostEnabled);
 				gdl = props_render_beams(gdl);
 				gdl = shards_render(gdl);
 				gdl = sparks_render(gdl);

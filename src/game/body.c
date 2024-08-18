@@ -412,7 +412,7 @@ void body_instantiate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 
 	if (model != NULL) {
 		angle = atan2f(pad.look.x, pad.look.z);
-		prop = chr_allocate(model, &pad.pos, rooms, angle, ailist_find_by_id(packed->ailistnum));
+		prop = chr_create_with_model(model, &pad.pos, rooms, angle, ailist_find_by_id(packed->ailistnum));
 
 		if (prop != NULL) {
 			prop_activate(prop);
@@ -572,7 +572,7 @@ struct prop *body_instantiate_eyespy(struct pad *pad, RoomNum room)
 	model = body_instantiate_model_with_spawnflags(BODY_EYESPY, 0, 0);
 
 	if (model) {
-		prop = chr_allocate(model, &pad->pos, rooms, 0, ailist_find_by_id(GAILIST_IDLE));
+		prop = chr_create_with_model(model, &pad->pos, rooms, 0, ailist_find_by_id(GAILIST_IDLE));
 
 		if (prop) {
 			prop_activate(prop);

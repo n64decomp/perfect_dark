@@ -433,7 +433,7 @@ bool ai_chr_do_animation(void)
 		chr_try_start_anim(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], speed);
 
 		if (startframe == 0xfffe) {
-			chr0f0220ec(chr, 1, true);
+			chr_update_anim(chr, 1, true);
 
 			if (chr->prop->type == PROPTYPE_PLAYER) {
 				u32 playernum = playermgr_get_player_num_by_prop(chr->prop);

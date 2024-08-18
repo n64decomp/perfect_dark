@@ -15103,7 +15103,7 @@ struct prop *chr_spawn_at_coord(s32 bodynum, s32 headnum, struct coord *pos, Roo
 			struct chrdata *chr;
 
 			if (model) {
-				prop = chr_allocate(model, &pos2, rooms2, angle, ailist);
+				prop = chr_create_with_model(model, &pos2, rooms2, angle, ailist);
 
 				if (prop) {
 					prop_activate_this_frame(prop);

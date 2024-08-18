@@ -87,9 +87,9 @@ u32 var8005efb0 = 0;
 
 bool g_ModelDistanceDisabled = false;
 f32 g_ModelDistanceScale = 1;
-bool var8005efbc = false;
+bool g_ChrsAnimDebugForceLoop = false;
 f32 var8005efc0 = 0;
-bool (*var8005efc4)(struct model *model, struct modelnode *node) = NULL;
+bool (*g_ModelShouldRenderGunDlCallback)(struct model *model, struct modelnode *node) = NULL;
 
 #if VERSION >= VERSION_PAL_BETA
 bool var8005efd8_2 = false;
@@ -1712,7 +1712,7 @@ f32 model_get_effective_anim_speed(struct model *model)
 s32 model_constrain_or_wrap_anim_frame(s32 frame, s16 animnum, f32 endframe)
 {
 	if (frame < 0) {
-		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
+		if (g_ChrsAnimDebugForceLoop || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
 			frame = anim_get_num_frames(animnum) - (-frame % anim_get_num_frames(animnum));
 		} else {
 			frame = 0;
@@ -1720,7 +1720,7 @@ s32 model_constrain_or_wrap_anim_frame(s32 frame, s16 animnum, f32 endframe)
 	} else if (endframe >= 0 && frame > (s32)endframe) {
 		frame = ceil(endframe);
 	} else if (frame >= anim_get_num_frames(animnum)) {
-		if (var8005efbc || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
+		if (g_ChrsAnimDebugForceLoop || (g_Anims[animnum].flags & ANIMFLAG_LOOP)) {
 			frame = frame % anim_get_num_frames(animnum);
 		} else {
 			frame = anim_get_num_frames(animnum) - 1;
@@ -3153,7 +3153,7 @@ void model_render_node_gundl(struct modelrenderdata *renderdata, struct model *m
 {
 	struct modelrodata_gundl *rodata = &node->rodata->gundl;
 
-	if (var8005efc4 && !var8005efc4(model, node)) {
+	if (g_ModelShouldRenderGunDlCallback && !g_ModelShouldRenderGunDlCallback(model, node)) {
 		return;
 	}
 
@@ -3205,7 +3205,7 @@ void model_render_node_dl(struct modelrenderdata *renderdata, struct model *mode
 {
 	union modelrodata *rodata = node->rodata;
 
-	if (var8005efc4 && !var8005efc4(model, node)) {
+	if (g_ModelShouldRenderGunDlCallback && !g_ModelShouldRenderGunDlCallback(model, node)) {
 		return;
 	}
 

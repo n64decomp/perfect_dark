@@ -5868,7 +5868,7 @@ struct hatposition {
 	f32 unk14;
 };
 
-struct var80062960 {
+struct onscreendoor {
 	/*0x000*/ struct prop *prop;
 	/*0x004*/ bool unk004;
 	/*0x008*/ f32 unk008;

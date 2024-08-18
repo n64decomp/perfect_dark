@@ -11,12 +11,12 @@ void chrmgr_reset(void)
 {
 	s32 i;
 
-	var80062968 = 1;
-	var8006296c = 0;
-	g_SelectedAnimNum = 0;
-	var80062974 = 0;
-	var80062978 = 0;
-	var8006297c = 0;
+	g_ChrsAnimSpeed = 1;
+	g_ChrsAnimDebugSetAll = false;
+	g_ChrsAnimDebugAnimNum = 0;
+	g_ChrsAnimDebugPaused = false;
+	g_ChrsAnimDebugSlow = false;
+	g_ChrsDebugPatrols = false;
 	g_NextChrnum = 5000;
 	g_ChrSlots = NULL;
 	g_NumChrSlots = 0;
@@ -27,11 +27,11 @@ void chrmgr_reset(void)
 		g_ShieldHits[i].prop = NULL;
 	}
 
-	g_ShieldHitActive = 0;
+	g_ShieldHitActive = false;
 	g_NumChrs = 0;
 	g_Chrnums = NULL;
 	g_ChrIndexes = NULL;
-	var80062960 = memp_alloc(ALIGN16(15 * sizeof(struct var80062960)), MEMPOOL_STAGE);
+	g_ChrsOnscreenDoors = memp_alloc(ALIGN16(15 * sizeof(struct onscreendoor)), MEMPOOL_STAGE);
 
 	for (i = 0; i < ARRAYCOUNT(var8009ccc0); i++) {
 		var8009ccc0[i] = (void *)ALIGN64(memp_alloc(16 * 16 * sizeof(u16) + 0x40, MEMPOOL_STAGE));

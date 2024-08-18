@@ -4698,11 +4698,11 @@ void weapon_tick(struct prop *prop)
 	}
 }
 
-void func0f07063c(struct prop *prop, bool arg1)
+void func0f07063c(struct prop *prop, bool fulltick)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (arg1) {
+	if (fulltick) {
 		if (obj->type == OBJTYPE_AMMOCRATE || obj->type == OBJTYPE_MULTIAMMOCRATE) {
 			ammocrate_tick(prop);
 		} else if (obj->type == OBJTYPE_WEAPON) {
@@ -7006,7 +7006,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 													mtx0001719c(sp184->m, sp188.m);
 													mtx4_transform_vec_in_place(&sp188, &sp1c8);
 
-													chr0f0260c4(g_EmbedModel, g_EmbedHitPart, g_EmbedNode, &sp1c8);
+													chr_bruise_from_stabby_projectile(g_EmbedModel, g_EmbedHitPart, g_EmbedNode, &sp1c8);
 												}
 											}
 										}

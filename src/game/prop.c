@@ -2225,7 +2225,7 @@ void props_tick_player(bool islastplayer)
 		props_defrag_room_props();
 	}
 
-	chr0f02472c();
+	chrs_reset_onscreen_doors();
 }
 
 void props_tick_pad_effects(void)
