@@ -29,7 +29,7 @@ u32 var8009cd24;
 s32 g_ActiveMaleHeads[8];
 s32 g_ActiveFemaleHeads[8];
 
-s32 g_NumBondBodies = 0;
+s32 g_NumTuxedos = 0;
 s32 g_NumMaleGuardHeads = 0;
 s32 g_NumFemaleGuardHeads = 0;
 s32 g_NumMaleGuardTeamHeads = 0;
@@ -37,7 +37,7 @@ s32 g_NumFemaleGuardTeamHeads = 0;
 s32 var80062b14 = 0;
 s32 var80062b18 = 0;
 
-s32 g_BondBodies[] = {
+s32 g_TuxedoBodynums[] = {
 	BODY_DJBOND,
 	BODY_CONNERY,
 	BODY_DALTON,
@@ -127,7 +127,7 @@ s32 g_FemaleGuardTeamHeads[] = {
 	-1,
 };
 
-s32 var80062c80 = 0;
+s32 g_TuxedoIndex = 0;
 s32 g_ActiveMaleHeadsIndex = 0;
 s32 g_ActiveFemaleHeadsIndex = 0;
 
@@ -155,7 +155,7 @@ u32 body_get_race(s32 bodynum)
 	return RACE_HUMAN;
 }
 
-bool body_load(s32 bodynum)
+bool body_load_modeldef(s32 bodynum)
 {
 	if (!g_HeadsAndBodies[bodynum].modeldef) {
 		g_HeadsAndBodies[bodynum].modeldef = modeldef_load_to_new(g_HeadsAndBodies[bodynum].filenum);
@@ -165,7 +165,7 @@ bool body_load(s32 bodynum)
 	return false;
 }
 
-struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modeldef *bodymodeldef, struct modeldef *headmodeldef, bool sunglasses, struct model *model, bool isplayer, u8 varyheight)
+struct model *body_instantiate_model_to_addr(s32 bodynum, s32 headnum, struct modeldef *bodymodeldef, struct modeldef *headmodeldef, bool sunglasses, struct model *model, bool isplayer, u8 varyheight)
 {
 	f32 scale = g_HeadsAndBodies[bodynum].scale * 0.10000001f;
 	f32 animscale = g_HeadsAndBodies[bodynum].animscale;
@@ -196,7 +196,7 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modeldef *bodymodeld
 					bodymodeldef->rwdatalen += headmodeldef->rwdatalen;
 				} else if (headnum > 0) {
 					if (headmodeldef == NULL) {
-						if (g_Vars.normmplayerisrunning && !IS4MB()) {
+						if (g_Vars.normmplayerisrunning && IS8MB()) {
 							headmodeldef = modeldef_load_to_new(g_HeadsAndBodies[headnum].filenum);
 							g_HeadsAndBodies[headnum].modeldef = headmodeldef;
 							g_FileInfo[g_HeadsAndBodies[headnum].filenum].loadedsize = 0;
@@ -286,12 +286,12 @@ struct model *body0f02ce8c(s32 bodynum, s32 headnum, struct modeldef *bodymodeld
 	return model;
 }
 
-struct model *body0f02d338(s32 bodynum, s32 headnum, struct modeldef *bodymodeldef, struct modeldef *headmodeldef, bool sunglasses, u8 varyheight)
+struct model *body_instantiate_model_to_new(s32 bodynum, s32 headnum, struct modeldef *bodymodeldef, struct modeldef *headmodeldef, bool sunglasses, u8 varyheight)
 {
-	return body0f02ce8c(bodynum, headnum, bodymodeldef, headmodeldef, sunglasses, NULL, false, varyheight);
+	return body_instantiate_model_to_addr(bodynum, headnum, bodymodeldef, headmodeldef, sunglasses, NULL, false, varyheight);
 }
 
-struct model *body_allocate_model(s32 bodynum, s32 headnum, u32 spawnflags)
+struct model *body_instantiate_model_with_spawnflags(s32 bodynum, s32 headnum, u32 spawnflags)
 {
 	bool sunglasses = false;
 	u8 varyheight = true;
@@ -306,12 +306,12 @@ struct model *body_allocate_model(s32 bodynum, s32 headnum, u32 spawnflags)
 		varyheight = false;
 	}
 
-	return body0f02d338(bodynum, headnum, NULL, NULL, sunglasses, varyheight);
+	return body_instantiate_model_to_new(bodynum, headnum, NULL, NULL, sunglasses, varyheight);
 }
 
-s32 body0f02d3f8(void)
+s32 body_get_tuxedo_bodynum(void)
 {
-	return g_BondBodies[var80062c80];
+	return g_TuxedoBodynums[g_TuxedoIndex];
 }
 
 s32 body_choose_head(s32 bodynum)
@@ -343,7 +343,7 @@ s32 body_choose_head(s32 bodynum)
  * Chr definitions are stored in a packed format in each stage's setup file.
  * The packed format is used for space saving reasons.
  */
-void body_allocate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
+void body_instantiate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 {
 	struct pad pad;
 	RoomNum rooms[2];
@@ -385,7 +385,7 @@ void body_allocate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	headmodeldef = NULL;
 
 	if (packed->bodynum == 255) {
-		bodynum = body0f02d3f8();
+		bodynum = body_get_tuxedo_bodynum();
 	} else {
 		bodynum = packed->bodynum;
 	}
@@ -405,9 +405,9 @@ void body_allocate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 			headmodeldef = func0f18e57c(index, &headnum);
 		}
 
-		model = body0f02ce8c(bodynum, headnum, NULL, headmodeldef, false, NULL, false, false);
+		model = body_instantiate_model_to_addr(bodynum, headnum, NULL, headmodeldef, false, NULL, false, false);
 	} else {
-		model = body_allocate_model(bodynum, headnum, packed->spawnflags);
+		model = body_instantiate_model_with_spawnflags(bodynum, headnum, packed->spawnflags);
 	}
 
 	if (model != NULL) {
@@ -531,7 +531,7 @@ void body_allocate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	}
 }
 
-struct prop *body_allocate_eyespy(struct pad *pad, RoomNum room)
+struct prop *body_instantiate_eyespy(struct pad *pad, RoomNum room)
 {
 	RoomNum rooms[2];
 	struct prop *prop;
@@ -569,7 +569,7 @@ struct prop *body_allocate_eyespy(struct pad *pad, RoomNum room)
 	}
 #endif
 
-	model = body_allocate_model(BODY_EYESPY, 0, 0);
+	model = body_instantiate_model_with_spawnflags(BODY_EYESPY, 0, 0);
 
 	if (model) {
 		prop = chr_allocate(model, &pad->pos, rooms, 0, ailist_find_by_id(GAILIST_IDLE));
@@ -682,52 +682,35 @@ void body_calculate_head_offset(struct modeldef *headmodeldef, s32 headnum, s32 
 		}
 #endif
 
+		// In the switch statement below, most versions set the offset directly.
+		// JPN increments it instead.
 #if VERSION >= VERSION_JPN_FINAL
-		switch (g_HeadsAndBodies[headnum].type) {
-		default:
-		case HEADBODYTYPE_FEMALE:
-			offset += 0;
-			break;
-		case HEADBODYTYPE_MAIAN:
-			offset += 0;
-			break;
-		case HEADBODYTYPE_DEFAULT:
-			offset -= 35;
-			break;
-		case HEADBODYTYPE_MRBLONDE:
-			offset += 0;
-			break;
-		case HEADBODYTYPE_CASS:
-			offset -= 20;
-			break;
-		case HEADBODYTYPE_FEMALEGUARD:
-			offset -= 40;
-			break;
-		}
+#define ADJUST(var, amount) (var + amount)
 #else
-		// Same as JPN, but sets the value rather than adjusts
+#define ADJUST(var, amount) (amount)
+#endif
+
 		switch (g_HeadsAndBodies[headnum].type) {
 		default:
 		case HEADBODYTYPE_FEMALE:
-			offset = 0;
+			offset = ADJUST(offset, 0);
 			break;
 		case HEADBODYTYPE_MAIAN:
-			offset = 0;
+			offset = ADJUST(offset, 0);
 			break;
 		case HEADBODYTYPE_DEFAULT:
-			offset = -35;
+			offset = ADJUST(offset, -35);
 			break;
 		case HEADBODYTYPE_MRBLONDE:
-			offset = 0;
+			offset = ADJUST(offset, 0);
 			break;
 		case HEADBODYTYPE_CASS:
-			offset = -20;
+			offset = ADJUST(offset, -20);
 			break;
 		case HEADBODYTYPE_FEMALEGUARD:
-			offset = -40;
+			offset = ADJUST(offset, -40);
 			break;
 		}
-#endif
 
 		switch (g_HeadsAndBodies[bodynum].type) {
 		case HEADBODYTYPE_FEMALE:

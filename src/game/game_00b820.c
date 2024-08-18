@@ -149,12 +149,12 @@ void stage_load_all_ailist_models(void)
 				if (setup_load_modeldef(id));
 				break;
 			case AICMD_SPAWNCHRATPAD:
-				body_load(cmd[2]);
-				if ((s8)cmd[3] >= 0 && body_load((s8)cmd[3]));
+				body_load_modeldef(cmd[2]);
+				if ((s8)cmd[3] >= 0 && body_load_modeldef((s8)cmd[3]));
 				break;
 			case AICMD_SPAWNCHRATCHR:
-				body_load(cmd[2]);
-				if ((s8)cmd[3] >= 0 && body_load((s8)cmd[3]));
+				body_load_modeldef(cmd[2]);
+				if ((s8)cmd[3] >= 0 && body_load_modeldef((s8)cmd[3]));
 				break;
 			case AICMD_EQUIPWEAPON:
 				setup_load_modeldef(cmd[3] | (cmd[2] << 8));

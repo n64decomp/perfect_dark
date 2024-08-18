@@ -1822,7 +1822,7 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 					menumodel->bodymodel.rwdatalen = 256;
 					menumodel->bodymodel.anim = &menumodel->bodyanim;
 
-					body0f02ce8c(bodynum, headnum, menumodel->bodymodeldef, menumodel->headmodeldef, totalfilelen * 0, &menumodel->bodymodel, false, 1);
+					body_instantiate_model_to_addr(bodynum, headnum, menumodel->bodymodeldef, menumodel->headmodeldef, totalfilelen * 0, &menumodel->bodymodel, false, 1);
 				} else {
 					totalfilelen = ALIGN64(file_get_inflated_size(menumodel->newparams)) + 0x4000;
 					if (1);

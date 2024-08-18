@@ -15099,7 +15099,7 @@ struct prop *chr_spawn_at_coord(s32 bodynum, s32 headnum, struct coord *pos, Roo
 		if (chr_adjust_pos_for_spawn(20, &pos2, rooms2, angle, (spawnflags & SPAWNFLAG_ALLOWONSCREEN) != 0, false))
 #endif
 		{
-			struct model *model = body_allocate_model(bodynum, headnum, spawnflags);
+			struct model *model = body_instantiate_model_with_spawnflags(bodynum, headnum, spawnflags);
 			struct chrdata *chr;
 
 			if (model) {

@@ -47,7 +47,7 @@ void botmgr_allocate_bot(s32 chrnum, s32 aibotnum)
 		bodynum = BODY_DDSHOCK;
 	}
 
-	model = body_allocate_model(bodynum, headnum, 0);
+	model = body_instantiate_model_with_spawnflags(bodynum, headnum, 0);
 
 	if (model != NULL) {
 		struct coord pos = {0.0f, 0.0f, 0.0f};

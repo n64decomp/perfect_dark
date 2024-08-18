@@ -34,7 +34,7 @@ void player_init_eyespy(void)
 
 	if (g_Vars.currentplayer->eyespy == NULL) {
 		/**
-		 * To create the eyespy's prop, a pad must be passed to body_allocate_eyespy.
+		 * To create the eyespy's prop, a pad must be passed to body_instantiate_eyespy.
 		 * However the eyespy doesn't have a pad because it's held by the
 		 * player, so it needs to choose one from the stage. The method used
 		 * will increment the chosen pad number each time the stage is loaded
@@ -45,7 +45,7 @@ void player_init_eyespy(void)
 		 * causing the mid cutscene to play instead of the intro.
 		 */
 		pad_unpack(nextpad++, PADFIELD_ROOM | PADFIELD_POS, &pad);
-		prop = body_allocate_eyespy(&pad, pad.room);
+		prop = body_instantiate_eyespy(&pad, pad.room);
 
 		if (prop) {
 			g_Vars.currentplayer->eyespy = memp_alloc(sizeof(struct eyespy), MEMPOOL_STAGE);

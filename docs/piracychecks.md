@@ -86,7 +86,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **Payload:** Writes a filesystem terminator file to the start of EEPROM. This disables the cartridge's save data, removing the ability to read existing files and create new ones.
 
-### body_allocate_eyespy
+### body_instantiate_eyespy
 
 **When Called:** When loading any stage that uses the eyespy.
 

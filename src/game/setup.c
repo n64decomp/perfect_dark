@@ -1545,7 +1545,7 @@ void setup_create_props(s32 stagenum)
 					break;
 				case OBJTYPE_CHR:
 					if (withchrs) {
-						body_allocate_chr(stagenum, (struct packedchr *) obj, index);
+						body_instantiate_chr(stagenum, (struct packedchr *) obj, index);
 					}
 					break;
 				case OBJTYPE_DOOR:

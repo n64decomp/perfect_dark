@@ -169,7 +169,7 @@ void piracy_patch_checksums(void)
 	patch(algo04, "chr_uncloak", "bot_pickup_prop");
 	patch(algo05, "chrs_check_for_noise", "__scHandleRetrace");
 	patch(algo06, "lv_reset", "lv_get_slow_motion_type");
-	patch(algo07, "body_allocate_eyespy", "lv_reset");
+	patch(algo07, "body_instantiate_eyespy", "lv_reset");
 	patch(algo08, "chr_consider_grenade_throw", "bg_reset");
 	patch(algo09, "bgun_tick_gun_load", "tags_reset");
 	patch(algo10, "explosion_alert_chrs", "glass_destroy");

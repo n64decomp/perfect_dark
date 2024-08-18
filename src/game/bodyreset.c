@@ -26,7 +26,7 @@ void bodies_reset(s32 stagenum)
 		g_HeadsAndBodies[i].modeldef = NULL;
 	}
 
-	var80062c80 = random() % g_NumBondBodies;
+	g_TuxedoIndex = random() % g_NumTuxedos;
 	var80062b14 = 0;
 	var80062b18 = 0;
 
