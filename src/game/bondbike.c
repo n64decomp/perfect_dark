@@ -999,9 +999,9 @@ void bbike_tick(void)
 		pos.y = (g_Vars.currentplayer->bondenterpos.y - g_Vars.currentplayer->prop->pos.y) * g_Vars.currentplayer->bondentert2 + g_Vars.currentplayer->prop->pos.y;
 		pos.z = (g_Vars.currentplayer->bondenterpos.z - g_Vars.currentplayer->bondenteraim.z) * g_Vars.currentplayer->bondentert2 + g_Vars.currentplayer->prop->pos.z;
 
-		bmove0f0cc19c(&pos);
+		bmove_set_pos(&pos);
 	} else {
-		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
+		bmove_set_pos(&g_Vars.currentplayer->prop->pos);
 	}
 
 	sp70 = g_Vars.currentplayer->speedverta / 0.7f;

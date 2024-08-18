@@ -147,12 +147,12 @@ void current_player_set_weapon_pos(struct coord *pos)
 	}
 }
 
-f32 hand_get_x_shift(s32 handnum)
+f32 hand_get_xshift(s32 handnum)
 {
 	return g_Vars.currentplayer->hands[handnum].xshift;
 }
 
-f32 func0f0b131c(s32 hand)
+f32 hand_get_xpos(s32 hand)
 {
 	f32 x;
 	struct weapon *weapon;

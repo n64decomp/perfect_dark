@@ -1838,51 +1838,52 @@ void bmove_update_rooms(struct player *player)
 	prop_register_rooms(player->prop);
 }
 
-void bmove0f0cb904(struct coord *arg0)
+void bmove_dampen_shotspeed(struct coord *shotspeed)
 {
-	if (arg0->f[0] || arg0->f[2]) {
-		f32 hypotenuse = sqrtf(arg0->f[0] * arg0->f[0] + arg0->f[2] * arg0->f[2]);
+	if (shotspeed->f[0] || shotspeed->f[2]) {
+		f32 hypotenuse = sqrtf(shotspeed->f[0] * shotspeed->f[0] + shotspeed->f[2] * shotspeed->f[2]);
 		s32 i;
 
 		if (hypotenuse > 1.5f) {
-			arg0->x *= 1.5f / hypotenuse;
-			arg0->z *= 1.5f / hypotenuse;
+			shotspeed->x *= 1.5f / hypotenuse;
+			shotspeed->z *= 1.5f / hypotenuse;
 			hypotenuse = 1.5f;
 		}
 
 		for (i = 0; i < 3; i++) {
 			if (hypotenuse > 0.0001f) {
-				if (arg0->f[i] != 0) {
-					if (arg0->f[i] > 0) {
-						arg0->f[i] -= (1.0f / 30.0f) * g_Vars.lvupdate60freal * arg0->f[i] / hypotenuse;
+				if (shotspeed->f[i] != 0) {
+					if (shotspeed->f[i] > 0) {
+						shotspeed->f[i] -= (1.0f / 30.0f) * g_Vars.lvupdate60freal * shotspeed->f[i] / hypotenuse;
 
-						if (arg0->f[i] < 0) {
-							arg0->f[i] = 0;
+						if (shotspeed->f[i] < 0) {
+							shotspeed->f[i] = 0;
 						}
-					} else if (arg0->f[i] < 0) {
-						arg0->f[i] -= (1.0f / 30.0f) * g_Vars.lvupdate60freal * arg0->f[i] / hypotenuse;
+					} else if (shotspeed->f[i] < 0) {
+						shotspeed->f[i] -= (1.0f / 30.0f) * g_Vars.lvupdate60freal * shotspeed->f[i] / hypotenuse;
 
-						if (arg0->f[i] > 0) {
-							arg0->f[i] = 0;
+						if (shotspeed->f[i] > 0) {
+							shotspeed->f[i] = 0;
 						}
 					}
 				}
 			} else {
-				arg0->f[i] = 0;
+				shotspeed->f[i] = 0;
 			}
 		}
 	}
 }
 
-void bmove0f0cba88(f32 *a, f32 *b, struct coord *c, f32 mult1, f32 mult2)
+void bmove_shotspeed_to_lateral(f32 *forward, f32 *sideways, struct coord *shotspeed, f32 sintheta, f32 costheta)
 {
-	if (c->x != 0 || c->z != 0) {
-		bmove0f0cb904(c);
-		*a = c->z * mult2 + -c->x * mult1;
-		*b = -c->x * mult2 - c->z * mult1;
+	if (shotspeed->x != 0 || shotspeed->z != 0) {
+		bmove_dampen_shotspeed(shotspeed);
+
+		*forward = shotspeed->z * costheta + -shotspeed->x * sintheta;
+		*sideways = -shotspeed->x * costheta - shotspeed->z * sintheta;
 	} else {
-		*a = 0;
-		*b = 0;
+		*forward = 0;
+		*sideways = 0;
 	}
 }
 
@@ -2013,14 +2014,14 @@ void bmove_update_verta(void)
 	}
 }
 
-void bmove0f0cc19c(struct coord *arg)
+void bmove_set_pos(struct coord *pos)
 {
 	f32 min;
 	f32 mult;
 
-	g_Vars.currentplayer->bond2.unk10.x = arg->x;
-	g_Vars.currentplayer->bond2.unk10.y = arg->y;
-	g_Vars.currentplayer->bond2.unk10.z = arg->z;
+	g_Vars.currentplayer->bond2.unk10.x = pos->x;
+	g_Vars.currentplayer->bond2.unk10.y = pos->y;
+	g_Vars.currentplayer->bond2.unk10.z = pos->z;
 
 	if (g_Vars.currentplayer->isdead && g_Vars.currentplayer->bondleandown > 0) {
 		g_Vars.currentplayer->bondleandown -= 0.25f;
@@ -2067,9 +2068,9 @@ void bmove0f0cc19c(struct coord *arg)
 #endif
 }
 
-void bmove_update_head(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
+void bmove_update_head_with_mtx(f32 heartrate, f32 speedforwards, f32 speedsideways, Mtxf *mtx, f32 arg4)
 {
-	f32 sp244 = 0;
+	f32 newspeedforwards = 0;
 	Mtxf sp180;
 	Mtxf sp116;
 	f32 sp100[4];
@@ -2077,12 +2078,12 @@ void bmove_update_head(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	f32 sp68[4];
 
 	if (g_Vars.currentplayer->isdead == false) {
-		bhead_adjust_animation(arg0);
+		bhead_adjust_animation(heartrate);
 
-		if (arg0 != 0) {
-			sp244 = arg1 / arg0;
-		} else if (arg1 == 0) {
-			arg0 = 0;
+		if (heartrate != 0) {
+			newspeedforwards = speedforwards / heartrate;
+		} else if (speedforwards == 0) {
+			heartrate = 0;
 		}
 	} else {
 		if (g_Vars.currentplayer->startnewbonddie) {
@@ -2091,10 +2092,10 @@ void bmove_update_head(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 		}
 
 		bhead_set_speed(0.5);
-		arg2 = 0;
+		speedsideways = 0;
 	}
 
-	bhead_update(sp244, arg2);
+	bhead_update(newspeedforwards, speedsideways);
 	mtx4_load_x_rotation(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), &sp180);
 
 	if (options_get_head_roll(g_Vars.currentplayerstats->mpindex)) {
@@ -2108,9 +2109,9 @@ void bmove_update_head(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	mtx4_load_y_rotation(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), &sp116);
 	mtx4_mult_mtx4_in_place(&sp116, &sp180);
 
-	if (arg3) {
+	if (mtx) {
 		quaternion0f097044(&sp180, sp100);
-		quaternion0f097044(arg3, sp84);
+		quaternion0f097044(mtx, sp84);
 		quaternion0f0976c0(sp100, sp84);
 		quaternion_slerp(sp100, sp84, arg4, sp68);
 		quaternion_to_mtx(sp68, &sp180);
@@ -2124,9 +2125,9 @@ void bmove_update_head(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4)
 	g_Vars.currentplayer->bond2.unk28.z = sp180.m[1][2];
 }
 
-void bmove0f0cc654(f32 arg0, f32 arg1, f32 arg2)
+void bmove_update_head(f32 heartrate, f32 speedforwards, f32 speedsideways)
 {
-	bmove_update_head(arg0, arg1, arg2, NULL, 0);
+	bmove_update_head_with_mtx(heartrate, speedforwards, speedsideways, NULL, 0);
 }
 
 s32 bmove_get_crouch_pos(void)

@@ -5325,7 +5325,7 @@ s32 player_tick_third_person(struct prop *prop)
 			}
 
 			bmove_update_verta();
-			bmove0f0cc19c(&sp9c);
+			bmove_set_pos(&sp9c);
 
 			return tickop1;
 		}

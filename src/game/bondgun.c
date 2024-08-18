@@ -2128,7 +2128,7 @@ bool bgun_tick_recoil(struct hand *hand, struct handweaponinfo *info, s32 handnu
 
 			hand->rotxend = M_BADTAU - (recoilangle * M_BADTAU) / 360.0f;
 
-			hand->posend.x = (func0f0b131c(handnum) - hand->aimpos.x) * recoildist / 1000.0f;
+			hand->posend.x = (hand_get_xpos(handnum) - hand->aimpos.x) * recoildist / 1000.0f;
 			hand->posend.y = 0;
 			hand->posend.z = (weapondef->posz - hand->aimpos.z) * recoildist / 1000.0f;
 
@@ -3444,7 +3444,7 @@ void bgun_update_blend(struct hand *hand, s32 handnum)
 	sp5c.x += hand->adjustdamp.x;
 	sp5c.y += hand->adjustdamp.y;
 
-	sp5c.x += hand_get_x_shift(handnum);
+	sp5c.x += hand_get_xshift(handnum);
 
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
 		hand->damppossum.x = (PAL ? 0.9847f : 0.9872f) * hand->damppossum.x + sp5c.f[0];
@@ -7557,7 +7557,7 @@ void bgun0f0a5550(s32 handnum)
 	}
 
 	if (handnum == HAND_RIGHT) {
-		sp274.x = func0f0b131c(handnum) + hand->damppos.f[0] + hand->adjustpos.f[0];
+		sp274.x = hand_get_xpos(handnum) + hand->damppos.f[0] + hand->adjustpos.f[0];
 		sp274.y = weapondef->posy + hand->damppos.f[1] + hand->adjustpos.f[1];
 		sp274.z = weapondef->posz + hand->damppos.f[2] + hand->adjustpos.f[2];
 	} else if (isdetonator) {
@@ -7565,7 +7565,7 @@ void bgun0f0a5550(s32 handnum)
 		sp274.y = -16.5f + hand->damppos.f[1] + hand->adjustpos.f[1];
 		sp274.z = -16.0f + hand->damppos.f[2] + hand->adjustpos.f[2];
 	} else {
-		sp274.x = func0f0b131c(handnum) + hand->damppos.f[0] - hand->adjustpos.f[0];
+		sp274.x = hand_get_xpos(handnum) + hand->damppos.f[0] - hand->adjustpos.f[0];
 		sp274.y = weapondef->posy + hand->damppos.f[1] + hand->adjustpos.f[1];
 		sp274.z = weapondef->posz + hand->damppos.f[2] + hand->adjustpos.f[2];
 	}
@@ -11937,11 +11937,11 @@ void bgun_set_aim_pos(struct coord *coord)
 {
 	struct player *player = g_Vars.currentplayer;
 
-	player->hands[HAND_RIGHT].aimpos.x = hand_get_x_shift(HAND_RIGHT) + coord->x;
+	player->hands[HAND_RIGHT].aimpos.x = hand_get_xshift(HAND_RIGHT) + coord->x;
 	player->hands[HAND_RIGHT].aimpos.y = coord->y;
 	player->hands[HAND_RIGHT].aimpos.z = coord->z;
 
-	player->hands[HAND_LEFT].aimpos.x = hand_get_x_shift(HAND_LEFT) + coord->x;
+	player->hands[HAND_LEFT].aimpos.x = hand_get_xshift(HAND_LEFT) + coord->x;
 	player->hands[HAND_LEFT].aimpos.y = coord->y;
 	player->hands[HAND_LEFT].aimpos.z = coord->z;
 }

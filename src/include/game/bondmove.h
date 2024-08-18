@@ -33,14 +33,14 @@ void bmove_process_input(bool allowc1x, bool allowc1y, bool allowc1buttons, bool
 void bmove_find_entered_rooms_by_pos(struct player *player, struct coord *arg1, RoomNum *rooms);
 void bmove_find_entered_rooms(struct player *player, RoomNum *rooms);
 void bmove_update_rooms(struct player *player);
-void bmove0f0cb904(struct coord *coord);
-void bmove0f0cba88(f32 *a, f32 *b, struct coord *c, f32 mult1, f32 mult2);
+void bmove_dampen_shotspeed(struct coord *shotspeed);
+void bmove_shotspeed_to_lateral(f32 *forward, f32 *sideways, struct coord *shotspeed, f32 sintheta, f32 costheta);
 void bmove_update_move_init_speed(struct coord *newpos);
 void bmove_tick(bool allowc1x, bool allowc1y, bool allowc1buttons, bool ignorec2);
 void bmove_update_verta(void);
-void bmove0f0cc19c(struct coord *arg);
-void bmove_update_head(f32 arg0, f32 arg1, f32 arg2, Mtxf *arg3, f32 arg4);
-void bmove0f0cc654(f32 arg0, f32 arg1, f32 arg2);
+void bmove_set_pos(struct coord *pos);
+void bmove_update_head_with_mtx(f32 heartrate, f32 speedforwards, f32 speedsideways, Mtxf *mtx, f32 arg4);
+void bmove_update_head(f32 heartrate, f32 speedforwards, f32 speedsideways);
 s32 bmove_get_crouch_pos(void);
 s32 bmove_get_crouch_pos_by_player(s32 playernum);
 

@@ -108,7 +108,7 @@ void bhead_set_damp(f32 headdamp)
 	}
 }
 
-void bhead_update(f32 arg0, f32 arg1)
+void bhead_update(f32 speedforwards, f32 speedsideways)
 {
 	struct coord headpos = {0, 0, 0};
 	struct coord lookvel = {0, 0, 1};
@@ -170,8 +170,8 @@ void bhead_update(f32 arg0, f32 arg1)
 	}
 
 	if (animspeed > 0) {
-		g_Vars.currentplayer->bondheadmatrices[0].m[3][0] += arg1;
-		g_Vars.currentplayer->bondheadmatrices[0].m[3][2] *= arg0;
+		g_Vars.currentplayer->bondheadmatrices[0].m[3][0] += speedsideways;
+		g_Vars.currentplayer->bondheadmatrices[0].m[3][2] *= speedforwards;
 
 		if (g_Vars.lvupdate240 > 0) {
 			g_Vars.currentplayer->bondheadmatrices[0].m[3][0] /= g_Vars.lvupdate60freal;

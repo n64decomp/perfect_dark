@@ -1376,8 +1376,8 @@ void bwalk0f0c69b8(void)
 	f32 spdc;
 	f32 spd8;
 	struct coord spcc = {0, 0, 0};
-	f32 spc8;
-	f32 spc4;
+	f32 shotforwards;
+	f32 shotsideways;
 	f32 spc0;
 	f32 tmp1;
 	f32 tmp2;
@@ -1396,7 +1396,7 @@ void bwalk0f0c69b8(void)
 	f32 speedforwards;
 	f32 speedsideways;
 	f32 speedtheta;
-	f32 maxspeed;
+	f32 heartrate;
 	f32 sp74;
 	f32 radius;
 	f32 ymax;
@@ -1442,7 +1442,7 @@ void bwalk0f0c69b8(void)
 
 		g_Vars.currentplayer->walkinitt2 = 1.0f - (cosf(g_Vars.currentplayer->walkinitt * M_BADPI) + 1.0f) * 0.5f;
 
-		bmove_update_head(0.0f, 0.0f, 0.0f, &g_Vars.currentplayer->walkinitmtx, 1.0f - g_Vars.currentplayer->walkinitt2);
+		bmove_update_head_with_mtx(0.0f, 0.0f, 0.0f, &g_Vars.currentplayer->walkinitmtx, 1.0f - g_Vars.currentplayer->walkinitt2);
 
 		g_Vars.currentplayer->gunspeed = 0.0f;
 
@@ -1452,8 +1452,7 @@ void bwalk0f0c69b8(void)
 		bwalk_apply_crouch_speed();
 		bwalk_update_crouch_offset();
 
-		bmove0f0cba88(&spc8, &spc4,
-				&g_Vars.currentplayer->bondshotspeed,
+		bmove_shotspeed_to_lateral(&shotforwards, &shotsideways, &g_Vars.currentplayer->bondshotspeed,
 				g_Vars.currentplayer->vv_sintheta, g_Vars.currentplayer->vv_costheta);
 
 		tmp1 = -g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.unk00.f[2];
@@ -1501,8 +1500,8 @@ void bwalk0f0c69b8(void)
 			spb0 *= spa8;
 		}
 
-		speedsideways = (g_Vars.currentplayer->speedsideways + spc4) * 0.8f;
-		speedforwards = g_Vars.currentplayer->speedforwards + spc8;
+		speedsideways = (g_Vars.currentplayer->speedsideways + shotsideways) * 0.8f;
+		speedforwards = g_Vars.currentplayer->speedforwards + shotforwards;
 		speedtheta = g_Vars.currentplayer->speedtheta * 0.8f;
 
 		if (speedsideways < 0.0f) {
@@ -1517,24 +1516,24 @@ void bwalk0f0c69b8(void)
 			speedtheta = -speedtheta;
 		}
 
-		maxspeed = speedforwards;
+		heartrate = speedforwards;
 
-		if (speedsideways > maxspeed) {
-			maxspeed = speedsideways;
+		if (speedsideways > heartrate) {
+			heartrate = speedsideways;
 		}
 
-		if (speedtheta > maxspeed) {
-			maxspeed = speedtheta;
+		if (speedtheta > heartrate) {
+			heartrate = speedtheta;
 		}
 
-		if (dist >= 0.1f && maxspeed < 0.8f) {
-			maxspeed = 0.8f;
+		if (dist >= 0.1f && heartrate < 0.8f) {
+			heartrate = 0.8f;
 		}
 
-		if (maxspeed >= 0.75f) {
-			g_Vars.currentplayer->bondbreathing += (maxspeed - 0.75f) * g_Vars.lvupdate60freal / 900;
+		if (heartrate >= 0.75f) {
+			g_Vars.currentplayer->bondbreathing += (heartrate - 0.75f) * g_Vars.lvupdate60freal / 900;
 		} else {
-			g_Vars.currentplayer->bondbreathing -= (0.75f - maxspeed) * g_Vars.lvupdate60freal / 2700;
+			g_Vars.currentplayer->bondbreathing -= (0.75f - heartrate) * g_Vars.lvupdate60freal / 2700;
 		}
 
 		if (g_Vars.currentplayer->bondbreathing < 0.0f) {
@@ -1544,7 +1543,7 @@ void bwalk0f0c69b8(void)
 		}
 
 		mult = g_HeadAnims[HEADANIM_MOVING].translateperframe * 0.5f * g_Vars.lvupdate60freal;
-		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + spc4) * mult;
+		spe0 = (g_Vars.currentplayer->speedsideways * spc0 + shotsideways) * mult;
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (cheat_is_active(CHEAT_SMALLJO)) {
@@ -1552,9 +1551,9 @@ void bwalk0f0c69b8(void)
 		}
 #endif
 
-		bmove0f0cc654(maxspeed, g_Vars.currentplayer->speedforwards * spc0 + spc8, spe0);
+		bmove_update_head(heartrate, g_Vars.currentplayer->speedforwards * spc0 + shotforwards, spe0);
 
-		g_Vars.currentplayer->gunspeed = maxspeed;
+		g_Vars.currentplayer->gunspeed = heartrate;
 
 		spdc = g_Vars.currentplayer->headpos.x;
 		spd8 = g_Vars.currentplayer->headpos.z;
@@ -1773,9 +1772,9 @@ void bwalk_tick(void)
 		coord.z = (g_Vars.currentplayer->walkinitstart.z - g_Vars.currentplayer->walkinitpos.z)
 			* (1.0f - g_Vars.currentplayer->walkinitt2) + g_Vars.currentplayer->prop->pos.z;
 
-		bmove0f0cc19c(&coord);
+		bmove_set_pos(&coord);
 	} else {
-		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
+		bmove_set_pos(&g_Vars.currentplayer->prop->pos);
 	}
 
 	player_update_perim_info();

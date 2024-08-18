@@ -1015,8 +1015,8 @@ void bgrab0f0ce924(void)
 	f32 sp84;
 	f32 sp80;
 	struct coord sp74 = {0, 0, 0};
-	f32 sp70;
-	f32 sp6c;
+	f32 shotforwards;
+	f32 shotsideways;
 	f32 speedforwards;
 	f32 speedsideways;
 	f32 speedtheta;
@@ -1033,10 +1033,11 @@ void bgrab0f0ce924(void)
 	f32 breathing;
 
 	if (g_Vars.lvupdate240 > 0) {
-		bmove0f0cba88(&sp70, &sp6c, &g_Vars.currentplayer->bondshotspeed, g_Vars.currentplayer->vv_sintheta, g_Vars.currentplayer->vv_costheta);
+		bmove_shotspeed_to_lateral(&shotforwards, &shotsideways, &g_Vars.currentplayer->bondshotspeed,
+				g_Vars.currentplayer->vv_sintheta, g_Vars.currentplayer->vv_costheta);
 
-		g_Vars.currentplayer->speedforwards += sp70;
-		g_Vars.currentplayer->speedsideways += sp6c;
+		g_Vars.currentplayer->speedforwards += shotforwards;
+		g_Vars.currentplayer->speedsideways += shotsideways;
 
 		mult = g_HeadAnims[HEADANIM_MOVING].translateperframe * 0.5f * g_Vars.lvupdate60freal;
 		sp88 = mult * g_Vars.currentplayer->speedsideways;
@@ -1079,7 +1080,7 @@ void bgrab0f0ce924(void)
 			g_Vars.currentplayer->bondbreathing = 1.0f;
 		}
 
-		bmove0f0cc654(maxspeed, g_Vars.currentplayer->speedforwards, sp88);
+		bmove_update_head(maxspeed, g_Vars.currentplayer->speedforwards, sp88);
 
 		g_Vars.currentplayer->gunspeed = maxspeed;
 
@@ -1200,7 +1201,7 @@ void bgrab_tick(void)
 
 		bmove_update_rooms(g_Vars.currentplayer);
 		objective_check_room_entered(g_Vars.currentplayer->prop->rooms[0]);
-		bmove0f0cc19c(&g_Vars.currentplayer->prop->pos);
+		bmove_set_pos(&g_Vars.currentplayer->prop->pos);
 		player_update_perim_info();
 		doors_check_automatic();
 
