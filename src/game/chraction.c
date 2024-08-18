@@ -7706,7 +7706,7 @@ void chr_punch_inflict_damage(struct chrdata *chr, s32 damage, s32 range, u8 rev
 		}
 	}
 
-	weapon_play_whoosh_sound(gset.weaponnum, chr->prop);
+	weapon_play_melee_miss_sound(gset.weaponnum, chr->prop);
 }
 
 struct punchanim {

@@ -495,8 +495,8 @@ void objective_check_holograph(f32 maxdist)
 					&& obj->prop->z >= 0
 					&& obj_is_healthy(obj)) {
 				struct coord sp9c;
-				f32 sp94[2];
-				f32 sp8c[2];
+				f32 xrange[2];
+				f32 yrange[2];
 				f32 dist = -1;
 
 				if (maxdist != 0.0f) {
@@ -506,10 +506,10 @@ void objective_check_holograph(f32 maxdist)
 					maxdist = maxdist * maxdist;
 				}
 
-				if (dist < maxdist && func0f0899dc(obj->prop, &sp9c, sp94, sp8c)) {
+				if (dist < maxdist && func0f0899dc(obj->prop, &sp9c, xrange, yrange)) {
 					f32 sp78[2];
 					f32 sp70[2];
-					func0f06803c(&sp9c, sp94, sp8c, sp78, sp70);
+					func0f06803c(&sp9c, xrange, yrange, sp78, sp70);
 
 					if (sp78[0] > cam_get_screen_left()
 							&& sp78[0] < cam_get_screen_left() + cam_get_screen_width()

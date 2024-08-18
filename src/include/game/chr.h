@@ -50,7 +50,7 @@ void chr_test_hit(struct prop *prop, struct shotdata *shotdata, bool isshooting,
 void chr_hit(struct shotdata *shotdata, struct hit *hit);
 void chranimdebug_everyone(bool enable);
 void chrs_check_for_noise(f32 noiseradius);
-bool chr_calculate_auto_aim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3);
+bool chr_calculate_autoaim(struct prop *prop, struct coord *screenpos, f32 *xrange, f32 *yrange);
 s32 shieldhit_node_to_cmnum(struct prop *arg0, struct modelnode *node, struct model *model, struct prop *arg3);
 bool shieldhit_cmnum_to_node(s32 arg0, struct prop *prop, struct prop **propptr, struct modelnode **nodeptr, struct model **modelptr);
 void shieldhit_create(struct prop *rootprop, f32 shield, struct prop *hitprop, struct modelnode *node, struct model *model, s32 side, s16 *arg6);

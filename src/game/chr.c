@@ -5005,7 +5005,7 @@ f32 chr_get_ground(struct prop *prop)
 	return chr->ground;
 }
 
-bool chr_calculate_auto_aim(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
+bool chr_calculate_autoaim(struct prop *prop, struct coord *screenpos, f32 *xrange, f32 *yrange)
 {
 	struct chrdata *chr = prop->chr;
 
@@ -5026,36 +5026,36 @@ bool chr_calculate_auto_aim(struct prop *prop, struct coord *arg1, f32 *arg2, f3
 		if (model->definition->skel == &g_SkelChr) {
 			mtx1 = &model->matrices[0];
 			mtx2 = &model->matrices[1];
-			arg1->z = mtx2->m[3][2] + (mtx1->m[3][2] - mtx2->m[3][2]) * 0.5f;
+			screenpos->z = mtx2->m[3][2] + (mtx1->m[3][2] - mtx2->m[3][2]) * 0.5f;
 		} else if (model->definition->skel == &g_SkelSkedar) {
 			mtx2 = &model->matrices[0];
-			arg1->z = mtx2->m[3][2];
+			screenpos->z = mtx2->m[3][2];
 		} else if (model->definition->skel == &g_SkelDrCaroll) {
 			mtx2 = &model->matrices[0];
-			arg1->z = mtx2->m[3][2];
+			screenpos->z = mtx2->m[3][2];
 		} else {
-			arg1->z = model->matrices[0].m[3][2];
+			screenpos->z = model->matrices[0].m[3][2];
 		}
 
-		if (arg1->z < 0) {
+		if (screenpos->z < 0) {
 			if (model->definition->skel == &g_SkelChr) {
-				arg1->x = mtx2->m[3][0] + (mtx1->m[3][0] - mtx2->m[3][0]) * 0.5f;
-				arg1->y = mtx2->m[3][1] + (mtx1->m[3][1] - mtx2->m[3][1]) * 0.5f;
+				screenpos->x = mtx2->m[3][0] + (mtx1->m[3][0] - mtx2->m[3][0]) * 0.5f;
+				screenpos->y = mtx2->m[3][1] + (mtx1->m[3][1] - mtx2->m[3][1]) * 0.5f;
 			} else if (model->definition->skel == &g_SkelSkedar) {
-				arg1->x = mtx2->m[3][0];
-				arg1->y = mtx2->m[3][1];
+				screenpos->x = mtx2->m[3][0];
+				screenpos->y = mtx2->m[3][1];
 			} else if (model->definition->skel == &g_SkelDrCaroll) {
-				arg1->x = mtx2->m[3][0];
-				arg1->y = mtx2->m[3][1];
+				screenpos->x = mtx2->m[3][0];
+				screenpos->y = mtx2->m[3][1];
 			} else {
-				arg1->x = model->matrices[0].m[3][0];
-				arg1->y = model->matrices[0].m[3][1];
+				screenpos->x = model->matrices[0].m[3][0];
+				screenpos->y = model->matrices[0].m[3][1];
 			}
 
-			arg3[0] = arg3[1] = 0;
-			arg2[0] = arg2[1] = 0;
+			yrange[0] = yrange[1] = 0;
+			xrange[0] = xrange[1] = 0;
 
-			func0f067d88(model, &arg2[1], &arg2[0], &arg3[1], &arg3[0]);
+			model_get_screen_coords3(model, &xrange[1], &xrange[0], &yrange[1], &yrange[0]);
 
 			return true;
 		}

@@ -784,7 +784,7 @@ bool func0f0679ac(struct model *model, f32 *max, f32 *min, f32 arg3[2], f32 arg4
 	return !first;
 }
 
-void func0f067bc4(struct model *model, f32 *max, f32 *min, s32 axis)
+void model_get_screen_coords_by_axis(struct model *model, f32 *max, f32 *min, s32 axis)
 {
 	struct modelnode *node = model->definition->rootnode;
 	bool first = true;
@@ -837,10 +837,10 @@ void func0f067bc4(struct model *model, f32 *max, f32 *min, s32 axis)
 	}
 }
 
-void func0f067d88(struct model *model, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+void model_get_screen_coords3(struct model *model, f32 *xmax, f32 *xmin, f32 *ymax, f32 *ymin)
 {
-	func0f067bc4(model, arg1, arg2, 0);
-	func0f067bc4(model, arg3, arg4, 1);
+	model_get_screen_coords_by_axis(model, xmax, xmin, 0);
+	model_get_screen_coords_by_axis(model, ymax, ymin, 1);
 }
 
 bool model_get_screen_coords2(struct model *model, f32 *x2, f32 *x1, f32 *y2, f32 *y1)
@@ -17642,7 +17642,7 @@ s32 obj_test_for_pickup(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
+bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *xrange, f32 *yrange)
 {
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		struct defaultobj *obj = prop->obj;
@@ -17654,13 +17654,13 @@ bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3)
 			arg1->x = matrix->m[3][0];
 			arg1->y = matrix->m[3][1];
 
-			arg3[0] = 0;
-			arg3[1] = 0;
+			yrange[0] = 0;
+			yrange[1] = 0;
 
-			arg2[0] = 0;
-			arg2[1] = 0;
+			xrange[0] = 0;
+			xrange[1] = 0;
 
-			func0f067d88(obj->model, &arg2[1], &arg2[0], &arg3[1], &arg3[0]);
+			model_get_screen_coords3(obj->model, &xrange[1], &xrange[0], &yrange[1], &yrange[0]);
 
 			return true;
 		}

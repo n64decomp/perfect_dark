@@ -447,7 +447,7 @@ Gfx *props_render(Gfx *gdl, RoomNum renderroomnum, s32 renderpass, RoomNum *room
 	return gdl;
 }
 
-void weapon_play_whoosh_sound(s32 weaponnum, struct prop *prop)
+void weapon_play_melee_miss_sound(s32 weaponnum, struct prop *prop)
 {
 	s32 soundnum = -1;
 	f32 speed = 1;
@@ -498,7 +498,7 @@ void weapon_play_whoosh_sound(s32 weaponnum, struct prop *prop)
  * This is similar to the above but the sound numbers seem wrong...
  * Perhaps the function was from GE and not updated for PD.
  */
-void func0f060bac(s32 weaponnum, struct prop *prop)
+void weapon_play_melee_hit_sound(s32 weaponnum, struct prop *prop)
 {
 	s32 soundnum = -1;
 	f32 speed = 1;
@@ -923,7 +923,7 @@ struct prop *shot_calculate_hits(s32 handnum, bool isshooting, struct coord *gun
 		}
 
 		if (hitaprop || hitbg) {
-			func0f060bac(shotdata.gset.weaponnum, g_Vars.currentplayer->prop);
+			weapon_play_melee_hit_sound(shotdata.gset.weaponnum, g_Vars.currentplayer->prop);
 
 			if (shotdata.gset.weaponnum != WEAPON_UNARMED && shotdata.gset.weaponnum != WEAPON_TRANQUILIZER) {
 				if (hitaprop) {
@@ -933,7 +933,7 @@ struct prop *shot_calculate_hits(s32 handnum, bool isshooting, struct coord *gun
 				}
 			}
 		} else {
-			weapon_play_whoosh_sound(shotdata.gset.weaponnum, g_Vars.currentplayer->prop);
+			weapon_play_melee_miss_sound(shotdata.gset.weaponnum, g_Vars.currentplayer->prop);
 		}
 	} else {
 		// The caller is querying which prop is being aimed at rather than taking a shot.
@@ -2375,7 +2375,7 @@ void props_test_for_pickup(void)
 	}
 }
 
-f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool throughobjects, bool cangangsta, s32 arg7)
+f32 prop_calculate_autoaim_score(struct prop *prop, struct coord *screenpos, f32 *xrange, f32 *yrange, f32 *aimpos, bool throughobjects, bool cangangsta, bool forcefullscreen)
 {
 	f32 spa0[2];
 	struct coord sp94;
@@ -2391,17 +2391,17 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 	f32 right;
 	f32 result = -2;
 	struct weaponfunc *func = current_player_get_weapon_function(HAND_RIGHT);
-	bool sp50 = arg7;
+	bool usefullscreen = forcefullscreen;
 	bool sp4c;
 	f32 sp48;
 	struct prop *playerprop;
 	s32 ok;
 
 	if (func && bgun0f0a27c8()) {
-		sp50 = true;
+		usefullscreen = true;
 	}
 
-	if (sp50) {
+	if (usefullscreen) {
 		top = cam_get_screen_top();
 		bottom = cam_get_screen_top() + cam_get_screen_height();
 		left = cam_get_screen_left();
@@ -2413,26 +2413,26 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 		right = cam_get_screen_left() + cam_get_screen_width() * 0.75f;
 	}
 
-	if (arg1->z > -2.5f) {
+	if (screenpos->z > -2.5f) {
 		return -1;
 	}
 
-	cam0f0b4d04(arg1, spa0);
-	sp94.x = arg2[0];
-	sp94.y = arg1->y;
-	sp94.z = arg1->z;
+	cam0f0b4d04(screenpos, spa0);
+	sp94.x = xrange[0];
+	sp94.y = screenpos->y;
+	sp94.z = screenpos->z;
 	cam0f0b4d04(&sp94, sp8c);
-	sp94.x = arg2[1];
-	sp94.y = arg1->y;
-	sp94.z = arg1->z;
+	sp94.x = xrange[1];
+	sp94.y = screenpos->y;
+	sp94.z = screenpos->z;
 	cam0f0b4d04(&sp94, sp84);
-	sp94.x = arg1->x;
-	sp94.y = arg3[1];
-	sp94.z = arg1->z;
+	sp94.x = screenpos->x;
+	sp94.y = yrange[1];
+	sp94.z = screenpos->z;
 	cam0f0b4d04(&sp94, sp7c);
-	sp94.x = arg1->x;
-	sp94.y = arg3[0];
-	sp94.z = arg1->z;
+	sp94.x = screenpos->x;
+	sp94.y = yrange[0];
+	sp94.z = screenpos->z;
 	cam0f0b4d04(&sp94, sp74);
 
 	if (sp74[1] >= top && bottom >= sp7c[1]) {
@@ -2482,7 +2482,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 					value = bottom;
 				}
 
-				arg4[1] = value;
+				aimpos[1] = value;
 
 				if (bmove_is_auto_aim_x_enabled_for_current_weapon() || cangangsta) {
 					f32 value = spa0[0];
@@ -2493,7 +2493,7 @@ f32 func0f06438c(struct prop *prop, struct coord *arg1, f32 *arg2, f32 *arg3, f3
 						value = right;
 					}
 
-					arg4[0] = value;
+					aimpos[0] = value;
 				}
 
 				if (cam_get_screen_left() + 0.5f * cam_get_screen_width() >= sp8c[0]
@@ -2686,13 +2686,13 @@ void autoaim_tick(void)
 				|| bmove_is_auto_aim_x_enabled_for_current_weapon()
 				|| cangangsta) && !ismelee) {
 		// Standard auto aim
-		f32 bestthing = -1;
+		f32 bestscore = -1;
 		struct prop *prop;
-		struct coord sp94;
-		f32 sp8c[2];
-		f32 sp84[2];
+		struct coord screenpos;
+		f32 xrange[2];
+		f32 yrange[2];
 		struct chrdata *chr;
-		f32 sp78[2];
+		f32 thisaimpos[2];
 		struct prop **ptr = g_Vars.endonscreenprops - 1;
 
 		// Iterate onscreen props near to far
@@ -2709,16 +2709,16 @@ void autoaim_tick(void)
 								|| chr_get_held_prop(chr, HAND_LEFT)
 								|| (chr->chrflags & CHRCFLAG_FORCEAUTOAIM)
 								|| chr->gunprop)
-							&& chr_calculate_auto_aim(prop, &sp94, sp8c, sp84)) {
-						f32 thing = func0f06438c(prop, &sp94, sp8c, sp84, sp78, false, cangangsta, 0);
+							&& chr_calculate_autoaim(prop, &screenpos, xrange, yrange)) {
+						f32 score = prop_calculate_autoaim_score(prop, &screenpos, xrange, yrange, thisaimpos, false, cangangsta, 0);
 
-						if (thing > bestthing) {
-							bestthing = thing;
-							aimpos[0] = sp78[0];
-							aimpos[1] = sp78[1];
+						if (score > bestscore) {
+							bestscore = score;
+							aimpos[0] = thisaimpos[0];
+							aimpos[1] = thisaimpos[1];
 							bestprop = prop;
 
-							if (thing >= 1) {
+							if (score >= 1) {
 								break;
 							}
 						}
@@ -3308,7 +3308,7 @@ void props_defrag_room_props(void)
 	}
 }
 
-void func0f0661fc(void)
+void prop_debug_roomblocks(void)
 {
 	// empty
 }
