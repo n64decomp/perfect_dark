@@ -1331,90 +1331,90 @@ s32 g_NumBgChrs = 0;
 s16 *g_TeamList = NULL;
 s16 *g_SquadronList = NULL;
 
-struct var80067e6c var80067e6c[] = {
-	{ ANIM_0028, 0 },
+struct animdist g_ChrAvgAnimMoveDistsHuman[] = {
+	{ ANIM_0028,               0 },
 	{ ANIM_RUNNING_TWOHANDGUN, 0 },
-	{ ANIM_0029, 0 },
-	{ ANIM_006B, 0 },
+	{ ANIM_0029,               0 },
+	{ ANIM_006B,               0 },
 	{ ANIM_RUNNING_ONEHANDGUN, 0 },
-	{ ANIM_005A, 0 },
-	{ ANIM_0072, 0 },
-	{ ANIM_0073, 0 },
-	{ ANIM_005A, 0 },
-	{ ANIM_006C, 0 },
-	{ ANIM_0030, 0 },
-	{ ANIM_0031, 0 },
-	{ ANIM_0052, 0 },
-	{ ANIM_0055, 0 },
-	{ ANIM_006E, 0 },
-	{ ANIM_006F, 0 },
-	{ ANIM_0057, 0 },
-	{ ANIM_0056, 0 },
-	{ ANIM_006D, 0 },
+	{ ANIM_005A,               0 },
+	{ ANIM_0072,               0 },
+	{ ANIM_0073,               0 },
+	{ ANIM_005A,               0 },
+	{ ANIM_006C,               0 },
+	{ ANIM_0030,               0 },
+	{ ANIM_0031,               0 },
+	{ ANIM_0052,               0 },
+	{ ANIM_0055,               0 },
+	{ ANIM_006E,               0 },
+	{ ANIM_006F,               0 },
+	{ ANIM_0057,               0 },
+	{ ANIM_0056,               0 },
+	{ ANIM_006D,               0 },
 	{ ANIM_RUNNING_ONEHANDGUN, 0 },
-	{ ANIM_020A, 0 },
-	{ ANIM_020D, 0 },
-	{ ANIM_01F9, 0 },
-	{ ANIM_01F8, 0 },
-	{ ANIM_021D, 0 },
-	{ ANIM_0016, 0 },
-	{ ANIM_0018, 0 },
-	{ ANIM_001B, 0 },
-	{ ANIM_001D, 0 },
-	{ ANIM_001E, 0 },
-	{ ANIM_005C, 0 },
-	{ ANIM_005D, 0 },
-	{ ANIM_005E, 0 },
-	{ ANIM_005F, 0 },
+	{ ANIM_020A,               0 },
+	{ ANIM_020D,               0 },
+	{ ANIM_01F9,               0 },
+	{ ANIM_01F8,               0 },
+	{ ANIM_021D,               0 },
+	{ ANIM_0016,               0 },
+	{ ANIM_0018,               0 },
+	{ ANIM_001B,               0 },
+	{ ANIM_001D,               0 },
+	{ ANIM_001E,               0 },
+	{ ANIM_005C,               0 },
+	{ ANIM_005D,               0 },
+	{ ANIM_005E,               0 },
+	{ ANIM_005F,               0 },
 	{ -1 },
 };
 
-struct var80067e6c var80067f84[] = {
-	{ ANIM_0392, 0 },
-	{ ANIM_0393, 0 },
+struct animdist g_ChrAvgAnimMoveDistsSkedar[] = {
+	{ ANIM_0392,           0 },
+	{ ANIM_0393,           0 },
 	{ ANIM_SKEDAR_RUNNING, 0 },
 	{ -1 },
 };
 
-struct var80067e6c var80067fa4[] = {
+struct animdist g_ChrAvgAnimMoveDistsDrCaroll[] = {
 	{ ANIM_015F, 0 },
 	{ ANIM_0160, 0 },
 	{ -1 },
 };
 
-struct var80067e6c var80067fbc[] = {
+struct animdist g_ChrAvgAnimMoveDistsEyespy[] = {
 	{ ANIM_015F, 0 },
 	{ -1 },
 };
 
-struct var80067e6c var80067fcc[] = {
+struct animdist g_ChrAvgAnimMoveDistsRobot[] = {
 	{ ANIM_0238, 0 },
 	{ -1 },
 };
 
-struct var80067e6c *var80067fdc[] = {
-	var80067e6c,
-	var80067f84,
-	var80067fa4,
-	var80067fbc,
-	var80067fcc,
+struct animdist *g_ChrAvgAnimMoveDists[] = {
+	g_ChrAvgAnimMoveDistsHuman,
+	g_ChrAvgAnimMoveDistsSkedar,
+	g_ChrAvgAnimMoveDistsDrCaroll,
+	g_ChrAvgAnimMoveDistsEyespy,
+	g_ChrAvgAnimMoveDistsRobot,
 };
 
-f32 func0f02dff0(s16 animnum)
+f32 chr_get_anim_movedist_per_frame(s16 animnum)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(var80067fdc); i++) {
+	for (i = 0; i < ARRAYCOUNT(g_ChrAvgAnimMoveDists); i++) {
 		s32 j = 0;
-		s16 thisanimnum = var80067fdc[i][j].animnum;
+		s16 thisanimnum = g_ChrAvgAnimMoveDists[i][j].animnum;
 
 		while (thisanimnum >= 0) {
 			if (thisanimnum == animnum) {
-				return var80067fdc[i][j].value;
+				return g_ChrAvgAnimMoveDists[i][j].value;
 			}
 
 			j++;
-			thisanimnum = var80067fdc[i][j].animnum;
+			thisanimnum = g_ChrAvgAnimMoveDists[i][j].animnum;
 		}
 	}
 
@@ -2169,28 +2169,16 @@ void chr_run_pos_choose_animation(struct chrdata *chr)
 	if (race == RACE_HUMAN) {
 		if (heavy) {
 			f32 mult = 0.5;
-#if PAL
-			chr->act_runpos.eta60 = 1.0f / (func0f02dff0(ANIM_RUNNING_TWOHANDGUN) * mult) * distance * 0.83333331346512f;
-#else
-			chr->act_runpos.eta60 = 1.0f / (func0f02dff0(ANIM_RUNNING_TWOHANDGUN) * mult) * distance;
-#endif
+			chr->act_runpos.eta60 = PALDOWNF(1.0f / (chr_get_anim_movedist_per_frame(ANIM_RUNNING_TWOHANDGUN) * mult) * distance);
 			model_set_animation(chr->model, ANIM_RUNNING_TWOHANDGUN, flip, 0, mult, 16);
 		} else {
 			f32 mult = 0.5;
-#if PAL
-			chr->act_runpos.eta60 = 1.0f / (func0f02dff0(ANIM_RUNNING_ONEHANDGUN) * mult) * distance * 0.83333331346512f;
-#else
-			chr->act_runpos.eta60 = 1.0f / (func0f02dff0(ANIM_RUNNING_ONEHANDGUN) * mult) * distance;
-#endif
+			chr->act_runpos.eta60 = PALDOWNF(1.0f / (chr_get_anim_movedist_per_frame(ANIM_RUNNING_ONEHANDGUN) * mult) * distance);
 			model_set_animation(chr->model, ANIM_RUNNING_ONEHANDGUN, flip, 0, mult, 16);
 		}
 	} else if (race == RACE_SKEDAR) {
 		f32 mult = 0.5;
-#if PAL
-		chr->act_runpos.eta60 = 1.0f / (func0f02dff0(ANIM_SKEDAR_RUNNING) * mult) * distance * 0.83333331346512f;
-#else
-		chr->act_runpos.eta60 = 1.0f / (func0f02dff0(ANIM_SKEDAR_RUNNING) * mult) * distance;
-#endif
+		chr->act_runpos.eta60 = PALDOWNF(1.0f / (chr_get_anim_movedist_per_frame(ANIM_SKEDAR_RUNNING) * mult) * distance);
 		model_set_animation(chr->model, ANIM_SKEDAR_RUNNING, flip, 0, mult, 16);
 	}
 }
@@ -5410,7 +5398,7 @@ void chr_go_pos_get_cur_waypoint_info(struct chrdata *chr, struct coord *pos, Ro
 	chr_go_pos_get_cur_waypoint_info_with_flags(chr, pos, rooms, NULL);
 }
 
-f32 func0f0370a8(struct chrdata *chr)
+f32 chr_get_run_speed(struct chrdata *chr)
 {
 	f32 result;
 
@@ -5418,7 +5406,7 @@ f32 func0f0370a8(struct chrdata *chr)
 		result = bot_calculate_max_speed(chr);
 	} else {
 		s16 animnum = model_get_anim_num(chr->model);
-		result = func0f02dff0(animnum) * (chr->model->scale * 9.999999f);
+		result = chr_get_anim_movedist_per_frame(animnum) * (chr->model->scale * 9.999999f);
 	}
 
 	return result;
@@ -5446,7 +5434,7 @@ s32 chr_go_pos_calculate_base_ttl(struct chrdata *chr)
 		zdiff = -zdiff;
 	}
 
-	speed = func0f0370a8(chr);
+	speed = chr_get_run_speed(chr);
 
 	if (chr->aibot == NULL) {
 		speed *= model_get_abs_anim_speed(chr->model);
@@ -6231,7 +6219,7 @@ void chr_patrol_choose_animation(struct chrdata *chr)
 		if (race == RACE_SKEDAR) {
 			model_set_animation(chr->model, ANIM_0392, flip, 0, 0.25f, 16);
 		} else {
-			speed = 0.5f * func0f02dff0(ANIM_0028) / func0f02dff0(ANIM_006B);
+			speed = 0.5f * chr_get_anim_movedist_per_frame(ANIM_0028) / chr_get_anim_movedist_per_frame(ANIM_006B);
 
 			if (heavy) {
 				model_set_animation(chr->model, random() % 2 ? ANIM_0018 : ANIM_0028, flip, 0, speed, 16);
@@ -11722,12 +11710,12 @@ void chr_tick_run_pos(struct chrdata *chr)
 
 		if (race == RACE_HUMAN) {
 			if (model_get_anim_num(model) == ANIM_RUNNING_ONEHANDGUN) {
-				fVar7 = func0f02dff0(ANIM_RUNNING_ONEHANDGUN);
+				fVar7 = chr_get_anim_movedist_per_frame(ANIM_RUNNING_ONEHANDGUN);
 			} else {
-				fVar7 = func0f02dff0(ANIM_RUNNING_TWOHANDGUN);
+				fVar7 = chr_get_anim_movedist_per_frame(ANIM_RUNNING_TWOHANDGUN);
 			}
 		} else if (race == RACE_SKEDAR) {
-			fVar7 = func0f02dff0(ANIM_SKEDAR_RUNNING);
+			fVar7 = chr_get_anim_movedist_per_frame(ANIM_SKEDAR_RUNNING);
 		}
 
 		chr->act_runpos.neardist += fVar7 * g_Vars.lvupdate60freal * model_get_abs_anim_speed(model);
@@ -12828,7 +12816,7 @@ void chr_tick_go_pos(struct chrdata *chr)
 			return;
 		}
 
-		chr_nav_tick_magic(chr, &chr->act_gopos.waydata, func0f0370a8(chr), &curwppos, curwprooms);
+		chr_nav_tick_magic(chr, &chr->act_gopos.waydata, chr_get_run_speed(chr), &curwppos, curwprooms);
 	} else {
 		bool advance = false;
 		bool arrivingxyz;
@@ -13069,7 +13057,7 @@ void chr_tick_patrol(struct chrdata *chr)
 			func0f037580(chr);
 		} else {
 			// Continue magic
-			chr_nav_tick_magic(chr, &chr->act_patrol.waydata, func0f0370a8(chr), &sp58, sp48);
+			chr_nav_tick_magic(chr, &chr->act_patrol.waydata, chr_get_run_speed(chr), &sp58, sp48);
 		}
 
 		footstep_check_magic(chr);

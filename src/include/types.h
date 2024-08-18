@@ -5294,7 +5294,7 @@ struct pakfileheader {
 	u32 version : 1;        // 0, but can be set to 1 using -forceversion argument
 };
 
-struct var80067e6c {
+struct animdist {
 	s16 animnum;
 	f32 value;
 };

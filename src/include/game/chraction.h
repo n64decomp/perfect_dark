@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-f32 func0f02dff0(s16 animnum);
+f32 chr_get_anim_movedist_per_frame(s16 animnum);
 bool chr_go_pos_is_waiting(struct chrdata *chr);
 bool weapon_is_one_handed(struct prop *prop);
 f32 chr_get_ranged_speed(struct chrdata *chr, f32 min, f32 max);
@@ -68,7 +68,6 @@ bool chr_can_jump_in_direction(struct chrdata *chr, bool side, f32 distance);
 bool chr_is_room_off_screen(struct chrdata *chr, struct coord *waypos, RoomNum *wayrooms);
 void chr_go_pos_init_magic(struct chrdata *chr, struct waydata *waydata, struct coord *arg2, struct coord *prevpos);
 void chr_go_pos_get_cur_waypoint_info_with_flags(struct chrdata *chr, struct coord *pos, RoomNum *rooms, u32 *flags);
-f32 func0f0370a8(struct chrdata *chr);
 s32 chr_go_pos_calculate_base_ttl(struct chrdata *chr);
 void chr_go_pos_consider_restart(struct chrdata *chr);
 void chr_go_pos_init_expensive(struct chrdata *chr);

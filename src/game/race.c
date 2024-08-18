@@ -43,10 +43,10 @@ s32 race_init_anim_group(struct attackanimconfig *configs)
 		u16 angle = race_get_anim_sum_angle_as_int(config->animnum, 0, floor(config->unk04));
 
 		if (config->unk04 > 0) {
-			if (angle < 0x8000) {
-				config->unk08 = angle * 0.00009585853695171f / config->unk04;
+			if (angle < 32768) {
+				config->unk08 = angle * (1.0f / (32768 / M_BADPI)) / config->unk04;
 			} else {
-				config->unk08 = (angle * 0.00009585853695171f - M_BADTAU) / config->unk04;
+				config->unk08 = (angle * (1.0f / (32768 / M_BADPI)) - M_BADTAU) / config->unk04;
 			}
 		} else {
 			config->unk08 = 0;
@@ -79,11 +79,11 @@ s32 race_count_anims(struct animtablerow *rows)
 	return i;
 }
 
-f32 race0f0005c0(s16 animnum)
+f32 race_get_anim_avg_forward(s16 animnum)
 {
 	f32 avgforward = race_get_anim_sum_forward_as_int(animnum, 0, anim_get_num_frames(animnum) - 1) / (f32) anim_get_num_frames(animnum);
 
-	var8005f014[animnum] = avgforward;
+	g_AnimAverageMoveDist[animnum] = avgforward;
 
 	return avgforward * 0.1000000089407f;
 }
@@ -108,8 +108,8 @@ void race_init_anims(void)
 			}
 		}
 
-		for (i = 0; var80067fdc[race][i].animnum >= 0; i++) {
-			var80067fdc[race][i].value = race0f0005c0(var80067fdc[race][i].animnum);
+		for (i = 0; g_ChrAvgAnimMoveDists[race][i].animnum >= 0; i++) {
+			g_ChrAvgAnimMoveDists[race][i].value = race_get_anim_avg_forward(g_ChrAvgAnimMoveDists[race][i].animnum);
 		}
 	}
 

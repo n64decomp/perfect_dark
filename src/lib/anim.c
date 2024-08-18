@@ -33,7 +33,7 @@ s32 g_NextAnimHeaderIndex = 0;
 s16 g_NumAnimations = 0;
 struct animtableentry *g_Anims = NULL;
 u8 *g_AnimToHeaderSlot = NULL;
-s16 *var8005f014 = NULL;
+s16 *g_AnimAverageMoveDist = NULL;
 s32 g_AnimMaxBytesPerFrame = 176;
 s32 g_AnimMaxHeaderLength = 608;
 bool g_AnimHostEnabled = false;
@@ -71,7 +71,7 @@ void anims_init(void)
 	g_AnimMaxBytesPerFrame = ALIGN16(g_AnimMaxBytesPerFrame + 34);
 
 	g_AnimToHeaderSlot    = memp_alloc(ALIGN64(g_NumAnimations), MEMPOOL_PERMANENT);
-	var8005f014           = memp_alloc(ALIGN64(g_NumAnimations * sizeof(*var8005f014)), MEMPOOL_PERMANENT);
+	g_AnimAverageMoveDist = memp_alloc(ALIGN64(g_NumAnimations * sizeof(*g_AnimAverageMoveDist)), MEMPOOL_PERMANENT);
 	g_AnimFrameByteSlots  = memp_alloc(ALIGN64(ANIM_FRAME_CACHE_SIZE * g_AnimMaxBytesPerFrame), MEMPOOL_PERMANENT);
 	g_AnimFrameBytes      = memp_alloc(ALIGN64(ANIM_FRAME_CACHE_SIZE * sizeof(*g_AnimFrameBytes)), MEMPOOL_PERMANENT);
 	g_AnimFrameAnimNums   = memp_alloc(ALIGN64(ANIM_FRAME_CACHE_SIZE * sizeof(*g_AnimFrameAnimNums)), MEMPOOL_PERMANENT);
@@ -94,7 +94,7 @@ void anims_init_tables(void)
 
 	for (i = 0; i < g_NumAnimations; i++) {
 		g_AnimToHeaderSlot[i] = 0xff;
-		var8005f014[i] = 0;
+		g_AnimAverageMoveDist[i] = 0;
 	}
 
 	for (i = 0; i < ANIM_FRAME_CACHE_SIZE; i++) {
@@ -610,7 +610,7 @@ void anim_get_rot_translate_scale(s32 part, bool flip, struct skeleton *skel, s1
  * No data needs to be loaded by the caller - the function will ensure the
  * header and frame are loaded.
  */
-u16 anim_get_pos_angle_as_int(s32 part, bool flip, struct skeleton *skel, s16 animnum, s32 framenum, s16 inttranslate[3], bool arg6)
+u16 anim_get_pos_angle_as_int(s32 part, bool flip, struct skeleton *skel, s16 animnum, s32 framenum, s16 inttranslate[3], bool use_cache)
 {
 	u16 result = 0;
 	s32 bitoffset;
@@ -620,10 +620,10 @@ u16 anim_get_pos_angle_as_int(s32 part, bool flip, struct skeleton *skel, s16 an
 	u8 *ptr;
 	s32 i;
 
-	if (arg6) {
+	if (use_cache) {
 		inttranslate[0] = 0;
 		inttranslate[1] = 0;
-		inttranslate[2] = var8005f014[animnum];
+		inttranslate[2] = g_AnimAverageMoveDist[animnum];
 	} else {
 		anim_load_header(animnum);
 		slot = anim_load_frame(animnum, framenum);
