@@ -114,7 +114,7 @@ s32 eyespy_try_move_upwards(f32 yvel)
 
 s32 eyespy_calculate_new_position(struct coord *vel)
 {
-	bool result = true;
+	bool cdresult = CDRESULT_NOCOLLISION;
 	struct prop *eyespyprop = g_Vars.currentplayer->eyespy->prop;
 	struct chrdata *chr = eyespyprop->chr;
 	struct coord dstpos;
@@ -176,16 +176,16 @@ s32 eyespy_calculate_new_position(struct coord *vel)
 		halfradius = radius * 0.5f;
 
 		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
-			result = cd_exam_cyl_move06(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, radius, types, 1, 15, ymin);
+			cdresult = cd_exam_cyl_move06(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, radius, types, 1, 15, ymin);
 
-			if (result == CDRESULT_NOCOLLISION) {
-				result = cd_exam_cyl_move02(&eyespyprop->pos, &dstpos, radius, dstrooms, types, true, 15, ymin);
+			if (cdresult == CDRESULT_NOCOLLISION) {
+				cdresult = cd_exam_cyl_move02(&eyespyprop->pos, &dstpos, radius, dstrooms, types, true, 15, ymin);
 			}
 		} else {
-			result = cd_exam_cyl_move02(&eyespyprop->pos, &dstpos, radius, sp74, types, true, 15, ymin);
+			cdresult = cd_exam_cyl_move02(&eyespyprop->pos, &dstpos, radius, sp74, types, true, 15, ymin);
 		}
 
-		if (result == CDRESULT_COLLISION) {
+		if (cdresult == CDRESULT_COLLISION) {
 			prop = cd_get_obstacle_prop();
 
 			if (prop && prop->type == PROPTYPE_PLAYER) {
@@ -199,7 +199,7 @@ s32 eyespy_calculate_new_position(struct coord *vel)
 
 		prop_set_perim_enabled(eyespyprop, true);
 
-		if (result == CDRESULT_NOCOLLISION) {
+		if (cdresult == CDRESULT_NOCOLLISION) {
 			// Apply the destination
 			eyespyprop->pos.x = dstpos.x;
 			eyespyprop->pos.y = dstpos.y;
@@ -211,15 +211,15 @@ s32 eyespy_calculate_new_position(struct coord *vel)
 		}
 	}
 
-	return result;
+	return cdresult;
 }
 
 bool eyespy_calculate_new_position_with_push(struct coord *vel)
 {
-	s32 result = eyespy_calculate_new_position(vel);
+	s32 cdresult = eyespy_calculate_new_position(vel);
 	struct prop *prop;
 
-	if (result != CDRESULT_NOCOLLISION) {
+	if (cdresult != CDRESULT_NOCOLLISION) {
 		g_EyespyHit = EYESPYHIT_BG;
 
 		prop = cd_get_obstacle_prop();
@@ -266,157 +266,158 @@ bool eyespy_calculate_new_position_with_push(struct coord *vel)
 		}
 	}
 
-	return result;
+	return cdresult;
 }
 
-s32 eyespy0f0cf890(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+s32 eyespy_try_quarterstep(struct coord *vel, struct coord *prevedge1, struct coord *prevedge2, struct coord *newedge1, struct coord *newedge2)
 {
-	if (cd_00024ea4()) {
-		struct coord sp24;
-		s32 someint;
-		f32 somefloat = cd_00024e98();
-		sp24.x = arg0->x * somefloat * 0.25f;
-		sp24.y = arg0->y * somefloat * 0.25f;
-		sp24.z = arg0->z * somefloat * 0.25f;
+	if (cd_has_distance()) {
+		struct coord tryvel;
+		s32 cdresult;
+		f32 distance = cd_get_distance();
 
-		someint = eyespy_calculate_new_position_with_push(&sp24);
+		tryvel.x = vel->x * distance * 0.25f;
+		tryvel.y = vel->y * distance * 0.25f;
+		tryvel.z = vel->z * distance * 0.25f;
 
-		if (someint == 1) {
-			return 1;
+		cdresult = eyespy_calculate_new_position_with_push(&tryvel);
+
+		if (cdresult == CDRESULT_NOCOLLISION) {
+			return CDRESULT_NOCOLLISION;
 		}
 
-		if (someint == 0) {
-			cd_get_edge(arg3, arg4, 350, "bondeyespy.c");
+		if (cdresult == CDRESULT_COLLISION) {
+			cd_get_edge(newedge1, newedge2, 350, "bondeyespy.c");
 
-			if (arg3->f[0] != arg1->f[0]
-					|| arg3->f[1] != arg1->f[1]
-					|| arg3->f[2] != arg1->f[2]
-					|| arg4->f[0] != arg2->f[0]
-					|| arg4->f[1] != arg2->f[1]
-					|| arg4->f[2] != arg2->f[2]) {
-				return 0;
+			if (newedge1->f[0] != prevedge1->f[0]
+					|| newedge1->f[1] != prevedge1->f[1]
+					|| newedge1->f[2] != prevedge1->f[2]
+					|| newedge2->f[0] != prevedge2->f[0]
+					|| newedge2->f[1] != prevedge2->f[1]
+					|| newedge2->f[2] != prevedge2->f[2]) {
+				return CDRESULT_COLLISION;
 			}
 		}
 	}
 
-	return -1;
+	return CDRESULT_ERROR;
 }
 
-s32 eyespy0f0cf9f8(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 eyespy_try_move_to_edge(struct coord *vel, struct coord *edge1, struct coord *edge2)
 {
-	f32 tmp;
-	struct coord sp30;
-	struct coord sp24;
-	f32 dist;
+	f32 frac;
+	struct coord tri;
+	struct coord tryvel;
+	f32 edgelen;
 
-	if (arg1->f[0] != arg2->f[0] || arg1->f[2] != arg2->f[2]) {
-		sp30.x = arg2->x - arg1->x;
-		sp30.y = 0;
-		sp30.z = arg2->z - arg1->z;
+	if (edge1->f[0] != edge2->f[0] || edge1->f[2] != edge2->f[2]) {
+		tri.x = edge2->x - edge1->x;
+		tri.y = 0;
+		tri.z = edge2->z - edge1->z;
 
-		dist = sqrtf(sp30.f[0] * sp30.f[0] + sp30.f[2] * sp30.f[2]);
+		edgelen = sqrtf(tri.f[0] * tri.f[0] + tri.f[2] * tri.f[2]);
 
-		sp30.x *= 1.0f / dist;
-		sp30.z *= 1.0f / dist;
+		tri.x *= 1.0f / edgelen;
+		tri.z *= 1.0f / edgelen;
 
-		tmp = arg0->f[0] * sp30.f[0] + arg0->f[2] * sp30.f[2];
+		frac = vel->f[0] * tri.f[0] + vel->f[2] * tri.f[2];
 
-		sp24.x = sp30.x * tmp;
-		sp24.y = 0;
-		sp24.z = sp30.z * tmp;
+		tryvel.x = tri.x * frac;
+		tryvel.y = 0;
+		tryvel.z = tri.z * frac;
 
-		return eyespy_calculate_new_position_with_push(&sp24);
+		return eyespy_calculate_new_position_with_push(&tryvel);
 	}
 
-	return -1;
+	return CDRESULT_ERROR;
 }
 
-s32 eyespy0f0cfafc(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 eyespy_try_grind(struct coord *vel, struct coord *edge1, struct coord *edge2)
 {
-	struct coord sp34;
-	struct coord sp28;
+	struct coord tri;
+	struct coord tryvel;
 	f32 width = 26;
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
 	f32 tmp;
 
-	sp34.x = arg1->x - (prop->pos.x + arg0->f[0]);
-	sp34.z = arg1->z - (prop->pos.z + arg0->f[2]);
+	tri.x = edge1->x - (prop->pos.x + vel->f[0]);
+	tri.z = edge1->z - (prop->pos.z + vel->f[2]);
 
-	if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= width * width) {
-		if (arg1->f[0] != prop->pos.f[0] || arg1->f[2] != prop->pos.f[2]) {
-			sp34.x = -(arg1->z - prop->pos.z);
-			sp34.y = 0;
-			sp34.z = arg1->x - prop->pos.x;
+	if (tri.f[0] * tri.f[0] + tri.f[2] * tri.f[2] <= width * width) {
+		if (edge1->f[0] != prop->pos.f[0] || edge1->f[2] != prop->pos.f[2]) {
+			tri.x = -(edge1->z - prop->pos.z);
+			tri.y = 0;
+			tri.z = edge1->x - prop->pos.x;
 
-			tmp = sqrtf(sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2]);
+			tmp = sqrtf(tri.f[0] * tri.f[0] + tri.f[2] * tri.f[2]);
 
-			sp34.x = sp34.f[0] * (1.0f / tmp);
-			sp34.z = sp34.f[2] * (1.0f / tmp);
+			tri.x = tri.f[0] * (1.0f / tmp);
+			tri.z = tri.f[2] * (1.0f / tmp);
 
-			tmp = arg0->f[0] * sp34.f[0] + arg0->f[2] * sp34.f[2];
+			tmp = vel->f[0] * tri.f[0] + vel->f[2] * tri.f[2];
 
-			sp34.x = sp34.x * tmp;
-			sp34.z = sp34.z * tmp;
+			tri.x = tri.x * tmp;
+			tri.z = tri.z * tmp;
 
-			sp28.x = sp34.x;
-			sp28.y = 0;
-			sp28.z = sp34.z;
+			tryvel.x = tri.x;
+			tryvel.y = 0;
+			tryvel.z = tri.z;
 
-			if (eyespy_calculate_new_position_with_push(&sp28) == 1) {
-				return true;
+			if (eyespy_calculate_new_position_with_push(&tryvel) == CDRESULT_NOCOLLISION) {
+				return CDRESULT_NOCOLLISION;
 			}
 		}
 	} else {
-		sp34.x = arg2->x - (prop->pos.x + arg0->f[0]);
-		sp34.z = arg2->z - (prop->pos.z + arg0->f[2]);
+		tri.x = edge2->x - (prop->pos.x + vel->f[0]);
+		tri.z = edge2->z - (prop->pos.z + vel->f[2]);
 
-		if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= width * width) {
-			if (arg2->f[0] != prop->pos.f[0] || arg2->f[2] != prop->pos.f[2]) {
-				sp34.x = -(arg2->z - prop->pos.z);
-				sp34.y = 0;
-				sp34.z = arg2->x - prop->pos.x;
+		if (tri.f[0] * tri.f[0] + tri.f[2] * tri.f[2] <= width * width) {
+			if (edge2->f[0] != prop->pos.f[0] || edge2->f[2] != prop->pos.f[2]) {
+				tri.x = -(edge2->z - prop->pos.z);
+				tri.y = 0;
+				tri.z = edge2->x - prop->pos.x;
 
-				tmp = sqrtf(sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2]);
+				tmp = sqrtf(tri.f[0] * tri.f[0] + tri.f[2] * tri.f[2]);
 
-				sp34.x = sp34.f[0] * (1.0f / tmp);
-				sp34.z = sp34.f[2] * (1.0f / tmp);
+				tri.x = tri.f[0] * (1.0f / tmp);
+				tri.z = tri.f[2] * (1.0f / tmp);
 
-				tmp = arg0->f[0] * sp34.f[0] + arg0->f[2] * sp34.f[2];
+				tmp = vel->f[0] * tri.f[0] + vel->f[2] * tri.f[2];
 
-				sp34.x = sp34.x * tmp;
-				sp34.z = sp34.z * tmp;
+				tri.x = tri.x * tmp;
+				tri.z = tri.z * tmp;
 
-				sp28.x = sp34.x;
-				sp28.y = 0;
-				sp28.z = sp34.z;
+				tryvel.x = tri.x;
+				tryvel.y = 0;
+				tryvel.z = tri.z;
 
-				if (eyespy_calculate_new_position_with_push(&sp28) == 1) {
-					return true;
+				if (eyespy_calculate_new_position_with_push(&tryvel) == CDRESULT_NOCOLLISION) {
+					return CDRESULT_NOCOLLISION;
 				}
 			}
 		}
 	}
 
-	return false;
+	return CDRESULT_COLLISION;
 }
 
-s32 eyespy0f0cfdd0(struct coord *vel, struct coord *arg1, struct coord *arg2)
+s32 eyespy_try_fullstep(struct coord *vel, struct coord *edge1, struct coord *edge2)
 {
-	bool result = eyespy_calculate_new_position_with_push(vel);
+	bool cdresult = eyespy_calculate_new_position_with_push(vel);
 
-	if (result != CDRESULT_NOCOLLISION) {
-		cd_get_edge(arg1, arg2, 473, "bondeyespy.c");
+	if (cdresult != CDRESULT_NOCOLLISION) {
+		cd_get_edge(edge1, edge2, 473, "bondeyespy.c");
 	}
 
-	return result;
+	return cdresult;
 }
 
-void eyespy_update_vertical(void)
+void eyespy_update_position(void)
 {
-	struct coord spac;
-	struct coord spa0;
+	struct coord fulledge1;
+	struct coord fulledge2;
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
-	struct coord dist;
+	struct coord vel;
 	f32 newground;
 	struct chrdata *chr = prop->chr;
 	struct coord origpos;
@@ -424,32 +425,33 @@ void eyespy_update_vertical(void)
 	f32 maxfallspeed;
 	u8 hit = EYESPYHIT_NONE;
 	f32 newy;
-	struct coord sp60;
-	struct coord sp54;
+	struct coord quarteredge1;
+	struct coord quarteredge2;
 	u32 stack;
-	struct coord sp44;
-	struct coord sp38;
+	struct coord throwawayedge1;
+	struct coord throwawayedge2;
 
 	origpos.f[0] = prop->pos.x;
 	origpos.f[1] = prop->pos.y;
 	origpos.f[2] = prop->pos.z;
 
-	dist.x = g_Vars.currentplayer->eyespy->vel.x;
-	dist.y = 0;
-	dist.z = g_Vars.currentplayer->eyespy->vel.z;
+	// Handle lateral movement
+	vel.x = g_Vars.currentplayer->eyespy->vel.x;
+	vel.y = 0;
+	vel.z = g_Vars.currentplayer->eyespy->vel.z;
 
-	if (eyespy0f0cfdd0(&dist, &spac, &spa0) == CDRESULT_COLLISION) {
-		if (eyespy0f0cf890(&dist, &spac, &spa0, &sp60, &sp54)) {
-			if (eyespy0f0cf9f8(&dist, &spac, &spa0) <= 0) {
-				eyespy0f0cfafc(&dist, &spac, &spa0);
+	if (eyespy_try_fullstep(&vel, &fulledge1, &fulledge2) == CDRESULT_COLLISION) {
+		if (eyespy_try_quarterstep(&vel, &fulledge1, &fulledge2, &quarteredge1, &quarteredge2) != CDRESULT_COLLISION) {
+			if (eyespy_try_move_to_edge(&vel, &fulledge1, &fulledge2) <= CDRESULT_COLLISION) {
+				eyespy_try_grind(&vel, &fulledge1, &fulledge2);
 			}
 		} else {
-			eyespy0f0cf890(&dist, &sp60, &sp54, &sp44, &sp38);
+			eyespy_try_quarterstep(&vel, &quarteredge1, &quarteredge2, &throwawayedge1, &throwawayedge2);
 
-			if (eyespy0f0cf9f8(&dist, &sp60, &sp54) <= 0
-					&& eyespy0f0cf9f8(&dist, &spac, &spa0) <= 0
-					&& eyespy0f0cfafc(&dist, &sp60, &sp54) <= 0) {
-				eyespy0f0cfafc(&dist, &spac, &spa0);
+			if (eyespy_try_move_to_edge(&vel, &quarteredge1, &quarteredge2) <= CDRESULT_COLLISION
+					&& eyespy_try_move_to_edge(&vel, &fulledge1, &fulledge2) <= CDRESULT_COLLISION
+					&& eyespy_try_grind(&vel, &quarteredge1, &quarteredge2) <= CDRESULT_COLLISION) {
+				eyespy_try_grind(&vel, &fulledge1, &fulledge2);
 			}
 		}
 	}
@@ -541,14 +543,11 @@ void eyespy_update_vertical(void)
 
 	chr_detect_rooms(chr);
 
-	dist.x = prop->pos.x - origpos.x;
-	dist.y = prop->pos.y - origpos.y;
-	dist.z = prop->pos.z - origpos.z;
+	vel.x = prop->pos.x - origpos.x;
+	vel.y = prop->pos.y - origpos.y;
+	vel.z = prop->pos.z - origpos.z;
 
-	g_Vars.currentplayer->eyespy->speed =
-		dist.f[0] * dist.f[0] +
-		dist.f[1] * dist.f[1] +
-		dist.f[2] * dist.f[2];
+	g_Vars.currentplayer->eyespy->speed = vel.f[0] * vel.f[0] + vel.f[1] * vel.f[1] + vel.f[2] * vel.f[2];
 }
 
 bool eyespy_try_launch(void)
@@ -1048,7 +1047,7 @@ void eyespy_process_input(bool allowbuttons)
 	g_EyespyHit = EYESPYHIT_NONE;
 	var80070ecc = 0;
 
-	eyespy_update_vertical();
+	eyespy_update_position();
 
 	// Consider playing the tap sound when the eyespy is driven into a wall or object
 	if (g_Vars.currentplayer->eyespy->active

@@ -10,8 +10,8 @@ f32 func0f1579cc(struct widthxz *arg0, struct xz *arg1, struct xz *arg2, struct 
 
 f32 cd_00024e40(void);
 void cd_get_edge(struct coord *pos1, struct coord *pos2, u32 line, char *file);
-f32 cd_00024e98(void);
-s32 cd_00024ea4(void);
+f32 cd_get_distance(void);
+bool cd_has_distance(void);
 struct prop *cd_get_obstacle_prop(void);
 void cd_get_pos(struct coord *pos, u32 line, char *file);
 void cd_get_obstacle_normal(struct coord *normal);

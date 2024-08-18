@@ -520,8 +520,8 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 	struct coord quarter;
 	bool result;
 
-	if (cd_00024ea4()) {
-		f32 mult = cd_00024e98();
+	if (cd_has_distance()) {
+		f32 mult = cd_get_distance();
 		quarter.x = a->x * mult * 0.25f;
 		quarter.y = a->y * mult * 0.25f;
 		quarter.z = a->z * mult * 0.25f;

@@ -629,9 +629,9 @@ s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 
 s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
 {
-	if (cd_00024ea4()) {
+	if (cd_has_distance()) {
 		struct coord sp24;
-		f32 somefloat = cd_00024e98();
+		f32 somefloat = cd_get_distance();
 		s32 someint;
 
 		sp24.x = arg0->x * somefloat * 0.25f;

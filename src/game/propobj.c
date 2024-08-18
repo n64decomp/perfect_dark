@@ -3479,7 +3479,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 						}
 					}
 
-					f2 = cd_00024e98() * 0.99f;
+					f2 = cd_get_distance() * 0.99f;
 
 					sp4c.x = sp8c.x * f2 + prop->pos.x;
 					sp4c.y = sp80.y;

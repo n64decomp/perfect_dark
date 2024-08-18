@@ -26,7 +26,7 @@ struct debugtri {
 union filedataptr g_TileFileData;
 s32 g_TileNumRooms;
 u32 *g_TileRooms;
-s32 var8009a8ac;
+bool var8009a8ac;
 f32 var8009a8b0;
 s32 var8009a8b4;
 struct coord g_CdEdgeVtx1;
@@ -68,12 +68,12 @@ void cd_get_edge(struct coord *vtx1, struct coord *vtx2, u32 line, char *file)
 	vtx2->z = g_CdEdgeVtx2.z;
 }
 
-f32 cd_00024e98(void)
+f32 cd_get_distance(void)
 {
 	return var8009a8b0;
 }
 
-s32 cd_00024ea4(void)
+bool cd_has_distance(void)
 {
 	return var8009a8ac;
 }
@@ -120,7 +120,7 @@ u32 cd_get_geo_flags(void)
 void cd_clear_results(void)
 {
 	var8009a8b4 = 0;
-	var8009a8ac = 0;
+	var8009a8ac = false;
 	g_CdObstacleProp = NULL;
 	var8009a8d8 = 0;
 	var8009a8ec = 0;
@@ -140,7 +140,7 @@ void cd_set_obstacle_vtx_prop(struct coord *vtx1, struct coord *vtx2, struct pro
 	g_CdEdgeVtx2.z = vtx2->z;
 
 	var8009a8b4 = 1;
-	var8009a8ac = 0;
+	var8009a8ac = false;
 	g_CdObstacleProp = prop;
 	var8009a8d8 = 0;
 	var8009a8ec = 0;
@@ -162,7 +162,7 @@ void cd_set_obstacle_vtx_prop_flt(struct coord *vtx1, struct coord *vtx2, struct
 	g_CdEdgeVtx2.z = vtx2->z;
 
 	var8009a8b4 = 1;
-	var8009a8ac = 1;
+	var8009a8ac = true;
 	g_CdObstacleProp = prop;
 	var8009a8d8 = 0;
 	var8009a8ec = 0;
@@ -192,13 +192,13 @@ void cd_000250cc(struct coord *arg0, struct coord *arg1, f32 width)
 	sp24.z = g_CdEdgeVtx2.z;
 
 	var8009a8b0 = func0f1579cc(&sp34, &sp2c, &sp24, &sp1c);
-	var8009a8ac = 1;
+	var8009a8ac = true;
 }
 
 void cd_set_obstacle_prop(struct prop *prop)
 {
 	var8009a8b4 = 0;
-	var8009a8ac = 0;
+	var8009a8ac = false;
 	g_CdObstacleProp = prop;
 	var8009a8d8 = 0;
 	var8009a8ec = 0;
@@ -222,7 +222,7 @@ void cd_set_obstacle_vtx_col_prop(struct coord *vtxpos1, struct coord *vtxpos2, 
 	g_CdObstaclePos.z = collisionpos->z;
 
 	var8009a8b4 = 1;
-	var8009a8ac = 0;
+	var8009a8ac = false;
 	g_CdObstacleProp = prop;
 	var8009a8d8 = 1;
 	var8009a8ec = 0;
@@ -246,7 +246,7 @@ void cd_set_obstacle_vtx_col_prop_flt_geo(struct coord *vtxpos1, struct coord *v
 	g_CdObstaclePos.z = collisionpos->z;
 
 	var8009a8b4 = 1;
-	var8009a8ac = 0;
+	var8009a8ac = false;
 	g_CdObstacleProp = prop;
 	var8009a8d8 = 1;
 	var8009a8f0 = arg4;
