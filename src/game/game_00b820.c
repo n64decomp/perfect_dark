@@ -14,7 +14,7 @@
 
 struct prop *g_DangerousProps[12];
 
-void reset_some_stage_things(void)
+void stage_reset(void)
 {
 	s32 i;
 
@@ -32,7 +32,7 @@ void reset_some_stage_things(void)
 	g_NumChrsSeenPlayerRecently2 = 0;
 }
 
-void stage_allocate_bg_chrs(void)
+void stage_load_bgchrs(void)
 {
 	bool modified;
 	struct chrdata tmp;
@@ -127,7 +127,7 @@ void stage_allocate_bg_chrs(void)
 	g_SquadronList = memp_alloc((MAX_CHRSPERSQUADRON + 1) * MAX_SQUADRONS * sizeof(s16), MEMPOOL_STAGE);
 }
 
-void stage_load_all_ailist_models(void)
+void stage_load_ailist_models(void)
 {
 	u8 *cmd = g_StageSetup.ailists[0].list;
 	s32 i = 0;
@@ -173,7 +173,7 @@ void stage_load_all_ailist_models(void)
 	} while (cmd);
 }
 
-void func0f00c230(void)
+void stage_load_projectile_models(void)
 {
 	// empty
 }

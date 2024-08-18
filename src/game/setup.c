@@ -2266,5 +2266,5 @@ void setup_create_props(s32 stagenum)
 		chrmgr_configure(0);
 	}
 
-	stage_allocate_bg_chrs();
+	stage_load_bgchrs();
 }

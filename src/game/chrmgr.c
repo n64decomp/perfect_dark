@@ -37,7 +37,7 @@ void chrmgr_reset(void)
 		var8009ccc0[i] = (void *)ALIGN64(memp_alloc(16 * 16 * sizeof(u16) + 0x40, MEMPOOL_STAGE));
 	}
 
-	reset_some_stage_things();
+	stage_reset();
 }
 
 void chrmgr_configure(s32 numchrs)
