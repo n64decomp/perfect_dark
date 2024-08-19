@@ -1668,7 +1668,7 @@ void setup_create_props(s32 stagenum)
 							}
 						}
 
-						obj->flags &= ~OBJFLAG_00000100;
+						obj->flags &= ~OBJFLAG_CORE_GEO_INUSE;
 
 						setup_create_object(obj, index);
 

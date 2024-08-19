@@ -4941,7 +4941,7 @@ struct prop *chr_get_target_prop(struct chrdata *chr)
 	return ret;
 }
 
-bool chr_update_geometry(struct prop *prop, u8 **start, u8 **end)
+bool chr_get_geometry(struct prop *prop, u8 **start, u8 **end)
 {
 	struct chrdata *chr = prop->chr;
 

@@ -547,7 +547,7 @@ struct modelrodata_dl { // type 0x18
 	/*0x16*/ u16 numcolours;
 };
 
-struct modelrodata_type19 { // type 0x19
+struct modelrodata_geo { // type 0x19
 	/*0x00*/ s32 numvertices;
 	/*0x04*/ struct coord vertices[4];
 };
@@ -568,7 +568,7 @@ union modelrodata {
 	struct modelrodata_stargunfire stargunfire;
 	struct modelrodata_headspot headspot;
 	struct modelrodata_dl dl;
-	struct modelrodata_type19 type19;
+	struct modelrodata_geo geo;
 };
 
 struct modelnode {
@@ -1450,10 +1450,10 @@ struct defaultobj {
 	/*0x1c*/ f32 realrot[3][3];
 	/*0x40*/ u32 hidden;
 	union {
+		/*0x44*/ u8 *geo;
 		/*0x44*/ struct geotilef *geotilef;
 		/*0x44*/ struct geoblock *geoblock;
 		/*0x44*/ struct geocyl *geocyl;
-		/*0x44*/ struct geocyl *unkgeo; // temporary, to indicate that I don't know which geo pointer is being used
 	};
 	union {
 		/*0x48*/ struct projectile *projectile;

@@ -802,9 +802,9 @@ void bgrab_update_prev_pos(void)
 	g_Vars.currentplayer->grabbedprevpos.z = g_Vars.currentplayer->grabbedprop->pos.z;
 }
 
-void bgrab0f0ce178(void)
+void bgrab_onmoved(void)
 {
-	func0f069c70(g_Vars.currentplayer->grabbedprop->obj, 0, 1);
+	obj_onmoved(g_Vars.currentplayer->grabbedprop->obj, false, true);
 }
 
 void bgrab_update_vertical(void)
@@ -1165,7 +1165,7 @@ void bgrab_tick(void)
 	bgrab0f0cdef0();
 	bmove_update_verta();
 	bgrab0f0ce924();
-	bgrab0f0ce178();
+	bgrab_onmoved();
 	bgrab_update_vertical();
 
 #if VERSION >= VERSION_NTSC_1_0

@@ -89,7 +89,7 @@ struct chrdata *chr_find_by_literal_id(s32 chrnum);
 struct prop *chr_get_held_prop(struct chrdata *chr, s32 hand);
 struct prop *chr_get_held_usable_prop(struct chrdata *chr, s32 hand);
 struct prop *chr_get_target_prop(struct chrdata *chr);
-bool chr_update_geometry(struct prop *prop, u8 **start, u8 **end);
+bool chr_get_geometry(struct prop *prop, u8 **start, u8 **end);
 void chr_get_bbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin);
 
 #endif

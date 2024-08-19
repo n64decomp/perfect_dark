@@ -17,7 +17,7 @@ bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2);
 s32 bgrab0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2);
 void bgrab0f0ce0bc(struct coord *arg0);
 void bgrab_update_prev_pos(void);
-void bgrab0f0ce178(void);
+void bgrab_onmoved(void);
 void bgrab_update_vertical(void);
 void bgrab_handle_activate(void);
 void bgrab_update_speed_sideways(f32 targetspeed, f32 accelspeed, s32 mult);

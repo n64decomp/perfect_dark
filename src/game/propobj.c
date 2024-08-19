@@ -428,7 +428,7 @@ f32 obj_get_rotated_local_max(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2,
 	return sum;
 }
 
-s32 obj_calculate_geo_block_vertices(f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmin, f32 zmax, Mtxf *mtx, struct geoblock *block)
+s32 obj_populate_geoblock_vertices_from_bbox_and_mtx(f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmin, f32 zmax, Mtxf *mtx, struct geoblock *block)
 {
 	s32 i;
 	s32 j;
@@ -617,25 +617,25 @@ s32 obj_calculate_geo_block_vertices(f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32
 	return numverts;
 }
 
-void obj_calculate_geo_block_from_bbox_and_mtx(struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
+void obj_populate_geoblock_from_bbox_and_mtx(struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
 {
-	block->header.numvertices = obj_calculate_geo_block_vertices(
+	block->header.numvertices = obj_populate_geoblock_vertices_from_bbox_and_mtx(
 			bbox->xmin, bbox->xmax, bbox->ymin, bbox->ymax, bbox->zmin, bbox->zmax, mtx, block);
 	block->header.type = GEOTYPE_BLOCK;
 	block->ymin = mtx->m[3][1] + obj_get_rotated_local_y_min_by_mtx4(bbox, mtx);
 	block->ymax = mtx->m[3][1] + obj_get_rotated_local_y_max_by_mtx4(bbox, mtx);
 }
 
-void obj_calculate_geo_block_from_node19_data(struct modelrodata_type19 *rodata19, struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
+void obj_populate_geoblock_from_modeldef(struct modelrodata_geo *georodata, struct modelrodata_bbox *bbox, Mtxf *mtx, struct geoblock *block)
 {
 	s32 i;
 
-	for (i = 0; i < rodata19->numvertices; i++) {
-		block->vertices[i][0] = mtx->m[3][0] + mtx->m[0][0] * rodata19->vertices[i].x + mtx->m[1][0] * rodata19->vertices[i].y + mtx->m[2][0] * rodata19->vertices[i].z;
-		block->vertices[i][1] = mtx->m[3][2] + mtx->m[0][2] * rodata19->vertices[i].x + mtx->m[1][2] * rodata19->vertices[i].y + mtx->m[2][2] * rodata19->vertices[i].z;
+	for (i = 0; i < georodata->numvertices; i++) {
+		block->vertices[i][0] = mtx->m[3][0] + mtx->m[0][0] * georodata->vertices[i].x + mtx->m[1][0] * georodata->vertices[i].y + mtx->m[2][0] * georodata->vertices[i].z;
+		block->vertices[i][1] = mtx->m[3][2] + mtx->m[0][2] * georodata->vertices[i].x + mtx->m[1][2] * georodata->vertices[i].y + mtx->m[2][2] * georodata->vertices[i].z;
 	}
 
-	block->header.numvertices = rodata19->numvertices;
+	block->header.numvertices = georodata->numvertices;
 	block->header.type = GEOTYPE_BLOCK;
 	block->ymin = mtx->m[3][1] + obj_get_rotated_local_y_min_by_mtx4(bbox, mtx);
 	block->ymax = mtx->m[3][1] + obj_get_rotated_local_y_max_by_mtx4(bbox, mtx);
@@ -998,7 +998,7 @@ struct defaultobj *obj_find_by_pos(struct coord *pos, RoomNum *rooms)
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ
 				&& array_intersects(prop->rooms, rooms)
-				&& prop_update_geometry(prop, &sp38, &sp34)
+				&& prop_get_geometry(prop, &sp38, &sp34)
 				&& cd_000266a4(pos->x, pos->z, (struct geo *)sp38)) {
 			return prop->obj;
 		}
@@ -1749,11 +1749,11 @@ void obj_merge_colour_fracs(s32 *colour, s32 shademode, f32 fracs[4])
 
 struct hovtype g_HovTypes[];
 
-void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], struct geocyl *cyl)
+void obj_update_core_geo(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], struct geocyl *cyl)
 {
 	Mtxf mtx;
 	struct modelrodata_bbox *bbox = obj_find_bbox_rodata(obj);
-	struct modelrodata_type19 *rodata19 = NULL;
+	struct modelrodata_geo *georodata = NULL;
 	struct hoverbikeobj *hoverbike;
 	struct hoverpropobj *hoverprop;
 
@@ -1764,7 +1764,7 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 			|| obj->model->definition->skel == &g_SkelBasic
 			|| obj->model->definition->skel == &g_SkelMaianUfo
 			|| obj->model->definition->skel == &g_SkelDropship) {
-		rodata19 = model_get_part_rodata(obj->model->definition, MODELPART_HOVERBIKE_0064);
+		georodata = model_get_part_rodata(obj->model->definition, MODELPART_BASIC_0064);
 	}
 
 	if (obj->flags3 & OBJFLAG3_GEOCYL) {
@@ -1788,10 +1788,10 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 		cyl->z = pos->z;
 		cyl->radius = 90.0f;
 	} else {
-		if (rodata19 != NULL) {
-			obj_calculate_geo_block_from_node19_data(rodata19, bbox, &mtx, (struct geoblock *)cyl);
+		if (georodata != NULL) {
+			obj_populate_geoblock_from_modeldef(georodata, bbox, &mtx, (struct geoblock *)cyl);
 		} else {
-			obj_calculate_geo_block_from_bbox_and_mtx(bbox, &mtx, (struct geoblock *)cyl);
+			obj_populate_geoblock_from_bbox_and_mtx(bbox, &mtx, (struct geoblock *)cyl);
 		}
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
@@ -1806,13 +1806,13 @@ void func0f069850(struct defaultobj *obj, struct coord *pos, f32 rot[3][3], stru
 	}
 }
 
-void func0f069b4c(struct defaultobj *obj)
+void obj_update_extra_geo(struct defaultobj *obj)
 {
 	union modelrodata *rodata;
-	u8 *ptr = (u8 *) obj->unkgeo;
+	u8 *ptr = obj->geo;
 
 	if (ptr != NULL) {
-		if ((obj->hidden2 & OBJH2FLAG_08)) {
+		if ((obj->hidden2 & OBJH2FLAG_CORE_GEO_EXISTS)) {
 			if (obj->flags3 & OBJFLAG3_GEOCYL) {
 				ptr += sizeof(struct geocyl);
 			} else {
@@ -1820,7 +1820,8 @@ void func0f069b4c(struct defaultobj *obj)
 			}
 		}
 
-		rodata = model_get_part_rodata(obj->model->definition, MODELPART_0065);
+		// Floor
+		rodata = model_get_part_rodata(obj->model->definition, MODELPART_BASIC_FLOORGEO);
 
 		if (rodata != NULL) {
 			u32 flags = GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2;
@@ -1829,44 +1830,42 @@ void func0f069b4c(struct defaultobj *obj)
 				flags |= GEOFLAG_LIFTFLOOR;
 			}
 
-			func0f070ca0(obj, (struct geotilef *)ptr, flags, NULL, &rodata->type19);
+			obj_populate_geotile(obj, (struct geotilef *)ptr, flags, NULL, &rodata->geo);
 
 			ptr += 0x40;
 		}
 
-		rodata = model_get_part_rodata(obj->model->definition, MODELPART_0066);
+		// Walls
+		rodata = model_get_part_rodata(obj->model->definition, MODELPART_BASIC_WALLGEO);
 
 		if (rodata != NULL) {
-			func0f070ca0(obj, (struct geotilef *)ptr, GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT, NULL, &rodata->type19);
+			obj_populate_geotile(obj, (struct geotilef *)ptr, GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT, NULL, &rodata->geo);
 		}
 	}
 }
 
-void func0f069c1c(struct defaultobj *obj)
+void obj_update_all_geo(struct defaultobj *obj)
 {
 	if (obj->geocyl) {
-		if (obj->hidden2 & OBJH2FLAG_08) {
-			func0f069850(obj, &obj->prop->pos, obj->realrot, obj->geocyl);
+		if (obj->hidden2 & OBJH2FLAG_CORE_GEO_EXISTS) {
+			obj_update_core_geo(obj, &obj->prop->pos, obj->realrot, obj->geocyl);
 		}
 
-		func0f069b4c(obj);
+		obj_update_extra_geo(obj);
 	}
 }
 
-void func0f069c70(struct defaultobj *obj, bool arg1, bool arg2)
+void obj_onmoved(struct defaultobj *obj, bool update_geometry, bool update_rooms)
 {
-	struct prop *prop;
-
-	if (arg1) {
-		func0f069c1c(obj);
+	if (update_geometry) {
+		obj_update_all_geo(obj);
 	}
 
-	if (arg2) {
-		setup0f0923d4(obj);
+	if (update_rooms) {
+		obj_detect_rooms(obj);
 	}
 
-	prop = obj->prop;
-	prop_calculate_shade_info(prop, obj->nextcol, obj->floorcol);
+	prop_calculate_shade_info(obj->prop, obj->nextcol, obj->floorcol);
 	coord_trigger_proxies(&obj->prop->pos, false);
 }
 
@@ -2030,17 +2029,17 @@ struct prop *obj_init(struct defaultobj *obj, struct modeldef *modeldef, struct 
 
 		obj->model = model;
 
-		if (model_get_part_rodata(modeldef, MODELPART_BASIC_0065)) {
+		if (model_get_part_rodata(modeldef, MODELPART_BASIC_FLOORGEO)) {
 			obj->geocount++;
 		}
 
-		if (model_get_part_rodata(modeldef, MODELPART_BASIC_0066)) {
+		if (model_get_part_rodata(modeldef, MODELPART_BASIC_WALLGEO)) {
 			obj->geocount++;
 		}
 
 		geosize = obj->geocount * 0x40;
 
-		if (obj->flags & OBJFLAG_00000100) {
+		if (obj->flags & OBJFLAG_CORE_GEO_INUSE) {
 			if (obj->flags3 & OBJFLAG3_GEOCYL) {
 				geosize += sizeof(struct geocyl);
 			} else {
@@ -2048,15 +2047,15 @@ struct prop *obj_init(struct defaultobj *obj, struct modeldef *modeldef, struct 
 			}
 
 			obj->geocount++;
-			obj->hidden2 |= OBJH2FLAG_08;
+			obj->hidden2 |= OBJH2FLAG_CORE_GEO_EXISTS;
 		} else {
-			obj->hidden2 &= ~OBJH2FLAG_08;
+			obj->hidden2 &= ~OBJH2FLAG_CORE_GEO_EXISTS;
 		}
 
 		if (obj->geocount > 0) {
-			obj->unkgeo = memp_alloc(ALIGN16(geosize), MEMPOOL_STAGE);
+			obj->geo = memp_alloc(ALIGN16(geosize), MEMPOOL_STAGE);
 		} else {
-			obj->unkgeo = NULL;
+			obj->geo = NULL;
 		}
 
 		obj->prop = prop;
@@ -2154,7 +2153,7 @@ void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, RoomN
 
 	prop_deregister_rooms(prop);
 	rooms_copy(rooms, prop->rooms);
-	func0f069c70(obj, true, true);
+	obj_onmoved(obj, true, true);
 
 	obj->shadecol[0] = obj->nextcol[0];
 	obj->shadecol[1] = obj->nextcol[1];
@@ -2299,16 +2298,14 @@ void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum
 		if (cd_find_floor_room_y_colour_flags_at_pos(&pos2, rooms2, &y, &obj->floorcol) > 0)
 #endif
 		{
-			bool updated;
+			s32 stack;
 			struct defaultobj *obj2 = obj_find_by_pos(&pos2, rooms2);
 			u8 *start;
 			u8 *end;
 			struct geoblock *block;
 
 			if (obj2) {
-				updated = prop_update_geometry(obj2->prop, &start, &end);
-
-				if (updated
+				if (prop_get_geometry(obj2->prop, &start, &end)
 						&& (block = (struct geoblock *) start, block->header.type == GEOTYPE_BLOCK)
 						&& block->ymax > y
 						&& block->ymin < y + (max - min) * sp70.m[row][1] + func0f06a620(obj)) {
@@ -3393,7 +3390,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	if (prop->pos.x != arg1->x || prop->pos.y != arg1->y || prop->pos.z != arg1->z) {
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
 			if (cd_exam_cyl_move08(&prop->pos, prop->rooms, &sp80, rooms, radius, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
-				setup0f09233c(obj, &sp80, obj->realrot, rooms);
+				obj_find_rooms(obj, &sp80, obj->realrot, rooms);
 
 				if (cd_exam_cyl_move02(&prop->pos, &sp80, radius, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 					prop->pos.x = sp80.x;
@@ -3486,7 +3483,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 					sp4c.z = sp8c.z * f2 + prop->pos.z;
 
 					if (cd_exam_cyl_move07(&prop->pos, prop->rooms, &sp4c, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
-						setup0f09233c(obj, &sp4c, obj->realrot, rooms);
+						obj_find_rooms(obj, &sp4c, obj->realrot, rooms);
 
 						if (cd_test_volume(&sp4c, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 							prop->pos.x = sp4c.x;
@@ -4626,7 +4623,7 @@ void weapon_tick(struct prop *prop)
 				prop->pos.f[1] -= sp60.f[1] - sp6c.f[1];
 				prop->pos.f[2] -= sp60.f[2] - sp6c.f[2];
 
-				func0f069c70(obj, false, true);
+				obj_onmoved(obj, false, true);
 			}
 
 			weapon->timer240--;
@@ -4828,7 +4825,7 @@ struct hovtype g_HovTypes[] = {
 	/* HOVTYPE_4     */ { 170, BOB(2, 2, 0.0010, 1.0), BOB(0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905), BOB(0.0031410926021636, 0.0031410926021636, 0.000005235154276306, 0.00018846555030905) },
 };
 
-void func0f070a1c(struct modelrodata_bbox *bbox, f32 rot[3][3], struct coord *pos, struct coord *vertices)
+void obj_get_vertices_from_bbox(struct modelrodata_bbox *bbox, f32 rot[3][3], struct coord *pos, struct coord *vertices)
 {
 	f32 sp54 = rot[0][0] * bbox->xmin;
 	f32 sp50 = rot[0][1] * bbox->xmin;
@@ -4867,27 +4864,27 @@ void func0f070a1c(struct modelrodata_bbox *bbox, f32 rot[3][3], struct coord *po
 	vertices[3].z = sp34 + sp1c + sp40;
 }
 
-void func0f070bd0(struct modelrodata_type19 *rodata, f32 rot[3][3], struct coord *pos, struct coord *vertices)
+void obj_get_vertices_from_georodata(struct modelrodata_geo *georodata, f32 rot[3][3], struct coord *pos, struct coord *vertices)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(rodata->vertices); i++) {
-		vertices[i].x = pos->x + rot[0][0] * rodata->vertices[i].x + rot[1][0] * rodata->vertices[i].y + rot[2][0] * rodata->vertices[i].z;
-		vertices[i].y = pos->y + rot[0][1] * rodata->vertices[i].x + rot[1][1] * rodata->vertices[i].y + rot[2][1] * rodata->vertices[i].z;
-		vertices[i].z = pos->z + rot[0][2] * rodata->vertices[i].x + rot[1][2] * rodata->vertices[i].y + rot[2][2] * rodata->vertices[i].z;
+	for (i = 0; i < ARRAYCOUNT(georodata->vertices); i++) {
+		vertices[i].x = pos->x + rot[0][0] * georodata->vertices[i].x + rot[1][0] * georodata->vertices[i].y + rot[2][0] * georodata->vertices[i].z;
+		vertices[i].y = pos->y + rot[0][1] * georodata->vertices[i].x + rot[1][1] * georodata->vertices[i].y + rot[2][1] * georodata->vertices[i].z;
+		vertices[i].z = pos->z + rot[0][2] * georodata->vertices[i].x + rot[1][2] * georodata->vertices[i].y + rot[2][2] * georodata->vertices[i].z;
 	}
 }
 
-void func0f070ca0(struct defaultobj *obj, struct geotilef *tile, u32 flags, struct modelrodata_bbox *bbox, struct modelrodata_type19 *rodata)
+void obj_populate_geotile(struct defaultobj *obj, struct geotilef *tile, u32 flags, struct modelrodata_bbox *bbox, struct modelrodata_geo *georodata)
 {
 	struct coord vertices[4];
 	s32 i;
 	s32 j;
 
 	if (bbox != NULL) {
-		func0f070a1c(bbox, obj->realrot, &obj->prop->pos, vertices);
-	} else if (rodata != NULL) {
-		func0f070bd0(rodata, obj->realrot, &obj->prop->pos, vertices);
+		obj_get_vertices_from_bbox(bbox, obj->realrot, &obj->prop->pos, vertices);
+	} else if (georodata != NULL) {
+		obj_get_vertices_from_georodata(georodata, obj->realrot, &obj->prop->pos, vertices);
 	}
 
 	tile->header.type = GEOTYPE_TILE_F;
@@ -5000,7 +4997,7 @@ void lift_update_tiles(struct liftobj *lift, bool stationary)
 	i = 0;
 
 	do {
-		geo = (u8 *)lift->base.unkgeo + lift->base.geocount * 0x40;
+		geo = lift->base.geo + lift->base.geocount * 0x40;
 		bbox = NULL;
 		rodata = NULL;
 
@@ -5057,7 +5054,7 @@ void lift_update_tiles(struct liftobj *lift, bool stationary)
 		} while (!bbox && !rodata);
 
 		if (bbox || rodata) {
-			func0f070ca0(&lift->base, (struct geotilef *)geo, flags, bbox, &rodata->type19);
+			obj_populate_geotile(&lift->base, (struct geotilef *)geo, flags, bbox, &rodata->geo);
 			lift->base.geocount++;
 		}
 	} while (bbox || rodata);
@@ -5172,7 +5169,7 @@ void hov_update_ground(struct defaultobj *obj, struct hov *hov, struct coord *po
 		testpos.z = pos->z;
 
 		rooms_copy(rooms, testrooms);
-		setup0f09233c(obj, &testpos, matrix, testrooms);
+		obj_find_rooms(obj, &testpos, matrix, testrooms);
 
 		ground = cd_find_ground_at_cyl(pos, 5, testrooms, &obj->floorcol, NULL);
 
@@ -5256,7 +5253,7 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 
 			rooms_copy(prop->rooms, sp9c);
 
-			setup0f09233c(obj, &sp90, obj->realrot, sp9c);
+			obj_find_rooms(obj, &sp90, obj->realrot, sp9c);
 
 			los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp1b4, sp198);
 			rooms_append(sp9c, sp198, ARRAYCOUNT(sp198));
@@ -5401,7 +5398,7 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 		}
 
 		if (moved) {
-			func0f069c70(obj, true, true);
+			obj_onmoved(obj, true, true);
 		}
 
 		if (hov->y < hov->ground - 5.0f || hov->y > hov->ground + 5.0f) {
@@ -5541,7 +5538,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		pos.z += arg1->z;
 
 		los_find_final_room_exhaustive(&prop->pos, prop->rooms, &pos, rooms);
-		setup0f09233c(obj, &pos, sp460, rooms);
+		obj_find_rooms(obj, &pos, sp460, rooms);
 
 		if (obj->type == OBJTYPE_HOVERBIKE) {
 			hoverbike = (struct hoverbikeobj *) obj;
@@ -5567,11 +5564,11 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		}
 	} else {
 		rooms_copy(prop->rooms, rooms);
-		setup0f09233c(obj, &pos, sp460, rooms);
+		obj_find_rooms(obj, &pos, sp460, rooms);
 	}
 
 	if (cdresult == CDRESULT_NOCOLLISION) {
-		func0f069850(obj, &pos, sp460, &geounion.cyl);
+		obj_update_core_geo(obj, &pos, sp460, &geounion.cyl);
 
 		if (obj->flags3 & OBJFLAG3_GEOCYL) {
 			cdresult = cd_exam_cyl_move01(&prop->pos, &pos, geounion.cyl.radius, rooms, CDTYPE_ALL,
@@ -5593,7 +5590,7 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		prop_deregister_rooms(prop);
 		rooms_copy(rooms, prop->rooms);
 
-		if (obj->geocyl && (obj->hidden2 & OBJH2FLAG_08)) {
+		if (obj->geocyl && (obj->hidden2 & OBJH2FLAG_CORE_GEO_EXISTS)) {
 			if (obj->flags3 & OBJFLAG3_GEOCYL) {
 				*obj->geocyl = geounion.cyl;
 			} else {
@@ -5954,7 +5951,7 @@ void platform_displace_props2(struct prop *platform, Mtxf *arg1)
 	u8 *sp98;
 	Mtxf sp58;
 
-	if (prop_update_geometry(platform, &sp9c, &sp98)) {
+	if (prop_get_geometry(platform, &sp9c, &sp98)) {
 		room_get_props(platform->rooms, propnums, 256);
 
 		propnumptr = propnums;
@@ -5979,7 +5976,7 @@ void platform_displace_props2(struct prop *platform, Mtxf *arg1)
 
 					prop_deregister_rooms(prop);
 					los_find_final_room_exhaustive(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
-					func0f069c70(obj, true, true);
+					obj_onmoved(obj, true, true);
 				}
 			}
 
@@ -6100,7 +6097,7 @@ bool rocket_tick_fbw(struct weaponobj *rocket)
 
 		prop_deregister_rooms(rocketprop);
 		rooms_copy(newrooms, rocketprop->rooms);
-		func0f069c70(&rocket->base, true, true);
+		obj_onmoved(&rocket->base, true, true);
 	} else {
 		// Boom
 		rocket->timer240 = 0;
@@ -6658,7 +6655,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 					}
 				}
 
-				func0f069c70(obj, false, true);
+				obj_onmoved(obj, false, true);
 				mtx3_to_mtx4(obj->realrot, &sp484);
 				mtx4_set_translation(&prop->pos, &sp484);
 				mtx000172f0(sp504.m, sp4c4.m);
@@ -7054,7 +7051,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 								}
 
 								handled = true;
-								func0f069c70(obj, true, true);
+								obj_onmoved(obj, true, true);
 								weapon->timer240 = 0;
 							} else {
 								if (hitprop->type == PROPTYPE_CHR || (hitprop->type == PROPTYPE_PLAYER && hitprop->chr)) {
@@ -7071,7 +7068,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 						if (!handled && stick) {
 							handled = true;
 
-							func0f069c70(obj, true, true);
+							obj_onmoved(obj, true, true);
 
 							if (obj->type == OBJTYPE_WEAPON) {
 								struct weaponobj *weapon = (struct weaponobj *) obj;
@@ -7416,7 +7413,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 						}
 					}
 
-					func0f069c70(obj, true, true);
+					obj_onmoved(obj, true, true);
 				}
 			} else if (projectile->flags & PROJECTILEFLAG_FALLING) {
 				// Some objects are placed in mid-air and then given this flag
@@ -7560,7 +7557,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 				}
 
 				if (result) {
-					func0f069c70(obj, true, true);
+					obj_onmoved(obj, true, true);
 				}
 			}
 		}
@@ -7830,7 +7827,7 @@ void platform_displace_props(struct prop *platform, s16 *propnums, struct coord 
 					prop_deregister_rooms(prop);
 
 					los_find_final_room_exhaustive(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
-					func0f069c70(obj, true, true);
+					obj_onmoved(obj, true, true);
 				}
 			}
 		} else if (prop->type == PROPTYPE_CHR) {
@@ -8086,7 +8083,7 @@ void lift_tick(struct prop *prop)
 
 			prop_deregister_rooms(prop);
 			rooms_copy(newrooms, prop->rooms);
-			func0f069c70(obj, true, true);
+			obj_onmoved(obj, true, true);
 			lift_update_tiles(lift, lift->levelcur == lift->levelaim);
 			platform_displace_props(prop, propnums, &prevpos, &prop->pos);
 		}
@@ -8166,7 +8163,7 @@ void escastep_tick(struct prop *prop)
 		cd_find_floor_y_colour_type_at_pos(&prop->pos, prop->rooms, &obj->floorcol, 0);
 	}
 
-	func0f069c70(obj, true, true);
+	obj_onmoved(obj, true, true);
 
 	if (!resetting) {
 		platform_displace_props(prop, propnums, &oldpos, &prop->pos);
@@ -9942,7 +9939,7 @@ void chopper_increment_movement(struct prop *prop, f32 goalroty, f32 goalrotx, s
 
 	prop_deregister_rooms(prop);
 	rooms_copy(newrooms, prop->rooms);
-	func0f069c70(&chopper->base, false, true);
+	obj_onmoved(&chopper->base, false, true);
 	chopper_increment_barrel(prop, firing);
 
 	if ((chopper->base.flags2 & OBJFLAG2_INVISIBLE) == 0 && obj_is_healthy(&chopper->base)) {
@@ -10102,7 +10099,7 @@ void chopper_tick_fall(struct prop *chopperprop)
 
 			prop_deregister_rooms(chopperprop);
 			rooms_copy(newrooms, chopperprop->rooms);
-			func0f069c70(obj, false, true);
+			obj_onmoved(obj, false, true);
 
 			// Move to CHOPPERMODE_DEAD
 			chopper->attackmode++;
@@ -10465,7 +10462,7 @@ void hovercar_tick(struct prop *prop)
 
 				prop_deregister_rooms(prop);
 				rooms_copy(sp1b0, prop->rooms);
-				func0f069c70(&hovercar->base, false, true);
+				obj_onmoved(&hovercar->base, false, true);
 			}
 		}
 
@@ -10685,7 +10682,7 @@ void hovercar_tick(struct prop *prop)
 			}
 		}
 
-		func0f069c70(&hovercar->base, false, true);
+		obj_onmoved(&hovercar->base, false, true);
 	}
 }
 
@@ -10884,6 +10881,7 @@ u32 obj_tick(struct prop *prop)
 		} else if (prop->timetoregen < TICKS(60) && !regenning) {
 			// 1 second left - time to start fading in
 			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_DESTROYED) == 0) {
+				// Object has no damage, so it's probably a pickup
 				if (obj->flags & OBJFLAG_INSIDEANOTHEROBJ) {
 					prop_deregister_rooms(prop);
 					prop_delist(prop);
@@ -10901,15 +10899,15 @@ u32 obj_tick(struct prop *prop)
 					}
 				} else {
 					prop_enable(prop);
-					setup0f0923d4(obj);
+					obj_detect_rooms(obj);
 					obj->hidden &= ~OBJHFLAG_GONE;
 				}
 			} else {
-				// Object was previously damaged. Maybe glass?
-				if (obj->hidden2 & OBJH2FLAG_08) {
-					obj->flags |= OBJFLAG_00000100;
+				// Object was previously damaged. Probably glass.
+				if (obj->hidden2 & OBJH2FLAG_CORE_GEO_EXISTS) {
+					obj->flags |= OBJFLAG_CORE_GEO_INUSE;
 				} else {
-					obj->flags &= ~OBJFLAG_00000100;
+					obj->flags &= ~OBJFLAG_CORE_GEO_INUSE;
 				}
 
 				obj->damage = 0;
@@ -11103,7 +11101,7 @@ s32 obj_tick_player(struct prop *prop)
 							cd_find_floor_y_colour_type_at_pos(&prop->pos, prop->rooms, &obj->floorcol, 0);
 						}
 
-						func0f069c70(obj, true, true);
+						obj_onmoved(obj, true, true);
 
 						if (obj->type == OBJTYPE_LIFT) {
 							lift_update_tiles((struct liftobj *)obj, false);
@@ -11197,10 +11195,10 @@ s32 obj_tick_player(struct prop *prop)
 						+ func0f06a620(obj) + sp112;
 				}
 
-				func0f069c70(obj, true, true);
+				obj_onmoved(obj, true, true);
 				sp592 = true;
 
-				if (obj_update_geometry(prop, (u8 **)geos, &end)
+				if (obj_get_geometry(prop, (u8 **)geos, &end)
 						&& geos[0]->type == GEOTYPE_BLOCK
 						&& cd_test_block_overlaps_any_prop((struct geoblock *) geos[0], prop->rooms, CDTYPE_PLAYERS) == CDRESULT_COLLISION) {
 					damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
@@ -14580,7 +14578,7 @@ bool obj_drop(struct prop *prop, bool lazy)
 		spf0.m[3][2] = 0;
 
 		mtx4_to_mtx3(&spf0, obj->realrot);
-		func0f069c70(obj, true, true);
+		obj_onmoved(obj, true, true);
 
 		obj->shadecol[0] = obj->nextcol[0];
 		obj->shadecol[1] = obj->nextcol[1];
@@ -14655,7 +14653,7 @@ void obj_fall(struct defaultobj *obj, s32 playernum)
 
 			projectile->flags |= PROJECTILEFLAG_AIRBORNE;
 
-			obj->flags &= ~OBJFLAG_00000100;
+			obj->flags &= ~OBJFLAG_CORE_GEO_INUSE;
 			obj->hidden &= ~OBJHFLAG_00008000;
 		}
 	}
@@ -14675,7 +14673,7 @@ void obj_destroy_supported_objects(struct prop *tableprop, s32 playernum)
 	u8 *start;
 	u8 *end;
 
-	if (prop_update_geometry(tableprop, &start, &end)) {
+	if (prop_get_geometry(tableprop, &start, &end)) {
 		room_get_props(tableprop->rooms, propnums, 256);
 
 		propnumptr = propnums;
@@ -14808,7 +14806,7 @@ void obj_check_destroyed(struct defaultobj *obj, struct coord *pos, s32 playernu
 				obj->hidden |= OBJHFLAG_00001000;
 
 				if ((obj->flags3 & OBJFLAG3_10000000) == 0) {
-					obj->flags &= ~OBJFLAG_00000100;
+					obj->flags &= ~OBJFLAG_CORE_GEO_INUSE;
 				}
 			}
 		}
@@ -16193,21 +16191,21 @@ void obj_set_perim_enabled(struct prop *prop, bool enable)
 	}
 }
 
-bool obj_update_geometry(struct prop *prop, u8 **start, u8 **end)
+bool obj_get_geometry(struct prop *prop, u8 **start, u8 **end)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (obj->unkgeo && (obj->flags3 & OBJFLAG3_WALKTHROUGH) == 0) {
-		if (obj->hidden2 & OBJH2FLAG_08) {
+	if (obj->geo && (obj->flags3 & OBJFLAG3_WALKTHROUGH) == 0) {
+		if (obj->hidden2 & OBJH2FLAG_CORE_GEO_EXISTS) {
 			s32 len = (obj->flags3 & OBJFLAG3_GEOCYL) ? sizeof(struct geocyl) : sizeof(struct geoblock);
 
-			if (obj->flags & OBJFLAG_00000100) {
+			if (obj->flags & OBJFLAG_CORE_GEO_INUSE) {
 				if ((obj->hidden & (OBJHFLAG_PERIMDISABLED | OBJHFLAG_DOORPERIMDISABLED)) == 0) {
-					*start = (void *) obj->unkgeo;
-					*end = (void *)((uintptr_t)obj->unkgeo + len);
+					*start = obj->geo;
+					*end = obj->geo + len;
 
 					if (obj->geocount >= 2) {
-						*end += obj->geocount * 0x40 - 0x40;
+						*end += (obj->geocount - 1) * 0x40;
 					}
 
 					return true;
@@ -16215,8 +16213,8 @@ bool obj_update_geometry(struct prop *prop, u8 **start, u8 **end)
 			}
 
 			if (obj->geocount >= 2) {
-				*start = (void *)((uintptr_t)obj->unkgeo + len);
-				*end = (void *)(*start + obj->geocount * 0x40 - 0x40);
+				*start = obj->geo + len;
+				*end = *start + (obj->geocount - 1) * 0x40;
 				return true;
 			}
 
@@ -16225,8 +16223,8 @@ bool obj_update_geometry(struct prop *prop, u8 **start, u8 **end)
 			return false;
 		}
 
-		*start = (void *) obj->unkgeo;
-		*end = (void *) ((uintptr_t)obj->unkgeo + obj->geocount * 0x40);
+		*start = obj->geo;
+		*end = obj->geo + obj->geocount * 0x40;
 		return true;
 	}
 
@@ -16240,7 +16238,7 @@ void obj_get_bbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 {
 	struct defaultobj *obj = prop->obj;
 
-	if (obj->unkgeo && obj->hidden2 & OBJH2FLAG_08) {
+	if (obj->geo && obj->hidden2 & OBJH2FLAG_CORE_GEO_EXISTS) {
 		if (obj->flags3 & OBJFLAG3_GEOCYL) {
 			*radius = obj->geocyl->radius;
 			*ymin = obj->geocyl->ymin;
@@ -19166,7 +19164,7 @@ void door_update_tiles(struct doorobj *door)
 
 	if ((door->doorflags & DOORFLAG_0020) == 0) {
 		func0f08c424(door, &spdc);
-		obj_calculate_geo_block_from_bbox_and_mtx(&bbox, &spdc, geo);
+		obj_populate_geoblock_from_bbox_and_mtx(&bbox, &spdc, geo);
 
 		if (door->doortype == DOORTYPE_VERTICAL) {
 			door->doorflags |= DOORFLAG_0020;
@@ -19261,7 +19259,7 @@ void door0f08cb20(struct doorobj *door, Vtx *src, Vtx *dst, s32 numvertices)
 
 void func0f08d3dc(struct doorobj *door)
 {
-	func0f069b4c(&door->base);
+	obj_update_extra_geo(&door->base);
 
 	if (door->doorflags & DOORFLAG_0004) {
 		struct modelnode *node = func0f0687e4(door->base.model);
@@ -19309,7 +19307,8 @@ struct prop *door_init(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomN
 	Mtxf sp38;
 	RoomNum sp28[8];
 
-	door->base.flags |= OBJFLAG_00000100;
+	door->base.flags |= OBJFLAG_CORE_GEO_INUSE;
+
 	prop = obj_init_with_auto_model(&door->base);
 
 	if (prop != NULL) {
@@ -19365,7 +19364,7 @@ struct prop *door_init(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomN
 		prop_deregister_rooms(prop);
 		rooms_copy(sp28, prop->rooms);
 		door_update_tiles(door);
-		func0f069c70(&door->base, false, true);
+		obj_onmoved(&door->base, false, true);
 		func0f08d3dc(door);
 
 		door->base.shadecol[0] = door->base.nextcol[0];
@@ -19638,9 +19637,9 @@ void door_start_open(struct doorobj *door)
 		door->base.flags |= OBJFLAG_CANNOT_ACTIVATE;
 		door->perimfrac = 0;
 
-		if (cyl && (door->base.flags & OBJFLAG_00000100)) {
+		if (cyl && (door->base.flags & OBJFLAG_CORE_GEO_INUSE)) {
 			cyl->header.numvertices = 0;
-			door->base.flags &= ~OBJFLAG_00000100;
+			door->base.flags &= ~OBJFLAG_CORE_GEO_INUSE;
 		}
 	}
 
@@ -20151,7 +20150,7 @@ void doors_calc_frac(struct doorobj *door)
 			struct prop *loopprop;
 
 			door_update_tiles(loopdoor);
-			setup0f0923d4(&loopdoor->base);
+			obj_detect_rooms(&loopdoor->base);
 
 			loopprop = loopdoor->base.prop;
 
@@ -20251,7 +20250,7 @@ void doors_calc_frac(struct doorobj *door)
 					}
 				}
 
-				func0f069c70(&loopdoor->base, false, false);
+				obj_onmoved(&loopdoor->base, false, false);
 				func0f08d3dc(loopdoor);
 			} else {
 				// Door is blocked - restore the original frac
@@ -20259,7 +20258,7 @@ void doors_calc_frac(struct doorobj *door)
 				loopdoor->frac = *(f32 *)&loopdoor->lastcalc60;
 
 				door_update_tiles(loopdoor);
-				setup0f0923d4(&loopdoor->base);
+				obj_detect_rooms(&loopdoor->base);
 				func0f08d460(loopdoor);
 			}
 		} else {

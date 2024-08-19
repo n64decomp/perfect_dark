@@ -101,6 +101,6 @@ void bg_set_portal_open_state(s32 portal, bool open);
 s32 bg_find_portal_between_positions(struct coord *pos1, struct coord *pos2);
 bool bg_is_bbox_overlapping(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3);
 void bg_calculate_portal_bbox(s32 portalnum, struct coord *bbmin, struct coord *bbmax);
-void bg_find_entered_rooms(struct coord *bbmin, struct coord *upper, RoomNum *rooms, s32 maxlen, bool arg4);
+void bg_find_entered_rooms(struct coord *bbmin, struct coord *bbmax, RoomNum *rooms, s32 maxlen, bool arg4);
 
 #endif

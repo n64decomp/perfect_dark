@@ -399,7 +399,7 @@ s32 bbike_calculate_new_position(struct coord *vel, f32 angledelta)
 				g_Vars.currentplayer->hoverbike->rooms,
 				&dstpos, dstrooms, spa8, 20);
 
-		setup0f09233c(&bike->base, &dstpos, bike->base.realrot, dstrooms);
+		obj_find_rooms(&bike->base, &dstpos, bike->base.realrot, dstrooms);
 
 		hasvel = true;
 
@@ -916,7 +916,7 @@ void bbike_tick(void)
 		bike->speed[1] = sp1f4;
 
 		hov_tick(obj, &bike->hov);
-		func0f069c70(obj, true, true);
+		obj_onmoved(obj, true, true);
 		mtx3_to_mtx4(obj->realrot, &sp1a8);
 		mtx4_set_translation(&obj->prop->pos, &sp1a8);
 		mtx4_transform_vec(&sp1a8, &g_Vars.currentplayer->bondvehicleoffset, &sp1e8);

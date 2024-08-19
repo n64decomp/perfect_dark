@@ -1044,7 +1044,7 @@ void fr_init_targets(void)
 			prop->pos.y = pos.y;
 			prop->pos.z = pos.z;
 
-			func0f069c70(obj, true, false);
+			obj_onmoved(obj, true, false);
 		}
 	}
 }
@@ -1937,7 +1937,7 @@ void fr_tick(void)
 				prop->pos.y = -5000;
 				prop->pos.z = 0;
 
-				func0f069c70(obj, true, false);
+				obj_onmoved(obj, true, false);
 
 				// Activate another target
 				for (j = 0; j < ARRAYCOUNT(g_FrData.targets); j++) {
@@ -2069,7 +2069,7 @@ void fr_tick(void)
 				prop->pos.y = newpos.y;
 				prop->pos.z = newpos.z;
 
-				func0f069c70(obj, true, false);
+				obj_onmoved(obj, true, false);
 			}
 
 			if (g_FrData.targets[i].rotateoncloak && g_FrData.targets[i].rotating == false) {

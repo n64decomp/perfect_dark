@@ -5119,7 +5119,7 @@ void player_set_perim_enabled(struct prop *prop, bool enable)
 	g_Vars.players[playernum]->bondperimenabled = enable;
 }
 
-bool player_update_geometry(struct prop *prop, u8 **start, u8 **end)
+bool player_get_geometry(struct prop *prop, u8 **start, u8 **end)
 {
 	s32 playernum = playermgr_get_player_num_by_prop(prop);
 

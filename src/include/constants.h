@@ -2291,9 +2291,9 @@
 #define MODELPART_AUTOGUN_0006           0x0006 // position
 #define MODELPART_AUTOGUN_FLASHLEFT      0x0005 // gunfire
 #define MODELPART_AUTOGUN_FLASHRIGHT     0x0007 // gunfire
-#define MODELPART_BASIC_0064             0x0064 // type19
-#define MODELPART_BASIC_0065             0x0065 // type19
-#define MODELPART_BASIC_0066             0x0066 // type19
+#define MODELPART_BASIC_0064             0x0064 // geo
+#define MODELPART_BASIC_FLOORGEO         0x0065 // geo
+#define MODELPART_BASIC_WALLGEO          0x0066 // geo
 #define MODELPART_BASIC_SHIELD           0x0067 // bbox
 #define MODELPART_BASIC_00C8             0x00c8 // toggle
 #define MODELPART_BASIC_00C9             0x00c9 // toggle
@@ -2374,7 +2374,7 @@
 #define MODELPART_DRCAROLL_0009          0x0009 // toggle
 #define MODELPART_DRCAROLL_000A          0x000a // toggle
 #define MODELPART_DRCAROLL_000B          0x000b // toggle
-#define MODELPART_DROPSHIP_0064          0x0064 // type19
+#define MODELPART_DROPSHIP_0064          0x0064 // geo
 #define MODELPART_DROPSHIP_INTERIOR      0x006e // toggle
 #define MODELPART_FALCON2_002E           0x002e // toggle
 #define MODELPART_FALCON2_002F           0x002f // toggle
@@ -2409,7 +2409,7 @@
 #define MODELPART_HEAD_HAT               0x0001 // toggle
 #define MODELPART_HEAD_HUDPIECE          0x0004 // toggle
 #define MODELPART_HEAD_SUNGLASSES        0x0000 // toggle
-#define MODELPART_HOVERBIKE_0064         0x0064 // type19
+#define MODELPART_HOVERBIKE_0064         0x0064 // geo
 #define MODELPART_HUDPIECE_0000          0x0000 // gundl
 #define MODELPART_HUDPIECE_0001          0x0001 // position
 #define MODELPART_HUDPIECE_0002          0x0002 // position
@@ -2438,13 +2438,13 @@
 #define MODELPART_LAPTOPGUN_MAGAZINE1    0x0029 // toggle
 #define MODELPART_LAPTOPGUN_MAGAZINE2    0x002a // toggle
 #define MODELPART_LASER_0042             0x0042 // toggle
-#define MODELPART_LIFT_DOORBLOCK         0x0004 // type19
-#define MODELPART_LIFT_FLOORNONRECT1     0x0005 // type19
-#define MODELPART_LIFT_FLOORNONRECT2     0x0006 // type19
+#define MODELPART_LIFT_DOORBLOCK         0x0004 // geo
+#define MODELPART_LIFT_FLOORNONRECT1     0x0005 // geo
+#define MODELPART_LIFT_FLOORNONRECT2     0x0006 // geo
 #define MODELPART_LIFT_FLOORRECT         0x0000 // bbox
-#define MODELPART_LIFT_WALL1             0x0001 // type19
-#define MODELPART_LIFT_WALL2             0x0002 // type19
-#define MODELPART_LIFT_WALL3             0x0003 // type19
+#define MODELPART_LIFT_WALL1             0x0001 // geo
+#define MODELPART_LIFT_WALL2             0x0002 // geo
+#define MODELPART_LIFT_WALL3             0x0003 // geo
 #define MODELPART_LOGO_0000              0x0000 // toggle
 #define MODELPART_LOGO_0001              0x0001 // toggle
 #define MODELPART_LOGO_FRONTSIDE         0x0002 // dl
@@ -2473,7 +2473,7 @@
 #define MODELPART_MAGNUM_CART4           0x002b // toggle
 #define MODELPART_MAGNUM_CART5           0x002c // toggle
 #define MODELPART_MAGNUM_CART6           0x002d // toggle
-#define MODELPART_MAIANUFO_0064          0x0064 // type19
+#define MODELPART_MAIANUFO_0064          0x0064 // geo
 #define MODELPART_MAULER_0050            0x0050 // position
 #define MODELPART_MAULER_MAGAZINE1       0x002a // toggle
 #define MODELPART_MAULER_MAGAZINE2       0x002b // toggle
@@ -2564,8 +2564,6 @@
 #define MODELPART_0010 0x0010
 #define MODELPART_0011 0x0011
 #define MODELPART_0042 0x0042
-#define MODELPART_0065 0x0065
-#define MODELPART_0066 0x0066
 #define MODELPART_0067 0x0067
 
 #define MODELRENDERFLAG_OPA 1
@@ -2998,7 +2996,7 @@
 #define OBJFLAG_XTOPADBOUNDS               0x00000020
 #define OBJFLAG_YTOPADBOUNDS               0x00000040
 #define OBJFLAG_ZTOPADBOUNDS               0x00000080
-#define OBJFLAG_00000100                   0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
+#define OBJFLAG_CORE_GEO_INUSE                   0x00000100 // G5 mines, Air Base brown door, AF1 grate and escape door, Defense shuttle, Ruins mines, MBR lift door. Editor suggests "Force Collisions" but this seems wrong
 #define OBJFLAG_ORTHOGONAL                 0x00000200
 #define OBJFLAG_IGNOREFLOORCOLOUR          0x00000400
 #define OBJFLAG_PATHBLOCKER                0x00000800 // Glass and explodable scenery which may be blocking a path segment
@@ -3158,7 +3156,7 @@
 #define OBJH2FLAG_HASOPA       0x01 // obj has opaque polygons (ie. most objects)
 #define OBJH2FLAG_HASXLU       0x02 // obj has translucent polygons
 #define OBJH2FLAG_CANREGEN     0x04
-#define OBJH2FLAG_08           0x08
+#define OBJH2FLAG_CORE_GEO_EXISTS           0x08
 #define OBJH2FLAG_10           0x10
 #define OBJH2FLAG_DESTROYED    0x40
 #define OBJH2FLAG_80           0x80

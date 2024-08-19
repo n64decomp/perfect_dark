@@ -186,28 +186,28 @@ bool setup0f092304(struct defaultobj *obj, struct coord *arg1, struct coord *arg
 	return setup_get_obj_bbox(obj, &obj->prop->pos, obj->realrot, arg1, arg2);
 }
 
-void setup0f09233c(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], RoomNum *rooms)
+void obj_find_rooms(struct defaultobj *obj, struct coord *pos, f32 realrot[3][3], RoomNum *rooms)
 {
-	struct coord a;
-	struct coord b;
+	struct coord bbmin;
+	struct coord bbmax;
 	u32 stack;
 
-	if (setup_get_obj_bbox(obj, pos, realrot, &a, &b)) {
-		a.x -= 1;
-		a.y -= 1;
-		a.z -= 1;
-		b.x += 1;
-		b.y += 1;
-		b.z += 1;
+	if (setup_get_obj_bbox(obj, pos, realrot, &bbmin, &bbmax)) {
+		bbmin.x -= 1;
+		bbmin.y -= 1;
+		bbmin.z -= 1;
+		bbmax.x += 1;
+		bbmax.y += 1;
+		bbmax.z += 1;
 
-		bg_find_entered_rooms(&a, &b, rooms, 7, false);
+		bg_find_entered_rooms(&bbmin, &bbmax, rooms, 7, false);
 	}
 }
 
-void setup0f0923d4(struct defaultobj *obj)
+void obj_detect_rooms(struct defaultobj *obj)
 {
 	prop_deregister_rooms(obj->prop);
-	setup0f09233c(obj, &obj->prop->pos, obj->realrot, obj->prop->rooms);
+	obj_find_rooms(obj, &obj->prop->pos, obj->realrot, obj->prop->rooms);
 	prop_register_rooms(obj->prop);
 }
 

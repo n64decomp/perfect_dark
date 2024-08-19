@@ -68,7 +68,7 @@ void player_move_camera_from_pos_room(struct coord *pos, struct coord *up, struc
 void player_move_camera(struct coord *pos, struct coord *up, struct coord *look);
 void players_clear_mem_cam_room(void);
 void player_set_perim_enabled(struct prop *prop, bool enable);
-bool player_update_geometry(struct prop *prop, u8 **start, u8 **end);
+bool player_get_geometry(struct prop *prop, u8 **start, u8 **end);
 void player_update_perim_info(void);
 void player_get_bbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin);
 f32 player_get_health_frac(void);

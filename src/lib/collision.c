@@ -808,7 +808,7 @@ void cd_get_props_on_platform(struct prop *platform, s16 *propnums, s32 maxlen)
 	struct geo *geo;
 	s32 len = 0;
 
-	if (prop_update_geometry(platform, &start, &end)) {
+	if (prop_get_geometry(platform, &start, &end)) {
 		room_get_props(platform->rooms, roompropnums, 256);
 		roompropnumptr = roompropnums;
 
@@ -868,7 +868,7 @@ void cd_set_prop_y_bounds(struct prop *prop, f32 ymax, f32 ymin)
 	u8 *start;
 	u8 *end;
 
-	if (prop_update_geometry(prop, &start, &end)) {
+	if (prop_get_geometry(prop, &start, &end)) {
 		struct geo *geo = (struct geo *) start;
 
 		while (geo < (struct geo *) end) {
@@ -1002,7 +1002,7 @@ void cd_find_closest_vertical(struct coord *pos, RoomNum *rooms, u16 geoflags, s
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (prop_update_geometry(prop, &start, &end)
+		if (prop_get_geometry(prop, &start, &end)
 				&& cd_00026a04(pos, start, end, geoflags, prop->rooms[0], &geo, &room, &closesty, ceiling)) {
 			bestprop = prop;
 		}
@@ -1301,7 +1301,7 @@ void cd_collect_geo_for_cyl(struct coord *pos, f32 radius, RoomNum *rooms, u32 t
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (prop_is_of_cd_type(prop, types) && prop_update_geometry(prop, &start, &end)) {
+		if (prop_is_of_cd_type(prop, types) && prop_get_geometry(prop, &start, &end)) {
 			cd_collect_geo_for_cyl_from_list(pos, radius, start, end, geoflags, checkvertical, ymax, ymin, prop, collisions, maxcollisions, &numcollisions, prop->rooms[0]);
 
 			if (numcollisions >= maxcollisions) {
@@ -1625,7 +1625,7 @@ void cd_collect_geo_for_cyl_move(struct coord *pos, f32 width, RoomNum *rooms, u
 	while (*propnumptr >= 0) {
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
-		if (prop_is_of_cd_type(prop, types) && prop_update_geometry(prop, &start, &end)) {
+		if (prop_is_of_cd_type(prop, types) && prop_get_geometry(prop, &start, &end)) {
 			cd_collect_geo_for_cyl_move_from_list(start, end, pos, width, geoflags, checkvertical, ymax, ymin, prop, collisions, maxcollisions, &numcollisions);
 		}
 
@@ -3379,7 +3379,7 @@ bool cd_test_a_to_b(struct coord *pos, struct coord *coord2, RoomNum *rooms, u32
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
 		if (prop_is_of_cd_type(prop, types)
-				&& prop_update_geometry(prop, &start, &end)
+				&& prop_get_geometry(prop, &start, &end)
 				&& cd_test_a_to_b_geolist(start, end, pos, coord2, &sp27c, geoflags, checkvertical, arg6, ymax, ymin) == 0) {
 			cd_set_obstacle_prop(prop);
 			return false;
@@ -3439,7 +3439,7 @@ s32 cd_exam_a_to_b(struct coord *arg0, struct coord *arg1, RoomNum *rooms, s32 t
 		struct prop *prop = &g_Vars.props[*propnumptr];
 
 		if (prop_is_of_cd_type(prop, types)
-				&& prop_update_geometry(prop, &start, &end)
+				&& prop_get_geometry(prop, &start, &end)
 				&& !cd_exam_a_to_b_geolist(start, end, arg0, arg1, &sp2c4, geoflags, checkvertical, arg6, ymax, ymin, &sp298, &sp2b4, &sp2a8, &sp29c, &sp294, -999)) {
 			sp2c0 = true;
 			cd_set_obstacle_vtx_col_prop_flt_geo(&sp2a8, &sp29c, &sp2b4, prop, sp298, sp294);
@@ -3668,7 +3668,7 @@ bool cd_0002ded8(struct coord *arg0, struct coord *arg1, struct prop *prop)
 	sp7c.y = arg1->y - arg0->y;
 	sp7c.z = arg1->z - arg0->z;
 
-	if (prop_update_geometry(prop, &start, &end)) {
+	if (prop_get_geometry(prop, &start, &end)) {
 		if (!cd_exam_a_to_b_geolist(start, end, arg0, arg1, &sp7c,
 					GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT,
 					CHECKVERTICAL_YES, 1, 0, 0, &sp50, &sp6c, &sp60, &sp54, &geo, -999)) {
@@ -3852,7 +3852,7 @@ s32 cd_test_block_overlaps_any_prop(struct geoblock *geo, RoomNum *rooms, u32 ty
 		while (*propnumptr >= 0) {
 			struct prop *prop = &g_Vars.props[*propnumptr];
 
-			if (prop_is_of_cd_type(prop, types) && prop_update_geometry(prop, &start, &end)) {
+			if (prop_is_of_cd_type(prop, types) && prop_get_geometry(prop, &start, &end)) {
 				result = cd_test_block_overlaps_geolist(start, end, geo, GEOFLAG_WALL);
 
 				if (result == CDRESULT_COLLISION) {
@@ -4122,7 +4122,7 @@ bool cd_0002f02c(struct geoblock *block, RoomNum *rooms, s32 types)
 			struct prop *prop = &g_Vars.props[*propnumptr];
 
 			if (prop_is_of_cd_type(prop, types)) {
-				if (prop_update_geometry(prop, &start, &end)) {
+				if (prop_get_geometry(prop, &start, &end)) {
 					result = cd_0002ed30(start, end, block, numvertices, verts, diffs, GEOFLAG_WALL, prop);
 
 					if (!result) {

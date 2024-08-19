@@ -62,6 +62,6 @@ void los_find_final_room_fast(struct coord *frompos, RoomNum *fromrooms, struct 
 void room_get_props(RoomNum *room, s16 *propnums, s32 len);
 void props_defrag_room_props(void);
 void prop_get_bbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin);
-bool prop_update_geometry(struct prop *prop, u8 **start, u8 **end);
+bool prop_get_geometry(struct prop *prop, u8 **start, u8 **end);
 
 #endif

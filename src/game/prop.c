@@ -2833,7 +2833,7 @@ bool prop_is_of_cd_type(struct prop *prop, u32 types)
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_WEAPON) {
 		struct defaultobj *obj = prop->obj;
 
-		if (obj->unkgeo == NULL) {
+		if (obj->geo == NULL) {
 			result = false;
 		} else {
 			if ((types & CDTYPE_AIOPAQUE) && (obj->flags & OBJFLAG_AISEETHROUGH)) {
@@ -3328,16 +3328,16 @@ void prop_get_bbox(struct prop *prop, f32 *radius, f32 *ymax, f32 *ymin)
 	}
 }
 
-bool prop_update_geometry(struct prop *prop, u8 **start, u8 **end)
+bool prop_get_geometry(struct prop *prop, u8 **start, u8 **end)
 {
 	bool result = false;
 
 	if (prop->type == PROPTYPE_PLAYER) {
-		result = player_update_geometry(prop, start, end);
+		result = player_get_geometry(prop, start, end);
 	} else if (prop->type == PROPTYPE_CHR) {
-		result = chr_update_geometry(prop, start, end);
+		result = chr_get_geometry(prop, start, end);
 	} else if (prop->type == PROPTYPE_OBJ || prop->type == PROPTYPE_DOOR) {
-		result = obj_update_geometry(prop, start, end);
+		result = obj_get_geometry(prop, start, end);
 	}
 
 	return result;
