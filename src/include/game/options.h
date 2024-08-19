@@ -9,7 +9,7 @@ void options_set_control_mode(s32 mpchrnum, s32 mode);
 s32 options_get_contpad_num1(s32 mpchrnum);
 s32 options_get_contpad_num2(s32 mpchrnum);
 s32 options_get_forward_pitch(s32 mpchrnum);
-s32 options_get_auto_aim(s32 mpchrnum);
+s32 options_get_autoaim(s32 mpchrnum);
 s32 options_get_look_ahead(s32 mpchrnum);
 s32 options_get_aim_control(s32 mpchrnum);
 s32 options_get_sight_on_screen(s32 mpchrnum);
@@ -24,7 +24,7 @@ u8 options_get_cutscene_subtitles(void);
 s32 options_get_head_roll(s32 mpchrnum);
 
 void options_set_forward_pitch(s32 mpchrnum, bool enable);
-void options_set_auto_aim(s32 mpchrnum, bool enable);
+void options_set_autoaim(s32 mpchrnum, bool enable);
 void options_set_look_ahead(s32 mpchrnum, bool enable);
 void options_set_aim_control(s32 mpchrnum, s32 index);
 void options_set_sight_on_screen(s32 mpchrnum, bool enable);

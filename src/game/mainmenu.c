@@ -611,7 +611,7 @@ MenuItemHandlerResult menuhandler_sight_on_screen(s32 operation, struct menuitem
 	return 0;
 }
 
-MenuItemHandlerResult menuhandler_auto_aim(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_autoaim(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	u32 mpchrnum;
 
@@ -623,9 +623,9 @@ MenuItemHandlerResult menuhandler_auto_aim(s32 operation, struct menuitem *item,
 
 	switch (operation) {
 	case MENUOP_GET:
-		return options_get_auto_aim(mpchrnum);
+		return options_get_autoaim(mpchrnum);
 	case MENUOP_SET:
-		options_set_auto_aim(mpchrnum, data->checkbox.value);
+		options_set_autoaim(mpchrnum, data->checkbox.value);
 		g_Vars.modifiedfiles |= MODFILE_GAME;
 	}
 
@@ -3099,7 +3099,7 @@ struct menuitem g_MissionControlOptionsMenuItems[] = {
 		0,
 		L_OPTIONS_198, // "Auto-Aim"
 		0x00000004,
-		menuhandler_auto_aim,
+		menuhandler_autoaim,
 	},
 	{
 		MENUITEMTYPE_DROPDOWN,
@@ -3177,7 +3177,7 @@ struct menuitem g_CiControlOptionsMenuItems2[] = {
 		0,
 		L_MPWEAPONS_274, // ""
 		0x00000004,
-		menuhandler_auto_aim,
+		menuhandler_autoaim,
 	},
 	{
 		MENUITEMTYPE_DROPDOWN,
@@ -3255,7 +3255,7 @@ struct menuitem g_CiControlOptionsMenuItems[] = {
 		0,
 		L_OPTIONS_198, // "Auto-Aim"
 		0x00000004,
-		menuhandler_auto_aim,
+		menuhandler_autoaim,
 	},
 	{
 		MENUITEMTYPE_DROPDOWN,
@@ -3332,7 +3332,7 @@ struct menuitem g_CiControlPlayer2MenuItems[] = {
 		0,
 		L_OPTIONS_198, // "Auto-Aim"
 		0x00000005,
-		menuhandler_auto_aim,
+		menuhandler_autoaim,
 	},
 	{
 		MENUITEMTYPE_DROPDOWN,

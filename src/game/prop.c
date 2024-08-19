@@ -2441,7 +2441,7 @@ f32 prop_calculate_autoaim_score(struct prop *prop, struct coord *screenpos, f32
 		sp8c[0] = floorf(sp8c[0]);
 		sp84[0] = ceilf(sp84[0]);
 
-		if (bmove_is_auto_aim_x_enabled_for_current_weapon() || cangangsta) {
+		if (bmove_is_autoaim_x_enabled_for_current_weapon() || cangangsta) {
 			if (sp8c[0] <= right && left <= sp84[0]) {
 				sp48 = (sp84[0] - sp8c[0]) * 1.5f;
 
@@ -2484,7 +2484,7 @@ f32 prop_calculate_autoaim_score(struct prop *prop, struct coord *screenpos, f32
 
 				aimpos[1] = value;
 
-				if (bmove_is_auto_aim_x_enabled_for_current_weapon() || cangangsta) {
+				if (bmove_is_autoaim_x_enabled_for_current_weapon() || cangangsta) {
 					f32 value = spa0[0];
 
 					if (value < left) {
@@ -2682,8 +2682,8 @@ void autoaim_tick(void)
 				break;
 			}
 		}
-	} else if ((bmove_is_auto_aim_y_enabled_for_current_weapon()
-				|| bmove_is_auto_aim_x_enabled_for_current_weapon()
+	} else if ((bmove_is_autoaim_y_enabled_for_current_weapon()
+				|| bmove_is_autoaim_x_enabled_for_current_weapon()
 				|| cangangsta) && !ismelee) {
 		// Standard auto aim
 		f32 bestscore = -1;
@@ -2731,12 +2731,12 @@ void autoaim_tick(void)
 	}
 
 	if (bestprop) {
-		if (bmove_is_auto_aim_y_enabled_for_current_weapon() || iscmpsec) {
-			bmove_update_auto_aim_y_prop(bestprop, (aimpos[1] - cam_get_screen_top()) / (cam_get_screen_height() * 0.5f) - 1);
+		if (bmove_is_autoaim_y_enabled_for_current_weapon() || iscmpsec) {
+			bmove_update_autoaim_y_prop(bestprop, (aimpos[1] - cam_get_screen_top()) / (cam_get_screen_height() * 0.5f) - 1);
 		}
 
-		if (bmove_is_auto_aim_x_enabled_for_current_weapon() || iscmpsec) {
-			bmove_update_auto_aim_x_prop(bestprop, (aimpos[0] - cam_get_screen_left()) / (cam_get_screen_width() * 0.5f) - 1);
+		if (bmove_is_autoaim_x_enabled_for_current_weapon() || iscmpsec) {
+			bmove_update_autoaim_x_prop(bestprop, (aimpos[0] - cam_get_screen_left()) / (cam_get_screen_width() * 0.5f) - 1);
 		}
 
 		if (cangangsta) {
@@ -2755,8 +2755,8 @@ void autoaim_tick(void)
 		}
 	} else {
 		u32 stack;
-		bmove_update_auto_aim_y_prop(NULL, 0);
-		bmove_update_auto_aim_x_prop(NULL, 0);
+		bmove_update_autoaim_y_prop(NULL, 0);
+		bmove_update_autoaim_x_prop(NULL, 0);
 
 		g_Vars.currentplayer->gunctrl.gangsta = false;
 	}

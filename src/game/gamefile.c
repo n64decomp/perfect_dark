@@ -57,7 +57,7 @@ void gamefile_apply_options(struct gamefile *file)
 	s32 player2 = (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) ? 1 : 5;
 
 	options_set_forward_pitch(player1, pak_has_bitflag(GAMEFILEFLAG_P1_FORWARDPITCH, file->flags));
-	options_set_auto_aim(player1, pak_has_bitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags));
+	options_set_autoaim(player1, pak_has_bitflag(GAMEFILEFLAG_P1_AUTOAIM, file->flags));
 	options_set_aim_control(player1, pak_has_bitflag(GAMEFILEFLAG_P1_AIMCONTROL, file->flags));
 	options_set_sight_on_screen(player1, pak_has_bitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, file->flags));
 	options_set_look_ahead(player1, pak_has_bitflag(GAMEFILEFLAG_P1_LOOKAHEAD, file->flags));
@@ -70,7 +70,7 @@ void gamefile_apply_options(struct gamefile *file)
 	options_set_paintball(player1, pak_has_bitflag(GAMEFILEFLAG_P1_PAINTBALL, file->flags));
 
 	options_set_forward_pitch(player2, pak_has_bitflag(GAMEFILEFLAG_P2_FORWARDPITCH, file->flags));
-	options_set_auto_aim(player2, pak_has_bitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags));
+	options_set_autoaim(player2, pak_has_bitflag(GAMEFILEFLAG_P2_AUTOAIM, file->flags));
 	options_set_aim_control(player2, pak_has_bitflag(GAMEFILEFLAG_P2_AIMCONTROL, file->flags));
 	options_set_sight_on_screen(player2, pak_has_bitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, file->flags));
 	options_set_look_ahead(player2, pak_has_bitflag(GAMEFILEFLAG_P2_LOOKAHEAD, file->flags));
@@ -389,7 +389,7 @@ s32 gamefile_save(s32 device, s32 fileid, u16 deviceserial)
 	var80075bd0[0] = 1;
 
 	pak_set_bitflag(GAMEFILEFLAG_P1_FORWARDPITCH, g_GameFile.flags, options_get_forward_pitch(p1index));
-	pak_set_bitflag(GAMEFILEFLAG_P1_AUTOAIM, g_GameFile.flags, options_get_auto_aim(p1index));
+	pak_set_bitflag(GAMEFILEFLAG_P1_AUTOAIM, g_GameFile.flags, options_get_autoaim(p1index));
 	pak_set_bitflag(GAMEFILEFLAG_P1_AIMCONTROL, g_GameFile.flags, options_get_aim_control(p1index));
 	pak_set_bitflag(GAMEFILEFLAG_P1_SIGHTONSCREEN, g_GameFile.flags, options_get_sight_on_screen(p1index));
 	pak_set_bitflag(GAMEFILEFLAG_P1_LOOKAHEAD, g_GameFile.flags, options_get_look_ahead(p1index));
@@ -402,7 +402,7 @@ s32 gamefile_save(s32 device, s32 fileid, u16 deviceserial)
 	pak_set_bitflag(GAMEFILEFLAG_P1_PAINTBALL, g_GameFile.flags, options_get_paintball(p1index));
 
 	pak_set_bitflag(GAMEFILEFLAG_P2_FORWARDPITCH, g_GameFile.flags, options_get_forward_pitch(p2index));
-	pak_set_bitflag(GAMEFILEFLAG_P2_AUTOAIM, g_GameFile.flags, options_get_auto_aim(p2index));
+	pak_set_bitflag(GAMEFILEFLAG_P2_AUTOAIM, g_GameFile.flags, options_get_autoaim(p2index));
 	pak_set_bitflag(GAMEFILEFLAG_P2_AIMCONTROL, g_GameFile.flags, options_get_aim_control(p2index));
 	pak_set_bitflag(GAMEFILEFLAG_P2_SIGHTONSCREEN, g_GameFile.flags, options_get_sight_on_screen(p2index));
 	pak_set_bitflag(GAMEFILEFLAG_P2_LOOKAHEAD, g_GameFile.flags, options_get_look_ahead(p2index));

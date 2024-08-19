@@ -5,16 +5,16 @@
 #include "types.h"
 
 void bmove_set_control_def(u32 controldef);
-void bmove_set_auto_move_centre_enabled(bool enabled);
-void bmove_set_auto_aim_y(bool enabled);
-bool bmove_is_auto_aim_y_enabled(void);
-bool bmove_is_auto_aim_y_enabled_for_current_weapon(void);
+void bmove_set_automovecentre_enabled(bool enabled);
+void bmove_set_autoaim_y(bool enabled);
+bool bmove_is_autoaim_y_enabled(void);
+bool bmove_is_autoaim_y_enabled_for_current_weapon(void);
 bool bmove_is_in_sight_aim_mode(void);
-void bmove_update_auto_aim_y_prop(struct prop *prop, f32 autoaimy);
-void bmove_set_auto_aim_x(bool enabled);
-bool bmove_is_auto_aim_x_enabled(void);
-bool bmove_is_auto_aim_x_enabled_for_current_weapon(void);
-void bmove_update_auto_aim_x_prop(struct prop *prop, f32 autoaimx);
+void bmove_update_autoaim_y_prop(struct prop *prop, f32 autoaimy);
+void bmove_set_autoaim_x(bool enabled);
+bool bmove_is_autoaim_x_enabled(void);
+bool bmove_is_autoaim_x_enabled_for_current_weapon(void);
+void bmove_update_autoaim_x_prop(struct prop *prop, f32 autoaimx);
 struct prop *bmove_get_hoverbike(void);
 struct prop *bmove_get_grabbed_prop(void);
 void bmove_grab_prop(struct prop *prop);

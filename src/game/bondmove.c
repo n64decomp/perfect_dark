@@ -44,22 +44,22 @@ void bmove_set_control_def(u32 controldef)
 	g_Vars.currentplayer->controldef = controldef;
 }
 
-void bmove_set_auto_move_centre_enabled(bool enabled)
+void bmove_set_automovecentre_enabled(bool enabled)
 {
 	g_Vars.currentplayer->automovecentreenabled = enabled;
 }
 
-bool bmove_is_auto_move_centre_enabled(void)
+bool bmove_is_automovecentre_enabled(void)
 {
 	return g_Vars.currentplayer->automovecentreenabled;
 }
 
-void bmove_set_auto_aim_y(bool enabled)
+void bmove_set_autoaim_y(bool enabled)
 {
 	g_Vars.currentplayer->autoyaimenabled = enabled;
 }
 
-bool bmove_is_auto_aim_y_enabled(void)
+bool bmove_is_autoaim_y_enabled(void)
 {
 	if (!g_Vars.normmplayerisrunning) {
 		return g_Vars.currentplayer->autoyaimenabled;
@@ -69,10 +69,10 @@ bool bmove_is_auto_aim_y_enabled(void)
 		return false;
 	}
 
-	return options_get_auto_aim(g_Vars.currentplayerstats->mpindex);
+	return options_get_autoaim(g_Vars.currentplayerstats->mpindex);
 }
 
-bool bmove_is_auto_aim_y_enabled_for_current_weapon(void)
+bool bmove_is_autoaim_y_enabled_for_current_weapon(void)
 {
 	struct weaponfunc *func = current_player_get_weapon_function(0);
 
@@ -86,7 +86,7 @@ bool bmove_is_auto_aim_y_enabled_for_current_weapon(void)
 		}
 	}
 
-	return bmove_is_auto_aim_y_enabled();
+	return bmove_is_autoaim_y_enabled();
 }
 
 bool bmove_is_in_sight_aim_mode(void)
@@ -94,7 +94,7 @@ bool bmove_is_in_sight_aim_mode(void)
 	return g_Vars.currentplayer->insightaimmode;
 }
 
-void bmove_update_auto_aim_y_prop(struct prop *prop, f32 autoaimy)
+void bmove_update_autoaim_y_prop(struct prop *prop, f32 autoaimy)
 {
 	if (g_Vars.currentplayer->autoyaimtime60 >= 0) {
 		g_Vars.currentplayer->autoyaimtime60 -= g_Vars.lvupdate60;
@@ -112,12 +112,12 @@ void bmove_update_auto_aim_y_prop(struct prop *prop, f32 autoaimy)
 	g_Vars.currentplayer->autoaimy = autoaimy;
 }
 
-void bmove_set_auto_aim_x(bool enabled)
+void bmove_set_autoaim_x(bool enabled)
 {
 	g_Vars.currentplayer->autoxaimenabled = enabled;
 }
 
-bool bmove_is_auto_aim_x_enabled(void)
+bool bmove_is_autoaim_x_enabled(void)
 {
 	if (!g_Vars.normmplayerisrunning) {
 		return g_Vars.currentplayer->autoxaimenabled;
@@ -127,10 +127,10 @@ bool bmove_is_auto_aim_x_enabled(void)
 		return false;
 	}
 
-	return options_get_auto_aim(g_Vars.currentplayerstats->mpindex);
+	return options_get_autoaim(g_Vars.currentplayerstats->mpindex);
 }
 
-bool bmove_is_auto_aim_x_enabled_for_current_weapon(void)
+bool bmove_is_autoaim_x_enabled_for_current_weapon(void)
 {
 	struct weaponfunc *func = current_player_get_weapon_function(0);
 
@@ -144,10 +144,10 @@ bool bmove_is_auto_aim_x_enabled_for_current_weapon(void)
 		}
 	}
 
-	return bmove_is_auto_aim_x_enabled();
+	return bmove_is_autoaim_x_enabled();
 }
 
-void bmove_update_auto_aim_x_prop(struct prop *prop, f32 autoaimx)
+void bmove_update_autoaim_x_prop(struct prop *prop, f32 autoaimx)
 {
 	if (g_Vars.currentplayer->autoxaimtime60 >= 0) {
 		g_Vars.currentplayer->autoxaimtime60 -= g_Vars.lvupdate60;
@@ -1754,7 +1754,7 @@ void bmove_process_input(bool allowc1x, bool allowc1y, bool allowc1buttons, bool
 		if (
 				(
 				 movedata.canautoaim
-				 && (bmove_is_auto_aim_x_enabled_for_current_weapon() || bmove_is_auto_aim_y_enabled_for_current_weapon())
+				 && (bmove_is_autoaim_x_enabled_for_current_weapon() || bmove_is_autoaim_y_enabled_for_current_weapon())
 				 && g_Vars.currentplayer->autoxaimprop
 				 && g_Vars.currentplayer->autoyaimprop
 				 && weapon_has_aim_flag(weaponnum, INVAIMFLAG_AUTOAIM)

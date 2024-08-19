@@ -49,7 +49,7 @@ s32 options_get_forward_pitch(s32 mpchrnum)
 	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_FORWARDPITCH) != 0;
 }
 
-s32 options_get_auto_aim(s32 mpchrnum)
+s32 options_get_autoaim(s32 mpchrnum)
 {
 	return (g_PlayerConfigsArray[mpchrnum].options & OPTION_AUTOAIM) != 0;
 }
@@ -123,7 +123,7 @@ void options_set_forward_pitch(s32 mpchrnum, bool enable)
 	}
 }
 
-void options_set_auto_aim(s32 mpchrnum, bool enable)
+void options_set_autoaim(s32 mpchrnum, bool enable)
 {
 	if (enable) {
 		g_PlayerConfigsArray[mpchrnum].options |= OPTION_AUTOAIM;

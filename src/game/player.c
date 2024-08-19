@@ -3193,9 +3193,9 @@ void player_tick(bool arg0)
 	player_update_colour_screen_properties();
 	player_tick_chr_fade();
 
-	bmove_set_auto_aim_y(options_get_auto_aim(g_Vars.currentplayerstats->mpindex));
-	bmove_set_auto_aim_x(options_get_auto_aim(g_Vars.currentplayerstats->mpindex));
-	bmove_set_auto_move_centre_enabled(options_get_look_ahead(g_Vars.currentplayerstats->mpindex));
+	bmove_set_autoaim_y(options_get_autoaim(g_Vars.currentplayerstats->mpindex));
+	bmove_set_autoaim_x(options_get_autoaim(g_Vars.currentplayerstats->mpindex));
+	bmove_set_automovecentre_enabled(options_get_look_ahead(g_Vars.currentplayerstats->mpindex));
 	bgun_set_gun_ammo_visible(GUNAMMOREASON_OPTION, options_get_ammo_on_screen(g_Vars.currentplayerstats->mpindex));
 	bgun_set_sight_visible(GUNSIGHTREASON_1, true);
 
