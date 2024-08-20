@@ -1198,6 +1198,11 @@
 #define GEOFLAG_DIE               0x4000
 #define GEOFLAG_LADDER_PLAYERONLY 0x8000 // Used for most ledges in Chicago, but not near drain pickup
 
+#define GEOTILEI_SIZE(geo) (sizeof(struct geotilei) + (geo->header.numvertices - ARRAYCOUNT(geo->vertices)) * sizeof(geo->vertices[0]))
+#define GEOTILEF_SIZE(geo) (sizeof(struct geotilef) + (geo->header.numvertices - ARRAYCOUNT(geo->vertices)) * sizeof(geo->vertices[0]))
+#define GEOBLOCK_SIZE(geo) sizeof(struct geoblock)
+#define GEOCYL_SIZE(geo)   sizeof(struct geocyl)
+
 #define GEOTYPE_TILE_I 0 // Tiles with integer vertices - used for BG
 #define GEOTYPE_TILE_F 1 // Tiles with float vertices - used for lifts
 #define GEOTYPE_BLOCK  2 // Most objects - multiple x/z vertices, and a single ymin and ymax
