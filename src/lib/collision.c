@@ -654,15 +654,15 @@ f32 cd_find_ground_in_flt_tile(struct geotilef *tile, f32 x, f32 z)
 		+ sp0c.f[2] * tile->vertices[0].f[2];
 
 	if (sp0c.f[1] == 0) {
-		return tile->vertices[tile->ymax].y;
+		return tile->vertices[tile->max[1]].y;
 	}
 
 	ground = (tmp - (f64)x * (f64)sp0c.f[0] - (f64)z * (f64)sp0c.f[2]) / (f64)sp0c.f[1];
 
-	if (ground > tile->vertices[tile->ymax].y) {
-		ground = tile->vertices[tile->ymax].y;
-	} else if (ground < tile->vertices[tile->ymin].y) {
-		ground = tile->vertices[tile->ymin].y;
+	if (ground > tile->vertices[tile->max[1]].y) {
+		ground = tile->vertices[tile->max[1]].y;
+	} else if (ground < tile->vertices[tile->min[1]].y) {
+		ground = tile->vertices[tile->min[1]].y;
 	}
 
 	return ground;
@@ -827,11 +827,11 @@ void cd_get_props_on_platform(struct prop *platform, s16 *propnums, s32 maxlen)
 						struct coord *pos = &prop->pos;
 
 						if ((geo->flags & (GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2))
-								&& pos->x >= tile->vertices[tile->xmin].x
-								&& pos->x <= tile->vertices[tile->xmax].x
-								&& pos->z >= tile->vertices[tile->zmin].z
-								&& pos->z <= tile->vertices[tile->zmax].z
-								&& pos->y >= tile->vertices[tile->ymin].y
+								&& pos->x >= tile->vertices[tile->min[0]].x
+								&& pos->x <= tile->vertices[tile->max[0]].x
+								&& pos->z >= tile->vertices[tile->min[2]].z
+								&& pos->z <= tile->vertices[tile->max[2]].z
+								&& pos->y >= tile->vertices[tile->min[1]].y
 								&& cd_is2d_point_in_flt_tile(tile, pos->x, pos->z)
 								&& pos->y >= cd_find_ground_in_flt_tile(tile, pos->x, pos->z)) {
 							break;
@@ -931,12 +931,12 @@ bool cd_00026a04(struct coord *pos, u8 *start, u8 *end, u16 geoflags, s32 room, 
 			struct geotilef *tile = (struct geotilef *) geo;
 
 			if ((geo->flags & geoflags)
-					&& pos->x >= tile->vertices[tile->xmin].x
-					&& pos->x <= tile->vertices[tile->xmax].x
-					&& pos->z >= tile->vertices[tile->zmin].z
-					&& pos->z <= tile->vertices[tile->zmax].z) {
-				if ((!ceiling && pos->y >= tile->vertices[tile->ymin].y)
-						|| (ceiling && pos->y <= tile->vertices[tile->ymax].y)) {
+					&& pos->x >= tile->vertices[tile->min[0]].x
+					&& pos->x <= tile->vertices[tile->max[0]].x
+					&& pos->z >= tile->vertices[tile->min[2]].z
+					&& pos->z <= tile->vertices[tile->max[2]].z) {
+				if ((!ceiling && pos->y >= tile->vertices[tile->min[1]].y)
+						|| (ceiling && pos->y <= tile->vertices[tile->max[1]].y)) {
 					if (cd_is2d_point_in_flt_tile(tile, pos->x, pos->z)) {
 						f32 ground = cd_find_ground_in_flt_tile(tile, pos->x, pos->z);
 
@@ -1200,15 +1200,14 @@ void cd_collect_geo_for_cyl_from_list(struct coord *pos, f32 radius, u8 *start, 
 			geo = (struct geo *)((uintptr_t)geo + tile->header.numvertices * 6 + 0xe);
 		} else if (geo->type == GEOTYPE_TILE_F) {
 			struct geotilef *tile = (struct geotilef *) geo;
-			s32 tmp = 0x40;
 
 			if ((geo->flags & geoflags)
-					&& pos->x >= *(f32 *)((uintptr_t)tile + tile->xmin * 0xc + 0x10) - radius
-					&& pos->x <= *(f32 *)((uintptr_t)tile + tile->xmax * 0xc + 0x10) + radius
-					&& pos->z >= *(f32 *)((uintptr_t)tile + tile->zmin * 0xc + 0x18) - radius
-					&& pos->z <= *(f32 *)((uintptr_t)tile + tile->zmax * 0xc + 0x18) + radius
-					&& (!checkvertical || (pos->y + arg6 >= *(f32*)((uintptr_t)tile + tile->ymin * 0xc + 0x14)
-							&& pos->y + arg7 <= *(f32 *)((uintptr_t)tile + tile->ymax * 0xc + 0x14)))) {
+					&& pos->x >= tile->vertices[tile->min[0]].x - radius
+					&& pos->x <= tile->vertices[tile->max[0]].x + radius
+					&& pos->z >= tile->vertices[tile->min[2]].z - radius
+					&& pos->z <= tile->vertices[tile->max[2]].z + radius
+					&& (!checkvertical || (pos->y + arg6 >= tile->vertices[tile->min[1]].y
+							&& pos->y + arg7 <= tile->vertices[tile->max[1]].y))) {
 				result = cd_000272f8_flt_tile(tile, pos->x, pos->z, radius, prop, &collisions[*numcollisions]);
 
 				if (result != 0) {
@@ -1221,7 +1220,7 @@ void cd_collect_geo_for_cyl_from_list(struct coord *pos, f32 radius, u8 *start, 
 				}
 			}
 
-			geo = (struct geo *)((uintptr_t)geo + (tile->header.numvertices - tmp) * 0xc + 0x310);
+			geo = (struct geo *)((uintptr_t)geo + (tile->header.numvertices - 0x40) * sizeof(struct coord) + 0x310);
 		} else if (geo->type == GEOTYPE_BLOCK) {
 			struct geoblock *block = (struct geoblock *) geo;
 
@@ -1558,12 +1557,12 @@ void cd_collect_geo_for_cyl_move_from_list(u8 *start, u8 *end, struct coord *pos
 			struct geotilef *tile = (struct geotilef *) geo;
 
 			if ((geo->flags & geoflags)
-					&& pos->x >= tile->vertices[tile->xmin].x - radius
-					&& pos->x <= tile->vertices[tile->xmax].x + radius
-					&& pos->z >= tile->vertices[tile->zmin].z - radius
-					&& pos->z <= tile->vertices[tile->zmax].z + radius
-					&& (!checkvertical || (pos->y + arg6 >= tile->vertices[tile->ymin].y
-							&& pos->y + arg7 <= tile->vertices[tile->ymax].y))) {
+					&& pos->x >= tile->vertices[tile->min[0]].x - radius
+					&& pos->x <= tile->vertices[tile->max[0]].x + radius
+					&& pos->z >= tile->vertices[tile->min[2]].z - radius
+					&& pos->z <= tile->vertices[tile->max[2]].z + radius
+					&& (!checkvertical || (pos->y + arg6 >= tile->vertices[tile->min[1]].y
+							&& pos->y + arg7 <= tile->vertices[tile->max[1]].y))) {
 				cd_0002840c(tile, pos->x, pos->z, radius, prop, collisions, maxcollisions, numcollisions);
 			}
 
@@ -2625,8 +2624,8 @@ bool cd_0002b128_flt_tile(struct coord *arg0, struct coord *arg1, struct coord *
 	s32 spb0;
 	f32 spac;
 	f32 spa8;
-	f32 ymax = tile->vertices[tile->ymax].y;
-	f32 ymin = tile->vertices[tile->ymin].y;
+	f32 ymax = tile->vertices[tile->max[1]].y;
+	f32 ymin = tile->vertices[tile->min[1]].y;
 	f32 spa0[2];
 	f32 sp98[2];
 	f32 sp90[2];
@@ -2923,18 +2922,18 @@ bool cd_test_a_to_b_geolist(u8 *start, u8 *end, struct coord *arg2, struct coord
 			struct coord sp84;
 
 			if (tile->header.flags & geoflags) {
-				min.x = tile->vertices[tile->xmin].x;
-				max.x = tile->vertices[tile->xmax].x;
-				min.z = tile->vertices[tile->zmin].z;
-				max.z = tile->vertices[tile->zmax].z;
+				min.x = tile->vertices[tile->min[0]].x;
+				max.x = tile->vertices[tile->max[0]].x;
+				min.z = tile->vertices[tile->min[2]].z;
+				max.z = tile->vertices[tile->max[2]].z;
 
 				if (((!(arg2->x < min.x)) || !(arg3->x < min.x))
 						&& (!(arg2->x > max.x) || !(arg3->x > max.x))
 						&& ((!(arg2->z < min.z)) || !(arg3->z < min.z))
 						&& (!(arg2->z > max.z) || !(arg3->z > max.z))) {
 					if (checkvertical) {
-						min.y = tile->vertices[tile->ymin].y;
-						max.y = tile->vertices[tile->ymax].y;
+						min.y = tile->vertices[tile->min[1]].y;
+						max.y = tile->vertices[tile->max[1]].y;
 
 						if ((!(arg2->y < min.y) || !(arg3->y < min.y))
 								&& (!(arg2->y > max.y) || !(arg3->y > max.y))
@@ -3196,18 +3195,18 @@ bool cd_exam_a_to_b_geolist(u8 *start, u8 *end, struct coord *arg2, struct coord
 			struct coord spbc;
 
 			if (geo->flags & geoflags) {
-				min.x = tile->vertices[tile->xmin].x;
-				max.x = tile->vertices[tile->xmax].x;
-				min.z = tile->vertices[tile->zmin].z;
-				max.z = tile->vertices[tile->zmax].z;
+				min.x = tile->vertices[tile->min[0]].x;
+				max.x = tile->vertices[tile->max[0]].x;
+				min.z = tile->vertices[tile->min[2]].z;
+				max.z = tile->vertices[tile->max[2]].z;
 
 				if ((!(arg2->x < min.x) || !(arg3->x < min.x))
 						&& (!(arg2->x > max.x) || !(arg3->x > max.x))
 						&& (!(arg2->z < min.z) || !(arg3->z < min.z))
 						&& (!(arg2->z > max.z) || !(arg3->z > max.z))) {
 					if (checkvertical) {
-						min.y = tile->vertices[tile->ymin].y;
-						max.y = tile->vertices[tile->ymax].y;
+						min.y = tile->vertices[tile->min[1]].y;
+						max.y = tile->vertices[tile->max[1]].y;
 
 						if ((!(arg2->y < min.y) || !(arg3->y < min.y))
 								&& (!(arg2->y > max.y) || !(arg3->y > max.y))
@@ -4030,8 +4029,8 @@ bool cd_0002ed30(u8 *start, u8 *end, struct geoblock *block, s32 numvertices, st
 			struct geotilef *tile = (struct geotilef *)geo;
 
 			if ((geoflags & geo->flags)
-					&& tile->vertices[tile->ymax].y >= block->ymin
-					&& tile->vertices[tile->ymin].y <= block->ymax
+					&& tile->vertices[tile->max[1]].y >= block->ymin
+					&& tile->vertices[tile->min[1]].y <= block->ymax
 					&& cd_0002e82c_int_tile(tile, numvertices, verts, diffs, prop, block)) {
 				return false;
 			}

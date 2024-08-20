@@ -845,23 +845,8 @@ struct geotilei {
 struct geotilef {
 	struct geo header;
 	/*0x04*/ u16 floortype;
-	union {
-		// The arrays are surely the correct type here, but they create
-		// mismatches in code that has already been matched using individual
-		// properties (eg. cd_collect_geo_for_cyl_from_list). @TODO: Rematch them using the arrays.
-		struct {
-			/*0x06*/ u8 min[3]; // These are indexes into vertices
-			/*0x09*/ u8 max[3];
-		};
-		struct {
-			/*0x06*/ u8 xmin;
-			/*0x07*/ u8 ymin;
-			/*0x08*/ u8 zmin;
-			/*0x09*/ u8 xmax;
-			/*0x0a*/ u8 ymax;
-			/*0x0b*/ u8 zmax;
-		};
-	};
+	/*0x06*/ u8 min[3]; // These are indexes into vertices
+	/*0x09*/ u8 max[3];
 	/*0x0c*/ u16 floorcol;
 	/*0x10*/ struct coord vertices[64];
 };
