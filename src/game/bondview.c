@@ -37,16 +37,16 @@ s32 var8007f840 = 0;
 u8 var8007f844 = 0;
 u8 var8007f848 = 0;
 s32 g_IrBinocularRadius = PAL ? 102 : 90;
-s32 var8007f850 = 3;
+s32 g_IrCentreSize = 3;
 u32 var8007f854 = 0x00000000;
 u32 var8007f858 = 0xb8000000;
 u32 var8007f85c = 0x00000000;
 
 #if VERSION < VERSION_NTSC_1_0
-void func0f13c2d0nb(void)
+void bview_prompt_ir(void)
 {
 	main_override_variable("fsrad", (u32 *)&g_IrBinocularRadius);
-	main_override_variable("fscs", (u32 *)&var8007f850);
+	main_override_variable("fscs", (u32 *)&g_IrCentreSize);
 }
 #endif
 
@@ -57,31 +57,31 @@ Gfx *bview_draw_ir_rect(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	return gdl;
 }
 
-Gfx *bview0f141864(Gfx *gdl, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+Gfx *bview_load_texture_i8(Gfx *gdl, u16 *fb, s32 y, s32 tile, s32 x, s32 width)
 {
-	s32 value = vi_get_width() * arg2 + arg4;
+	s32 offset = y * vi_get_width() + x;
 
 	gDPPipeSync(gdl++);
-	gDPSetTextureImage(gdl++, G_IM_FMT_I, G_IM_SIZ_8b, SCREEN_320, value * 2 + arg1);
-	gDPLoadSync(gdl++);
-	gDPLoadBlock(gdl++, arg3, 0, 0, arg5 - 1, 0);
-
-	return gdl;
-}
-
-Gfx *bview0f141940(Gfx *gdl, s32 arg1, s32 arg2, s32 tile, s32 arg4, s32 width)
-{
-	s32 value = vi_get_width() * arg2 + arg4;
-
-	gDPPipeSync(gdl++);
-	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, value * 2 + arg1);
+	gDPSetTextureImage(gdl++, G_IM_FMT_I, G_IM_SIZ_8b, SCREEN_320, &fb[offset]);
 	gDPLoadSync(gdl++);
 	gDPLoadBlock(gdl++, tile, 0, 0, width - 1, 0);
 
 	return gdl;
 }
 
-Gfx *bview0f141a20(Gfx *gdl, s32 top, s32 height, s32 left, s32 width)
+Gfx *bview_load_texture_rgba16(Gfx *gdl, u16 *fb, s32 y, s32 tile, s32 x, s32 width)
+{
+	s32 offset = vi_get_width() * y + x;
+
+	gDPPipeSync(gdl++);
+	gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, width, &fb[offset]);
+	gDPLoadSync(gdl++);
+	gDPLoadBlock(gdl++, tile, 0, 0, width - 1, 0);
+
+	return gdl;
+}
+
+Gfx *bview_draw_texture(Gfx *gdl, s32 top, s32 height, s32 left, s32 width)
 {
 	gDPPipeSync(gdl++);
 
@@ -163,15 +163,18 @@ Gfx *bview_copy_pixels(Gfx *gdl, u16 *fb, s32 top, u32 tile, s32 arg4, f32 arg5,
 	return gdl;
 }
 
-Gfx *bview_draw_fisheye_rect(Gfx *gdl, s32 arg1, f32 arg2, s32 arg3, s32 arg4)
+/**
+ * Given x1 and width, draw a rectangle on both ends whose width is determined by frac.
+ */
+Gfx *bview_draw_fisheye_rect(Gfx *gdl, s32 y1, f32 frac, s32 x1, s32 width)
 {
-	if (arg2 < 1) {
-		f32 tmp = arg4 * 0.5f;
-		f32 fVar4 = arg3 + tmp;
-		f32 fVar7 = (s32)(arg2 * tmp);
+	if (frac < 1) {
+		f32 halfwidth = width * 0.5f;
+		f32 xmid = x1 + halfwidth;
+		f32 fillwidth = (s32) (frac * halfwidth);
 
-		gDPFillRectangle(gdl++, arg3, arg1, fVar4 - fVar7, arg1 + 1);
-		gDPFillRectangle(gdl++, fVar4 + fVar7, arg1, arg3 + arg4, arg1 + 1);
+		gDPFillRectangle(gdl++, x1, y1, xmid - fillwidth, y1 + 1);
+		gDPFillRectangle(gdl++, xmid + fillwidth, y1, x1 + width, y1 + 1);
 	}
 
 	return gdl;
@@ -297,7 +300,7 @@ Gfx *bview_draw_motion_blur(Gfx *gdl, u32 colour, u32 alpha)
 /**
  * Draw static for the Infiltration intro cutscene and Slayer rockets.
  */
-Gfx *bview_draw_static(Gfx *gdl, u32 arg1, s32 arg2)
+Gfx *bview_draw_static(Gfx *gdl, u32 colour, s32 alpha)
 {
 	u16 *fb = vi_get_front_buffer();
 	s32 viewtop = vi_get_view_top();
@@ -309,7 +312,7 @@ Gfx *bview_draw_static(Gfx *gdl, u32 arg1, s32 arg2)
 
 	gDPPipeSync(gdl++);
 
-	gdl = bview_prepare_static_i8(gdl, arg1, arg2);
+	gdl = bview_prepare_static_i8(gdl, colour, alpha);
 
 	for (y = viewtop; y < viewtop + viewheight; y++) {
 		gdl = bview_copy_pixels(gdl, fb2, random() % 240, 5, y, 1.0f, viewleft, viewwidth);
@@ -455,19 +458,26 @@ Gfx *bview_draw_zoom_blur(Gfx *gdl, u32 colour, s32 alpha, f32 arg3, f32 arg4)
 	return gdl;
 }
 
-f32 bview0f142d74(s32 arg0, f32 arg1, f32 arg2, f32 arg3)
+/**
+ * Given y in the range 0 to half the screen height, determine where the radius
+ * ends on this row. The return value is a frac scaled between the viewport's
+ * centre X and the viewport's width.
+ */
+f32 bview_get_fisheye_xradius_frac(s32 y, f32 dir, f32 halfheight, f32 sqhalfheight)
 {
 	f32 result;
-	f32 value = arg2;
+	f32 newy = halfheight;
 
-	if (arg0 < 0 || arg0 >= 0x80) {
+	if (y < 0 || y > 127) {
 		return 0.01f;
 	}
 
-	value += arg0 * arg1;
+	// On NTSC dir is always -1, and on PAL it's pretty close to -1.
+	// This is effectively setting newy = halfheight - y.
+	newy += y * dir;
 
-	if (arg3 > value * value) {
-		result = sqrtf(arg3 - value * value) * 0.00625f;
+	if (newy * newy < sqhalfheight) {
+		result = sqrtf(sqhalfheight - newy * newy) * (1.0f / 160.0f);
 	} else {
 		result = 0.01f;
 	}
@@ -595,7 +605,7 @@ Gfx *bview_draw_fisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 s
 				if (i > viewtop + fullradius - curradius && i < viewtop + fullradius + curradius) {
 					gDPSetEnvColorViaWord(gdl++, (colour & 0xffffff00) | (spec & 0xff));
 
-					tmp = bview0f142d74(s2, f26, halfheight, sqhalfheight) * startupfrac;
+					tmp = bview_get_fisheye_xradius_frac(s2, f26, halfheight, sqhalfheight) * startupfrac;
 					gdl = bview_copy_pixels(gdl, fb, i, 5, i, tmp, viewleft, viewwidth);
 				}
 			}
@@ -621,13 +631,13 @@ Gfx *bview_draw_fisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 s
 				gDPSetEnvColorViaWord(gdl++, 0xffffffff);
 			}
 
-			tmp = bview0f142d74(s2, f26, halfheight, sqhalfheight) * f22;
+			tmp = bview_get_fisheye_xradius_frac(s2, f26, halfheight, sqhalfheight) * f22;
 			gdl = bview_copy_pixels(gdl, fb, i, 5, i, tmp, viewleft, viewwidth);
 
 			if (hit == EYESPYHIT_DAMAGE) {
 				gDPSetEnvColorViaWord(gdl++, 0xddaaaa99);
 
-				tmp = bview0f142d74(s2, f26, halfheight, sqhalfheight) * 1.03f;
+				tmp = bview_get_fisheye_xradius_frac(s2, f26, halfheight, sqhalfheight) * 1.03f;
 				gdl = bview_copy_pixels(gdl, fb, i, 5, i, tmp, viewleft, viewwidth);
 			}
 
@@ -701,7 +711,7 @@ Gfx *bview_draw_fisheye(Gfx *gdl, u32 colour, u32 alpha, s32 shuttertime60, s8 s
 		s2 = 0;
 
 		for (i = viewtop; i < viewtop + viewheight; i++) {
-			tmp = bview0f142d74(s2, f26, halfheight, sqhalfheight);
+			tmp = bview_get_fisheye_xradius_frac(s2, f26, halfheight, sqhalfheight);
 			gdl = bview_draw_fisheye_rect(gdl, i, tmp, viewleft, viewwidth);
 
 			s2 += s3;
@@ -2039,7 +2049,7 @@ Gfx *bview_draw_ir_lens(Gfx *gdl)
 	viewcentrex = (viewleft + viewright) / 2;
 
 	outerradius = g_IrBinocularRadius;
-	innerradius = g_IrBinocularRadius / var8007f850;
+	innerradius = g_IrBinocularRadius / g_IrCentreSize;
 
 	var8007f840++;
 
@@ -2051,7 +2061,7 @@ Gfx *bview_draw_ir_lens(Gfx *gdl)
 
 #if VERSION < VERSION_NTSC_1_0
 	osSyncPrintf("Fault Scope is active\n");
-	func0f13c2d0nb();
+	bview_prompt_ir();
 #endif
 
 	viewbottom = viewtop + viewheight;
