@@ -10,20 +10,20 @@
 #define gunscript_waitforzreleased(keyframe) \
 	{ GUNCMD_WAITFORZRELEASED, 0, keyframe },
 
-#define gunscript_waittime(keyframe, time) \
-	{ GUNCMD_WAITTIME, 0, keyframe, time },
+#define gunscript_allowfeature(keyframe, feature) \
+	{ GUNCMD_ALLOWFEATURE, 0, keyframe, feature },
 
 #define gunscript_playsound(keyframe, sound) \
 	{ GUNCMD_PLAYSOUND, 0, keyframe, sound },
 
 #define gunscript_include(unk1, address) \
-	{ GUNCMD_INCLUDE, unk1, 0, (u32)address },
+	{ GUNCMD_INCLUDE, unk1, 0, (uintptr_t) address },
 
 #define gunscript_random(probability, address) \
-	{ GUNCMD_RANDOM, 0, probability, (u32)address },
+	{ GUNCMD_RANDOM, 0, probability, (uintptr_t) address },
 
-#define gunscript_repeatuntilfull(triggerkey, dontloop, gototrigger) \
-	{ GUNCMD_REPEATUNTILFULL, 0, triggerkey, (dontloop << 16) | gototrigger },
+#define gunscript_repeatuntilfull(keyframe, gotokeyframe) \
+	{ GUNCMD_REPEATUNTILFULL, 0, keyframe, gotokeyframe },
 
 #define gunscript_popoutsackofpills(unk1) \
 	{ GUNCMD_POPOUTSACKOFPILLS, 0, unk1 },

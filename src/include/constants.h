@@ -1222,11 +1222,17 @@
 #define GUNAMMOREASON_OPTION     0x01
 #define GUNAMMOREASON_NOCONTROL  0x02
 
+#define GUNAMMOSTATE_DEPLETED        -1
+#define GUNAMMOSTATE_NEEDRELOAD      0
+#define GUNAMMOSTATE_CLIPYES_HELDYES 1
+#define GUNAMMOSTATE_CLIPYES_HELDNO  2
+#define GUNAMMOSTATE_CLIPFULL        3
+
 #define GUNCMD_END               0
 #define GUNCMD_SHOWPART          1
 #define GUNCMD_HIDEPART          2
 #define GUNCMD_WAITFORZRELEASED  3
-#define GUNCMD_WAITTIME          4
+#define GUNCMD_ALLOWFEATURE      4
 #define GUNCMD_PLAYSOUND         5
 #define GUNCMD_INCLUDE           6
 #define GUNCMD_RANDOM            7
@@ -1234,6 +1240,11 @@
 #define GUNCMD_POPOUTSACKOFPILLS 9
 #define GUNCMD_PLAYANIMATION     10
 #define GUNCMD_SETSOUNDSPEED     11
+
+#define GUNFEATURE_RELOAD      1
+#define GUNFEATURE_ATTACK      2
+#define GUNFEATURE_ATTACKAGAIN 3
+#define GUNFEATURE_CLICK       5
 
 #define GUNMEMOWNER_BONDGUN  0
 #define GUNMEMOWNER_INVMENU  1
@@ -4441,9 +4452,9 @@ enum weaponnum {
 #define WEAPON_MPLOCATION14 254
 #define WEAPON_MPLOCATION15 255
 
-#define INVAIMFLAG_MANUALZOOM 0x00000001
-#define INVAIMFLAG_AUTOAIM    0x00000002
-#define INVAIMFLAG_ACCURATESINGLESHOT   0x00000004
+#define INVAIMFLAG_MANUALZOOM         0x00000001
+#define INVAIMFLAG_AUTOAIM            0x00000002
+#define INVAIMFLAG_ACCURATESINGLESHOT 0x00000004
 
 #define WEAPONFLAG_THROWABLE         0x00000001 // Entire weapon is throwable (eg. grendes, mines, knives)
 #define WEAPONFLAG_00000004          0x00000004
@@ -4456,9 +4467,9 @@ enum weaponnum {
 #define WEAPONFLAG_00000400          0x00000400
 #define WEAPONFLAG_00000800          0x00000800 // MP briefcase
 #define WEAPONFLAG_DUALWIELD         0x00001000 // Allow dual wielding
-#define WEAPONFLAG_00002000          0x00002000
+#define WEAPONFLAG_HASGUNSCRIPT      0x00002000
 #define WEAPONFLAG_00004000          0x00004000
-#define WEAPONFLAG_00008000          0x00008000 // Editor: "Special environment mapping"
+#define WEAPONFLAG_BRIGHTER          0x00008000 // Use extra light to illuminate weapon
 #define WEAPONFLAG_HASHANDS          0x00020000
 #define WEAPONFLAG_HIDEMENUMODEL     0x00040000 // Don't display the rotating model in the inventory menu
 #define WEAPONFLAG_GANGSTA           0x00080000 // Allow turning the gun sideways at close range
@@ -4467,8 +4478,8 @@ enum weaponnum {
 #define WEAPONFLAG_DETERMINER_F_AN   0x00400000 // "Picked up an ..." (full version)
 #define WEAPONFLAG_DETERMINER_S_THE  0x00800000 // "The ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_THE  0x01000000 // "Picked up the ..." (full version)
-#define WEAPONFLAG_02000000          0x02000000 // Slayer
-#define WEAPONFLAG_04000000          0x04000000
+#define WEAPONFLAG_RESETMATRICES     0x02000000 // Slayer
+#define WEAPONFLAG_KEEPFUNCWHENEMPTY 0x04000000 // Don't change to secondary function when primary is out of ammo
 #define WEAPONFLAG_UNDROPPABLE       0x08000000 // Do not drop when disarmed or killed
 #define WEAPONFLAG_DETERMINER_S_SOME 0x10000000 // "Some ..." (short version - when vertically split)
 #define WEAPONFLAG_DETERMINER_F_SOME 0x20000000 // "Picked up some ..." (full version)

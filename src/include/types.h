@@ -2216,7 +2216,7 @@ struct hand {
 	/*0x0cc8*/ u8 unk0cc8_01 : 1;
 	/*0x0cc8*/ u8 unk0cc8_02 : 1;
 	/*0x0cc8*/ u8 incrementalreloading : 1;
-	/*0x0cc8*/ u8 unk0cc8_04 : 3;
+	/*0x0cc8*/ u8 ejectcount : 3;
 	/*0x0cc8*/ u8 unk0cc8_07 : 1;
 	/*0x0cc8*/ u8 unk0cc8_08 : 1;
 	/*0x0cc9*/ u8 animloopcount;
@@ -2225,7 +2225,7 @@ struct hand {
 	/*0x0cdc*/ u32 statejob;
 	/*0x0ce0*/ s32 statevar1;
 	/*0x0ce4*/ s32 attacktype;
-	/*0x0ce8*/ struct guncmd *unk0ce8;
+	/*0x0ce8*/ struct guncmd *animcmd;
 	/*0x0cec*/ ubool hasdotinfo;
 	/*0x0cf0*/ struct coord dotpos;
 	/*0x0cfc*/ struct coord dotrot;
@@ -2248,7 +2248,7 @@ struct hand {
 	/*0x0d50*/ f32 unk0d50[3][3];
 	/*0x0d74*/ u16 gunroundsspent[4]; // actually a countdown timer
 	/*0x0d7c*/ s32 ispare1;
-	/*0x0d80*/ struct guncmd *unk0d80;
+	/*0x0d80*/ struct guncmd *animcmd2;
 	/*0x0d84*/ struct sndstate *audiohandle;
 	/*0x0d88*/ u32 ispare4;
 	/*0x0d8c*/ u32 ispare5;
@@ -2266,8 +2266,8 @@ struct hand {
 	/*0x0dbc*/ u32 fspare7;
 	/*0x0dc0*/ u32 fspare8;
 	/*0x0dc4*/ struct abmag abmag;
-	/*0x0dcc*/ s32 *unk0dcc;
-	/*0x0dd0*/ s32 *unk0dd0;
+	/*0x0dcc*/ s32 *compiledgunmodelcmds;
+	/*0x0dd0*/ s32 *compiledhandmodelcmds;
 	/*0x0dd4*/ s32 unk0dd4;
 	/*0x0dd8*/ Mtxf *unk0dd8;
 };
@@ -5252,9 +5252,21 @@ struct stageallocation {
 
 struct guncmd {
 	u8 type;
-	u8 unk01;
-	u16 unk02;
-	s32 unk04;
+	u8 condition;
+	union {
+		u16 animnum;
+		u16 keyframe;
+		u16 probability;
+	};
+	union {
+		s32 feature;
+		s32 partnum;
+		s32 soundnum;
+		s32 soundspeed;
+		s32 animparams;
+		s32 gotokeyframe;
+		struct guncmd *targetcmd;
+	};
 };
 
 struct pakthing {

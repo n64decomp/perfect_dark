@@ -579,7 +579,7 @@ void bgun_execute_gun_vis_commands(struct hand *hand, struct modeldef *modeldef,
 	}
 }
 
-void bgun0f098030(struct hand *hand, struct modeldef *modeldef)
+void bgun_update_ammo_visibility(struct hand *hand, struct modeldef *modeldef)
 {
 	struct weapon *weapon = weapon_find_by_id(hand->gset.weaponnum);
 	s32 i;
@@ -601,10 +601,10 @@ void bgun0f098030(struct hand *hand, struct modeldef *modeldef)
 	}
 }
 
-f32 bgun0f09815c(struct hand *hand)
+f32 bgun_get_current_keyframe(struct hand *hand)
 {
-	if (hand->animmode == HANDANIMMODE_BUSY && hand->unk0ce8 != NULL) {
-		if (hand->unk0ce8->unk04 < 0) {
+	if (hand->animmode == HANDANIMMODE_BUSY && hand->animcmd != NULL) {
+		if (hand->animcmd->animparams < 0) { // if reverse animation
 			return model_get_num_anim_frames(&hand->gunmodel) - model_get_cur_anim_frame(&hand->gunmodel);
 		}
 
@@ -614,14 +614,14 @@ f32 bgun0f09815c(struct hand *hand)
 	return 0;
 }
 
-void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
+void bgun_tick_anim(struct hand *hand, struct modeldef *modeldef)
 {
 #if VERSION >= VERSION_PAL_BETA
-	f32 s4;
-	f32 s2;
+	f32 oldkeyframe;
+	f32 newkeyframe;
 #else
-	s32 s2;
-	s32 s4;
+	s32 newkeyframe;
+	s32 oldkeyframe;
 #endif
 	struct guncmd *cmd;
 	f32 animspeed;
@@ -630,12 +630,12 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 	s32 partnums[15];
 	bool partsvisible[15];
 	s32 partframes[15];
-	s32 s0;
+	s32 numparts;
 	s32 index;
 
-	hand->unk0cc8_04 = false;
+	hand->ejectcount = 0;
 
-	if (hand->animmode == HANDANIMMODE_BUSY && bgun0f09815c(hand) >= model_get_num_anim_frames(&hand->gunmodel) - 1) {
+	if (hand->animmode == HANDANIMMODE_BUSY && bgun_get_current_keyframe(hand) >= model_get_num_anim_frames(&hand->gunmodel) - 1) {
 		hand->animmode = HANDANIMMODE_IDLE;
 	}
 
@@ -651,13 +651,13 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 
 		if (hand->animload >= 0) {
 			animspeedmult = 1.0f;
-			animspeed = hand->unk0ce8->unk04 / 10000.0f;
+			animspeed = hand->animcmd->animparams / 10000.0f;
 
 			if (hand->unk0d0e_07 && g_Vars.currentplayer->hands[HAND_LEFT].inuse) {
 				animspeedmult = RANDOMFRAC() * 0.77f + 0.7f;
 			}
 
-			if (hand->unk0ce8 && animspeed < 0.0f) {
+			if (hand->animcmd && animspeed < 0.0f) {
 				model_set_animation(&hand->gunmodel, hand->animload, false, 0.0f, animspeedmult * animspeed, 0.0f);
 				model_set_anim_frame(&hand->gunmodel, model_get_num_anim_frames(&hand->gunmodel));
 			} else {
@@ -678,51 +678,55 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 #endif
 		}
 
-		s4 = bgun0f09815c(hand);
+		oldkeyframe = bgun_get_current_keyframe(hand);
 
 #if VERSION >= VERSION_PAL_BETA
-		s2 = hand->animframeincfreal + s4;
+		newkeyframe = oldkeyframe + hand->animframeincfreal;
 #else
-		s2 = hand->animframeinc + s4;
+		newkeyframe = oldkeyframe + hand->animframeinc;
 #endif
 
-		if (s4 == 0 && s2 > 0) {
-			s4--;
+		if (oldkeyframe == 0 && newkeyframe > 0) {
+			oldkeyframe--;
 		}
 
-		if (hand->unk0ce8) {
+		// This loop processes guncmds *prior* to incrementing the model's animation.
+		// Commands in this loop are able to adjust the keyframe in order to loop or pause a frame.
+		if (hand->animcmd) {
 			done = false;
-			cmd = hand->unk0ce8;
+			cmd = hand->animcmd;
 
 			if (cmd) {
-				s0 = 0;
+				numparts = 0;
 
 				do {
 					if (cmd->type == GUNCMD_END) {
 						done = true;
 					} else if (cmd->type == GUNCMD_SHOWPART || cmd->type == GUNCMD_HIDEPART) {
-						if (s2 >= cmd->unk02) {
+						if (newkeyframe >= cmd->keyframe) {
 							s32 i;
+
+							// Find in partnums list or append
 							index = -1;
 
-							for (i = 0; i < s0; i++) {
-								if (cmd->unk04 == partnums[i]) {
+							for (i = 0; i < numparts; i++) {
+								if (cmd->partnum == partnums[i]) {
 									index = i;
 								}
 							}
 
 							if (index == -1) {
-								index = s0;
-								s0++;
+								index = numparts;
+								numparts++;
 
 								if (1);
 
-								partnums[index] = cmd->unk04;
+								partnums[index] = cmd->partnum;
 								partframes[index] = -1;
 							}
 
-							if (cmd->unk02 > partframes[index]) {
-								partframes[index] = cmd->unk02;
+							if (cmd->keyframe > partframes[index]) {
+								partframes[index] = cmd->keyframe;
 								partsvisible[index] = cmd->type == GUNCMD_SHOWPART ? true : false;
 							}
 						}
@@ -730,9 +734,9 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 						switch (cmd->type) {
 						case GUNCMD_WAITFORZRELEASED:
 							if (hand->unk0cc8_01) {
-								if (s2 >= cmd->unk02 && s4 < cmd->unk02 && s4 < s2) {
+								if (newkeyframe >= cmd->keyframe && oldkeyframe < cmd->keyframe && oldkeyframe < newkeyframe) {
 #if VERSION >= VERSION_PAL_BETA
-									f32 tmp = cmd->unk02 - bgun0f09815c(hand);
+									f32 tmp = cmd->keyframe - bgun_get_current_keyframe(hand);
 									tmp /= 2;
 
 									if (hand->animframeincfreal > tmp) {
@@ -744,41 +748,41 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 										hand->animframeincfreal = model_get_abs_anim_speed(&hand->gunmodel) * PALUPF(hand->animframeinc);
 									}
 
-									s2 = hand->animframeincfreal + s4;
+									newkeyframe = oldkeyframe + hand->animframeincfreal;
 #else
-									s32 tmp = cmd->unk02 - (s32) bgun0f09815c(hand);
+									s32 tmp = cmd->keyframe - (s32) bgun_get_current_keyframe(hand);
 									tmp /= 2;
 
 									if (hand->animframeinc > tmp) {
 										hand->animframeinc = tmp;
 									}
 
-									s2 = hand->animframeinc + s4;
+									newkeyframe = oldkeyframe + hand->animframeinc;
 #endif
 								}
 							}
 							break;
 						case GUNCMD_REPEATUNTILFULL:
-							if (hand->incrementalreloading && s2 >= cmd->unk02 && s4 < cmd->unk02 && s4 < s2) {
+							if (hand->incrementalreloading && newkeyframe >= cmd->keyframe && oldkeyframe < cmd->keyframe && oldkeyframe < newkeyframe) {
 #if VERSION >= VERSION_PAL_BETA
-								f32 sp78 = s2;
+								f32 foundkeyframe = newkeyframe;
 
-								while (sp78 >= cmd->unk02) {
-									sp78 += cmd->unk04 - cmd->unk02;
+								while (foundkeyframe >= cmd->keyframe) {
+									foundkeyframe += cmd->gotokeyframe - cmd->keyframe;
 								}
 
-								s4 = sp78;
+								oldkeyframe = foundkeyframe;
 								hand->animframeinc = 0;
 								hand->animframeincfreal = 0;
 #else
-								s32 sp78 = cmd->unk04 + (((s32)s2 - cmd->unk02) % ((cmd->unk02 - cmd->unk04) + 1));
-								s4 = sp78;
+								s32 foundkeyframe = cmd->gotokeyframe + ((newkeyframe - cmd->keyframe) % ((cmd->keyframe - cmd->gotokeyframe) + 1));
+								oldkeyframe = foundkeyframe;
 								hand->animframeinc = 0;
 #endif
 
-								model_set_anim_frame(&hand->gunmodel, sp78);
+								model_set_anim_frame(&hand->gunmodel, foundkeyframe);
 								hand->animloopcount++;
-								s2 = sp78;
+								newkeyframe = foundkeyframe;
 							}
 							break;
 						}
@@ -787,16 +791,17 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 					cmd++;
 				} while (!done);
 
-				if (s0 > 0) {
+				if (numparts > 0) {
 					s32 i;
 
-					for (i = 0; i < s0; i++) {
+					for (i = 0; i < numparts; i++) {
 						bgun_set_part_visible(partnums[i], partsvisible[i], hand, modeldef);
 					}
 				}
 			}
 		}
 
+		// Apply the keyframe to the model
 #if VERSION >= VERSION_PAL_BETA
 		model_set_anim_play_speed(&hand->gunmodel, PALUPF(4.0f), 0);
 		model_tick_anim_quarter_speed(&hand->gunmodel, hand->animframeinc, true);
@@ -804,11 +809,12 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 		model_tick_anim(&hand->gunmodel, hand->animframeinc, true);
 #endif
 
-		s2 = bgun0f09815c(hand);
+		// Run post-anim gun commands
+		newkeyframe = bgun_get_current_keyframe(hand);
 
-		if (hand->unk0ce8) {
+		if (hand->animcmd) {
 			bool done = false;
-			struct guncmd *cmd = hand->unk0ce8;
+			struct guncmd *cmd = hand->animcmd;
 			f32 speed = 1.0f;
 			bool hasspeed = false;
 #if VERSION < VERSION_NTSC_1_0
@@ -820,18 +826,18 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 					if (cmd->type == GUNCMD_END) {
 						done = true;
 					} else {
-						if (s2 >= cmd->unk02 && s4 < cmd->unk02 && s4 < s2) {
+						if (newkeyframe >= cmd->keyframe && oldkeyframe < cmd->keyframe && oldkeyframe < newkeyframe) {
 							switch (cmd->type) {
 							case GUNCMD_PLAYSOUND:
 #if VERSION >= VERSION_NTSC_1_0
 								if (hasspeed) {
-									snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, cmd->unk04, speed, 1, -1, 1);
+									snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, cmd->soundnum, speed, 1, -1, 1);
 									hasspeed = false;
 								} else {
-									snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, cmd->unk04, 1.0f, 1, -1, 1);
+									snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, cmd->soundnum, 1.0f, 1, -1, 1);
 								}
 #else
-								audiohandle = snd_start(var80095200, cmd->unk04, NULL, -1, -1, -1, -1, -1);
+								audiohandle = snd_start(var80095200, cmd->soundnum, NULL, -1, -1, -1, -1, -1);
 
 								if (hasspeed && audiohandle) {
 									hasspeed = false;
@@ -840,11 +846,11 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 #endif
 								break;
 							case GUNCMD_SETSOUNDSPEED:
-								speed = cmd->unk04 / 1000.0f;
+								speed = cmd->soundspeed / 1000.0f;
 								hasspeed = true;
 								break;
 							case GUNCMD_POPOUTSACKOFPILLS:
-								hand->unk0cc8_04++;
+								hand->ejectcount++;
 								break;
 							}
 						}
@@ -857,19 +863,19 @@ void bgun0f0981e8(struct hand *hand, struct modeldef *modeldef)
 	}
 }
 
-bool bgun0f098884(struct guncmd *cmd, struct gset *gset)
+bool bgun_test_condition(struct guncmd *cmd, struct gset *gset)
 {
 	s32 result = false;
 
-	if (cmd->unk01 == 0) {
+	if (cmd->condition == 0) {
 		return true;
 	}
 
-	if (cmd->unk01 == 1 && g_Vars.currentplayer->hands[HAND_LEFT].inuse == true) {
+	if (cmd->condition == 1 && g_Vars.currentplayer->hands[HAND_LEFT].inuse == true) {
 		result = true;
 	}
 
-	if (cmd->unk01 == 2 && gset->weaponfunc == FUNC_SECONDARY) {
+	if (cmd->condition == 2 && gset->weaponfunc == FUNC_SECONDARY) {
 		result = true;
 	}
 
@@ -884,14 +890,14 @@ void bgun_start_animation(struct guncmd *cmd, s32 handnum, struct hand *hand)
 		u32 rand = random() % 100;
 
 		while (loopcmd->type != GUNCMD_END) {
-			if (bgun0f098884(loopcmd, &hand->gset) && !done) {
+			if (bgun_test_condition(loopcmd, &hand->gset) && !done) {
 				if (loopcmd->type == GUNCMD_INCLUDE) {
 					done = true;
-					bgun_start_animation((struct guncmd *)loopcmd->unk04, handnum, hand);
+					bgun_start_animation(loopcmd->targetcmd, handnum, hand);
 				} else if (loopcmd->type == GUNCMD_RANDOM) {
-					if ((struct guncmd *)loopcmd->unk04 != hand->unk0d80 && loopcmd->unk02 > rand) {
+					if (loopcmd->targetcmd != hand->animcmd2 && rand < loopcmd->probability) {
 						done = true;
-						bgun_start_animation((struct guncmd *)loopcmd->unk04, handnum, hand);
+						bgun_start_animation(loopcmd->targetcmd, handnum, hand);
 					}
 				}
 			}
@@ -899,62 +905,62 @@ void bgun_start_animation(struct guncmd *cmd, s32 handnum, struct hand *hand)
 			loopcmd++;
 		}
 	} else {
-		hand->animload = cmd->unk02;
+		hand->animload = cmd->animnum;
 		hand->animmode = HANDANIMMODE_IDLE;
 		hand->unk0cc8_01 = 0;
 		hand->incrementalreloading = false;
-		hand->unk0ce8 = cmd;
+		hand->animcmd = cmd;
 		hand->animloopcount = 0;
-		hand->unk0cc8_02 = 0;
+		hand->unk0cc8_02 = false;
 		hand->unk0d0e_07 = false;
-		hand->unk0d80 = cmd;
+		hand->animcmd2 = cmd;
 	}
 }
 
-bool bgun0f098a44(struct hand *hand, s32 time)
+bool bgun_anim_allows_feature(struct hand *hand, s32 feature)
 {
-	struct guncmd *cmd = hand->unk0ce8;
-	s32 waittimekeyframe = -1;
+	struct guncmd *cmd = hand->animcmd;
+	s32 allowkeyframe = -1;
 	s32 zreleasekeyframe = -1;
 
 	if (hand->animmode == HANDANIMMODE_IDLE) {
 		return (hand->animload == -1);
 	}
 
-	while (cmd->type != GUNCMD_END && waittimekeyframe == -1) {
+	while (cmd->type != GUNCMD_END && allowkeyframe == -1) {
 		if (cmd->type == GUNCMD_WAITFORZRELEASED) {
-			zreleasekeyframe = cmd->unk02;
+			zreleasekeyframe = cmd->keyframe;
 		}
 
-		if (cmd->type == GUNCMD_WAITTIME && time == cmd->unk04) {
-			waittimekeyframe = cmd->unk02;
+		if (cmd->type == GUNCMD_ALLOWFEATURE && cmd->feature == feature) {
+			allowkeyframe = cmd->keyframe;
 		}
 
 		cmd++;
 	}
 
-	if (waittimekeyframe >= 0) {
+	if (allowkeyframe >= 0) {
 #if VERSION >= VERSION_PAL_BETA
-		if (hand->unk0cc8_01 && bgun0f09815c(hand) <= zreleasekeyframe) {
+		if (hand->unk0cc8_01 && bgun_get_current_keyframe(hand) <= zreleasekeyframe) {
 			return false;
 		}
 
-		return (bgun0f09815c(hand) + hand->animframeincfreal >= waittimekeyframe);
+		return (bgun_get_current_keyframe(hand) + hand->animframeincfreal >= allowkeyframe);
 #else
-		if (hand->unk0cc8_01 && (s32)bgun0f09815c(hand) <= zreleasekeyframe) {
+		if (hand->unk0cc8_01 && (s32)bgun_get_current_keyframe(hand) <= zreleasekeyframe) {
 			return false;
 		}
 
-		return (bgun0f09815c(hand) + hand->animframeinc >= waittimekeyframe);
+		return (bgun_get_current_keyframe(hand) + hand->animframeinc >= allowkeyframe);
 #endif
 	}
 
 	return true;
 }
 
-s32 bgun0f098b80(struct hand *hand, s32 arg1)
+s32 bgun_find_allowfeature(struct hand *hand, s32 feature)
 {
-	struct guncmd *cmd = hand->unk0ce8;
+	struct guncmd *cmd = hand->animcmd;
 	s32 keyframe = -1;
 
 	if (hand->animmode == HANDANIMMODE_IDLE) {
@@ -962,10 +968,8 @@ s32 bgun0f098b80(struct hand *hand, s32 arg1)
 	}
 
 	while (cmd->type != GUNCMD_END && keyframe == -1) {
-		if (cmd->type == GUNCMD_WAITTIME) {
-			if (cmd->unk04 == arg1) {
-				keyframe = cmd->unk02;
-			}
+		if (cmd->type == GUNCMD_ALLOWFEATURE && cmd->feature == feature) {
+			keyframe = cmd->keyframe;
 		}
 
 		cmd++;
@@ -989,7 +993,7 @@ void bgun_reset_anim(struct hand *hand)
 	hand->animmode = HANDANIMMODE_IDLE;
 	hand->unk0cc8_01 = false;
 	hand->incrementalreloading = false;
-	hand->unk0ce8 = NULL;
+	hand->animcmd = NULL;
 	hand->animloopcount = 0;
 	hand->unk0cc8_02 = false;
 	hand->unk0d0e_07 = false;
@@ -1012,20 +1016,19 @@ void bgun_get_weapon_info(struct handweaponinfo *info, s32 handnum)
  * 2 = has ammo in clip but none in reserve
  * 3 = gun doesn't use ammo or clip is full
  */
-s32 bgun0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
+s32 bgun_get_ammo_state(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
 {
-	s32 result = 3;
+	s32 state = GUNAMMOSTATE_CLIPFULL;
 	struct weaponfunc *func = weapon_get_function(&hand->gset, funcnum);
 
 	if (!func) {
-		return -1;
+		return GUNAMMOSTATE_DEPLETED;
 	}
 
 	if (func->ammoindex != -1) {
 		s32 ammoindex = func->ammoindex;
 
-		if (info->gunctrl->ammotypes[ammoindex] >= 0
-				&& hand->loadedammo[ammoindex] < hand->clipsizes[ammoindex]) {
+		if (info->gunctrl->ammotypes[ammoindex] >= 0 && hand->loadedammo[ammoindex] < hand->clipsizes[ammoindex]) {
 			s32 minqty = 1;
 
 			if (info->weaponnum == WEAPON_SHOTGUN && funcnum == FUNC_SECONDARY) {
@@ -1036,23 +1039,23 @@ s32 bgun0f098ca0(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
 				minqty = bgun_get_min_clip_qty(WEAPON_TRANQUILIZER, FUNC_SECONDARY);
 			}
 
-			result = 1;
+			state = GUNAMMOSTATE_CLIPYES_HELDYES;
 
 			if (hand->loadedammo[ammoindex] < minqty) {
-				result = 0;
+				state = GUNAMMOSTATE_NEEDRELOAD;
 
 				if (g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]] == 0) {
-					result = -1;
+					state = GUNAMMOSTATE_DEPLETED;
 				}
 			} else {
 				if (g_Vars.currentplayer->ammoheldarr[info->gunctrl->ammotypes[ammoindex]] == 0) {
-					result = 2;
+					state = GUNAMMOSTATE_CLIPYES_HELDNO;
 				}
 			}
 		}
 	}
 
-	return result;
+	return state;
 }
 
 void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand, u8 onebullet, u8 checkunequipped)
@@ -1119,17 +1122,17 @@ void bgun0f098f8c(struct handweaponinfo *info, struct hand *hand)
 	}
 }
 
-bool bgun0f099008(s32 handnum)
+bool bgun_clip_has_ammo(s32 handnum)
 {
 	struct handweaponinfo info;
 
 	bgun_get_weapon_info(&info, handnum);
 
-	if (bgun0f098ca0(0, &info, &g_Vars.currentplayer->hands[handnum]) > 0) {
+	if (bgun_get_ammo_state(FUNC_PRIMARY, &info, &g_Vars.currentplayer->hands[handnum]) > GUNAMMOSTATE_NEEDRELOAD) {
 		return true;
 	}
 
-	if (bgun0f098ca0(1, &info, &g_Vars.currentplayer->hands[handnum]) > 0) {
+	if (bgun_get_ammo_state(FUNC_SECONDARY, &info, &g_Vars.currentplayer->hands[handnum]) > GUNAMMOSTATE_NEEDRELOAD) {
 		return true;
 	}
 
@@ -1191,8 +1194,8 @@ s32 bgun_tick_inc_idle(struct handweaponinfo *info, s32 handnum, struct hand *ha
 {
 	bool usesec;
 	s32 gunfunc = bgun_is_using_secondary_function();
-	s32 sp34;
-	s32 sp30;
+	s32 ammostate;
+	s32 ammostate2;
 	bool changefunc;
 	s32 next;
 	struct hand *lhand;
@@ -1217,18 +1220,18 @@ s32 bgun_tick_inc_idle(struct handweaponinfo *info, s32 handnum, struct hand *ha
 	hand->unk0cc8_08 = false;
 
 	if (hand->inuse) {
-		sp34 = bgun0f098ca0(hand->gset.weaponfunc, info, hand);
+		ammostate = bgun_get_ammo_state(hand->gset.weaponfunc, info, hand);
 
 		// Handle changing gun function
 		if (gunfunc != hand->gset.weaponfunc && hand->modenext != HANDMODE_RELOAD) {
 			changefunc = true;
 
-			if (hand->unk0cc8_07 && bgun0f098ca0(1 - hand->gset.weaponfunc, info, hand) < 0) {
+			if (hand->unk0cc8_07 && bgun_get_ammo_state(1 - hand->gset.weaponfunc, info, hand) < 0) {
 				changefunc = false;
 			}
 
 			if (changefunc && info->weaponnum == WEAPON_COMBATKNIFE) {
-				if (sp34 == 0) {
+				if (ammostate == GUNAMMOSTATE_NEEDRELOAD) {
 					hand->count60 = 0;
 					hand->count = 0;
 					hand->gset.weaponfunc = gunfunc;
@@ -1237,7 +1240,7 @@ s32 bgun_tick_inc_idle(struct handweaponinfo *info, s32 handnum, struct hand *ha
 						return lvupdate;
 					}
 				} else {
-					if (sp34 < 0) {
+					if (ammostate <= GUNAMMOSTATE_DEPLETED) {
 						changefunc = false;
 					}
 				}
@@ -1252,7 +1255,7 @@ s32 bgun_tick_inc_idle(struct handweaponinfo *info, s32 handnum, struct hand *ha
 			}
 		}
 
-		if (sp34 < 0) {
+		if (ammostate <= GUNAMMOSTATE_DEPLETED) {
 			// Attempted to shoot with no ammo
 
 			// Consider switching to another weapon
@@ -1266,26 +1269,24 @@ s32 bgun_tick_inc_idle(struct handweaponinfo *info, s32 handnum, struct hand *ha
 			usesec = FUNCISSEC();
 
 			if (usesec == gunfunc) {
-				sp30 = bgun0f098ca0(1 - hand->gset.weaponfunc, info, hand);
+				ammostate2 = bgun_get_ammo_state(1 - hand->gset.weaponfunc, info, hand);
 
-				if (bgun0f099188(hand, 1 - hand->gset.weaponfunc)
-						&& info->weaponnum != WEAPON_REAPER) {
+				if (bgun0f099188(hand, 1 - hand->gset.weaponfunc) && info->weaponnum != WEAPON_REAPER) {
 					if (info->gunctrl->wantammo) {
 						func = weapon_get_function(&hand->gset, 1 - hand->gset.weaponfunc);
 
 						if ((func->type & 0xff) != INVENTORYFUNCTYPE_MELEE) {
-							sp30 = -1;
+							ammostate2 = GUNAMMOSTATE_DEPLETED;
 						}
 					} else {
-						sp30 = -1;
+						ammostate2 = GUNAMMOSTATE_DEPLETED;
 					}
 				}
 
-				if (sp30 < 0) {
+				if (ammostate2 <= GUNAMMOSTATE_DEPLETED) {
 					hand->unk0cc8_08 = true;
 				} else {
-					if (!weapon_has_flag(info->weaponnum, WEAPONFLAG_04000000)
-							|| hand->gset.weaponfunc == FUNC_SECONDARY) {
+					if (!weapon_has_flag(info->weaponnum, WEAPONFLAG_KEEPFUNCWHENEMPTY) || hand->gset.weaponfunc == FUNC_SECONDARY) {
 						hand->unk0cc8_07 = true;
 
 						if (bgun_set_state(handnum, HANDSTATE_CHANGEFUNC)) {
@@ -1294,7 +1295,7 @@ s32 bgun_tick_inc_idle(struct handweaponinfo *info, s32 handnum, struct hand *ha
 					}
 				}
 			}
-		} else if (sp34 == 0) {
+		} else if (ammostate == GUNAMMOSTATE_NEEDRELOAD) {
 			// Clip is empty
 			if (hand->triggeron && info->weaponnum != WEAPON_NONE) {
 				hand->unk0cc8_01 = false;
@@ -1338,7 +1339,7 @@ s32 bgun_tick_inc_idle(struct handweaponinfo *info, s32 handnum, struct hand *ha
 				hand->count = 0;
 				hand->modenext = HANDMODE_NONE;
 
-				if (next == HANDMODE_RELOAD && sp34 < 2 && sp34 >= 0) {
+				if (next == HANDMODE_RELOAD && ammostate < GUNAMMOSTATE_CLIPYES_HELDNO && ammostate >= GUNAMMOSTATE_NEEDRELOAD) {
 					if (bgun_set_state(handnum, HANDSTATE_RELOAD)) {
 						if (handnum && handnum && handnum);
 						return lvupdate;
@@ -1378,10 +1379,10 @@ void bgun_set_arm_pitch(struct hand *hand, f32 angle)
 	hand->posrotmtx.m[3][2] = sinf(angle) * 15.0f;
 }
 
-s32 bgun_tick_inc_auto_switch(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgun_tick_inc_autoswitch(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
-	s32 someval;
+	s32 ammostate;
 	s32 gunfunc = bgun_is_using_secondary_function();
 
 	if (!hand->inuse && bgun_set_state(handnum, HANDSTATE_IDLE)) {
@@ -1423,7 +1424,7 @@ s32 bgun_tick_inc_auto_switch(struct handweaponinfo *info, s32 handnum, struct h
 		}
 
 		if (hand->inuse) {
-			someval = bgun0f098ca0(gunfunc, info, hand);
+			ammostate = bgun_get_ammo_state(gunfunc, info, hand);
 
 			if (info->weaponnum == WEAPON_TIMEDMINE || info->weaponnum == WEAPON_PROXIMITYMINE) {
 				hand->gset.weaponfunc = gunfunc;
@@ -1443,11 +1444,11 @@ s32 bgun_tick_inc_auto_switch(struct handweaponinfo *info, s32 handnum, struct h
 				bgun_get_weapon_info(&otherinfo, 1 - handnum);
 
 				if (otherhand->inuse) {
-					if (bgun0f098ca0(0, &otherinfo, otherhand) >= 0) {
+					if (bgun_get_ammo_state(FUNC_PRIMARY, &otherinfo, otherhand) > GUNAMMOSTATE_DEPLETED) {
 						ready = false;
 					}
 
-					if (bgun0f098ca0(1, &otherinfo, otherhand) >= 0) {
+					if (bgun_get_ammo_state(FUNC_SECONDARY, &otherinfo, otherhand) > GUNAMMOSTATE_DEPLETED) {
 						ready = false;
 					}
 
@@ -1465,7 +1466,7 @@ s32 bgun_tick_inc_auto_switch(struct handweaponinfo *info, s32 handnum, struct h
 				}
 			}
 
-			if (someval <= 1 && someval >= 0) {
+			if (ammostate <= GUNAMMOSTATE_CLIPYES_HELDYES && ammostate >= GUNAMMOSTATE_NEEDRELOAD) {
 				if (g_Vars.currentplayer->hands[1 - handnum].state != HANDSTATE_RELOAD) {
 					hand->count60 = 0;
 					hand->count = 0;
@@ -1571,19 +1572,21 @@ s32 bgun_tick_inc_reload(struct handweaponinfo *info, s32 handnum, struct hand *
 			}
 		} else {
 			if (info->definition->ammos[func->ammoindex]->flags & AMMOFLAG_INCREMENTALRELOAD) {
-				if (bgun0f098a44(hand, 1)) {
+				if (bgun_anim_allows_feature(hand, GUNFEATURE_RELOAD)) {
 					if ((hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
-						s32 value;
+						s32 ammostate;
 
 						bgun0f098df8(hand->gset.weaponfunc, info, hand, 1, 0);
-						hand->stateflags |= HANDSTATEFLAG_BUSY;
-						value = bgun0f098ca0(hand->gset.weaponfunc, info, hand);
 
-						if (value >= 2) {
+						hand->stateflags |= HANDSTATEFLAG_BUSY;
+
+						ammostate = bgun_get_ammo_state(hand->gset.weaponfunc, info, hand);
+
+						if (ammostate >= GUNAMMOSTATE_CLIPYES_HELDNO) {
 							hand->incrementalreloading = false;
 						}
 
-						if (value == -1) {
+						if (ammostate == GUNAMMOSTATE_DEPLETED) {
 							hand->incrementalreloading = false;
 						}
 					}
@@ -1602,7 +1605,7 @@ s32 bgun_tick_inc_reload(struct handweaponinfo *info, s32 handnum, struct hand *
 #endif
 			} else {
 				if ((hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
-					if (bgun0f098a44(hand, 1)) {
+					if (bgun_anim_allows_feature(hand, GUNFEATURE_RELOAD)) {
 						bgun0f098df8(hand->gset.weaponfunc, info, hand, 0, 0);
 						hand->stateflags |= HANDSTATEFLAG_BUSY;
 					}
@@ -1710,7 +1713,7 @@ s32 bgun_tick_inc_reload(struct handweaponinfo *info, s32 handnum, struct hand *
 	return 0;
 }
 
-s32 bgun_tick_inc_change_func(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgun_tick_inc_changefunc(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	struct guncmd *cmd;
 	bool more = false;
@@ -2190,7 +2193,7 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 			hand->burstbullets = 0;
 		}
 
-		if (!bgun0f098a44(hand, 2)) {
+		if (!bgun_anim_allows_feature(hand, GUNFEATURE_ATTACK)) {
 			sp64 = 0;
 		}
 
@@ -2295,7 +2298,7 @@ bool bgun_tick_inc_attacking_throw(s32 handnum, struct hand *hand)
 				hand->unk0cc8_01 = false;
 			}
 
-			if (bgun0f098a44(hand, 2)) {
+			if (bgun_anim_allows_feature(hand, GUNFEATURE_ATTACK)) {
 				hand->stateminor = HANDSTATEMINOR_ATTACK_THROW_1;
 				hand->unk0cc8_01 = false;
 			}
@@ -2422,7 +2425,7 @@ bool bgun_tick_inc_attacking_melee(s32 handnum, struct hand *hand)
 				hand->unk0cc8_01 = false;
 			}
 
-			if (bgun0f098a44(hand, 2)) {
+			if (bgun_anim_allows_feature(hand, GUNFEATURE_ATTACK)) {
 				hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_1;
 				hand->unk0cc8_01 = false;
 			}
@@ -2431,7 +2434,7 @@ bool bgun_tick_inc_attacking_melee(s32 handnum, struct hand *hand)
 		}
 	}
 
-	if (hand->stateminor == HANDSTATEMINOR_ATTACK_MELEE_3 && bgun0f098a44(hand, 3)) {
+	if (hand->stateminor == HANDSTATEMINOR_ATTACK_MELEE_3 && bgun_anim_allows_feature(hand, GUNFEATURE_ATTACKAGAIN)) {
 		hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_1;
 		hand->unk0cc8_01 = false;
 	}
@@ -2449,7 +2452,7 @@ bool bgun_tick_inc_attacking_melee(s32 handnum, struct hand *hand)
 		}
 
 		if (func->fire_animation) {
-			if (func->fire_animation && !bgun0f098a44(hand, 3)) {
+			if (func->fire_animation && !bgun_anim_allows_feature(hand, GUNFEATURE_ATTACKAGAIN)) {
 				hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_3;
 			} else {
 				hand->stateminor = HANDSTATEMINOR_ATTACK_MELEE_2;
@@ -2517,7 +2520,7 @@ bool bgun_tick_inc_attacking_special(struct hand *hand)
 	return false;
 }
 
-s32 bgun_tick_inc_attack_empty(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgun_tick_inc_attackempty(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
 	bool playsound = false;
@@ -2567,7 +2570,7 @@ s32 bgun_tick_inc_attack_empty(struct handweaponinfo *info, s32 handnum, struct 
 			if (!restartedanim && hand->stateframes > TICKS(25)) {
 				playsound = true;
 			}
-		} else if (bgun0f098a44(hand, 5)) {
+		} else if (bgun_anim_allows_feature(hand, GUNFEATURE_CLICK)) {
 			playsound = true;
 		}
 		break;
@@ -2814,7 +2817,7 @@ bool bgun0f09bf44(s32 handnum)
 	return result;
 }
 
-s32 bgun_tick_inc_change_gun(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
+s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
 	struct weapon *weapon = info->definition;
@@ -2834,7 +2837,7 @@ s32 bgun_tick_inc_change_gun(struct handweaponinfo *info, s32 handnum, struct ha
 
 		if (weapon_has_flag(info->weaponnum, WEAPONFLAG_THROWABLE)
 				&& !(info->weaponnum == WEAPON_REMOTEMINE && handnum == HAND_LEFT)
-				&& bgun0f098ca0(0, info, hand) < 0) {
+				&& bgun_get_ammo_state(FUNC_PRIMARY, info, hand) <= GUNAMMOSTATE_DEPLETED) {
 			skipanim = true;
 		}
 
@@ -2977,7 +2980,7 @@ s32 bgun_tick_inc_change_gun(struct handweaponinfo *info, s32 handnum, struct ha
 
 			if (weapon_has_flag(info->weaponnum, WEAPONFLAG_THROWABLE)
 					&& (info->weaponnum != WEAPON_REMOTEMINE || handnum != HAND_LEFT)
-					&& bgun0f098ca0(0, info, hand) < 0
+					&& bgun_get_ammo_state(FUNC_PRIMARY, info, hand) <= GUNAMMOSTATE_DEPLETED
 					&& bgun_set_state(handnum, HANDSTATE_AUTOSWITCH)) {
 				hand->stateminor = HANDSTATEMINOR_AUTOSWITCH_DELETE;
 				return lvupdate;
@@ -3201,16 +3204,16 @@ s32 bgun_tick_inc(struct handweaponinfo *info, s32 handnum, s32 lvupdate)
 		result = bgun_tick_inc_state2(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_CHANGEGUN:
-		result = bgun_tick_inc_change_gun(info, handnum, hand, lvupdate);
+		result = bgun_tick_inc_changegun(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_ATTACKEMPTY:
-		result = bgun_tick_inc_attack_empty(info, handnum, hand, lvupdate);
+		result = bgun_tick_inc_attackempty(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_AUTOSWITCH:
-		result = bgun_tick_inc_auto_switch(info, handnum, hand, lvupdate);
+		result = bgun_tick_inc_autoswitch(info, handnum, hand, lvupdate);
 		break;
 	case HANDSTATE_CHANGEFUNC:
-		result = bgun_tick_inc_change_func(info, handnum, hand, lvupdate);
+		result = bgun_tick_inc_changefunc(info, handnum, hand, lvupdate);
 		break;
 	}
 
@@ -4156,7 +4159,7 @@ void bgun_tick_master_load(void)
 								model_init(&hand->handmodel, player->gunctrl.handmodeldef, hand->handsavedata, false);
 							}
 
-							hand->unk0dcc = (s32 *) player->gunctrl.memloadptr;
+							hand->compiledgunmodelcmds = (s32 *) player->gunctrl.memloadptr;
 
 							value = bgun_create_model_cmd_list(&hand->gunmodel, player->gunctrl.gunmodeldef->rootnode, (s32 *) player->gunctrl.memloadptr);
 
@@ -4165,7 +4168,7 @@ void bgun_tick_master_load(void)
 							player->gunctrl.memloadremaining -= value;
 
 							if (player->gunctrl.handmodeldef != 0) {
-								hand->unk0dd0 = (s32 *) player->gunctrl.memloadptr;
+								hand->compiledhandmodelcmds = (s32 *) player->gunctrl.memloadptr;
 
 								value = bgun_create_model_cmd_list(&hand->handmodel, player->gunctrl.handmodeldef->rootnode, (s32 *) player->gunctrl.memloadptr);
 
@@ -5042,14 +5045,14 @@ void bgun_swivel(f32 screenx, f32 screeny, f32 crossdamp, f32 aimdamp)
 	// recentre until the reload animation is almost complete
 	if (!player->hands[HAND_LEFT].inuse
 			&& player->hands[HAND_RIGHT].state == HANDSTATE_RELOAD
-			&& player->hands[HAND_RIGHT].unk0ce8) {
+			&& player->hands[HAND_RIGHT].animcmd) {
 		numframes = 25;
 
 		if (player->hands[HAND_RIGHT].gset.weaponnum == WEAPON_CROSSBOW) {
 			numframes = 5;
 		}
 
-		if ((s32)bgun0f09815c(&player->hands[HAND_RIGHT]) < model_get_num_anim_frames(&player->hands[HAND_RIGHT].gunmodel) - numframes) {
+		if ((s32)bgun_get_current_keyframe(&player->hands[HAND_RIGHT]) < model_get_num_anim_frames(&player->hands[HAND_RIGHT].gunmodel) - numframes) {
 			x[HAND_RIGHT] = 0.0f;
 			y[HAND_RIGHT] = 0.0f;
 			ignore[HAND_RIGHT] = true;
@@ -6051,7 +6054,7 @@ void bgun_update_slide(s32 handnum)
 			player->hands[handnum].slideinc = false;
 		}
 	} else if (player->hands[handnum].loadedammo[FUNC_PRIMARY] > 0) {
-		if (bgun0f098a44(&player->hands[handnum], 3)) {
+		if (bgun_anim_allows_feature(&player->hands[handnum], GUNFEATURE_ATTACKAGAIN)) {
 			// Slide is moving forwards
 			if (player->hands[handnum].slidetrans > 0.0f) {
 				player->hands[handnum].slidetrans -= slidemax * 0.16666667f * g_Vars.lvupdate60freal;
@@ -6151,23 +6154,28 @@ void bgun0f0a256c(s32 mtxindex, Mtxf *mtx)
 	}
 }
 
-bool bgun0f0a27c8(void)
+bool bgun_allows_fullscreen_autoaim(void)
 {
 	struct hand *hand;
 	struct weaponfunc *func;
 
+	// Right hand
 	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
-	func = gset_get_weapon_function2(&hand->gset);
 
-	if (func
-			&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
-			&& hand->state == HANDSTATE_ATTACK
-			&& hand->unk0ce8 != NULL
-			&& hand->animmode == HANDANIMMODE_BUSY
-			&& !bgun0f098a44(hand, 2)) {
-		return true;
+	if (1) {
+		func = gset_get_weapon_function2(&hand->gset);
+
+		if (func
+				&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
+				&& hand->state == HANDSTATE_ATTACK
+				&& hand->animcmd != NULL
+				&& hand->animmode == HANDANIMMODE_BUSY
+				&& !bgun_anim_allows_feature(hand, GUNFEATURE_ATTACK)) {
+			return true;
+		}
 	}
 
+	// Left hand
 	hand = &g_Vars.currentplayer->hands[HAND_LEFT];
 
 	if (hand->inuse) {
@@ -6176,9 +6184,9 @@ bool bgun0f0a27c8(void)
 		if (func
 				&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
 				&& hand->state == HANDSTATE_ATTACK
-				&& hand->unk0ce8 != NULL
+				&& hand->animcmd != NULL
 				&& hand->animmode == HANDANIMMODE_BUSY
-				&& !bgun0f098a44(hand, 2)) {
+				&& !bgun_anim_allows_feature(hand, GUNFEATURE_ATTACK)) {
 			return true;
 		}
 	}
@@ -6187,11 +6195,11 @@ bool bgun0f0a27c8(void)
 }
 
 /**
- * This function is the same as above but it doesn't call bgun0f098a44().
+ * This function is the same as above but it doesn't call bgun_anim_allows_feature().
  *
  * This function is unused.
  */
-bool bgun0f0a28d8(void)
+bool bgun_allows_fullscreen_autoaim2(void)
 {
 	struct hand *hand;
 	struct weaponfunc *func;
@@ -6202,7 +6210,7 @@ bool bgun0f0a28d8(void)
 	if (func
 			&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
 			&& hand->state == HANDSTATE_ATTACK
-			&& hand->unk0ce8 != NULL
+			&& hand->animcmd != NULL
 			&& hand->animmode == HANDANIMMODE_BUSY) {
 		return true;
 	}
@@ -6215,7 +6223,7 @@ bool bgun0f0a28d8(void)
 		if (func
 				&& (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE
 				&& hand->state == HANDSTATE_ATTACK
-				&& hand->unk0ce8 != NULL
+				&& hand->animcmd != NULL
 				&& hand->animmode == HANDANIMMODE_BUSY) {
 			return true;
 		}
@@ -7111,13 +7119,13 @@ void bgun_update_laser(struct hand *hand)
 /**
  * Create ammo casing so they can be ejected during reload.
  */
-void bgun_update_magnum(struct hand *hand, s32 handnum, struct modeldef *modeldef, Mtxf *mtx)
+void bgun_eject_magnum_casings(struct hand *hand, s32 handnum, struct modeldef *modeldef, Mtxf *mtx)
 {
 	f32 ground = g_Vars.currentplayer->vv_ground;
 	s32 i;
 
 	if (modeldef != NULL) {
-		for (i = 0; i < hand->unk0cc8_04; i++) {
+		for (i = 0; i < hand->ejectcount; i++) {
 			struct modelnode *node = model_get_part(modeldef, 0x0a + random() % 6);
 
 			if (node) {
@@ -7609,23 +7617,23 @@ void bgun0f0a5550(s32 handnum)
 		modeldef = player->gunctrl.gunmodeldef;
 		mtxallocation = gfx_allocate(modeldef->nummatrices * sizeof(Mtxf));
 
-		if (weapon_has_flag(weaponnum, WEAPONFLAG_02000000)) {
+		if (weapon_has_flag(weaponnum, WEAPONFLAG_RESETMATRICES)) {
 			for (i = 0; i < modeldef->nummatrices; i++) {
 				mtx = (Mtxf *)(mtxallocation + i * sizeof(Mtxf));
 				mtx4_load_identity(mtx);
 			}
 		}
 
-		bgun_execute_model_cmd_list(hand->unk0dcc);
+		bgun_execute_model_cmd_list(hand->compiledgunmodelcmds);
 
 		if (player->gunctrl.handmodeldef != NULL) {
-			bgun_execute_model_cmd_list(hand->unk0dd0);
+			bgun_execute_model_cmd_list(hand->compiledhandmodelcmds);
 		}
 
-		bgun0f098030(hand, modeldef);
+		bgun_update_ammo_visibility(hand, modeldef);
 
-		if (weapon_has_flag(weaponnum, WEAPONFLAG_00002000)) {
-			bgun0f0981e8(hand, modeldef);
+		if (weapon_has_flag(weaponnum, WEAPONFLAG_HASGUNSCRIPT)) {
+			bgun_tick_anim(hand, modeldef);
 		}
 	}
 
@@ -7707,7 +7715,7 @@ void bgun0f0a5550(s32 handnum)
 
 		mtx4_copy(&sp2c4, (Mtxf *)mtxallocation);
 
-		if (hand->unk0cc8_04 > 0) {
+		if (hand->ejectcount > 0) {
 			switch (weaponnum) {
 			case WEAPON_GRENADE:
 			case WEAPON_NBOMB:
@@ -8001,8 +8009,8 @@ void bgun0f0a5550(s32 handnum)
 		break;
 	case WEAPON_DY357MAGNUM:
 	case WEAPON_DY357LX:
-		if (hand->unk0cc8_04 > 0) {
-			bgun_update_magnum(hand, handnum, modeldef, (Mtxf *)mtxallocation);
+		if (hand->ejectcount > 0) {
+			bgun_eject_magnum_casings(hand, handnum, modeldef, (Mtxf *)mtxallocation);
 		}
 		break;
 	}
@@ -10922,7 +10930,7 @@ void bgun_render(Gfx **gdlptr)
 		if (hand->visible) {
 			gdl = beam_render(gdl, &hand->beam, 0, 0);
 
-			if (weapon_has_flag(hand->gset.weaponnum, WEAPONFLAG_00008000)) {
+			if (weapon_has_flag(hand->gset.weaponnum, WEAPONFLAG_BRIGHTER)) {
 				gSPSetLights1(gdl++, var80070090);
 				gSPLookAt(gdl++, cam_get_look_at());
 			}
@@ -11845,13 +11853,12 @@ void bgun_tick_gameplay(bool triggeron)
 			if (player->playertrigtime240 > TICKS(80)) {
 				gunsfiring[player->curguntofire] = 1;
 
-				if (bgun0f099008(1 - player->curguntofire)
-						|| player->hands[1 - player->curguntofire].triggeron) {
+				if (bgun_clip_has_ammo(1 - player->curguntofire) || player->hands[1 - player->curguntofire].triggeron) {
 					gunsfiring[1 - player->curguntofire] = 1;
 				}
 			} else {
 				if (player->playertriggerprev == false &&
-						(bgun0f099008(1 - player->curguntofire) || !bgun0f099008(player->curguntofire))) {
+						(bgun_clip_has_ammo(1 - player->curguntofire) || !bgun_clip_has_ammo(player->curguntofire))) {
 					player->curguntofire = 1 - player->curguntofire;
 				}
 
@@ -12703,7 +12710,7 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 	bgun_get_weapon_info(&info, HAND_RIGHT);
 	tmpfuncnum = bgun_is_using_secondary_function();
 
-	if (bgun0f098ca0(tmpfuncnum, &info, hand) >= 0) {
+	if (bgun_get_ammo_state(tmpfuncnum, &info, hand) > GUNAMMOSTATE_DEPLETED) {
 		funcnum = tmpfuncnum;
 	}
 #endif

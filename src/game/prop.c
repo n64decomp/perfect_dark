@@ -2397,7 +2397,7 @@ f32 prop_calculate_autoaim_score(struct prop *prop, struct coord *screenpos, f32
 	struct prop *playerprop;
 	s32 ok;
 
-	if (func && bgun0f0a27c8()) {
+	if (func && bgun_allows_fullscreen_autoaim()) {
 		usefullscreen = true;
 	}
 
