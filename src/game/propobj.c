@@ -8496,9 +8496,9 @@ void autogun_tick(struct prop *prop)
 	insight = false;
 	limitangle = 0.0f;
 
-	// Malfunctioning mode 1: The gun looks around continuously in random
+	// Malfunctioning: The gun looks around continuously in random
 	// directions on both axis without spinning the barrel.
-	if (obj->flags2 & OBJFLAG2_AUTOGUN_MALFUNCTIONING1) {
+	if (obj->flags2 & OBJFLAG2_AUTOGUN_MALFUNCTIONING) {
 		if (obj->flags2 & OBJFLAG2_AUTOGUN_ZEROTOROT) {
 			autogun->xzero = autogun->xrot;
 			autogun->yzero = autogun->yrot;
@@ -8512,9 +8512,9 @@ void autogun_tick(struct prop *prop)
 		return;
 	}
 
-	// Malfunctioning mode 2: The gun looks around left/right continuously
+	// Windmill: The gun pans left/right continuously
 	// and spins the barrel based on its angle.
-	if (obj->flags2 & OBJFLAG2_AUTOGUN_MALFUNCTIONING2) {
+	if (obj->flags2 & OBJFLAG2_AUTOGUN_WINDMILL) {
 		spinup = true;
 
 		if (obj->flags2 & OBJFLAG2_AUTOGUN_ZEROTOROT) {

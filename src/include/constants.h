@@ -3063,46 +3063,46 @@
 #define OBJFLAG_WEAPON_CANMIXDUAL          0x80000000
 
 // obj->flags2
-#define OBJFLAG2_IMMUNETOANTI            0x00000001 // Counter-op cannot damage this object
-#define OBJFLAG2_BOUNCEIFSHOTWHENDEAD    0x00000002 // Ruins spikes
-#define OBJFLAG2_SKIPDOORLOCKEDMSG       0x00000004
-#define OBJFLAG2_DOOR_PENDINGACTIVATION  0x00000008 // Editor: "Don't load in Multiplayer"
-#define OBJFLAG2_EXCLUDE_A               0x00000010
-#define OBJFLAG2_EXCLUDE_SA              0x00000020
-#define OBJFLAG2_EXCLUDE_PA              0x00000040
-#define OBJFLAG2_EXCLUDE_PD              0x00000080
-#define OBJFLAG2_NOFALL                  0x00000100
-#define OBJFLAG2_FALLWITHOUTROTATION     0x00000200
-#define OBJFLAG2_LINKEDTOSAFE            0x00000400 // Applied to safe door and item
-#define OBJFLAG2_INTERACTCHECKLOS        0x00000800 // Check line of sight when attempting to interact with object
-#define OBJFLAG2_PICKUPWITHOUTLOS        0x00001000 // Object can be picked up without having line of sight
-#define OBJFLAG2_REMOVEWHENDESTROYED     0x00002000
-#define OBJFLAG2_IMMUNETOGUNFIRE         0x00004000
-#define OBJFLAG2_SHOOTTHROUGH            0x00008000
-#define OBJFLAG2_DRAWONTOP               0x00010000
-#define OBJFLAG2_DONTPAUSE               0x00020000 // Don't allow prop to pause
-#define OBJFLAG2_INVHIDDEN               0x00040000 // Don't show in inventory menu
-#define OBJFLAG2_INVISIBLE               0x00080000
-#define OBJFLAG2_BULLETPROOF             0x00100000 // Only magnum and FarSight can shoot through it
-#define OBJFLAG2_IMMUNETOEXPLOSIONS      0x00200000
-#define OBJFLAG2_EXCLUDE_2P              0x00400000
-#define OBJFLAG2_EXCLUDE_3P              0x00800000
-#define OBJFLAG2_EXCLUDE_4P              0x01000000
-#define OBJFLAG2_THROWTHROUGH            0x02000000 // Rockets/mines/grenades etc pass through object
-#define OBJFLAG2_CANFILLVIEWPORT         0x04000000
-#define OBJFLAG2_LOCKEDFRONT             0x08000000 // One-way door lock
-#define OBJFLAG2_LOCKEDBACK              0x10000000 // One-way door lock
-#define OBJFLAG2_AICANNOTUSE             0x20000000 // AI can't equip weapon
-#define OBJFLAG2_AUTOGUN_MALFUNCTIONING2 0x20000000
-#define OBJFLAG2_AIRLOCKDOOR             0x40000000 // Door waits for sibling to close before it can open
-#define OBJFLAG2_AUTOGUN_ZEROTOROT       0x40000000 // set xzero/yzero to xrot/yrot when malfunctioning
-#define OBJFLAG2_AUTOGUN_MALFUNCTIONING1 0x80000000
-#define OBJFLAG2_DEBRIS_80000000         0x80000000
-#define OBJFLAG2_DEFAULT_80000000        0x80000000
-#define OBJFLAG2_DOOR_ALTCOORDSYSTEM     0x80000000 // Floor grates, but also Temple doors
-#define OBJFLAG2_GLASS_80000000          0x80000000
-#define OBJFLAG2_HOVERPROP_80000000      0x80000000
-#define OBJFLAG2_WEAPON_HUGEEXP          0x80000000
+#define OBJFLAG2_IMMUNETOANTI           0x00000001 // Counter-op cannot damage this object
+#define OBJFLAG2_BOUNCEIFSHOTWHENDEAD   0x00000002 // Ruins spikes
+#define OBJFLAG2_SKIPDOORLOCKEDMSG      0x00000004
+#define OBJFLAG2_DOOR_PENDINGACTIVATION 0x00000008 // Editor: "Don't load in Multiplayer"
+#define OBJFLAG2_EXCLUDE_A              0x00000010
+#define OBJFLAG2_EXCLUDE_SA             0x00000020
+#define OBJFLAG2_EXCLUDE_PA             0x00000040
+#define OBJFLAG2_EXCLUDE_PD             0x00000080
+#define OBJFLAG2_NOFALL                 0x00000100
+#define OBJFLAG2_FALLWITHOUTROTATION    0x00000200
+#define OBJFLAG2_LINKEDTOSAFE           0x00000400 // Applied to safe door and item
+#define OBJFLAG2_INTERACTCHECKLOS       0x00000800 // Check line of sight when attempting to interact with object
+#define OBJFLAG2_PICKUPWITHOUTLOS       0x00001000 // Object can be picked up without having line of sight
+#define OBJFLAG2_REMOVEWHENDESTROYED    0x00002000
+#define OBJFLAG2_IMMUNETOGUNFIRE        0x00004000
+#define OBJFLAG2_SHOOTTHROUGH           0x00008000
+#define OBJFLAG2_DRAWONTOP              0x00010000
+#define OBJFLAG2_DONTPAUSE              0x00020000 // Don't allow prop to pause
+#define OBJFLAG2_INVHIDDEN              0x00040000 // Don't show in inventory menu
+#define OBJFLAG2_INVISIBLE              0x00080000
+#define OBJFLAG2_BULLETPROOF            0x00100000 // Only magnum and FarSight can shoot through it
+#define OBJFLAG2_IMMUNETOEXPLOSIONS     0x00200000
+#define OBJFLAG2_EXCLUDE_2P             0x00400000
+#define OBJFLAG2_EXCLUDE_3P             0x00800000
+#define OBJFLAG2_EXCLUDE_4P             0x01000000
+#define OBJFLAG2_THROWTHROUGH           0x02000000 // Rockets/mines/grenades etc pass through object
+#define OBJFLAG2_CANFILLVIEWPORT        0x04000000
+#define OBJFLAG2_LOCKEDFRONT            0x08000000 // One-way door lock
+#define OBJFLAG2_LOCKEDBACK             0x10000000 // One-way door lock
+#define OBJFLAG2_AICANNOTUSE            0x20000000 // AI can't equip weapon
+#define OBJFLAG2_AUTOGUN_WINDMILL       0x20000000
+#define OBJFLAG2_AIRLOCKDOOR            0x40000000 // Door waits for sibling to close before it can open
+#define OBJFLAG2_AUTOGUN_ZEROTOROT      0x40000000 // set xzero/yzero to xrot/yrot when malfunctioning
+#define OBJFLAG2_AUTOGUN_MALFUNCTIONING 0x80000000
+#define OBJFLAG2_DEBRIS_80000000        0x80000000
+#define OBJFLAG2_DEFAULT_80000000       0x80000000
+#define OBJFLAG2_DOOR_ALTCOORDSYSTEM    0x80000000 // Floor grates, but also Temple doors
+#define OBJFLAG2_GLASS_80000000         0x80000000
+#define OBJFLAG2_HOVERPROP_80000000     0x80000000
+#define OBJFLAG2_WEAPON_HUGEEXP         0x80000000
 
 // obj->flags3
 #define OBJFLAG3_PUSHABLE           0x00000001

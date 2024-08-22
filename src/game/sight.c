@@ -750,7 +750,7 @@ Gfx *sight_draw_default(Gfx *gdl, bool sighton)
 					// in the cmdfollowprops list at this point, so it's
 					// probably OK.
 					if (obj && obj->type == OBJTYPE_AUTOGUN
-							&& (obj->flags2 & (OBJFLAG2_AICANNOTUSE | OBJFLAG2_AUTOGUN_MALFUNCTIONING1)) == 0) {
+							&& (obj->flags2 & (OBJFLAG2_AUTOGUN_MALFUNCTIONING | OBJFLAG2_AUTOGUN_WINDMILL)) == 0) {
 						textid = L_GUN_215; // "AUTOGUN"
 					}
 

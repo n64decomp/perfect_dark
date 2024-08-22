@@ -2089,7 +2089,7 @@ u8 func1009_windmill_switch[] = {
 		show_hudmsg(CHR_P1P2, L_ELD_018) // "Windmill has been reactivated."
 		yield
 		set_stage_flag(STAGEFLAG_WINDMILL_ACTIVATED)
-		set_object_flag2(OBJ_WINDMILL, OBJFLAG2_AICANNOTUSE)
+		set_object_flag2(OBJ_WINDMILL, OBJFLAG2_AUTOGUN_WINDMILL)
 		unlock_door(0x06, 0x02)
 		unlock_door(0x07, 0x02)
 		set_ailist(CHR_SELF, GAILIST_IDLE)

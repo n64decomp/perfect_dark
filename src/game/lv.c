@@ -749,7 +749,7 @@ void lv_find_threats_for_prop(struct prop *prop, bool inchild, struct coord *pla
 
 		if (obj
 				&& obj->type == OBJTYPE_AUTOGUN
-				&& (obj->flags2 & (OBJFLAG2_AUTOGUN_MALFUNCTIONING1 | OBJFLAG2_AICANNOTUSE)) == 0) {
+				&& (obj->flags2 & (OBJFLAG2_AUTOGUN_MALFUNCTIONING | OBJFLAG2_AUTOGUN_WINDMILL)) == 0) {
 			pass = true;
 		}
 
