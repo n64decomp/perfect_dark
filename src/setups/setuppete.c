@@ -861,7 +861,7 @@ u8 func1026_uplink[] = {
 
 u8 func040d_limo[] = {
 	begin_hovercar_path(0x02)
-	set_vehicle_speed(GOPOSFLAG_WALK, 0)
+	set_vehicle_speed(0, 0)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x03)
 
 	// SA and PA
@@ -923,7 +923,7 @@ u8 func040c_taxi[] = {
 	label(0x03)
 	set_chr_maxdamage(CHR_SELF, 65456)
 	begin_hovercar_path(0x04)
-	set_vehicle_speed(GOPOSFLAG_WALK, 0)
+	set_vehicle_speed(0, 0)
 
 	// All difficulties
 	label(0x04)

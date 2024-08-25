@@ -1114,6 +1114,8 @@ u8 func0413_jonathan_hangar[] = {
 	beginloop(0x13)
 		if_enemy_distance_lt_and_los(2540, /*goto*/ 0x32)
 #if VERSION >= VERSION_NTSC_1_0
+		// @bug: The distance and pad params are swapped.
+		// The intention is to check for 30 units from pad 0xdb6 (3510).
 		if_chr_distance_to_pad_lt(CHR_SELF, 3510, PAD_TRA_001E, /*goto*/ 0x06)
 #endif
 		if_chr_stopped(/*goto*/ 0x06)
@@ -1333,6 +1335,8 @@ u8 func0413_jonathan_hangar[] = {
 	run_to_pad(PAD_TRA_0171)
 
 	beginloop(0x1e)
+		// @bug: The distance and pad params are swapped.
+		// The intention is to check for 20 units from pad 0xe6a (3690).
 		if_chr_distance_to_pad_lt(CHR_SELF, 3690, PAD_TRA_0014, /*goto*/ 0x06)
 		if_chr_stopped(/*goto*/ 0x06)
 	endloop(0x1e)
@@ -1432,6 +1436,8 @@ u8 func041b_jonathan_after_terminals[] = {
 
 	beginloop(0x4b)
 #if VERSION >= VERSION_NTSC_1_0
+		// @bug: The distance and pad params are swapped.
+		// The intention is to check for 20 units from pad 0xdb6 (3510).
 		if_chr_distance_to_pad_lt(CHR_SELF, 3510, PAD_TRA_0014, /*goto*/ 0x06)
 #endif
 		if_chr_stopped(/*goto*/ 0x06)
@@ -2056,13 +2062,12 @@ u8 func040b_elvis_follow[] = {
 		restart_timer
 
 		beginloop(0x5b)
-			// @bug: The pad and distance arguments are swapped here, so this is
-			// actually checking if Elvis is within 3510 units of pad 0x1e. This
-			// pad is up near the start of Infiltration so this will never pass.
+			// @bug: The distance and pad params are swapped.
+			// The intention is to check for 20 units from pad 0xdb6 (3510).
 #if VERSION >= VERSION_NTSC_1_0
-			if_chr_distance_to_pad_lt(CHR_SELF, 3510, 30, /*goto*/ 0x08)
+			if_chr_distance_to_pad_lt(CHR_SELF, 3510, PAD_TRA_001E, /*goto*/ 0x08)
 #else
-			if_chr_distance_to_pad_lt(CHR_SELF, 3510, 20, /*goto*/ 0x08)
+			if_chr_distance_to_pad_lt(CHR_SELF, 3510, PAD_TRA_0014, /*goto*/ 0x08)
 #endif
 			if_los_to_target(/*goto*/ 0x06)
 			goto_next(0x5c)

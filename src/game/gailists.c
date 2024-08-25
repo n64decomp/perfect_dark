@@ -2352,7 +2352,7 @@ u8 func0007_alerted[] = {
 	unset_self_flag_bankx(CHRFLAG1_FLANKED, BANK_1)
 	unset_self_flag_bankx(CHRFLAG1_DODGED, BANK_1)
 	restart_timer
-	retreat(0x02, 0x01)
+	retreat(GOPOSFLAG_RUN, 1)
 	cmd012f
 
 	beginloop(0x4f)
@@ -2792,7 +2792,7 @@ u8 func0007_alerted[] = {
 	label(0x16)
 	dprint 'R','U','N','N','I','N','G','\n',0,
 	set_target_chr(CHR_P1P2)
-	retreat(2, 1)
+	retreat(GOPOSFLAG_RUN, 1)
 
 	beginloop(0x6c)
 		if_dangerous_object_nearby(3, /*goto*/ LABEL_FLEE_GRENADE)
