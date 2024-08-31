@@ -641,7 +641,7 @@ void obj_populate_geoblock_from_modeldef(struct modelrodata_geo *georodata, stru
 	block->ymax = mtx->m[3][1] + obj_get_rotated_local_y_max_by_mtx4(bbox, mtx);
 }
 
-bool func0f0675c8(struct coord *pos, f32 arg1, struct modelrodata_bbox *bbox, Mtxf *mtx)
+bool door_is_player_within_distance(struct coord *playerpos, f32 distance, struct modelrodata_bbox *doorbbox, Mtxf *doormtx)
 {
 	Mtxf sp58;
 	struct coord sp4c;
@@ -649,13 +649,13 @@ bool func0f0675c8(struct coord *pos, f32 arg1, struct modelrodata_bbox *bbox, Mt
 	struct coord sp34;
 	struct coord sp28;
 
-	sp34.f[0] = sp34.f[1] = sp34.f[2] = arg1;
+	sp34.f[0] = sp34.f[1] = sp34.f[2] = distance;
 
-	sp4c.x = pos->x - mtx->m[3][0];
-	sp4c.y = pos->y - mtx->m[3][1];
-	sp4c.z = pos->z - mtx->m[3][2];
+	sp4c.x = playerpos->x - doormtx->m[3][0];
+	sp4c.y = playerpos->y - doormtx->m[3][1];
+	sp4c.z = playerpos->z - doormtx->m[3][2];
 
-	mtx000170e4(mtx->m, sp58.m);
+	mtx000170e4(doormtx->m, sp58.m);
 	mtx4_rotate_vec(&sp58, &sp4c, &sp40);
 	mtx4_rotate_vec(&sp58, &sp34, &sp28);
 
@@ -671,60 +671,60 @@ bool func0f0675c8(struct coord *pos, f32 arg1, struct modelrodata_bbox *bbox, Mt
 		sp28.z = -sp28.z;
 	}
 
-	return sp40.x - sp28.x <= bbox->xmax && sp28.x + sp40.x >= bbox->xmin
-		&& sp40.y - sp28.y <= bbox->ymax && sp28.y + sp40.y >= bbox->ymin
-		&& sp40.z - sp28.z <= bbox->zmax && sp28.z + sp40.z >= bbox->zmin;
+	return sp40.x - sp28.x <= doorbbox->xmax && sp28.x + sp40.x >= doorbbox->xmin
+		&& sp40.y - sp28.y <= doorbbox->ymax && sp28.y + sp40.y >= doorbbox->ymin
+		&& sp40.z - sp28.z <= doorbbox->zmax && sp28.z + sp40.z >= doorbbox->zmin;
 }
 
-bool func0f0677ac(struct coord *coord, struct coord *arg1, struct coord *pos,
-		struct coord *normal, struct coord *up, struct coord *look,
+bool pos_is_within_padbbox(struct coord *playerpos, struct coord *padding, struct coord *padpos,
+		struct coord *padnormal, struct coord *padup, struct coord *padlook,
 		f32 xmin, f32 xmax, f32 ymin, f32 ymax, f32 zmin, f32 zmax)
 {
-	f32 xdiff = coord->x - pos->x;
-	f32 ydiff = coord->y - pos->y;
-	f32 zdiff = coord->z - pos->z;
+	f32 xdiff = playerpos->x - padpos->x;
+	f32 ydiff = playerpos->y - padpos->y;
+	f32 zdiff = playerpos->z - padpos->z;
 	f32 f0;
 
-	f0 = xdiff * look->f[0] + ydiff * look->f[1] + zdiff * look->f[2];
+	f0 = xdiff * padlook->f[0] + ydiff * padlook->f[1] + zdiff * padlook->f[2];
 
-	if (f0 > arg1->z + zmax || f0 < zmin - arg1->z) {
+	if (f0 > padding->z + zmax || f0 < zmin - padding->z) {
 		return false;
 	}
 
-	f0 = xdiff * up->f[0] + ydiff * up->f[1] + zdiff * up->f[2];
+	f0 = xdiff * padup->f[0] + ydiff * padup->f[1] + zdiff * padup->f[2];
 
-	if (f0 > arg1->y + ymax || f0 < ymin - arg1->y) {
+	if (f0 > padding->y + ymax || f0 < ymin - padding->y) {
 		return false;
 	}
 
-	f0 = xdiff * normal->f[0] + ydiff * normal->f[1] + zdiff * normal->f[2];
+	f0 = xdiff * padnormal->f[0] + ydiff * padnormal->f[1] + zdiff * padnormal->f[2];
 
-	if (f0 > arg1->x + xmax || f0 < xmin - arg1->x) {
+	if (f0 > padding->x + xmax || f0 < xmin - padding->x) {
 		return false;
 	}
 
 	return true;
 }
 
-bool func0f0678f8(struct coord *coord, struct coord *arg1, s32 padnum)
+bool pos_is_within_padding_of_padvol(struct coord *playerpos, struct coord *arg1, s32 padnum)
 {
 	struct pad pad;
 
 	pad_unpack(padnum, PADFIELD_POS | PADFIELD_LOOK | PADFIELD_UP | PADFIELD_NORMAL | PADFIELD_BBOX, &pad);
 
-	return func0f0677ac(coord, arg1, &pad.pos, &pad.normal, &pad.up, &pad.look,
+	return pos_is_within_padbbox(playerpos, arg1, &pad.pos, &pad.normal, &pad.up, &pad.look,
 			pad.bbox.xmin, pad.bbox.xmax, pad.bbox.ymin, pad.bbox.ymax, pad.bbox.zmin, pad.bbox.zmax);
 }
 
-bool func0f06797c(struct coord *coord, f32 arg1, s32 padnum)
+bool pos_is_within_dist_of_padvol(struct coord *playerpos, f32 dist, s32 padnum)
 {
-	struct coord sp1c;
+	struct coord padding;
 
-	sp1c.x = arg1;
-	sp1c.y = arg1;
-	sp1c.z = arg1;
+	padding.x = dist;
+	padding.y = dist;
+	padding.z = dist;
 
-	return func0f0678f8(coord, &sp1c, padnum);
+	return pos_is_within_padding_of_padvol(playerpos, &padding, padnum);
 }
 
 bool func0f0679ac(struct model *model, f32 *max, f32 *min, f32 arg3[2], f32 arg4[2])
@@ -1218,7 +1218,7 @@ s32 obj_get_destroyed_level(struct defaultobj *obj)
 	return (obj->damage >> 2) + 1;
 }
 
-struct modelnode *func0f0687e4(struct model *model)
+struct modelnode *door_find_dl_node(struct model *model)
 {
 	struct modeldef *modeldef = model->definition;
 	struct modelnode *node = modeldef->rootnode;
@@ -1379,7 +1379,7 @@ s32 obj_get_average_brightness_in_rooms(RoomNum *rooms, s32 brightnesstype)
 	return 0;
 }
 
-s32 door0f068c04(struct prop *prop, s32 *arg1, s32 *arg2)
+s32 door_calc_average_brightness(struct prop *prop, s32 *arg1, s32 *arg2)
 {
 	struct doorobj *door = prop->door;
 	struct doorobj *sibling;
@@ -1524,7 +1524,7 @@ s32 func0f068fc8(struct prop *prop, bool arg1)
 			actualptr = arg1 == 0 ? &actual : NULL;
 			extraptr = arg1 == 1 ? &extra : NULL;
 
-			door0f068c04(prop, actualptr, extraptr);
+			door_calc_average_brightness(prop, actualptr, extraptr);
 
 			if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 				if (g_Vars.currentplayernum == 1) {
@@ -7748,7 +7748,7 @@ void door_init_matrices(struct prop *prop)
 	struct model *model = door->base.model;
 	Mtxf *matrices = model->matrices;
 
-	func0f08c424(door, matrices);
+	door_get_mtx(door, matrices);
 	mtx00015be0(cam_get_world_to_screen_mtxf(), matrices);
 
 	if (model->definition->skel == &g_Skel11) {
@@ -13660,7 +13660,7 @@ Gfx *obj_render(struct prop *prop, Gfx *gdl, bool xlupass)
 		door = (struct doorobj *)obj;
 
 		if (door->doortype == DOORTYPE_LASER) {
-			node = func0f0687e4(obj->model);
+			node = door_find_dl_node(obj->model);
 			dldata1 = &node->rodata->dl;
 			dldata2 = (struct modelrwdata_dl *) model_get_node_rw_data(obj->model, node);
 			oldcolours = (Col *) ((((uintptr_t) &dldata1->vertices[dldata1->numvertices] + 7) | 7) ^ 7);
@@ -15152,7 +15152,7 @@ void door_destroy_glass(struct doorobj *door)
 		}
 	}
 
-	func0f08c424(door, &matrix);
+	door_get_mtx(door, &matrix);
 	shards_create((struct coord *) &matrix.m[3][0], &matrix.m[0][0], &matrix.m[1][0], &matrix.m[2][0],
 			rodata->bbox.xmin, rodata->bbox.xmax, rodata->bbox.ymin, rodata->bbox.ymax,
 			SHARDTYPE_GLASS, prop);
@@ -18884,7 +18884,7 @@ bool door_is_pos_in_range(struct doorobj *door, struct coord *pos, f32 distance,
 	if (door->doortype == DOORTYPE_VERTICAL
 			|| door->doortype == DOORTYPE_SLIDING
 			|| door->doortype == DOORTYPE_SWINGING) {
-		if (func0f0678f8(pos, &range, door->base.pad)) {
+		if (pos_is_within_padding_of_padvol(pos, &range, door->base.pad)) {
 			return true;
 		}
 	}
@@ -19044,7 +19044,7 @@ void doors_check_automatic(void)
 	}
 }
 
-void func0f08c424(struct doorobj *door, Mtxf *matrix)
+void door_get_mtx(struct doorobj *door, Mtxf *matrix)
 {
 	mtx3_to_mtx4(door->base.realrot, matrix);
 	mtx4_set_translation(&door->base.prop->pos, matrix);
@@ -19079,10 +19079,10 @@ void door_update_tiles(struct doorobj *door)
 	struct coord sp80;
 	struct pad pad;
 
-	if (door->doorflags & DOORFLAG_0080) {
-		door->base.prop->pos.x = door->unk98.x * door->frac + door->startpos.x;
-		door->base.prop->pos.y = door->unk98.y * door->frac + door->startpos.y;
-		door->base.prop->pos.z = door->unk98.z * door->frac + door->startpos.z;
+	if (door->doorflags & DOORFLAG_TRANSLATION) {
+		door->base.prop->pos.x = door->slidedist.x * door->frac + door->startpos.x;
+		door->base.prop->pos.y = door->slidedist.y * door->frac + door->startpos.y;
+		door->base.prop->pos.z = door->slidedist.z * door->frac + door->startpos.z;
 	} else if (door->doortype == DOORTYPE_SWINGING
 			|| door->doortype == DOORTYPE_AZTECCHAIR
 			|| door->doortype == DOORTYPE_HULL) {
@@ -19118,7 +19118,7 @@ void door_update_tiles(struct doorobj *door)
 		sp80.y = door->startpos.y - sp8c.y;
 		sp80.z = door->startpos.z - sp8c.z;
 
-		mtx3_to_mtx4(door->mtx98, &spdc);
+		mtx3_to_mtx4(door->rotmtx, &spdc);
 		mtx4_load_translation(&sp80, &sp98);
 		mtx4_mult_mtx4_in_place(&sp98, &spdc);
 
@@ -19154,6 +19154,7 @@ void door_update_tiles(struct doorobj *door)
 
 	door_get_bbox(door, &bbox);
 
+	// If the door is fully open then its geometry is removed
 	if (door->frac >= door->perimfrac) {
 		door->base.hidden |= OBJHFLAG_DOORPERIMDISABLED;
 		return;
@@ -19162,12 +19163,14 @@ void door_update_tiles(struct doorobj *door)
 	geo = door->base.geoblock;
 	door->base.hidden &= ~OBJHFLAG_DOORPERIMDISABLED;
 
-	if ((door->doorflags & DOORFLAG_0020) == 0) {
-		func0f08c424(door, &spdc);
+	// Geometry is usually calculated on every frame.
+	// However, vertical doors calculate it once and reuse it.
+	if ((door->doorflags & DOORFLAG_REUSEGEO) == 0) {
+		door_get_mtx(door, &spdc);
 		obj_populate_geoblock_from_bbox_and_mtx(&bbox, &spdc, geo);
 
 		if (door->doortype == DOORTYPE_VERTICAL) {
-			door->doorflags |= DOORFLAG_0020;
+			door->doorflags |= DOORFLAG_REUSEGEO;
 		}
 	}
 
@@ -19175,7 +19178,7 @@ void door_update_tiles(struct doorobj *door)
 		geo->ymin = door->startpos.y + obj_get_rotated_local_y_min_by_mtx3(&bbox, door->base.realrot);
 	} else if (door->doortype == DOORTYPE_FALLAWAY) {
 		geo->ymin = door->base.prop->pos.y - 10000;
-	} else if (door->doorflags & DOORFLAG_0001) {
+	} else if (door->doorflags & DOORFLAG_EXTENDEDY) {
 		geo->ymin -= 1000;
 	}
 
@@ -19184,7 +19187,7 @@ void door_update_tiles(struct doorobj *door)
 		geo->ymax = geo->ymin + 50;
 	} else if (door->doortype == DOORTYPE_FALLAWAY) {
 		geo->ymax = door->base.prop->pos.y + 1000;
-	} else if (door->doorflags & DOORFLAG_0001) {
+	} else if (door->doorflags & DOORFLAG_EXTENDEDY) {
 		geo->ymax += 1000;
 	}
 }
@@ -19193,7 +19196,7 @@ void door_update_tiles(struct doorobj *door)
 #define NEXT2() (j + 2) % 4
 #define NEXT3() (j + 3) % 4
 
-void door0f08cb20(struct doorobj *door, Vtx *src, Vtx *dst, s32 numvertices)
+void door_calc_texturemap(struct doorobj *door, Vtx *src, Vtx *dst, s32 numvertices)
 {
 	s32 i;
 	s32 j;
@@ -19257,32 +19260,32 @@ void door0f08cb20(struct doorobj *door, Vtx *src, Vtx *dst, s32 numvertices)
 	}
 }
 
-void func0f08d3dc(struct doorobj *door)
+void door_calc_vertices_without_cache(struct doorobj *door)
 {
 	obj_update_extra_geo(&door->base);
 
 	if (door->doorflags & DOORFLAG_0004) {
-		struct modelnode *node = func0f0687e4(door->base.model);
+		struct modelnode *node = door_find_dl_node(door->base.model);
 		union modelrodata *rodata = node->rodata;
 		union modelrwdata *rwdata = model_get_node_rw_data(door->base.model, node);
 
 		rwdata->dl.vertices = gfx_allocate_vertices(rodata->dl.numvertices);
-		door0f08cb20(door, rodata->dl.vertices, rwdata->dl.vertices, rodata->dl.numvertices);
+		door_calc_texturemap(door, rodata->dl.vertices, rwdata->dl.vertices, rodata->dl.numvertices);
 	}
 }
 
-void func0f08d460(struct doorobj *door)
+void door_calc_vertices_with_cache(struct doorobj *door)
 {
-	if ((door->doorflags & (DOORFLAG_0004 | DOORFLAG_0080)) == (DOORFLAG_0004 | DOORFLAG_0080)) {
-		struct modelnode *node = func0f0687e4(door->base.model);
+	if ((door->doorflags & (DOORFLAG_0004 | DOORFLAG_TRANSLATION)) == (DOORFLAG_0004 | DOORFLAG_TRANSLATION)) {
+		struct modelnode *node = door_find_dl_node(door->base.model);
 		union modelrodata *rodata = node->rodata;
 		union modelrwdata *rwdata = model_get_node_rw_data(door->base.model, node);
 
-		if (rwdata->dl.vertices != door->unka4) {
-			door0f08cb20(door, rodata->dl.vertices, door->unka4, rodata->dl.numvertices);
+		if (rwdata->dl.vertices != door->vtxcache) {
+			door_calc_texturemap(door, rodata->dl.vertices, door->vtxcache, rodata->dl.numvertices);
 		}
 
-		rwdata->dl.vertices = door->unka4;
+		rwdata->dl.vertices = door->vtxcache;
 	}
 }
 
@@ -19300,11 +19303,11 @@ void door_deactivate_portal(struct doorobj *door)
 	}
 }
 
-struct prop *door_init(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomNum *rooms, struct coord *coord, struct coord *centre)
+struct prop *door_init(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomNum *rooms, struct coord *slidedist, struct coord *centre)
 {
 	struct prop *prop;
 	union modelrodata *rodata;
-	Mtxf sp38;
+	Mtxf rotmtx;
 	RoomNum sp28[8];
 
 	door->base.flags |= OBJFLAG_CORE_GEO_INUSE;
@@ -19320,13 +19323,13 @@ struct prop *door_init(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomN
 		case DOORTYPE_VERTICAL:
 		case DOORTYPE_FALLAWAY:
 		case DOORTYPE_LASER:
-			door->doorflags |= DOORFLAG_0080;
+			door->doorflags |= DOORFLAG_TRANSLATION;
 			break;
 		}
 
-		mtx4_copy(mtx, &sp38);
-		mtx00015f04(g_ModelStates[door->base.modelnum].scale * (1.0f / 4096.0f), &sp38);
-		mtx4_to_mtx3(&sp38, door->base.realrot);
+		mtx4_copy(mtx, &rotmtx);
+		mtx00015f04(g_ModelStates[door->base.modelnum].scale * (1.0f / 4096.0f), &rotmtx);
+		mtx4_to_mtx3(&rotmtx, door->base.realrot);
 
 		door->frac = (door->base.flags & OBJFLAG_DOOR_KEEPOPEN) ? door->maxfrac : 0;
 		door->fracspeed = 0;
@@ -19337,20 +19340,20 @@ struct prop *door_init(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomN
 		door->startpos.y = centre->y;
 		door->startpos.z = centre->z;
 
-		if (door->doorflags & DOORFLAG_0080) {
-			door->unk98.x = coord->x;
-			door->unk98.y = coord->y;
-			door->unk98.z = coord->z;
+		if (door->doorflags & DOORFLAG_TRANSLATION) {
+			door->slidedist.x = slidedist->x;
+			door->slidedist.y = slidedist->y;
+			door->slidedist.z = slidedist->z;
 
 			if (door->doorflags & DOORFLAG_0004) {
-				struct modelnode *node = func0f0687e4(door->base.model);
+				struct modelnode *node = door_find_dl_node(door->base.model);
 				rodata = node->rodata;
-				door->unka4 = memp_alloc(ALIGN16(rodata->dl.numvertices * sizeof(Vtx)), MEMPOOL_STAGE);
+				door->vtxcache = memp_alloc(ALIGN16(rodata->dl.numvertices * sizeof(Vtx)), MEMPOOL_STAGE);
 			} else {
-				door->unka4 = NULL;
+				door->vtxcache = NULL;
 			}
 		} else {
-			mtx4_to_mtx3(&sp38, door->mtx98);
+			mtx4_to_mtx3(&rotmtx, door->rotmtx);
 		}
 
 		los_find_final_room_exhaustive(pos, rooms, centre, sp28);
@@ -19365,7 +19368,7 @@ struct prop *door_init(struct doorobj *door, struct coord *pos, Mtxf *mtx, RoomN
 		rooms_copy(sp28, prop->rooms);
 		door_update_tiles(door);
 		obj_onmoved(&door->base, false, true);
-		func0f08d3dc(door);
+		door_calc_vertices_without_cache(door);
 
 		door->base.shadecol[0] = door->base.nextcol[0];
 		door->base.shadecol[1] = door->base.nextcol[1];
@@ -19731,7 +19734,7 @@ void door_finish_close(struct doorobj *door)
 
 #if PIRACYCHECKS
 	if (osCicId != decode_xor_aaaaaaaa(PAL ? (6105 ^ 0x18743082) : (6105 ^ 0xaaaaaaaa))) {
-		u32 *ptr = (u32 *)func0f08f968;
+		u32 *ptr = (u32 *)door_test_interact_angle;
 		ptr[0] = 0x00001025; // li v0, 0
 		ptr[1] = 0x03e00008; // jr ra
 		ptr[2] = 0x00000000; // nop
@@ -20240,8 +20243,8 @@ void doors_calc_frac(struct doorobj *door)
 
 						door_finish_open(loopdoor);
 					}
-				} else {
-					if (loopdoor->mode == DOORMODE_CLOSING && loopdoor->frac <= 0) {
+				} else if (loopdoor->mode == DOORMODE_CLOSING) {
+					if (loopdoor->frac <= 0) {
 						loopdoor->mode = DOORMODE_IDLE;
 						loopdoor->fracspeed = 0;
 						loopdoor->lastopen60 = 0;
@@ -20251,7 +20254,7 @@ void doors_calc_frac(struct doorobj *door)
 				}
 
 				obj_onmoved(&loopdoor->base, false, false);
-				func0f08d3dc(loopdoor);
+				door_calc_vertices_without_cache(loopdoor);
 			} else {
 				// Door is blocked - restore the original frac
 				loopdoor->fracspeed = 0;
@@ -20259,10 +20262,10 @@ void doors_calc_frac(struct doorobj *door)
 
 				door_update_tiles(loopdoor);
 				obj_detect_rooms(&loopdoor->base);
-				func0f08d460(loopdoor);
+				door_calc_vertices_with_cache(loopdoor);
 			}
 		} else {
-			func0f08d460(loopdoor);
+			door_calc_vertices_with_cache(loopdoor);
 		}
 
 		loopdoor->lastcalc60 = g_Vars.lvframe60;
@@ -20303,7 +20306,7 @@ void doors_calc_frac(struct doorobj *door)
 	}
 }
 
-f32 func0f08f538(f32 x, f32 y)
+f32 door_get_activation_angle(f32 x, f32 y)
 {
 	f32 angle = atan2f(x, y);
 
@@ -20328,24 +20331,28 @@ f32 func0f08f538(f32 x, f32 y)
 }
 
 /**
- * Get some coordinates/distances related to activating doors.
+ * Calculate the angles of the left and right edges of the doorway, relative to
+ * the player's current direction, and write them to the home pointers.
+ *
+ * If the door pointers are included, do the same calculations for the door model
+ * itself and write the results to those pointers.
  */
-void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4, bool altcoordsystem)
+void door_get_activation_angles(struct doorobj *door, f32 *homeminangle, f32 *homemaxangle, f32 *doorminangle, f32 *doormaxangle, bool altcoordsystem)
 {
 	f32 value1;
 	f32 value2;
 	f32 value3;
 	f32 value4;
 	f32 x1;
-	f32 y1;
+	f32 z1;
 	f32 x2;
-	f32 y2;
+	f32 z2;
 	u32 stack[4];
 	struct prop *playerprop;
-	f32 spb0;
-	f32 spac;
-	f32 spa8;
-	f32 spa4;
+	f32 upx;
+	f32 upz;
+	f32 ymin;
+	f32 ymax;
 	struct coord playerpos;
 	struct pad pad;
 	f32 xfrac;
@@ -20367,34 +20374,34 @@ void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *ar
 	playerpos.f[2] = playerprop->pos.z;
 
 	if (altcoordsystem) {
-		spa8 = pad.bbox.xmin;
-		spa4 = pad.bbox.xmax;
-		spb0 = pad.up.y * pad.look.z - pad.look.y * pad.up.z;
-		spac = pad.up.x * pad.look.y - pad.look.x * pad.up.y;
+		ymin = pad.bbox.xmin;
+		ymax = pad.bbox.xmax;
+		upx = pad.up.y * pad.look.z - pad.look.y * pad.up.z;
+		upz = pad.up.x * pad.look.y - pad.look.x * pad.up.y;
 	} else {
-		spa8 = pad.bbox.ymin;
-		spa4 = pad.bbox.ymax;
-		spb0 = pad.up.x;
-		spac = pad.up.z;
+		ymin = pad.bbox.ymin;
+		ymax = pad.bbox.ymax;
+		upx = pad.up.x;
+		upz = pad.up.z;
 	}
 
-	x1 = pad.pos.x + spb0 * spa8 - playerpos.f[0];
-	y1 = pad.pos.z + spac * spa8 - playerpos.f[2];
-	value1 = func0f08f538(x1, y1);
+	x1 = pad.pos.x + upx * ymin - playerpos.f[0];
+	z1 = pad.pos.z + upz * ymin - playerpos.f[2];
+	value1 = door_get_activation_angle(x1, z1);
 
-	x2 = pad.pos.x + spb0 * spa4 - playerpos.f[0];
-	y2 = pad.pos.z + spac * spa4 - playerpos.f[2];
-	value2 = func0f08f538(x2, y2);
+	x2 = pad.pos.x + upx * ymax - playerpos.f[0];
+	z2 = pad.pos.z + upz * ymax - playerpos.f[2];
+	value2 = door_get_activation_angle(x2, z2);
 
 	if (value1 < value2) {
-		*arg1 = value1;
-		*arg2 = value2;
+		*homeminangle = value1;
+		*homemaxangle = value2;
 	} else {
-		*arg1 = value2;
-		*arg2 = value1;
+		*homeminangle = value2;
+		*homemaxangle = value1;
 	}
 
-	if (arg3 != NULL && arg4 != NULL) {
+	if (doorminangle != NULL && doormaxangle != NULL) {
 		if (door->doortype == DOORTYPE_SWINGING) {
 			angle = door->frac * 0.017450513318181f;
 			value3 = value1;
@@ -20406,47 +20413,47 @@ void door0f08f604(struct doorobj *door, f32 *arg1, f32 *arg2, f32 *arg3, f32 *ar
 			cosine = cosf(angle);
 			sine = sinf(angle);
 
-			x1 = pad.pos.x + (spb0 * spa8) - playerpos.f[0] + (spa4 - spa8) * (spb0 * cosine + spac * sine);
-			y1 = pad.pos.z + (spac * spa8) - playerpos.f[2] + (spa4 - spa8) * (-spb0 * sine + spac * cosine);
+			x1 = pad.pos.x + (upx * ymin) - playerpos.f[0] + (ymax - ymin) * (upx * cosine + upz * sine);
+			z1 = pad.pos.z + (upz * ymin) - playerpos.f[2] + (ymax - ymin) * (-upx * sine + upz * cosine);
 
-			value4 = func0f08f538(x1, y1);
+			value4 = door_get_activation_angle(x1, z1);
 		} else if (door->doortype == DOORTYPE_SLIDING
 				|| door->doortype == DOORTYPE_FLEXI1
 				|| door->doortype == DOORTYPE_FLEXI2
 				|| door->doortype == DOORTYPE_FLEXI3) {
-			xfrac = door->unk98.x * door->frac;
-			zfrac = door->unk98.z * door->frac;
+			xfrac = door->slidedist.x * door->frac;
+			zfrac = door->slidedist.z * door->frac;
 
-			value3 = func0f08f538(x1 + xfrac, y1 + zfrac);
-			value4 = func0f08f538(x2 + xfrac, y2 + zfrac);
+			value3 = door_get_activation_angle(x1 + xfrac, z1 + zfrac);
+			value4 = door_get_activation_angle(x2 + xfrac, z2 + zfrac);
 		} else {
 			value3 = value1;
 			value4 = value2;
 		}
 
 		if (value3 < value4) {
-			*arg3 = value3;
-			*arg4 = value4;
+			*doorminangle = value3;
+			*doormaxangle = value4;
 		} else {
-			*arg3 = value4;
-			*arg4 = value3;
+			*doorminangle = value4;
+			*doormaxangle = value3;
 		}
 	}
 }
 
-bool func0f08f968(struct doorobj *door, bool altcoordsystem)
+bool door_test_interact_angle(struct doorobj *door, bool altcoordsystem)
 {
 	bool checkmore = true;
-	f32 sp58;
-	f32 sp54;
-	f32 sp50;
-	f32 sp4c;
-	bool maybe;
+	f32 homeminangle;
+	f32 homemaxangle;
+	f32 doorminangle;
+	f32 doormaxangle;
+	bool includedoor;
 	struct prop *playerprop;
 	f32 limit = RAD(20, 0.34901028871536f);
 
 	if (g_InteractProp == NULL) {
-		maybe = false;
+		includedoor = false;
 
 		if (g_Vars.currentplayer->eyespy && g_Vars.currentplayer->eyespy->active) {
 			playerprop = g_Vars.currentplayer->eyespy->prop;
@@ -20454,45 +20461,45 @@ bool func0f08f968(struct doorobj *door, bool altcoordsystem)
 			playerprop = g_Vars.currentplayer->prop;
 		}
 
-		if ((door->doorflags & (DOORFLAG_0080 | DOORFLAG_0100)) != DOORFLAG_0080) {
-			maybe = true;
-		} else if (func0f06797c(&playerprop->pos, 30, door->base.pad)) {
-			maybe = true;
+		if ((door->doorflags & (DOORFLAG_TRANSLATION | DOORFLAG_0100)) != DOORFLAG_TRANSLATION) {
+			includedoor = true;
+		} else if (pos_is_within_dist_of_padvol(&playerprop->pos, 30, door->base.pad)) {
+			includedoor = true;
 		}
 
-		if (maybe) {
-			door0f08f604(door, &sp58, &sp54, &sp50, &sp4c, altcoordsystem);
+		if (includedoor) {
+			door_get_activation_angles(door, &homeminangle, &homemaxangle, &doorminangle, &doormaxangle, altcoordsystem);
 		} else {
-			door0f08f604(door, &sp58, &sp54, NULL, NULL, altcoordsystem);
+			door_get_activation_angles(door, &homeminangle, &homemaxangle, NULL, NULL, altcoordsystem);
 		}
 
-		if (maybe && ((sp50 >= -limit && sp50 <= limit && sp4c >= -limit && sp4c <= limit)
-					|| (sp4c - sp50 < M_BADPI && sp50 < 0.0f && sp4c > 0.0f))) {
+		if (includedoor && ((doorminangle >= -limit && doorminangle <= limit && doormaxangle >= -limit && doormaxangle <= limit)
+					|| (doormaxangle - doorminangle < M_BADPI && doorminangle < 0.0f && doormaxangle > 0.0f))) {
 			g_InteractProp = door->base.prop;
 			checkmore = false;
-		} else if (sp58 >= -limit && sp58 <= limit && sp54 >= -limit && sp54 <= limit) {
+		} else if (homeminangle >= -limit && homeminangle <= limit && homemaxangle >= -limit && homemaxangle <= limit) {
 			g_InteractProp = door->base.prop;
 			checkmore = false;
 		} else {
 			struct doorobj *sibling = door->sibling;
-			f32 sp38;
-			f32 sp34;
+			f32 sibminangle;
+			f32 sibmaxangle;
 
-			while (sibling != NULL && sibling != door && (sp58 >= 0.0f || sp54 < 0.0f)) {
-				door0f08f604(sibling, &sp38, &sp34, NULL, NULL, altcoordsystem);
+			while (sibling != NULL && sibling != door && (homeminangle >= 0.0f || homemaxangle < 0.0f)) {
+				door_get_activation_angles(sibling, &sibminangle, &sibmaxangle, NULL, NULL, altcoordsystem);
 
-				if (sp58 >= 0.0f && sp38 < sp58) {
-					sp58 = sp38;
+				if (homeminangle >= 0.0f && homeminangle > sibminangle) {
+					homeminangle = sibminangle;
 				}
 
-				if (sp54 <= 0.0f && sp54 < sp34) {
-					sp54 = sp34;
+				if (homemaxangle <= 0.0f && homemaxangle < sibmaxangle) {
+					homemaxangle = sibmaxangle;
 				}
 
 				sibling = sibling->sibling;
 			}
 
-			if (sp54 - sp58 < M_BADPI && sp58 < 0.0f && sp54 > 0.0f) {
+			if (homemaxangle - homeminangle < M_BADPI && homeminangle < 0.0f && homemaxangle > 0.0f) {
 				g_InteractProp = door->base.prop;
 				checkmore = false;
 			}
@@ -20529,20 +20536,20 @@ bool door_test_for_interact(struct prop *prop)
 		f32 ydiff = door->startpos.y - playerprop->pos.y;
 		f32 zdiff = door->startpos.z - playerprop->pos.z;
 
-		if (xdiff * xdiff + zdiff * zdiff < 40000 && ydiff < 200 && ydiff > -200) {
+		if (xdiff * xdiff + zdiff * zdiff < 200 * 200 && ydiff < 200 && ydiff > -200) {
 			maybe = true;
 		} else if (array_intersects(prop->rooms, playerprop->rooms)) {
-			if (func0f06797c(&playerprop->pos, 150, door->base.pad)) {
+			if (pos_is_within_dist_of_padvol(&playerprop->pos, 150, door->base.pad)) {
 				maybe = true;
-			} else if ((door->doorflags & (DOORFLAG_0080 | DOORFLAG_0100)) != DOORFLAG_0080) {
+			} else if ((door->doorflags & (DOORFLAG_TRANSLATION | DOORFLAG_0100)) != DOORFLAG_TRANSLATION) {
 				u32 stack;
 				struct modelrodata_bbox bbox;
 				Mtxf matrix;
 
 				door_get_bbox(door, &bbox);
-				func0f08c424(door, &matrix);
+				door_get_mtx(door, &matrix);
 
-				if (func0f0675c8(&playerprop->pos, 150, &bbox, &matrix)) {
+				if (door_is_player_within_distance(&playerprop->pos, 150, &bbox, &matrix)) {
 					maybe = true;
 				}
 			}
@@ -20551,10 +20558,10 @@ bool door_test_for_interact(struct prop *prop)
 		if (maybe) {
 			if ((door->base.flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0
 					|| cd_test_los06(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
-				checkmore = func0f08f968(door, false);
+				checkmore = door_test_interact_angle(door, false);
 
 				if (checkmore && (door->base.flags2 & OBJFLAG2_DOOR_ALTCOORDSYSTEM)) {
-					checkmore = func0f08f968(door, true);
+					checkmore = door_test_interact_angle(door, true);
 				}
 			}
 		}

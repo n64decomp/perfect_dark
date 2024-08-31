@@ -799,19 +799,19 @@
 #define DIFFBIT_PA 0x04
 #define DIFFBIT_PD 0x08
 
-#define DOORFLAG_0001            0x0001
+#define DOORFLAG_EXTENDEDY       0x0001 // GE bunker flexi door
 #define DOORFLAG_WINDOWED        0x0002
 #define DOORFLAG_0004            0x0004
 #define DOORFLAG_FLIP            0x0008
 #define DOORFLAG_AUTOMATIC       0x0010
-#define DOORFLAG_0020            0x0020
+#define DOORFLAG_REUSEGEO        0x0020
 #define DOORFLAG_ROTATEDPAD      0x0040
-#define DOORFLAG_0080            0x0080
+#define DOORFLAG_TRANSLATION     0x0080 // Door opens using simple translation (no rotation)
 #define DOORFLAG_0100            0x0100
 #define DOORFLAG_LONGRANGE       0x0200
 #define DOORFLAG_DAMAGEONCONTACT 0x0400 // Lasers
 #define DOORFLAG_UNBLOCKABLEOPEN 0x0800 // Skip collision checks when opening
-#define DOORFLAG_4000            0x4000 // Two Investigation vertical doors after lasers
+#define DOORFLAG_4000            0x4000 // Unused. Two Investigation vertical doors after lasers
 
 #define DOORMODE_IDLE    0
 #define DOORMODE_OPENING 1

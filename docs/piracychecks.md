@@ -40,7 +40,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checks that the value of `osCicId` is 6105.
 
-**Payload:** Rewrites the start of `func0f08f968` so it immediately returns false. This makes it impossible to open doors.
+**Payload:** Rewrites the start of `door_test_interact_angle` so it immediately returns false. This makes it impossible to open doors.
 
 ### bot_pickup_prop
 

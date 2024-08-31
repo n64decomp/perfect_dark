@@ -3010,7 +3010,7 @@ bool chr_find_onscreen_doors(struct chrdata *chr)
 						&& door->doortype != DOORTYPE_AZTECCHAIR
 						&& (obj->flags & (OBJFLAG_00000010 | OBJFLAG_AISEETHROUGH)) == 0
 						&& (obj->flags2 & OBJFLAG2_DOOR_ALTCOORDSYSTEM) == 0
-						&& !((door->doorflags & DOORFLAG_0080) == 0 && door->frac > 0)) {
+						&& !((door->doorflags & DOORFLAG_TRANSLATION) == 0 && door->frac > 0)) {
 					for (i = 0; i < g_ChrsNumOnscreenDoors; i++) {
 						if (g_ChrsOnscreenDoors[i].prop == prop) {
 							break;

@@ -1088,7 +1088,7 @@ void setup_create_door(struct doorobj *door, s32 cmdindex)
 		Mtxf finalmtx;
 		struct coord centre;
 		Mtxf zrotmtx;
-		struct coord sp54;
+		struct coord slidedist;
 		f32 xscale;
 		f32 yscale;
 		f32 zscale;
@@ -1126,13 +1126,13 @@ void setup_create_door(struct doorobj *door, s32 cmdindex)
 		rooms[1] = -1;
 
 		if (door->doortype == DOORTYPE_VERTICAL || door->doortype == DOORTYPE_FALLAWAY) {
-			sp54.x = pad.look.f[0] * (pad.bbox.zmax - pad.bbox.zmin);
-			sp54.y = pad.look.f[1] * (pad.bbox.zmax - pad.bbox.zmin);
-			sp54.z = pad.look.f[2] * (pad.bbox.zmax - pad.bbox.zmin);
+			slidedist.x = pad.look.f[0] * (pad.bbox.zmax - pad.bbox.zmin);
+			slidedist.y = pad.look.f[1] * (pad.bbox.zmax - pad.bbox.zmin);
+			slidedist.z = pad.look.f[2] * (pad.bbox.zmax - pad.bbox.zmin);
 		} else {
-			sp54.x = pad.up.f[0] * (pad.bbox.ymin - pad.bbox.ymax);
-			sp54.y = pad.up.f[1] * (pad.bbox.ymin - pad.bbox.ymax);
-			sp54.z = pad.up.f[2] * (pad.bbox.ymin - pad.bbox.ymax);
+			slidedist.x = pad.up.f[0] * (pad.bbox.ymin - pad.bbox.ymax);
+			slidedist.y = pad.up.f[1] * (pad.bbox.ymin - pad.bbox.ymax);
+			slidedist.z = pad.up.f[2] * (pad.bbox.ymin - pad.bbox.ymax);
 		}
 
 		// These values are stored in the setup files as integers, but at
@@ -1151,7 +1151,7 @@ void setup_create_door(struct doorobj *door, s32 cmdindex)
 			door->sibling = (struct doorobj *) setup_get_cmd_by_index(siblingcmdindex);
 		}
 
-		prop = door_init(door, &pos, &finalmtx, rooms, &sp54, &centre);
+		prop = door_init(door, &pos, &finalmtx, rooms, &slidedist, &centre);
 
 		if (door->base.flags & OBJFLAG_DOOR_HASPORTAL) {
 			door->portalnum = portalnum;

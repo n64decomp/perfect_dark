@@ -1473,10 +1473,10 @@ struct doorobj { // objtype 0x01
 	/*0x8c*/ struct coord startpos;
 	union {
 		struct {
-			/*0x98*/ struct coord unk98;
-			/*0xa4*/ Vtx *unka4;
+			/*0x98*/ struct coord slidedist;
+			/*0xa4*/ Vtx *vtxcache;
 		};
-		f32 mtx98[3][3];
+		f32 rotmtx[3][3];
 	};
 	/*0xbc*/ struct doorobj *sibling;
 	/*0xc0*/ s32 lastopen60;
@@ -1485,7 +1485,7 @@ struct doorobj { // objtype 0x01
 	/*0xc7*/ s8 fadetime60; // counts down
 	/*0xc8*/ s32 lastcalc60;
 	/*0xcc*/ u8 laserfade;
-	/*0xcd*/ u8 unusedmaybe[3];
+	/*0xcd*/ u8 padding[3];
 	/*0xd0*/ u8 shadeinfo1[4]; // player 1
 	/*0xd4*/ u8 shadeinfo2[4]; // player 2
 	/*0xd8*/ u8 actual1;
