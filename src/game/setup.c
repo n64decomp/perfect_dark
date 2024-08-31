@@ -39,139 +39,7 @@
 
 s32 g_SetupCurMpLocation;
 
-struct tvscreen var80061a80 = {
-	g_TvCmdlist00, // cmdlist
-	0,           // offset
-	0xffff,      // pause60
-	0,           // tconfig
-	0,           // rot
-	1,           // xscale
-	0,           // xscalefrac
-	0,           // xscaleinc
-	1,           // xscaleold
-	1,           // xscalenew
-	1,           // yscale
-	0,           // yscalefrac
-	0,           // yscaleinc
-	1,           // yscaleold
-	1,           // yscalenew
-	0.5,         // xmid
-	0,           // xmidfrac
-	0,           // xmidinc
-	0.5,         // xmidold
-	0.5,         // xmidnew
-	0.5,         // ymid
-	0,           // ymidfrac
-	0,           // ymidinc
-	0.5,         // ymidold
-	0.5,         // ymidnew
-	0xff,        // red
-	0xff,        // redold
-	0xff,        // rednew
-	0xff,        // green
-	0xff,        // greenold
-	0xff,        // greennew
-	0xff,        // blue
-	0xff,        // blueold
-	0xff,        // bluenew
-	0xff,        // alpha
-	0xff,        // alphaold
-	0xff,        // alphanew
-	1,           // colfrac
-	0,           // colinc
-};
-
-struct tvscreen var80061af4 = {
-	var8006aaa0, // cmdlist
-	0,           // offset
-	0xffff,      // pause60
-	0,           // tconfig
-	0,           // rot
-	1,           // xscale
-	0,           // xscalefrac
-	0,           // xscaleinc
-	1,           // xscaleold
-	1,           // xscalenew
-	1,           // yscale
-	0,           // yscalefrac
-	0,           // yscaleinc
-	1,           // yscaleold
-	1,           // yscalenew
-	0.5,         // xmid
-	0,           // xmidfrac
-	0,           // xmidinc
-	0.5,         // xmidold
-	0.5,         // xmidnew
-	0.5,         // ymid
-	0,           // ymidfrac
-	0,           // ymidinc
-	0.5,         // ymidold
-	0.5,         // ymidnew
-	0xff,        // red
-	0xff,        // redold
-	0xff,        // rednew
-	0xff,        // green
-	0xff,        // greenold
-	0xff,        // greennew
-	0xff,        // blue
-	0xff,        // blueold
-	0xff,        // bluenew
-	0xff,        // alpha
-	0xff,        // alphaold
-	0xff,        // alphanew
-	1,           // colfrac
-	0,           // colinc
-};
-
-struct tvscreen var80061b68 = {
-	var8006aae4, // cmdlist
-	0,           // offset
-	0xffff,      // pause60
-	0,           // tconfig
-	0,           // rot
-	1,           // xscale
-	0,           // xscalefrac
-	0,           // xscaleinc
-	1,           // xscaleold
-	1,           // xscalenew
-	1,           // yscale
-	0,           // yscalefrac
-	0,           // yscaleinc
-	1,           // yscaleold
-	1,           // yscalenew
-	0.5,         // xmid
-	0,           // xmidfrac
-	0,           // xmidinc
-	0.5,         // xmidold
-	0.5,         // xmidnew
-	0.5,         // ymid
-	0,           // ymidfrac
-	0,           // ymidinc
-	0.5,         // ymidold
-	0.5,         // ymidnew
-	0xff,        // red
-	0xff,        // redold
-	0xff,        // rednew
-	0xff,        // green
-	0xff,        // greenold
-	0xff,        // greennew
-	0xff,        // blue
-	0xff,        // blueold
-	0xff,        // bluenew
-	0xff,        // alpha
-	0xff,        // alphaold
-	0xff,        // alphanew
-	1,           // colfrac
-	0,           // colinc
-};
-
-u32 var80061bdc = 0x00000000;
-f32 g_DoorScale = 1;
-u32 var80061be4 = 0x00000000;
-u32 var80061be8 = 0x00000000;
-u32 var80061bec = 0x00000000;
-
-void setup_reset_0f00cc8c(void);
+void setup_reset_tvscreens(void);
 void setup_reset_proxy_mines(void);
 
 void props_reset(void)
@@ -198,7 +66,7 @@ void props_reset(void)
 		g_MaxEmbedments = 0;
 	}
 
-	setup_reset_0f00cc8c();
+	setup_reset_tvscreens();
 	setup_reset_proxy_mines();
 
 	g_AlarmTimer = 0;
@@ -340,21 +208,56 @@ void setup_create_blocked_path(struct blockedpathobj *blockedpath)
 	g_BlockedPaths = blockedpath;
 }
 
-void setup_reset_0f00cc8c(void)
+#define MKTVSCREEN(cmdlist) { \
+		cmdlist, /* cmdlist    */ \
+		0,       /* offset     */ \
+		0xffff,  /* pause60    */ \
+		0,       /* tconfig    */ \
+		0,       /* rot        */ \
+		1,       /* xscale     */ \
+		0,       /* xscalefrac */ \
+		0,       /* xscaleinc  */ \
+		1,       /* xscaleold  */ \
+		1,       /* xscalenew  */ \
+		1,       /* yscale     */ \
+		0,       /* yscalefrac */ \
+		0,       /* yscaleinc  */ \
+		1,       /* yscaleold  */ \
+		1,       /* yscalenew  */ \
+		0.5,     /* xmid       */ \
+		0,       /* xmidfrac   */ \
+		0,       /* xmidinc    */ \
+		0.5,     /* xmidold    */ \
+		0.5,     /* xmidnew    */ \
+		0.5,     /* ymid       */ \
+		0,       /* ymidfrac   */ \
+		0,       /* ymidinc    */ \
+		0.5,     /* ymidold    */ \
+		0.5,     /* ymidnew    */ \
+		0xff,    /* red        */ \
+		0xff,    /* redold     */ \
+		0xff,    /* rednew     */ \
+		0xff,    /* green      */ \
+		0xff,    /* greenold   */ \
+		0xff,    /* greennew   */ \
+		0xff,    /* blue       */ \
+		0xff,    /* blueold    */ \
+		0xff,    /* bluenew    */ \
+		0xff,    /* alpha      */ \
+		0xff,    /* alphaold   */ \
+		0xff,    /* alphanew   */ \
+		1,       /* colfrac    */ \
+		0,       /* colinc     */ \
+	}
+
+void setup_reset_tvscreens(void)
 {
-	struct tvscreen tmp1;
-	struct tvscreen tmp2;
-	struct tvscreen tmp3;
-
-	tmp1 = var80061a80;
-	var8009ce98 = tmp1;
-
-	tmp2 = var80061af4;
-	var8009cf10 = tmp2;
-
-	tmp3 = var80061b68;
-	var8009cf88 = tmp3;
+	{ struct tvscreen tmp = MKTVSCREEN(g_TvCmdlist00); var8009ce98 = tmp; }
+	{ struct tvscreen tmp = MKTVSCREEN(var8006aaa0); var8009cf10 = tmp; }
+	{ struct tvscreen tmp = MKTVSCREEN(var8006aae4); var8009cf88 = tmp; }
 }
+
+u32 var80061bdc = 0;
 
 void setup_reset_proxy_mines(void)
 {
@@ -409,9 +312,9 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 
 	if (obj->flags & OBJFLAG_INSIDEANOTHEROBJ) {
 		if (obj->type == OBJTYPE_WEAPON) {
-			func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
+			weapon_init_with_modeldef((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
 		} else {
-			obj_init_with_model_def(obj, g_ModelStates[modelnum].modeldef);
+			obj_init_with_modeldef(obj, g_ModelStates[modelnum].modeldef);
 		}
 
 		model_set_scale(obj->model, obj->model->scale * scale);
@@ -423,9 +326,9 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 
 		if (chr && chr->prop && chr->model) {
 			if (obj->type == OBJTYPE_WEAPON) {
-				prop = func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
+				prop = weapon_init_with_modeldef((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
 			} else {
-				prop = obj_init_with_model_def(obj, g_ModelStates[modelnum].modeldef);
+				prop = obj_init_with_modeldef(obj, g_ModelStates[modelnum].modeldef);
 			}
 
 			model_set_scale(obj->model, obj->model->scale * scale);
@@ -434,9 +337,9 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 	} else {
 		if (obj->pad < 0) {
 			if (obj->type == OBJTYPE_WEAPON) {
-				func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
+				weapon_init_with_modeldef((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
 			} else {
-				obj_init_with_model_def(obj, g_ModelStates[modelnum].modeldef);
+				obj_init_with_modeldef(obj, g_ModelStates[modelnum].modeldef);
 			}
 
 			model_set_scale(obj->model, obj->model->scale * scale);
@@ -473,7 +376,7 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 			}
 
 			if (obj->type == OBJTYPE_WEAPON) {
-				prop2 = func0f08ae0c((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
+				prop2 = weapon_init_with_modeldef((struct weaponobj *)obj, g_ModelStates[modelnum].modeldef);
 			} else {
 				prop2 = obj_init_with_auto_model(obj);
 			}
@@ -1029,6 +932,8 @@ s32 setup_get_portal_by_door_pad(s32 padnum)
 
 	return bg_find_portal_between_positions(&centre, &coord);
 }
+
+f32 g_DoorScale = 1;
 
 void setup_create_door(struct doorobj *door, s32 cmdindex)
 {
@@ -2123,7 +2028,7 @@ void setup_create_props(s32 stagenum)
 						if (gun1 && gun2
 								&& gun1->base.type == OBJTYPE_WEAPON
 								&& gun2->base.type == OBJTYPE_WEAPON) {
-							propweapon_set_dual(gun1, gun2);
+							weapon_set_dual(gun1, gun2);
 						}
 					}
 					break;

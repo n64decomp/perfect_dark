@@ -1947,7 +1947,7 @@ void obj_create_one_debris(struct defaultobj *obj, s32 partindex, struct prop *p
 		*debris = tmp;
 		debris->modelnum = obj->modelnum;
 
-		if (obj_init_with_model_def(debris, g_ModelStates[debris->modelnum].modeldef)) {
+		if (obj_init_with_modeldef(debris, g_ModelStates[debris->modelnum].modeldef)) {
 			prop_reparent(debris->prop, obj->prop);
 			obj_set_dropped(debris->prop, DROPTYPE_5);
 
@@ -2149,14 +2149,14 @@ struct prop *obj_init(struct defaultobj *obj, struct modeldef *modeldef, struct 
 	return prop;
 }
 
-struct prop *obj_init_with_model_def(struct defaultobj *obj, struct modeldef *modeldef)
+struct prop *obj_init_with_modeldef(struct defaultobj *obj, struct modeldef *modeldef)
 {
 	return obj_init(obj, modeldef, NULL, NULL);
 }
 
 struct prop *obj_init_with_auto_model(struct defaultobj *obj)
 {
-	return obj_init_with_model_def(obj, g_ModelStates[obj->modelnum].modeldef);
+	return obj_init_with_modeldef(obj, g_ModelStates[obj->modelnum].modeldef);
 }
 
 void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, RoomNum *rooms)
@@ -15480,7 +15480,7 @@ void obj_damage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapo
 							newcrate->base.modelnum = modelnum;
 							newcrate->ammotype = i + 1;
 
-							if (obj_init_with_model_def(&newcrate->base, g_ModelStates[modelnum].modeldef)) {
+							if (obj_init_with_modeldef(&newcrate->base, g_ModelStates[modelnum].modeldef)) {
 								prop_reparent(newcrate->base.prop, obj->prop);
 							}
 
@@ -18257,7 +18257,7 @@ void chrs_trigger_proxies(void)
 	}
 }
 
-void propweapon_set_dual(struct weaponobj *weapon1, struct weaponobj *weapon2)
+void weapon_set_dual(struct weaponobj *weapon1, struct weaponobj *weapon2)
 {
 	weapon1->dualweaponnum = weapon2->weaponnum;
 	weapon1->dualweapon = weapon2;
@@ -18265,7 +18265,7 @@ void propweapon_set_dual(struct weaponobj *weapon1, struct weaponobj *weapon2)
 	weapon2->dualweapon = weapon1;
 }
 
-struct prop *func0f08adc8(struct weaponobj *weapon, struct modeldef *modeldef, struct prop *prop, struct model *model)
+struct prop *weapon_init(struct weaponobj *weapon, struct modeldef *modeldef, struct prop *prop, struct model *model)
 {
 	prop = obj_init(&weapon->base, modeldef, prop, model);
 
@@ -18277,9 +18277,9 @@ struct prop *func0f08adc8(struct weaponobj *weapon, struct modeldef *modeldef, s
 	return prop;
 }
 
-struct prop *func0f08ae0c(struct weaponobj *weapon, struct modeldef *modeldef)
+struct prop *weapon_init_with_modeldef(struct weaponobj *weapon, struct modeldef *modeldef)
 {
-	struct prop *prop = obj_init_with_model_def(&weapon->base, modeldef);
+	struct prop *prop = obj_init_with_modeldef(&weapon->base, modeldef);
 
 	if (prop) {
 		prop->type = PROPTYPE_WEAPON;
@@ -18326,7 +18326,7 @@ bool chr_equip_weapon(struct weaponobj *weapon, struct chrdata *chr)
 					chr->weapons_held[handnum] = weapon->base.prop;
 
 					if ((weapon->base.flags & OBJFLAG_WEAPON_CANMIXDUAL) && chr->weapons_held[1 - handnum]) {
-						propweapon_set_dual(weapon, chr->weapons_held[1 - handnum]->weapon);
+						weapon_set_dual(weapon, chr->weapons_held[1 - handnum]->weapon);
 					}
 				} else if (chr->model->definition->skel == &g_SkelSkedar) {
 					weapon->base.model->attachedtomodel = chr->model;
@@ -18340,7 +18340,7 @@ bool chr_equip_weapon(struct weaponobj *weapon, struct chrdata *chr)
 					chr->weapons_held[handnum] = weapon->base.prop;
 
 					if ((weapon->base.flags & OBJFLAG_WEAPON_CANMIXDUAL) && chr->weapons_held[1 - handnum]) {
-						propweapon_set_dual(weapon, chr->weapons_held[1 - handnum]->weapon);
+						weapon_set_dual(weapon, chr->weapons_held[1 - handnum]->weapon);
 					}
 				} else {
 					return false;
@@ -18358,7 +18358,7 @@ bool chr_equip_weapon(struct weaponobj *weapon, struct chrdata *chr)
 
 struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct modeldef *modeldef, struct prop *prop, struct model *model)
 {
-	prop = func0f08adc8(weapon, modeldef, prop, model);
+	prop = weapon_init(weapon, modeldef, prop, model);
 
 	if (prop && weapon->base.model) {
 		f32 scale = weapon->base.extrascale * (1.0f / 256.0f);
@@ -18628,7 +18628,7 @@ struct weaponobj *weapon_create_projectile_from_gset(s32 modelnum, struct gset *
 		default:
 			weapon->base.modelnum = modelnum;
 
-			prop = func0f08adc8(weapon, modeldef, prop, model);
+			prop = weapon_init(weapon, modeldef, prop, model);
 
 			if (g_Vars.mplayerisrunning) {
 				s32 index = mp_player_get_index(chr);

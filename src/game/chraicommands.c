@@ -4298,7 +4298,7 @@ bool ai_duplicate_chr(void)
 			if (srcweapon1 && srcweapon0
 					&& cloneweapon1 && cloneweapon0
 					&& srcweapon0 == srcweapon1->dualweapon && srcweapon1 == srcweapon0->dualweapon) {
-				propweapon_set_dual(cloneweapon1, cloneweapon0);
+				weapon_set_dual(cloneweapon1, cloneweapon0);
 			}
 
 			if (chr->weapons_held[2]) {
