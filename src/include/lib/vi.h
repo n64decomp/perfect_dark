@@ -20,7 +20,6 @@ Vp *vi_get_current_player_viewport(void);
 u16 vi_get_persp_scale(void);
 Gfx *vi0000ab78(Gfx *gdl);
 Gfx *vi0000aca4(Gfx *gdl, f32 znear, f32 zfar);
-Gfx *vi0000ad5c(Gfx *gdl, Vp *vp);
 Gfx *vi0000af00(Gfx *gdl, Vp *vp);
 Gfx *vi0000b0e8(Gfx *gdl, f32 fovy, f32 aspect);
 Gfx *vi0000b1a8(Gfx *gdl);

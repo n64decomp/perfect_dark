@@ -5,7 +5,6 @@
 #include "types.h"
 
 f32 func0f1577f0(f32 arg0[2], f32 arg1[2], f32 arg2[2], f32 arg3[2]);
-f32 func0f1578c8(struct widthxz *arg0, struct xz *arg1, struct xz *arg2);
 f32 func0f1579cc(struct widthxz *arg0, struct xz *arg1, struct xz *arg2, struct xz *arg3);
 
 f32 cd_00024e40(void);
@@ -18,9 +17,6 @@ void cd_get_obstacle_normal(struct coord *normal);
 u32 cd_get_geo_flags(void);
 void cd_set_saved_pos(struct coord *pos1, struct coord *pos2);
 bool cd_get_saved_pos(struct coord *arg0, struct coord *arg1);
-void cd_get_geo_normal(struct geo *geo, struct coord *normal);
-void cd_get_floor_col(struct geo *tile, u16 *floorcol);
-void cd_get_floor_type(struct geo *tile, u8 *floortype);
 bool cd_000266a4(f32 x, f32 z, struct geo *tile);
 void cd_get_props_on_platform(struct prop *platform, s16 *propnums, s32 len);
 s32 cd_000274e0_block(struct geoblock *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collision *collision);

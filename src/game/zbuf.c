@@ -20,6 +20,8 @@ u16 g_ArtifactsCfb2[0x180];
 u16 *g_ZbufPtr1 = NULL;
 u16 *g_ZbufPtr2 = NULL;
 
+void zbuf_allocate(void);
+
 void *zbuf_get_allocation(void)
 {
 	return g_ZbufPtr1;

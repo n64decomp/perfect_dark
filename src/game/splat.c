@@ -53,6 +53,10 @@ bool splat0f149274(f32 arg0, struct prop *prop, struct shotdata *shotdata, f32 a
 void splat0f14986c(struct splatdata *splatdata);
 #endif
 
+s32 splats_create(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg,
+		struct coord *arg4, struct coord *arg5, bool isskedar, s32 splattype,
+		s32 timermax, struct chrdata *chr, s32 timerspeed);
+
 void splat_tick_chr(struct prop *prop)
 {
 	struct chrdata *chr = prop->chr;

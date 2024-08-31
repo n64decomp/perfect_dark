@@ -81,6 +81,9 @@ u32 var8008465cpf = 0;
 
 const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
 
+void music_save_interval(void);
+void music_restore_interval(void);
+
 u16 music_get_volume(void)
 {
 #if VERSION >= VERSION_NTSC_1_0

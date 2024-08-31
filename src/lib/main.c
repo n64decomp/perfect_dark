@@ -311,6 +311,9 @@ extern u8 _copyrightSegmentRomStart;
 extern u8 _copyrightSegmentRomEnd;
 extern u8 _bssSegmentEnd;
 
+void main_tick(void);
+void func0000e9c0(void);
+
 /**
  * Initialise various subsystems, display the copyright or accessing pak texture,
  * then initialise more subsystems.

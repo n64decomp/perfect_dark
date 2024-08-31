@@ -42,6 +42,8 @@ u8 *g_AnimHostSegment = NULL;
 extern u8 _animationsTableRomStart;
 extern u8 _animationsTableRomEnd;
 
+void anims_init_tables(void);
+
 void anims_init(void)
 {
 	s32 i;

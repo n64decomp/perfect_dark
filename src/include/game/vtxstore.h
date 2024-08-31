@@ -6,7 +6,6 @@
 
 void vtxstore_reset(void);
 
-void vtxstore_fix_refs(void *find, void *replacement);
 void vtxstore_tick(void);
 void *vtxstore_allocate(s32 count, s32 index, struct modelnode *node, s32 level);
 void vtxstore_free(s32 type, void *arg1);

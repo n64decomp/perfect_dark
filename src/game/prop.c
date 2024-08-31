@@ -54,6 +54,9 @@ u32 var8009cdbc;
 
 f32 g_AutoAimScale = 1;
 
+void prop_find_for_uplink(void);
+void props_defrag_room_props(void);
+
 /**
  * Populate g_Vars.onscreenprops. This is an array of prop pointers, filtered by
  * props that are on screen and sorted by distance descending (furthest first).

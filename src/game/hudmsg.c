@@ -78,6 +78,11 @@ struct hudmsgtype g_HudmsgTypes[] = {
 #endif
 };
 
+void hudmsg_create_from_args(char *text, s32 type, s32 conf00, s32 conf01, s32 conf02,
+		struct fontchar **conf04, struct font **conf08,
+		u32 textcolour, u32 glowcolour,
+		u32 alignh, s32 conf16, u32 alignv, s32 conf18, s32 arg14, u32 flags);
+
 u8 hudmsgs_are_active(void)
 {
 	return g_HudmsgsActive;

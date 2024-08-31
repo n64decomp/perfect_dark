@@ -24,6 +24,9 @@ void (*g_SndpRemoveRefCallback)(ALSound *) = NULL;
 void sndpSetAddRefCallback(void *fn);
 void sndpSetRemoveRefCallback(void *fn);
 void sndpFreeState(struct sndstate *state);
+u16 sndpCountStates(s16 *numfreeptr, s16 *numallocedptr);
+void func00033090(struct sndstate *state);
+void func00033100(struct sndstate *state);
 void func00033bc0(struct sndstate *state);
 
 void n_alSndpNew(ALSndpConfig *config)

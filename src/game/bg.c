@@ -130,6 +130,25 @@ s32 g_BgNumRoomLoadCandidates = 0;
 u16 g_BgFrameCount = 0xfffe;
 s32 g_BgNumPortalCameraCacheItems = 0;
 
+Gfx *bg_scissor_within_viewport_f(Gfx *gdl, f32 viewleft, f32 viewtop, f32 viewright, f32 viewbottom);
+Gfx *bg_render_room_opaque(Gfx *gdl, s32 roomnum);
+void bg_set_stage_translation_thing(f32 arg0);
+Gfx *bg_render_room_xlu(Gfx *gdl, s32 roomnum);
+Gfx *bg_render_scene_and_load_candidate(Gfx *gdl);
+void bg_clear_portal_camera_cache(void);
+void bg_expand_box(struct screenbox *a, struct screenbox *b);
+u32 bg_inflate(u8 *src, u8 *dst, u32 len);
+void bg_load_room(s32 roomnum);
+void bg_unload_all_rooms(void);
+void bg_tick_rooms(void);
+void bg_find_room_vtx_batches(s32 roomnum);
+void bg_choose_rooms_to_load(void);
+void bg_tick_portals(void);
+void bg_calculate_screen_properties(void);
+void bg_expand_room_to_portals(s32 roomnum);
+void bg_init_portal(s32 portalnum);
+void bg_init_room(s32 roomnum);
+
 void bg_unpause_props_in_room(u32 roomnum, bool tintedglassonly)
 {
 	struct prop *prop;

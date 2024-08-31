@@ -95,18 +95,7 @@ extern bool g_CrashEnabled;
 
 void crash_set_message(char *string);
 void crash_create_thread(void);
-u32 crash_get_parent_stack_frame(u32 *ptr, u32 *start, u32 sp, u32 *regs);
-bool crash_is_return_address(u32 *instruction);
-u32 crash_get_stack_end(u32 sp, s32 tid);
-u32 crash_get_stack_start(u32 arg0, s32 tid);
-bool crash_is_double(f32 value);
-void crash_print_float(s32 index, f32 arg1);
-void crash_print_2_floats(s32 index, f32 value1, f32 value2);
-void crash_print_3_floats(s32 index, f32 value1, f32 value2, f32 value3);
-void crash_put_char(s32 x, s32 y, char c);
 void crash_append_char(char c);
-void crash_scroll(s32 numlines);
-void crash_render_char(s32 x, s32 y, char c);
 void crash_reset(void);
 void crash_render_frame(u16 *fb);
 

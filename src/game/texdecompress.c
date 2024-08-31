@@ -111,6 +111,12 @@ s32 g_TexFormatLutModes[] = {
 	G_TT_IA16,
 };
 
+void tex_inflate_huffman(u8 *dst, s32 numiterations, s32 chansize);
+void tex_inflate_rle(u8 *dst, s32 blockstotal);
+void tex_read_alpha_bits(u8 *dst, s32 count);
+void tex_swizzle(u8 *dst, s32 width, s32 height, s32 format);
+void tex_blur(u8 *pixels, s32 width, s32 height, s32 method, s32 chansize);
+
 void func0f16e810(u32 arg0)
 {
 	// empty

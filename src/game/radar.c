@@ -44,6 +44,8 @@ u32 var80087ce4[] = {
 	0x8a158a15,
 };
 
+Gfx *radar_render_r_tracked_props(Gfx *gdl);
+
 void radar_set_y_indicators_enabled(bool enable)
 {
 	g_RadarYIndicatorsEnabled = enable;

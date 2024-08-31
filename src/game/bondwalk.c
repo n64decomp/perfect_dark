@@ -27,6 +27,9 @@
 #include "data.h"
 #include "types.h"
 
+bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types);
+void bwalk_update_crouch_offset_real(void);
+
 void bwalk_init(void)
 {
 	u32 prevmode = g_Vars.currentplayer->bondmovemode;

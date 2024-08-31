@@ -171,6 +171,9 @@ u32 var80061be4 = 0x00000000;
 u32 var80061be8 = 0x00000000;
 u32 var80061bec = 0x00000000;
 
+void setup_reset_0f00cc8c(void);
+void setup_reset_proxy_mines(void);
+
 void props_reset(void)
 {
 	s32 i;

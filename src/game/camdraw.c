@@ -231,6 +231,34 @@ u16 var8007f904[] = {
 
 u32 var8007f9d0 = 0x00000000;
 
+struct var8007f8e0 *func0f14a06c(s32 index);
+struct var8007f8dc *func0f14a20c(void);
+void func0f14ad58(s32 index);
+void func0f14b178(void);
+void func0f14b394(struct var8007f8e0 *arg0);
+void func0f14bc04(void);
+void func0f14c50c(struct var8007f8e0 *dst, struct var8007f8e0 *src, u32 line, char *file);
+void func0f14c75c(struct textureconfig *arg0, struct textureconfig *arg1);
+void func0f14c7dc(struct textureconfig *tconfig);
+u32 func0f14c814(struct textureconfig *tconfig);
+void func0f14d064(s32 index, u8 *arg1);
+void func0f14d2c8(u8 *arg0, u8 *arg1);
+void func0f14d4f0(u8 *src, u8 *dst);
+void func0f14d714(u8 *arg0, u8 *arg1);
+void func0f14d84c(f32 *arg0, s32 arg1);
+void func0f14d8d8(f32 *arg0, f32 *arg1, s32 arg2, f32 *arg3, s32 arg4);
+void phead0f14dac0(u8 *arg0, struct textureconfig *arg1);
+void func0f14def0(s32 index, u32 line, char *file);
+void func0f14e1c4(struct var8007f8e0 *arg0);
+f32 func0f14e4ac(s32 arg0, s32 *arg1, s32 *arg2);
+void func0f14e790(u8 *arg0);
+void func0f14e7e0(u8 *arg0);
+void func0f14e884(struct textureconfig *tconfig, s32 numrows, s32 arg2, u64 arg3);
+void func0f14ecd8(s32 *arg0, s32 *arg1, s32 *arg2, s32 *arg3);
+void func0f14eeb0(f32 arg0[7]);
+void func0f14ef50(f32 *arg0);
+void func0f14ff94(struct var8007f8e0 *arg0);
+
 /**
  * Fill the texture buffer with a linear gradient: black (left) to white (right).
  */

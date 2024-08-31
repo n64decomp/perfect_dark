@@ -27,6 +27,8 @@ u32 var8009de8c;
 
 bool var80070e80 = false;
 
+void bgrab0f0ce0bc(struct coord *arg0);
+
 void bgrab_init(void)
 {
 	s32 prevmode = g_Vars.currentplayer->bondmovemode;

@@ -5,7 +5,6 @@
 #include "types.h"
 
 void botinv_clear(struct chrdata *chr);
-struct invitem *botinv_get_free_slot(struct chrdata *chr);
 struct invitem *botinv_get_item(struct chrdata *chr, s32 weaponnum);
 void botinv_remove_item(struct chrdata *chr, s32 weaponnum);
 u32 botinv_get_item_type(struct chrdata *chr, u32 weaponnum);
@@ -17,13 +16,10 @@ void botinv_score_all_weapons(struct chrdata *chr, s32 *weaponnums, s32 *scores1
 bool mp_has_shield(void);
 s32 mp_get_weapon_slot_by_weapon_num(s32 weaponnum);
 void botinv_score_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2, bool arg7, bool learn);
-void botinv_score_weapon_against_target(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2);
-void botinv_score_weapon_by_itself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2);
 s32 botinv_get_dist_config(s32 weaponnum, s32 funcnum);
 bool botinv_allows_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum);
 void botinv_tick(struct chrdata *chr);
 bool botinv_switch_to_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum);
-void botinv_drop(struct chrdata *chr, s32 weaponnum, u8 dropall);
 void botinv_drop_all(struct chrdata *chr, u32 weaponnum);
 void botinv_drop_one(struct chrdata *chr, u32 weaponnum);
 

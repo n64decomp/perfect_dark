@@ -177,6 +177,7 @@ extern u32 _libSegmentEnd;
 void faultproc(void *arg0);
 u32 crash_generate(OSThread *thread, u32 *callstack, s32 *tracelen);
 void crash_print_description(u32 mask, char *label, struct crashdescription *descriptions);
+void crash_scroll(s32 numlines);
 
 #if VERSION < VERSION_NTSC_1_0
 void crash_set_message(char *string)

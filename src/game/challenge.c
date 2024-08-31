@@ -59,6 +59,8 @@ struct challenge g_MpChallenges[] = {
 	{ L_OPTIONS_435, MPCONFIG_CHALLENGE30 }, // "Challenge 30"
 };
 
+void challenge_apply(void);
+
 bool challenge_is_available(s32 challengeindex)
 {
 	return (g_MpChallenges[challengeindex].availability & 1) != 0;

@@ -4,7 +4,6 @@
 #include "data.h"
 #include "types.h"
 
-void gfx_replace_gbi_commands(Gfx *gdl, Gfx *endgdl, s32 type);
 void gfx_replace_gbi_commands_recursively(struct roomblock *arg0, s32 type);
 
 #endif

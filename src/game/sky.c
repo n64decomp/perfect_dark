@@ -45,6 +45,10 @@ f32 g_SkyWindSpeed = 1;
 f32 g_SunAlphaFracs[3] = {0};
 s32 g_SunFlareTimers240[3] = {0};
 
+void sky_convert_vertex(struct skyvtx3d *srcvtx, Mtxf *mtx, u16 arg2, f32 arg3, f32 arg4, struct skyvtx2d *dstvtx);
+Gfx *sky_render_tri(Gfx *gdl, struct skyvtx2d *vtx0, struct skyvtx2d *vtx1, struct skyvtx2d *vtx2, f32 arg4, bool textured);
+Gfx *sky_render_full(Gfx *gdl, struct skyvtx2d *vtx0, struct skyvtx2d *vtx1, struct skyvtx2d *vtx2, struct skyvtx2d *vtx3, f32 arg5);
+
 void sky_get_world_pos_from_screen_pos(f32 left, f32 top, struct coord *dst)
 {
 	Mtxf *mtx = cam_get_projection_mtxf();

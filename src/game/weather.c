@@ -24,6 +24,9 @@
 
 struct weatherdata *g_WeatherData = NULL;
 
+Gfx *weather_render_rain(Gfx *gdl, struct weatherdata *weather, s32 arg2);
+Gfx *weather_render_snow(Gfx *gdl, struct weatherdata *weather, s32 arg2);
+
 Gfx *weather_render(Gfx *gdl)
 {
 	struct weatherdata *weather;

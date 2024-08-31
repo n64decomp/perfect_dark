@@ -6,7 +6,6 @@
 
 bool modelmgr_can_slot_fit_rwdata(struct model *modelslot, struct modeldef *modeldef);
 void modelmgr_print_counts(void);
-struct model *modelmgr_instantiate_model(struct modeldef *modeldef, bool arg1);
 struct model *modelmgr_instantiate_model_without_anim(struct modeldef *modeldef);
 void modelmgr_free_model(struct model *model);
 struct model *modelmgr_instantiate_model_with_anim(struct modeldef *modeldef);

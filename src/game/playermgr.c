@@ -11,6 +11,8 @@
 #include "data.h"
 #include "types.h"
 
+void playermgr_allocate_player(s32 index);
+
 void playermgr_init(void)
 {
 	s32 i;

@@ -7,7 +7,6 @@
 void playermgr_init(void);
 void playermgr_reset(void);
 void playermgr_allocate_players(s32 count);
-void playermgr_allocate_player(s32 index);
 void playermgr_calculate_ai_buddy_nums(void);
 void set_current_player_num(s32 playernum);
 s32 playermgr_get_player_num_by_prop(struct prop *prop);

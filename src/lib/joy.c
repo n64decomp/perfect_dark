@@ -112,6 +112,10 @@ u32 var800612c8nb = 3;
 u8 var800612ccnb = 0;
 #endif
 
+void joy00013e84(void);
+s32 joy_get_pak_state2(s8 device);
+void joys_tick_rumble(void);
+
 #if VERSION >= VERSION_NTSC_1_0
 void joy_lock_cyclic_polling(void)
 {

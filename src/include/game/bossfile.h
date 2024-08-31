@@ -5,9 +5,6 @@
 #include "types.h"
 
 bool bossfile_load_full(void);
-u32 bossfile_find_file_id(void);
-void bossfile_load(void);
 void bossfile_save(void);
-void bossfile_set_defaults(void);
 
 #endif

@@ -131,6 +131,9 @@ u32 g_FadePrevColour = 0;
 u32 g_FadeColour = 0;
 s16 g_FadeDelay = 0;
 
+void lv_fade_reset(void);
+void lv_check_pause_state_changed(void);
+
 u32 get_var80084040(void)
 {
 	return var80084040;

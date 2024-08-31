@@ -99,6 +99,8 @@ struct mpweapon g_MpWeapons[NUM_MPWEAPONS] = {
 	/*0x26*/ { WEAPON_DISABLED },
 };
 
+void mp_calculate_player_title(struct mpplayerconfig *mpplayer);
+
 /**
  * Converts the given value into a float on a curved scale from 0.1 to 10.
  *

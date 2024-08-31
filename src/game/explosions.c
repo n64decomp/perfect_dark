@@ -81,6 +81,8 @@ struct explosiontype g_ExplosionTypes[] = {
 	/*25*/ { 640, 480, 32,  11.2, 1600, 1000, 1000, 180, 2, 5, SMOKETYPE_NONE,         SFX_80A4,           4     },
 };
 
+Gfx *explosion_render_part(struct explosion *exp, struct explosionpart *part, Gfx *gdl, struct coord *coord, s32 arg4);
+
 bool explosion_create_simple(struct prop *prop, struct coord *pos, RoomNum *rooms, s16 type, s32 playernum)
 {
 	return explosion_create(prop, pos, rooms, type, playernum, false, NULL, 0, NULL);

@@ -12,7 +12,6 @@ u32 body_get_race(s32 bodynum);
 bool body_load_modeldef(s32 bodynum);
 struct model *body_instantiate_model_to_addr(s32 bodynum, s32 headnum, struct modeldef *bodymodeldef, struct modeldef *headmodeldef, bool sunglasses, struct model *model, bool isplayer, u8 varyheight);
 struct model *body_instantiate_model_with_spawnflags(s32 bodynum, s32 headnum, u32 spawnflags);
-s32 body_get_tuxedo_bodynum(void);
 s32 body_choose_head(s32 bodynum);
 void body_instantiate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex);
 struct prop *body_instantiate_eyespy(struct pad *pad, RoomNum room);

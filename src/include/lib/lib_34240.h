@@ -4,7 +4,5 @@
 #include "data.h"
 #include "types.h"
 
-void func00034f0c(N_ALCSPlayer *seqp, u8 channel);
-void func00034fb8(N_ALCSPlayer *seqp, u8 channel);
 
 #endif

@@ -6,7 +6,6 @@
 
 void portal_set_xlu_frac2(s32 portalnum, f32 frac);
 void portal_set_xlu_frac(s32 portalnum, f32 frac);
-f32 portal_get_xlu_frac2(s32 arg0);
 f32 portal_get_xlu_frac(s32 arg0);
 void portal0f0b65a8(s32 numportals);
 void portals_reset(void);

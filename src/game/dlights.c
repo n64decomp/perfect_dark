@@ -87,6 +87,16 @@ u32 var80061454 = 0xffffffff;
 s32 g_LightsPrevTickMode = 0;
 #endif
 
+void func0f00215c(u8 *arg0);
+void lights_calculate_room_dimensions(void);
+void func0f00259c(s32 roomnum);
+void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum);
+void rooms_tick_lighting(void);
+void room_flash_local_lighting(s32 roomnum, s32 increment, s32 limit);
+void func0f004c6c(void);
+void func0f00505c(void);
+void func0f005bb0(void);
+
 u32 func0f000920(s32 portalnum1, s32 portalnum2)
 {
 	if (portalnum1 != portalnum2) {

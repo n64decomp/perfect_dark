@@ -39,6 +39,8 @@ struct menudialogdef g_2PMissionControlStyleMenuDialog;
 struct menudialogdef g_CiControlPlayer2MenuDialog;
 struct menudialogdef g_CinemaMenuDialog;
 
+MenuItemHandlerResult menuhandler_fr_inventory_list(s32 operation, struct menuitem *item, union handlerdata *data);
+
 char *menu_text_current_stage_name(struct menuitem *item)
 {
 	sprintf(g_StringPointer, "%s\n", lang_get(g_SoloStages[g_MissionConfig.stageindex].name3));

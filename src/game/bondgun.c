@@ -186,6 +186,15 @@ char var800700bc[][10] = {
 	{ 'x','x','x'                         }, // "xxx"
 };
 
+void bgun_free_held_rocket(s32 handnum);
+void bgun_free_weapon(s32 handnum);
+void bgun_tick_switch2(void);
+void bgun_switch_to_previous(void);
+void bgun_auto_switch_weapon(void);
+void bgun_start_slide(s32 handnum);
+void bgun_set_aim_pos(struct coord *coord);
+void bgun0f0abd30(s32 handnum);
+
 #if !MATCHING || VERSION >= VERSION_NTSC_1_0
 void bgun_rumble(s32 handnum, s32 weaponnum)
 {

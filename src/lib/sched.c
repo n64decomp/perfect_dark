@@ -60,6 +60,9 @@ void __scExec(OSSched *sc, OSScTask *sp, OSScTask *dp);
 void __scYield(OSSched *s);
 s32 __scSchedule(OSSched *sc, OSScTask **sp, OSScTask **dp, s32 availRCP);
 
+void sched_init_artifacts(void);
+void sched_consider_screenshot(void);
+
 OSViMode var8008dcc0[NUM_GFXTASKS];
 OSViMode *var8008dd60[NUM_GFXTASKS];
 OSViMode var8008dd68[NUM_GFXTASKS];

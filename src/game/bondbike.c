@@ -25,6 +25,8 @@
 #include "data.h"
 #include "types.h"
 
+void bbike_update_vehicle_offset(void);
+
 void bbike_init(void)
 {
 	struct hoverbikeobj *hoverbike = (struct hoverbikeobj *)g_Vars.currentplayer->hoverbike->obj;

@@ -329,6 +329,50 @@ u8 g_PaksPlugged = 0;
 bool var80075d14 = true;
 #endif
 
+void pak0f116bdc(s8 device, u8 *arg1, u8 *arg2);
+u16 _pak_get_serial(s8 device);
+u32 _pak_get_type(s8 device);
+PakErr1 pak0f116df0(s8 device, struct pakdata **pakdata);
+PakErr1 _pak_delete_game_note(s8 device, u16 company_code, u32 game_code, char *game_name, char *ext_name);
+s32 _pak_delete_file(s8 device, s32 fileid);
+s32 _pak_save_at_guid(s8 device, s32 fileid, s32 filetype, u8 *newdata, s32 *outfileid, u8 *olddataptr);
+PakErr1 pak_delete_game_note3(OSPfs *pfs, u16 company_code, u32 game_code, char *game_name, char *ext_name);
+u32 pak_get_pd_num_bytes(s8 device);
+s32 _pak_create_camera_file(s8 device, s32 *outfileid);
+s32 pak_resize_note(s8 device, s32 numpages);
+void pak0f1185e0(s8 device, s32 arg1, s32 arg2);
+u32 pak0f118674(s8 device, u32 filetype, s32 *outfileid);
+void pak_calculate_checksum(u8 *start, u8 *end, u16 *checksum);
+s32 _pak_read_body_at_guid(s8 device, s32 fileid, u8 *body, s32 arg3);
+s32 _pak_get_file_ids_by_type(s8 device, u32 filetype, u32 *fileids);
+s32 pak_check_file_can_fit_in_note(s8 device, s32 filetype, s32 *numspaces);
+u32 pak0f119298(s8 device);
+bool pak_repair_as_blank(s8 device, u32 *offsetptr, struct pakfileheader *header);
+void pak_merge_blanks(s8 device);
+void pak_set_features(s8 device, u8 features, u32 line, char *file);
+void pak_set_defaults(s8 device);
+PakErr1 pak_read_write_block(s8 device, OSPfs *pfs, s32 file_no, u8 flag, u32 address, u32 len, u8 *buffer);
+s32 pak_query_total_usage(s8 device);
+void pak_save_header_to_cache(s8 device, s32 blocknum, struct pakfileheader *header);
+s32 pak_retrieve_header_from_cache(s8 device, s32 blocknum, struct pakfileheader *dst);
+s32 pak_create_filesystem(s8 device);
+s32 pak_get_filesystem_length(s8 device, u32 *outlen);
+s32 pak0f11b86c(s8 device, u32 offset, u8 *data, struct pakfileheader *header, s32 bodylen);
+s32 pak_replace_file_at_offset_with_blank(s8 device, u32 offset);
+s32 pak_write_file_at_offset(s8 device, u32 offset, u32 filetype, u8 *newdata, s32 bodylenarg, s32 *outfileid, u8 *olddata, u32 fileid, u32 generation);
+s32 pak_handle_result(s32 err1, s8 device, s32  arg2, u32 line);
+void pak_check_plugged(void);
+void pak0f11d118(u8 *arg0, u8 arg1, u32 arg2);
+void pak0f11d174(s8 device, u8 *arg1);
+void pak0f11d214(u8 *arg0, u32 arg1);
+void pak_dump_pak(void);
+void pak_tick_state(s8 device);
+void pak_probe_eeprom(void);
+PakErr1 pak_read_eeprom(u8 address, u8 *buffer, u32 len);
+PakErr1 pak_write_eeprom(u8 address, u8 *buffer, u32 len);
+s32 gbpak_identify_game(s8 device);
+void pak_wipe(s8 device, u32 blocknumstart, u32 blocknumend);
+
 u32 pak_get_block_size(s8 device)
 {
 	return device == SAVEDEVICE_GAMEPAK ? 0x10 : 0x20;

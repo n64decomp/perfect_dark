@@ -13,8 +13,6 @@ struct distfadesettings {
 struct environment *env_get_current(void);
 f32 env_get_squared_fog_max(void);
 void env_tick(void);
-void env_apply_fog_environment(struct fogenvironment *sky);
-void env_apply_no_fog_environment(struct nofogenvironment *sky);
 void env_set_stage_num(s32 stagenum);
 void env_choose_and_apply(s32 stagenum, bool allowoverride);
 void env_apply_transition_frac(f32 arg0);

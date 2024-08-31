@@ -52,6 +52,8 @@ s32 var8005f030 = 0;
 bool g_CdHasSavedBlock = false;
 s32 var8005f038 = 0;
 
+void cd_get_geo_normal(struct geo *geo, struct coord *normal);
+
 f32 cd_00024e40(void)
 {
 	return var8009a8f0;

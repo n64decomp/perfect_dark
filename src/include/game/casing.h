@@ -5,7 +5,6 @@
 #include "types.h"
 
 void casings_reset(void);
-void casing_tick(struct casing *arg0);
 void casings_tick(void);
 
 #endif

@@ -868,6 +868,10 @@ extern u8 _seqctlSegmentRomEnd;
 extern u8 _seqtblSegmentRomStart;
 extern u8 _sequencesSegmentRomStart;
 
+u16 seq_get_volume(struct seqinstance *seq);
+void snd_tick_nosedive(void);
+void snd_tick_ufo(void);
+
 bool snd_is_playing_mp3(void)
 {
 	return g_SndCurMp3.playing;

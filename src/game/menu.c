@@ -130,6 +130,10 @@ char *g_StringPointer2 = &g_CheatMarqueeString[VERSION >= VERSION_PAL_FINAL ? 15
 
 s32 g_MpPlayerNum = 0;
 
+void dialog_calculate_position(struct menudialog *dialog);
+void menu_close(void);
+void dialog_init_items(struct menudialog *dialog);
+
 void menu_play_sound(s32 menusound)
 {
 	s32 sound = -1;

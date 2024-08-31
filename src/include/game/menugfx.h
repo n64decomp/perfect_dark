@@ -7,7 +7,6 @@
 void menugfx_create_blur(void);
 Gfx *menugfx_render_bg_blur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3);
 Gfx *menugfx_render_dialog_background(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct menudialog *dialog, u32 colour1, u32 colour2, f32 arg8);
-Gfx *menugfx_render_bg_green_haze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2);
 Gfx *menugfx_draw_dropdown_background(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -31,7 +30,6 @@ Gfx *menugfx_draw_dialog_chevron(Gfx *gdl, s32 x, s32 y, s32 arg2, s32 arg3, u32
 Gfx *menugfx_draw_checkbox(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour);
 Gfx *menugfx_render_bg_failure(Gfx *gdl);
 Gfx *menugfx_render_bg_cone(Gfx *gdl);
-Gfx *menugfx_render_bg_failure_copy(Gfx *gdl);
 void menugfx_free_particles(void);
 u32 menugfx_get_particle_array_size(void);
 Gfx *menugfx_render_bg_success(Gfx *gdl);

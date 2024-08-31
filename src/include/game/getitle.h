@@ -6,7 +6,5 @@
 
 void getitle_reset(void);
 
-void getitle_load(void *addr, u32 arg1);
-Gfx *getitle_render(Gfx *gdl);
 
 #endif

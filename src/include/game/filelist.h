@@ -10,6 +10,5 @@ void filelist_create(s32 listnum, u8 filetype);
 s32 filelist_find_or_create(u8 filetype);
 void filelist_invalidate_pak(s32 device);
 void filelists_tick(void);
-void filelist_update(struct filelist *list);
 
 #endif

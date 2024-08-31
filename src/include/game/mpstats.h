@@ -12,11 +12,8 @@ void mpstats_increment_total_kill_count(void);
 void mpstats_increment_total_knockout_count(void);
 void mpstats_decrement_total_knockout_count(void);
 u8 mpstats_get_total_knockout_count(void);
-u32 mpstats_get_total_kill_count(void);
 void mpstats_record_player_kill(void);
 s32 mpstats_get_player_kill_count(void);
-void mpstats_record_player_death(void);
-void mpstats_record_player_suicide(void);
 void mpstats_record_death(s32 aplayernum, s32 vplayernum);
 
 #endif

@@ -25,6 +25,9 @@ u8 var800a22d0[0x5b];
 u8 g_AltTitleUnlocked;
 u8 g_AltTitleEnabled;
 
+void bossfile_load(void);
+void bossfile_set_defaults(void);
+
 void bossfile_set_defaults2(void)
 {
 	bossfile_set_defaults();

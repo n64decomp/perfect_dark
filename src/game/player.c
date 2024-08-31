@@ -198,6 +198,17 @@ s16 g_DeathAnimations[] = {
 
 s32 g_NumDeathAnimations = 0;
 
+void player_tick_chr_body(void);
+void player_start_chr_fade(f32 duration60, f32 targetfrac);
+void player_set_camera_mode(s32 mode);
+void player_move_camera_from_pos_rooms(struct coord *pos, struct coord *up, struct coord *look, struct coord *prevgoodpos, RoomNum *prevgoodrooms);
+void player_move_camera_from_pos_room(struct coord *pos, struct coord *up, struct coord *look, struct coord *frompos, s32 fromroom);
+void player_move_camera(struct coord *pos, struct coord *up, struct coord *look);
+void player_set_cam_properties_out_of_bounds(struct coord *pos, struct coord *up, struct coord *look, s32 room);
+void player_set_cam_properties(struct coord *pos, struct coord *up, struct coord *look, s32 room);
+void player_clear_mem_cam_room(void);
+void players_clear_mem_cam_room(void);
+
 /**
  * Choose which location to spawn into from the given pads. Write the position
  * and rooms to the dstpos and dstrooms pointers and return the angle that the

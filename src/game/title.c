@@ -103,6 +103,8 @@ Lights1 var800624f8jf = gdSPDefLights1(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 Lights1 var80062510jf = gdSPDefLights1(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7f);
 #endif
 
+void title_skip_to_pd_title(void);
+
 char *mp_player_get_weapon_of_choice_name(u32 playernum, u32 slot)
 {
 	char *name;

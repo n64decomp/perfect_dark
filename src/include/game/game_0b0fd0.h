@@ -25,7 +25,6 @@ void current_player_set_device_active(s32 weaponum, bool active);
 u16 weapon_get_file_num(s32 weaponnum);
 u16 weapon_get_file_num2(s32 weaponnum);
 void gset_populate_from_current_player(s32 handnum, struct gset *gset);
-struct inventory_ammo *gset_get_ammo_definition(struct gset *gset);
 u8 gset_get_single_penetration(struct gset *gset);
 f32 gset_get_impact_force(struct gset *gset);
 f32 gset_get_damage(struct gset *gset);

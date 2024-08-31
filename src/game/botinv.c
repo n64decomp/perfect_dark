@@ -132,6 +132,8 @@ struct botweaponconfig g_BotWeaponConfigs[] = {
 	/*WEAPON_SUICIDEPILL      */ { 0,   0,   0,   0,   0, 0, BOTDISTCFG_DEFAULT,        BOTDISTCFG_DEFAULT,        0,             0,   0,  0,  1, 0 },
 };
 
+void botinv_score_weapon_by_itself(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 ifammo, bool dual, s32 *dst1, s32 *dst2);
+
 /**
  * Remove all items from the bot's inventory.
  */

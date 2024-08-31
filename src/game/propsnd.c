@@ -45,6 +45,10 @@ u32 var8006ae54 = 999;
 #define CHANNEL_IS_AI(channel) (channel >= 0 && channel <= 7)
 #define CHANNEL_HEAP_FIRST     CHANNEL_8
 
+void ps_stop_channel(s32 channelnum);
+s32 ps_calculate_vol(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, RoomNum *rooms, s16 soundnum, s32 arg6, f32 *playerdistptr);
+s32 ps_calculate_pan(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, f32 playerdist, bool arg5, struct pschannel *channel);
+
 bool ps_prop_has_sound_with_context(struct prop *prop, s32 type)
 {
 	s32 i;

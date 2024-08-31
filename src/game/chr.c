@@ -71,6 +71,10 @@ struct chrdata *g_ChrSlots = NULL;
 
 s32 g_NumChrSlots = 0;
 
+Gfx *chr_render_cloak(Gfx *gdl, struct prop *chrprop, struct prop *thisprop);
+Gfx *chr_render_shield(Gfx *gdl, struct chrdata *chr, u32 alpha);
+void chr_set_drcaroll_images(struct chrdata *drcaroll, s32 imageleft, s32 imageright);
+
 s32 chrs_get_num_slots(void)
 {
 	return g_NumChrSlots;

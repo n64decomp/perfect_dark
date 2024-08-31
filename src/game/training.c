@@ -61,6 +61,9 @@ u16 g_FrPads[] = {
 	0x00f2, 0x00f1, 0x00f0, 0x00ef, 0x00ee, 0x00ed, 0x00ec,
 };
 
+u32 func0f1a25c0(s32 index);
+u32 ci_get_stage_flag_by_device_index(u32 deviceindex);
+
 bool ci_is_tour_done(void)
 {
 	return gamefile_has_flag(GAMEFILEFLAG_CI_TOUR_DONE);

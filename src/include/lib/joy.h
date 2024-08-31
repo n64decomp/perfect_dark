@@ -17,12 +17,8 @@ void joy_set_pfs_temporarily_plugged(s8 index);
 void joy_init(void);
 void joy_disable_temporarily(void);
 void joy_reset(void);
-void joy00013e84(void);
 u32 joy_get_connected_controllers(void);
-void joy00014238(void);
 void joy_debug_joy(void);
-s32 joy_start_read_data(OSMesgQueue *mq);
-void joy_read_data(void);
 void joys_handle_retrace(void);
 void joy00014810(bool value);
 s32 joy_get_num_samples(void);
@@ -50,7 +46,5 @@ void joy_destroy(void);
 void joy_get_contpad_nums_for_player(s8 playernum, s32 *pad1, s32 *pad2);
 void joy_stop_rumble(s8 device, bool disablepolling);
 s32 joy_get_pak_state(s8 device);
-s32 joy_get_pak_state2(s8 device);
-void joys_tick_rumble(void);
 
 #endif

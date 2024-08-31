@@ -135,6 +135,24 @@ struct autogunobj *g_ThrownLaptops = NULL;
 struct beam *g_ThrownLaptopBeams = NULL;
 s32 g_MaxThrownLaptops = 0;
 
+f32 obj_get_rotated_local_min(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3);
+f32 obj_get_rotated_local_max(struct modelrodata_bbox *bbox, f32 arg1, f32 arg2, f32 arg3);
+void obj_create_one_debris(struct defaultobj *obj, s32 partindex, struct prop *prop);
+struct defaultobj *debris_allocate(void);
+void obj_create_debris(struct defaultobj *obj, struct prop *prop);
+void obj_populate_geotile(struct defaultobj *obj, struct geotilef *tile, u32 flags, struct modelrodata_bbox *bbox, struct modelrodata_geo *georodata);
+void obj_deform(struct defaultobj *obj, s32 level);
+struct hatobj *hat_create(bool musthaveprop, bool musthavemodel, struct modeldef *modeldef);
+struct ammocrateobj *ammocrate_allocate(void);
+void weapon_register_proxy(struct weaponobj *weapon);
+void weapon_unregister_proxy(struct weaponobj *weapon);
+void door_get_mtx(struct doorobj *door, Mtxf *matrix);
+void door_play_opening_sound(s32 soundtype, struct prop *prop);
+void door_play_opened_sound(s32 soundtype, struct prop *prop);
+bool door_test_interact_angle(struct doorobj *door, bool altcoordsystem);
+void doors_calc_frac(struct doorobj *door);
+void gas_release_from_pos(struct coord *pos);
+
 /**
  * Attempt to call a lift from the given door.
  *

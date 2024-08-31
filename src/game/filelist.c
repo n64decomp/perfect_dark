@@ -29,6 +29,8 @@ bool var80075bd0[] = { true, true, true, true };
 bool var80075be0[] = { false, false, false, false };
 u32 var80075bf0 = false;
 
+void filelist_update(struct filelist *list);
+
 void func0f110bf0(void)
 {
 	// empty

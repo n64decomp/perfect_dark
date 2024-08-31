@@ -67,6 +67,8 @@ struct wallhittex g_WallhitTexes[] = {
 	/*0x11*/ { 6,   6,   WALLHITTYPE_BULLET }, // WALLHITTEX_METAL
 };
 
+void wallhit_fade(struct wallhit *wallhit, u32 arg1);
+
 s16 wallhit_finalise_axis(f32 value)
 {
 	if (value > var8007f754) {

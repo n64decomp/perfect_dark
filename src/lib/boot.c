@@ -63,6 +63,8 @@ s32 boot_get_mem_size(void)
 u32 __osGetFpcCsr(void);
 u32 __osSetFpcCsr(u32 arg0);
 
+void boot_create_threads(void *arg);
+
 /**
  * Prepares the inflate, .data and lib segments, then creates and starts the
  * main thread.

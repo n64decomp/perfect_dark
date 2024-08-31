@@ -9,13 +9,10 @@ void lasersights_reset(void);
 
 void beam_create(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to);
 void beam_create_for_hand(s32 handnum);
-Gfx *beam_render_generic(Gfx *gdl, struct textureconfig *arg1, f32 arg2, struct coord *arg3, u32 colour1, f32 arg5, struct coord *arg6, u32 colour2);
 Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3);
 void beam_tick(struct beam *beam);
 
-struct casing *casing_create(struct modeldef *modeldef, Mtxf *mtx);
 void casing_create_for_hand(s32 handnum, f32 ground, Mtxf *mtx);
-void casing_render(struct casing *casing, Gfx **gdlptr);
 void casings_render(Gfx **gdlptr);
 
 s32 boltbeam_find_by_prop(struct prop *prop);
@@ -27,7 +24,6 @@ void boltbeam_set_automatic(s32 beamnum, f32 speed);
 Gfx *boltbeams_render(Gfx *gdl);
 void boltbeams_tick(void);
 
-bool lasersight_exists(s32 id, s32 *index);
 Gfx *lasersight_render_dot(Gfx *gdl);
 Gfx *lasersight_render_beam(Gfx *gdl);
 void lasersight_set_beam(s32 id, s32 arg1, struct coord *near, struct coord *far);

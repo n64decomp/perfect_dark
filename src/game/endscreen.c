@@ -42,6 +42,11 @@
 #define CHEATINFO_SET_TIMED_CHEATNUM(cheatnum) (cheatnum)
 #define CHEATINFO_SET_COMPL_CHEATNUM(cheatnum) ((cheatnum) << 16)
 
+void endscreen_continue(s32 context);
+char *endscreen_menu_text_target_time(struct menuitem *item);
+char *endscreen_menu_text_timed_cheat_name(struct menuitem *item);
+char *endscreen_menu_text_completion_cheat_name(struct menuitem *item);
+
 MenuItemHandlerResult endscreen_handle_decline_mission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {

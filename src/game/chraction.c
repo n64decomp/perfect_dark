@@ -1060,7 +1060,6 @@ struct attackanimgroup *g_StandLightAttackAnims[][32] = {
 	},
 };
 
-
 struct attackanimconfig var800663d8[] = {
 	{ ANIM_007A, 26, 0, 0, 7, 92, 28, 68, -1, -1, 11, 73, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
@@ -1399,6 +1398,21 @@ struct animdist *g_ChrAvgAnimMoveDists[] = {
 	g_ChrAvgAnimMoveDistsEyespy,
 	g_ChrAvgAnimMoveDistsRobot,
 };
+
+void chr_attack(struct chrdata *chr, struct attackanimgroup **animgroups, bool flip, bool *firing, u32 attackflags, s32 entityid, bool standing);
+
+void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gset *gset,
+		struct prop *aprop, s32 hitpart, bool damageshield, struct prop *prop2,
+		struct modelnode *node, struct model *model, s32 side, s16 *hitpos,
+		bool explosion, struct coord *explosionpos);
+
+void chr_fade_corpse(struct chrdata *chr);
+s32 chr_turn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 toleranceangle);
+void robot_attack(struct chrdata *chr);
+s32  chr_start_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4);
+void chr_get_attack_entity_pos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, RoomNum *rooms);
+f32 prop_get_distance_to_prop(struct prop *a, struct prop *b);
+s32 chr_set_chr_preset_to_chr_near_pos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, RoomNum *rooms);
 
 f32 chr_get_anim_movedist_per_frame(s16 animnum)
 {

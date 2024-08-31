@@ -28,12 +28,16 @@
 struct mp3vars g_Mp3Vars;
 struct asistream *g_AsiStream;
 
+void func00038b90(void *fn);
 s32 func00038ba8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
+void mp3_dma(void);
 
 extern f32 *var8009c6d8;
 extern f32 *var8009c6dc;
 extern struct mp3decfourbytes *var8009c640;
 extern f32 *var8009c644;
+
+void func00038924(struct mp3vars *vars);
 
 void mp3_init(ALHeap *heap)
 {
