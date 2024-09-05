@@ -140,7 +140,7 @@ void sched_init_crash_last_rendered(void)
 	g_SchedCrashLastRendered = osGetCount();
 }
 
-void os_create_scheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
+void osCreateScheduler(OSSched *sc, OSThread *thread, u8 mode, u32 numFields)
 {
 	sc->curRSPTask = 0;
 	sc->curRDPTask = 0;

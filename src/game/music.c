@@ -83,6 +83,7 @@ const char var7f1b7918[] = "MUSIC : activedeath=%d\n";
 
 void music_save_interval(void);
 void music_restore_interval(void);
+bool music_is_any_player_in_ambient_room(void);
 
 u16 music_get_volume(void)
 {

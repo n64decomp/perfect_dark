@@ -116,6 +116,16 @@ void tex_inflate_rle(u8 *dst, s32 blockstotal);
 void tex_read_alpha_bits(u8 *dst, s32 count);
 void tex_swizzle(u8 *dst, s32 width, s32 height, s32 format);
 void tex_blur(u8 *pixels, s32 width, s32 height, s32 method, s32 chansize);
+s32 tex_align_indices(u8 *src, s32 width, s32 height, s32 format, u8 *dst);
+s32 tex_shrink_paletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format, u16 *palette, s32 numcolours);
+s32 tex_find_closest_colour_index_r_g_b_a(u8 *palette, s32 numcolours, s32 r, s32 g, s32 b, s32 a);
+s32 tex_find_closest_colour_index_i_a(u16 *palette, s32 numcolours, s32 intensity, s32 alpha);
+s32 tex_read_uncompressed(u8 *dst, s32 width, s32 height, s32 format);
+s32 tex_channels_to_pixels(u8 *src, s32 width, s32 height, u8 *dst, s32 format);
+s32 tex_build_lookup(u8 *lookup, s32 bitsperpixel);
+s32 tex_inflate_lookup(s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format);
+s32 tex_shrink_non_paletted(u8 *src, u8 *dst, s32 srcwidth, s32 srcheight, s32 format);
+s32 tex_inflate_lookup_from_buffer(u8 *src, s32 width, s32 height, u8 *dst, u8 *lookup, s32 numcolours, s32 format);
 
 void func0f16e810(u32 arg0)
 {

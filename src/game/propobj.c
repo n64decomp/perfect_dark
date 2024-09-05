@@ -152,6 +152,11 @@ void door_play_opened_sound(s32 soundtype, struct prop *prop);
 bool door_test_interact_angle(struct doorobj *door, bool altcoordsystem);
 void doors_calc_frac(struct doorobj *door);
 void gas_release_from_pos(struct coord *pos);
+s32 door_is_closed(struct doorobj *door);
+bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *dstmtxindex, struct modelnode **dstnode);
+bool door_is_range_empty(struct doorobj *door);
+s32 door_is_open(struct doorobj *door);
+bool pos_is_in_front_of_door(struct coord *pos, struct doorobj *door);
 
 /**
  * Attempt to call a lift from the given door.

@@ -100,6 +100,8 @@ struct mpweapon g_MpWeapons[NUM_MPWEAPONS] = {
 };
 
 void mp_calculate_player_title(struct mpplayerconfig *mpplayer);
+s32 mp_choose_random_lock_player(void);
+s32 mp_get_chr_index_by_slot_num(s32 slot);
 
 /**
  * Converts the given value into a float on a curved scale from 0.1 to 10.

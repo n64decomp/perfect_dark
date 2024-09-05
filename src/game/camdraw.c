@@ -377,8 +377,10 @@ void func0f14e7e0(u8 *arg0);
 void func0f14e884(struct textureconfig *tconfig, s32 numrows, s32 arg2, u64 arg3);
 void func0f14ecd8(s32 *arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 void func0f14eeb0(f32 arg0[7]);
-void phead_get_unk3d0(f32 *arg0);
+void phead_get_unk3d0(f32 arg0[7]);
 void editor_make_texture_type5(struct perfecthead *arg0);
+s32 camdraw_get_editor_index(void);
+s32 editor_get_num_valid_images(s32 index);
 
 /**
  * Fill the texture buffer with a linear gradient: black (left) to white (right).

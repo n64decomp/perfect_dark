@@ -63,6 +63,7 @@ struct menudialogdef g_FilemgrRenameMenuDialog;
 
 void filemgr_retry_save(s32 context);
 void filemgr_push_delete_file_dialog(s32 listnum);
+bool filemgr_attempt_operation(s32 device, bool closeonsuccess);
 
 #if PAL
 MenuItemHandlerResult filemgr_handle_set_language(s32 operation, struct menuitem *item, union handlerdata *data)

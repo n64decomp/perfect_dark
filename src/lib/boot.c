@@ -259,9 +259,9 @@ void boot_create_sched_thread(void)
 	osCreateMesgQueue(&g_MainMesgQueue, g_MainMesgBuf, ARRAYCOUNT(g_MainMesgBuf));
 
 	if (osTvType == OS_TV_MPAL) {
-		os_create_scheduler(&g_Sched, &g_SchedThread, OS_VI_MPAL_LAN1, 1);
+		osCreateScheduler(&g_Sched, &g_SchedThread, OS_VI_MPAL_LAN1, 1);
 	} else {
-		os_create_scheduler(&g_Sched, &g_SchedThread, OS_VI_NTSC_LAN1, 1);
+		osCreateScheduler(&g_Sched, &g_SchedThread, OS_VI_NTSC_LAN1, 1);
 	}
 
 	osScAddClient(&g_Sched, &g_MainSchedClient, &g_MainMesgQueue, false);

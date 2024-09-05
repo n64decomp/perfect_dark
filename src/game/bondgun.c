@@ -194,6 +194,12 @@ void bgun_auto_switch_weapon(void);
 void bgun_start_slide(s32 handnum);
 void bgun_set_aim_pos(struct coord *coord);
 void bgun0f0abd30(s32 handnum);
+bool bgun_is_using_secondary_function(void);
+bool bgun_is_ready_to_switch(s32 handnum);
+bool bgun_set_state(s32 handnum, s32 state);
+bool bgun_is_loaded(void);
+s32 bgun_create_model_cmd_list(struct model *model, struct modelnode *nodearg, s32 *ptr);
+bool bgun_ammotype_allows_unlimited_ammo(u32 ammotype);
 
 void bgun_rumble(s32 handnum, s32 weaponnum)
 {

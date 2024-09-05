@@ -148,6 +148,8 @@ void bg_calculate_screen_properties(void);
 void bg_expand_room_to_portals(s32 roomnum);
 void bg_init_portal(s32 portalnum);
 void bg_init_room(s32 roomnum);
+s32 bg_find_portal_by_vertices(struct portalvertices *target);
+bool bg_3d_pos_to_2d_pos(struct coord *cornerpos, struct coord *screenpos);
 
 void bg_unpause_props_in_room(u32 roomnum, bool tintedglassonly)
 {

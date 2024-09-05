@@ -96,6 +96,10 @@ struct botdifficulty g_BotDifficulties[] = {
 	{ 0 },
 };
 
+s32 bot_get_num_teammates_defending_hill(struct chrdata *bot);
+s32 bot_get_num_opponents_in_hill(struct chrdata *chr);
+bool bot_should_return_ctc_token(struct chrdata *chr);
+
 bool bot_is_dizzy(struct chrdata *chr)
 {
 	return chr->blurdrugamount >= g_BotDifficulties[chr->aibot->config->difficulty].dizzyamount;
