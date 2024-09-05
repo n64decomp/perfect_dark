@@ -340,8 +340,7 @@ ifeq ($(COMPILER), ido)
 
     MIPS3_C_FILES := \
         src/lib/rng_c.c \
-        src/lib/ultra/libc/ll.c \
-        src/lib/ultra/libc/llcvt.c
+        src/lib/ultra/libc/ll.c
 
     G_C_FILES := \
         $(shell find src/lib/ultra/audio -name '*.c') \
@@ -378,7 +377,6 @@ ifeq ($(COMPILER), ido)
         src/lib/ultra/io/visetyscale.c \
         src/lib/ultra/io/viswapbuf.c \
         src/lib/ultra/libc/ll.c \
-        src/lib/ultra/libc/llcvt.c \
         src/lib/ultra/os/atomic.c \
         src/lib/ultra/os/createmesgqueue.c \
         src/lib/ultra/os/destroythread.c \
@@ -772,9 +770,9 @@ $(B_DIR)/lib/rng_c.o: src/lib/rng_c.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
 	$(CC) -c $(CFLAGS) $(OPT_LVL) -o $@ $<
 	tools/patchmips3 $@ || rm $@
 
-$(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
+$(B_DIR)/lib/ultra/libc/llcvt.o: src/lib/ultra/libc/llcvt.s
 	@mkdir -p $(dir $@)
-	$(CC) -c $(CFLAGS) $(OPT_LVL) -o $@ $<
+	cpp -P -Wno-trigraphs -I include -I include/PR -I src/include $(C_DEFINES) -D_LANGUAGE_ASSEMBLY -D_MIPSEB $< | $(AS) $(ASFLAGS) -o $@
 	tools/patchmips3 $@ || rm $@
 
 $(B_DIR)/lib/ultra/libc/ll.o: src/lib/ultra/libc/ll.c $(ASSETMGR_O_FILES) $(RECOMP_FILES)
