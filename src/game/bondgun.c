@@ -195,23 +195,22 @@ void bgun_start_slide(s32 handnum);
 void bgun_set_aim_pos(struct coord *coord);
 void bgun0f0abd30(s32 handnum);
 
-#if !MATCHING || VERSION >= VERSION_NTSC_1_0
 void bgun_rumble(s32 handnum, s32 weaponnum)
 {
-#if VERSION >= VERSION_NTSC_1_0
-	u32 stack;
-	s32 contpadtouse1;
-	s32 contpadtouse2;
+	u32 stack[3];
 	bool singlewield = false;
+#if VERSION >= VERSION_NTSC_1_0
 	s32 contpad1;
 	s32 contpad2;
+#endif
 	s32 contpad1hasrumble;
 	s32 contpad2hasrumble;
+	s32 contpadtouse;
 
+#if VERSION >= VERSION_NTSC_1_0
 	joy_get_contpad_nums_for_player(g_Vars.currentplayernum, &contpad1, &contpad2);
 
-	if (options_get_control_mode(g_Vars.currentplayerstats->mpindex) >= CONTROLMODE_21
-			&& contpad1 >= 0 && contpad2 >= 0) {
+	if (options_get_control_mode(g_Vars.currentplayerstats->mpindex) >= CONTROLMODE_21 && contpad1 >= 0 && contpad2 >= 0) {
 		contpad1hasrumble = pak_get_type(contpad1) == PAKTYPE_RUMBLE;
 		contpad2hasrumble = pak_get_type(contpad2) == PAKTYPE_RUMBLE;
 
@@ -224,22 +223,22 @@ void bgun_rumble(s32 handnum, s32 weaponnum)
 				pak_rumble(contpad1, 0.2f, 2, 4);
 				pak_rumble(contpad2, 0.2f, 2, 4);
 			} else {
-				s32 contpadtouse1 = contpad1;
+				contpadtouse = contpad1;
 
 				if (handnum == HAND_LEFT) {
-					contpadtouse1 = contpad2;
+					contpadtouse = contpad2;
 				}
 
-				pak_rumble(contpadtouse1, 0.2f, 2, 4);
+				pak_rumble(contpadtouse, 0.2f, 2, 4);
 			}
 		} else {
-			s32 contpadtouse2 = contpad1;
+			contpadtouse = contpad1;
 
 			if (contpad2hasrumble) {
-				contpadtouse2 = contpad2;
+				contpadtouse = contpad2;
 			}
 
-			pak_rumble(contpadtouse2, 0.2f, 2, 4);
+			pak_rumble(contpadtouse, 0.2f, 2, 4);
 		}
 	} else {
 		if (contpad1 >= 0) {
@@ -247,210 +246,39 @@ void bgun_rumble(s32 handnum, s32 weaponnum)
 		}
 	}
 #else
-	s32 stack1;
-	s32 stack2;
-	s8 contpad1;
-	s8 contpad2;
-	bool contpad1hasrumble;
-	bool contpad2hasrumble;
-	s32 contpadtouse1;
-	s32 contpadtouse2;
-
+	// NTSC beta uses a different controller mapping.
+	// It also never sets singlewield to true, causing that block to optimise out.
 	if (options_get_control_mode(g_Vars.currentplayerstats->mpindex) >= CONTROLMODE_21) {
 		contpad1hasrumble = pak_get_type(g_Vars.currentplayernum) == PAKTYPE_RUMBLE;
 		contpad2hasrumble = pak_get_type(g_Vars.currentplayernum + PLAYERCOUNT()) == PAKTYPE_RUMBLE;
 
 		if (contpad1hasrumble && contpad2hasrumble) {
-			contpadtouse1 = g_Vars.currentplayernum;
+			if (singlewield) {
+				pak_rumble(g_Vars.currentplayernum, 0.2f, 2, 4);
+				pak_rumble(g_Vars.currentplayernum + PLAYERCOUNT(), 0.2f, 2, 4);
+			} else {
+				contpadtouse = g_Vars.currentplayernum;
 
-			if (handnum == HAND_LEFT) {
-				contpadtouse1 += PLAYERCOUNT();
+				if (handnum == HAND_LEFT) {
+					contpadtouse += PLAYERCOUNT();
+				}
+
+				pak_rumble(contpadtouse, 0.2f, 2, 4);
 			}
-
-			pak_rumble(contpadtouse1, 0.2f, 2, 4);
 		} else {
-			contpadtouse2 = g_Vars.currentplayernum;
+			contpadtouse = g_Vars.currentplayernum;
 
 			if (contpad2hasrumble) {
-				contpadtouse2 += PLAYERCOUNT();
+				contpadtouse += PLAYERCOUNT();
 			}
 
-			pak_rumble(contpadtouse2, 0.2f, 2, 4);
+			pak_rumble(contpadtouse, 0.2f, 2, 4);
 		}
 	} else {
 		pak_rumble(g_Vars.currentplayernum, 0.2f, 2, 4);
 	}
 #endif
 }
-#else
-GLOBAL_ASM(
-glabel bgun_rumble
-/*  f095b30:	27bdffd0 */ 	addiu	$sp,$sp,-48
-/*  f095b34:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f095b38:	2508e6c0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f095b3c:	8d0e0288 */ 	lw	$t6,0x288($t0)
-/*  f095b40:	afbf0014 */ 	sw	$ra,0x14($sp)
-/*  f095b44:	afa40030 */ 	sw	$a0,0x30($sp)
-/*  f095b48:	afa50034 */ 	sw	$a1,0x34($sp)
-/*  f095b4c:	0fc53380 */ 	jal	options_get_control_mode
-/*  f095b50:	8dc40070 */ 	lw	$a0,0x70($t6)
-/*  f095b54:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f095b58:	28410004 */ 	slti	$at,$v0,0x4
-/*  f095b5c:	1420007c */ 	bnez	$at,.NB0f095d50
-/*  f095b60:	2508e6c0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f095b64:	0fc44336 */ 	jal	pak_get_type
-/*  f095b68:	8104028f */ 	lb	$a0,0x28f($t0)
-/*  f095b6c:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f095b70:	2508e6c0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f095b74:	8d0f006c */ 	lw	$t7,0x6c($t0)
-/*  f095b78:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f095b7c:	00453026 */ 	xor	$a2,$v0,$a1
-/*  f095b80:	11e00003 */ 	beqz	$t7,.NB0f095b90
-/*  f095b84:	2cc60001 */ 	sltiu	$a2,$a2,0x1
-/*  f095b88:	10000002 */ 	beqz	$zero,.NB0f095b94
-/*  f095b8c:	00a05025 */ 	or	$t2,$a1,$zero
-.NB0f095b90:
-/*  f095b90:	00005025 */ 	or	$t2,$zero,$zero
-.NB0f095b94:
-/*  f095b94:	8d180068 */ 	lw	$t8,0x68($t0)
-/*  f095b98:	00004825 */ 	or	$t1,$zero,$zero
-/*  f095b9c:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095ba0:	13000003 */ 	beqz	$t8,.NB0f095bb0
-/*  f095ba4:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095ba8:	10000001 */ 	beqz	$zero,.NB0f095bb0
-/*  f095bac:	00a04825 */ 	or	$t1,$a1,$zero
-.NB0f095bb0:
-/*  f095bb0:	8d190064 */ 	lw	$t9,0x64($t0)
-/*  f095bb4:	13200003 */ 	beqz	$t9,.NB0f095bc4
-/*  f095bb8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095bbc:	10000001 */ 	beqz	$zero,.NB0f095bc4
-/*  f095bc0:	00a01825 */ 	or	$v1,$a1,$zero
-.NB0f095bc4:
-/*  f095bc4:	8d0c0070 */ 	lw	$t4,0x70($t0)
-/*  f095bc8:	11800003 */ 	beqz	$t4,.NB0f095bd8
-/*  f095bcc:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095bd0:	10000001 */ 	beqz	$zero,.NB0f095bd8
-/*  f095bd4:	00a01025 */ 	or	$v0,$a1,$zero
-.NB0f095bd8:
-/*  f095bd8:	8d18028c */ 	lw	$t8,0x28c($t0)
-/*  f095bdc:	00436821 */ 	addu	$t5,$v0,$v1
-/*  f095be0:	01a97021 */ 	addu	$t6,$t5,$t1
-/*  f095be4:	01ca7821 */ 	addu	$t7,$t6,$t2
-/*  f095be8:	01f82021 */ 	addu	$a0,$t7,$t8
-/*  f095bec:	0004ce00 */ 	sll	$t9,$a0,0x18
-/*  f095bf0:	00192603 */ 	sra	$a0,$t9,0x18
-/*  f095bf4:	0fc44336 */ 	jal	pak_get_type
-/*  f095bf8:	afa6001c */ 	sw	$a2,0x1c($sp)
-/*  f095bfc:	8fa6001c */ 	lw	$a2,0x1c($sp)
-/*  f095c00:	3c08800a */ 	lui	$t0,%hi(g_Vars)
-/*  f095c04:	2508e6c0 */ 	addiu	$t0,$t0,%lo(g_Vars)
-/*  f095c08:	10c0002a */ 	beqz	$a2,.NB0f095cb4
-/*  f095c0c:	24050001 */ 	addiu	$a1,$zero,0x1
-/*  f095c10:	14450028 */ 	bne	$v0,$a1,.NB0f095cb4
-/*  f095c14:	8fae0030 */ 	lw	$t6,0x30($sp)
-/*  f095c18:	15c5001c */ 	bne	$t6,$a1,.NB0f095c8c
-/*  f095c1c:	8d0b028c */ 	lw	$t3,0x28c($t0)
-/*  f095c20:	8d0f0070 */ 	lw	$t7,0x70($t0)
-/*  f095c24:	00005025 */ 	or	$t2,$zero,$zero
-/*  f095c28:	00004825 */ 	or	$t1,$zero,$zero
-/*  f095c2c:	11e00003 */ 	beqz	$t7,.NB0f095c3c
-/*  f095c30:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095c34:	10000001 */ 	beqz	$zero,.NB0f095c3c
-/*  f095c38:	240a0001 */ 	addiu	$t2,$zero,0x1
-.NB0f095c3c:
-/*  f095c3c:	8d18006c */ 	lw	$t8,0x6c($t0)
-/*  f095c40:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095c44:	13000003 */ 	beqz	$t8,.NB0f095c54
-/*  f095c48:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095c4c:	10000001 */ 	beqz	$zero,.NB0f095c54
-/*  f095c50:	24090001 */ 	addiu	$t1,$zero,0x1
-.NB0f095c54:
-/*  f095c54:	8d190068 */ 	lw	$t9,0x68($t0)
-/*  f095c58:	13200003 */ 	beqz	$t9,.NB0f095c68
-/*  f095c5c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095c60:	10000001 */ 	beqz	$zero,.NB0f095c68
-/*  f095c64:	24030001 */ 	addiu	$v1,$zero,0x1
-.NB0f095c68:
-/*  f095c68:	8d0c0064 */ 	lw	$t4,0x64($t0)
-/*  f095c6c:	11800003 */ 	beqz	$t4,.NB0f095c7c
-/*  f095c70:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095c74:	10000001 */ 	beqz	$zero,.NB0f095c7c
-/*  f095c78:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f095c7c:
-/*  f095c7c:	01626821 */ 	addu	$t5,$t3,$v0
-/*  f095c80:	01a37021 */ 	addu	$t6,$t5,$v1
-/*  f095c84:	01c97821 */ 	addu	$t7,$t6,$t1
-/*  f095c88:	01ea5821 */ 	addu	$t3,$t7,$t2
-.NB0f095c8c:
-/*  f095c8c:	000b2600 */ 	sll	$a0,$t3,0x18
-/*  f095c90:	0004c603 */ 	sra	$t8,$a0,0x18
-/*  f095c94:	3c053e4c */ 	lui	$a1,0x3e4c
-/*  f095c98:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f095c9c:	03002025 */ 	or	$a0,$t8,$zero
-/*  f095ca0:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095ca4:	0fc45e2f */ 	jal	pak_rumble
-/*  f095ca8:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f095cac:	1000002f */ 	beqz	$zero,.NB0f095d6c
-/*  f095cb0:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f095cb4:
-/*  f095cb4:	1445001c */ 	bne	$v0,$a1,.NB0f095d28
-/*  f095cb8:	8d0b028c */ 	lw	$t3,0x28c($t0)
-/*  f095cbc:	8d0c0070 */ 	lw	$t4,0x70($t0)
-/*  f095cc0:	00005025 */ 	or	$t2,$zero,$zero
-/*  f095cc4:	00004825 */ 	or	$t1,$zero,$zero
-/*  f095cc8:	11800003 */ 	beqz	$t4,.NB0f095cd8
-/*  f095ccc:	00001825 */ 	or	$v1,$zero,$zero
-/*  f095cd0:	10000001 */ 	beqz	$zero,.NB0f095cd8
-/*  f095cd4:	240a0001 */ 	addiu	$t2,$zero,0x1
-.NB0f095cd8:
-/*  f095cd8:	8d0d006c */ 	lw	$t5,0x6c($t0)
-/*  f095cdc:	00001025 */ 	or	$v0,$zero,$zero
-/*  f095ce0:	11a00003 */ 	beqz	$t5,.NB0f095cf0
-/*  f095ce4:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095ce8:	10000001 */ 	beqz	$zero,.NB0f095cf0
-/*  f095cec:	24090001 */ 	addiu	$t1,$zero,0x1
-.NB0f095cf0:
-/*  f095cf0:	8d0e0068 */ 	lw	$t6,0x68($t0)
-/*  f095cf4:	11c00003 */ 	beqz	$t6,.NB0f095d04
-/*  f095cf8:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095cfc:	10000001 */ 	beqz	$zero,.NB0f095d04
-/*  f095d00:	24030001 */ 	addiu	$v1,$zero,0x1
-.NB0f095d04:
-/*  f095d04:	8d0f0064 */ 	lw	$t7,0x64($t0)
-/*  f095d08:	11e00003 */ 	beqz	$t7,.NB0f095d18
-/*  f095d0c:	00000000 */ 	sll	$zero,$zero,0x0
-/*  f095d10:	10000001 */ 	beqz	$zero,.NB0f095d18
-/*  f095d14:	24020001 */ 	addiu	$v0,$zero,0x1
-.NB0f095d18:
-/*  f095d18:	0162c021 */ 	addu	$t8,$t3,$v0
-/*  f095d1c:	0303c821 */ 	addu	$t9,$t8,$v1
-/*  f095d20:	03296021 */ 	addu	$t4,$t9,$t1
-/*  f095d24:	018a5821 */ 	addu	$t3,$t4,$t2
-.NB0f095d28:
-/*  f095d28:	000b2600 */ 	sll	$a0,$t3,0x18
-/*  f095d2c:	00046e03 */ 	sra	$t5,$a0,0x18
-/*  f095d30:	3c053e4c */ 	lui	$a1,0x3e4c
-/*  f095d34:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f095d38:	01a02025 */ 	or	$a0,$t5,$zero
-/*  f095d3c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095d40:	0fc45e2f */ 	jal	pak_rumble
-/*  f095d44:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f095d48:	10000008 */ 	beqz	$zero,.NB0f095d6c
-/*  f095d4c:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f095d50:
-/*  f095d50:	3c053e4c */ 	lui	$a1,0x3e4c
-/*  f095d54:	34a5cccd */ 	ori	$a1,$a1,0xcccd
-/*  f095d58:	8104028f */ 	lb	$a0,0x28f($t0)
-/*  f095d5c:	24060002 */ 	addiu	$a2,$zero,0x2
-/*  f095d60:	0fc45e2f */ 	jal	pak_rumble
-/*  f095d64:	24070004 */ 	addiu	$a3,$zero,0x4
-/*  f095d68:	8fbf0014 */ 	lw	$ra,0x14($sp)
-.NB0f095d6c:
-/*  f095d6c:	27bd0030 */ 	addiu	$sp,$sp,0x30
-/*  f095d70:	03e00008 */ 	jr	$ra
-/*  f095d74:	00000000 */ 	sll	$zero,$zero,0x0
-);
-#endif
 
 s32 bgun_get_unequipped_reload_index(s32 weaponnum)
 {
