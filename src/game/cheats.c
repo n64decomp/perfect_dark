@@ -398,7 +398,7 @@ char *cheat_get_name_if_unlocked(struct menuitem *item)
 MenuDialogHandlerResult cheat_menu_handle_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	if (operation == MENUOP_OPEN) {
-		func0f14a52c();
+		camdraw_start_gbpaks();
 
 		if (gbpak_is_any_perfect_dark()) {
 			gamefile_set_flag(GAMEFILEFLAG_USED_TRANSFERPAK);
@@ -434,7 +434,7 @@ MenuDialogHandlerResult cheat_menu_handle_dialog(s32 operation, struct menudialo
 			gamefile_set_flag(GAMEFILEFLAG_USED_TRANSFERPAK);
 		}
 
-		func0f14a560();
+		camdraw_stop_gbpaks();
 	}
 
 	return 0;

@@ -663,9 +663,9 @@ void main_init(void)
 	stub0f000910();
 	stub0f000840();
 	mp_init();
-	phead_init();
+	camdraw_init();
 	paks_init();
-	phead_init2();
+	camdraw_init_afterpaks();
 	anims_init();
 	races_init();
 	bodies_init();

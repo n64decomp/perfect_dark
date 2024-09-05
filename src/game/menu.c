@@ -1782,7 +1782,7 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 						if (mpheadnum < mp_get_num_heads2()) {
 							headnum = mp_get_head_id(mpheadnum);
 						} else {
-							headnum = func0f14a9f8(mpheadnum - mp_get_num_heads2());
+							headnum = phead_get_unk3a4(mpheadnum - mp_get_num_heads2());
 							headnum = mp_get_beau_head_id(headnum);
 							menumodel->perfectheadnum = (mpheadnum - mp_get_num_heads2()) & 0xff;
 						}

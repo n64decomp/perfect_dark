@@ -10,7 +10,7 @@ void player_start_new_life(void);
 void player_load_defaults(void);
 void player_spawn(void);
 void player_reset_bond(struct playerbond *pb, struct coord *pos);
-void player_choose_body_and_head(s32 *bodynum, s32 *headnum, s32 *arg2);
+void player_choose_body_and_head(s32 *bodynum, s32 *headnum, bool *isperfecthead);
 void player_remove_chr_body(void);
 void player_start_cutscene(s16 anim_id);
 void player_reorient_for_cutscene_stop(s32 tweenduration60);

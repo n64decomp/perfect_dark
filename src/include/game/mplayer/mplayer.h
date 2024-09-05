@@ -90,7 +90,7 @@ void mp0f18dec4(s32 arg0);
 void mpsetupfile_get_overview(char *arg0, char *filename, u16 *numsims, u16 *stagenum, u16 *scenarionum);
 s32 mpsetupfile_save(s32 device, s32 filenum, u16 deviceserial);
 s32 mpsetupfile_load(s32 device, s32 filenum, u16 deviceserial);
-void func0f18e558(void);
-struct modeldef *func0f18e57c(s32 index, s32 *headnum);
+void mp_reset_phead_modeldefs(void);
+struct modeldef *mp_get_phead_modeldef(s32 index, s32 *headnum);
 
 #endif

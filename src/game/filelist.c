@@ -371,7 +371,7 @@ struct textureconfig *phead_get_texture(s32 playernum, s32 fileid, u16 deviceser
 
 		g_Menus[playernum].fm.headtextures->lastupdated240 = g_Vars.thisframestart240;
 
-		func0f15015c(device, fileid, g_Menus[playernum].fm.headtextures->unk000[freeslot]);
+		camdraw_get_filemgr_preview(device, fileid, g_Menus[playernum].fm.headtextures->unk000[freeslot]);
 
 		g_Menus[playernum].fm.headtextures->fileguids[freeslot].fileid = fileid;
 		g_Menus[playernum].fm.headtextures->fileguids[freeslot].deviceserial = deviceserial;

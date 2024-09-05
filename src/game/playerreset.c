@@ -125,7 +125,7 @@ void player_reset(void)
 	s32 headnum;
 
 	player_reset_lo_res_if_4mb();
-	func0f18e558();
+	mp_reset_phead_modeldefs();
 
 	g_InCutscene = false;
 
@@ -471,7 +471,8 @@ void player_reset(void)
 		g_Vars.aibuddies[i] = NULL;
 	}
 
-	player_choose_body_and_head(&bodynum, &headnum, 0);
+	player_choose_body_and_head(&bodynum, &headnum, NULL);
+
 	g_Vars.currentplayer->prop->chr->bodynum = bodynum;
 	g_Vars.currentplayer->prop->chr->headnum = headnum;
 }

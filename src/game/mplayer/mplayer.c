@@ -42,7 +42,7 @@ struct mpsetup g_MpSetup;
 struct bossfile g_BossFile;
 u32 var800acc1c;
 struct mplockinfo g_MpLockInfo;
-struct modeldef *var800acc28[18];
+struct modeldef *g_PheadModeldefs[18];
 
 // Forward declaractions
 struct mpweaponset g_MpWeaponSets[12];
@@ -1630,7 +1630,7 @@ struct mphead g_MpHeads[] = {
 	{ /*0x00*/ HEAD_DARK_COMBAT,  0                          },
 	{ /*0x01*/ HEAD_DARK_FROCK,   MPFEATURE_CHR_CI           },
 	{ /*0x02*/ HEAD_DARKAQUA,     MPFEATURE_CHR_PELAGIC      },
-	{ /*0x03*/ HEAD_DARK_SNOW,    MPFEATURE_CHR_DARKSNOW               },
+	{ /*0x03*/ HEAD_DARK_SNOW,    MPFEATURE_CHR_DARKSNOW     },
 	{ /*0x04*/ HEAD_ELVIS,        MPFEATURE_CHR_ELVIS        },
 	{ /*0x05*/ HEAD_ELVIS_GOGS,   MPFEATURE_CHR_ELVIS        },
 	{ /*0x06*/ HEAD_CARRINGTON,   0                          },
@@ -3386,7 +3386,7 @@ void mpplayerfile_save_wad(s32 playernum, struct savebuffer *buffer)
 
 	if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mp_get_num_heads2()) {
 		struct fileguid guid;
-		ph_get_guid(g_PlayerConfigsArray[playernum].base.mpheadnum - mp_get_num_heads2(), &guid);
+		phead_get_guid(g_PlayerConfigsArray[playernum].base.mpheadnum - mp_get_num_heads2(), &guid);
 		savebuffer_write_guid(buffer, &guid);
 	} else {
 		struct fileguid guid;
@@ -3654,7 +3654,6 @@ const char var7f1b8c9c[] = "SaveMultiGameFile : PakId=0x%x, FileId=0x%x\n";
 const char var7f1b8ccc[] = "SaveGame Result: %d   New GUID: %x\n";
 const char var7f1b8cf0[] = "LoadMultiGameFile : PakId=0x%x, FileId=0x%x\n";
 const char var7f1b8d20[] = "LoadGame Result: %d\n";
-const char var7f1b8d38[] = "GBCHead: Call to create head for slot %d (gbcheadobjs[slotno]=%x)\n";
 #endif // >= VERSION_NTSC_1_0
 
 void mp_apply_config(struct mpconfigfull *config)
@@ -3930,16 +3929,20 @@ s32 mpsetupfile_load(s32 device, s32 fileid, u16 deviceserial)
 	return -1;
 }
 
-void func0f18e558(void)
+void mp_reset_phead_modeldefs(void)
 {
 	s32 i;
 
-	for (i = 0; i < ARRAYCOUNT(var800acc28); i++) {
-		var800acc28[i] = NULL;
+	for (i = 0; i < ARRAYCOUNT(g_PheadModeldefs); i++) {
+		g_PheadModeldefs[i] = NULL;
 	}
 }
 
-struct modeldef *func0f18e57c(s32 index, s32 *headnum)
+struct modeldef *mp_get_phead_modeldef(s32 index, s32 *headnum)
 {
-	return var800acc28[index];
+#if VERSION >= VERSION_NTSC_1_0
+	osSyncPrintf("GBCHead: Call to create head for slot %d (gbcheadobjs[slotno]=%x)\n", index, g_PheadModeldefs[index]);
+#endif
+
+	return g_PheadModeldefs[index];
 }

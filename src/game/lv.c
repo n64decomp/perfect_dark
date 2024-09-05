@@ -460,7 +460,7 @@ void lv_reset(s32 stagenum)
 	}
 
 	if (IS8MB()) {
-		phead_reset();
+		camdraw_reset();
 	}
 
 	modelmgr_set_lv_resetting(false);

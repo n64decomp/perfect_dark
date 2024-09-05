@@ -192,7 +192,7 @@ struct model *body_instantiate_model_to_addr(s32 bodynum, s32 headnum, struct mo
 
 			if (node != NULL) {
 				if (headnum < 0) {
-					headmodeldef = func0f18e57c(-1 - headnum, &headnum);
+					headmodeldef = mp_get_phead_modeldef(-1 - headnum, &headnum);
 					bodymodeldef->rwdatalen += headmodeldef->rwdatalen;
 				} else if (headnum > 0) {
 					if (headmodeldef == NULL) {
@@ -402,7 +402,7 @@ void body_instantiate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 		index = -1 - headnum;
 
 		if (index >= 0 && index < 22) {
-			headmodeldef = func0f18e57c(index, &headnum);
+			headmodeldef = mp_get_phead_modeldef(index, &headnum);
 		}
 
 		model = body_instantiate_model_to_addr(bodynum, headnum, NULL, headmodeldef, false, NULL, false, false);

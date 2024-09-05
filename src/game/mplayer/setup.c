@@ -1902,7 +1902,7 @@ MenuItemHandlerResult mp_character_head_menu_handler(s32 operation, struct menui
 			g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_FILENUM(g_HeadsAndBodies[headnum].filenum);
 			g_Menus[g_MpPlayerNum].menumodel.isperfecthead = false;
 		} else {
-			headnum = mp_get_beau_head_id(func0f14a9f8(mpheadnum - mp_get_num_heads2()));
+			headnum = mp_get_beau_head_id(phead_get_unk3a4(mpheadnum - mp_get_num_heads2()));
 
 			g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_FILENUM(g_HeadsAndBodies[headnum].filenum);
 			g_Menus[g_MpPlayerNum].menumodel.isperfecthead = true;

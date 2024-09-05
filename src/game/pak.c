@@ -4959,7 +4959,7 @@ bool gbpak0f11cef8(s8 device)
 
 		if (pak->unk2b9);
 
-		pak0f11d118(sp2c, pak->unk2b9, func0f14aa70());
+		pak0f11d118(sp2c, pak->unk2b9, phead_get_unk3b8());
 		pak0f11d174(device, sp2c);
 
 		sp2c[0] |= 1;
@@ -5021,10 +5021,10 @@ void pak0f11d174(s8 device, u8 *arg1)
 	u8 tmp1;
 	s32 tmp2;
 
-	pak0f11d118(arg1, g_Paks[device].unk2b9, func0f14aa70());
+	pak0f11d118(arg1, g_Paks[device].unk2b9, phead_get_unk3b8());
 
-	tmp1 = func0f14ad38(device);
-	tmp2 = func0f14ad14(device);
+	tmp1 = editor_get_unk060(device);
+	tmp2 = editor_get_unk05c(device);
 
 	arg1[1] = (arg1[1] & 0xe0) + tmp1;
 	arg1[2] = (tmp2 >> 8) & 0xff;
@@ -5610,7 +5610,7 @@ void pak_tick_state(s8 device)
 		g_Paks[device].state = PAKSTATE_READY;
 		break;
 	case PAKSTATE_GB_PRE_PREPARE:
-		if (func0f14aea0(device)) {
+		if (editor_needs_gbpak(device)) {
 			g_Paks[device].state = PAKSTATE_GB_PREPARE;
 		}
 		break;
@@ -5788,7 +5788,7 @@ void pak0f117f94nb(s8 device)
 	}
 
 	if (!pak->unk2b8_05) {
-		func0f14cf6c();
+		editor_stop_autocalibrate();
 		pak->unk008 = PAK008_12;
 		return;
 	}

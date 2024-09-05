@@ -1149,7 +1149,7 @@ void players_tick_all_chr_bodies(void)
 	set_current_player_num(prevplayernum);
 }
 
-void player_choose_body_and_head(s32 *bodynum, s32 *headnum, s32 *arg2)
+void player_choose_body_and_head(s32 *bodynum, s32 *headnum, bool *isperfecthead)
 {
 	s32 outfit;
 	bool solo;
@@ -1169,8 +1169,8 @@ void player_choose_body_and_head(s32 *bodynum, s32 *headnum, s32 *arg2)
 		} else {
 			*headnum = g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].base.mpheadnum - mp_get_num_heads2();
 
-			if (arg2) {
-				*arg2 = true;
+			if (isperfecthead) {
+				*isperfecthead = true;
 			}
 		}
 
@@ -1333,13 +1333,13 @@ void player_tick_chr_body(void)
 		s32 weaponnum = bgun_get_weapon_num2(HAND_RIGHT);
 		s32 bodynum = BODY_DARK_COMBAT;
 		s32 headnum = HEAD_DARK_COMBAT;
-		bool sp60 = false;
+		bool isperfecthead = false;
 		struct model *model = NULL;
 		u32 *rwdatas;
 		u32 stack3[2];
 
 		g_Vars.currentplayer->haschrbody = true;
-		player_choose_body_and_head(&bodynum, &headnum, &sp60);
+		player_choose_body_and_head(&bodynum, &headnum, &isperfecthead);
 
 		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
 			weaponnum = g_DefaultWeapons[0];
@@ -1445,8 +1445,8 @@ void player_tick_chr_body(void)
 
 			if (g_HeadsAndBodies[bodynum].unk00_01) {
 				headnum = -1;
-			} else if (sp60) {
-				headmodeldef = func0f18e57c(headnum, &headnum);
+			} else if (isperfecthead) {
+				headmodeldef = mp_get_phead_modeldef(headnum, &headnum);
 			} else if (g_Vars.normmplayerisrunning && IS8MB()) {
 				g_HeadsAndBodies[headnum].modeldef = modeldef_load_to_new(g_HeadsAndBodies[headnum].filenum);
 				headmodeldef = g_HeadsAndBodies[headnum].modeldef;

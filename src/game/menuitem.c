@@ -2522,10 +2522,10 @@ Gfx *menuitem_carousel_render(Gfx *gdl, struct menurendercontext *context)
 	gdl = menugfx_draw_carousel_chevron(gdl, context->x + context->width, context->y + context->height / 2, 8, 3, -1, colour);
 
 	// This part of the function is unused because param2 is always zero.
-	// Setting it to 0x7b causes a crash.
-	// 0x7c and 0x7d don't do anything with the option value, so it's probable
+	// Setting it to 123 causes a crash.
+	// 124 and 125 don't do anything with the option value, so it's probable
 	// that the original source has a commented function call in that block.
-	if (context->item->param2 == 0x7b && context->item->handler) {
+	if (context->item->param2 == 123 && context->item->handler) {
 		union handlerdata data;
 		s32 headorbodynum = 0;
 
@@ -2535,7 +2535,7 @@ Gfx *menuitem_carousel_render(Gfx *gdl, struct menurendercontext *context)
 		gdl = func0f14f07c(gdl, headorbodynum,
 				context->x + context->width / 2 - 32, context->y,
 				context->x + context->width / 2 + 32, context->y + 64);
-	} else if ((context->item->param2 == 0x7c || context->item->param2 == 0x7d) && context->item->handler) {
+	} else if ((context->item->param2 == 124 || context->item->param2 == 125) && context->item->handler) {
 		union handlerdata data;
 		context->item->handler(MENUOP_GETSELECTEDINDEX, context->item, &data);
 	}
