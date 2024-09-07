@@ -988,8 +988,13 @@ typedef struct {
 	};
 	/*0x06*/ u8 flags;
 	/*0x07*/ u8 colour;
-	/*0x08*/ s16 s;
-	/*0x0a*/ s16 t;
+	union {
+		struct {
+			/*0x08*/ s16 s;
+			/*0x0a*/ s16 t;
+		};
+		s16 tc[2];
+	};
 } Vtx;
 
 typedef union {
