@@ -2543,16 +2543,16 @@ void farsight_choose_target(void)
 							&& chr->actiontype != ACT_DEAD
 							&& (chr->hidden & CHRHFLAG_CLOAKED) == 0
 							&& (prop->type != PROPTYPE_PLAYER || !g_Vars.players[playermgr_get_player_num_by_prop(prop)]->isdead)) {
-						f32 xdist = g_Vars.currentplayer->bond2.unk10.x - prop->pos.x;
-						f32 ydist = g_Vars.currentplayer->bond2.unk10.y - prop->pos.y;
-						f32 zdist = g_Vars.currentplayer->bond2.unk10.z - prop->pos.z;
+						f32 xdist = g_Vars.currentplayer->bond2.pos.x - prop->pos.x;
+						f32 ydist = g_Vars.currentplayer->bond2.pos.y - prop->pos.y;
+						f32 zdist = g_Vars.currentplayer->bond2.pos.z - prop->pos.z;
 
 						f32 dist = sqrtf(xdist * xdist + ydist * ydist + zdist * zdist);
 
 						if (dist > 0) {
-							f32 thing = (xdist * g_Vars.currentplayer->bond2.unk1c.f[0]
-									+ ydist * g_Vars.currentplayer->bond2.unk1c.f[1]
-									+ zdist * g_Vars.currentplayer->bond2.unk1c.f[2]) / dist;
+							f32 thing = (xdist * g_Vars.currentplayer->bond2.look.f[0]
+									+ ydist * g_Vars.currentplayer->bond2.look.f[1]
+									+ zdist * g_Vars.currentplayer->bond2.look.f[2]) / dist;
 
 							if (thing < 0 && thing < bestthing) {
 								bestthing = thing;
@@ -2743,9 +2743,9 @@ void autoaim_tick(void)
 		}
 
 		if (cangangsta) {
-			f32 xdist = g_Vars.currentplayer->bond2.unk10.x - bestprop->pos.x;
-			f32 ydist = g_Vars.currentplayer->bond2.unk10.y - bestprop->pos.y;
-			f32 zdist = g_Vars.currentplayer->bond2.unk10.z - bestprop->pos.z;
+			f32 xdist = g_Vars.currentplayer->bond2.pos.x - bestprop->pos.x;
+			f32 ydist = g_Vars.currentplayer->bond2.pos.y - bestprop->pos.y;
+			f32 zdist = g_Vars.currentplayer->bond2.pos.z - bestprop->pos.z;
 			f32 dist = sqrtf(xdist * xdist + ydist * ydist + zdist * zdist);
 
 			if (dist < 200) {

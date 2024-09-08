@@ -101,8 +101,8 @@ void bwalk_init(void)
 		struct coord delta;
 		mtx00016b58(&g_Vars.currentplayer->walkinitmtx,
 				0, 0, 0,
-				-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
-				g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);
+				-g_Vars.currentplayer->bond2.look.x, -g_Vars.currentplayer->bond2.look.y, -g_Vars.currentplayer->bond2.look.z,
+				g_Vars.currentplayer->bond2.up.x, g_Vars.currentplayer->bond2.up.y, g_Vars.currentplayer->bond2.up.z);
 		g_Vars.currentplayer->walkinitt = 0;
 		g_Vars.currentplayer->walkinitt2 = 0;
 		g_Vars.currentplayer->walkinitstart.x = g_Vars.currentplayer->prop->pos.x;
@@ -1458,8 +1458,8 @@ void bwalk0f0c69b8(void)
 		bmove_shotspeed_to_lateral(&shotforwards, &shotsideways, &g_Vars.currentplayer->bondshotspeed,
 				g_Vars.currentplayer->vv_sintheta, g_Vars.currentplayer->vv_costheta);
 
-		tmp1 = -g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.unk00.f[2];
-		tmp2 = g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.unk00.f[0];
+		tmp1 = -g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.theta.f[2];
+		tmp2 = g_Vars.currentplayer->swaytarget * g_Vars.currentplayer->bond2.theta.f[0];
 		tmp1 *= spc0;
 		tmp2 *= spc0;
 		spa8 = 0.0f;
@@ -1567,16 +1567,16 @@ void bwalk0f0c69b8(void)
 		}
 #endif
 
-		spcc.f[0] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[0] - spdc * g_Vars.currentplayer->bond2.unk00.f[2]) * g_Vars.lvupdate60freal;
-		spcc.f[2] += (spd8 * g_Vars.currentplayer->bond2.unk00.f[2] + spdc * g_Vars.currentplayer->bond2.unk00.f[0]) * g_Vars.lvupdate60freal;
+		spcc.f[0] += (spd8 * g_Vars.currentplayer->bond2.theta.f[0] - spdc * g_Vars.currentplayer->bond2.theta.f[2]) * g_Vars.lvupdate60freal;
+		spcc.f[2] += (spd8 * g_Vars.currentplayer->bond2.theta.f[2] + spdc * g_Vars.currentplayer->bond2.theta.f[0]) * g_Vars.lvupdate60freal;
 		spcc.f[0] += spb4;
 		spcc.f[2] += spb0;
 
 		bmove_update_move_init_speed(&spcc);
 
 		if (debug_is_turbo_mode_enabled()) {
-			spcc.f[0] += (g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedforwards - g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
-			spcc.f[2] += (g_Vars.currentplayer->bond2.unk00.f[2] * g_Vars.currentplayer->speedforwards + g_Vars.currentplayer->bond2.unk00.f[0] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
+			spcc.f[0] += (g_Vars.currentplayer->bond2.theta.f[0] * g_Vars.currentplayer->speedforwards - g_Vars.currentplayer->bond2.theta.f[2] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
+			spcc.f[2] += (g_Vars.currentplayer->bond2.theta.f[2] * g_Vars.currentplayer->speedforwards + g_Vars.currentplayer->bond2.theta.f[0] * g_Vars.currentplayer->speedsideways) * g_Vars.lvupdate60freal * 10.0f;
 		}
 
 		if (g_Vars.currentplayer->bondforcespeed.f[0] != 0.0f || g_Vars.currentplayer->bondforcespeed.f[2] != 0.0f) {
@@ -1633,11 +1633,11 @@ void bwalk0f0c69b8(void)
 		xdelta = g_Vars.currentplayer->prop->pos.x - g_Vars.currentplayer->bondprevpos.x;
 		zdelta = g_Vars.currentplayer->prop->pos.z - g_Vars.currentplayer->bondprevpos.z;
 
-		sp54 = -xdelta * g_Vars.currentplayer->bond2.unk00.f[2] + zdelta * g_Vars.currentplayer->bond2.unk00.f[0];
-		sp50 = xdelta * g_Vars.currentplayer->bond2.unk00.f[0] + zdelta * g_Vars.currentplayer->bond2.unk00.f[2];
+		sp54 = -xdelta * g_Vars.currentplayer->bond2.theta.f[2] + zdelta * g_Vars.currentplayer->bond2.theta.f[0];
+		sp50 = xdelta * g_Vars.currentplayer->bond2.theta.f[0] + zdelta * g_Vars.currentplayer->bond2.theta.f[2];
 
-		sp4c = -spcc.f[0] * g_Vars.currentplayer->bond2.unk00.f[2] + spcc.f[2] * g_Vars.currentplayer->bond2.unk00.f[0];
-		sp48 = spcc.f[0] * g_Vars.currentplayer->bond2.unk00.f[0] + spcc.f[2] * g_Vars.currentplayer->bond2.unk00.f[2];
+		sp4c = -spcc.f[0] * g_Vars.currentplayer->bond2.theta.f[2] + spcc.f[2] * g_Vars.currentplayer->bond2.theta.f[0];
+		sp48 = spcc.f[0] * g_Vars.currentplayer->bond2.theta.f[0] + spcc.f[2] * g_Vars.currentplayer->bond2.theta.f[2];
 
 		if (xdelta >= 0.0f) {
 			if (g_Vars.currentplayer->bondshotspeed.f[0] > 0.0f) {
@@ -1742,7 +1742,7 @@ void bwalk_tick(void)
 {
 	bwalk_update_prev_pos();
 	bwalk_update_theta();
-	bmove_update_verta();
+	bmove_update_look();
 	bwalk0f0c69b8();
 	bwalk_update_vertical();
 

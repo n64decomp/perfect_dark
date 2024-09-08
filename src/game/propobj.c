@@ -19035,7 +19035,7 @@ void doors_check_automatic(void)
 					isbike = true;
 				}
 
-				if ((pos_is_in_front_of_door(&g_Vars.currentplayer->prop->pos, door) != vector_is_in_front_of_door(door, &g_Vars.currentplayer->bond2.unk00)) != 0) {
+				if ((pos_is_in_front_of_door(&g_Vars.currentplayer->prop->pos, door) != vector_is_in_front_of_door(door, &g_Vars.currentplayer->bond2.theta)) != 0) {
 					canopen = door_is_pos_in_range(door, &g_Vars.currentplayer->prop->pos, 0, isbike);
 
 					if (!canopen && obj) {
@@ -19046,7 +19046,7 @@ void doors_check_automatic(void)
 				sibling = door->sibling;
 
 				while (sibling && sibling != door && !canopen) {
-					if ((pos_is_in_front_of_door(&g_Vars.currentplayer->prop->pos, sibling) != vector_is_in_front_of_door(sibling, &g_Vars.currentplayer->bond2.unk00)) != 0) {
+					if ((pos_is_in_front_of_door(&g_Vars.currentplayer->prop->pos, sibling) != vector_is_in_front_of_door(sibling, &g_Vars.currentplayer->bond2.theta)) != 0) {
 						canopen = door_is_pos_in_range(sibling, &g_Vars.currentplayer->prop->pos, 0, isbike);
 
 						if (!canopen && obj) {

@@ -51,8 +51,8 @@ void bbike_init(void)
 	mtx4_transform_vec(&matrix, &g_Vars.currentplayer->bondvehicleoffset, &g_Vars.currentplayer->bondenteraim);
 	mtx00016b58(&g_Vars.currentplayer->bondentermtx,
 			0, 0, 0,
-			-g_Vars.currentplayer->bond2.unk1c.x, -g_Vars.currentplayer->bond2.unk1c.y, -g_Vars.currentplayer->bond2.unk1c.z,
-			g_Vars.currentplayer->bond2.unk28.x, g_Vars.currentplayer->bond2.unk28.y, g_Vars.currentplayer->bond2.unk28.z);
+			-g_Vars.currentplayer->bond2.look.x, -g_Vars.currentplayer->bond2.look.y, -g_Vars.currentplayer->bond2.look.z,
+			g_Vars.currentplayer->bond2.up.x, g_Vars.currentplayer->bond2.up.y, g_Vars.currentplayer->bond2.up.z);
 
 	g_Vars.currentplayer->speedtheta = 0;
 	g_Vars.currentplayer->speedthetacontrol = 0;
@@ -604,7 +604,7 @@ void bbike_update_vertical(struct coord *pos)
 		player_die(true);
 	}
 
-	bmove_update_verta();
+	bmove_update_look();
 }
 
 s32 bbike0f0d363c(f32 arg0)
@@ -989,12 +989,12 @@ void bbike_tick(void)
 		quaternion_to_mtx(sp84, &sp164);
 	}
 
-	g_Vars.currentplayer->bond2.unk1c.x = sp164.m[2][0];
-	g_Vars.currentplayer->bond2.unk1c.y = sp164.m[2][1];
-	g_Vars.currentplayer->bond2.unk1c.z = sp164.m[2][2];
-	g_Vars.currentplayer->bond2.unk28.x = sp164.m[1][0];
-	g_Vars.currentplayer->bond2.unk28.y = sp164.m[1][1];
-	g_Vars.currentplayer->bond2.unk28.z = sp164.m[1][2];
+	g_Vars.currentplayer->bond2.look.x = sp164.m[2][0];
+	g_Vars.currentplayer->bond2.look.y = sp164.m[2][1];
+	g_Vars.currentplayer->bond2.look.z = sp164.m[2][2];
+	g_Vars.currentplayer->bond2.up.x = sp164.m[1][0];
+	g_Vars.currentplayer->bond2.up.y = sp164.m[1][1];
+	g_Vars.currentplayer->bond2.up.z = sp164.m[1][2];
 
 	if (g_Vars.currentplayer->bondvehiclemode == VEHICLEMODE_OFF) {
 		pos.x = (g_Vars.currentplayer->bondenterpos.x - g_Vars.currentplayer->bondenteraim.x) * g_Vars.currentplayer->bondentert2 + g_Vars.currentplayer->prop->pos.x;

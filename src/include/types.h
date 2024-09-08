@@ -2005,25 +2005,11 @@ struct gunheld {
 };
 
 struct playerbond {
-
-	// unk00.x = look vector x (-1 to +1)
-	// unk00.y = always 0?
-	// unk00.z = look vector z (-1 to +1)
-	/*0x0338 0x036c*/ struct coord unk00;
-
-	/*0x0344 0x0378*/ f32 radius; // always 30?
-
-	/*0x0348 0x037c*/ struct coord unk10;
-
-	// unk1c.x = affected by both left/right and up/down looking
-	// unk1c.y = vertical look vector (-1 for down, 1 for up)
-	// unk1c.z = affected by both left/right and up/down looking
-	/*0x0354 0x0388*/ struct coord unk1c;
-
-	// unk28.x = affected by both horiz and vertical angle
-	// unk28.y = 0 when looking up or down, .999 when looking horizontal
-	// unk28.z = pos.z
-	/*0x0360 0x0394*/ struct coord unk28;
+	struct coord theta; // same as look, but y is always zero
+	f32 radius; // 30
+	struct coord pos;
+	struct coord look; // -1 to 1
+	struct coord up; // -1 to 1
 };
 
 struct trackedprop {

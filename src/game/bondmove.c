@@ -417,9 +417,9 @@ f32 bmove_calculate_lookahead(void)
 
 	player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
-	sp100.x = g_Vars.currentplayer->bond2.unk00.x;
-	sp100.y = g_Vars.currentplayer->bond2.unk00.y;
-	sp100.z = g_Vars.currentplayer->bond2.unk00.z;
+	sp100.x = g_Vars.currentplayer->bond2.theta.x;
+	sp100.y = g_Vars.currentplayer->bond2.theta.y;
+	sp100.z = g_Vars.currentplayer->bond2.theta.z;
 
 	spf0.x = g_Vars.currentplayer->prop->pos.x;
 	spf0.y = g_Vars.currentplayer->prop->pos.y - 30;
@@ -428,9 +428,9 @@ f32 bmove_calculate_lookahead(void)
 	portal_find_rooms(&g_Vars.currentplayer->prop->pos, &spf0,
 			g_Vars.currentplayer->prop->rooms, spe0, NULL, 0);
 
-	sp150.x = sp100.x * 400 + spf0.x;
-	sp150.y = sp100.y * 400 + spf0.y;
-	sp150.z = sp100.z * 400 + spf0.z;
+	sp150.x = spf0.x + sp100.x * 400;
+	sp150.y = spf0.y + sp100.y * 400;
+	sp150.z = spf0.z + sp100.z * 400;
 
 	if (cd_exam_los08(&spf0, spe0, &sp150,
 				CDTYPE_BG | CDTYPE_CLOSEDDOORS,
@@ -1973,7 +1973,7 @@ void bmove_tick(bool allowc1x, bool allowc1y, bool allowc1buttons, bool ignorec2
 	}
 }
 
-void bmove_update_verta(void)
+void bmove_update_look(void)
 {
 	while (g_Vars.currentplayer->vv_verta < -180) {
 		g_Vars.currentplayer->vv_verta += 360;
@@ -2001,9 +2001,9 @@ void bmove_update_verta(void)
 	g_Vars.currentplayer->vv_cosverta = cosf(BADDTOR2(g_Vars.currentplayer->vv_verta360));
 	g_Vars.currentplayer->vv_sinverta = sinf(BADDTOR2(g_Vars.currentplayer->vv_verta360));
 
-	g_Vars.currentplayer->bond2.unk00.x = -g_Vars.currentplayer->vv_sintheta;
-	g_Vars.currentplayer->bond2.unk00.y = 0;
-	g_Vars.currentplayer->bond2.unk00.z = g_Vars.currentplayer->vv_costheta;
+	g_Vars.currentplayer->bond2.theta.x = -g_Vars.currentplayer->vv_sintheta;
+	g_Vars.currentplayer->bond2.theta.y = 0;
+	g_Vars.currentplayer->bond2.theta.z = g_Vars.currentplayer->vv_costheta;
 
 	if (g_Vars.currentplayer->prop) {
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
@@ -2019,9 +2019,9 @@ void bmove_set_pos(struct coord *pos)
 	f32 min;
 	f32 mult;
 
-	g_Vars.currentplayer->bond2.unk10.x = pos->x;
-	g_Vars.currentplayer->bond2.unk10.y = pos->y;
-	g_Vars.currentplayer->bond2.unk10.z = pos->z;
+	g_Vars.currentplayer->bond2.pos.x = pos->x;
+	g_Vars.currentplayer->bond2.pos.y = pos->y;
+	g_Vars.currentplayer->bond2.pos.z = pos->z;
 
 	if (g_Vars.currentplayer->isdead && g_Vars.currentplayer->bondleandown > 0) {
 		g_Vars.currentplayer->bondleandown -= 0.25f;
@@ -2032,7 +2032,7 @@ void bmove_set_pos(struct coord *pos)
 	}
 
 	if (g_Vars.currentplayer->vv_verta < 0) {
-		g_Vars.currentplayer->bond2.unk10.y += -(1.0f - g_Vars.currentplayer->vv_cosverta) * g_Vars.currentplayer->bondleandown;
+		g_Vars.currentplayer->bond2.pos.y += -(1.0f - g_Vars.currentplayer->vv_cosverta) * g_Vars.currentplayer->bondleandown;
 	}
 
 	if (cheat_is_active(CHEAT_SMALLJO)) {
@@ -2040,30 +2040,30 @@ void bmove_set_pos(struct coord *pos)
 			mult = g_Vars.currentplayer->bondentert * 0.6f + 0.4f;
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK && g_Vars.currentplayer->walkinitmove) {
 			mult = (1.0f - g_Vars.currentplayer->walkinitt) * 0.6f + 0.4f;
-			g_Vars.currentplayer->bond2.unk10.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall) * g_Vars.currentplayer->walkinitt;
+			g_Vars.currentplayer->bond2.pos.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall) * g_Vars.currentplayer->walkinitt;
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
 			mult = 0.4f;
-			g_Vars.currentplayer->bond2.unk10.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall);
+			g_Vars.currentplayer->bond2.pos.y += (g_Vars.currentplayer->crouchoffsetreal - g_Vars.currentplayer->crouchoffsetrealsmall);
 		} else {
 			mult = 0.4f;
 		}
 
-		g_Vars.currentplayer->bond2.unk10.y = (g_Vars.currentplayer->bond2.unk10.y - g_Vars.currentplayer->vv_manground) * mult;
+		g_Vars.currentplayer->bond2.pos.y = (g_Vars.currentplayer->bond2.pos.y - g_Vars.currentplayer->vv_manground) * mult;
 
 #if VERSION < VERSION_NTSC_1_0
-		if (g_Vars.currentplayer->bond2.unk10.y < 30) {
-			g_Vars.currentplayer->bond2.unk10.y = 30;
+		if (g_Vars.currentplayer->bond2.pos.y < 30) {
+			g_Vars.currentplayer->bond2.pos.y = 30;
 		}
 #endif
 
-		g_Vars.currentplayer->bond2.unk10.y += g_Vars.currentplayer->vv_manground;
+		g_Vars.currentplayer->bond2.pos.y += g_Vars.currentplayer->vv_manground;
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
 	min = g_Vars.currentplayer->vv_ground + 10;
 
-	if (g_Vars.currentplayer->bond2.unk10.y < min) {
-		g_Vars.currentplayer->bond2.unk10.y = min;
+	if (g_Vars.currentplayer->bond2.pos.y < min) {
+		g_Vars.currentplayer->bond2.pos.y = min;
 	}
 #endif
 }
@@ -2117,12 +2117,12 @@ void bmove_update_head_with_mtx(f32 heartrate, f32 speedforwards, f32 speedsidew
 		quaternion_to_mtx(sp68, &sp180);
 	}
 
-	g_Vars.currentplayer->bond2.unk1c.x = sp180.m[2][0];
-	g_Vars.currentplayer->bond2.unk1c.y = sp180.m[2][1];
-	g_Vars.currentplayer->bond2.unk1c.z = sp180.m[2][2];
-	g_Vars.currentplayer->bond2.unk28.x = sp180.m[1][0];
-	g_Vars.currentplayer->bond2.unk28.y = sp180.m[1][1];
-	g_Vars.currentplayer->bond2.unk28.z = sp180.m[1][2];
+	g_Vars.currentplayer->bond2.look.x = sp180.m[2][0];
+	g_Vars.currentplayer->bond2.look.y = sp180.m[2][1];
+	g_Vars.currentplayer->bond2.look.z = sp180.m[2][2];
+	g_Vars.currentplayer->bond2.up.x = sp180.m[1][0];
+	g_Vars.currentplayer->bond2.up.y = sp180.m[1][1];
+	g_Vars.currentplayer->bond2.up.z = sp180.m[1][2];
 }
 
 void bmove_update_head(f32 heartrate, f32 speedforwards, f32 speedsideways)

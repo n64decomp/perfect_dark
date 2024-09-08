@@ -542,9 +542,9 @@ void player_start_new_life(void)
 
 	player_reset_bond(&g_Vars.currentplayer->bond2, &pos);
 
-	g_Vars.currentplayer->bond2.unk00.x = -sinf(angle);
-	g_Vars.currentplayer->bond2.unk00.y = 0;
-	g_Vars.currentplayer->bond2.unk00.z = cosf(angle);
+	g_Vars.currentplayer->bond2.theta.x = -sinf(angle);
+	g_Vars.currentplayer->bond2.theta.y = 0;
+	g_Vars.currentplayer->bond2.theta.z = cosf(angle);
 
 	g_Vars.currentplayer->prop->pos.f[0] = g_Vars.currentplayer->bondprevpos.f[0] = pos.f[0];
 	g_Vars.currentplayer->prop->pos.f[1] = g_Vars.currentplayer->bondprevpos.f[1] = pos.f[1];
@@ -555,8 +555,7 @@ void player_start_new_life(void)
 	g_Vars.currentplayer->prop->rooms[0] = rooms[0];
 	g_Vars.currentplayer->prop->rooms[1] = -1;
 
-	player_set_cam_properties_in_bounds(&pos, &g_Vars.currentplayer->bond2.unk28,
-			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
+	player_set_cam_properties_in_bounds(&pos, &g_Vars.currentplayer->bond2.up, &g_Vars.currentplayer->bond2.look, rooms[0]);
 
 	if (g_Vars.coopplayernum >= 0) {
 		u32 stack;
@@ -1117,21 +1116,21 @@ void player_spawn(void)
 
 void player_reset_bond(struct playerbond *pb, struct coord *pos)
 {
-	pb->unk10.x = pos->x;
-	pb->unk10.y = pos->y;
-	pb->unk10.z = pos->z;
+	pb->pos.x = pos->x;
+	pb->pos.y = pos->y;
+	pb->pos.z = pos->z;
 
-	pb->unk1c.x = 1;
-	pb->unk1c.y = 0;
-	pb->unk1c.z = 0;
+	pb->look.x = 1;
+	pb->look.y = 0;
+	pb->look.z = 0;
 
-	pb->unk28.x = 0;
-	pb->unk28.y = 1;
-	pb->unk28.z = 0;
+	pb->up.x = 0;
+	pb->up.y = 1;
+	pb->up.z = 0;
 
-	pb->unk00.x = 0;
-	pb->unk00.y = 0;
-	pb->unk00.z = 1;
+	pb->theta.x = 0;
+	pb->theta.y = 0;
+	pb->theta.z = 1;
 
 	pb->radius = 30;
 }
@@ -1627,13 +1626,13 @@ void player_tick_mp_swirl(void)
 
 	angle = DTOR(g_MpSwirlAngleDegrees - g_Vars.currentplayer->vv_theta);
 
-	pos.x = sinf(angle) * g_MpSwirlDistance + g_Vars.currentplayer->bond2.unk10.x;
-	pos.y = g_Vars.currentplayer->bond2.unk10.y + g_MpSwirlDistance * 0.08f;
-	pos.z = cosf(angle) * g_MpSwirlDistance + g_Vars.currentplayer->bond2.unk10.z;
+	pos.x = g_Vars.currentplayer->bond2.pos.x + sinf(angle) * g_MpSwirlDistance;
+	pos.y = g_Vars.currentplayer->bond2.pos.y + g_MpSwirlDistance * 0.08f;
+	pos.z = g_Vars.currentplayer->bond2.pos.z + cosf(angle) * g_MpSwirlDistance;
 
-	look.x = g_Vars.currentplayer->bond2.unk10.x - pos.x;
-	look.y = g_Vars.currentplayer->bond2.unk10.y - pos.y;
-	look.z = g_Vars.currentplayer->bond2.unk10.z - pos.z;
+	look.x = g_Vars.currentplayer->bond2.pos.x - pos.x;
+	look.y = g_Vars.currentplayer->bond2.pos.y - pos.y;
+	look.z = g_Vars.currentplayer->bond2.pos.z - pos.z;
 
 	player_move_camera_from_pos_rooms(&pos, &up, &look, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms);
 
@@ -1984,14 +1983,14 @@ void player_tick_cutscene(bool arg0)
 
 		bmove_set_mode(MOVEMODE_WALK);
 
-		pos.x += sp104 * (g_Vars.bond->bond2.unk10.x - pos.x);
-		pos.y += sp104 * (g_Vars.bond->bond2.unk10.y - pos.y);
-		pos.z += sp104 * (g_Vars.bond->bond2.unk10.z - pos.z);
+		pos.x += sp104 * (g_Vars.bond->bond2.pos.x - pos.x);
+		pos.y += sp104 * (g_Vars.bond->bond2.pos.y - pos.y);
+		pos.z += sp104 * (g_Vars.bond->bond2.pos.z - pos.z);
 
 		mtx00016d58(&spc4, 0, 0, 0, -look.x, -look.y, -look.z, up.x, up.y, up.z);
 		mtx00016d58(&sp84, 0, 0, 0,
-				-g_Vars.bond->bond2.unk1c.x, -g_Vars.bond->bond2.unk1c.y, -g_Vars.bond->bond2.unk1c.z,
-				g_Vars.bond->bond2.unk28.x, g_Vars.bond->bond2.unk28.y, g_Vars.bond->bond2.unk28.z);
+				-g_Vars.bond->bond2.look.x, -g_Vars.bond->bond2.look.y, -g_Vars.bond->bond2.look.z,
+				g_Vars.bond->bond2.up.x, g_Vars.bond->bond2.up.y, g_Vars.bond->bond2.up.z);
 		quaternion0f097044(&spc4, sp74);
 		quaternion0f097044(&sp84, sp64);
 		quaternion0f0976c0(sp64, sp74);
@@ -3015,7 +3014,7 @@ void player_update_shake(void)
 	struct coord coord = {0, 0, 0};
 
 	if (g_Vars.currentplayer->isdead == false) {
-		explosions_update_shake(&g_Vars.currentplayer->bond2.unk10, &g_Vars.currentplayer->bond2.unk1c, &coord);
+		explosions_update_shake(&g_Vars.currentplayer->bond2.pos, &g_Vars.currentplayer->bond2.look, &coord);
 	} else {
 		vi_shake(0);
 	}
@@ -3659,17 +3658,17 @@ void player_tick(bool arg0)
 		player_update_shake();
 		player_set_camera_mode(CAMERAMODE_DEFAULT);
 
-		spf4.x = g_Vars.currentplayer->bond2.unk10.x;
-		spf4.y = g_Vars.currentplayer->bond2.unk10.y;
-		spf4.z = g_Vars.currentplayer->bond2.unk10.z;
+		spf4.x = g_Vars.currentplayer->bond2.pos.x;
+		spf4.y = g_Vars.currentplayer->bond2.pos.y;
+		spf4.z = g_Vars.currentplayer->bond2.pos.z;
 
 		spf4.x = a + spf4.x;
 		spf4.y = b + spf4.y;
 		spf4.z = c + spf4.z;
 
 		player_move_camera_from_pos_rooms(&spf4,
-				&g_Vars.currentplayer->bond2.unk28,
-				&g_Vars.currentplayer->bond2.unk1c,
+				&g_Vars.currentplayer->bond2.up,
+				&g_Vars.currentplayer->bond2.look,
 				&g_Vars.currentplayer->prop->pos,
 				g_Vars.currentplayer->prop->rooms);
 
@@ -3934,9 +3933,9 @@ void player_tick(bool arg0)
 		bmove_tick(1, 1, arg0, 0);
 		player_update_shake();
 		player_set_camera_mode(CAMERAMODE_DEFAULT);
-		player_move_camera_from_pos_rooms(&g_Vars.currentplayer->bond2.unk10,
-				&g_Vars.currentplayer->bond2.unk28,
-				&g_Vars.currentplayer->bond2.unk1c,
+		player_move_camera_from_pos_rooms(&g_Vars.currentplayer->bond2.pos,
+				&g_Vars.currentplayer->bond2.up,
+				&g_Vars.currentplayer->bond2.look,
 				&g_Vars.currentplayer->prop->pos,
 				g_Vars.currentplayer->prop->rooms);
 	} else if (g_Vars.tickmode == TICKMODE_MPSWIRL) {
@@ -3970,8 +3969,8 @@ void player_tick(bool arg0)
 			pad.pos.x -= 100;
 		}
 
-		xdist = pad.pos.x - g_Vars.currentplayer->bond2.unk10.x;
-		zdist = pad.pos.z - g_Vars.currentplayer->bond2.unk10.z;
+		xdist = pad.pos.x - g_Vars.currentplayer->bond2.pos.x;
+		zdist = pad.pos.z - g_Vars.currentplayer->bond2.pos.z;
 		targetangle = atan2f(xdist, zdist);
 
 		if (targetangle > BADDTOR(360)) {
@@ -3982,7 +3981,7 @@ void player_tick(bool arg0)
 			targetangle += BADDTOR(360);
 		}
 
-		oldangle = atan2f(g_Vars.currentplayer->bond2.unk00.x, g_Vars.currentplayer->bond2.unk00.z);
+		oldangle = atan2f(g_Vars.currentplayer->bond2.theta.x, g_Vars.currentplayer->bond2.theta.z);
 
 		if (oldangle > BADDTOR(360)) {
 			oldangle -= BADDTOR(360);
@@ -4047,9 +4046,9 @@ void player_tick(bool arg0)
 		bmove_tick(1, 1, 0, 1);
 		player_update_shake();
 		player_set_camera_mode(CAMERAMODE_DEFAULT);
-		player_move_camera_from_pos_rooms(&g_Vars.currentplayer->bond2.unk10,
-				&g_Vars.currentplayer->bond2.unk28,
-				&g_Vars.currentplayer->bond2.unk1c,
+		player_move_camera_from_pos_rooms(&g_Vars.currentplayer->bond2.pos,
+				&g_Vars.currentplayer->bond2.up,
+				&g_Vars.currentplayer->bond2.look,
 				&g_Vars.currentplayer->prop->pos,
 				g_Vars.currentplayer->prop->rooms);
 	}
@@ -5335,7 +5334,7 @@ s32 player_tick_third_person(struct prop *prop)
 				player->vv_verta = 0;
 			}
 
-			bmove_update_verta();
+			bmove_update_look();
 			bmove_set_pos(&sp9c);
 
 			return tickop1;

@@ -423,9 +423,9 @@ void player_reset(void)
 
 	player_reset_bond(&g_Vars.currentplayer->bond2, &pos);
 
-	g_Vars.currentplayer->bond2.unk00.x = -sinf(turnanglerad);
-	g_Vars.currentplayer->bond2.unk00.y = 0;
-	g_Vars.currentplayer->bond2.unk00.z = cosf(turnanglerad);
+	g_Vars.currentplayer->bond2.theta.x = -sinf(turnanglerad);
+	g_Vars.currentplayer->bond2.theta.y = 0;
+	g_Vars.currentplayer->bond2.theta.z = cosf(turnanglerad);
 
 	g_Vars.currentplayer->prop->pos.f[0] = g_Vars.currentplayer->bondprevpos.f[0] = pos.f[0];
 	g_Vars.currentplayer->prop->pos.f[1] = g_Vars.currentplayer->bondprevpos.f[1] = pos.f[1];
@@ -437,8 +437,8 @@ void player_reset(void)
 	g_Vars.currentplayer->prop->rooms[1] = -1;
 
 	player_set_cam_properties_in_bounds(&pos,
-			&g_Vars.currentplayer->bond2.unk28,
-			&g_Vars.currentplayer->bond2.unk1c, rooms[0]);
+			&g_Vars.currentplayer->bond2.up,
+			&g_Vars.currentplayer->bond2.look, rooms[0]);
 
 	numchrs = chrs_get_num_slots();
 

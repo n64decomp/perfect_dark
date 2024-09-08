@@ -560,7 +560,7 @@ void explosion_shake(void)
 	g_ExplosionShakeIntensityTimer = 6;
 }
 
-void explosions_update_shake(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+void explosions_update_shake(struct coord *playerpos, struct coord *look, struct coord *arg2)
 {
 	u32 stack[4];
 	f32 sp54;
@@ -573,8 +573,8 @@ void explosions_update_shake(struct coord *arg0, struct coord *arg1, struct coor
 		return;
 	}
 
-	sp54 = cosf(0.8f) * arg1->f[0] - sinf(0.8f) * arg1->f[2];
-	sp50 = sinf(0.8f) * arg1->f[0] + cosf(0.8f) * arg1->f[2];
+	sp54 = cosf(0.8f) * look->f[0] - sinf(0.8f) * look->f[2];
+	sp50 = sinf(0.8f) * look->f[0] + cosf(0.8f) * look->f[2];
 
 	intensity = 0.0f;
 
@@ -582,9 +582,9 @@ void explosions_update_shake(struct coord *arg0, struct coord *arg1, struct coor
 		struct prop *prop = g_Explosions[i].prop;
 
 		if (prop) {
-			f32 xdiff = prop->pos.x - arg0->x;
-			f32 ydiff = prop->pos.y - arg0->y;
-			f32 zdiff = prop->pos.z - arg0->z;
+			f32 xdiff = prop->pos.x - playerpos->x;
+			f32 ydiff = prop->pos.y - playerpos->y;
+			f32 zdiff = prop->pos.z - playerpos->z;
 
 			f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 			f32 mult;

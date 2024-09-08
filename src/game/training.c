@@ -2222,15 +2222,15 @@ bool fr_choose_farsight_target(void)
 					&& g_FrData.targets[i].active
 					&& g_FrData.targets[i].flags & FRTARGETFLAG_FARSIGHTAUTOTARGETABLE) {
 				struct prop *prop = g_FrData.targets[i].prop;
-				f32 xdiff = g_Vars.currentplayer->bond2.unk10.x - prop->pos.x;
-				f32 ydiff = g_Vars.currentplayer->bond2.unk10.y - prop->pos.y;
-				f32 zdiff = g_Vars.currentplayer->bond2.unk10.z - prop->pos.z;
+				f32 xdiff = g_Vars.currentplayer->bond2.pos.x - prop->pos.x;
+				f32 ydiff = g_Vars.currentplayer->bond2.pos.y - prop->pos.y;
+				f32 zdiff = g_Vars.currentplayer->bond2.pos.z - prop->pos.z;
 				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 
 				if (dist > 0) {
-					f32 value = (xdiff * g_Vars.currentplayer->bond2.unk1c.f[0]
-							+ ydiff * g_Vars.currentplayer->bond2.unk1c.f[1]
-							+ zdiff * g_Vars.currentplayer->bond2.unk1c.f[2]) / dist;
+					f32 value = (xdiff * g_Vars.currentplayer->bond2.look.f[0]
+							+ ydiff * g_Vars.currentplayer->bond2.look.f[1]
+							+ zdiff * g_Vars.currentplayer->bond2.look.f[2]) / dist;
 
 					if (value);
 
