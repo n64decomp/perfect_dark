@@ -1631,23 +1631,22 @@ s32 bgun0f09a3f8(struct hand *hand, struct funcdef *func)
 		if ((func->type & 0xff00) == 0x100) {
 			struct funcdef_shootauto *autofunc = (struct funcdef_shootauto *) func;
 
-			if (autofunc->turretaccel > 0) {
-				if (hand->gs_float1 < 1) {
-					hand->gs_float1 += LVUPDATE60FREAL() / autofunc->turretaccel;
+			if (autofunc->turretaccel > 0) { // reaper
+				if (hand->gs_barrelspeedfrac < 1) {
+					hand->gs_barrelspeedfrac += LVUPDATE60FREAL() / autofunc->turretaccel;
 
-					if (hand->gs_float1 > 1) {
-						hand->gs_float1 = 1;
-						return 1;
+					if (hand->gs_barrelspeedfrac > 1) {
+						hand->gs_barrelspeedfrac = 1;
 					}
 				}
 			} else {
-				hand->gs_float1 = 1;
+				hand->gs_barrelspeedfrac = 1;
 			}
 
 			return 1;
 		}
 
-		hand->gs_float1 = 1;
+		hand->gs_barrelspeedfrac = 1;
 
 		if (smallburst) {
 			if (hand->burstbullets > 0) {
@@ -1687,19 +1686,19 @@ s32 bgun0f09a3f8(struct hand *hand, struct funcdef *func)
 	if ((func->type & 0xff00) == (INVENTORYFUNCTYPE_SHOOT_AUTOMATIC & 0xff00)) {
 		struct funcdef_shootauto *autofunc = (struct funcdef_shootauto *) func;
 
-		if (autofunc->turretdecel > 0) {
-			if (hand->gs_float1 > 0) {
-				hand->gs_float1 -= LVUPDATE60FREAL() / autofunc->turretdecel;
+		if (autofunc->turretdecel > 0) { // reaper
+			if (hand->gs_barrelspeedfrac > 0) {
+				hand->gs_barrelspeedfrac -= LVUPDATE60FREAL() / autofunc->turretdecel;
 
-				if (hand->gs_float1 < 0) {
-					hand->gs_float1 = 0;
+				if (hand->gs_barrelspeedfrac < 0) {
+					hand->gs_barrelspeedfrac = 0;
 					return -1;
 				}
 
 				return 1;
 			}
 		} else {
-			hand->gs_float1 = 0;
+			hand->gs_barrelspeedfrac = 0;
 		}
 
 		return -1;
@@ -1725,7 +1724,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 		f32 tmp;
 		f32 tmp2;
 
-		tmp = autofunc->initialrpm + (autofunc->maxrpm - autofunc->initialrpm) * hand->gs_float1;
+		tmp = autofunc->initialrpm + (autofunc->maxrpm - autofunc->initialrpm) * hand->gs_barrelspeedfrac;
 		tmp2 = tmp / 60.0f * (LVUPDATE60FREAL() / 60.0f) + hand->shotremainder;
 
 		hand->shotstotake = tmp2;
@@ -1827,9 +1826,9 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 				hand->lastshootframe60 = g_Vars.lvframe60;
 
 				if (hand->gset.weaponnum == WEAPON_MAULER && handle) {
-					s32 matmot = hand->matmot1;
+					s32 charge = hand->mm_maulercharge;
 					f32 tmp;
-					f32 frac = matmot / 3.0f;
+					f32 frac = charge / 3.0f;
 
 					if (frac > 1.0f) {
 						frac = 1.0f;
@@ -2026,7 +2025,7 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 		main_override_variable("gkef", &var80070128);
 
 		if (hand->statecycles == 0) {
-			hand->gs_float1 = 0;
+			hand->gs_barrelspeedfrac = 0;
 
 			if (func->fire_animation) {
 				bgun_start_animation(func->fire_animation, handnum, hand);
@@ -2044,7 +2043,7 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 			hand->stateminor = HANDSTATEMINOR_ATTACK_SHOOT_1;
 		}
 
-		hand->matmot2 = hand->gs_float1;
+		hand->mm_reaperspeedaim = hand->gs_barrelspeedfrac;
 	}
 
 	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SHOOT_1) {
@@ -2055,7 +2054,7 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 			f32 floats[12];
 
 			if (autofunc->vibrationstart != NULL && autofunc->vibrationmax != NULL) {
-				func0f097b64(autofunc->vibrationstart, autofunc->vibrationmax, hand->gs_float1, floats);
+				func0f097b64(autofunc->vibrationstart, autofunc->vibrationmax, hand->gs_barrelspeedfrac, floats);
 				func0f097b40(hand->upgrademult, floats, hand->finalmult);
 			}
 		}
@@ -2068,10 +2067,10 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 			hand->stateminor = HANDSTATEMINOR_ATTACK_SHOOT_2;
 		}
 
-		hand->matmot2 = hand->gs_float1;
+		hand->mm_reaperspeedaim = hand->gs_barrelspeedfrac;
 
-		if (hand->triggeron && hand->matmot2 < 0.4f) {
-			hand->matmot2 = 0.4f;
+		if (hand->triggeron && hand->mm_reaperspeedaim < 0.4f) {
+			hand->mm_reaperspeedaim = 0.4f;
 		}
 
 		if (hand->triggerreleased) {
@@ -2092,14 +2091,14 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 			canfireagain = false;
 		}
 
-		hand->matmot2 = hand->gs_float1;
+		hand->mm_reaperspeedaim = hand->gs_barrelspeedfrac;
 
 		if (canfireagain && !hand->triggeron) {
-			hand->matmot2 = 0;
+			hand->mm_reaperspeedaim = 0;
 		}
 
 		if (hand->gset.weaponnum == WEAPON_MAULER) {
-			hand->matmot1 = 0;
+			hand->mm_maulercharge = 0;
 		}
 
 		return canfireagain;
@@ -2230,7 +2229,7 @@ bool bgun_tick_inc_attacking_melee(s32 handnum, struct hand *hand)
 
 	if (hand->gset.weaponnum == WEAPON_REAPER) {
 		if (hand->statecycles == 0) {
-			hand->matmot2 = 0.1f;
+			hand->mm_reaperspeedaim = 0.1f;
 			hand->burstbullets = 0;
 		}
 
@@ -2239,13 +2238,13 @@ bool bgun_tick_inc_attacking_melee(s32 handnum, struct hand *hand)
 		hand->burstbullets++;
 
 		if (hand->triggeron) {
-			hand->matmot2 += 0.01f * LVUPDATE60FREAL();
+			hand->mm_reaperspeedaim += 0.01f * LVUPDATE60FREAL();
 
-			if (hand->matmot2 > 1) {
-				hand->matmot2 = 1;
+			if (hand->mm_reaperspeedaim > 1) {
+				hand->mm_reaperspeedaim = 1;
 			}
 		} else {
-			hand->matmot2 = 0;
+			hand->mm_reaperspeedaim = 0;
 			return true;
 		}
 
@@ -5298,7 +5297,7 @@ void bgun_tick_switch2(void)
 			}
 
 			if (weaponnum == WEAPON_RCP120) {
-				s32 amount = player->hands[HAND_RIGHT].matmot1;
+				s32 amount = player->hands[HAND_RIGHT].mm_rcpremainder;
 
 				if (amount > player->ammoheldarr[ctrl->ammotypes[0]]) {
 					amount = player->ammoheldarr[ctrl->ammotypes[0]];
@@ -6734,7 +6733,7 @@ void bgun_update_lasersight(struct hand *hand, struct modeldef *modeldef, s32 ha
 }
 
 /**
- * Increment the main barrel spinning, play sounds and (probably) fire shots.
+ * Increment the barrel spinning and play sounds.
  */
 void bgun_update_reaper(struct hand *hand, struct modeldef *modeldef)
 {
@@ -6745,59 +6744,64 @@ void bgun_update_reaper(struct hand *hand, struct modeldef *modeldef)
 
 	node = model_get_part(modeldef, MODELPART_REAPER_002C);
 
-	if (hand->matmot3 <= hand->matmot2) {
-		if (hand->matmot2 < 0.0f) {
-			hand->matmot2 += 0.01f * LVUPDATE60FREAL();
+	if (hand->mm_reaperspeedcur <= hand->mm_reaperspeedaim) {
+		// The barrel is stopped, is accelerating, is at full speed,
+		// or is going in reverse after decelerating past the zero point.
+		if (hand->mm_reaperspeedaim < 0.0f) {
+			// The barrel is in reverse, so manually move the aim speed up towards zero.
+			hand->mm_reaperspeedaim += 0.01f * LVUPDATE60FREAL();
 
-			if (hand->matmot2 > 0.0f) {
-				hand->matmot2 = 0.0f;
+			if (hand->mm_reaperspeedaim > 0.0f) {
+				hand->mm_reaperspeedaim = 0.0f;
 			}
 		}
 
-		hand->matmot3 = hand->matmot2;
+		hand->mm_reaperspeedcur = hand->mm_reaperspeedaim;
 	} else {
-		f12 = LVUPDATE60FREAL() * 0.005;
+		// The barrel is decelerating.
+		f12 = LVUPDATE60FREAL() * (1.0 / 200.0);
 
-		if (hand->matmot2 < 0.0000001f) {
-			hand->matmot2 = -0.14f;
+		if (hand->mm_reaperspeedaim < 0.0000001f) {
+			// Make the barrel go backwards
+			hand->mm_reaperspeedaim = -0.14f;
 
-			if (hand->matmot3 < 0.15f) {
+			if (hand->mm_reaperspeedcur < 0.15f) {
 				f12 *= 4.0f;
 			}
 		}
 
-		f2 = hand->matmot3 - hand->matmot2;
+		f2 = hand->mm_reaperspeedcur - hand->mm_reaperspeedaim;
 
 		if (f12 < f2) {
 			f2 = f12;
 		}
 
-		hand->matmot3 -= f2;
+		hand->mm_reaperspeedcur -= f2;
 	}
 
-	if (hand->matmot3 < 0.0f) {
-		hand->matmot1 = hand->matmot1 - (1.0f - cosf(hand->matmot3 * DTOR(180))) * 0.5f * LVUPDATE60FREAL() * 0.2f;
+	if (hand->mm_reaperspeedcur < 0.0f) {
+		hand->mm_reaperrot = hand->mm_reaperrot - (1.0f - cosf(hand->mm_reaperspeedcur * DTOR(180))) * 0.5f * LVUPDATE60FREAL() * 0.2f;
 	} else {
-		hand->matmot1 = hand->matmot1 + (1.0f - cosf(hand->matmot3 * DTOR(180))) * 0.5f * LVUPDATE60FREAL() * 0.2f;
+		hand->mm_reaperrot = hand->mm_reaperrot + (1.0f - cosf(hand->mm_reaperspeedcur * DTOR(180))) * 0.5f * LVUPDATE60FREAL() * 0.2f;
 	}
 
-	tmp = hand->matmot1 / 6.2831802368164f;
-	hand->matmot1 -= tmp * 6.2831802368164f;
-	var8009d140 = hand->matmot1;
+	tmp = hand->mm_reaperrot / (3.14159f * 2);
+	hand->mm_reaperrot -= tmp * (3.14159f * 2);
+	var8009d140 = hand->mm_reaperrot;
 
-	if (hand->audiohandle == NULL && hand->matmot3 > 0.1f && g_Vars.lvupdate240 != 0) {
+	if (hand->audiohandle == NULL && hand->mm_reaperspeedcur > 0.1f && g_Vars.lvupdate240 != 0) {
 		snd_start(var80095200, SFX_805E, &hand->audiohandle, -1, -1, -1.0f, -1, -1);
 	}
 
 	if (hand->audiohandle != NULL) {
-		f32 sp34 = hand->matmot3 / 0.50f + 0.4f;
+		f32 sp34 = hand->mm_reaperspeedcur / 0.50f + 0.4f;
 		s32 volume = AL_VOL_FULL;
 
-		if (hand->matmot3 < 0.1f) {
+		if (hand->mm_reaperspeedcur < 0.1f) {
 			audioStop(hand->audiohandle);
 		} else {
-			if (hand->matmot3 < 0.6f) {
-				volume = (hand->matmot3 - 0.1f) * AL_VOL_FULL / 0.5f;
+			if (hand->mm_reaperspeedcur < 0.6f) {
+				volume = (hand->mm_reaperspeedcur - 0.1f) * AL_VOL_FULL / 0.5f;
 			}
 
 			audioPostEvent(hand->audiohandle, AL_SNDP_VOL_EVT, volume);
@@ -6913,18 +6917,18 @@ void bgun_update_devastator(struct hand *hand, u8 *allocation, struct modeldef *
 void bgun_update_shotgun(struct hand *hand, u8 *allocation, bool *arg2, struct modeldef *modeldef)
 {
 	if (hand->flashon) {
-		hand->matmot1 = 1.0f;
+		hand->mm_shotgunfrac = 1.0f;
 	}
 
-	if (hand->matmot1 > 0.0f) {
-		hand->matmot1 -= LVUPDATE60FREAL() / 6.0f;
+	if (hand->mm_shotgunfrac > 0.0f) {
+		hand->mm_shotgunfrac -= LVUPDATE60FREAL() / 6.0f;
 
-		if (hand->matmot1 < 0.01f) {
-			hand->matmot1 = 0.0f;
+		if (hand->mm_shotgunfrac < 0.01f) {
+			hand->mm_shotgunfrac = 0.0f;
 		}
 	}
 
-	if (hand->matmot1 > 0.0f) {
+	if (hand->mm_shotgunfrac > 0.0f) {
 		s32 sp34;
 		s32 sp28[3] = {0, 0, 0};
 		struct modelnode *node = model_get_part(modeldef, MODELPART_SHOTGUN_0050);
@@ -6934,9 +6938,9 @@ void bgun_update_shotgun(struct hand *hand, u8 *allocation, bool *arg2, struct m
 		if (node) {
 			sp34 = model_find_node_mtx_index(node, 0);
 
-			mtx00015ea8((1.0f - hand->matmot1) * 8.0f + 0.5f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
-			mtx00015df0((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
-			mtx00015e4c((1.0f - hand->matmot1) * 3.0f + 1.0f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
+			mtx00015ea8((1.0f - hand->mm_shotgunfrac) * 8.0f + 0.5f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
+			mtx00015df0((1.0f - hand->mm_shotgunfrac) * 3.0f + 1.0f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
+			mtx00015e4c((1.0f - hand->mm_shotgunfrac) * 3.0f + 1.0f, (Mtxf *)((uintptr_t)allocation + sp34 * sizeof(Mtxf)));
 		}
 	}
 }
@@ -6948,12 +6952,9 @@ void bgun_update_laser(struct hand *hand)
 			snd_start(var80095200, SFX_LASER_STREAM, &hand->audiohandle, -1, -1, -1, -1, -1);
 		}
 
-		hand->matmot1 = 1;
-		return;
-	}
-
-	if (hand->matmot1 > 0) {
-		hand->matmot1 -= LVUPDATE60FREAL() / 10.0f;
+		hand->mm_lasertype = 1;
+	} else if (hand->mm_lasertype > 0) {
+		hand->mm_lasertype -= LVUPDATE60FREAL() / 10.0f;
 	} else if (hand->audiohandle != NULL && sndGetState(hand->audiohandle) != AL_STOPPED) {
 		audioStop(hand->audiohandle);
 	}
@@ -7893,32 +7894,32 @@ void bgun_tick_mauler_charge(void)
 		if (hand->inuse) {
 			if (bgun_is_reloading(hand)) {
 				// Reloading - reset charge amount
-				hand->matmot1 = 0;
+				hand->mm_maulercharge = 0;
 			} else if (hand->gset.weaponfunc == FUNC_SECONDARY) {
 				// Charging or fully charged
-				s32 oldvalue = hand->matmot1;
+				s32 oldvalue = hand->mm_maulercharge;
 				s32 newvalue;
 
-				if (hand->loadedammo[0] >= 2 && hand->matmot1 < 5) {
+				if (hand->loadedammo[0] >= 2 && hand->mm_maulercharge < 5) {
 					charging = true;
-					hand->matmot1 += g_Vars.lvupdate60freal * 0.05f;
+					hand->mm_maulercharge += g_Vars.lvupdate60freal * 0.05f;
 				}
 
-				if (hand->matmot1 > 5) {
-					hand->matmot1 = 5;
+				if (hand->mm_maulercharge > 5) {
+					hand->mm_maulercharge = 5;
 				}
 
-				newvalue = hand->matmot1;
+				newvalue = hand->mm_maulercharge;
 
 				if (oldvalue != newvalue && hand->loadedammo[0] >= 2) {
 					hand->loadedammo[0]--;
 				}
 			} else {
 				// Using primary function - make the charge wear off slowly
-				hand->matmot1 -= g_Vars.lvupdate60freal * 0.005f;
+				hand->mm_maulercharge -= g_Vars.lvupdate60freal * 0.005f;
 
-				if (hand->matmot1 < 0) {
-					hand->matmot1 = 0;
+				if (hand->mm_maulercharge < 0) {
+					hand->mm_maulercharge = 0;
 				}
 			}
 
@@ -7939,16 +7940,16 @@ void bgun_tick_mauler_charge(void)
 			 * This is not yet confirmed.
 			 */
 			if (hand->audiohandle == NULL
-					&& hand->matmot1 > 0.1f
+					&& hand->mm_maulercharge > 0.1f
 					&& charging
 					&& g_Vars.lvupdate240 != 0) {
 				snd_start(var80095200, SFX_MAULER_CHARGE, &hand->audiohandle, -1, -1, -1, -1, -1);
 			}
 
 			if (hand->audiohandle) {
-				f32 speed = 0.5f + hand->matmot1 / 3.0f + sinf(g_20SecIntervalFrac * DTOR(180) * 32.0f) * 0.03f;
+				f32 speed = 0.5f + hand->mm_maulercharge / 3.0f + sinf(g_20SecIntervalFrac * DTOR(180) * 32.0f) * 0.03f;
 
-				if (hand->matmot1 < 0.1f || !charging) {
+				if (hand->mm_maulercharge < 0.1f || !charging) {
 					audioStop(hand->audiohandle);
 				} else {
 					audioPostEvent(hand->audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
@@ -8052,21 +8053,21 @@ void bgun_tick_gameplay2(void)
 			// Handle RCP120 cloak ammo usage
 			if ((chr->hidden & CHRHFLAG_CLOAKED) && chr->cloakfadefinished == true) {
 				hand = &player->hands[HAND_RIGHT];
-				hand->matmot1 += LVUPDATE60FREAL() * 0.4f;
+				hand->mm_rcpremainder += LVUPDATE60FREAL() * 0.4f;
 
-				if (hand->matmot1 > 1.0f) {
-					s32 usedqty = hand->matmot1;
+				if (hand->mm_rcpremainder > 1.0f) {
+					s32 usedqty = hand->mm_rcpremainder;
 
 					if (usedqty > hand->loadedammo[0]) {
 						usedqty = hand->loadedammo[0];
 					}
 
-					hand->matmot1 -= usedqty;
+					hand->mm_rcpremainder -= usedqty;
 					hand->loadedammo[0] -= usedqty;
 
 					// If out of ammo, turn off cloak
 					if (hand->loadedammo[0] == 0 && hand->state != HANDSTATE_RELOAD) {
-						s32 stilltogo = hand->matmot1;
+						s32 stilltogo = hand->mm_rcpremainder;
 
 						if (stilltogo > player->ammoheldarr[player->gunctrl.ammotypes[0]]) {
 							g_Vars.currentplayer->devicesactive &= ~DEVICE_CLOAKRCP120;
@@ -8084,25 +8085,25 @@ void bgun_tick_gameplay2(void)
 		// I think this is handling situations where the player has turned off
 		// RCP120 cloak but there's still a bit of ammo to be subtracted on
 		// this tick.
-		if (hand->matmot1 > 1.0f) {
-			s32 usedqty = hand->matmot1;
+		if (hand->mm_rcpremainder > 1.0f) {
+			s32 usedqty = hand->mm_rcpremainder;
 
 			if (usedqty > hand->loadedammo[0]) {
 				usedqty = hand->loadedammo[0];
 			}
 
-			hand->matmot1 -= usedqty;
+			hand->mm_rcpremainder -= usedqty;
 			hand->loadedammo[0] -= usedqty;
 
-			if (hand->matmot1 > 1.0f) {
-				s32 usedqty = hand->matmot1;
+			if (hand->mm_rcpremainder > 1.0f) {
+				s32 usedqty = hand->mm_rcpremainder;
 
 				if (usedqty > player->ammoheldarr[player->gunctrl.ammotypes[0]]) {
 					usedqty = player->ammoheldarr[player->gunctrl.ammotypes[0]];
 				}
 
 				player->ammoheldarr[player->gunctrl.ammotypes[0]] -= usedqty;
-				hand->matmot1 = 0;
+				hand->mm_rcpremainder = 0;
 			}
 		}
 	}
@@ -8294,7 +8295,7 @@ void bgun_render(Gfx **gdlptr)
 				colour = renderdata.envcolour;
 
 				if (hand->gset.weaponnum == WEAPON_MAULER) {
-					u32 weight = hand->matmot1 * 50.0f;
+					u32 weight = hand->mm_maulercharge * 50.0f;
 					renderdata.envcolour = colour_blend(0xff00007f, renderdata.envcolour, weight);
 				}
 			}

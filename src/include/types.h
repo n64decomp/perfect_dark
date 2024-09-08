@@ -2128,9 +2128,22 @@ struct hand {
 	/*0x0868*/ f32 angledamper;
 	/*0x086c*/ f32 lastrotangx;
 	/*0x0870*/ f32 lastrotangy;
-	/*0x0874*/ f32 matmot1;
-	/*0x0878*/ f32 matmot2;
-	/*0x087c*/ f32 matmot3;
+	union {
+		/*0x0874*/ f32 matmot1;
+		/*0x0874*/ f32 mm_lasertype;
+		/*0x0874*/ f32 mm_maulercharge; // 0 to 5
+		/*0x0874*/ f32 mm_rcpremainder;
+		/*0x0874*/ f32 mm_reaperrot; // radians, 0 - 6.28
+		/*0x0874*/ f32 mm_shotgunfrac;
+	};
+	union {
+		/*0x0878*/ f32 matmot2;
+		/*0x0878*/ f32 mm_reaperspeedaim; // -0.1 to 1.0
+	};
+	union {
+		/*0x087c*/ f32 matmot3;
+		/*0x087c*/ f32 mm_reaperspeedcur; // -0.1 to 1.0
+	};
 	/*0x0880*/ u32 unk0880;
 	/*0x0884*/ u32 unk0884;
 	/*0x0888*/ f32 loadslide;
@@ -2191,7 +2204,10 @@ struct hand {
 	/*0x0c50*/ s32 statecycles;
 	/*0x0c54*/ s32 statelastframe;
 	/*0x0c58*/ Mtxf muzzlemat;
-	/*0x0c98*/ f32 gs_float1;
+	union {
+		/*0x0c98*/ f32 gs_float1;
+		/*0x0c98*/ f32 gs_barrelspeedfrac;
+	};
 	/*0x0c9c*/ f32 gs_float2;
 	/*0x0ca0*/ f32 gs_float3;
 	/*0x0ca4*/ f32 gs_float4;

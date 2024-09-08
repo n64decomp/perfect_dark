@@ -415,7 +415,7 @@ void gset_populate(s32 handnum, struct gset *gset)
 	gset->upgradewant = g_Vars.currentplayer->hands[handnum].gset.upgradewant;
 
 	if (gset->weaponnum == WEAPON_MAULER) {
-		gset->maulercharge = g_Vars.currentplayer->hands[handnum].matmot1 * 10.0f;
+		gset->maulercharge = g_Vars.currentplayer->hands[handnum].mm_maulercharge * 10.0f;
 	}
 
 	if (gset->weaponnum == WEAPON_LASER) {

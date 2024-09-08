@@ -125,7 +125,7 @@ void beam_create_for_hand(s32 handnum)
 		beam_create(beam, weaponnum, &hand->muzzlepos, &hand->hitpos);
 
 		if (beam->weaponnum == WEAPON_MAULER) {
-			beam->weaponnum = -3 - (s32)player->hands[handnum].matmot1;
+			beam->weaponnum = -3 - (s32) player->hands[handnum].mm_lasertype;
 		}
 
 		if (player->prop->chr && PLAYERCOUNT() >= 2) {
@@ -157,7 +157,7 @@ void beam_create_for_hand(s32 handnum)
 					beam_create(&g_Fireslots[chr->fireslots[handnum]].beam, weaponnum, &player->chrmuzzlelastpos[handnum], &hand->hitpos);
 
 					if (g_Fireslots[chr->fireslots[handnum]].beam.weaponnum == WEAPON_MAULER) {
-						g_Fireslots[chr->fireslots[handnum]].beam.weaponnum = -3 - (s32)player->hands[handnum].matmot1;
+						g_Fireslots[chr->fireslots[handnum]].beam.weaponnum = -3 - (s32) player->hands[handnum].mm_lasertype;
 					}
 				}
 			}
