@@ -631,8 +631,8 @@ struct prop *shot_calculate_hits(s32 handnum, bool isshooting, struct coord *gun
 	shotdata.gundir2d.y = gundir2d->y;
 	shotdata.gundir2d.z = gundir2d->z;
 
-	gset_populate_from_current_player(handnum, &shotdata.gset);
-	func = gset_get_weapon_function(&shotdata.gset);
+	gset_populate(handnum, &shotdata.gset);
+	func = gset_get_funcdef_by_gset(&shotdata.gset);
 
 	if (func) {
 		if (isshooting && (func->flags & FUNCFLAG_EXPLOSIVESHELLS)) {
@@ -1192,7 +1192,7 @@ void hand_inflict_melee_damage(s32 handnum, struct gset *gset, bool arg2)
 				f32 spfc[2];
 				f32 spf4[2];
 				struct model *model;
-				struct weaponfunc *func = gset_get_weapon_function(gset);
+				struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
 
 				if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
 					struct weaponfunc_melee *meleefunc = (struct weaponfunc_melee *)func;
@@ -1307,7 +1307,7 @@ void hand_tick_attack(s32 handnum)
 
 		g_Vars.currentplayer->hands[handnum].activatesecondary = false;
 
-		gset_populate_from_current_player(handnum, &gset);
+		gset_populate(handnum, &gset);
 		fr_increment_num_shots();
 
 		switch (type) {
@@ -2393,7 +2393,7 @@ f32 prop_calculate_autoaim_score(struct prop *prop, struct coord *screenpos, f32
 	f32 left;
 	f32 right;
 	f32 result = -2;
-	struct weaponfunc *func = current_player_get_weapon_function(HAND_RIGHT);
+	struct weaponfunc *func = gset_get_current_funcdef(HAND_RIGHT);
 	bool usefullscreen = forcefullscreen;
 	bool sp4c;
 	f32 sp48;
@@ -2575,9 +2575,9 @@ void autoaim_tick(void)
 	struct prop *bestprop = NULL;
 	f32 aimpos[2] = {0, 0};
 	bool ismelee = false;
-	bool cangangsta = weapon_has_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_GANGSTA);
+	bool cangangsta = gset_has_weapon_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_GANGSTA);
 	bool iscmpsec = false;
-	struct weaponfunc *func = current_player_get_weapon_function(HAND_RIGHT);
+	struct weaponfunc *func = gset_get_current_funcdef(HAND_RIGHT);
 	s32 i;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {

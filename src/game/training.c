@@ -1798,7 +1798,7 @@ void fr_tick(void)
 		weaponnum = fr_get_weapon_by_slot(g_FrData.slot);
 		ammotype = bgun_get_ammo_type_for_weapon(weaponnum, 0);
 		capacity = bgun_get_capacity_by_ammotype(ammotype);
-		ammo = weapon_get_ammo_by_function(weaponnum, 0);
+		ammo = gset_get_ammodef(weaponnum, 0);
 		capacity -= (ammo ? ammo->clipsize : 0);
 
 		if (g_FrData.ammoextra > 0) {

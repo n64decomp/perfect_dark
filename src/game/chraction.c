@@ -1472,7 +1472,7 @@ bool weapon_is_one_handed(struct prop *prop)
 {
 	if (prop) {
 		struct weaponobj *weapon = prop->weapon;
-		return weapon_has_flag(weapon->weaponnum, WEAPONFLAG_ONEHANDED);
+		return gset_has_weapon_flag(weapon->weaponnum, WEAPONFLAG_ONEHANDED);
 	}
 
 	return false;
@@ -4347,7 +4347,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 		gset = &gset2;
 	}
 
-	func = gset_get_weapon_function(gset);
+	func = gset_get_funcdef_by_gset(gset);
 	ismelee = func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE;
 	makedizzy = race != RACE_DRCAROLL && gset_has_function_flags(gset, FUNCFLAG_MAKEDIZZY);
 
@@ -6988,7 +6988,7 @@ bool chr_try_attack_amount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8
 			percentage = 0;
 		}
 
-		ammo = weapon_get_ammo_by_function(weapon->weaponnum, 0);
+		ammo = gset_get_ammodef(weapon->weaponnum, 0);
 
 		if (ammo) {
 			quantity = ammo->clipsize * percentage;
@@ -10094,7 +10094,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 						struct coord sp15c;
 						Mtxf projectilemtx;
 						Mtxf yrotmtx;
-						struct weapon *weapondef = weapon_find_by_id(gset.weaponnum);
+						struct weapon *weapondef = gset_get_weapondef(gset.weaponnum);
 						struct weaponfunc_shootprojectile *func = weapondef->functions[gset.weaponfunc];
 
 						// Handle creating the projectile

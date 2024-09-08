@@ -422,7 +422,7 @@ u32 bot_pickup_prop(struct prop *prop, struct chrdata *chr)
 				}
 
 				if (itemtype) {
-					struct weapon *weapondef = weapon_find_by_id(weapon->weaponnum);
+					struct weapon *weapondef = gset_get_weapondef(weapon->weaponnum);
 					s32 originalpad = botinv_get_weapon_pad(chr, weapon->weaponnum);
 					s32 currentpad = obj->pad;
 
@@ -552,7 +552,7 @@ bool bot_test_prop_for_pickup(struct prop *prop, struct chrdata *chr)
 	if (obj->type == OBJTYPE_WEAPON) {
 		weaponobj = prop->weapon;
 		itemtype = botinv_get_item_type(chr, weaponobj->weaponnum);
-		weapon = weapon_find_by_id(weaponobj->weaponnum);
+		weapon = gset_get_weapondef(weaponobj->weaponnum);
 		singleonly = weapon && (weapon->flags & WEAPONFLAG_DUALWIELD) == 0;
 
 		if (weaponobj->weaponnum != WEAPON_BRIEFCASE2) {
@@ -3536,7 +3536,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 										botact_try_remove_ammo_from_reserve(aibot, aibot->weaponnum, aibot->gunfunc, 1);
 										botact_throw(chr);
 
-										func = weapon_get_function_by_id(aibot->weaponnum, aibot->gunfunc);
+										func = gset_get_funcdef_by_weaponnum_funcnum(aibot->weaponnum, aibot->gunfunc);
 
 										if (func && (func->flags & FUNCFLAG_DISCARDWEAPON)) {
 											botinv_remove_item(chr, aibot->weaponnum);
@@ -3626,7 +3626,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 							}
 #endif
 
-							func = weapon_get_function_by_id(aibot->weaponnum, aibot->gunfunc);
+							func = gset_get_funcdef_by_weaponnum_funcnum(aibot->weaponnum, aibot->gunfunc);
 
 							if (func
 									&& (func->flags & (FUNCFLAG_BURST3 | FUNCFLAG_BURST2))

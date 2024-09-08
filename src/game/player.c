@@ -5528,9 +5528,9 @@ void player_choose_third_person_animation(struct chrdata *chr, s32 crouchpos, f3
 				wieldmode = WIELDMODE_DUALGUNS;
 			} else if (!leftprop && !rightprop) {
 				wieldmode = WIELDMODE_UNARMED;
-			} else if (leftgun && weapon_has_flag(leftgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
+			} else if (leftgun && gset_has_weapon_flag(leftgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
 				wieldmode = WIELDMODE_PISTOL;
-			} else if (rightgun && weapon_has_flag(rightgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
+			} else if (rightgun && gset_has_weapon_flag(rightgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
 				wieldmode = WIELDMODE_PISTOL;
 			} else {
 				wieldmode = WIELDMODE_HEAVY;
@@ -5554,13 +5554,13 @@ void player_choose_third_person_animation(struct chrdata *chr, s32 crouchpos, f3
 				wieldmode = WIELDMODE_DUALGUNS;
 			} else if (!leftprop && !rightprop) {
 				wieldmode = WIELDMODE_UNARMED;
-			} else if (leftgun && !weapon_has_flag(leftgun->weaponnum, WEAPONFLAG_AICANUSE)) {
+			} else if (leftgun && !gset_has_weapon_flag(leftgun->weaponnum, WEAPONFLAG_AICANUSE)) {
 				wieldmode = WIELDMODE_UNARMED;
-			} else if (rightgun && !weapon_has_flag(rightgun->weaponnum, WEAPONFLAG_AICANUSE)) {
+			} else if (rightgun && !gset_has_weapon_flag(rightgun->weaponnum, WEAPONFLAG_AICANUSE)) {
 				wieldmode = WIELDMODE_UNARMED;
-			} else if (leftgun && weapon_has_flag(leftgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
+			} else if (leftgun && gset_has_weapon_flag(leftgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
 				wieldmode = WIELDMODE_PISTOL;
-			} else if (rightgun && weapon_has_flag(rightgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
+			} else if (rightgun && gset_has_weapon_flag(rightgun->weaponnum, WEAPONFLAG_ONEHANDED)) {
 				wieldmode = WIELDMODE_PISTOL;
 			} else {
 				wieldmode = WIELDMODE_HEAVY;

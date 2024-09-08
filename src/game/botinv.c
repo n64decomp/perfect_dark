@@ -1100,7 +1100,7 @@ bool botinv_switch_to_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 		}
 	}
 
-	func = weapon_get_function_by_id(weaponnum, funcnum);
+	func = gset_get_funcdef_by_weaponnum_funcnum(weaponnum, funcnum);
 
 	aibot->ismeleeweapon = func && func->type == INVENTORYFUNCTYPE_MELEE;
 
@@ -1136,7 +1136,7 @@ void botinv_drop(struct chrdata *chr, s32 weaponnum, u8 dropall)
 
 		if ((item->type == INVITEMTYPE_WEAP || item->type == INVITEMTYPE_DUAL)
 				&& (dropall || weaponnum == item->type_weap.weapon1)) {
-			if (!weapon_has_flag(item->type_weap.weapon1, WEAPONFLAG_UNDROPPABLE)
+			if (!gset_has_weapon_flag(item->type_weap.weapon1, WEAPONFLAG_UNDROPPABLE)
 					|| (g_Vars.normmplayerisrunning
 						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 						&& item->type_weap.weapon1 == WEAPON_DATAUPLINK)) {

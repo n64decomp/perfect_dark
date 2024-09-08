@@ -307,8 +307,8 @@ void am_tick(void)
 
 					// If weapon has no functions, skip past function screen
 					if (g_AmMenus[g_AmIndex].screenindex == 1) {
-						struct weaponfunc *pri = weapon_get_function(&g_Vars.currentplayer->hands[0].gset, FUNC_PRIMARY);
-						struct weaponfunc *sec = weapon_get_function(&g_Vars.currentplayer->hands[0].gset, FUNC_SECONDARY);
+						struct weaponfunc *pri = gset_get_funcdef_by_gset_funcnum(&g_Vars.currentplayer->hands[0].gset, FUNC_PRIMARY);
+						struct weaponfunc *sec = gset_get_funcdef_by_gset_funcnum(&g_Vars.currentplayer->hands[0].gset, FUNC_SECONDARY);
 
 						if (!pri && !sec) {
 							am_change_screen(gotonextscreen);

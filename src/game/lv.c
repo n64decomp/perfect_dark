@@ -1202,7 +1202,7 @@ Gfx *lv_render(Gfx *gdl)
 				if (PLAYERCOUNT() == 1
 						|| g_Vars.coopplayernum >= 0
 						|| g_Vars.antiplayernum >= 0
-						|| (weapon_has_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmove_is_in_sight_aim_mode())) {
+						|| (gset_has_weapon_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_AIMTRACK) && bmove_is_in_sight_aim_mode())) {
 					g_Vars.currentplayer->lookingatprop.prop = prop_find_aiming_at(HAND_RIGHT, false, FINDPROPCONTEXT_QUERY);
 
 					if (g_Vars.currentplayer->lookingatprop.prop) {
@@ -1236,7 +1236,7 @@ Gfx *lv_render(Gfx *gdl)
 
 				if (gset_has_function_flags(&g_Vars.currentplayer->hands[0].gset, FUNCFLAG_THREATDETECTOR)) {
 					lv_find_threats();
-				} else if (weapon_has_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
+				} else if (gset_has_weapon_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_AIMTRACK)) {
 					s32 j;
 
 					if (fr_is_in_training()

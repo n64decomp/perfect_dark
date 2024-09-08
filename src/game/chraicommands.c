@@ -9213,7 +9213,7 @@ bool ai_if_player_using_device(void)
 		u32 prevplayernum = g_Vars.currentplayernum;
 		set_current_player_num(playernum);
 
-		if (current_player_get_device_state(cmd[3]) == DEVICESTATE_ACTIVE) {
+		if (gset_get_device_state(cmd[3]) == DEVICESTATE_ACTIVE) {
 			active = true;
 		}
 

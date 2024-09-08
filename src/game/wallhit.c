@@ -434,7 +434,7 @@ void wallhits_tick(void)
 	static s32 var8007f834 = 0;
 
 	sp12c = (g_Vars.lvupdate240 + 2.0f) * 0.25f;
-	fov = current_player_get_gun_zoom_fov();
+	fov = gset_get_gun_zoom_fov();
 
 	main_override_variable("wallhit", &var8007f750);
 

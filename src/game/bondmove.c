@@ -74,7 +74,7 @@ bool bmove_is_autoaim_y_enabled(void)
 
 bool bmove_is_autoaim_y_enabled_for_current_weapon(void)
 {
-	struct weaponfunc *func = current_player_get_weapon_function(0);
+	struct weaponfunc *func = gset_get_current_funcdef(0);
 
 	if (func) {
 		if (func->flags & FUNCFLAG_NOAUTOAIM) {
@@ -132,7 +132,7 @@ bool bmove_is_autoaim_x_enabled(void)
 
 bool bmove_is_autoaim_x_enabled_for_current_weapon(void)
 {
-	struct weaponfunc *func = current_player_get_weapon_function(0);
+	struct weaponfunc *func = gset_get_current_funcdef(0);
 
 	if (func) {
 		if (func->flags & FUNCFLAG_NOAUTOAIM) {
@@ -640,7 +640,7 @@ void bmove_process_input(bool allowc1x, bool allowc1y, bool allowc1buttons, bool
 
 	controlmode = options_get_control_mode(g_Vars.currentplayerstats->mpindex);
 	weaponnum = bgun_get_weapon_num(HAND_RIGHT);
-	canmanualzoom = weapon_has_aim_flag(weaponnum, INVAIMFLAG_MANUALZOOM);
+	canmanualzoom = gset_has_aim_flag(weaponnum, INVAIMFLAG_MANUALZOOM);
 	contpad1 = options_get_contpad_num1(g_Vars.currentplayerstats->mpindex);
 
 	c1stickx = allowc1x ? joy_get_stick_x(contpad1) : 0;
@@ -1070,7 +1070,7 @@ void bmove_process_input(bool allowc1x, bool allowc1y, bool allowc1buttons, bool
 					g_Vars.currentplayer->waitforzrelease = false;
 				}
 
-				if (weapon_has_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_FIRETOACTIVATE)) {
+				if (gset_has_weapon_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_FIRETOACTIVATE)) {
 					if (allowc1buttons
 							&& joy_get_buttons_pressed_this_frame(shootpad, shootallowedbuttons & Z_TRIG)
 							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
@@ -1422,7 +1422,7 @@ void bmove_process_input(bool allowc1x, bool allowc1y, bool allowc1buttons, bool
 					g_Vars.currentplayer->waitforzrelease = false;
 				}
 
-				if (weapon_has_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_FIRETOACTIVATE)) {
+				if (gset_has_weapon_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_FIRETOACTIVATE)) {
 					if ((c1buttonsthisframe & shootbuttons)
 							&& g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED) {
 						movedata.btapcount++;
@@ -1478,11 +1478,11 @@ void bmove_process_input(bool allowc1x, bool allowc1y, bool allowc1buttons, bool
 	bgun_set_sight_visible(GUNSIGHTREASON_NOTAIMING, movedata.aiming);
 
 	if (movedata.zoomoutfovpersec > 0) {
-		current_player_zoom_out(movedata.zoomoutfovpersec);
+		gset_zoom_out(movedata.zoomoutfovpersec);
 	}
 
 	if (movedata.zoominfovpersec > 0) {
-		current_player_zoom_in(movedata.zoominfovpersec);
+		gset_zoom_in(movedata.zoominfovpersec);
 	}
 
 	if (g_Vars.currentplayer->pausemode == PAUSEMODE_UNPAUSED && !g_MainIsEndscreen) {
@@ -1523,12 +1523,12 @@ void bmove_process_input(bool allowc1x, bool allowc1y, bool allowc1buttons, bool
 		}
 
 		if (movedata.zooming) {
-			zoomfov = current_player_get_gun_zoom_fov();
+			zoomfov = gset_get_gun_zoom_fov();
 		}
 
 		if (bgun_get_weapon_num(HAND_RIGHT) == WEAPON_AR34
 				&& g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY) {
-			zoomfov = current_player_get_gun_zoom_fov();
+			zoomfov = gset_get_gun_zoom_fov();
 		}
 
 		if (zoomfov <= 0) {
@@ -1757,7 +1757,7 @@ void bmove_process_input(bool allowc1x, bool allowc1y, bool allowc1buttons, bool
 				 && (bmove_is_autoaim_x_enabled_for_current_weapon() || bmove_is_autoaim_y_enabled_for_current_weapon())
 				 && g_Vars.currentplayer->autoxaimprop
 				 && g_Vars.currentplayer->autoyaimprop
-				 && weapon_has_aim_flag(weaponnum, INVAIMFLAG_AUTOAIM)
+				 && gset_has_aim_flag(weaponnum, INVAIMFLAG_AUTOAIM)
 				)
 				|| (bgun_get_weapon_num(HAND_RIGHT) == WEAPON_CMP150 && g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc == FUNC_SECONDARY)) {
 			// Auto aim - move crosshair towards target

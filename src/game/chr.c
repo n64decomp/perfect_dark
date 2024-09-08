@@ -4606,7 +4606,7 @@ void chr_hit(struct shotdata *shotdata, struct hit *hit)
 	struct coord sp98;
 	s16 hitpos_s16[3];
 	u8 ismelee = false;
-	struct weaponfunc *func = gset_get_weapon_function(&shotdata->gset);
+	struct weaponfunc *func = gset_get_funcdef_by_gset(&shotdata->gset);
 	f32 shield;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
@@ -4924,7 +4924,7 @@ struct prop *chr_get_held_usable_prop(struct chrdata *chr, s32 hand)
 	if (prop) {
 		struct weaponobj *weapon = prop->weapon;
 
-		if (!weapon_has_flag(weapon->weaponnum, WEAPONFLAG_AICANUSE)) {
+		if (!gset_has_weapon_flag(weapon->weaponnum, WEAPONFLAG_AICANUSE)) {
 			prop = NULL;
 		}
 	}

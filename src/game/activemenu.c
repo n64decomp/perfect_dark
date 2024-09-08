@@ -324,15 +324,15 @@ void am_apply(s32 slot)
 			pass = true;
 
 			if (weaponnum) {
-				state = current_player_get_device_state(weaponnum);
+				state = gset_get_device_state(weaponnum);
 
 				if (state != DEVICESTATE_UNEQUIPPED) {
 					pass = false;
 
 					if (state == DEVICESTATE_INACTIVE) {
-						current_player_set_device_active(weaponnum, true);
+						gset_set_device_active(weaponnum, true);
 					} else {
-						current_player_set_device_active(weaponnum, false);
+						gset_set_device_active(weaponnum, false);
 					}
 				}
 			}
@@ -450,7 +450,7 @@ void am_get_slot_details(s32 slot, u32 *flags, char *label)
 
 		weaponnum = inv_get_weapon_num_by_index(g_AmMenus[g_AmIndex].invindexes[slot]);
 
-		if (current_player_get_device_state(weaponnum) == DEVICESTATE_ACTIVE) {
+		if (gset_get_device_state(weaponnum) == DEVICESTATE_ACTIVE) {
 			*flags |= AMSLOTFLAG_ACTIVE;
 		}
 
@@ -466,8 +466,8 @@ void am_get_slot_details(s32 slot, u32 *flags, char *label)
 		if (slot == 4) {
 			strcpy(label, lang_get(L_MISC_171)); // "Function"
 		} else if (slot == 1 || slot == 7) {
-			prifunc = weapon_get_function(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_PRIMARY);
-			secfunc = weapon_get_function(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_SECONDARY);
+			prifunc = gset_get_funcdef_by_gset_funcnum(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_PRIMARY);
+			secfunc = gset_get_funcdef_by_gset_funcnum(&g_Vars.currentplayer->hands[HAND_RIGHT].gset, FUNC_SECONDARY);
 
 			if (slot == 1) {
 				if (!secfunc || !FUNCISSEC()) {

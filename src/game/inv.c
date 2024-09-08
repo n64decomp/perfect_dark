@@ -349,7 +349,7 @@ bool inv_has_double_weapon_inc_all_guns(s32 weapon1, s32 weapon2)
 	if (g_Vars.currentplayer->equipallguns &&
 			weapon1 <= WEAPON_PSYCHOSISGUN &&
 			weapon1 == weapon2 &&
-			weapon_has_flag(weapon1, WEAPONFLAG_DUALWIELD) &&
+			gset_has_weapon_flag(weapon1, WEAPONFLAG_DUALWIELD) &&
 			inv_can_have_all_guns_weapon(weapon1)) {
 		return true;
 	}
@@ -388,7 +388,7 @@ bool inv_give_single_weapon(s32 weaponnum)
 bool inv_give_double_weapon(s32 weapon1, s32 weapon2)
 {
 	if (inv_has_double_weapon_exc_all_guns(weapon1, weapon2) == 0) {
-		if (weapon_has_flag(weapon1, WEAPONFLAG_DUALWIELD)) {
+		if (gset_has_weapon_flag(weapon1, WEAPONFLAG_DUALWIELD)) {
 			struct invitem *item = inv_find_unused_slot();
 
 			if (item) {
@@ -520,7 +520,7 @@ s32 inv_give_weapons_by_prop(struct prop *prop)
 			}
 
 			if (g_Vars.normmplayerisrunning
-					&& weapon_has_flag(weaponnum, WEAPONFLAG_DUALWIELD)
+					&& gset_has_weapon_flag(weaponnum, WEAPONFLAG_DUALWIELD)
 					&& !inv_has_double_weapon_exc_all_guns(weaponnum, weaponnum)) {
 				struct invitem *invitem = inv_find_single_weapon(weaponnum);
 
@@ -580,7 +580,7 @@ void inv_choose_cycle_forward_weapon(s32 *ptr1, s32 *ptr2, bool arg2)
 	if (g_Vars.currentplayer->equipallguns) {
 		s32 candidate = *ptr1;
 
-		if (weapon_has_flag(*ptr1, WEAPONFLAG_DUALWIELD) && *ptr2 != *ptr1) {
+		if (gset_has_weapon_flag(*ptr1, WEAPONFLAG_DUALWIELD) && *ptr2 != *ptr1) {
 			// Switching to dual from single
 			weapon1 = *ptr1;
 			weapon2 = *ptr1;
@@ -648,7 +648,7 @@ void inv_choose_cycle_back_weapon(s32 *ptr1, s32 *ptr2, bool arg2)
 	if (g_Vars.currentplayer->equipallguns) {
 		s32 candidate = *ptr1;
 
-		if (weapon_has_flag(weapon1, WEAPONFLAG_DUALWIELD) && weapon1 == weapon2) {
+		if (gset_has_weapon_flag(weapon1, WEAPONFLAG_DUALWIELD) && weapon1 == weapon2) {
 			// Switching from dual to single
 			weapon1 = candidate;
 			weapon2 = WEAPON_NONE;
@@ -662,7 +662,7 @@ void inv_choose_cycle_back_weapon(s32 *ptr1, s32 *ptr2, bool arg2)
 				}
 			} while ((arg2 && !bgun0f0a1a10(candidate)) || !inv_can_have_all_guns_weapon(candidate));
 
-			if (weapon_has_flag(candidate, WEAPONFLAG_DUALWIELD)) {
+			if (gset_has_weapon_flag(candidate, WEAPONFLAG_DUALWIELD)) {
 				weapon1 = candidate;
 				weapon2 = candidate;
 			} else {
@@ -1106,14 +1106,14 @@ void inv_increment_held_time(s32 weapon1, s32 weapon2)
 	s32 leastusedindex;
 	s32 i;
 
-	if (!weapon_has_flag(weapon1, WEAPONFLAG_TRACKTIMEUSED)) {
+	if (!gset_has_weapon_flag(weapon1, WEAPONFLAG_TRACKTIMEUSED)) {
 		return;
 	}
 
 	leastusedtime = 0x7fffffff;
 	leastusedindex = 0;
 
-	if (!weapon_has_flag(weapon2, WEAPONFLAG_TRACKTIMEUSED)) {
+	if (!gset_has_weapon_flag(weapon2, WEAPONFLAG_TRACKTIMEUSED)) {
 		weapon2 = 0;
 	}
 

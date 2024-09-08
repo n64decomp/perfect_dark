@@ -96,7 +96,7 @@ s32 hudmsg_is_zoom_range_visible(void)
 				|| g_Vars.coopplayernum >= 0
 				|| g_Vars.antiplayernum >= 0)
 		&& var80075d60 == 2
-		&& current_player_get_sight() == SIGHT_ZOOM
+		&& gset_get_sight() == SIGHT_ZOOM
 		&& g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
 		&& g_Vars.currentplayer->cameramode != CAMERAMODE_THIRDPERSON;
 }
@@ -250,7 +250,7 @@ Gfx *hudmsg_render_zoom_range(Gfx *gdl, u32 alpha)
 	}
 
 	// Left side - current zoom level
-	zoomfov = current_player_get_gun_zoom_fov();
+	zoomfov = gset_get_gun_zoom_fov();
 	zoominfovy = g_Vars.currentplayer->zoominfovy;
 
 	if (zoomfov == 0.0f || zoomfov == 60.0f) {

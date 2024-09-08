@@ -21,7 +21,7 @@ u32 var80070590 = 0x00000000;
 
 void mpstats_increment_player_shot_count(struct gset *gset, s32 region)
 {
-	if (!weapon_has_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
+	if (!gset_has_weapon_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
 		g_Vars.currentplayerstats->shotcount[region]++;
 	}
 }
@@ -29,13 +29,13 @@ void mpstats_increment_player_shot_count(struct gset *gset, s32 region)
 void mpstats_increment_player_shot_count2(struct gset *gset, s32 region)
 {
 	if (region == 0) {
-		if (!weapon_has_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
+		if (!gset_has_weapon_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
 			var80070590 = 1;
 			g_Vars.currentplayerstats->shotcount[region]++;
 		}
 	} else {
 		if (var80070590) {
-			if (!weapon_has_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
+			if (!gset_has_weapon_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
 				g_Vars.currentplayerstats->shotcount[region]++;
 			}
 

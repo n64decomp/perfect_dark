@@ -22,7 +22,7 @@
 s32 botact_get_ammo_type_by_function(s32 weaponnum, s32 funcnum)
 {
 	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
-		struct inventory_ammo *ammo = weapon_get_ammo_by_function(weaponnum, funcnum);
+		struct inventory_ammo *ammo = gset_get_ammodef(weaponnum, funcnum);
 
 		if (ammo) {
 			return ammo->type;
@@ -35,7 +35,7 @@ s32 botact_get_ammo_type_by_function(s32 weaponnum, s32 funcnum)
 s32 botact_get_clip_capacity_by_function(s32 weaponnum, u32 funcnum)
 {
 	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
-		struct inventory_ammo *ammo = weapon_get_ammo_by_function(weaponnum, funcnum);
+		struct inventory_ammo *ammo = gset_get_ammodef(weaponnum, funcnum);
 
 		if (ammo) {
 			return ammo->clipsize;
@@ -407,7 +407,7 @@ s32 botact_get_shoot_interval60(s32 weaponnum, s32 funcnum)
 {
 	s32 stack[2];
 	s32 result = 1;
-	struct weapon *weapon = weapon_find_by_id(weaponnum);
+	struct weapon *weapon = gset_get_weapondef(weaponnum);
 
 	if (weapon) {
 		struct weaponfunc *func = weapon->functions[funcnum];

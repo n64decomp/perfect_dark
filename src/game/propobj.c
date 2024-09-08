@@ -15685,7 +15685,7 @@ void obj_hit(struct shotdata *shotdata, struct hit *hit)
 	s32 i;
 	bool explosiveshells = false;
 	bool slowsbullet = hit->slowsbullet;
-	struct weaponfunc *func = gset_get_weapon_function(&shotdata->gset);
+	struct weaponfunc *func = gset_get_funcdef_by_gset(&shotdata->gset);
 	struct coord spec;
 	f32 tmp;
 	struct prop *spe4;
@@ -17079,11 +17079,11 @@ void weapon_get_pickup_text(char *buffer, s32 weaponnum, bool dual)
 
 				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
 					textid = L_PROPOBJ_050; // "your"
-				} else if (weapon_has_flag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME)) {
+				} else if (gset_has_weapon_flag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME)) {
 					textid = L_PROPOBJ_002; // "some"
-				} else if (weapon_has_flag(weaponnum, WEAPONFLAG_DETERMINER_F_AN)) {
+				} else if (gset_has_weapon_flag(weaponnum, WEAPONFLAG_DETERMINER_F_AN)) {
 					textid = L_PROPOBJ_006; // "an"
-				} else if (weapon_has_flag(weaponnum, WEAPONFLAG_DETERMINER_F_THE)) {
+				} else if (gset_has_weapon_flag(weaponnum, WEAPONFLAG_DETERMINER_F_THE)) {
 					textid = L_PROPOBJ_008; // "the"
 				} else {
 					textid = L_PROPOBJ_004; // "a"
@@ -17093,11 +17093,11 @@ void weapon_get_pickup_text(char *buffer, s32 weaponnum, bool dual)
 			} else {
 				if (weaponnum == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {
 					textid = L_PROPOBJ_051; // "Your"
-				} else if (weapon_has_flag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME)) {
+				} else if (gset_has_weapon_flag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME)) {
 					textid = L_PROPOBJ_003; // "Some"
-				} else if (weapon_has_flag(weaponnum, WEAPONFLAG_DETERMINER_S_AN)) {
+				} else if (gset_has_weapon_flag(weaponnum, WEAPONFLAG_DETERMINER_S_AN)) {
 					textid = L_PROPOBJ_007; // "An"
-				} else if (weapon_has_flag(weaponnum, WEAPONFLAG_DETERMINER_S_THE)) {
+				} else if (gset_has_weapon_flag(weaponnum, WEAPONFLAG_DETERMINER_S_THE)) {
 					textid = L_PROPOBJ_009; // "The"
 				} else {
 					textid = L_PROPOBJ_005; // "A"
@@ -17110,10 +17110,10 @@ void weapon_get_pickup_text(char *buffer, s32 weaponnum, bool dual)
 
 	if (full) {
 		strcat(buffer, bgun_get_name(weaponnum));
-		plural = weapon_has_flag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME);
+		plural = gset_has_weapon_flag(weaponnum, WEAPONFLAG_DETERMINER_F_SOME);
 	} else {
 		strcat(buffer, bgun_get_short_name(weaponnum));
-		plural = weapon_has_flag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME);
+		plural = gset_has_weapon_flag(weaponnum, WEAPONFLAG_DETERMINER_S_SOME);
 	}
 
 	// Note that weapon names have a line break on the end which is undesirable
@@ -17535,7 +17535,7 @@ s32 obj_test_for_pickup(struct prop *prop)
 					}
 				} else {
 					if (g_Vars.normmplayerisrunning
-							&& weapon_has_flag(weapon->weaponnum, WEAPONFLAG_DUALWIELD)
+							&& gset_has_weapon_flag(weapon->weaponnum, WEAPONFLAG_DUALWIELD)
 							&& !inv_has_double_weapon_exc_all_guns(weapon->weaponnum, weapon->weaponnum)) {
 						struct invitem *item = inv_find_single_weapon(weapon->weaponnum);
 
@@ -21060,7 +21060,7 @@ void current_player_drop_all_items(void)
 
 	for (i = WEAPON_UNARMED; i <= WEAPON_SUICIDEPILL; i++) {
 		if (playermgr_get_model_of_weapon(i) >= 0 && inv_has_single_weapon_exc_all_guns(i)) {
-			if (!weapon_has_flag(i, WEAPONFLAG_UNDROPPABLE)
+			if (!gset_has_weapon_flag(i, WEAPONFLAG_UNDROPPABLE)
 					|| (g_Vars.normmplayerisrunning
 						&& g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 						&& i == WEAPON_DATAUPLINK)) {
