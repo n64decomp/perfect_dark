@@ -931,8 +931,12 @@ struct act_argh {
 // Gun settings
 struct gset {
 	u8 weaponnum;
-	u8 unk0639;
-	u8 unk063a;
+	u8 upgradewant;
+	union {
+		u8 miscbyte;
+		u8 lasershots;
+		u8 maulercharge;
+	};
 	u8 weaponfunc; // 0 or 1
 };
 
@@ -1537,10 +1541,14 @@ struct weaponobj { // objtype 0x08
 	union {
 		struct gset gset;
 		struct {
-			/*0x5c*/ u8 weaponnum;
-			/*0x5d*/ s8 unk5d;
-			/*0x5e*/ s8 unk5e;
-			/*0x5f*/ u8 gunfunc;
+			u8 weaponnum;
+			u8 upgradewant;
+			union {
+				u8 miscbyte;
+				u8 lasershots;
+				u8 maulercharge;
+			};
+			u8 gunfunc;
 		};
 	};
 
@@ -2849,7 +2857,7 @@ struct gunviscmd {
 
 	// unk00 - Some kind of condition field
 	// 0 = terminator
-	// 4 = if bit in hand->unk0639 (bit index specified via unk02)
+	// 4 = if bit in hand->upgradewant (bit index specified via unk02)
 	// 5 = if in left hand
 	// 6 = if in right hand
 	u8 type;

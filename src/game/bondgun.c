@@ -342,7 +342,7 @@ bool bgun_test_gun_vis_command(struct gunviscmd *cmd, struct hand *hand)
 
 	switch (cmd->type) {
 	case GUNVISCMD_CHECKUPGRADE:
-		if (((hand->gset.unk0639 >> cmd->param) & 1) == 0) {
+		if (((hand->gset.upgradewant >> cmd->param) & 1) == 0) {
 			result = false;
 		}
 		break;
@@ -5366,7 +5366,7 @@ void bgun_tick_switch2(void)
 				player->hands[i].lastshootframe60 = 0;
 				player->hands[i].gset.weaponfunc = FUNC_PRIMARY;
 				player->hands[i].gset.weaponnum = ctrl->weaponnum;
-				player->hands[i].gset.unk0639 = (ctrl->upgradewant >> (i * 4)) & 0xf;
+				player->hands[i].gset.upgradewant = (ctrl->upgradewant >> (i * 4)) & 0xf;
 				player->hands[i].gangstarot = 0.0f;
 
 				bgun0f0abd30(i);
@@ -8522,7 +8522,7 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 			if (texturenum == 10000) {
 				soundnum = SFX_SHIELD_DAMAGE;
 			} else if (gset->weaponnum == WEAPON_LASER) {
-				if (gset->weaponfunc == FUNC_PRIMARY || ((gset->unk063a % 4) == 0 && (random() % 2))) {
+				if (gset->weaponfunc == FUNC_PRIMARY || ((gset->lasershots % 4) == 0 && (random() % 2))) {
 					if ((random() % 2) == 0) {
 						soundnum = SFX_CLOAK_ON;
 					} else {
@@ -8660,7 +8660,7 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 				snd_start(var80095200, SFX_SHIELD_DAMAGE, handle, -1, -1, -1, -1, -1);
 				soundnum = SFX_SHIELD_DAMAGE;
 			} else if (gset->weaponnum == WEAPON_LASER) {
-				if (gset->weaponfunc == FUNC_PRIMARY || (gset->unk063a % 8) == 0) {
+				if (gset->weaponfunc == FUNC_PRIMARY || (gset->lasershots % 8) == 0) {
 					if ((random() % 2) == 0) {
 						soundnum = SFX_CLOAK_ON;
 					} else {
@@ -8763,7 +8763,7 @@ void bgun_play_bg_hit_sound(struct gset *gset, struct coord *hitpos, s32 texture
 		if (gset->weaponnum == WEAPON_LASER) {
 			playdefault = false;
 
-			if (gset->weaponfunc == FUNC_PRIMARY || ((gset->unk063a % 4) == 0 && (random() % 2))) {
+			if (gset->weaponfunc == FUNC_PRIMARY || ((gset->lasershots % 4) == 0 && (random() % 2))) {
 				// Laser sounds
 				s16 sounds[] = {SFX_CLOAK_ON, SFX_CLOAK_OFF};
 				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
@@ -8857,7 +8857,7 @@ void bgun_play_bg_hit_sound(struct gset *gset, struct coord *hitpos, s32 texture
 		overridden = false;
 
 		if (gset->weaponnum == WEAPON_LASER) {
-			if (gset->weaponfunc == FUNC_PRIMARY || (gset->unk063a % 8) == 0) {
+			if (gset->weaponfunc == FUNC_PRIMARY || (gset->lasershots % 8) == 0) {
 				// Laser sounds
 				s16 sounds[] = {SFX_CLOAK_ON, SFX_CLOAK_OFF};
 				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];

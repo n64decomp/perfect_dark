@@ -206,8 +206,8 @@ void htb_create_uplink(void)
 		0x0fff,                 // floorcol
 		0,                      // tiles
 		WEAPON_DATAUPLINK,      // weaponnum
-		0,                      // unk5d
-		0,                      // unk5e
+		0,                      // upgradewant
+		0,                      // miscbyte
 		FUNC_PRIMARY,           // gunfunc
 		0,                      // fadeouttimer60
 		-1,                     // dualweaponnum

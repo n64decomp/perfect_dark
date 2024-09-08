@@ -411,15 +411,15 @@ void gset_populate(s32 handnum, struct gset *gset)
 {
 	gset->weaponnum = g_Vars.currentplayer->gunctrl.weaponnum;
 	gset->weaponfunc = g_Vars.currentplayer->hands[handnum].gset.weaponfunc;
-	gset->unk063a = g_Vars.currentplayer->hands[handnum].gset.unk063a;
-	gset->unk0639 = g_Vars.currentplayer->hands[handnum].gset.unk0639;
+	gset->miscbyte = g_Vars.currentplayer->hands[handnum].gset.miscbyte;
+	gset->upgradewant = g_Vars.currentplayer->hands[handnum].gset.upgradewant;
 
 	if (gset->weaponnum == WEAPON_MAULER) {
-		gset->unk063a = g_Vars.currentplayer->hands[handnum].matmot1 * 10.0f;
+		gset->maulercharge = g_Vars.currentplayer->hands[handnum].matmot1 * 10.0f;
 	}
 
 	if (gset->weaponnum == WEAPON_LASER) {
-		gset->unk063a = g_Vars.currentplayer->hands[handnum].burstbullets & 0xff;
+		gset->lasershots = g_Vars.currentplayer->hands[handnum].burstbullets & 0xff;
 	}
 }
 
@@ -499,7 +499,7 @@ f32 gset_get_damage(struct gset *gset)
 	}
 
 	if (gset->weaponnum == WEAPON_MAULER) {
-		damage = (gset->unk063a / 3.0f + 1.0f) * damage;
+		damage = (gset->maulercharge / 3.0f + 1.0f) * damage;
 	}
 
 	if (bgun_is_firing(HAND_LEFT) && bgun_is_firing(HAND_RIGHT)) {

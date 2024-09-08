@@ -144,7 +144,7 @@ struct autogunobj *laptop_deploy(s32 modelnum, struct gset *gset, struct chrdata
 struct weaponobj *weapon_create_projectile_from_gset(s32 modelnum, struct gset *gset, struct chrdata *chr);
 struct weaponobj *weapon_create_projectile_from_weapon_num(s32 modelnum, s32 weaponnum, struct chrdata *chr);
 void weapon_delete_from_chr(struct chrdata *chr, s32 hand);
-struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weaponnum, u32 flags, struct weaponobj *obj, struct modeldef *modeldef);
+struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weaponnum, u32 flags, struct weaponobj *weapon, struct modeldef *modeldef);
 struct prop *chr_give_weapon(struct chrdata *chr, s32 model, s32 weaponnum, u32 flags);
 s32 weapon_test_for_pickup(struct prop *prop);
 void weapon_set_gunfire_visible(struct prop *prop, bool visible, RoomNum room);

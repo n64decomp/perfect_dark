@@ -15726,7 +15726,7 @@ void obj_hit(struct shotdata *shotdata, struct hit *hit)
 
 	if (obj->modelnum == MODEL_TARGET) {
 		if (hit->hitthing.texturenum == TEXTURE_0B9E) {
-			fr_calculate_hit(obj, &sp110, shotdata->gset.unk063a);
+			fr_calculate_hit(obj, &sp110, shotdata->gset.maulercharge);
 		} else if ((shotdata->gset.weaponnum != WEAPON_CALLISTO || shotdata->gset.weaponfunc != FUNC_SECONDARY)
 #if VERSION >= VERSION_NTSC_1_0
 				&& shotdata->gset.weaponnum != WEAPON_FARSIGHT
@@ -18600,8 +18600,8 @@ struct weaponobj *weapon_create_projectile_from_gset(s32 modelnum, struct gset *
 			0x0fff,                 // floorcol
 			0,                      // tiles
 			0,                      // weaponnum
-			0,                      // unk5d
-			0,                      // unk5e
+			0,                      // upgradewant
+			0,                      // miscbyte
 			0,                      // gunfunc
 			0,                      // fadeouttimer60
 			-1,                     // dualweaponnum
@@ -18612,8 +18612,8 @@ struct weaponobj *weapon_create_projectile_from_gset(s32 modelnum, struct gset *
 		*weapon = tmp;
 
 		weapon->weaponnum = gset->weaponnum;
-		weapon->unk5d = gset->unk0639;
-		weapon->unk5e = gset->unk063a;
+		weapon->upgradewant = gset->upgradewant;
+		weapon->miscbyte = gset->miscbyte;
 		weapon->gunfunc = gset->weaponfunc;
 
 		// This switch is useless because everything uses the same case
@@ -18683,7 +18683,7 @@ void weapon_delete_from_chr(struct chrdata *chr, s32 hand)
 	}
 }
 
-struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weaponnum, u32 flags, struct weaponobj *obj, struct modeldef *modeldef)
+struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weaponnum, u32 flags, struct weaponobj *weapon, struct modeldef *modeldef)
 {
 	struct prop *prop;
 	struct model *model;
@@ -18696,8 +18696,8 @@ struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weapon
 	prop = prop_allocate();
 	model = modelmgr_instantiate_model_without_anim(modeldef);
 
-	if (obj == NULL) {
-		obj = weapon_create(prop == NULL, model == NULL, modeldef);
+	if (weapon == NULL) {
+		weapon = weapon_create(prop == NULL, model == NULL, modeldef);
 	}
 
 	if (prop == NULL) {
@@ -18708,7 +18708,7 @@ struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weapon
 		model = modelmgr_instantiate_model_without_anim(modeldef);
 	}
 
-	if (obj && prop && model) {
+	if (weapon && prop && model) {
 		struct weaponobj tmp = {
 			256,                    // extrascale
 			0,                      // hidden2
@@ -18733,8 +18733,8 @@ struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weapon
 			0x0fff,                 // floorcol
 			0,                      // tiles
 			0,                      // weaponnum
-			0,                      // unk5d
-			0,                      // unk5e
+			0,                      // upgradewant
+			0,                      // miscbyte
 			0,                      // gunfunc
 			0,                      // fadeouttimer60
 			-1,                     // dualweaponnum
@@ -18742,17 +18742,17 @@ struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weapon
 			NULL,                   // dualweapon
 		};
 
-		*obj = tmp;
+		*weapon = tmp;
 
-		obj->weaponnum = weaponnum;
-		obj->gunfunc = FUNC_PRIMARY;
-		obj->unk5e = 0;
-		obj->unk5d = 0;
-		obj->base.modelnum = modelnum;
-		obj->base.flags = flags | OBJFLAG_ASSIGNEDTOCHR;
-		obj->base.pad = chr->chrnum;
+		weapon->weaponnum = weaponnum;
+		weapon->gunfunc = FUNC_PRIMARY;
+		weapon->miscbyte = 0;
+		weapon->upgradewant = 0;
+		weapon->base.modelnum = modelnum;
+		weapon->base.flags = flags | OBJFLAG_ASSIGNEDTOCHR;
+		weapon->base.pad = chr->chrnum;
 
-		prop = func0f08b108(obj, chr, modeldef, prop, model);
+		prop = func0f08b108(weapon, chr, modeldef, prop, model);
 	} else {
 		if (model) {
 			modelmgr_free_model(model);
@@ -18763,9 +18763,9 @@ struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weapon
 			prop = NULL;
 		}
 
-		if (obj) {
-			obj->base.prop = NULL;
-			obj->base.model = NULL;
+		if (weapon) {
+			weapon->base.prop = NULL;
+			weapon->base.model = NULL;
 		}
 	}
 

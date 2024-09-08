@@ -5059,8 +5059,8 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 							chr->act_preargh.hitpart = hitpart;
 							chr->act_preargh.aplayernum = aplayernum;
 							chr->act_preargh.gset.weaponnum = gset->weaponnum;
-							chr->act_preargh.gset.unk0639 = gset->unk0639;
-							chr->act_preargh.gset.unk063a = gset->unk063a;
+							chr->act_preargh.gset.upgradewant = gset->upgradewant;
+							chr->act_preargh.gset.miscbyte = gset->miscbyte;
 							chr->act_preargh.gset.weaponfunc = gset->weaponfunc;
 
 							chr->sleep = 0;
@@ -10257,7 +10257,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 
 					normalshoot = false;
 				} else if (gset.weaponnum == WEAPON_MAULER && isaibot && gset.weaponfunc == FUNC_SECONDARY) {
-					gset.unk063a = (s32) (chr->aibot->maulercharge[handnum] * 10.0f);
+					gset.maulercharge = (s32) (chr->aibot->maulercharge[handnum] * 10.0f);
 					chr->aibot->maulercharge[handnum] = 0;
 				}
 
