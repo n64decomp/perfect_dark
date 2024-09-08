@@ -584,7 +584,7 @@ struct prop *shot_calculate_hits(s32 handnum, bool isshooting, struct coord *gun
 	struct shotdata shotdata;
 	s32 i;
 	s32 s1 = 0;
-	struct weaponfunc *func;
+	struct funcdef *func;
 	bool laserstream = false;
 	bool ismelee = false;
 	f32 range = 200;
@@ -669,7 +669,7 @@ struct prop *shot_calculate_hits(s32 handnum, bool isshooting, struct coord *gun
 		hitpos.z = shotdata.gunpos3d.z + shotdata.gundir3d.z * 300;
 	} else if (ismelee) {
 		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
-			struct weaponfunc_melee *meleefunc = (struct weaponfunc_melee *) func;
+			struct funcdef_melee *meleefunc = (struct funcdef_melee *) func;
 			range = meleefunc->range;
 		}
 
@@ -1192,10 +1192,10 @@ void hand_inflict_melee_damage(s32 handnum, struct gset *gset, bool arg2)
 				f32 spfc[2];
 				f32 spf4[2];
 				struct model *model;
-				struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+				struct funcdef *func = gset_get_funcdef_by_gset(gset);
 
 				if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
-					struct weaponfunc_melee *meleefunc = (struct weaponfunc_melee *)func;
+					struct funcdef_melee *meleefunc = (struct funcdef_melee *)func;
 					rangelimit = meleefunc->range;
 				}
 
@@ -2393,7 +2393,7 @@ f32 prop_calculate_autoaim_score(struct prop *prop, struct coord *screenpos, f32
 	f32 left;
 	f32 right;
 	f32 result = -2;
-	struct weaponfunc *func = gset_get_current_funcdef(HAND_RIGHT);
+	struct funcdef *func = gset_get_current_funcdef(HAND_RIGHT);
 	bool usefullscreen = forcefullscreen;
 	bool sp4c;
 	f32 sp48;
@@ -2577,7 +2577,7 @@ void autoaim_tick(void)
 	bool ismelee = false;
 	bool cangangsta = gset_has_weapon_flag(bgun_get_weapon_num(HAND_RIGHT), WEAPONFLAG_GANGSTA);
 	bool iscmpsec = false;
-	struct weaponfunc *func = gset_get_current_funcdef(HAND_RIGHT);
+	struct funcdef *func = gset_get_current_funcdef(HAND_RIGHT);
 	s32 i;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {

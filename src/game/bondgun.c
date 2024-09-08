@@ -424,7 +424,7 @@ void bgun_execute_gun_vis_commands(struct hand *hand, struct modeldef *modeldef,
 
 void bgun_update_ammo_visibility(struct hand *hand, struct modeldef *modeldef)
 {
-	struct weapon *weapon = gset_get_weapondef(hand->gset.weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(hand->gset.weaponnum);
 	s32 i;
 	s32 j;
 
@@ -862,7 +862,7 @@ void bgun_get_weapon_info(struct handweaponinfo *info, s32 handnum)
 s32 bgun_get_ammo_state(s32 funcnum, struct handweaponinfo *info, struct hand *hand)
 {
 	s32 state = GUNAMMOSTATE_CLIPFULL;
-	struct weaponfunc *func = gset_get_funcdef_by_gset_funcnum(&hand->gset, funcnum);
+	struct funcdef *func = gset_get_funcdef_by_gset_funcnum(&hand->gset, funcnum);
 
 	if (!func) {
 		return GUNAMMOSTATE_DEPLETED;
@@ -903,7 +903,7 @@ s32 bgun_get_ammo_state(s32 funcnum, struct handweaponinfo *info, struct hand *h
 
 void bgun0f098df8(s32 weaponfunc, struct handweaponinfo *info, struct hand *hand, u8 onebullet, u8 checkunequipped)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset_funcnum(&hand->gset, weaponfunc);
+	struct funcdef *func = gset_get_funcdef_by_gset_funcnum(&hand->gset, weaponfunc);
 
 	if (func && func->ammoindex != -1) {
 		s32 ammoindex = func->ammoindex;
@@ -982,7 +982,7 @@ bool bgun_clip_has_ammo(s32 handnum)
 	return false;
 }
 
-bool bgun0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
+bool bgun0f0990b0(struct funcdef *basefunc, struct weapondef *weapon)
 {
 	if (!basefunc) {
 		return true;
@@ -997,7 +997,7 @@ bool bgun0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 	}
 
 	if ((basefunc->type & 0xff) == INVENTORYFUNCTYPE_SPECIAL) {
-		struct weaponfunc_special *func = (struct weaponfunc_special *)basefunc;
+		struct funcdef_special *func = (struct funcdef_special *)basefunc;
 
 		if (func->specialfunc != HANDATTACKTYPE_DETONATE
 				&& func->specialfunc != HANDATTACKTYPE_BOOST
@@ -1023,8 +1023,8 @@ bool bgun0f0990b0(struct weaponfunc *basefunc, struct weapon *weapon)
 
 bool bgun0f099188(struct hand *hand, s32 gunfunc)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset_funcnum(&hand->gset, gunfunc);
-	struct weapon *weapon = gset_get_weapondef(hand->gset.weaponnum);
+	struct funcdef *func = gset_get_funcdef_by_gset_funcnum(&hand->gset, gunfunc);
+	struct weapondef *weapon = gset_get_weapondef(hand->gset.weaponnum);
 
 	if (bgun_is_using_secondary_function() == gunfunc) {
 		return false;
@@ -1042,7 +1042,7 @@ s32 bgun_tick_inc_idle(struct handweaponinfo *info, s32 handnum, struct hand *ha
 	bool changefunc;
 	s32 next;
 	struct hand *lhand;
-	struct weaponfunc *func;
+	struct funcdef *func;
 
 	hand->lastdirvalid = false;
 	hand->burstbullets = 0;
@@ -1354,7 +1354,7 @@ bool bgun_is_reloading(struct hand *hand)
 s32 bgun_tick_inc_reload(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
-	struct weaponfunc *func = gset_get_funcdef_by_gset(&hand->gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(&hand->gset);
 
 	if (g_Vars.currentplayer->isdead) {
 		hand->animmode = HANDANIMMODE_IDLE;
@@ -1590,7 +1590,7 @@ s32 bgun_tick_inc_changefunc(struct handweaponinfo *info, s32 handnum, struct ha
 	return 0;
 }
 
-s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
+s32 bgun0f09a3f8(struct hand *hand, struct funcdef *func)
 {
 	bool burst = false;
 	bool smallburst = false;
@@ -1629,7 +1629,7 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 		}
 
 		if ((func->type & 0xff00) == 0x100) {
-			struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
+			struct funcdef_shootauto *autofunc = (struct funcdef_shootauto *) func;
 
 			if (autofunc->turretaccel > 0) {
 				if (hand->gs_float1 < 1) {
@@ -1685,7 +1685,7 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 	}
 
 	if ((func->type & 0xff00) == (INVENTORYFUNCTYPE_SHOOT_AUTOMATIC & 0xff00)) {
-		struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
+		struct funcdef_shootauto *autofunc = (struct funcdef_shootauto *) func;
 
 		if (autofunc->turretdecel > 0) {
 			if (hand->gs_float1 > 0) {
@@ -1708,7 +1708,7 @@ s32 bgun0f09a3f8(struct hand *hand, struct weaponfunc *func)
 	return -1;
 }
 
-void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, struct weaponfunc *func)
+void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, struct funcdef *func)
 {
 	bool usesammo = true;
 
@@ -1721,7 +1721,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 	hand->firing = true;
 
 	if ((func->type & 0xff00) == 0x100) {
-		struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
+		struct funcdef_shootauto *autofunc = (struct funcdef_shootauto *) func;
 		f32 tmp;
 		f32 tmp2;
 
@@ -1849,7 +1849,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 	}
 }
 
-bool bgun_tick_recoil(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct weaponfunc_shoot *func)
+bool bgun_tick_recoil(struct hand *hand, struct handweaponinfo *info, s32 handnum, struct funcdef_shoot *func)
 {
 	s32 unk24;
 	s32 unk25;
@@ -1858,7 +1858,7 @@ bool bgun_tick_recoil(struct hand *hand, struct handweaponinfo *info, s32 handnu
 	s32 unk27;
 	s32 recoverytime60;
 	s32 curframe;
-	struct weapon *weapondef;
+	struct weapondef *weapondef;
 	f32 mult1;
 	f32 recoildist;
 	f32 recoilangle;
@@ -2011,7 +2011,7 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 {
 	static u32 var80070128 = 99;
 
-	struct weaponfunc *func = gset_get_funcdef_by_gset(&hand->gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(&hand->gset);
 	bool canfireagain;
 	s32 sp64;
 	s32 sp60;
@@ -2051,7 +2051,7 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 		sp60 = bgun0f09a3f8(hand, func);
 
 		if ((func->type & 0xff00) == 0x100) {
-			struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *) func;
+			struct funcdef_shootauto *autofunc = (struct funcdef_shootauto *) func;
 			f32 floats[12];
 
 			if (autofunc->vibrationstart != NULL && autofunc->vibrationmax != NULL) {
@@ -2083,7 +2083,7 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 
 	if (hand->stateminor == HANDSTATEMINOR_ATTACK_SHOOT_2) {
 		if (hand->stateflags & HANDSTATEFLAG_FIRED) {
-			canfireagain = bgun_tick_recoil(hand, info, handnum, (struct weaponfunc_shoot *) func);
+			canfireagain = bgun_tick_recoil(hand, info, handnum, (struct funcdef_shoot *) func);
 		} else {
 			canfireagain = true;
 		}
@@ -2110,7 +2110,7 @@ bool bgun_tick_inc_attacking_shoot(struct handweaponinfo *info, s32 handnum, str
 
 bool bgun_tick_inc_attacking_throw(s32 handnum, struct hand *hand)
 {
-	struct weaponfunc_throw *func = (struct weaponfunc_throw *) gset_get_funcdef_by_gset(&hand->gset);
+	struct funcdef_throw *func = (struct funcdef_throw *) gset_get_funcdef_by_gset(&hand->gset);
 
 	if (func == NULL) {
 		return true;
@@ -2222,7 +2222,7 @@ u32 var80070130 = 0x00000000;
 
 bool bgun_tick_inc_attacking_melee(s32 handnum, struct hand *hand)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset(&hand->gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(&hand->gset);
 
 	if (func == NULL) {
 		return true;
@@ -2330,7 +2330,7 @@ bool bgun_tick_inc_attacking_melee(s32 handnum, struct hand *hand)
 
 bool bgun_tick_inc_attacking_special(struct hand *hand)
 {
-	struct weaponfunc_special *func = (struct weaponfunc_special *) gset_get_funcdef_by_gset(&hand->gset);
+	struct funcdef_special *func = (struct funcdef_special *) gset_get_funcdef_by_gset(&hand->gset);
 
 	if (!func) {
 		return true;
@@ -2398,7 +2398,7 @@ s32 bgun_tick_inc_attackempty(struct handweaponinfo *info, s32 handnum, struct h
 			bool restartedanim = false;
 
 			if ((hand->stateflags & HANDSTATEFLAG_BUSY) == 0) {
-				struct weaponfunc *func = NULL;
+				struct funcdef *func = NULL;
 
 				if (info->definition) {
 					func = gset_get_funcdef_by_gset(&hand->gset);
@@ -2526,7 +2526,7 @@ s32 bgun_tick_inc_attackempty(struct handweaponinfo *info, s32 handnum, struct h
 s32 bgun_tick_inc_attack(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
-	struct weaponfunc *func = NULL;
+	struct funcdef *func = NULL;
 	bool finished = true;
 	u32 stack2;
 
@@ -2663,7 +2663,7 @@ bool bgun0f09bf44(s32 handnum)
 s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct hand *hand, s32 lvupdate)
 {
 	u32 stack;
-	struct weapon *weapon = info->definition;
+	struct weapondef *weapon = info->definition;
 
 	if (hand->statecycles == 0) {
 		if (g_Vars.normmplayerisrunning == false) {
@@ -3230,7 +3230,7 @@ void bgun_calculate_blend(s32 handnum)
 {
 	s32 sp60[2];
 	s32 sp58[2];
-	struct weapon *weapon = gset_get_weapondef(bgun_get_weapon_num(handnum));
+	struct weapondef *weapon = gset_get_weapondef(bgun_get_weapon_num(handnum));
 	f32 sway = weapon->sway;
 	struct player *player = g_Vars.currentplayer;
 
@@ -3832,11 +3832,11 @@ void bgun_tick_master_load(void)
 	s32 i;
 	struct casing *casing;
 	struct hand *hand;
-	struct weaponfunc *func;
-	struct weaponfunc *shootfunc;
-	struct weapon *weapondef;
+	struct funcdef *func;
+	struct funcdef *shootfunc;
+	struct weapondef *weapondef;
 	s32 casingindex;
-	struct inventory_ammo *ammodef;
+	struct ammodef *ammodef;
 	s32 value;
 	s32 bodynum;
 	s32 headnum;
@@ -4198,9 +4198,9 @@ void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, stru
 struct defaultobj *bgun_create_thrown_projectile2(struct chrdata *chr, struct gset *gset, struct coord *pos, RoomNum *rooms, Mtxf *arg4, struct coord *velocity)
 {
 	struct defaultobj *obj = NULL;
-	struct weaponfunc *basefunc;
-	struct weaponfunc_throw *func;
-	struct weapon *weapon = gset_get_weapondef(gset->weaponnum);
+	struct funcdef *basefunc;
+	struct funcdef_throw *func;
+	struct weapondef *weapon = gset_get_weapondef(gset->weaponnum);
 	struct weaponobj *weaponobj;
 	struct autogunobj *autogun;
 	Mtxf mtx;
@@ -4211,7 +4211,7 @@ struct defaultobj *bgun_create_thrown_projectile2(struct chrdata *chr, struct gs
 	}
 
 	basefunc = weapon->functions[gset->weaponfunc];
-	func = (struct weaponfunc_throw *) basefunc;
+	func = (struct funcdef_throw *) basefunc;
 
 	if (func == NULL) {
 		return false;
@@ -4523,7 +4523,7 @@ void bgun_update_held_rocket(s32 handnum)
 	}
 }
 
-void bgun_create_held_rocket(s32 handnum, struct weaponfunc_shootprojectile *func)
+void bgun_create_held_rocket(s32 handnum, struct funcdef_shootprojectile *func)
 {
 	struct hand *hand = &g_Vars.currentplayer->hands[handnum];
 	struct weaponobj *obj;
@@ -4560,7 +4560,7 @@ void bgun_free_held_rocket(s32 handnum)
 
 void bgun_create_fired_projectile(s32 handnum)
 {
-	struct weapon *weapondef;
+	struct weapondef *weapondef;
 	struct hand *hand;
 	Mtxf sp270;
 	struct coord sp264;
@@ -4575,8 +4575,8 @@ void bgun_create_fired_projectile(s32 handnum)
 	struct coord *extrapos;
 	struct coord spawnpos;
 	struct weaponobj *weapon;
-	struct weaponfunc *tmp;
-	struct weaponfunc_shootprojectile *funcdef;
+	struct funcdef *tmp;
+	struct funcdef_shootprojectile *funcdef;
 	struct coord aimpos;
 	struct coord sp1bc;
 	f32 frac;
@@ -4600,7 +4600,7 @@ void bgun_create_fired_projectile(s32 handnum)
 		tmp = weapondef->functions[hand->gset.weaponfunc];
 
 		if (tmp && tmp->type == INVENTORYFUNCTYPE_SHOOT_PROJECTILE) {
-			funcdef = (struct weaponfunc_shootprojectile *)tmp;
+			funcdef = (struct funcdef_shootprojectile *)tmp;
 
 			mtx4_load_identity(&sp270);
 			bgun_calculate_player_shot_spread(&gunpos, &gundir, handnum, true);
@@ -5032,7 +5032,7 @@ void bgun_swivel(f32 screenx, f32 screeny, f32 crossdamp, f32 aimdamp)
  */
 void bgun_swivel_with_damp(f32 screenx, f32 screeny, f32 crossdamp)
 {
-	struct weapon *weapon = gset_get_weapondef(bgun_get_weapon_num(HAND_RIGHT));
+	struct weapondef *weapon = gset_get_weapondef(bgun_get_weapon_num(HAND_RIGHT));
 	f32 aimdamp = PAL ? weapon->aimsettings->aimdamppal : weapon->aimsettings->aimdamp;
 
 	if (aimdamp < crossdamp) {
@@ -5050,7 +5050,7 @@ void bgun_swivel_with_damp(f32 screenx, f32 screeny, f32 crossdamp)
  */
 void bgun_swivel_without_damp(f32 screenx, f32 screeny)
 {
-	struct weapon *weapon = gset_get_weapondef(bgun_get_weapon_num(HAND_RIGHT));
+	struct weapondef *weapon = gset_get_weapondef(bgun_get_weapon_num(HAND_RIGHT));
 	f32 aimdamp = PAL ? weapon->aimsettings->aimdamppal : weapon->aimsettings->aimdamp;
 
 	bgun_swivel(screenx, screeny, PAL ? 0.935f : 0.945f, aimdamp);
@@ -5088,11 +5088,11 @@ void bgun_calculate_player_shot_spread(struct coord *gunpos2d, struct coord *gun
 	f32 spread = 0;
 	f32 scaledspread;
 	f32 randfactor;
-	struct weaponfunc *func = gset_get_current_funcdef(handnum);
+	struct funcdef *func = gset_get_current_funcdef(handnum);
 	struct player *player = g_Vars.currentplayer;
 
 	if (func != NULL && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		struct weaponfunc_shoot *shootfunc = (struct weaponfunc_shoot *) func;
+		struct funcdef_shoot *shootfunc = (struct funcdef_shoot *) func;
 		spread = shootfunc->spread;
 	}
 
@@ -5142,7 +5142,7 @@ void bgun_calculate_bot_shot_spread(struct coord *arg0, s32 weaponnum, s32 funcn
 {
 	f32 spread = 0.0f;
 	f32 radius;
-	struct weapon *weapondef = gset_get_weapondef(weaponnum);
+	struct weapondef *weapondef = gset_get_weapondef(weaponnum);
 	f32 x;
 	f32 y;
 	Mtxf mtx;
@@ -5150,10 +5150,10 @@ void bgun_calculate_bot_shot_spread(struct coord *arg0, s32 weaponnum, s32 funcn
 	u32 stack;
 
 	if (weapondef) {
-		struct weaponfunc *funcdef = weapondef->functions[funcnum];
+		struct funcdef *funcdef = weapondef->functions[funcnum];
 
 		if (funcdef && (funcdef->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-			struct weaponfunc_shoot *shootfunc = (struct weaponfunc_shoot *)funcdef;
+			struct funcdef_shoot *shootfunc = (struct funcdef_shoot *)funcdef;
 			spread = shootfunc->spread;
 		}
 	}
@@ -5558,7 +5558,7 @@ bool bgun_has_ammo_for_weapon(s32 weaponnum)
 {
 	bool ammodefexists = false;
 	bool hasammo = false;
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 	s32 i;
 
 	if (weapon == NULL) {
@@ -5566,10 +5566,10 @@ bool bgun_has_ammo_for_weapon(s32 weaponnum)
 	}
 
 	for (i = 0; i < 2; i++) {
-		struct weaponfunc *func = gset_get_funcdef_by_weaponnum_funcnum(weaponnum, i);
+		struct funcdef *func = gset_get_funcdef_by_weaponnum_funcnum(weaponnum, i);
 
 		if (func && func->ammoindex >= 0) {
-			struct inventory_ammo *ammo = weapon->ammos[func->ammoindex];
+			struct ammodef *ammo = weapon->ammos[func->ammoindex];
 
 			if (ammo) {
 				ammodefexists = true;
@@ -5668,8 +5668,8 @@ u8 g_AutoSwitchWeaponsSecondary[] = {
 void bgun_auto_switch_weapon(void)
 {
 	s32 i;
-	struct weapon *weapon;
-	struct weaponfunc *func;
+	struct weapondef *weapon;
+	struct funcdef *func;
 	s32 weaponnum;
 	s32 newweaponnum = -1;
 	s32 firstweaponnum = -1;
@@ -5813,7 +5813,7 @@ s32 bgun_get_attack_type(s32 handnum)
 
 char *bgun_get_name(s32 weaponnum)
 {
-	struct weapon *weapon = g_Weapons[weaponnum];
+	struct weapondef *weapon = g_Weapons[weaponnum];
 
 	if (weapon) {
 		return lang_get(weapon->name);
@@ -5824,7 +5824,7 @@ char *bgun_get_name(s32 weaponnum)
 
 u16 bgun_get_name_id(s32 weaponnum)
 {
-	struct weapon *weapon = g_Weapons[weaponnum];
+	struct weapondef *weapon = g_Weapons[weaponnum];
 
 	if (weapon) {
 		return weapon->name;
@@ -5835,7 +5835,7 @@ u16 bgun_get_name_id(s32 weaponnum)
 
 char *bgun_get_short_name(s32 weaponnum)
 {
-	struct weapon *weapon = g_Weapons[weaponnum];
+	struct weapondef *weapon = g_Weapons[weaponnum];
 
 	if (weapon) {
 		return lang_get(weapon->shortname);
@@ -5878,11 +5878,11 @@ void bgun_start_slide(s32 handnum)
 void bgun_update_slide(s32 handnum)
 {
 	f32 slidemax = 0.0f;
-	struct weaponfunc *funcdef = gset_get_current_funcdef(handnum);
+	struct funcdef *funcdef = gset_get_current_funcdef(handnum);
 	struct player *player = g_Vars.currentplayer;
 
 	if (funcdef && ((funcdef->type & 0xff) == INVENTORYFUNCTYPE_SHOOT)) {
-		struct weaponfunc_shoot *shootfunc = (struct weaponfunc_shoot *)funcdef;
+		struct funcdef_shoot *shootfunc = (struct funcdef_shoot *)funcdef;
 		slidemax = shootfunc->slidemax;
 	}
 
@@ -6000,7 +6000,7 @@ void bgun0f0a256c(s32 mtxindex, Mtxf *mtx)
 bool bgun_allows_fullscreen_autoaim(void)
 {
 	struct hand *hand;
-	struct weaponfunc *func;
+	struct funcdef *func;
 
 	// Right hand
 	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
@@ -6045,7 +6045,7 @@ bool bgun_allows_fullscreen_autoaim(void)
 bool bgun_allows_fullscreen_autoaim2(void)
 {
 	struct hand *hand;
-	struct weaponfunc *func;
+	struct funcdef *func;
 
 	hand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 	func = gset_get_funcdef_by_gset2(&hand->gset);
@@ -6160,7 +6160,7 @@ void bgun_disarm(struct prop *attackerprop)
 		// Or drop it at player's feet with the pin pulled maybe...
 		if (weaponnum == WEAPON_GRENADE || weaponnum == WEAPON_NBOMB) {
 			for (i = 0; i < 2; i++) {
-				struct weaponfunc *func = gset_get_funcdef_by_gset(&player->hands[i].gset);
+				struct funcdef *func = gset_get_funcdef_by_gset(&player->hands[i].gset);
 
 				if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW
 						&& player->hands[i].state == HANDSTATE_ATTACK
@@ -6417,7 +6417,7 @@ void bgun_start_detonate_animation(s32 playernum)
  * rotation (reloading and equip/unequip do not). It also implements a delay on
  * reverting to the normal rotation.
  */
-void bgun_update_gangsta(struct hand *hand, s32 handnum, struct coord *arg2, struct weaponfunc *funcdef, Mtxf *arg4, Mtxf *arg5)
+void bgun_update_gangsta(struct hand *hand, s32 handnum, struct coord *arg2, struct funcdef *funcdef, Mtxf *arg4, Mtxf *arg5)
 {
 	f32 tmp;
 	struct coord sp38 = {0, 0, 0};
@@ -6513,7 +6513,7 @@ void bgun_update_gangsta(struct hand *hand, s32 handnum, struct coord *arg2, str
  * forcecreatesmoke controls whether smoke should be created while the gun is
  * still firing.
  */
-void bgun_update_smoke(struct hand *hand, s32 handnum, s32 weaponnum, struct weaponfunc *funcdef)
+void bgun_update_smoke(struct hand *hand, s32 handnum, s32 weaponnum, struct funcdef *funcdef)
 {
 	if (hand->firing) {
 		if (weaponnum == WEAPON_DY357MAGNUM || weaponnum == WEAPON_DY357LX) {
@@ -6991,7 +6991,7 @@ void bgun_eject_magnum_casings(struct hand *hand, s32 handnum, struct modeldef *
 /**
  * Create and/or update the rocket prop that sits inside the rocket launcher.
  */
-void bgun_update_rocket_launcher(struct hand *hand, s32 handnum, struct weaponfunc_shootprojectile *func)
+void bgun_update_rocket_launcher(struct hand *hand, s32 handnum, struct funcdef_shootprojectile *func)
 {
 	if (hand->rocket == NULL && hand->loadedammo[0] > 0) {
 		bgun_create_held_rocket(handnum, func);
@@ -7136,8 +7136,8 @@ void bgun_tick_eject(struct hand *hand, struct modeldef *modeldef, bool isdetona
 	}
 }
 
-void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modeldef *modeldef,
-		struct weaponfunc *funcdef, s32 maxburst, u8 *allocation, s32 weaponnum,
+void bgun0f0a4e44(struct hand *hand, struct weapondef *weapondef, struct modeldef *modeldef,
+		struct funcdef *funcdef, s32 maxburst, u8 *allocation, s32 weaponnum,
 		bool **arg7, s32 mtxindex, Mtxf *arg9, Mtxf *arg10)
 {
 	Mtxf spd8;
@@ -7228,7 +7228,7 @@ void bgun0f0a4e44(struct hand *hand, struct weapon *weapondef, struct modeldef *
  * Create casing and beam for a fired weapon,
  * and uncloak if the weapon is a throwable or fired projectile.
  */
-void bgun_create_fx(struct hand *hand, s32 handnum, struct weaponfunc *funcdef, s32 weaponnum, struct modeldef *modeldef, u8 *allocation)
+void bgun_create_fx(struct hand *hand, s32 handnum, struct funcdef *funcdef, s32 weaponnum, struct modeldef *modeldef, u8 *allocation)
 {
 	f32 ground;
 	bool createbeam = true;
@@ -7345,11 +7345,11 @@ void bgun0f0a5550(s32 handnum)
 	struct modelnode *node;
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand = player->hands + handnum;
-	struct weaponfunc *funcdef;
-	struct weaponfunc_shoot *shootfunc = NULL;
+	struct funcdef *funcdef;
+	struct funcdef_shoot *shootfunc = NULL;
 	s32 i;
 	s32 weaponnum = bgun_get_weapon_num2(handnum);
-	struct weapon *weapondef;
+	struct weapondef *weapondef;
 	Mtxf *mtx;
 	bool isdetonator = false;
 	f32 fspare1;
@@ -7369,7 +7369,7 @@ void bgun0f0a5550(s32 handnum)
 	funcdef = gset_get_funcdef_by_gset2(&hand->gset);
 
 	if (funcdef && (funcdef->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		shootfunc = (struct weaponfunc_shoot *)funcdef;
+		shootfunc = (struct funcdef_shoot *)funcdef;
 	}
 
 	bgun_update_blend(hand, handnum);
@@ -7845,7 +7845,7 @@ void bgun0f0a5550(s32 handnum)
 
 	switch (weaponnum) {
 	case WEAPON_ROCKETLAUNCHER:
-		bgun_update_rocket_launcher(hand, handnum, (struct weaponfunc_shootprojectile *)funcdef);
+		bgun_update_rocket_launcher(hand, handnum, (struct funcdef_shootprojectile *)funcdef);
 		break;
 	case WEAPON_DY357MAGNUM:
 	case WEAPON_DY357LX:
@@ -9099,7 +9099,7 @@ void bgun_tick_gameplay(bool triggeron)
 
 	// Remove throwable items from inventory if there's no more left
 	for (i = 0; i < inv_get_count(); i++) {
-		struct weapon *weapon;
+		struct weapondef *weapon;
 		s32 weaponnum = inv_get_weapon_num_by_index(i);
 		s32 equippedweaponnum;
 
@@ -9192,7 +9192,7 @@ void bgun_tick_gameplay(bool triggeron)
 
 		if (cheat_is_active(CHEAT_UNLIMITEDAMMONORELOADS)) {
 			s32 i;
-			struct weapon *weapon;
+			struct weapondef *weapon;
 			struct hand *lhand = &g_Vars.currentplayer->hands[HAND_LEFT];
 			struct hand *rhand = &g_Vars.currentplayer->hands[HAND_RIGHT];
 
@@ -9483,7 +9483,7 @@ void bgun_give_max_ammo(bool force)
 
 u32 bgun_get_ammo_type_for_weapon(u32 weaponnum, u32 func)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 
 	if (!weapon) {
 		return 0;
@@ -9498,10 +9498,10 @@ u32 bgun_get_ammo_type_for_weapon(u32 weaponnum, u32 func)
 
 s32 bgun_get_ammo_qty_for_weapon(u32 weaponnum, u32 func)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 
 	if (weapon) {
-		struct inventory_ammo *ammo = weapon->ammos[func];
+		struct ammodef *ammo = weapon->ammos[func];
 
 		if (ammo) {
 			return bgun_get_reserved_ammo_count(ammo->type);
@@ -9513,10 +9513,10 @@ s32 bgun_get_ammo_qty_for_weapon(u32 weaponnum, u32 func)
 
 void bgun_set_ammo_qty_for_weapon(u32 weaponnum, u32 func, u32 quantity)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 
 	if (weapon) {
-		struct inventory_ammo *ammo = weapon->ammos[func];
+		struct ammodef *ammo = weapon->ammos[func];
 
 		if (ammo) {
 			bgun_set_ammo_quantity(ammo->type, quantity);
@@ -9526,8 +9526,8 @@ void bgun_set_ammo_qty_for_weapon(u32 weaponnum, u32 func, u32 quantity)
 
 s32 bgun_get_ammo_capacity_for_weapon(s32 weaponnum, s32 func)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
-	struct inventory_ammo *ammo = weapon->ammos[func];
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
+	struct ammodef *ammo = weapon->ammos[func];
 
 	if (ammo) {
 		return g_AmmoTypes[ammo->type].capacity;
@@ -9938,7 +9938,7 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 	s32 reserveheight = 36;
 	s32 clipheight = 57;
 	s32 xpos;
-	struct weapon *weapon = gset_get_weapondef(player->gunctrl.weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(player->gunctrl.weaponnum);
 	u32 alpha;
 	u32 fncolour;
 	s32 funcnum;
@@ -9954,7 +9954,7 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 	s32 y;
 	s32 textheight;
 	s32 textwidth;
-	struct weaponfunc *func;
+	struct funcdef *func;
 	u16 nameid;
 	struct hand *lefthand = &player->hands[HAND_LEFT];
 
@@ -10191,12 +10191,12 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 	}
 
 	if (weapon && weapon->functions[hand->gset.weaponfunc] != NULL) {
-		ammoindex = ((struct weaponfunc *)(weapon->functions[hand->gset.weaponfunc]))->ammoindex;
+		ammoindex = ((struct funcdef *)(weapon->functions[hand->gset.weaponfunc]))->ammoindex;
 	}
 
 	if (ammoindex == -1) {
 		if (weapon->functions[1 - hand->gset.weaponfunc] != NULL) {
-			ammoindex = ((struct weaponfunc *)(weapon->functions[1 - hand->gset.weaponfunc]))->ammoindex;
+			ammoindex = ((struct funcdef *)(weapon->functions[1 - hand->gset.weaponfunc]))->ammoindex;
 		}
 
 		if (ammoindex == -1) {
@@ -10419,7 +10419,7 @@ void bgun0f0abd30(s32 handnum)
 	struct player *player = g_Vars.currentplayer;
 	struct hand *hand = &player->hands[handnum];
 	struct gunctrl *gunctrl = &player->gunctrl;
-	struct weapon *weapon = gset_get_weapondef(hand->gset.weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(hand->gset.weaponnum);
 	s32 i;
 
 	for (i = 0; i < 2; i++) {

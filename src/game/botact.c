@@ -22,7 +22,7 @@
 s32 botact_get_ammo_type_by_function(s32 weaponnum, s32 funcnum)
 {
 	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
-		struct inventory_ammo *ammo = gset_get_ammodef(weaponnum, funcnum);
+		struct ammodef *ammo = gset_get_ammodef(weaponnum, funcnum);
 
 		if (ammo) {
 			return ammo->type;
@@ -35,7 +35,7 @@ s32 botact_get_ammo_type_by_function(s32 weaponnum, s32 funcnum)
 s32 botact_get_clip_capacity_by_function(s32 weaponnum, u32 funcnum)
 {
 	if (weaponnum >= WEAPON_FALCON2 && weaponnum <= WEAPON_SUICIDEPILL) {
-		struct inventory_ammo *ammo = gset_get_ammodef(weaponnum, funcnum);
+		struct ammodef *ammo = gset_get_ammodef(weaponnum, funcnum);
 
 		if (ammo) {
 			return ammo->clipsize;
@@ -407,20 +407,20 @@ s32 botact_get_shoot_interval60(s32 weaponnum, s32 funcnum)
 {
 	s32 stack[2];
 	s32 result = 1;
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 
 	if (weapon) {
-		struct weaponfunc *func = weapon->functions[funcnum];
+		struct funcdef *func = weapon->functions[funcnum];
 
 		if (func) {
 			if (func->type == INVENTORYFUNCTYPE_SHOOT_SINGLE) {
-				struct weaponfunc_shoot *func2 = (struct weaponfunc_shoot *)func;
+				struct funcdef_shoot *func2 = (struct funcdef_shoot *)func;
 				result = func2->unk24 + func2->unk25;
 			} else if (func->type == INVENTORYFUNCTYPE_SHOOT_AUTOMATIC) {
-				struct weaponfunc_shoot *func2 = (struct weaponfunc_shoot *)func;
+				struct funcdef_shoot *func2 = (struct funcdef_shoot *)func;
 				result = func2->unk24 + func2->unk25;
 			} else if (func->type == INVENTORYFUNCTYPE_SHOOT_PROJECTILE) {
-				struct weaponfunc_shoot *func2 = (struct weaponfunc_shoot *)func;
+				struct funcdef_shoot *func2 = (struct funcdef_shoot *)func;
 				result = func2->unk24 + func2->unk25;
 			} else if (func->type == INVENTORYFUNCTYPE_MELEE && weaponnum != WEAPON_REAPER) {
 				result = 60;

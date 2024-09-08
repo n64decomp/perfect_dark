@@ -147,7 +147,7 @@ struct invaimsettings invaimsettings_heavy = {
 	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT, // flags
 };
 
-struct weaponfunc_shootsingle invfunc_00011160 = {
+struct funcdef_shootsingle invfunc_00011160 = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -169,7 +169,7 @@ struct weaponfunc_shootsingle invfunc_00011160 = {
 	1, // penetration
 };
 
-struct inventory_ammo invammo_default = {
+struct ammodef invammo_default = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -177,7 +177,7 @@ struct inventory_ammo invammo_default = {
 	0, // flags
 };
 
-struct weapon invitem_hammer = {
+struct weapondef invitem_hammer = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
@@ -203,7 +203,7 @@ struct weapon invitem_hammer = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_DUALWIELD,
 };
 
-struct weapon invitem_nothing = {
+struct weapondef invitem_nothing = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
@@ -262,7 +262,7 @@ struct guncmd invanim_punch[] = {
 	gunscript_end
 };
 
-struct weaponfunc_melee invfunc_unarmed_punch = {
+struct funcdef_melee invfunc_unarmed_punch = {
 	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_100, // name
 	0, // unused
@@ -286,7 +286,7 @@ struct weaponfunc_melee invfunc_unarmed_punch = {
 	0, // unused
 };
 
-struct weaponfunc_melee invfunc_unarmed_disarm = {
+struct funcdef_melee invfunc_unarmed_disarm = {
 	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_101, // name
 	0, // unused
@@ -310,7 +310,7 @@ struct weaponfunc_melee invfunc_unarmed_disarm = {
 	0, // unused
 };
 
-struct weapon invitem_unarmed = {
+struct weapondef invitem_unarmed = {
 	FILE_GCOMBATHANDSLOD, // hi model
 	FILE_GCOMBATHANDSLOD, // lo model
 	NULL, // equip animation
@@ -482,7 +482,7 @@ struct guncmd invanim_falcon2_shoot[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
+struct funcdef_shootsingle invfunc_falcon2_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -504,7 +504,7 @@ struct weaponfunc_shootsingle invfunc_falcon2_singleshot = {
 	1, // penetration
 };
 
-struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
+struct funcdef_shootsingle invfunc_falcon2silenced_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -526,7 +526,7 @@ struct weaponfunc_shootsingle invfunc_falcon2silenced_singleshot = {
 	1, // penetration
 };
 
-struct weaponfunc_melee invfunc_falcon2_pistolwhip = {
+struct funcdef_melee invfunc_falcon2_pistolwhip = {
 	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_094, // name
 	0, // unused
@@ -550,7 +550,7 @@ struct weaponfunc_melee invfunc_falcon2_pistolwhip = {
 	0, // unused
 };
 
-struct inventory_ammo invammo_falcon2 = {
+struct ammodef invammo_falcon2 = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
@@ -558,7 +558,7 @@ struct inventory_ammo invammo_falcon2 = {
 	0, // flags
 };
 
-struct inventory_ammo invammo_falcon2scope = {
+struct ammodef invammo_falcon2scope = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
@@ -566,7 +566,7 @@ struct inventory_ammo invammo_falcon2scope = {
 	0, // flags
 };
 
-struct weapon invitem_falcon2 = {
+struct weapondef invitem_falcon2 = {
 	FILE_GFALCON2, // hi model
 	FILE_GFALCON2LOD, // lo model
 	invanim_falcon2_equip, // equip animation
@@ -595,7 +595,7 @@ struct weapon invitem_falcon2 = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_BRIGHTER | WEAPONFLAG_HASHANDS | WEAPONFLAG_GANGSTA,
 };
 
-struct weapon invitem_falcon2scope = {
+struct weapondef invitem_falcon2scope = {
 	FILE_GFALCON2, // hi model
 	FILE_GFALCON2LOD, // lo model
 	invanim_falcon2_equip, // equip animation
@@ -620,7 +620,7 @@ struct weapon invitem_falcon2scope = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_BRIGHTER | WEAPONFLAG_HASHANDS,
 };
 
-struct weapon invitem_falcon2silencer = {
+struct weapondef invitem_falcon2silencer = {
 	FILE_GFALCON2, // hi model
 	FILE_GFALCON2LOD, // lo model
 	invanim_falcon2_equip, // equip animation
@@ -724,7 +724,7 @@ struct invaimsettings invaimsettings_magsec4 = {
 	INVAIMFLAG_AUTOAIM,
 };
 
-struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
+struct funcdef_shootsingle invfunc_magsec_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -746,7 +746,7 @@ struct weaponfunc_shootsingle invfunc_magsec_singleshot = {
 	1, // penetration
 };
 
-struct weaponfunc_shootsingle invfunc_magsec_burst = {
+struct funcdef_shootsingle invfunc_magsec_burst = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_128, // name
 	0, // unused
@@ -768,7 +768,7 @@ struct weaponfunc_shootsingle invfunc_magsec_burst = {
 	1, // penetration
 };
 
-struct inventory_ammo invammo_magsec = {
+struct ammodef invammo_magsec = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	9, // clip size
@@ -776,7 +776,7 @@ struct inventory_ammo invammo_magsec = {
 	0, // flags
 };
 
-struct weapon invitem_magsec = {
+struct weapondef invitem_magsec = {
 	FILE_GLEEGUN1, // hi model
 	FILE_GMAGSECLOD, // lo model
 	invanim_magsec_shoot, // equip animation
@@ -891,7 +891,7 @@ struct guncmd invanim_dy357_pistolwhip[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
+struct funcdef_shootsingle invfunc_dy357_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -913,7 +913,7 @@ struct weaponfunc_shootsingle invfunc_dy357_singleshot = {
 	5, // penetration
 };
 
-struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
+struct funcdef_shootsingle invfunc_dy357lx_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -935,7 +935,7 @@ struct weaponfunc_shootsingle invfunc_dy357lx_singleshot = {
 	5, // penetration
 };
 
-struct weaponfunc_melee invfunc_dy357_pistolwhip = {
+struct funcdef_melee invfunc_dy357_pistolwhip = {
 	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_094, // name
 	0, // unused
@@ -959,7 +959,7 @@ struct weaponfunc_melee invfunc_dy357_pistolwhip = {
 	0, // unused
 };
 
-struct inventory_ammo invammo_dy357 = {
+struct ammodef invammo_dy357 = {
 	AMMOTYPE_MAGNUM,
 	CASING_STANDARD,
 	6, // clip size
@@ -967,7 +967,7 @@ struct inventory_ammo invammo_dy357 = {
 	0, // flags
 };
 
-struct weapon invitem_dy357 = {
+struct weapondef invitem_dy357 = {
 	FILE_GDY357, // hi model
 	FILE_GDY357LOD, // lo model
 	invanim_dy357_shoot, // equip animation
@@ -992,7 +992,7 @@ struct weapon invitem_dy357 = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_00004000 | WEAPONFLAG_BRIGHTER | WEAPONFLAG_HASHANDS,
 };
 
-struct weapon invitem_dy357lx = {
+struct weapondef invitem_dy357lx = {
 	FILE_GDY357TRENT, // hi model
 	FILE_GDY357TRENTLOD, // lo model
 	invanim_dy357_shoot, // equip animation
@@ -1060,7 +1060,7 @@ struct guncmd invanim_phoenix_shoot[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
+struct funcdef_shootsingle invfunc_phoenix_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -1082,7 +1082,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_singleshot = {
 	1, // penetration
 };
 
-struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
+struct funcdef_shootsingle invfunc_phoenix_explosiveshells = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_095, // name
 	0, // unused
@@ -1104,7 +1104,7 @@ struct weaponfunc_shootsingle invfunc_phoenix_explosiveshells = {
 	1, // penetration
 };
 
-struct inventory_ammo invammo_phoenix = {
+struct ammodef invammo_phoenix = {
 	AMMOTYPE_PISTOL,
 	CASING_NONE,
 	8, // clip size
@@ -1112,7 +1112,7 @@ struct inventory_ammo invammo_phoenix = {
 	0, // flags
 };
 
-struct weapon invitem_phoenix = {
+struct weapondef invitem_phoenix = {
 	FILE_GMAIANPISTOL, // hi model
 	FILE_GMAYANPISTOLLOD, // lo model
 	invanim_phoenix_equiporreload, // equip animation
@@ -1200,7 +1200,7 @@ struct guncmd invanim_unused_8007c0bc[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
+struct funcdef_shootsingle invfunc_mauler_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -1222,7 +1222,7 @@ struct weaponfunc_shootsingle invfunc_mauler_singleshot = {
 	1, // penetration
 };
 
-struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
+struct funcdef_shootsingle invfunc_mauler_chargeshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_129, // name
 	0, // unused
@@ -1244,7 +1244,7 @@ struct weaponfunc_shootsingle invfunc_mauler_chargeshot = {
 	1, // penetration
 };
 
-struct inventory_ammo invammo_mauler = {
+struct ammodef invammo_mauler = {
 	AMMOTYPE_PISTOL,
 	CASING_NONE,
 	20, // clip size
@@ -1252,7 +1252,7 @@ struct inventory_ammo invammo_mauler = {
 	0, // flags
 };
 
-struct weapon invitem_mauler = {
+struct weapondef invitem_mauler = {
 	FILE_GSKPISTOL, // hi model
 	FILE_GSKPISTOLLOD, // lo model
 	invanim_mauler_shoot, // equip animation
@@ -1355,7 +1355,7 @@ struct invaimsettings invaimsettings_cmp150 = {
 	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
-struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
+struct funcdef_shootauto invfunc_cmp150_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -1383,7 +1383,7 @@ struct weaponfunc_shootauto invfunc_cmp150_rapidfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
+struct funcdef_shootauto invfunc_cmp150_followlockon = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_102, // name
 	0, // unused
@@ -1411,7 +1411,7 @@ struct weaponfunc_shootauto invfunc_cmp150_followlockon = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_cmp150 = {
+struct ammodef invammo_cmp150 = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	32, // clip size
@@ -1419,7 +1419,7 @@ struct inventory_ammo invammo_cmp150 = {
 	0, // flags
 };
 
-struct weapon invitem_cmp150 = {
+struct weapondef invitem_cmp150 = {
 	FILE_GCMP150, // hi model
 	FILE_GCMP150LOD, // lo model
 	invanim_cmp150_shoot, // equip animation
@@ -1483,7 +1483,7 @@ struct guncmd invanim_cyclone_shoot[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
+struct funcdef_shootauto invfunc_cyclone_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -1511,7 +1511,7 @@ struct weaponfunc_shootauto invfunc_cyclone_rapidfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
+struct funcdef_shootauto invfunc_cyclone_magazinedischarge = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_097, // name
 	0, // unused
@@ -1539,7 +1539,7 @@ struct weaponfunc_shootauto invfunc_cyclone_magazinedischarge = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_cyclone = {
+struct ammodef invammo_cyclone = {
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	50, // clip size
@@ -1547,7 +1547,7 @@ struct inventory_ammo invammo_cyclone = {
 	0, // flags
 };
 
-struct weapon invitem_cyclone = {
+struct weapondef invitem_cyclone = {
 	FILE_GCYCLONE, // hi model
 	FILE_GCYCLONELOD, // lo model
 	invanim_cyclone_equiporreload, // equip animation
@@ -1603,7 +1603,7 @@ struct gunviscmd gunviscmds_rcp120[] = {
 	gunviscmd_end
 };
 
-struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
+struct funcdef_shootauto invfunc_rcp120_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -1631,7 +1631,7 @@ struct weaponfunc_shootauto invfunc_rcp120_rapidfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_special invfunc_rcp120_cloak = {
+struct funcdef_special invfunc_rcp120_cloak = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_116, // name
 	0, // unused
@@ -1644,7 +1644,7 @@ struct weaponfunc_special invfunc_rcp120_cloak = {
 	0, // soundnum (unused)
 };
 
-struct inventory_ammo invammo_rcp120 = {
+struct ammodef invammo_rcp120 = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	120, // clip size
@@ -1652,7 +1652,7 @@ struct inventory_ammo invammo_rcp120 = {
 	0, // flags
 };
 
-struct weapon invitem_rcp120 = {
+struct weapondef invitem_rcp120 = {
 	FILE_GRCP120, // hi model
 	FILE_GRCP120LOD, // lo model
 	invanim_rcp120_shoot, // equip animation
@@ -1703,7 +1703,7 @@ struct gunviscmd gunviscmds_callisto[] = {
 	gunviscmd_end
 };
 
-struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
+struct funcdef_shootauto invfunc_callisto_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -1731,7 +1731,7 @@ struct weaponfunc_shootauto invfunc_callisto_rapidfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
+struct funcdef_shootauto invfunc_callisto_highimpactshells = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_115, // name
 	0, // unused
@@ -1759,7 +1759,7 @@ struct weaponfunc_shootauto invfunc_callisto_highimpactshells = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_callisto = {
+struct ammodef invammo_callisto = {
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	32, // clip size
@@ -1767,7 +1767,7 @@ struct inventory_ammo invammo_callisto = {
 	0, // flags
 };
 
-struct weapon invitem_callisto = {
+struct weapondef invitem_callisto = {
 	FILE_GMAIANSMG, // hi model
 	FILE_GMAYANSMGLOD, // lo model
 	invanim_callisto_reload, // equip animation
@@ -1820,7 +1820,7 @@ struct guncmd invanim_dragon_reload[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
+struct funcdef_shootauto invfunc_dragon_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -1848,7 +1848,7 @@ struct weaponfunc_shootauto invfunc_dragon_rapidfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_throw invfunc_dragon_selfdestruct = {
+struct funcdef_throw invfunc_dragon_selfdestruct = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_118, // name
 	0, // unused
@@ -1862,7 +1862,7 @@ struct weaponfunc_throw invfunc_dragon_selfdestruct = {
 	0, // damage
 };
 
-struct inventory_ammo invammo_dragon = {
+struct ammodef invammo_dragon = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -1870,7 +1870,7 @@ struct inventory_ammo invammo_dragon = {
 	0, // flags
 };
 
-struct weapon invitem_dragon = {
+struct weapondef invitem_dragon = {
 	FILE_GDYDRAGON, // hi model
 	FILE_GDYDRAGONLOD, // lo model
 	invanim_dragon_shoot, // equip animation
@@ -1954,7 +1954,7 @@ struct guncmd invanim_superdragon_sectopri[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
+struct funcdef_shootauto invfunc_superdragon_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -1982,7 +1982,7 @@ struct weaponfunc_shootauto invfunc_superdragon_rapidfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
+struct funcdef_shootprojectile invfunc_superdragon_grenadelauncher = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_098, // name
 	0, // unused
@@ -2013,7 +2013,7 @@ struct weaponfunc_shootprojectile invfunc_superdragon_grenadelauncher = {
 	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
-struct inventory_ammo invammo_superdragon = {
+struct ammodef invammo_superdragon = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -2021,7 +2021,7 @@ struct inventory_ammo invammo_superdragon = {
 	0, // flags
 };
 
-struct inventory_ammo invammo_superdragon_grenades = {
+struct ammodef invammo_superdragon_grenades = {
 	AMMOTYPE_DEVASTATOR,
 	CASING_NONE,
 	6, // clip size
@@ -2029,7 +2029,7 @@ struct inventory_ammo invammo_superdragon_grenades = {
 	0, // flags
 };
 
-struct weapon invitem_superdragon = {
+struct weapondef invitem_superdragon = {
 	FILE_GDYSUPERDRAGON, // hi model
 	FILE_GDYSUPERDRAGONLOD, // lo model
 	invanim_superdragon_shoot, // equip animation
@@ -2093,7 +2093,7 @@ struct invaimsettings invaimsettings_ar34 = {
 	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
-struct weaponfunc_shootauto invfunc_ar34_burstfire = {
+struct funcdef_shootauto invfunc_ar34_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
 	0, // unused
@@ -2121,7 +2121,7 @@ struct weaponfunc_shootauto invfunc_ar34_burstfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_shootauto invfunc_ar34_usescope = {
+struct funcdef_shootauto invfunc_ar34_usescope = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_103, // name
 	0, // unused
@@ -2149,7 +2149,7 @@ struct weaponfunc_shootauto invfunc_ar34_usescope = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_ar34 = {
+struct ammodef invammo_ar34 = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -2157,7 +2157,7 @@ struct inventory_ammo invammo_ar34 = {
 	0, // flags
 };
 
-struct weapon invitem_ar34 = {
+struct weapondef invitem_ar34 = {
 	FILE_GAR34, // hi model
 	FILE_GAR34LOD, // lo model
 	invanim_ar34_reload, // equip animation
@@ -2235,7 +2235,7 @@ struct invaimsettings invaimsettings_k7avenger = {
 	INVAIMFLAG_AUTOAIM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
-struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
+struct funcdef_shootauto invfunc_k7avenger_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
 	0, // unused
@@ -2263,7 +2263,7 @@ struct weaponfunc_shootauto invfunc_k7avenger_burstfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
+struct funcdef_shootauto invfunc_k7avenger_threatdetector = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_119, // name
 	0, // unused
@@ -2291,7 +2291,7 @@ struct weaponfunc_shootauto invfunc_k7avenger_threatdetector = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_k7avenger = {
+struct ammodef invammo_k7avenger = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	25, // clip size
@@ -2299,7 +2299,7 @@ struct inventory_ammo invammo_k7avenger = {
 	0, // flags
 };
 
-struct weapon invitem_k7avenger = {
+struct weapondef invitem_k7avenger = {
 	FILE_GK7AVENGER, // hi model
 	FILE_GAVENGERLOD, // lo model
 	invanim_k7avenger_equip, // equip animation
@@ -2388,7 +2388,7 @@ struct guncmd invanim_laptopgun_unequip[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
+struct funcdef_shootauto invfunc_laptopgun_burstfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
 	0, // unused
@@ -2416,7 +2416,7 @@ struct weaponfunc_shootauto invfunc_laptopgun_burstfire = {
 	0, // turretdecel
 };
 
-struct weaponfunc_throw invfunc_laptopgun_deploy = {
+struct funcdef_throw invfunc_laptopgun_deploy = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_117, // name
 	0, // unused
@@ -2430,7 +2430,7 @@ struct weaponfunc_throw invfunc_laptopgun_deploy = {
 	0, // damage
 };
 
-struct inventory_ammo invammo_laptopgun = {
+struct ammodef invammo_laptopgun = {
 	AMMOTYPE_SMG,
 	CASING_NONE,
 	50, // clip size
@@ -2438,7 +2438,7 @@ struct inventory_ammo invammo_laptopgun = {
 	0, // flags
 };
 
-struct weapon invitem_laptopgun = {
+struct weapondef invitem_laptopgun = {
 	FILE_GPCGUN, // hi model
 	FILE_GPCGUNLOD, // lo model
 	invanim_laptopgun_equip, // equip animation
@@ -2503,7 +2503,7 @@ struct guncmd invanim_shotgun_doubleshot[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_shotgun_single = {
+struct funcdef_shootsingle invfunc_shotgun_single = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_089, // name
 	0, // unused
@@ -2525,7 +2525,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_single = {
 	1, // penetration
 };
 
-struct weaponfunc_shootsingle invfunc_shotgun_double = {
+struct funcdef_shootsingle invfunc_shotgun_double = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_105, // name
 	0, // unused
@@ -2547,7 +2547,7 @@ struct weaponfunc_shootsingle invfunc_shotgun_double = {
 	1, // penetration
 };
 
-struct inventory_ammo invammo_shotgun = {
+struct ammodef invammo_shotgun = {
 	AMMOTYPE_SHOTGUN,
 	CASING_SHOTGUN,
 	9, // clip size
@@ -2555,7 +2555,7 @@ struct inventory_ammo invammo_shotgun = {
 	AMMOFLAG_INCREMENTALRELOAD, // flags
 };
 
-struct weapon invitem_shotgun = {
+struct weapondef invitem_shotgun = {
 	FILE_GSHOTGUN, // hi model
 	FILE_GSHOTGUNLOD, // lo model
 	invanim_shotgun_singleshot, // equip animation
@@ -2628,7 +2628,7 @@ struct guncmd invanim_reaper_unequip[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootauto invfunc_reaper_shoot = {
+struct funcdef_shootauto invfunc_reaper_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_088, // name
 	0, // unused
@@ -2656,7 +2656,7 @@ struct weaponfunc_shootauto invfunc_reaper_shoot = {
 	88, // turretdecel
 };
 
-struct weaponfunc_melee invfunc_reaper_grind = {
+struct funcdef_melee invfunc_reaper_grind = {
 	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_106, // name
 	0, // unused
@@ -2680,7 +2680,7 @@ struct weaponfunc_melee invfunc_reaper_grind = {
 	0, // unused
 };
 
-struct inventory_ammo invammo_reaper = {
+struct ammodef invammo_reaper = {
 	AMMOTYPE_REAPER,
 	CASING_REAPER,
 	200, // clip size
@@ -2688,7 +2688,7 @@ struct inventory_ammo invammo_reaper = {
 	0, // flags
 };
 
-struct weapon invitem_reaper = {
+struct weapondef invitem_reaper = {
 	FILE_GSKMINIGUN, // hi model
 	FILE_GSKMINIGUNLOD, // lo model
 	invanim_reaper_equip, // equip animation
@@ -2756,7 +2756,7 @@ struct invaimsettings invaimsettings_rocketlauncher = {
 	INVAIMFLAG_AUTOAIM,
 };
 
-struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
+struct funcdef_shootprojectile invfunc_rockerlauncher_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_091, // name
 	0, // unused
@@ -2787,7 +2787,7 @@ struct weaponfunc_shootprojectile invfunc_rockerlauncher_shoot = {
 	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
-struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
+struct funcdef_shootprojectile invfunc_rocketlauncher_homing = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_092, // name
 	0, // unused
@@ -2818,7 +2818,7 @@ struct weaponfunc_shootprojectile invfunc_rocketlauncher_homing = {
 	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
-struct inventory_ammo invammo_rocketlauncher = {
+struct ammodef invammo_rocketlauncher = {
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
@@ -2826,7 +2826,7 @@ struct inventory_ammo invammo_rocketlauncher = {
 	0, // flags
 };
 
-struct weapon invitem_rocketlauncher = {
+struct weapondef invitem_rocketlauncher = {
 	FILE_GDYROCKET, // hi model
 	FILE_GROCKETLOD, // lo model
 	invanim_rockerlauncher_shoot, // equip animation
@@ -2866,7 +2866,7 @@ struct guncmd invanim_slayer_reload[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
+struct funcdef_shootprojectile invfunc_slayer_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_091, // name
 	0, // unused
@@ -2897,7 +2897,7 @@ struct weaponfunc_shootprojectile invfunc_slayer_shoot = {
 	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
-struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
+struct funcdef_shootprojectile invfunc_slayer_flybywire = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_093, // name
 	0, // unused
@@ -2928,7 +2928,7 @@ struct weaponfunc_shootprojectile invfunc_slayer_flybywire = {
 	SFX_SLAYER_WHIR, // soundnum
 };
 
-struct inventory_ammo invammo_slayer = {
+struct ammodef invammo_slayer = {
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
@@ -2936,7 +2936,7 @@ struct inventory_ammo invammo_slayer = {
 	0, // flags
 };
 
-struct weapon invitem_slayer = {
+struct weapondef invitem_slayer = {
 	FILE_GSKROCKET, // hi model
 	FILE_GSKROCKETLOD, // lo model
 	invanim_slayer_shoot, // equip animation
@@ -2986,7 +2986,7 @@ struct guncmd invanim_devastator_reload[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
+struct funcdef_shootprojectile invfunc_devastator_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_098, // name
 	0, // unused
@@ -3017,7 +3017,7 @@ struct weaponfunc_shootprojectile invfunc_devastator_shoot = {
 	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
-struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
+struct funcdef_shootprojectile invfunc_devastator_wallhugger = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_099, // name
 	0, // unused
@@ -3048,7 +3048,7 @@ struct weaponfunc_shootprojectile invfunc_devastator_wallhugger = {
 	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
-struct inventory_ammo invammo_devastator = {
+struct ammodef invammo_devastator = {
 	AMMOTYPE_DEVASTATOR,
 	CASING_NONE,
 	8, // clip size
@@ -3061,7 +3061,7 @@ struct modelpartvisibility invpartvisibility_devastator[] = {
 	{ 255 },
 };
 
-struct weapon invitem_devastator = {
+struct weapondef invitem_devastator = {
 	FILE_GDYDEVASTATOR, // hi model
 	FILE_GDEVASTATORLOD, // lo model
 	invanim_devastator_shoot, // equip animation
@@ -3086,7 +3086,7 @@ struct weapon invitem_devastator = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_00004000 | WEAPONFLAG_HASHANDS,
 };
 
-struct weaponfunc invfunc_mine_threatdetector = {
+struct funcdef invfunc_mine_threatdetector = {
 	INVENTORYFUNCTYPE_NONE,
 	L_GUN_119, // name
 	0, // unused
@@ -3113,7 +3113,7 @@ struct guncmd invanim_mine_throw[] = {
 	gunscript_end
 };
 
-struct weaponfunc_throw invfunc_timedmine_throw = {
+struct funcdef_throw invfunc_timedmine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_120, // name
 	0, // unused
@@ -3127,7 +3127,7 @@ struct weaponfunc_throw invfunc_timedmine_throw = {
 	0, // damage
 };
 
-struct inventory_ammo invammo_timedmine = {
+struct ammodef invammo_timedmine = {
 	AMMOTYPE_TIMED_MINE,
 	CASING_NONE,
 	1, // clip size
@@ -3135,7 +3135,7 @@ struct inventory_ammo invammo_timedmine = {
 	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
-struct weapon invitem_timedmine = {
+struct weapondef invitem_timedmine = {
 	FILE_GTIMEDMINE, // hi model
 	FILE_GTIMEDMINE, // lo model
 	invanim_mine_equip, // equip animation
@@ -3189,7 +3189,7 @@ struct guncmd invanim_remotemine_throw[] = {
 	gunscript_end
 };
 
-struct weaponfunc_throw invfunc_remotemine_throw = {
+struct funcdef_throw invfunc_remotemine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_122, // name
 	0, // unused
@@ -3203,7 +3203,7 @@ struct weaponfunc_throw invfunc_remotemine_throw = {
 	0, // damage
 };
 
-struct weaponfunc_special invfunc_remotemine_detonate = {
+struct funcdef_special invfunc_remotemine_detonate = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_123, // name
 	0, // unused
@@ -3216,7 +3216,7 @@ struct weaponfunc_special invfunc_remotemine_detonate = {
 	0, // soundnum (unused)
 };
 
-struct inventory_ammo invammo_remotemine = {
+struct ammodef invammo_remotemine = {
 	AMMOTYPE_REMOTE_MINE,
 	CASING_NONE,
 	1, // clip size
@@ -3229,7 +3229,7 @@ struct modelpartvisibility invpartvisibility_remotemine[] = {
 	{ 255 },
 };
 
-struct weapon invitem_remotemine = {
+struct weapondef invitem_remotemine = {
 	FILE_GREMOTEMINE, // hi model
 	FILE_GREMOTEMINE, // lo model
 	invanim_remotemine_equip, // equip animation
@@ -3258,7 +3258,7 @@ struct weapon invitem_remotemine = {
 	WEAPONFLAG_THROWABLE | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_HASHANDS,
 };
 
-struct weaponfunc_throw invfunc_proxymine_throw = {
+struct funcdef_throw invfunc_proxymine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_121, // name
 	0, // unused
@@ -3272,7 +3272,7 @@ struct weaponfunc_throw invfunc_proxymine_throw = {
 	0, // damage
 };
 
-struct inventory_ammo invammo_proximitymine = {
+struct ammodef invammo_proximitymine = {
 	AMMOTYPE_PROXY_MINE,
 	CASING_NONE,
 	1, // clip size
@@ -3280,7 +3280,7 @@ struct inventory_ammo invammo_proximitymine = {
 	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
-struct weapon invitem_proximitymine = {
+struct weapondef invitem_proximitymine = {
 	FILE_GPROXIMITYMINE, // hi model
 	FILE_GPROXIMITYMINE, // lo model
 	invanim_mine_equip, // equip animation
@@ -3321,7 +3321,7 @@ struct guncmd invanim_ecmmine_throw[] = {
 	gunscript_end
 };
 
-struct weaponfunc_throw invfunc_ecmmine_throw = {
+struct funcdef_throw invfunc_ecmmine_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_140, // name
 	0, // unused
@@ -3335,7 +3335,7 @@ struct weaponfunc_throw invfunc_ecmmine_throw = {
 	0, // damage
 };
 
-struct inventory_ammo invammo_ecmmine = {
+struct ammodef invammo_ecmmine = {
 	AMMOTYPE_ECM_MINE,
 	CASING_NONE,
 	1, // clip size
@@ -3343,7 +3343,7 @@ struct inventory_ammo invammo_ecmmine = {
 	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
-struct weapon invitem_ecmmine = {
+struct weapondef invitem_ecmmine = {
 	FILE_GECMMINE, // hi model
 	FILE_GECMMINE, // lo model
 	invanim_ecmmine_equip, // equip animation
@@ -3374,7 +3374,7 @@ struct weapon invitem_ecmmine = {
 
 // Some unfinished Reaper-like gun. The name is "Timed Mine". The primary
 // function is detonate (and it works). It can't shoot.
-struct weapon invitem_unused_8007dd88 = {
+struct weapondef invitem_unused_8007dd88 = {
 	FILE_GSKMINIGUN, // hi model
 	FILE_GSKMINIGUNLOD, // lo model
 	NULL, // equip animation
@@ -3418,7 +3418,7 @@ struct guncmd invanim_grenade_equip[] = {
 	gunscript_end
 };
 
-struct weaponfunc_throw invfunc_grenade_throw = {
+struct funcdef_throw invfunc_grenade_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_124, // name
 	0, // unused
@@ -3432,7 +3432,7 @@ struct weaponfunc_throw invfunc_grenade_throw = {
 	0, // damage
 };
 
-struct weaponfunc_throw invfunc_grenade_pinball = {
+struct funcdef_throw invfunc_grenade_pinball = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_125, // name
 	0, // unused
@@ -3446,7 +3446,7 @@ struct weaponfunc_throw invfunc_grenade_pinball = {
 	0, // damage
 };
 
-struct inventory_ammo invammo_grenade = {
+struct ammodef invammo_grenade = {
 	AMMOTYPE_GRENADE,
 	CASING_NONE,
 	1, // clip size
@@ -3454,7 +3454,7 @@ struct inventory_ammo invammo_grenade = {
 	AMMOFLAG_EQUIPPEDISRESERVE | AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
-struct weapon invitem_grenade = {
+struct weapondef invitem_grenade = {
 	FILE_GGRENADE, // hi model
 	FILE_GGRENADELOD, // lo model
 	invanim_grenade_equip, // equip animation
@@ -3479,7 +3479,7 @@ struct weapon invitem_grenade = {
 	WEAPONFLAG_THROWABLE | WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_BRIGHTER | WEAPONFLAG_HASHANDS,
 };
 
-struct weaponfunc_throw invfunc_nbomb_throw = {
+struct funcdef_throw invfunc_nbomb_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_134, // name
 	0, // unused
@@ -3493,7 +3493,7 @@ struct weaponfunc_throw invfunc_nbomb_throw = {
 	0, // damage
 };
 
-struct weaponfunc_throw invfunc_nbomb_proxy = {
+struct funcdef_throw invfunc_nbomb_proxy = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_127, // name
 	0, // unused
@@ -3507,7 +3507,7 @@ struct weaponfunc_throw invfunc_nbomb_proxy = {
 	0, // damage
 };
 
-struct inventory_ammo invammo_nbomb = {
+struct ammodef invammo_nbomb = {
 	AMMOTYPE_NBOMB,
 	CASING_NONE,
 	1, // clip size
@@ -3515,7 +3515,7 @@ struct inventory_ammo invammo_nbomb = {
 	AMMOFLAG_EQUIPPEDISRESERVE | AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
-struct weapon invitem_nbomb = {
+struct weapondef invitem_nbomb = {
 	FILE_GNBOMB, // hi model
 	FILE_GNBOMBLOD, // lo model
 	invanim_grenade_equip, // equip animation
@@ -3571,7 +3571,7 @@ struct invaimsettings invaimsettings_farsight = {
 	INVAIMFLAG_MANUALZOOM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
-struct weaponfunc_shootsingle invfunc_farsight_shoot = {
+struct funcdef_shootsingle invfunc_farsight_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_090, // name
 	0, // unused
@@ -3593,7 +3593,7 @@ struct weaponfunc_shootsingle invfunc_farsight_shoot = {
 	5, // penetration
 };
 
-struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
+struct funcdef_shootsingle invfunc_farsight_targetlocator = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_111, // name
 	0, // unused
@@ -3615,7 +3615,7 @@ struct weaponfunc_shootsingle invfunc_farsight_targetlocator = {
 	5, // penetration
 };
 
-struct inventory_ammo invammo_farsight = {
+struct ammodef invammo_farsight = {
 	AMMOTYPE_FARSIGHT,
 	CASING_NONE,
 	8, // clip size
@@ -3628,7 +3628,7 @@ struct modelpartvisibility invpartvisibility_farsight[] = {
 	{ 255 },
 };
 
-struct weapon invitem_farsight = {
+struct weapondef invitem_farsight = {
 	FILE_GZ2020, // hi model
 	FILE_GZ2020LOD, // lo model
 	invanim_farsight_shoot, // equip animation
@@ -3695,7 +3695,7 @@ struct guncmd invanim_crosbow_equip[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
+struct funcdef_shootprojectile invfunc_crossbow_lethal = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_112, // name
 	0, // unused
@@ -3726,7 +3726,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_lethal = {
 	-1, // soundnum
 };
 
-struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
+struct funcdef_shootprojectile invfunc_crossbow_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_107, // name
 	0, // unused
@@ -3757,7 +3757,7 @@ struct weaponfunc_shootprojectile invfunc_crossbow_shoot = {
 	-1, // soundnum
 };
 
-struct inventory_ammo invammo_crossbow = {
+struct ammodef invammo_crossbow = {
 	AMMOTYPE_CROSSBOW,
 	CASING_NONE,
 	5, // clip size
@@ -3772,7 +3772,7 @@ struct modelpartvisibility invpartvisibility_crossbow[] = {
 	{ 255 },
 };
 
-struct weapon invitem_crossbow = {
+struct weapondef invitem_crossbow = {
 	FILE_GCROSSBOW, // hi model
 	FILE_GCROSSBOWLOD, // lo model
 	invanim_crosbow_equip, // equip animation
@@ -3836,7 +3836,7 @@ struct guncmd invanim_tranquilizer_reload[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
+struct funcdef_shootsingle invfunc_tranquilizer_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_107, // name
 	0, // unused
@@ -3858,7 +3858,7 @@ struct weaponfunc_shootsingle invfunc_tranquilizer_shoot = {
 	1, // penetration
 };
 
-struct weaponfunc_melee invfunc_tranquilizer_lethal = {
+struct funcdef_melee invfunc_tranquilizer_lethal = {
 	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_108, // name
 	0, // unused
@@ -3882,7 +3882,7 @@ struct weaponfunc_melee invfunc_tranquilizer_lethal = {
 	0, // unused
 };
 
-struct inventory_ammo invammo_tranquilizer = {
+struct ammodef invammo_tranquilizer = {
 	AMMOTYPE_SEDATIVE,
 	CASING_NONE,
 	8, // clip size
@@ -3897,7 +3897,7 @@ struct modelpartvisibility invpartvisibility_tranquilizer[] = {
 	{ 255 },
 };
 
-struct weapon invitem_tranquilizer = {
+struct weapondef invitem_tranquilizer = {
 	FILE_GDRUGGUN, // hi model
 	FILE_GDRUGGUNLOD, // lo model
 	invanim_tranquilizer_shoot, // equip animation
@@ -3926,7 +3926,7 @@ struct weapon invitem_tranquilizer = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_00004000 | WEAPONFLAG_BRIGHTER | WEAPONFLAG_HASHANDS,
 };
 
-struct inventory_ammo invammo_psychosisgun = {
+struct ammodef invammo_psychosisgun = {
 	AMMOTYPE_PSYCHOSIS,
 	CASING_NONE,
 	8, // clip size
@@ -3934,7 +3934,7 @@ struct inventory_ammo invammo_psychosisgun = {
 	0, // flags
 };
 
-struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
+struct funcdef_shootsingle invfunc_psychosisgun_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_131, // name
 	0, // unused
@@ -3956,7 +3956,7 @@ struct weaponfunc_shootsingle invfunc_psychosisgun_shoot = {
 	1, // penetration
 };
 
-struct weapon invitem_psychosisgun = {
+struct weapondef invitem_psychosisgun = {
 	FILE_GDRUGGUN, // hi model
 	FILE_GDRUGGUNLOD, // lo model
 	invanim_tranquilizer_shoot, // equip animation
@@ -4021,7 +4021,7 @@ struct invaimsettings invaimsettings_sniperrifle = {
 	INVAIMFLAG_MANUALZOOM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
-struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
+struct funcdef_shootsingle invfunc_sniperrifle_singleshot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -4043,7 +4043,7 @@ struct weaponfunc_shootsingle invfunc_sniperrifle_singleshot = {
 	1, // penetration
 };
 
-struct weaponfunc_special invfunc_sniperrifle_crouch = {
+struct funcdef_special invfunc_sniperrifle_crouch = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_130, // name
 	0, // unused
@@ -4056,7 +4056,7 @@ struct weaponfunc_special invfunc_sniperrifle_crouch = {
 	0, // soundnum (unused)
 };
 
-struct inventory_ammo invammo_sniperrifle = {
+struct ammodef invammo_sniperrifle = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	8, // clip size
@@ -4069,7 +4069,7 @@ struct modelpartvisibility invpartvisibility_sniperrifle[] = {
 	{ 255 },
 };
 
-struct weapon invitem_sniperrifle = {
+struct weapondef invitem_sniperrifle = {
 	FILE_GSNIPERRIFLE, // hi model
 	FILE_GSNIPERLOD, // lo model
 	invanim_sniperrifle_equip, // equip animation
@@ -4108,7 +4108,7 @@ struct guncmd invanim_laser_unequip[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_laser_pulse = {
+struct funcdef_shootsingle invfunc_laser_pulse = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_132, // name
 	0, // unused
@@ -4130,7 +4130,7 @@ struct weaponfunc_shootsingle invfunc_laser_pulse = {
 	1, // penetration
 };
 
-struct weaponfunc_shootauto invfunc_laser_stream = {
+struct funcdef_shootauto invfunc_laser_stream = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_133, // name
 	0, // unused
@@ -4158,7 +4158,7 @@ struct weaponfunc_shootauto invfunc_laser_stream = {
 	0, // turretdecel
 };
 
-struct weapon invitem_laser = {
+struct weapondef invitem_laser = {
 	FILE_GLASER, // hi model
 	FILE_GLASERLOD, // lo model
 	invanim_laser_equip, // equip animation
@@ -4199,7 +4199,7 @@ struct guncmd invanim_pp9i_shoot[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
+struct funcdef_shootsingle invfunc_pp9i_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -4221,7 +4221,7 @@ struct weaponfunc_shootsingle invfunc_pp9i_shoot = {
 	1, // penetration
 };
 
-struct inventory_ammo invammo_pp9i = {
+struct ammodef invammo_pp9i = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	7, // clip size
@@ -4229,7 +4229,7 @@ struct inventory_ammo invammo_pp9i = {
 	0, // flags
 };
 
-struct weapon invitem_pp9i = {
+struct weapondef invitem_pp9i = {
 	FILE_GWPPK, // hi model
 	FILE_GWPPK, // lo model
 	invanim_pp9i_shoot, // equip animation
@@ -4260,7 +4260,7 @@ struct guncmd invanim_cc13_shoot[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_cc13_shoot = {
+struct funcdef_shootsingle invfunc_cc13_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_085, // name
 	0, // unused
@@ -4282,7 +4282,7 @@ struct weaponfunc_shootsingle invfunc_cc13_shoot = {
 	1, // penetration
 };
 
-struct inventory_ammo invammo_cc13 = {
+struct ammodef invammo_cc13 = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
@@ -4290,7 +4290,7 @@ struct inventory_ammo invammo_cc13 = {
 	0, // flags
 };
 
-struct weapon invitem_cc13 = {
+struct weapondef invitem_cc13 = {
 	FILE_GTT33, // hi model
 	FILE_GTT33, // lo model
 	invanim_cc13_shoot, // equip animation
@@ -4315,7 +4315,7 @@ struct weapon invitem_cc13 = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_00004000 | WEAPONFLAG_BRIGHTER | WEAPONFLAG_HASHANDS | WEAPONFLAG_GANGSTA,
 };
 
-struct weaponfunc_shootauto invfunc_kl01313_shoot = {
+struct funcdef_shootauto invfunc_kl01313_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -4343,7 +4343,7 @@ struct weaponfunc_shootauto invfunc_kl01313_shoot = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_kl01313 = {
+struct ammodef invammo_kl01313 = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	20, // clip size
@@ -4351,7 +4351,7 @@ struct inventory_ammo invammo_kl01313 = {
 	0, // flags
 };
 
-struct weapon invitem_kl01313 = {
+struct weapondef invitem_kl01313 = {
 	FILE_GSKORPION, // hi model
 	FILE_GSKORPION, // lo model
 	NULL, // equip animation
@@ -4376,7 +4376,7 @@ struct weapon invitem_kl01313 = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_BRIGHTER,
 };
 
-struct weaponfunc_shootauto invfunc_kf7special_shoot = {
+struct funcdef_shootauto invfunc_kf7special_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
 	0, // unused
@@ -4404,7 +4404,7 @@ struct weaponfunc_shootauto invfunc_kf7special_shoot = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_kf7special = {
+struct ammodef invammo_kf7special = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -4412,7 +4412,7 @@ struct inventory_ammo invammo_kf7special = {
 	0, // flags
 };
 
-struct weapon invitem_kf7special = {
+struct weapondef invitem_kf7special = {
 	FILE_GAK47, // hi model
 	FILE_GAK47, // lo model
 	NULL, // equip animation
@@ -4437,7 +4437,7 @@ struct weapon invitem_kf7special = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_BRIGHTER,
 };
 
-struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
+struct funcdef_shootauto invfunc_zzt9mm_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -4465,7 +4465,7 @@ struct weaponfunc_shootauto invfunc_zzt9mm_shoot = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_zzt9mm = {
+struct ammodef invammo_zzt9mm = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	32, // clip size
@@ -4473,7 +4473,7 @@ struct inventory_ammo invammo_zzt9mm = {
 	0, // flags
 };
 
-struct weapon invitem_zzt9mm = {
+struct weapondef invitem_zzt9mm = {
 	FILE_GUZI, // hi model
 	FILE_GUZI, // lo model
 	NULL, // equip animation
@@ -4498,7 +4498,7 @@ struct weapon invitem_zzt9mm = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_BRIGHTER,
 };
 
-struct weaponfunc_shootauto invfunc_dmc_shoot = {
+struct funcdef_shootauto invfunc_dmc_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -4526,7 +4526,7 @@ struct weaponfunc_shootauto invfunc_dmc_shoot = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_dmc = {
+struct ammodef invammo_dmc = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	30, // clip size
@@ -4534,7 +4534,7 @@ struct inventory_ammo invammo_dmc = {
 	0, // flags
 };
 
-struct weapon invitem_dmc = {
+struct weapondef invitem_dmc = {
 	FILE_GMP5K, // hi model
 	FILE_GMP5K, // lo model
 	NULL, // equip animation
@@ -4559,7 +4559,7 @@ struct weapon invitem_dmc = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_BRIGHTER,
 };
 
-struct weaponfunc_shootauto invfunc_ar53_shoot = {
+struct funcdef_shootauto invfunc_ar53_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_087, // name
 	0, // unused
@@ -4587,7 +4587,7 @@ struct weaponfunc_shootauto invfunc_ar53_shoot = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_ar53 = {
+struct ammodef invammo_ar53 = {
 	AMMOTYPE_RIFLE,
 	CASING_RIFLE,
 	30, // clip size
@@ -4595,7 +4595,7 @@ struct inventory_ammo invammo_ar53 = {
 	0, // flags
 };
 
-struct weapon invitem_ar53 = {
+struct weapondef invitem_ar53 = {
 	FILE_GM16, // hi model
 	FILE_GM16, // lo model
 	NULL, // equip animation
@@ -4620,7 +4620,7 @@ struct weapon invitem_ar53 = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_BRIGHTER | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN,
 };
 
-struct weaponfunc_shootauto invfunc_rcp45_shoot = {
+struct funcdef_shootauto invfunc_rcp45_shoot = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -4648,7 +4648,7 @@ struct weaponfunc_shootauto invfunc_rcp45_shoot = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_rcp45 = {
+struct ammodef invammo_rcp45 = {
 	AMMOTYPE_SMG,
 	CASING_STANDARD,
 	80, // clip size
@@ -4656,7 +4656,7 @@ struct inventory_ammo invammo_rcp45 = {
 	0, // flags
 };
 
-struct weapon invitem_rcp45 = {
+struct weapondef invitem_rcp45 = {
 	FILE_GFNP90, // hi model
 	FILE_GFNP90, // lo model
 	NULL, // equip animation
@@ -4681,7 +4681,7 @@ struct weapon invitem_rcp45 = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_BRIGHTER | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN,
 };
 
-struct weaponfunc invfunc_briefcase_use = {
+struct funcdef invfunc_briefcase_use = {
 	INVENTORYFUNCTYPE_NONE,
 	L_GUN_000, // name
 	0, // unused
@@ -4696,7 +4696,7 @@ struct gunviscmd gunviscmds_unused_8006edcc[] = {
 	gunviscmd_end
 };
 
-struct weapon invitem_briefcase2 = {
+struct weapondef invitem_briefcase2 = {
 	FILE_GFALCON2LOD, // hi model
 	FILE_GFALCON2LOD, // lo model
 	NULL, // equip animation
@@ -4721,7 +4721,7 @@ struct weapon invitem_briefcase2 = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_00000800 | WEAPONFLAG_HIDEMENUMODEL | WEAPONFLAG_DONTCOUNTSHOTS | WEAPONFLAG_DETERMINER_S_THE | WEAPONFLAG_DETERMINER_F_THE,
 };
 
-struct weaponfunc_shootauto invfunc_choppergun_rapidfire = {
+struct funcdef_shootauto invfunc_choppergun_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -4749,7 +4749,7 @@ struct weaponfunc_shootauto invfunc_choppergun_rapidfire = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_choppergun = {
+struct ammodef invammo_choppergun = {
 	AMMOTYPE_SMG,
 	CASING_RIFLE,
 	27, // clip size
@@ -4757,7 +4757,7 @@ struct inventory_ammo invammo_choppergun = {
 	0, // flags
 };
 
-struct weapon invitem_choppergun = {
+struct weapondef invitem_choppergun = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
@@ -4782,7 +4782,7 @@ struct weapon invitem_choppergun = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_DUALWIELD,
 };
 
-struct weaponfunc_shootauto invfunc_watchlaser_rapidfire = {
+struct funcdef_shootauto invfunc_watchlaser_rapidfire = {
 	INVENTORYFUNCTYPE_SHOOT_AUTOMATIC,
 	L_GUN_086, // name
 	0, // unused
@@ -4810,7 +4810,7 @@ struct weaponfunc_shootauto invfunc_watchlaser_rapidfire = {
 	0, // turretdecel
 };
 
-struct inventory_ammo invammo_watchlaser = {
+struct ammodef invammo_watchlaser = {
 	AMMOTYPE_SMG,
 	CASING_RIFLE,
 	27, // clip size
@@ -4818,7 +4818,7 @@ struct inventory_ammo invammo_watchlaser = {
 	0, // flags
 };
 
-struct weapon invitem_watchlaser = {
+struct weapondef invitem_watchlaser = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
@@ -4899,7 +4899,7 @@ struct guncmd invanim_combatknife_reload[] = {
 	gunscript_end
 };
 
-struct weaponfunc_melee invfunc_combatknife_slash = {
+struct funcdef_melee invfunc_combatknife_slash = {
 	INVENTORYFUNCTYPE_MELEE,
 	L_GUN_109, // name
 	0, // unused
@@ -4923,7 +4923,7 @@ struct weaponfunc_melee invfunc_combatknife_slash = {
 	0, // unused
 };
 
-struct weaponfunc_throw invfunc_combatknife_throw = {
+struct funcdef_throw invfunc_combatknife_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_110, // name
 	0, // unused
@@ -4937,7 +4937,7 @@ struct weaponfunc_throw invfunc_combatknife_throw = {
 	1, // damage
 };
 
-struct inventory_ammo invammo_combatknife = {
+struct ammodef invammo_combatknife = {
 	AMMOTYPE_KNIFE,
 	CASING_NONE,
 	1, // clip size
@@ -4945,7 +4945,7 @@ struct inventory_ammo invammo_combatknife = {
 	AMMOFLAG_EQUIPPEDISRESERVE | AMMOFLAG_QTYAFFECTSPARTVIS, // flags
 };
 
-struct weapon invitem_combatknife = {
+struct weapondef invitem_combatknife = {
 	FILE_GKNIFE, // hi model
 	FILE_GKNIFELOD, // lo model
 	invanim_combatknife_equip, // equip animation
@@ -4970,7 +4970,7 @@ struct weapon invitem_combatknife = {
 	WEAPONFLAG_THROWABLE | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_TRACKTIMEUSED | WEAPONFLAG_00000400 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_00004000 | WEAPONFLAG_BRIGHTER | WEAPONFLAG_HASHANDS | WEAPONFLAG_KEEPFUNCWHENEMPTY,
 };
 
-struct weaponfunc_throw invfunc_bug_throw = {
+struct funcdef_throw invfunc_bug_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_000, // name
 	0, // unused
@@ -4984,7 +4984,7 @@ struct weaponfunc_throw invfunc_bug_throw = {
 	0, // damage
 };
 
-struct weaponfunc_throw invfunc_targetamplifier_throw = {
+struct funcdef_throw invfunc_targetamplifier_throw = {
 	INVENTORYFUNCTYPE_THROW,
 	L_GUN_000, // name
 	0, // unused
@@ -4998,7 +4998,7 @@ struct weaponfunc_throw invfunc_targetamplifier_throw = {
 	0, // damage
 };
 
-struct inventory_ammo invammo_bug = {
+struct ammodef invammo_bug = {
 	AMMOTYPE_BUG,
 	CASING_NONE,
 	1, // clip size
@@ -5006,7 +5006,7 @@ struct inventory_ammo invammo_bug = {
 	AMMOFLAG_EQUIPPEDISRESERVE, // flags
 };
 
-struct weapon invitem_commsrider = {
+struct weapondef invitem_commsrider = {
 	FILE_PCHRBUG, // hi model
 	FILE_PCHRBUG, // lo model
 	NULL, // equip animation
@@ -5031,7 +5031,7 @@ struct weapon invitem_commsrider = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weapon invitem_tracerbug = {
+struct weapondef invitem_tracerbug = {
 	FILE_PCHRBUG, // hi model
 	FILE_PCHRBUG, // lo model
 	NULL, // equip animation
@@ -5056,7 +5056,7 @@ struct weapon invitem_tracerbug = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weapon invitem_targetamplifier = {
+struct weapondef invitem_targetamplifier = {
 	FILE_PTARGETAMP, // hi model
 	FILE_PTARGETAMP, // lo model
 	NULL, // equip animation
@@ -5081,7 +5081,7 @@ struct weapon invitem_targetamplifier = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc_device invfunc_nightvision_primary = {
+struct funcdef_device invfunc_nightvision_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_135, // name
 	0, // unused
@@ -5092,7 +5092,7 @@ struct weaponfunc_device invfunc_nightvision_primary = {
 	DEVICE_NIGHTVISION,
 };
 
-struct weapon invitem_nightvision = {
+struct weapondef invitem_nightvision = {
 	FILE_PCHRNIGHTSIGHT, // hi model
 	FILE_PCHRNIGHTSIGHT, // lo model
 	NULL, // equip animation
@@ -5121,7 +5121,7 @@ struct weapon invitem_nightvision = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000080 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc invfunc_horizonscanner_primary = {
+struct funcdef invfunc_horizonscanner_primary = {
 	INVENTORYFUNCTYPE_NONE,
 	L_GUN_139, // name
 	0, // unused
@@ -5143,7 +5143,7 @@ struct invaimsettings invaimsettings_horizonscanner = {
 	INVAIMFLAG_MANUALZOOM | INVAIMFLAG_ACCURATESINGLESHOT,
 };
 
-struct weapon invitem_horizonscanner = {
+struct weapondef invitem_horizonscanner = {
 	FILE_PBINOCULARS, // hi model
 	FILE_PBINOCULARS, // lo model
 	NULL, // equip animation
@@ -5168,7 +5168,7 @@ struct weapon invitem_horizonscanner = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DETERMINER_S_AN | WEAPONFLAG_DETERMINER_F_AN | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc_device invfunc_cloak_primary = {
+struct funcdef_device invfunc_cloak_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_116, // name
 	0, // unused
@@ -5179,7 +5179,7 @@ struct weaponfunc_device invfunc_cloak_primary = {
 	DEVICE_CLOAKDEVICE,
 };
 
-struct inventory_ammo invammo_cloakingdevice = {
+struct ammodef invammo_cloakingdevice = {
 	AMMOTYPE_CLOAK,
 	CASING_NONE,
 	10, // clip size
@@ -5187,7 +5187,7 @@ struct inventory_ammo invammo_cloakingdevice = {
 	AMMOFLAG_NORESERVE, // flags
 };
 
-struct weapon invitem_cloakingdevice = {
+struct weapondef invitem_cloakingdevice = {
 	FILE_PCHRCLOAKER, // hi model
 	FILE_PCHRCLOAKER, // lo model
 	NULL, // equip animation
@@ -5212,7 +5212,7 @@ struct weapon invitem_cloakingdevice = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_KEEPFUNCWHENEMPTY,
 };
 
-struct weaponfunc_special invfunc_combatboost_boost = {
+struct funcdef_special invfunc_combatboost_boost = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_113, // name
 	0, // unused
@@ -5225,7 +5225,7 @@ struct weaponfunc_special invfunc_combatboost_boost = {
 	SFX_JO_BOOST_ACTIVATE, // soundnum (unused)
 };
 
-struct weaponfunc_special invfunc_combatboost_revert = {
+struct funcdef_special invfunc_combatboost_revert = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_114, // name
 	0, // unused
@@ -5238,7 +5238,7 @@ struct weaponfunc_special invfunc_combatboost_revert = {
 	SFX_JO_BOOST_ACTIVATE, // soundnum (unused)
 };
 
-struct inventory_ammo invammo_combatboost = {
+struct ammodef invammo_combatboost = {
 	AMMOTYPE_BOOST,
 	CASING_NONE,
 	4, // clip size
@@ -5246,7 +5246,7 @@ struct inventory_ammo invammo_combatboost = {
 	AMMOFLAG_NORESERVE, // flags
 };
 
-struct weapon invitem_combatboost = {
+struct weapondef invitem_combatboost = {
 	FILE_PCHRSPEEDPILL, // hi model
 	FILE_PCHRSPEEDPILL, // lo model
 	NULL, // equip animation
@@ -5271,7 +5271,7 @@ struct weapon invitem_combatboost = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_KEEPFUNCWHENEMPTY | WEAPONFLAG_DETERMINER_S_SOME | WEAPONFLAG_DETERMINER_F_SOME,
 };
 
-struct weaponfunc_device invfunc_suicidepill_primary = {
+struct funcdef_device invfunc_suicidepill_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_000, // name
 	0, // unused
@@ -5282,7 +5282,7 @@ struct weaponfunc_device invfunc_suicidepill_primary = {
 	DEVICE_SUICIDEPILL,
 };
 
-struct weapon invitem_suicidepill = {
+struct weapondef invitem_suicidepill = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
@@ -5311,7 +5311,7 @@ struct weapon invitem_suicidepill = {
 	WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc_device invfunc_irscanner_primary = {
+struct funcdef_device invfunc_irscanner_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_138, // name
 	0, // unused
@@ -5322,7 +5322,7 @@ struct weaponfunc_device invfunc_irscanner_primary = {
 	DEVICE_IRSCANNER,
 };
 
-struct weapon invitem_irscanner = {
+struct weapondef invitem_irscanner = {
 	FILE_GIRSCANNER, // hi model
 	FILE_GIRSCANNER, // lo model
 	NULL, // equip animation
@@ -5347,7 +5347,7 @@ struct weapon invitem_irscanner = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_00000040 | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc invfunc_disguise_primary = {
+struct funcdef invfunc_disguise_primary = {
 	INVENTORYFUNCTYPE_NONE,
 	L_GUN_143, // name
 	0, // unused
@@ -5357,7 +5357,7 @@ struct weaponfunc invfunc_disguise_primary = {
 	0, // flags
 };
 
-struct weapon invitem_disguise40 = {
+struct weapondef invitem_disguise40 = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
@@ -5386,7 +5386,7 @@ struct weapon invitem_disguise40 = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
-struct weapon invitem_disguise41 = {
+struct weapondef invitem_disguise41 = {
 	0, // hi model
 	0, // lo model
 	NULL, // equip animation
@@ -5415,7 +5415,7 @@ struct weapon invitem_disguise41 = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
-struct weaponfunc_device invfunc_camspy_deploy = {
+struct funcdef_device invfunc_camspy_deploy = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_136, // name
 	0, // unused
@@ -5426,7 +5426,7 @@ struct weaponfunc_device invfunc_camspy_deploy = {
 	DEVICE_EYESPY,
 };
 
-struct weapon invitem_camspy = {
+struct weapondef invitem_camspy = {
 	FILE_CEYESPY, // hi model
 	FILE_CEYESPY, // lo model
 	NULL, // equip animation
@@ -5451,7 +5451,7 @@ struct weapon invitem_camspy = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc_device invfunc_rtracker_primary = {
+struct funcdef_device invfunc_rtracker_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_142, // name
 	0, // unused
@@ -5462,7 +5462,7 @@ struct weaponfunc_device invfunc_rtracker_primary = {
 	DEVICE_RTRACKER,
 };
 
-struct weapon invitem_rtracker = {
+struct weapondef invitem_rtracker = {
 	FILE_PRUSSDAR, // hi model
 	FILE_PRUSSDAR, // lo model
 	NULL, // equip animation
@@ -5487,7 +5487,7 @@ struct weapon invitem_rtracker = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc_device invfunc_xray_primary = {
+struct funcdef_device invfunc_xray_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_137, // name
 	0, // unused
@@ -5498,7 +5498,7 @@ struct weaponfunc_device invfunc_xray_primary = {
 	DEVICE_XRAYSCANNER,
 };
 
-struct weapon invitem_xrayscanner = {
+struct weapondef invitem_xrayscanner = {
 	FILE_PXRAYSPECS, // hi model
 	FILE_PXRAYSPECS, // lo model
 	NULL, // equip animation
@@ -5543,7 +5543,7 @@ struct guncmd invanim_unused_8007f794[] = {
 	gunscript_end
 };
 
-struct weaponfunc_special invfunc_datauplink_primary = {
+struct funcdef_special invfunc_datauplink_primary = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_141, // name
 	0, // unused
@@ -5556,7 +5556,7 @@ struct weaponfunc_special invfunc_datauplink_primary = {
 	0, // soundnum (unused)
 };
 
-struct weapon invitem_datauplink = {
+struct weapondef invitem_datauplink = {
 	FILE_GCOMMSUPLINK, // hi model
 	FILE_GCOMMSUPLINK, // lo model
 	invanim_datauplink_equip, // equip animation
@@ -5585,7 +5585,7 @@ struct weapon invitem_datauplink = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_00000040 | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_HASHANDS | WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
-struct weapon invitem_doordecoder = {
+struct weapondef invitem_doordecoder = {
 	FILE_PCHRDOORDECODER, // hi model
 	FILE_PCHRDOORDECODER, // lo model
 	NULL, // equip animation
@@ -5615,7 +5615,7 @@ struct weapon invitem_doordecoder = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
-struct weapon invitem_rocket = {
+struct weapondef invitem_rocket = {
 	FILE_GCYCLONE, // hi model
 	FILE_GCYCLONELOD, // lo model
 	NULL, // equip animation
@@ -5641,7 +5641,7 @@ struct weapon invitem_rocket = {
 	0, // flags
 };
 
-struct weapon invitem_homingrocket = {
+struct weapondef invitem_homingrocket = {
 	FILE_GCYCLONE, // hi model
 	FILE_GCYCLONELOD, // lo model
 	NULL, // equip animation
@@ -5667,7 +5667,7 @@ struct weapon invitem_homingrocket = {
 	0, // flags
 };
 
-struct weapon invitem_grenaderound = {
+struct weapondef invitem_grenaderound = {
 	FILE_GCYCLONE, // hi model
 	FILE_GCYCLONELOD, // lo model
 	NULL, // equip animation
@@ -5692,7 +5692,7 @@ struct weapon invitem_grenaderound = {
 	0, // flags
 };
 
-struct weapon invitem_bolt = {
+struct weapondef invitem_bolt = {
 	FILE_GCYCLONE, // hi model
 	FILE_GCYCLONELOD, // lo model
 	NULL, // equip animation
@@ -5717,7 +5717,7 @@ struct weapon invitem_bolt = {
 	0, // flags
 };
 
-struct weaponfunc_special invfunc_unused_8006f9a4 = {
+struct funcdef_special invfunc_unused_8006f9a4 = {
 	INVENTORYFUNCTYPE_SPECIAL,
 	L_GUN_144, // "Place Explosives"
 	0, // unused
@@ -5730,7 +5730,7 @@ struct weaponfunc_special invfunc_unused_8006f9a4 = {
 	0, // soundnum (unused)
 };
 
-struct weapon invitem_skedarbomb = {
+struct weapondef invitem_skedarbomb = {
 	FILE_PSKEDARBOMB, // hi model
 	FILE_PSKEDARBOMB, // lo model
 	NULL, // equip animation
@@ -5760,7 +5760,7 @@ struct weapon invitem_skedarbomb = {
 	WEAPONFLAG_FIRETOACTIVATE,
 };
 
-struct weapon invitem_explosives = {
+struct weapondef invitem_explosives = {
 	FILE_PEXPLOSIVEBRICK, // hi model
 	FILE_PEXPLOSIVEBRICK, // lo model
 	NULL, // equip animation
@@ -5786,7 +5786,7 @@ struct weapon invitem_explosives = {
 	WEAPONFLAG_FIRETOACTIVATE,
 };
 
-struct weaponfunc_device invfunc_presidentscanner_primary = {
+struct funcdef_device invfunc_presidentscanner_primary = {
 	INVENTORYFUNCTYPE_DEVICE,
 	L_GUN_142, // name
 	0, // unused
@@ -5797,7 +5797,7 @@ struct weaponfunc_device invfunc_presidentscanner_primary = {
 	DEVICE_RTRACKER,
 };
 
-struct weapon invitem_presidentscanner = {
+struct weapondef invitem_presidentscanner = {
 	FILE_PRUSSDAR, // hi model
 	FILE_PRUSSDAR, // lo model
 	NULL, // equip animation
@@ -5822,7 +5822,7 @@ struct weapon invitem_presidentscanner = {
 	WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALWIELD | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weapon invitem_autosurgeon = {
+struct weapondef invitem_autosurgeon = {
 	FILE_PAUTOSURGEON, // hi model
 	FILE_PAUTOSURGEON, // lo model
 	NULL, // equip animation
@@ -5852,7 +5852,7 @@ struct weapon invitem_autosurgeon = {
 	WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
-struct weapon invitem_flightplans = {
+struct weapondef invitem_flightplans = {
 	FILE_PSAFEITEM, // hi model
 	FILE_PSAFEITEM, // lo model
 	NULL, // equip animation
@@ -5878,7 +5878,7 @@ struct weapon invitem_flightplans = {
 	WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weapon invitem_researchtape = {
+struct weapondef invitem_researchtape = {
 	FILE_PRESEARCHTAPE, // hi model
 	FILE_PRESEARCHTAPE, // lo model
 	NULL, // equip animation
@@ -5904,7 +5904,7 @@ struct weapon invitem_researchtape = {
 	WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weapon invitem_backupdisk = {
+struct weapondef invitem_backupdisk = {
 	FILE_PZIGGYCARD, // hi model
 	FILE_PZIGGYCARD, // lo model
 	NULL, // equip animation
@@ -5934,7 +5934,7 @@ struct weapon invitem_backupdisk = {
 	WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weapon invitem_briefcase = {
+struct weapondef invitem_briefcase = {
 	FILE_PKEYCARD, // hi model
 	FILE_PKEYCARD, // lo model
 	NULL, // equip animation
@@ -5960,7 +5960,7 @@ struct weapon invitem_briefcase = {
 	WEAPONFLAG_HIDEMENUMODEL | WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weapon invitem_suitcase = {
+struct weapondef invitem_suitcase = {
 	FILE_PCHRBRIEFCASE, // hi model
 	FILE_PCHRBRIEFCASE, // lo model
 	NULL, // equip animation
@@ -5990,7 +5990,7 @@ struct weapon invitem_suitcase = {
 	WEAPONFLAG_UNDROPPABLE | WEAPONFLAG_FIRETOACTIVATE,
 };
 
-struct weapon invitem_necklace = {
+struct weapondef invitem_necklace = {
 	FILE_PCHRCHAIN, // hi model
 	FILE_PCHRCHAIN, // lo model
 	NULL, // equip animation
@@ -6017,7 +6017,7 @@ struct weapon invitem_necklace = {
 };
 
 #if VERSION >= VERSION_NTSC_1_0
-struct weapon invitem_shieldtechitem = {
+struct weapondef invitem_shieldtechitem = {
 	FILE_PCHRSHIELD, // hi model
 	FILE_PCHRSHIELD, // lo model
 	NULL, // equip animation
@@ -6044,7 +6044,7 @@ struct weapon invitem_shieldtechitem = {
 };
 #endif
 
-struct weapon invitem_keycard = {
+struct weapondef invitem_keycard = {
 	FILE_PKEYCARD, // hi model
 	FILE_PKEYCARD, // lo model
 	NULL, // equip animation
@@ -6070,7 +6070,7 @@ struct weapon invitem_keycard = {
 	WEAPONFLAG_UNDROPPABLE,
 };
 
-struct weaponfunc_shootprojectile invfunc_kingsceptre_primary = {
+struct funcdef_shootprojectile invfunc_kingsceptre_primary = {
 	INVENTORYFUNCTYPE_SHOOT_PROJECTILE,
 	L_GUN_000, // name
 	0, // unused
@@ -6101,7 +6101,7 @@ struct weaponfunc_shootprojectile invfunc_kingsceptre_primary = {
 	SFX_LAUNCH_ROCKET_8053, // soundnum
 };
 
-struct inventory_ammo invammo_kingsceptre = {
+struct ammodef invammo_kingsceptre = {
 	AMMOTYPE_ROCKET,
 	CASING_NONE,
 	1, // clip size
@@ -6109,7 +6109,7 @@ struct inventory_ammo invammo_kingsceptre = {
 	0, // flags
 };
 
-struct weapon invitem_kingsceptre = {
+struct weapondef invitem_kingsceptre = {
 	FILE_GDYROCKET, // hi model
 	FILE_GROCKETLOD, // lo model
 	NULL, // equip animation
@@ -6139,7 +6139,7 @@ struct guncmd invanim_tester_shoot[] = {
 	gunscript_end
 };
 
-struct weaponfunc_shootsingle invfunc_tester_primary = {
+struct funcdef_shootsingle invfunc_tester_primary = {
 	INVENTORYFUNCTYPE_SHOOT_SINGLE,
 	L_GUN_000, // name
 	0, // unused
@@ -6161,7 +6161,7 @@ struct weaponfunc_shootsingle invfunc_tester_primary = {
 	1, // penetration
 };
 
-struct inventory_ammo invammo_tester = {
+struct ammodef invammo_tester = {
 	AMMOTYPE_PISTOL,
 	CASING_STANDARD,
 	8, // clip size
@@ -6169,7 +6169,7 @@ struct inventory_ammo invammo_tester = {
 	0, // flags
 };
 
-struct weapon invitem_tester = {
+struct weapondef invitem_tester = {
 	FILE_GTESTGUN, // hi model
 	FILE_GTESTGUN, // lo model
 	NULL, // equip animation
@@ -6194,7 +6194,7 @@ struct weapon invitem_tester = {
 	WEAPONFLAG_00000004 | WEAPONFLAG_ONEHANDED | WEAPONFLAG_AICANUSE | WEAPONFLAG_DUALFLIP | WEAPONFLAG_00000040 | WEAPONFLAG_00000400 | WEAPONFLAG_HASGUNSCRIPT | WEAPONFLAG_BRIGHTER,
 };
 
-struct weapon *g_Weapons[] = {
+struct weapondef *g_Weapons[] = {
 	&invitem_nothing,
 	&invitem_unarmed,
 	&invitem_falcon2,

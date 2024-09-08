@@ -161,7 +161,7 @@ void sight_tick(bool sighton)
 	s32 i;
 	s32 index;
 	struct invaimsettings *gunsettings = gset_get_aim_settings(&g_Vars.currentplayer->hands[0].gset);
-	struct weaponfunc *func = gset_get_funcdef_by_weaponnum_funcnum(g_Vars.currentplayer->hands[0].gset.weaponnum,
+	struct funcdef *func = gset_get_funcdef_by_weaponnum_funcnum(g_Vars.currentplayer->hands[0].gset.weaponnum,
 			g_Vars.currentplayer->hands[0].gset.weaponfunc);
 
 	g_Vars.currentplayer->sighttimer240 += g_Vars.lvupdate240;

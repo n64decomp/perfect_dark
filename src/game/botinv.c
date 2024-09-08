@@ -1019,7 +1019,7 @@ void botinv_tick(struct chrdata *chr)
 bool botinv_switch_to_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum)
 {
 	struct invitem *item;
-	struct weaponfunc *func;
+	struct funcdef *func;
 	struct aibot *aibot;
 	s32 i;
 	s32 modelnum;

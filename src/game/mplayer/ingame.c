@@ -354,7 +354,7 @@ struct menudialogdef g_MpPauseControlMenuDialog = {
 #if VERSION >= VERSION_JPN_FINAL
 char *mp_menu_text_weapon_description(struct menuitem *item)
 {
-	struct weapon *weapondef = gset_get_weapondef(g_Menus[g_MpPlayerNum].training.weaponnum);
+	struct weapondef *weapondef = gset_get_weapondef(g_Menus[g_MpPlayerNum].training.weaponnum);
 
 	if (weapondef != NULL) {
 		if (g_Menus[g_MpPlayerNum].training.weaponnum == WEAPON_EYESPY) {
@@ -425,7 +425,7 @@ char *mp_menu_text_weapon_description(struct menuitem *item)
 #else
 char *mp_menu_text_weapon_description(struct menuitem *item)
 {
-	struct weapon *weapon = gset_get_weapondef(g_Menus[g_MpPlayerNum].mppause.weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(g_Menus[g_MpPlayerNum].mppause.weaponnum);
 
 	if (weapon) {
 		return lang_get(weapon->description);

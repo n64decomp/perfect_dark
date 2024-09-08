@@ -4606,7 +4606,7 @@ void chr_hit(struct shotdata *shotdata, struct hit *hit)
 	struct coord sp98;
 	s16 hitpos_s16[3];
 	u8 ismelee = false;
-	struct weaponfunc *func = gset_get_funcdef_by_gset(&shotdata->gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(&shotdata->gset);
 	f32 shield;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {

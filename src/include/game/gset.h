@@ -4,14 +4,14 @@
 #include "data.h"
 #include "types.h"
 
-struct weapon *gset_get_weapondef(s32 itemid);
-struct weaponfunc *gset_get_funcdef_by_weaponnum_funcnum(u32 weaponnum, u32 which);
-struct weaponfunc *gset_get_funcdef_by_gset2(struct gset *gset);
-struct weaponfunc *gset_get_funcdef_by_gset(struct gset *gset);
-struct weaponfunc *gset_get_funcdef_by_gset_funcnum(struct gset *gset, s32 which);
-struct weaponfunc *gset_get_current_funcdef(u32 hand);
+struct weapondef *gset_get_weapondef(s32 itemid);
+struct funcdef *gset_get_funcdef_by_weaponnum_funcnum(u32 weaponnum, u32 which);
+struct funcdef *gset_get_funcdef_by_gset2(struct gset *gset);
+struct funcdef *gset_get_funcdef_by_gset(struct gset *gset);
+struct funcdef *gset_get_funcdef_by_gset_funcnum(struct gset *gset, s32 which);
+struct funcdef *gset_get_current_funcdef(u32 hand);
 struct invaimsettings *gset_get_aim_settings(struct gset *gset);
-struct inventory_ammo *gset_get_ammodef(u32 weaponnum, u32 funcnum);
+struct ammodef *gset_get_ammodef(u32 weaponnum, u32 funcnum);
 f32 gset_get_xshift(s32 handnum);
 f32 gset_get_xpos(s32 handnum);
 f32 gset_get_gun_zoom_fov(void);

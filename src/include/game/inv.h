@@ -6,7 +6,7 @@
 
 extern struct noisesettings invnoisesettings_silent;
 extern struct invaimsettings invaimsettings_default;
-extern struct weapon *g_Weapons[WEAPON_SUICIDEPILL + 1];
+extern struct weapondef *g_Weapons[WEAPON_SUICIDEPILL + 1];
 
 void inv_reset(void);
 void inv_init(s32 numdoubles);

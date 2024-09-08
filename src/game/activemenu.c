@@ -416,8 +416,8 @@ void am_get_slot_details(s32 slot, u32 *flags, char *label)
 	s32 qty;
 	s32 secs;
 	s32 modulo;
-	struct weaponfunc *prifunc;
-	struct weaponfunc *secfunc;
+	struct funcdef *prifunc;
+	struct funcdef *secfunc;
 
 	switch (g_AmMenus[g_AmIndex].screenindex) {
 	case 0: // Weapon screen

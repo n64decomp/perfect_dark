@@ -232,7 +232,7 @@ extern bool g_ObjectiveChecksDisabled;
 extern u16 var8006ae90[];
 extern u16 var8006af0c[];
 extern u16 var8006af8c[];
-extern struct weapon *g_Weapons[];
+extern struct weapondef *g_Weapons[];
 extern u32 g_BgunGunMemBaseSize4Mb2P;
 extern bool g_CasingsActive;
 extern s32 g_MaxModels;

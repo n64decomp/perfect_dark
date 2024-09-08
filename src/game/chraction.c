@@ -4270,7 +4270,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 	f32 armourscale = 1;
 	bool isshoot = true;
 	bool forceapplydamage = false;
-	struct weaponfunc *func;
+	struct funcdef *func;
 	f32 amount;
 	bool canchoke = true;
 	s32 aplayernum = -1;
@@ -6974,7 +6974,7 @@ bool chr_try_attack_amount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8
 		s32 quantity;
 		f32 percentage;
 		struct weaponobj *weapon = chr->weapons_held[0]->weapon;
-		struct inventory_ammo *ammo;
+		struct ammodef *ammo;
 
 		quantity = 1;
 
@@ -10094,8 +10094,8 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 						struct coord sp15c;
 						Mtxf projectilemtx;
 						Mtxf yrotmtx;
-						struct weapon *weapondef = gset_get_weapondef(gset.weaponnum);
-						struct weaponfunc_shootprojectile *func = weapondef->functions[gset.weaponfunc];
+						struct weapondef *weapondef = gset_get_weapondef(gset.weaponnum);
+						struct funcdef_shootprojectile *func = weapondef->functions[gset.weaponfunc];
 
 						// Handle creating the projectile
 						if (gset.weaponnum == WEAPON_ROCKETLAUNCHER

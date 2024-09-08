@@ -313,7 +313,7 @@ MenuItemHandlerResult fr_difficulty_menu_handler(s32 operation, struct menuitem 
 
 char *fr_primary_function_menu_text(struct menuitem *item)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_weaponnum_funcnum(fr_get_weapon_by_slot(fr_get_slot()), FUNC_PRIMARY);
+	struct funcdef *func = gset_get_funcdef_by_weaponnum_funcnum(fr_get_weapon_by_slot(fr_get_slot()), FUNC_PRIMARY);
 
 	if (func) {
 		return lang_get(func->name);
@@ -324,7 +324,7 @@ char *fr_primary_function_menu_text(struct menuitem *item)
 
 char *fr_secondary_function_menu_text(struct menuitem *item)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_weaponnum_funcnum(fr_get_weapon_by_slot(fr_get_slot()), FUNC_SECONDARY);
+	struct funcdef *func = gset_get_funcdef_by_weaponnum_funcnum(fr_get_weapon_by_slot(fr_get_slot()), FUNC_SECONDARY);
 
 	if (func) {
 		return lang_get(func->name);

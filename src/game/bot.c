@@ -422,7 +422,7 @@ u32 bot_pickup_prop(struct prop *prop, struct chrdata *chr)
 				}
 
 				if (itemtype) {
-					struct weapon *weapondef = gset_get_weapondef(weapon->weaponnum);
+					struct weapondef *weapondef = gset_get_weapondef(weapon->weaponnum);
 					s32 originalpad = botinv_get_weapon_pad(chr, weapon->weaponnum);
 					s32 currentpad = obj->pad;
 
@@ -472,7 +472,7 @@ bool bot_test_prop_for_pickup(struct prop *prop, struct chrdata *chr)
 
 	struct weaponobj *weaponobj;
 	s32 itemtype;
-	struct weapon *weapon;
+	struct weapondef *weapon;
 	bool singleonly;
 	s32 i;
 
@@ -3530,7 +3530,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 									}
 
 									if (throw) {
-										struct weaponfunc *func;
+										struct funcdef *func;
 
 										chr_uncloak_temporarily(chr);
 										botact_try_remove_ammo_from_reserve(aibot, aibot->weaponnum, aibot->gunfunc, 1);
@@ -3617,7 +3617,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 						}
 
 						if (weapon_get_num_ticks_per_shot(aibot->weaponnum, aibot->gunfunc) <= 0 && firing) {
-							struct weaponfunc *func;
+							struct funcdef *func;
 							aibot->nextbullettimer60[i] = botact_get_shoot_interval60(aibot->weaponnum, aibot->gunfunc);
 
 #if PAL

@@ -74,7 +74,7 @@ bool bmove_is_autoaim_y_enabled(void)
 
 bool bmove_is_autoaim_y_enabled_for_current_weapon(void)
 {
-	struct weaponfunc *func = gset_get_current_funcdef(0);
+	struct funcdef *func = gset_get_current_funcdef(0);
 
 	if (func) {
 		if (func->flags & FUNCFLAG_NOAUTOAIM) {
@@ -132,7 +132,7 @@ bool bmove_is_autoaim_x_enabled(void)
 
 bool bmove_is_autoaim_x_enabled_for_current_weapon(void)
 {
-	struct weaponfunc *func = gset_get_current_funcdef(0);
+	struct funcdef *func = gset_get_current_funcdef(0);
 
 	if (func) {
 		if (func->flags & FUNCFLAG_NOAUTOAIM) {

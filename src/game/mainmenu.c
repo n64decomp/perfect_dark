@@ -3654,8 +3654,8 @@ u8 var80072d88 = 255;
 
 char *inv_menu_text_primary_function(struct menuitem *item)
 {
-	struct weaponfunc *primaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 0);
-	struct weaponfunc *secondaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 1);
+	struct funcdef *primaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 0);
+	struct funcdef *secondaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 1);
 
 	if (primaryfunc && secondaryfunc) {
 		return lang_get(primaryfunc->name);
@@ -3666,8 +3666,8 @@ char *inv_menu_text_primary_function(struct menuitem *item)
 
 char *inv_menu_text_secondary_function(struct menuitem *item)
 {
-	struct weaponfunc *primaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 0);
-	struct weaponfunc *secondaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 1);
+	struct funcdef *primaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 0);
+	struct funcdef *secondaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 1);
 
 	if (secondaryfunc) {
 		return lang_get(secondaryfunc->name);
@@ -3767,7 +3767,7 @@ void func0f105948(s32 weaponnum)
 	};
 
 	s32 useindex;
-	struct weapon *weapon;
+	struct weapondef *weapon;
 	u32 stack;
 	s32 wantindex;
 
@@ -3862,7 +3862,7 @@ MenuDialogHandlerResult inventory_menu_dialog(s32 operation, struct menudialogde
  */
 char *inv_menu_text_weapon_name(struct menuitem *item)
 {
-	struct weapon *weapon = gset_get_weapondef(g_InventoryWeapon);
+	struct weapondef *weapon = gset_get_weapondef(g_InventoryWeapon);
 
 	if (weapon) {
 		if (weapon->manufacturer == L_GUN_000) { // "\n"
@@ -3880,7 +3880,7 @@ char *inv_menu_text_weapon_name(struct menuitem *item)
  */
 char *inv_menu_text_weapon_manufacturer(struct menuitem *item)
 {
-	struct weapon *weapon = gset_get_weapondef(g_InventoryWeapon);
+	struct weapondef *weapon = gset_get_weapondef(g_InventoryWeapon);
 	u32 textid = L_GUN_000; // "\n"
 
 	if (weapon) {
@@ -3902,7 +3902,7 @@ char *inv_menu_text_weapon_manufacturer(struct menuitem *item)
 
 char *inv_menu_text_weapon_description(struct menuitem *item)
 {
-	struct weapon *weapon = gset_get_weapondef(g_InventoryWeapon);
+	struct weapondef *weapon = gset_get_weapondef(g_InventoryWeapon);
 
 	if (weapon) {
 		if (g_InventoryWeapon == WEAPON_EYESPY && g_Vars.currentplayer->eyespy) {

@@ -2111,7 +2111,7 @@ struct hand {
 	/*0x0814*/ struct beam beam;
 	/*0x0840*/ f32 noiseradius;
 	/*0x0844*/ u32 fingerroty;
-	/*0x0848*/ f32 slidetrans; // 0 at rest, positive when back (struct weaponfunc_shoot.slidemax)
+	/*0x0848*/ f32 slidetrans; // 0 at rest, positive when back (struct funcdef_shoot.slidemax)
 	/*0x084c*/ bool slideinc; // true when moving back, false when moving forward or not moving
 	/*0x0850*/ struct weaponobj *rocket;
 	/*0x0854*/ bool firedrocket;
@@ -2865,7 +2865,7 @@ struct gunviscmd {
 	u16 unk08;
 };
 
-struct weaponfunc {
+struct funcdef {
 	/*0x00*/ s32 type;
 	/*0x04*/ u16 name;
 	/*0x06*/ u8 unk06; // not used
@@ -2875,8 +2875,8 @@ struct weaponfunc {
 	/*0x10*/ u32 flags;
 };
 
-struct weaponfunc_shoot {
-	struct weaponfunc base;
+struct funcdef_shoot {
+	struct funcdef base;
 	/*0x14*/ struct recoilsettings *recoilsettings;
 	/*0x18*/ s8 recoverytime60;
 	/*0x1c*/ f32 damage;
@@ -2900,12 +2900,12 @@ struct weaponfunc_shoot {
 	/*0x3c*/ u8 penetration;
 };
 
-struct weaponfunc_shootsingle {
-	struct weaponfunc_shoot base;
+struct funcdef_shootsingle {
+	struct funcdef_shoot base;
 };
 
-struct weaponfunc_shootauto {
-	struct weaponfunc_shoot base;
+struct funcdef_shootauto {
+	struct funcdef_shoot base;
 	/*0x40*/ f32 initialrpm; // rounds per minute
 	/*0x44*/ f32 maxrpm; // rounds per minute
 	/*0x48*/ f32 *vibrationstart;
@@ -2914,8 +2914,8 @@ struct weaponfunc_shootauto {
 	/*0x51*/ s8 turretdecel;
 };
 
-struct weaponfunc_shootprojectile {
-	struct weaponfunc_shoot base;
+struct funcdef_shootprojectile {
+	struct funcdef_shoot base;
 	/*0x40*/ s32 projectilemodelnum;
 	/*0x44*/ u32 unk44; // unused
 	/*0x48*/ f32 scale;
@@ -2927,16 +2927,16 @@ struct weaponfunc_shootprojectile {
 	/*0x60*/ s16 soundnum;
 };
 
-struct weaponfunc_throw {
-	struct weaponfunc base;
+struct funcdef_throw {
+	struct funcdef base;
 	/*0x14*/ s32 projectilemodelnum;
 	/*0x18*/ s16 activatetime60; // time until proxies become active, or timed mine/grenade explodes
 	/*0x1c*/ s32 recoverytime60; // time before player can throw another
 	/*0x20*/ f32 damage;
 };
 
-struct weaponfunc_melee {
-	struct weaponfunc base;
+struct funcdef_melee {
+	struct funcdef base;
 	/*0x14*/ f32 damage;
 	/*0x18*/ f32 range;
 	/*0x1c*/ u32 unk1c; // unused
@@ -2953,19 +2953,19 @@ struct weaponfunc_melee {
 	/*0x48*/ u32 unk48; // unused
 };
 
-struct weaponfunc_special {
-	struct weaponfunc base;
+struct funcdef_special {
+	struct funcdef base;
 	/*0x14*/ s32 specialfunc;
 	/*0x18*/ s32 recoverytime60;
 	/*0x1c*/ u16 soundnum; // unused
 };
 
-struct weaponfunc_device {
-	struct weaponfunc base;
+struct funcdef_device {
+	struct funcdef base;
 	/*0x14*/ u32 device;
 };
 
-struct inventory_ammo {
+struct ammodef {
 	u32 type;
 	u32 casingeject;
 	s16 clipsize;
@@ -2978,7 +2978,7 @@ struct modelpartvisibility {
 	u8 visible;
 };
 
-struct weapon {
+struct weapondef {
 	/*0x00*/ u16 hi_model;
 	/*0x02*/ u16 lo_model;
 	/*0x04*/ struct guncmd *equip_animation;
@@ -2986,7 +2986,7 @@ struct weapon {
 	/*0x0c*/ struct guncmd *pritosec_animation;
 	/*0x10*/ struct guncmd *sectopri_animation;
 	/*0x14*/ void *functions[2];
-	/*0x1c*/ struct inventory_ammo *ammos[2];
+	/*0x1c*/ struct ammodef *ammos[2];
 	/*0x24*/ struct invaimsettings *aimsettings;
 	/*0x28*/ f32 muzzlez;
 	/*0x2c*/ f32 posx;
@@ -5542,7 +5542,7 @@ struct botweaponconfig {
 
 struct handweaponinfo {
 	s32 weaponnum;
-	struct weapon *definition;
+	struct weapondef *definition;
 	struct gunctrl *gunctrl;
 };
 

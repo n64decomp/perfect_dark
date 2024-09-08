@@ -16,7 +16,7 @@
 #include "data.h"
 #include "types.h"
 
-struct weapon *gset_get_weapondef(s32 itemid)
+struct weapondef *gset_get_weapondef(s32 itemid)
 {
 	if (itemid < 0) {
 		return NULL;
@@ -29,9 +29,9 @@ struct weapon *gset_get_weapondef(s32 itemid)
 	return g_Weapons[itemid];
 }
 
-struct weaponfunc *gset_get_funcdef_by_weaponnum_funcnum(u32 weaponnum, u32 which)
+struct funcdef *gset_get_funcdef_by_weaponnum_funcnum(u32 weaponnum, u32 which)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 
 	if (weapon) {
 		return weapon->functions[which];
@@ -40,9 +40,9 @@ struct weaponfunc *gset_get_funcdef_by_weaponnum_funcnum(u32 weaponnum, u32 whic
 	return NULL;
 }
 
-struct weaponfunc *gset_get_funcdef_by_gset2(struct gset *gset)
+struct funcdef *gset_get_funcdef_by_gset2(struct gset *gset)
 {
-	struct weapon *weapon = gset_get_weapondef(gset->weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(gset->weaponnum);
 
 	if (weapon) {
 		return weapon->functions[gset->weaponfunc];
@@ -51,9 +51,9 @@ struct weaponfunc *gset_get_funcdef_by_gset2(struct gset *gset)
 	return NULL;
 }
 
-struct weaponfunc *gset_get_funcdef_by_gset(struct gset *gset)
+struct funcdef *gset_get_funcdef_by_gset(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[gset->weaponnum];
+	struct weapondef *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->functions[gset->weaponfunc];
@@ -62,9 +62,9 @@ struct weaponfunc *gset_get_funcdef_by_gset(struct gset *gset)
 	return NULL;
 }
 
-struct weaponfunc *gset_get_funcdef_by_gset_funcnum(struct gset *gset, s32 which)
+struct funcdef *gset_get_funcdef_by_gset_funcnum(struct gset *gset, s32 which)
 {
-	struct weapon *weapon = g_Weapons[gset->weaponnum];
+	struct weapondef *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->functions[which];
@@ -73,9 +73,9 @@ struct weaponfunc *gset_get_funcdef_by_gset_funcnum(struct gset *gset, s32 which
 	return NULL;
 }
 
-struct weaponfunc *gset_get_current_funcdef(u32 hand)
+struct funcdef *gset_get_current_funcdef(u32 hand)
 {
-	struct weapon *weapon = gset_get_weapondef(g_Vars.currentplayer->hands[hand].gset.weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(g_Vars.currentplayer->hands[hand].gset.weaponnum);
 
 	if (weapon) {
 		return weapon->functions[g_Vars.currentplayer->hands[hand].gset.weaponfunc];
@@ -86,7 +86,7 @@ struct weaponfunc *gset_get_current_funcdef(u32 hand)
 
 u32 gset_get_num_functions(u32 weaponnum)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 	s32 i;
 
 	if (!weapon) {
@@ -104,7 +104,7 @@ u32 gset_get_num_functions(u32 weaponnum)
 
 struct invaimsettings *gset_get_aim_settings(struct gset *gset)
 {
-	struct weapon *weapon = gset_get_weapondef(gset->weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(gset->weaponnum);
 
 	if (weapon) {
 		return weapon->aimsettings;
@@ -113,10 +113,10 @@ struct invaimsettings *gset_get_aim_settings(struct gset *gset)
 	return &invaimsettings_default;
 }
 
-struct inventory_ammo *gset_get_ammodef(u32 weaponnum, u32 funcnum)
+struct ammodef *gset_get_ammodef(u32 weaponnum, u32 funcnum)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
-	struct weaponfunc *func = gset_get_funcdef_by_weaponnum_funcnum(weaponnum, funcnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
+	struct funcdef *func = gset_get_funcdef_by_weaponnum_funcnum(weaponnum, funcnum);
 
 	if (func && weapon && func->ammoindex >= 0) {
 		return weapon->ammos[func->ammoindex];
@@ -127,7 +127,7 @@ struct inventory_ammo *gset_get_ammodef(u32 weaponnum, u32 funcnum)
 
 void gset_get_weapon_pos(struct coord *pos)
 {
-	struct weapon *weapon = gset_get_weapondef(bgun_get_weapon_num(HAND_RIGHT));
+	struct weapondef *weapon = gset_get_weapondef(bgun_get_weapon_num(HAND_RIGHT));
 
 	if (weapon) {
 		pos->x = weapon->posx;
@@ -138,7 +138,7 @@ void gset_get_weapon_pos(struct coord *pos)
 
 void gset_set_weapon_pos(struct coord *pos)
 {
-	struct weapon *weapon = gset_get_weapondef(bgun_get_weapon_num(HAND_RIGHT));
+	struct weapondef *weapon = gset_get_weapondef(bgun_get_weapon_num(HAND_RIGHT));
 
 	if (weapon) {
 		weapon->posx = pos->x;
@@ -155,7 +155,7 @@ f32 gset_get_xshift(s32 handnum)
 f32 gset_get_xpos(s32 hand)
 {
 	f32 x;
-	struct weapon *weapon;
+	struct weapondef *weapon;
 
 	if (hand == 0) {
 		weapon = gset_get_weapondef(bgun_get_weapon_num2(0));
@@ -187,7 +187,7 @@ f32 gset_get_xpos(s32 hand)
 f32 gset_get_gun_zoom_fov(void)
 {
 	s32 index = -1;
-	struct weapon *weapon;
+	struct weapondef *weapon;
 
 	switch (bgun_get_weapon_num2(0)) {
 	case WEAPON_SNIPERRIFLE:
@@ -279,7 +279,7 @@ void gset_zoom_in(f32 fovpersec)
 
 bool gset_has_weapon_flag(s32 itemid, u32 flag)
 {
-	struct weapon *weapon = gset_get_weapondef(itemid);
+	struct weapondef *weapon = gset_get_weapondef(itemid);
 
 	if (!weapon) {
 		return false;
@@ -290,7 +290,7 @@ bool gset_has_weapon_flag(s32 itemid, u32 flag)
 
 bool gset_has_aim_flag(s32 weaponnum, u32 flag)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 
 	if (!weapon) {
 		return false;
@@ -301,8 +301,8 @@ bool gset_has_aim_flag(s32 weaponnum, u32 flag)
 
 bool gset_has_ammo_flag(s32 weaponnum, s32 funcnum, u32 flag)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
-	struct inventory_ammo *ammo;
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
+	struct ammodef *ammo;
 
 	if (weapon == NULL) {
 		return false;
@@ -329,7 +329,7 @@ void gset_stub2(s32 arg0)
 
 s32 gset_get_device_state(s32 weaponnum)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 	s32 i;
 
 	if (!weapon) {
@@ -338,7 +338,7 @@ s32 gset_get_device_state(s32 weaponnum)
 
 	for (i = 0; i < ARRAYCOUNT(weapon->functions); i++) {
 		if (weapon->functions[i]) {
-			struct weaponfunc_device *devicefunc = weapon->functions[i];
+			struct funcdef_device *devicefunc = weapon->functions[i];
 
 			if ((devicefunc->base.type & 0xff) == INVENTORYFUNCTYPE_DEVICE) {
 				if ((g_Vars.currentplayer->devicesactive & devicefunc->device) == 0) {
@@ -355,7 +355,7 @@ s32 gset_get_device_state(s32 weaponnum)
 
 void gset_set_device_active(s32 weaponnum, bool active)
 {
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
 	s32 i;
 
 	if (!weapon) {
@@ -364,7 +364,7 @@ void gset_set_device_active(s32 weaponnum, bool active)
 
 	for (i = 0; i < ARRAYCOUNT(weapon->functions); i++) {
 		if (weapon->functions[i]) {
-			struct weaponfunc_device *devicefunc = weapon->functions[i];
+			struct funcdef_device *devicefunc = weapon->functions[i];
 
 			if ((devicefunc->base.type & 0xff) == INVENTORYFUNCTYPE_DEVICE) {
 				if (active) {
@@ -385,7 +385,7 @@ void gset_set_device_active(s32 weaponnum, bool active)
 
 u16 gset_get_filenum(s32 weaponnum)
 {
-	struct weapon *weapon = NULL;
+	struct weapondef *weapon = NULL;
 
 	if (weaponnum != -1) {
 		weapon = g_Weapons[weaponnum];
@@ -423,10 +423,10 @@ void gset_populate(s32 handnum, struct gset *gset)
 	}
 }
 
-struct inventory_ammo *gset_get_current_ammodef(struct gset *gset)
+struct ammodef *gset_get_current_ammodef(struct gset *gset)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
-	struct weapon *weapon = gset_get_weapondef(gset->weaponnum);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
+	struct weapondef *weapon = gset_get_weapondef(gset->weaponnum);
 
 	if (func && func->ammoindex >= 0) {
 		return weapon->ammos[func->ammoindex];
@@ -437,10 +437,10 @@ struct inventory_ammo *gset_get_current_ammodef(struct gset *gset)
 
 u8 gset_get_single_penetration(struct gset *gset)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
+		struct funcdef_shoot *funcshoot = (struct funcdef_shoot *)func;
 		return funcshoot->penetration;
 	}
 
@@ -450,7 +450,7 @@ u8 gset_get_single_penetration(struct gset *gset)
 s32 gset_get_casing_type(struct gset *gset)
 {
 	s32 result = 0;
-	struct inventory_ammo *ammo = gset_get_current_ammodef(gset);
+	struct ammodef *ammo = gset_get_current_ammodef(gset);
 
 	if (ammo) {
 		result = ammo->casingeject;
@@ -461,11 +461,11 @@ s32 gset_get_casing_type(struct gset *gset)
 
 f32 gset_get_impact_force(struct gset *gset)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
 	f32 result = 0;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
+		struct funcdef_shoot *funcshoot = (struct funcdef_shoot *)func;
 		result = funcshoot->impactforce;
 	}
 
@@ -474,17 +474,17 @@ f32 gset_get_impact_force(struct gset *gset)
 
 f32 gset_get_damage(struct gset *gset)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
 	f32 damage = 0;
 
 	if (func) {
 		if ((func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-			struct weaponfunc_shoot *shootfunc = (struct weaponfunc_shoot *)func;
+			struct funcdef_shoot *shootfunc = (struct funcdef_shoot *)func;
 			damage = shootfunc->damage;
 		}
 
 		if ((func->type & 0xff) == INVENTORYFUNCTYPE_MELEE) {
-			struct weaponfunc_melee *meleefunc = (struct weaponfunc_melee *)func;
+			struct funcdef_melee *meleefunc = (struct funcdef_melee *)func;
 			damage = meleefunc->damage;
 
 			if (gset->weaponnum == WEAPON_REAPER) {
@@ -493,7 +493,7 @@ f32 gset_get_damage(struct gset *gset)
 		}
 
 		if ((func->type & 0xff) == INVENTORYFUNCTYPE_THROW) {
-			struct weaponfunc_throw *throwfunc = (struct weaponfunc_throw *)func;
+			struct funcdef_throw *throwfunc = (struct funcdef_throw *)func;
 			damage = throwfunc->damage;
 		}
 	}
@@ -512,11 +512,11 @@ f32 gset_get_damage(struct gset *gset)
 u8 gset_get_fireslot_duration(struct gset *gset)
 {
 #if VERSION >= VERSION_PAL_FINAL
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
 	u8 result = 0;
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
+		struct funcdef_shoot *funcshoot = (struct funcdef_shoot *)func;
 		result = funcshoot->duration60;
 	}
 
@@ -526,10 +526,10 @@ u8 gset_get_fireslot_duration(struct gset *gset)
 
 	return result;
 #else
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
+		struct funcdef_shoot *funcshoot = (struct funcdef_shoot *)func;
 		return funcshoot->duration60;
 	}
 
@@ -539,10 +539,10 @@ u8 gset_get_fireslot_duration(struct gset *gset)
 
 u16 gset_get_single_shoot_sound(struct gset *gset)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
 
 	if (func && (func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		struct weaponfunc_shoot *funcshoot = (struct weaponfunc_shoot *)func;
+		struct funcdef_shoot *funcshoot = (struct funcdef_shoot *)func;
 		return funcshoot->shootsound;
 	}
 
@@ -551,7 +551,7 @@ u16 gset_get_single_shoot_sound(struct gset *gset)
 
 bool gset_has_function_flags(struct gset *gset, u32 flags)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
 
 	if (func) {
 		return (func->flags & flags) == flags;
@@ -564,11 +564,11 @@ s8 weapon_get_num_ticks_per_shot(u32 weaponnum, u32 funcindex)
 {
 	u32 stack[2];
 	s32 result = 0;
-	struct weapon *weapon = gset_get_weapondef(weaponnum);
-	struct weaponfunc *func = weapon->functions[funcindex];
+	struct weapondef *weapon = gset_get_weapondef(weaponnum);
+	struct funcdef *func = weapon->functions[funcindex];
 
 	if (func && func->type == INVENTORYFUNCTYPE_SHOOT_AUTOMATIC) {
-		struct weaponfunc_shootauto *autofunc = (struct weaponfunc_shootauto *)func;
+		struct funcdef_shootauto *autofunc = (struct funcdef_shootauto *)func;
 
 		result = 3600.0f / autofunc->maxrpm;
 	}
@@ -585,7 +585,7 @@ s8 weapon_get_num_ticks_per_shot(u32 weaponnum, u32 funcindex)
 
 u32 gset_get_sight(void)
 {
-	struct weaponfunc *func = gset_get_funcdef_by_weaponnum_funcnum(
+	struct funcdef *func = gset_get_funcdef_by_weaponnum_funcnum(
 			g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponnum,
 			g_Vars.currentplayer->hands[HAND_RIGHT].gset.weaponfunc);
 
@@ -657,7 +657,7 @@ u32 gset_get_sight(void)
 void gset_get_noise_settings(struct gset *gset, struct noisesettings *dst)
 {
 	struct noisesettings *settings = NULL;
-	struct weaponfunc *func = gset_get_funcdef_by_gset(gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(gset);
 
 	if (func != NULL) {
 		settings = func->noisesettings;
@@ -676,7 +676,7 @@ void gset_get_noise_settings(struct gset *gset, struct noisesettings *dst)
 
 struct guncmd *gset_get_equip_anim(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[gset->weaponnum];
+	struct weapondef *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->equip_animation;
@@ -687,7 +687,7 @@ struct guncmd *gset_get_equip_anim(struct gset *gset)
 
 struct guncmd *gset_get_unequip_anim(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[gset->weaponnum];
+	struct weapondef *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->unequip_animation;
@@ -698,7 +698,7 @@ struct guncmd *gset_get_unequip_anim(struct gset *gset)
 
 struct guncmd *gset_get_pritosec_anim(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[gset->weaponnum];
+	struct weapondef *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->pritosec_animation;
@@ -709,7 +709,7 @@ struct guncmd *gset_get_pritosec_anim(struct gset *gset)
 
 struct guncmd *gset_get_sectopri_anim(struct gset *gset)
 {
-	struct weapon *weapon = g_Weapons[gset->weaponnum];
+	struct weapondef *weapon = g_Weapons[gset->weaponnum];
 
 	if (weapon) {
 		return weapon->sectopri_animation;

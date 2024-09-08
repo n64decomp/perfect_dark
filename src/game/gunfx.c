@@ -670,13 +670,13 @@ void casing_create_for_hand(s32 handnum, f32 ground, Mtxf *mtx)
 	f32 spc8[3][3];
 	s32 weaponnum = bgun_get_weapon_num(handnum);
 	s32 casingtype = -1;
-	struct weaponfunc *func = gset_get_funcdef_by_gset2(&player->hands[handnum].gset);
-	struct weapon *weapondef = gset_get_weapondef(player->gunctrl.weaponnum);
-	struct weaponfunc_shoot *shootfunc = NULL;
+	struct funcdef *func = gset_get_funcdef_by_gset2(&player->hands[handnum].gset);
+	struct weapondef *weapondef = gset_get_weapondef(player->gunctrl.weaponnum);
+	struct funcdef_shoot *shootfunc = NULL;
 	struct modeldef *modeldef;
 
 	if ((func->type & 0xff) == INVENTORYFUNCTYPE_SHOOT) {
-		shootfunc = (struct weaponfunc_shoot *)func;
+		shootfunc = (struct funcdef_shoot *)func;
 	}
 
 	if (func->ammoindex < 0) {

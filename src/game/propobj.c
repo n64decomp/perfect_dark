@@ -15685,7 +15685,7 @@ void obj_hit(struct shotdata *shotdata, struct hit *hit)
 	s32 i;
 	bool explosiveshells = false;
 	bool slowsbullet = hit->slowsbullet;
-	struct weaponfunc *func = gset_get_funcdef_by_gset(&shotdata->gset);
+	struct funcdef *func = gset_get_funcdef_by_gset(&shotdata->gset);
 	struct coord spec;
 	f32 tmp;
 	struct prop *spe4;

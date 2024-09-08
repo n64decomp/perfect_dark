@@ -1656,7 +1656,7 @@ void fr_tick(void)
 	s32 j;
 	f32 dist;
 	u32 stack;
-	struct inventory_ammo *ammo;
+	struct ammodef *ammo;
 	u8 exploding;
 	bool oldside;
 	struct modelrodata_bbox *bbox;
