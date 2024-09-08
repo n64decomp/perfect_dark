@@ -7,7 +7,7 @@
 #include "game/game_0b2150.h"
 #include "game/tex.h"
 #include "game/sky.h"
-#include "game/game_13c510.h"
+#include "game/artifact.h"
 #include "game/bg.h"
 #include "game/stagetable.h"
 #include "game/room.h"

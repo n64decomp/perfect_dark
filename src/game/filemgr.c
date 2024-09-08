@@ -6,7 +6,7 @@
 #include "game/menu.h"
 #include "game/filemgr.h"
 #include "game/bossfile.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/gamefile.h"
 #include "game/lang.h"
 #include "game/mplayer/mplayer.h"

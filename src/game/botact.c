@@ -5,7 +5,7 @@
 #include "game/chr.h"
 #include "game/propsnd.h"
 #include "game/bondgun.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/playermgr.h"
 #include "game/botact.h"
 #include "game/pad.h"

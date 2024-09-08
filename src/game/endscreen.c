@@ -8,7 +8,7 @@
 #include "game/objectives.h"
 #include "game/bondgun.h"
 #include "game/debug.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/player.h"
 #include "game/savebuffer.h"
 #include "game/menugfx.h"

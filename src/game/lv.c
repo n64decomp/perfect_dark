@@ -21,15 +21,15 @@
 #include "game/explosions.h"
 #include "game/filemgr.h"
 #include "game/game_006900.h"
-#include "game/game_00b820.h"
+#include "game/chraireset.h"
 #include "game/gunfx.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/modelmgr.h"
 #include "game/portal.h"
 #include "game/fmb.h"
 #include "game/sky.h"
-#include "game/game_13c510.h"
-#include "game/game_1531a0.h"
+#include "game/artifact.h"
+#include "game/text.h"
 #include "game/zbuf.h"
 #include "game/challenge.h"
 #include "game/chrmgr.h"
@@ -675,8 +675,8 @@ Gfx *lv_render_man_pos_if_enabled(Gfx *gdl)
 	s32 y2;
 
 	if (debug_is_man_pos_enabled()) {
-		f32 xfrac = g_Vars.currentplayer->bond2.unk00.x;
-		f32 zfrac = g_Vars.currentplayer->bond2.unk00.z;
+		f32 xfrac = g_Vars.currentplayer->bond2.theta.x;
+		f32 zfrac = g_Vars.currentplayer->bond2.theta.z;
 
 		char directions[][3] = {
 			{'n', '\0', '\0'},

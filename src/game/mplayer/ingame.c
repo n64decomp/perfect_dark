@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/game_006900.h"
 #include "game/title.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/tex.h"
 #include "game/savebuffer.h"
 #include "game/menu.h"

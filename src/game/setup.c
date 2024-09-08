@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/cheats.h"
-#include "game/game_00b820.h"
+#include "game/chraireset.h"
 #include "game/setup.h"
 #include "game/objectives.h"
 #include "game/playerreset.h"
@@ -2174,5 +2174,5 @@ void setup_create_props(s32 stagenum)
 		chrmgr_configure(0);
 	}
 
-	stage_load_bgchrs();
+	chrai_load_bgchrs();
 }

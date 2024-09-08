@@ -1,5 +1,5 @@
-#ifndef _IN_GAME_GAME_096360_H
-#define _IN_GAME_GAME_096360_H
+#ifndef _IN_GAME_PROJECTILE_H
+#define _IN_GAME_PROJECTILE_H
 #include <ultra64.h>
 #include "data.h"
 #include "types.h"

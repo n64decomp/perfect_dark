@@ -6,7 +6,7 @@
 #include "game/savebuffer.h"
 #include "game/sky.h"
 #include "game/bondview.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/gfxmemory.h"
 #include "game/lang.h"
 #include "game/options.h"

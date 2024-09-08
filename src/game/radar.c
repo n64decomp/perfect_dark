@@ -6,7 +6,7 @@
 #include "game/game_0b2150.h"
 #include "game/tex.h"
 #include "game/game_152fa0.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"
 #include "game/options.h"

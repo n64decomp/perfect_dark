@@ -3,7 +3,7 @@
 #include "game/acosfasinf.h"
 #include "game/bondgun.h"
 #include "game/gunfx.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/mtxf2lbulk.h"

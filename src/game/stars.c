@@ -3,7 +3,7 @@
 #include "game/game_006900.h"
 #include "game/tex.h"
 #include "game/stars.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/camera.h"
 #include "bss.h"
 #include "lib/vi.h"

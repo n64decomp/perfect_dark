@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "constants.h"
 #include "game/prop.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/bg.h"
 #include "bss.h"
 #include "lib/dma.h"

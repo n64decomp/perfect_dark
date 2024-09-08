@@ -17,7 +17,7 @@
 #include "game/objectives.h"
 #include "game/atan2f.h"
 #include "game/bondgun.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/modelmgr.h"
 #include "game/player.h"
 #include "game/hudmsg.h"

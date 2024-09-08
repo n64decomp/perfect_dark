@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include "constants.h"
-#include "game/game_00b820.h"
+#include "game/chraireset.h"
 #include "game/title.h"
 #include "bss.h"
 #include "lib/memp.h"
@@ -37,7 +37,7 @@ void chrmgr_reset(void)
 		var8009ccc0[i] = (void *)ALIGN64(memp_alloc(16 * 16 * sizeof(u16) + 0x40, MEMPOOL_STAGE));
 	}
 
-	stage_reset();
+	chrai_reset();
 }
 
 void chrmgr_configure(s32 numchrs)

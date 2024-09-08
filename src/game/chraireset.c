@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/cheats.h"
 #include "game/chrai.h"
-#include "game/game_00b820.h"
+#include "game/chraireset.h"
 #include "game/playerreset.h"
 #include "game/body.h"
 #include "game/setuputils.h"
@@ -14,7 +14,7 @@
 
 struct prop *g_DangerousProps[12];
 
-void stage_reset(void)
+void chrai_reset(void)
 {
 	s32 i;
 
@@ -32,7 +32,7 @@ void stage_reset(void)
 	g_NumChrsSeenPlayerRecently2 = 0;
 }
 
-void stage_load_bgchrs(void)
+void chrai_load_bgchrs(void)
 {
 	bool modified;
 	struct chrdata tmp;
@@ -127,7 +127,7 @@ void stage_load_bgchrs(void)
 	g_SquadronList = memp_alloc((MAX_CHRSPERSQUADRON + 1) * MAX_SQUADRONS * sizeof(s16), MEMPOOL_STAGE);
 }
 
-void stage_load_ailist_models(void)
+void chrai_load_ailist_models(void)
 {
 	u8 *cmd = g_StageSetup.ailists[0].list;
 	s32 i = 0;
@@ -173,7 +173,7 @@ void stage_load_ailist_models(void)
 	} while (cmd);
 }
 
-void stage_load_projectile_models(void)
+void chrai_load_projectile_models(void)
 {
 	// empty
 }

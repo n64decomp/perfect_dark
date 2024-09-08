@@ -6,7 +6,7 @@
 #include "game/menu.h"
 #include "game/mainmenu.h"
 #include "game/filemgr.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/music.h"
 #include "game/mplayer/ingame.h"
 #include "game/mplayer/setup.h"

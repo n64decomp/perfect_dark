@@ -18,7 +18,7 @@
 #include "game/filelist.h"
 #include "game/filemgr.h"
 #include "game/credits.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/file.h"
 #include "game/lv.h"
 #include "game/mplayer/setup.h"

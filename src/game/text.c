@@ -3,7 +3,7 @@
 #include "game/game_006900.h"
 #include "game/gfxmemory.h"
 #include "game/savebuffer.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/file.h"
 #include "game/lang.h"
 #include "bss.h"

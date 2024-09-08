@@ -5,7 +5,7 @@
 #include "game/debug.h"
 #include "game/chr.h"
 #include "game/ceil.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/playermgr.h"
 #include "game/mplayer/setup.h"
 #include "game/bot.h"

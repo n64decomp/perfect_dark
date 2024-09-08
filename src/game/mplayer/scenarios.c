@@ -14,7 +14,7 @@
 #include "game/menu.h"
 #include "game/inv.h"
 #include "game/playermgr.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/mplayer/setup.h"
 #include "game/mplayer/scenarios.h"
 #include "game/radar.h"

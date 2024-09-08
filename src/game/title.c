@@ -10,7 +10,7 @@
 #include "game/gfxmemory.h"
 #include "game/credits.h"
 #include "game/bondview.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/file.h"
 #include "game/lv.h"
 #include "game/music.h"

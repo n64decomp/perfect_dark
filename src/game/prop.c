@@ -12,7 +12,7 @@
 #include "game/floor.h"
 #include "game/ceil.h"
 #include "game/bondgun.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/tex.h"
 #include "game/camera.h"
 #include "game/player.h"

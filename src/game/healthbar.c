@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "game/player.h"
 #include "game/healthbar.h"
-#include "game/game_1531a0.h"
+#include "game/text.h"
 #include "game/gfxmemory.h"
 #include "game/file.h"
 #include "bss.h"

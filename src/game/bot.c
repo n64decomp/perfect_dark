@@ -7,7 +7,7 @@
 #include "game/propsnd.h"
 #include "game/atan2f.h"
 #include "game/bondgun.h"
-#include "game/game_0b0fd0.h"
+#include "game/gset.h"
 #include "game/player.h"
 #include "game/playermgr.h"
 #include "game/bg.h"
