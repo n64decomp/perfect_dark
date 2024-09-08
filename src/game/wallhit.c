@@ -510,7 +510,7 @@ void wallhits_tick(void)
 					f32 tmp;
 					s32 j;
 
-					tmp = RAD(90, 1.5707964f) * f24;
+					tmp = DTOR(90) * f24;
 					f30 = (1.0f - frac) * sinf(tmp);
 					f22 = 1.0f - tmp + 0.6f;
 

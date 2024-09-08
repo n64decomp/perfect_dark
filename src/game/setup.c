@@ -730,15 +730,15 @@ void setup_create_cctv(struct cctvobj *cctv, s32 cmdindex)
 		mtx00015f04(obj->model->scale, &cctv->camrotm);
 
 		cctv->toleft = 0;
-		cctv->yleft = *(s32 *)&cctv->yleft * M_BADTAU / 65536.0f;
-		cctv->yright = *(s32 *)&cctv->yright * M_BADTAU / 65536.0f;
+		cctv->yleft = *(s32 *)&cctv->yleft * BADDTOR(360) / 65536.0f;
+		cctv->yright = *(s32 *)&cctv->yright * BADDTOR(360) / 65536.0f;
 		cctv->yspeed = 0.0f;
-		cctv->ymaxspeed = *(s32 *)&cctv->ymaxspeed * M_BADTAU / 65536.0f;
+		cctv->ymaxspeed = *(s32 *)&cctv->ymaxspeed * BADDTOR(360) / 65536.0f;
 		cctv->maxdist = *(s32 *)&cctv->maxdist;
 		cctv->yrot = cctv->yleft;
 
 		cctv->yzero = atan2f(xdiff, zdiff);
-		cctv->xzero = M_BADTAU - atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
+		cctv->xzero = BADDTOR(360) - atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 
 		if (xdiff || zdiff) {
 			// empty
@@ -752,10 +752,10 @@ void setup_create_autogun(struct autogunobj *autogun, s32 cmdindex)
 {
 	setup_create_object(&autogun->base, cmdindex);
 
-	autogun->maxspeed = *(s32 *)&autogun->maxspeed * PALUPF(M_BADTAU) / 65536.0f;
+	autogun->maxspeed = *(s32 *)&autogun->maxspeed * PALUPF(BADDTOR(360)) / 65536.0f;
 	autogun->aimdist = *(s32 *)&autogun->aimdist * 100.0f / 65536.0f;
-	autogun->ymaxleft = *(s32 *)&autogun->ymaxleft * M_BADTAU / 65536.0f;
-	autogun->ymaxright = *(s32 *)&autogun->ymaxright * M_BADTAU / 65536.0f;
+	autogun->ymaxleft = *(s32 *)&autogun->ymaxleft * BADDTOR(360) / 65536.0f;
+	autogun->ymaxright = *(s32 *)&autogun->ymaxright * BADDTOR(360) / 65536.0f;
 
 	autogun->firecount = 0;
 	autogun->lastseebond60 = -1;
@@ -793,7 +793,7 @@ void setup_create_autogun(struct autogunobj *autogun, s32 cmdindex)
 		autogun->xzero = atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 	} else if (autogun->base.modelnum == MODEL_CETROOFGUN) {
 		// Deep Sea roofgun
-		autogun->xzero = RAD(-90, -1.5705462694168f);
+		autogun->xzero = BADDTOR(-90);
 	}
 }
 
@@ -1007,8 +1007,8 @@ void setup_create_door(struct doorobj *door, s32 cmdindex)
 		mtx00016d58(&sp110, 0, 0, 0,
 				-pad.look.x, -pad.look.y, -pad.look.z,
 				pad.up.x, pad.up.y, pad.up.z);
-		mtx4_load_x_rotation(RAD(90, 1.5705462694168f), &finalmtx);
-		mtx4_load_z_rotation(RAD(90, 1.5705462694168f), &zrotmtx);
+		mtx4_load_x_rotation(BADDTOR(90), &finalmtx);
+		mtx4_load_z_rotation(BADDTOR(90), &zrotmtx);
 		mtx4_mult_mtx4_in_place(&zrotmtx, &finalmtx);
 		mtx4_mult_mtx4_in_place(&sp110, &finalmtx);
 
@@ -1672,13 +1672,13 @@ void setup_create_props(s32 stagenum)
 						if (obj->flags & OBJFLAG_ESCSTEP_ZALIGNED) {
 							step->frame = escstepy;
 							escstepy += 40;
-							mtx4_load_y_rotation(RAD(270, 4.7116389274597f), (Mtxf *) &sp1a8);
+							mtx4_load_y_rotation(BADDTOR(270), (Mtxf *) &sp1a8);
 							mtx4_to_mtx3((Mtxf *) &sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						} else {
 							step->frame = escstepx;
 							escstepx += 40;
-							mtx4_load_y_rotation(M_BADPI, (Mtxf *) &sp1a8);
+							mtx4_load_y_rotation(BADDTOR(180), (Mtxf *) &sp1a8);
 							mtx4_to_mtx3((Mtxf *) &sp1a8, sp184);
 							mtx00016110(sp184, obj->realrot);
 						}

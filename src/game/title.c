@@ -906,7 +906,7 @@ s32 g_PdLogoTitleStep = 0;
 bool g_PdLogoTitlePresenting = false;
 s32 g_PdLogoPointlessTimer = 0;
 s32 var80062804 = 1;
-f32 g_PdLogoUnusedRot = RAD(90, 1.5705462694168);
+f32 g_PdLogoUnusedRot = BADDTOR(90);
 bool g_PdLogoUnusedRotEnabled = false;
 bool g_PdLogoLightMoving = false;
 f32 g_PdLogoLightDirFrac = 0;
@@ -926,7 +926,7 @@ void title_skip_to_pd_title(void)
 	g_PdLogoScale = 0.35f;
 	g_PdLogoFrac = 1;
 	g_PdLogoTitleStepFrac = 0.63f;
-	g_PdLogoUnusedRot = RAD(94, 1.6443619728088f);
+	g_PdLogoUnusedRot = DTOR(94.215);
 	g_PdLogoLightDirFrac = 0.19975f;
 	g_PdLogoEndYRot = 0;
 	g_PdLogoAmbientLightFrac = 0;
@@ -1040,7 +1040,7 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 		g_PdLogoTitleStep = -1;
 		g_PdLogoPointlessTimer = 0;
 		g_PdLogoUnusedRotEnabled = false;
-		g_PdLogoUnusedRot = RAD(90, 1.5705463f);
+		g_PdLogoUnusedRot = BADDTOR(90);
 		g_PdLogoLightMoving = false;
 		g_PdLogoLightDirFrac = 0.0f;
 	}
@@ -1064,12 +1064,12 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 				g_PdLogoYRotSpeed = 0.0f;
 			}
 
-			if (g_PdLogoYRotCur >= M_BADTAU) {
-				g_PdLogoYRotCur -= M_BADTAU;
-				g_PdLogoEndYRot -= M_BADTAU;
+			if (g_PdLogoYRotCur >= BADDTOR(360)) {
+				g_PdLogoYRotCur -= BADDTOR(360);
+				g_PdLogoEndYRot -= BADDTOR(360);
 			} else if (g_PdLogoYRotCur < 0.0f) {
-				g_PdLogoYRotCur += M_BADTAU;
-				g_PdLogoEndYRot += M_BADTAU;
+				g_PdLogoYRotCur += BADDTOR(360);
+				g_PdLogoEndYRot += BADDTOR(360);
 			}
 		}
 
@@ -1083,10 +1083,10 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 		g_PdLogoYRotCur += g_PdLogoYRotSpeed * g_Vars.lvupdate60freal;
 #endif
 
-		if (g_PdLogoYRotCur >= M_BADTAU) {
-			g_PdLogoYRotCur -= M_BADTAU;
+		if (g_PdLogoYRotCur >= BADDTOR(360)) {
+			g_PdLogoYRotCur -= BADDTOR(360);
 		} else if (g_PdLogoYRotCur < 0.0f) {
-			g_PdLogoYRotCur += M_BADTAU;
+			g_PdLogoYRotCur += BADDTOR(360);
 		}
 	}
 
@@ -1141,10 +1141,10 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 			g_PdLogoYRotEnabled = false;
 			g_PdLogoYRotStopping = true;
 
-			tmp = g_PdLogoYRotCur * 4.0f / M_BADTAU;
+			tmp = g_PdLogoYRotCur * 4.0f / BADDTOR(360);
 			tmp += 2;
 
-			g_PdLogoEndYRot = tmp * M_BADTAU / 4.0f;
+			g_PdLogoEndYRot = tmp * BADDTOR(360) / 4.0f;
 		}
 
 		if (g_PdLogoMorphEndTimer > TICKS(100) && g_PdLogoMorphEndTimer - g_Vars.lvupdate60 <= TICKS(100)) {
@@ -1256,8 +1256,8 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 		// Some unused value... maybe a different method of rotating the light?
 		g_PdLogoUnusedRot += unusedrotinc * g_Vars.lvupdate60freal;
 
-		if (g_PdLogoUnusedRot >= M_BADTAU) {
-			g_PdLogoUnusedRot -= M_BADTAU;
+		if (g_PdLogoUnusedRot >= BADDTOR(360)) {
+			g_PdLogoUnusedRot -= BADDTOR(360);
 		}
 	}
 
@@ -1316,8 +1316,8 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 
 		angle1 = (g_PdLogoLightDirFrac + -1.0f);
 		angle2 = 0.0f - 0.15f * g_PdLogoLightDirFrac;
-		angle1 = M_PI + angle1 * M_PI;
-		angle2 = M_PI + angle2 * M_PI;
+		angle1 = DTOR(180) + angle1 * DTOR(180);
+		angle2 = DTOR(180) + angle2 * DTOR(180);
 
 #if VERSION == VERSION_JPN_FINAL
 		if (g_PdLogoUseCombinedModel == true) {
@@ -1859,8 +1859,8 @@ Gfx *title_render_nintendo_logo(Gfx *gdl)
 
 	gSPSetLights1(gdl++, g_TitleLightNintendoRare);
 
-	lightdir.z = sinf((1 - fracdone) * 1.5f * M_PI);
-	lightdir.x = cosf((1 - fracdone) * 1.5f * M_PI);
+	lightdir.z = sinf((1 - fracdone) * 1.5f * DTOR(180));
+	lightdir.x = cosf((1 - fracdone) * 1.5f * DTOR(180));
 
 	guNormalize(&lightdir.x, &lightdir.y, &lightdir.z);
 
@@ -1893,10 +1893,10 @@ Gfx *title_render_nintendo_logo(Gfx *gdl)
 		sp9c.x = 0.0f;
 
 		if (fracdone < 0.4f) {
-			sp9c.x = (-cosf((1.0f - fracdone / .4f) * M_PI) * 0.5f + 0.5f) * RAD(90, 1.5707963705063f);
+			sp9c.x = (-cosf((1.0f - fracdone / .4f) * DTOR(180)) * 0.5f + 0.5f) * DTOR(90);
 		}
 
-		sp9c.y = (-cosf((1.0f - (fracdone / 1)) * M_PI) * 0.5f + .5f) * 0.35f;
+		sp9c.y = (-cosf((1.0f - (fracdone / 1)) * DTOR(180)) * 0.5f + .5f) * 0.35f;
 		sp9c.z = 0.0f;
 
 		mtx4_load_rotation(&sp9c, &spa8);
@@ -2021,7 +2021,7 @@ void title_tick_rare_logo(void)
 
 f32 func0f019d0c(f32 arg0)
 {
-	return ((1.0f - arg0) + (1.0f - arg0)) * M_PI - DEG2RAD(90);
+	return ((1.0f - arg0) + (1.0f - arg0)) * DTOR(180) - DTOR(90);
 }
 
 Gfx *title_render_rare_logo(Gfx *gdl)
@@ -2093,7 +2093,7 @@ Gfx *title_render_rare_logo(Gfx *gdl)
 		tmp = 1 - fracdone * 1;
 
 		spb4.x = 0;
-		spb4.y = RAD(90, 1.5707963705063f) * tmp;
+		spb4.y = DTOR(90) * tmp;
 		spb4.z = 0;
 
 		mtx4_load_rotation(&spb4, &spc0);

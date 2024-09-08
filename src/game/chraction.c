@@ -910,44 +910,44 @@ struct yeetanimindexlist g_YeetAnimIndexesByRaceAngle[][8] = {
 };
 
 struct attackanimconfig var800656c0[] = {
-	{ ANIM_0002, 28, 0, 0, 0, -1, 23, 54, -1, -1, 18, 54, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(60, 1.0470308065414), RAD(-20, -0.34901028871536), 1.6, 1.8 },
+	{ ANIM_0002, 28, 0, DTOR(0), 0, -1, 23, 54, -1, -1, 18, 54, BADDTOR(50), BADDTOR(-30), BADDTOR(60), BADDTOR(-20), 1.6, 1.8 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80065750 = { var800656c0, 0xffffffff };
 
 struct attackanimconfig var80065758[] = {
-	{ ANIM_0032, 37, 0, 0, 0, -1, 30, 81, -1, -1, 25, 81, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 1.6, 1.75 },
-	{ ANIM_0003, 27, 0, 0, 0, -1, 22, 61, -1, -1, 17, 61, RAD(50, 0.87252569198608), RAD(-15, -0.26175770163536), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 2,   1    },
+	{ ANIM_0032, 37, 0, DTOR(0), 0, -1, 30, 81, -1, -1, 25, 81, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 1.6, 1.75 },
+	{ ANIM_0003, 27, 0, DTOR(0), 0, -1, 22, 61, -1, -1, 17, 61, BADDTOR(50), BADDTOR(-15), BADDTOR(40), BADDTOR(-40), 2,   1    },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80065830 = { var80065758, 0xffffffff };
 
 struct attackanimconfig var80065838[] = {
-	{ ANIM_0032, 37, 0, 0, 0, -1, 30, 81, -1, -1, 25, 81, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 1.6, 1.75 },
-	{ ANIM_0003, 27, 0, 0, 0, -1, 22, 61, -1, -1, 17, 61, RAD(50, 0.87252569198608), RAD(-15, -0.26175770163536), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 2,   1    },
+	{ ANIM_0032, 37, 0, DTOR(0), 0, -1, 30, 81, -1, -1, 25, 81, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 1.6, 1.75 },
+	{ ANIM_0003, 27, 0, DTOR(0), 0, -1, 22, 61, -1, -1, 17, 61, BADDTOR(50), BADDTOR(-15), BADDTOR(40), BADDTOR(-40), 2,   1    },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80065910 = { var80065838, 0xffffffff };
 
 struct attackanimconfig var80065918[] = {
-	{ ANIM_0004, 19, 0, RAD(90, 1.5707963705063), 0, -1, 19, 61, -1, -1, 14, 61, RAD(50, 0.87252569198608), RAD(-20, -0.34901028871536), RAD(25, 0.43626284599304), RAD(-60, -1.0470308065414), 2.5, 2.5 },
+	{ ANIM_0004, 19, 0, DTOR(90), 0, -1, 19, 61, -1, -1, 14, 61, BADDTOR(50), BADDTOR(-20), BADDTOR(25), BADDTOR(-60), 2.5, 2.5 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var800659a8 = { var80065918, 0xffffffff };
 
 struct attackanimconfig var800659b0[] = {
-	{ ANIM_0006, 27, 0, 0, 0, -1, 39, 74, -1, -1, 34, 74, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(45, 0.7852731347084), RAD(-40, -0.69802057743073), 1.5, 1.5 },
+	{ ANIM_0006, 27, 0, DTOR(0), 0, -1, 39, 74, -1, -1, 34, 74, BADDTOR(50), BADDTOR(-40), BADDTOR(45), BADDTOR(-40), 1.5, 1.5 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80065a40 = { var800659b0, 0xffffffff };
 
 struct attackanimconfig var80065a48[] = {
-	{ ANIM_034A, 20, 0, 0, 0, -1, 25, 50, -1, -1, 10, 50, RAD(20, 0.34901028871536), RAD(-20, -0.34901028871536), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 1, 1 },
+	{ ANIM_034A, 20, 0, DTOR(0), 0, -1, 25, 50, -1, -1, 10, 50, BADDTOR(20), BADDTOR(-20), BADDTOR(30), BADDTOR(-30), 1, 1 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
@@ -978,59 +978,59 @@ struct attackanimgroup *g_StandHeavyAttackAnims[][32] = {
 };
 
 struct attackanimconfig var80065be0[] = {
-	{ ANIM_0041, 26, 0, RAD(0, 0), 12, 140, 58, 92, 60, 79, 20, 120, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 0, 0 },
-	{ ANIM_0044, 0,  0, RAD(0, 0), 17, 100, 25, 87, 30, 55, 20, 93,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-60, -1.0470308065414),  0, 0 },
-	{ ANIM_0045, 0,  0, RAD(0, 0), 12, 64,  19, 51, 24, 46, 14, 58,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084),  0, 0 },
-	{ ANIM_0046, 22, 0, RAD(0, 0), 4,  69,  22, 49, 22, 33, 8,  58,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(25, 0.43626284599304), RAD(-45, -0.7852731347084),  0, 0 },
+	{ ANIM_0041, 26, 0, DTOR(0), 12, 140, 58, 92, 60, 79, 20, 120, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 0, 0 },
+	{ ANIM_0044, 0,  0, DTOR(0), 17, 100, 25, 87, 30, 55, 20, 93,  BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-60),  0, 0 },
+	{ ANIM_0045, 0,  0, DTOR(0), 12, 64,  19, 51, 24, 46, 14, 58,  BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-45),  0, 0 },
+	{ ANIM_0046, 22, 0, DTOR(0), 4,  69,  22, 49, 22, 33, 8,  58,  BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-45),  0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80065d48 = { var80065be0, 0xffffffff };
 
 struct attackanimconfig var80065d50[] = {
-	{ ANIM_0041, 26, 0, RAD(0, 0), 12, 140, 58, 92, 60, 79, 20, 120, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 0, 0 },
-	{ ANIM_0046, 22, 0, RAD(0, 0), 4,  69,  22, 49, 22, 33, 8,  58,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(25, 0.43626284599304), RAD(-45, -0.7852731347084),  0, 0 },
+	{ ANIM_0041, 26, 0, DTOR(0), 12, 140, 58, 92, 60, 79, 20, 120, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 0, 0 },
+	{ ANIM_0046, 22, 0, DTOR(0), 4,  69,  22, 49, 22, 33, 8,  58,  BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-45), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80065e28 = { var80065d50, 0xffffffff };
 
 struct attackanimconfig var80065e30[] = {
-	{ ANIM_0041, 26, 0, RAD(0,  0),               12, 140, 58, 92, 60, 79, 20, 120, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 0, 0 },
-	{ ANIM_0046, 22, 0, RAD(0,  0),               4,  69,  22, 49, 22, 33, 8,  58,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(25, 0.43626284599304), RAD(-45, -0.7852731347084),  0, 0 },
-	{ ANIM_0049, 0,  0, RAD(90, 1.5707963705063), 7,  130, 45, 93, 56, 73, 26, 107, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(20, 0.34901028871536), RAD(-30, -0.52351540327072), 0, 0 },
-	{ ANIM_004A, 15, 0, RAD(90, 1.5707963705063), 5,  76,  20, 31, 31, 38, 15, 49,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(30, 0.52351540327072), RAD(-60, -1.0470308065414),  0, 0 },
+	{ ANIM_0041, 26, 0, DTOR(0),  12, 140, 58, 92, 60, 79, 20, 120, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 0, 0 },
+	{ ANIM_0046, 22, 0, DTOR(0),  4,  69,  22, 49, 22, 33, 8,  58,  BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-45),  0, 0 },
+	{ ANIM_0049, 0,  0, DTOR(90), 7,  130, 45, 93, 56, 73, 26, 107, BADDTOR(50), BADDTOR(-40), BADDTOR(20), BADDTOR(-30), 0, 0 },
+	{ ANIM_004A, 15, 0, DTOR(90), 5,  76,  20, 31, 31, 38, 15, 49,  BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-60),  0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80065f98 = { var80065e30, 0xffffffff };
 
 struct attackanimconfig var80065fa0[] = {
-	{ ANIM_0041, 26, 0, RAD(0,   0),               12, 140, 58, 92,  60, 79, 20, 120, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 0, 0 },
-	{ ANIM_0046, 22, 0, RAD(0,   0),               4,  69,  22, 49,  22, 33, 8,  58,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(25, 0.43626284599304), RAD(-45, -0.7852731347084),  0, 0 },
-	{ ANIM_0047, 0,  0, RAD(270, 4.7123889923096), 7,  139, 54, 105, 61, 88, 26, 120, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-35, -0.61076802015305), 0, 0 },
-	{ ANIM_0048, 19, 0, RAD(270, 4.7123889923096), 4,  79,  21, 50,  26, 42, 10, 64,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-35, -0.61076802015305), 0, 0 },
+	{ ANIM_0041, 26, 0, DTOR(0),   12, 140, 58, 92,  60, 79, 20, 120, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 0, 0 },
+	{ ANIM_0046, 22, 0, DTOR(0),   4,  69,  22, 49,  22, 33, 8,  58,  BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-45),  0, 0 },
+	{ ANIM_0047, 0,  0, DTOR(270), 7,  139, 54, 105, 61, 88, 26, 120, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-35), 0, 0 },
+	{ ANIM_0048, 19, 0, DTOR(270), 4,  79,  21, 50,  26, 42, 10, 64,  BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-35), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066108 = { var80065fa0, 0xffffffff };
 
 struct attackanimconfig var80066110[] = {
-	{ ANIM_004A, 19, 0, RAD(90, 1.5707963705063), 5, 76, 20, 31, 31, 38, 15, 49, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(30, 0.52351540327072), RAD(-60, -1.0470308065414), 0, 0 },
+	{ ANIM_004A, 19, 0, DTOR(90), 5, 76, 20, 31, 31, 38, 15, 49, BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-60), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var800661a0 = { var80066110, 0xffffffff };
 
 struct attackanimconfig var800661a8[] = {
-	{ ANIM_0048, 19, 0, RAD(270, 4.7123889923096), 4, 79, 21, 50, 26, 42, 10, 64, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-35, -0.61076802015305), 0, 0 },
+	{ ANIM_0048, 19, 0, DTOR(270), 4, 79, 21, 50, 26, 42, 10, 64, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-35), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066238 = { var800661a8, 0xffffffff };
 
 struct attackanimconfig var80066240[] = {
-	{ ANIM_034A, 20, 0, 0, 0, -1, 25, 50, -1, -1, 10, 50, RAD(20, 0.34901028871536), RAD(-20, -0.34901028871536), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 1, 1 },
+	{ ANIM_034A, 20, 0, DTOR(0), 0, -1, 25, 50, -1, -1, 10, 50, BADDTOR(20), BADDTOR(-20), BADDTOR(30), BADDTOR(-30), 1, 1 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
@@ -1061,30 +1061,30 @@ struct attackanimgroup *g_StandLightAttackAnims[][32] = {
 };
 
 struct attackanimconfig var800663d8[] = {
-	{ ANIM_007A, 26, 0, 0, 7, 92, 28, 68, -1, -1, 11, 73, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 0, 0 },
+	{ ANIM_007A, 26, 0, DTOR(0), 7, 92, 28, 68, -1, -1, 11, 73, BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066468 = { var800663d8, 0xffffffff };
 
 struct attackanimconfig var80066470[] = {
-	{ ANIM_007B, 26, 0, RAD(90, 1.5707963705063), 9,  112, 38, 87, -1, -1, 19, 98, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(25, 0.43626284599304), RAD(-25, -0.43626284599304), 0, 0 },
-	{ ANIM_007D, 25, 0, RAD(90, 1.5707963705063), 10, 112, 32, 86, -1, -1, 19, 97, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(25, 0.43626284599304), RAD(-25, -0.43626284599304), 0, 0 },
+	{ ANIM_007B, 26, 0, DTOR(90), 9,  112, 38, 87, -1, -1, 19, 98, BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-25), 0, 0 },
+	{ ANIM_007D, 25, 0, DTOR(90), 10, 112, 32, 86, -1, -1, 19, 97, BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-25), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066548 = { var80066470, 0xffffffff };
 
 struct attackanimconfig var80066550[] = {
-	{ ANIM_007C, 39, 0, RAD(270, 4.7123889923096), 22, 127, 44, 102, -1, -1, 28, 112, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(25, 0.43626284599304), RAD(-25, -0.43626284599304), 0, 0 },
-	{ ANIM_007E, 39, 0, RAD(270, 4.7123889923096), 23, 130, 46, 100, -1, -1, 30, 110, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(25, 0.43626284599304), RAD(-25, -0.43626284599304), 0, 0 },
+	{ ANIM_007C, 39, 0, DTOR(270), 22, 127, 44, 102, -1, -1, 28, 112, BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-25), 0, 0 },
+	{ ANIM_007E, 39, 0, DTOR(270), 23, 130, 46, 100, -1, -1, 30, 110, BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-25), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066628 = { var80066550, 0xffffffff };
 
 struct attackanimconfig var80066630[] = {
-	{ ANIM_034A, 20, 0, 0, 0, -1, 25, 50, -1, -1, 10, 50, RAD(20, 0.34901028871536), RAD(-20, -0.34901028871536), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 1, 1 },
+	{ ANIM_034A, 20, 0, DTOR(0), 0, -1, 25, 50, -1, -1, 10, 50, BADDTOR(20), BADDTOR(-20), BADDTOR(30), BADDTOR(-30), 1, 1 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
@@ -1115,29 +1115,29 @@ struct attackanimgroup *g_StandDualAttackAnims[][32] = {
 };
 
 struct attackanimconfig var800667c8[] = {
-	{ ANIM_0007,                 27, 0, 0, 0, -1, 35, 75, -1, -1, 31, 75, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(52, 0.90742671489716), RAD(-40, -0.69802057743073), 1.5, 1.5 },
-	{ ANIM_KNEEL_TWO_HANDED_GUN, 24, 0, 0, 0, -1, 46, 98, -1, -1, 41, 98, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(65, 1.1342834234238),  RAD(-40, -0.69802057743073), 1.6, 1.6 },
+	{ ANIM_0007,                 27, 0, DTOR(0), 0, -1, 35, 75, -1, -1, 31, 75, BADDTOR(50), BADDTOR(-40), BADDTOR(52), BADDTOR(-40), 1.5, 1.5 },
+	{ ANIM_KNEEL_TWO_HANDED_GUN, 24, 0, DTOR(0), 0, -1, 46, 98, -1, -1, 41, 98, BADDTOR(50), BADDTOR(-30), BADDTOR(65), BADDTOR(-40), 1.6, 1.6 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var800668a0 = { var800667c8, 0xffffffff };
 
 struct attackanimconfig var800668a8[] = {
-	{ ANIM_0009, 26, 0, 0, 0, -1, 34, 87, -1, -1, 29, 87, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(40, 0.69802057743073), RAD(-55, -0.95977824926376), 1.6, 2 },
+	{ ANIM_0009, 26, 0, DTOR(0), 0, -1, 34, 87, -1, -1, 29, 87, BADDTOR(50), BADDTOR(-30), BADDTOR(40), BADDTOR(-55), 1.6, 2 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066938 = { var800668a8, 0xffffffff };
 
 struct attackanimconfig var80066940[] = {
-	{ ANIM_000A, 28, 0, 0, 0, -1, 36, 88, -1, -1, 31, 88, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(50, 0.87252569198608), RAD(-25, -0.43626284599304), 1.6, 1.5 },
+	{ ANIM_000A, 28, 0, DTOR(0), 0, -1, 36, 88, -1, -1, 31, 88, BADDTOR(50), BADDTOR(-40), BADDTOR(50), BADDTOR(-25), 1.6, 1.5 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var800669d0 = { var80066940, 0xffffffff };
 
 struct attackanimconfig var800669d8[] = {
-	{ ANIM_034A, 20, 0, 0, 0, -1, 25, 50, -1, -1, 10, 50, RAD(20, 0.34901028871536), RAD(-20, -0.34901028871536), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 1, 1 },
+	{ ANIM_034A, 20, 0, DTOR(0), 0, -1, 25, 50, -1, -1, 10, 50, BADDTOR(20), BADDTOR(-20), BADDTOR(30), BADDTOR(-30), 1, 1 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
@@ -1166,32 +1166,32 @@ struct attackanimgroup *g_KneelHeavyAttackAnims[][32] = {
 };
 
 struct attackanimconfig var80066b70[] = {
-	{ ANIM_KNEEL_SHOOT_RIGHT_HAND, 25, 0, 0, 12, 132, 55, 87, 67, 87, 26, 111, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(35, 0.61076802015305), RAD(-45, -0.7852731347084), 0, 0 },
-	{ ANIM_004C,                   26, 0, 0, 8,  89,  31, 63, 41, 51, 21, 80,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(20, 0.34901028871536), RAD(-65, -1.1342834234238), 0, 0 },
+	{ ANIM_KNEEL_SHOOT_RIGHT_HAND, 25, 0, DTOR(0), 12, 132, 55, 87, 67, 87, 26, 111, BADDTOR(50), BADDTOR(-40), BADDTOR(35), BADDTOR(-45), 0, 0 },
+	{ ANIM_004C,                   26, 0, DTOR(0), 8,  89,  31, 63, 41, 51, 21, 80,  BADDTOR(50), BADDTOR(-40), BADDTOR(20), BADDTOR(-65), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066c48 = { var80066b70, 0xffffffff };
 
 struct attackanimconfig var80066c50[] = {
-	{ ANIM_004F, 47, 0, RAD(90, 1.5707963705063), 7,  128, 33, 86, 47, 74, 23, 106, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072),  RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084),  0,   0 },
-	{ ANIM_0050, 18, 0, RAD(90, 1.5707963705063), 7,  78,  28, 52, 35, 45, 15, 66,  RAD(50, 0.87252569198608), RAD(-5,  -0.087252572178841), RAD(40, 0.69802057743073), RAD(-45, -0.7852731347084),  1.5, 1 },
-	{ ANIM_0051, 20, 0, RAD(90, 1.5707963705063), 13, 92,  37, 67, 42, 55, 25, 84,  RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072),  RAD(20, 0.34901028871536), RAD(-40, -0.69802057743073), 0,   0 },
+	{ ANIM_004F, 47, 0, DTOR(90), 7,  128, 33, 86, 47, 74, 23, 106, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-45),  0,   0 },
+	{ ANIM_0050, 18, 0, DTOR(90), 7,  78,  28, 52, 35, 45, 15, 66,  BADDTOR(50), BADDTOR(-5),  BADDTOR(40), BADDTOR(-45),  1.5, 1 },
+	{ ANIM_0051, 20, 0, DTOR(90), 13, 92,  37, 67, 42, 55, 25, 84,  BADDTOR(50), BADDTOR(-30), BADDTOR(20), BADDTOR(-40), 0,   0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066d70 = { var80066c50, 0xffffffff };
 
 struct attackanimconfig var80066d78[] = {
-	{ ANIM_004D, 28, 0, RAD(270, 4.7123889923096), 15, 124, 38, 97, 60, 84, 20, 106, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(30, 0.52351540327072), RAD(-50, -0.87252569198608), 0, 0 },
-	{ ANIM_004E, 23, 0, RAD(270, 4.7123889923096), 0,  85,  32, 38, 38, 60, 14, 71,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(35, 0.61076802015305), RAD(-55, -0.95977824926376), 0, 0 },
+	{ ANIM_004D, 28, 0, DTOR(270), 15, 124, 38, 97, 60, 84, 20, 106, BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-50), 0, 0 },
+	{ ANIM_004E, 23, 0, DTOR(270), 0,  85,  32, 38, 38, 60, 14, 71,  BADDTOR(50), BADDTOR(-40), BADDTOR(35), BADDTOR(-55), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80066e50 = { var80066d78, 0xffffffff };
 
 struct attackanimconfig var80066e58[] = {
-	{ ANIM_034A, 20, 0, 0, 0, -1, 25, 50, -1, -1, 10, 50, RAD(20, 0.34901028871536), RAD(-20, -0.34901028871536), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 1, 1 },
+	{ ANIM_034A, 20, 0, DTOR(0), 0, -1, 25, 50, -1, -1, 10, 50, BADDTOR(20), BADDTOR(-20), BADDTOR(30), BADDTOR(-30), 1, 1 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
@@ -1220,31 +1220,31 @@ struct attackanimgroup *g_KneelLightAttackAnims[][32] = {
 };
 
 struct attackanimconfig var80066ff0[] = {
-	{ ANIM_0074, 22, 0, 0, 10, 111, 34, 87, -1, -1, 17, 104, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(35, 0.61076802015305), RAD(-45, -0.7852731347084), 0, 0 },
-	{ ANIM_0077, 25, 0, 0, 9,  92,  33, 62, -1, -1, 18, 69,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(35, 0.61076802015305), RAD(-45, -0.7852731347084), 0, 0 },
+	{ ANIM_0074, 22, 0, DTOR(0), 10, 111, 34, 87, -1, -1, 17, 104, BADDTOR(50), BADDTOR(-40), BADDTOR(35), BADDTOR(-45), 0, 0 },
+	{ ANIM_0077, 25, 0, DTOR(0), 9,  92,  33, 62, -1, -1, 18, 69,  BADDTOR(50), BADDTOR(-40), BADDTOR(35), BADDTOR(-45), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var800670c8 = { var80066ff0, 0xffffffff };
 
 struct attackanimconfig var800670d0[] = {
-	{ ANIM_0075, 28, 0, RAD(90, 1.5707963705063), 15, 108, 34, 73, -1, -1, 17, 93, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084), 0,   0 },
-	{ ANIM_0078, 19, 0, RAD(90, 1.5707963705063), 3,  95,  30, 64, -1, -1, 14, 71, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084), 1.5, 1 },
+	{ ANIM_0075, 28, 0, DTOR(90), 15, 108, 34, 73, -1, -1, 17, 93, BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-45), 0,   0 },
+	{ ANIM_0078, 19, 0, DTOR(90), 3,  95,  30, 64, -1, -1, 14, 71, BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-45), 1.5, 1 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var800671a8 = { var800670d0, 0xffffffff };
 
 struct attackanimconfig var800671b0[] = {
-	{ ANIM_0076, 31, 0, RAD(270, 4.7123889923096), 14, 111, 40, 83, -1, -1, 21, 94, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084), 0, 0 },
-	{ ANIM_0079, 26, 0, RAD(270, 4.7123889923096), 7,  89,  34, 60, -1, -1, 20, 68, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073), RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084), 0, 0 },
+	{ ANIM_0076, 31, 0, DTOR(270), 14, 111, 40, 83, -1, -1, 21, 94, BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-45), 0, 0 },
+	{ ANIM_0079, 26, 0, DTOR(270), 7,  89,  34, 60, -1, -1, 20, 68, BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-45), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimgroup var80067288 = { var800671b0, 0xffffffff };
 
 struct attackanimconfig var80067290[] = {
-	{ ANIM_034A, 20, 0, 0, 0, -1, 25, 50, -1, -1, 10, 50, RAD(20, 0.34901028871536), RAD(-20, -0.34901028871536), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 1, 1 },
+	{ ANIM_034A, 20, 0, DTOR(0), 0, -1, 25, 50, -1, -1, 10, 50, BADDTOR(20), BADDTOR(-20), BADDTOR(30), BADDTOR(-30), 1, 1 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
@@ -1273,47 +1273,47 @@ struct attackanimgroup *g_KneelDualAttackAnims[][32] = {
 };
 
 struct attackanimconfig g_RollAttackAnims[] = {
-	{ ANIM_000B, 76, 0, RAD(0,  0),               20, -1,  98, 161, -1, -1, 93, 161, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072),  RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 1.7,  2   },
-	{ ANIM_000C, 58, 0, RAD(0,  0),               10, -1,  77, 104, -1, -1, 72, 104, RAD(50, 0.87252569198608), RAD(-20, -0.34901028871536),  RAD(35, 0.61076802015305), RAD(-40, -0.69802057743073), 1.55, 1.5 },
-	{ ANIM_000D, 61, 0, RAD(0,  0),               10, -1,  83, 128, -1, -1, 78, 128, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072),  RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), 1.2,  1.3 },
-	{ ANIM_0027, 63, 0, RAD(0,  0),               10, -1,  73, 114, -1, -1, 68, 114, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072),  RAD(35, 0.61076802015305), RAD(-35, -0.61076802015305), 1.65, 1.5 },
-	{ ANIM_000B, 76, 0, RAD(0,  0),               20, 76,  98, 161, -1, -1, 93, 161, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072),  RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 1.7,  2   },
-	{ ANIM_000C, 58, 0, RAD(0,  0),               10, 63,  77, 104, -1, -1, 72, 104, RAD(50, 0.87252569198608), RAD(-20, -0.34901028871536),  RAD(35, 0.61076802015305), RAD(-40, -0.69802057743073), 1.55, 1.5 },
-	{ ANIM_000D, 61, 0, RAD(0,  0),               10, 56,  83, 128, -1, -1, 78, 128, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072),  RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), 1.2,  1.3 },
-	{ ANIM_0027, 63, 0, RAD(0,  0),               10, 50,  73, 114, -1, -1, 68, 114, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072),  RAD(35, 0.61076802015305), RAD(-35, -0.61076802015305), 1.65, 1.5 },
-	{ ANIM_0045, 0,  0, RAD(0,  0),               7,  64,  19, 51,  24, 46, 14, 58,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084),  0,    0   },
-	{ ANIM_004A, 0,  0, RAD(90, 1.5707963705063), 14, 76,  26, 31,  31, 38, 15, 49,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(30, 0.52351540327072), RAD(-60, -1.0470308065414),  0,    0   },
-	{ ANIM_004C, 26, 0, RAD(0,  0),               25, 89,  41, 63,  41, 51, 21, 80,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(20, 0.34901028871536), RAD(-65, -1.1342834234238),  0,    0   },
-	{ ANIM_0050, 18, 0, RAD(90, 1.5707963705063), 11, 78,  33, 52,  35, 45, 15, 66,  RAD(50, 0.87252569198608), RAD(-5,  -0.087252572178841), RAD(40, 0.69802057743073), RAD(-45, -0.7852731347084),  1.5,  1   },
-	{ ANIM_007A, 26, 0, RAD(0,  0),               7,  92,  28, 68,  -1, -1, 11, 73,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 0,    0   },
-	{ ANIM_007B, 26, 0, RAD(90, 1.5707963705063), 9,  112, 38, 87,  -1, -1, 19, 98,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(25, 0.43626284599304), RAD(-25, -0.43626284599304), 0,    0   },
-	{ ANIM_0074, 22, 0, RAD(0,  0),               10, 11,  34, 87,  -1, -1, 17, 104, RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(35, 0.61076802015305), RAD(-45, -0.7852731347084),  0,    0   },
-	{ ANIM_0075, 28, 0, RAD(90, 1.5707963705063), 15, 108, 34, 73,  -1, -1, 17, 93,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084),  0,    0   },
-	{ ANIM_007A, 26, 0, RAD(0,  0),               7,  92,  28, 68,  -1, -1, 11, 73,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(40, 0.69802057743073), RAD(-40, -0.69802057743073), 0,    0   },
-	{ ANIM_007D, 25, 0, RAD(90, 1.5707963705063), 10, 112, 32, 86,  -1, -1, 19, 97,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(25, 0.43626284599304), RAD(-25, -0.43626284599304), 0,    0   },
-	{ ANIM_0077, 25, 0, RAD(0,  0),               9,  92,  33, 62,  -1, -1, 18, 69,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(35, 0.61076802015305), RAD(-45, -0.7852731347084),  0,    0   },
-	{ ANIM_0078, 19, 0, RAD(90, 1.5707963705063), 3,  95,  30, 64,  -1, -1, 14, 71,  RAD(50, 0.87252569198608), RAD(-40, -0.69802057743073),  RAD(30, 0.52351540327072), RAD(-45, -0.7852731347084),  1.5,  1   },
+	{ ANIM_000B, 76, 0, DTOR(0),  20, -1,  98, 161, -1, -1, 93, 161, BADDTOR(50), BADDTOR(-30), BADDTOR(40), BADDTOR(-40), 1.7,  2   },
+	{ ANIM_000C, 58, 0, DTOR(0),  10, -1,  77, 104, -1, -1, 72, 104, BADDTOR(50), BADDTOR(-20), BADDTOR(35), BADDTOR(-40), 1.55, 1.5 },
+	{ ANIM_000D, 61, 0, DTOR(0),  10, -1,  83, 128, -1, -1, 78, 128, BADDTOR(50), BADDTOR(-30), BADDTOR(50), BADDTOR(-30), 1.2,  1.3 },
+	{ ANIM_0027, 63, 0, DTOR(0),  10, -1,  73, 114, -1, -1, 68, 114, BADDTOR(50), BADDTOR(-30), BADDTOR(35), BADDTOR(-35), 1.65, 1.5 },
+	{ ANIM_000B, 76, 0, DTOR(0),  20, 76,  98, 161, -1, -1, 93, 161, BADDTOR(50), BADDTOR(-30), BADDTOR(40), BADDTOR(-40), 1.7,  2   },
+	{ ANIM_000C, 58, 0, DTOR(0),  10, 63,  77, 104, -1, -1, 72, 104, BADDTOR(50), BADDTOR(-20), BADDTOR(35), BADDTOR(-40), 1.55, 1.5 },
+	{ ANIM_000D, 61, 0, DTOR(0),  10, 56,  83, 128, -1, -1, 78, 128, BADDTOR(50), BADDTOR(-30), BADDTOR(50), BADDTOR(-30), 1.2,  1.3 },
+	{ ANIM_0027, 63, 0, DTOR(0),  10, 50,  73, 114, -1, -1, 68, 114, BADDTOR(50), BADDTOR(-30), BADDTOR(35), BADDTOR(-35), 1.65, 1.5 },
+	{ ANIM_0045, 0,  0, DTOR(0),  7,  64,  19, 51,  24, 46, 14, 58,  BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-45),  0,    0   },
+	{ ANIM_004A, 0,  0, DTOR(90), 14, 76,  26, 31,  31, 38, 15, 49,  BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-60),  0,    0   },
+	{ ANIM_004C, 26, 0, DTOR(0),  25, 89,  41, 63,  41, 51, 21, 80,  BADDTOR(50), BADDTOR(-40), BADDTOR(20), BADDTOR(-65),  0,    0   },
+	{ ANIM_0050, 18, 0, DTOR(90), 11, 78,  33, 52,  35, 45, 15, 66,  BADDTOR(50), BADDTOR(-5),  BADDTOR(40), BADDTOR(-45),  1.5,  1   },
+	{ ANIM_007A, 26, 0, DTOR(0),  7,  92,  28, 68,  -1, -1, 11, 73,  BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 0,    0   },
+	{ ANIM_007B, 26, 0, DTOR(90), 9,  112, 38, 87,  -1, -1, 19, 98,  BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-25), 0,    0   },
+	{ ANIM_0074, 22, 0, DTOR(0),  10, 11,  34, 87,  -1, -1, 17, 104, BADDTOR(50), BADDTOR(-40), BADDTOR(35), BADDTOR(-45),  0,    0   },
+	{ ANIM_0075, 28, 0, DTOR(90), 15, 108, 34, 73,  -1, -1, 17, 93,  BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-45),  0,    0   },
+	{ ANIM_007A, 26, 0, DTOR(0),  7,  92,  28, 68,  -1, -1, 11, 73,  BADDTOR(50), BADDTOR(-40), BADDTOR(40), BADDTOR(-40), 0,    0   },
+	{ ANIM_007D, 25, 0, DTOR(90), 10, 112, 32, 86,  -1, -1, 19, 97,  BADDTOR(50), BADDTOR(-40), BADDTOR(25), BADDTOR(-25), 0,    0   },
+	{ ANIM_0077, 25, 0, DTOR(0),  9,  92,  33, 62,  -1, -1, 18, 69,  BADDTOR(50), BADDTOR(-40), BADDTOR(35), BADDTOR(-45),  0,    0   },
+	{ ANIM_0078, 19, 0, DTOR(90), 3,  95,  30, 64,  -1, -1, 14, 71,  BADDTOR(50), BADDTOR(-40), BADDTOR(30), BADDTOR(-45),  1.5,  1   },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimconfig g_WalkAttackAnims[] = {
-	{ ANIM_0030, 0, 0, RAD(0,   0),               0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 1.4, 1.3 },
-	{ ANIM_0031, 0, 0, RAD(0,   0),               0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 1.1, 1.2 },
-	{ ANIM_0052, 0, 0, RAD(0,   0),               0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0,   0   },
-	{ ANIM_0055, 0, 0, RAD(0,   0),               0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0,   0   },
-	{ ANIM_006C, 0, 0, RAD(0,   0),               0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0,   0   },
-	{ ANIM_006E, 0, 0, RAD(0,   0),               0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0,   0   },
-	{ ANIM_006D, 0, 0, RAD(0,   0),               0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0,   0   },
-	{ ANIM_006F, 0, 0, RAD(0,   0),               0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0,   0   },
-	{ ANIM_0057, 0, 0, RAD(90,  1.5707963705063), 0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0,   0   },
-	{ ANIM_0056, 0, 0, RAD(270, 4.7123889923096), 0, -1, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0,   0   },
+	{ ANIM_0030, 0, 0, DTOR(0),   0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 1.4, 1.3 },
+	{ ANIM_0031, 0, 0, DTOR(0),   0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 1.1, 1.2 },
+	{ ANIM_0052, 0, 0, DTOR(0),   0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0,   0   },
+	{ ANIM_0055, 0, 0, DTOR(0),   0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0,   0   },
+	{ ANIM_006C, 0, 0, DTOR(0),   0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0,   0   },
+	{ ANIM_006E, 0, 0, DTOR(0),   0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0,   0   },
+	{ ANIM_006D, 0, 0, DTOR(0),   0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0,   0   },
+	{ ANIM_006F, 0, 0, DTOR(0),   0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0,   0   },
+	{ ANIM_0057, 0, 0, DTOR(90),  0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0,   0   },
+	{ ANIM_0056, 0, 0, DTOR(270), 0, -1, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0,   0   },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
 struct attackanimconfig g_SnipeAttackAnims[] = {
-	{ ANIM_SNIPING_GETDOWN,  0, 0, 0, 0, 236, 0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0, 0 },
-	{ ANIM_SNIPING_ONGROUND, 0, 0, 0, 0, -1,  0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0, 0 },
-	{ ANIM_SNIPING_GETUP,    0, 0, 0, 0, -1,  0, 0, -1, -1, 0, 0, RAD(50, 0.87252569198608), RAD(-30, -0.52351540327072), RAD(30, 0.52351540327072), RAD(-30, -0.52351540327072), 0, 0 },
+	{ ANIM_SNIPING_GETDOWN,  0, 0, DTOR(0), 0, 236, 0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0, 0 },
+	{ ANIM_SNIPING_ONGROUND, 0, 0, DTOR(0), 0, -1,  0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0, 0 },
+	{ ANIM_SNIPING_GETUP,    0, 0, DTOR(0), 0, -1,  0, 0, -1, -1, 0, 0, BADDTOR(50), BADDTOR(-30), BADDTOR(30), BADDTOR(-30), 0, 0 },
 	{ 0, 0, 0, 0, 0, -1 },
 };
 
@@ -1539,11 +1539,11 @@ f32 chr_get_attack_entity_relative_angle(struct chrdata *chr, s32 attackflags, s
 	}
 
 	if (attackflags & ATTACKFLAG_AIMATDIRECTION) {
-		angle = entityid * (M_BADTAU / 65536);
-		angle -= chr_get_inverse_theta(chr);
+		angle = entityid * (BADDTOR(360) / 65536);
+		angle -= chr_get_theta(chr);
 
 		if (angle < 0) {
-			angle += M_BADTAU;
+			angle += BADDTOR(360);
 		}
 
 		return angle;
@@ -1804,8 +1804,7 @@ bool chr_face_cover(struct chrdata *chr)
 	chr->act_stand.reaim = 0;
 	chr->act_stand.flags = ATTACKFLAG_AIMATDIRECTION;
 	chr->act_stand.turning = TURNSTATE_TURNING;
-	//chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * (0x4000 / BADDEG2RAD(90));
-	chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * 10432.039f;
+	chr->act_stand.entityid = atan2f(-cover.look->x, -cover.look->z) * (16384 / BADDTOR(90));
 
 	return true;
 }
@@ -1966,7 +1965,7 @@ void chr_do_surprised_one_hand(struct chrdata *chr)
 	struct prop *prop = chr_get_target_prop(chr);
 	f32 angle = chr_get_angle_to_pos(chr, &prop->pos);
 
-	if (angle < RAD(10, 0.17450514435768f) || angle > RAD(350, 6.1076798439026f)) {
+	if (angle < BADDTOR(10) || angle > BADDTOR2(350)) {
 		chr_stop_firing(chr);
 		chr->actiontype = ACT_SURPRISED;
 		chr->act_surprised.type = 1;
@@ -2816,7 +2815,7 @@ void chr_attack(struct chrdata *chr, struct attackanimgroup **animgroups, bool f
 			angle = chr_get_attack_entity_relative_angle(chr, attackflags, entityid);
 
 			if (flip) {
-				groupindex = (M_BADTAU - angle) * 5.0937690734863f + 0.5f;
+				groupindex = (BADDTOR(360) - angle) * 5.0937690734863f + 0.5f;
 			} else {
 				groupindex = angle * 5.0937690734863f + 0.5f;
 			}
@@ -3162,23 +3161,23 @@ void chr_begin_death(struct chrdata *chr, struct coord *dir, f32 relangle, s32 h
 		} else {
 			// Consider making the chr do an animation where they slump against
 			// a wall or object which is behind them.
-			if ((relangle < RAD(90, 1.5705462694168f) || relangle > RAD(270, 4.7116389274597f))
+			if ((relangle < BADDTOR(90) || relangle > BADDTOR(270))
 					&& random() % 20 == 0
 					&& chr->specialdie == SPECIALDIE_NONE) {
 				f32 angle1;
-				f32 angle2 = chr_get_inverse_theta(chr);
+				f32 angle2 = chr_get_theta(chr);
 				f32 fval1;
 				f32 fval2;
 
 				angle1 = angle2 + RAD(190, 3.3155977725983f);
-				angle2 += RAD(170, 2.966587305069f);
+				angle2 += BADDTOR(170);
 
-				if (angle1 >= M_BADTAU) {
-					angle1 -= M_BADTAU;
+				if (angle1 >= BADDTOR(360)) {
+					angle1 -= BADDTOR(360);
 				}
 
-				if (angle2 >= M_BADTAU) {
-					angle2 -= M_BADTAU;
+				if (angle2 >= BADDTOR(360)) {
+					angle2 -= BADDTOR(360);
 				}
 
 				fval1 = func0f02e684(prop, angle1, 150);
@@ -3208,7 +3207,7 @@ void chr_begin_death(struct chrdata *chr, struct coord *dir, f32 relangle, s32 h
 
 			// Consider making the chr do a fall forward animation.
 			// The player must be behind the chr for it to happen.
-			if (relangle > RAD(135, 2.3558194637299f) && relangle < RAD(225, 3.9263656139374f)
+			if (relangle > BADDTOR(135) && relangle < BADDTOR2(225)
 					&& random() % 5 < 2
 					&& chr->specialdie == SPECIALDIE_NONE) {
 				struct animtablerow *row;
@@ -3317,7 +3316,7 @@ void chr_begin_death(struct chrdata *chr, struct coord *dir, f32 relangle, s32 h
 	} else if (race == RACE_SKEDAR) {
 		struct animtablerow *row;
 
-		if (relangle > RAD(135, 2.3558194637299f) && relangle < RAD(225, 3.9263656139374f)) {
+		if (relangle > BADDTOR(135) && relangle < BADDTOR2(225)) {
 			// Player is behind the Skedar - use specific set of anims
 			row = &g_AnimTablesByRace[race][1 + (random() % 6)].deathanims[random() % 3];
 
@@ -3449,8 +3448,8 @@ void chr_begin_argh(struct chrdata *chr, f32 angle, s32 hitpart)
 	// If shot in the butt from behind, 2 in 5 chance of doing a special anim
 	if (race == RACE_HUMAN
 			&& hitpart == HITPART_PELVIS
-			&& angle > RAD(135, 2.3558194637299f)
-			&& angle < RAD(225, 3.9263656139374f)
+			&& angle > BADDTOR(135)
+			&& angle < BADDTOR2(225)
 			&& random() % 5 < 2) {
 		struct animtablerow *row;
 		struct animtablerow rows[] = {
@@ -3615,7 +3614,7 @@ void chr_yeet_from_pos(struct chrdata *chr, struct coord *exppos, f32 force)
 	f32 angletoexplosion;
 
 	if (race != RACE_DRCAROLL && race != RACE_EYESPY && race != RACE_ROBOT) {
-		faceangle = chr_get_inverse_theta(chr);
+		faceangle = chr_get_theta(chr);
 		latangle = atan2f(prop->pos.x - exppos->x, prop->pos.z - exppos->z);
 
 		dist.x = prop->pos.x - exppos->x;
@@ -3638,7 +3637,7 @@ void chr_yeet_from_pos(struct chrdata *chr, struct coord *exppos, f32 force)
 		chr->fallspeed.z = dist.z;
 
 		if (latangle < faceangle) {
-			angletoexplosion += M_BADTAU;
+			angletoexplosion += BADDTOR(360);
 		}
 
 		angleindex = angletoexplosion * 1.2734422683716f + 0.5f;
@@ -4669,7 +4668,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 		// Knife in the back to an unalerted chr is lethal
 		if (gset->weaponnum == WEAPON_COMBATKNIFE
 				&& gset->weaponfunc == FUNC_PRIMARY
-				&& angle > RAD(120, 2.0940616130829f)
+				&& angle > BADDTOR(120)
 				&& angle < RAD(240, 4.1881237030029f)
 				&& (chr->alertness < 100 || chr->lastseetarget60 == 0)) {
 			damage *= 1000;
@@ -4677,9 +4676,9 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 
 		// Punching and pistol whipping is less effective from the front
 		if (gset_has_function_flags(gset, FUNCFLAG_BLUNTIMPACT)) {
-			if (angle < RAD(60, 1.0470308065414f) || angle > RAD(300, 5.2351541519165f)) {
+			if (angle < BADDTOR(60) || angle > BADDTOR(300)) {
 				damage *= 0.4f;
-			} else if (angle < RAD(120, 2.0940616130829f) || angle > RAD(240, 4.1881237030029f)) {
+			} else if (angle < BADDTOR(120) || angle > RAD(240, 4.1881237030029f)) {
 				damage *= 0.7f;
 			} else if (chr->alertness < 100) {
 				onehitko = true;
@@ -5285,7 +5284,7 @@ bool chr_can_roll_in_direction(struct chrdata *chr, bool side, f32 distance)
 
 void chr_get_side_vector(struct chrdata *chr, bool side, struct coord *vector)
 {
-	f32 angle = chr_get_inverse_theta(chr);
+	f32 angle = chr_get_theta(chr);
 
 	if (side) {
 		vector->x = cosf(angle);
@@ -5372,7 +5371,7 @@ void chr_go_pos_init_magic(struct chrdata *chr, struct waydata *waydata, struct 
 	waydata->magictotal = sqrtf(xdiff1 * xdiff1 + zdiff1 * zdiff1);
 	waydata->magicdone = waydata->magictotal - sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
 
-	chr_set_look_angle(chr, angle);
+	chr_set_theta(chr, angle);
 }
 
 void chr_go_pos_get_cur_waypoint_info_with_flags(struct chrdata *chr, struct coord *pos, RoomNum *rooms, u32 *flags)
@@ -5736,7 +5735,7 @@ void chr_nav_tick_magic(struct chrdata *chr, struct waydata *waydata, f32 speed,
 						if (chr->act_gopos.curindex >= 2) {
 							waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex - 2];
 							pad_unpack(waypoint->padnum, PADFIELD_POS, &pad);
-							chr_set_look_angle(chr, atan2f(prop->pos.x - pad.pos.x, prop->pos.z - pad.pos.z));
+							chr_set_theta(chr, atan2f(prop->pos.x - pad.pos.x, prop->pos.z - pad.pos.z));
 						}
 
 						if (CHRRACE(chr) == RACE_HUMAN || CHRRACE(chr) == RACE_SKEDAR) {
@@ -6571,15 +6570,15 @@ bool chr_has_los_to_pos(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
  */
 bool chr_has_los_to_pos_wasteful(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 {
-	f32 facingangle = chr_get_inverse_theta(chr);
+	f32 facingangle = chr_get_theta(chr);
 	f32 posangle = atan2f(pos->x - chr->prop->pos.x, pos->z - chr->prop->pos.z);
 	f32 diffangle = posangle - facingangle;
 
 	if (posangle < facingangle) {
-		diffangle += M_BADTAU;
+		diffangle += BADDTOR(360);
 	}
 
-	if ((diffangle < RAD(100, 1.7450513839722f) || diffangle > RAD(260, 4.5371336936951f))
+	if ((diffangle < BADDTOR(100) || diffangle > BADDTOR(260))
 			&& chr_has_flag(chr, CHRFLAG1_NOOP_00200000, BANK_1) == false) {
 		return chr_has_los_to_pos(chr, pos, rooms);
 	}
@@ -6655,7 +6654,7 @@ bool chr_check_can_see_target(struct chrdata *chr)
 	struct prop *prop = chr->prop;
 	struct prop *target = chr_get_target_prop(chr);
 	f32 sqdistance;
-	f32 invtheta = chr_get_inverse_theta(chr);
+	f32 invtheta = chr_get_theta(chr);
 
 	f32 x = target->pos.x - prop->pos.x;
 	f32 y = target->pos.y - prop->pos.y;
@@ -6666,29 +6665,29 @@ bool chr_check_can_see_target(struct chrdata *chr)
 	bool result = false;
 
 	if (angletotarget < invtheta) {
-		angle += M_BADTAU;
+		angle += BADDTOR(360);
 	}
 
 	sqdistance = x * x + y * y + z * z;
 
-	if ((sqdistance < chr->visionrange * chr->visionrange * 10000.0f && (angle < RAD(110, 1.9195564985275f) || angle > RAD(250, 4.3626284599304f)))
-			|| (sqdistance < 40000.0f && (angle < RAD(110, 1.9195564985275f) || angle > RAD(250, 4.3626284599304f)))) {
+	if ((sqdistance < chr->visionrange * chr->visionrange * 10000.0f && (angle < BADDTOR(110) || angle > BADDTOR(250)))
+			|| (sqdistance < 40000.0f && (angle < BADDTOR(110) || angle > BADDTOR(250)))) {
 		result = false;
 
 		if (sqdistance < env_get_squared_fog_max()) {
 			f32 tmp;
-			s32 iVar8 = (sqrtf(sqdistance) * 0.001875f);
+			s32 iVar8 = sqrtf(sqdistance) * 0.001875f;
 			s32 tmp2;
 
-			if (angle > RAD(45, 0.7852731347084f) && angle < RAD(315, 5.4969120025635f)) {
+			if (angle > BADDTOR(45) && angle < BADDTOR(315)) {
 				tmp = angle;
 
-				if (tmp > M_PI) {
-					tmp = M_BADTAU - angle;
+				if (tmp > DTOR(180)) {
+					tmp = BADDTOR(360) - angle;
 				}
 
-				tmp -= RAD(45, 0.7852731347084f);
-				tmp2 = tmp * RAD(219, 3.8203268051147f);
+				tmp -= BADDTOR(45);
+				tmp2 = tmp * DTOR(218.8886f);
 				iVar8 *= 1 + tmp2;
 			}
 
@@ -6774,17 +6773,17 @@ bool chr_try_sidestep(struct chrdata *chr)
 			&& chr_is_ready_for_orders(chr)) {
 		struct prop *prop = chr->prop;
 		struct prop *target = chr_get_target_prop(chr);
-		f32 a = chr_get_inverse_theta(chr);
+		f32 a = chr_get_theta(chr);
 		f32 b = atan2f(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
 		f32 angle = b - a;
 		u32 stack[2];
 
-		if (b < a) {
-			angle += M_BADTAU;
+		if (angle < 0) {
+			angle += BADDTOR(360);
 		}
 
-		if (angle < RAD(45, 0.7852731347084f) || angle > RAD(315, 5.4969120025635f)
-				|| (angle > RAD(135, 2.3558194637299f) && angle < RAD(225, 3.9263656139374f))) {
+		if (angle < BADDTOR(45) || angle > BADDTOR(315)
+				|| (angle > BADDTOR(135) && angle < BADDTOR2(225))) {
 			bool side = (random() % 2) == 0;
 
 			if (chr_can_jump_in_direction(chr, side, 100)) {
@@ -6808,17 +6807,17 @@ bool chr_try_jump_out(struct chrdata *chr)
 		struct prop *prop = chr->prop;
 		struct prop *target = chr_get_target_prop(chr);
 
-		f32 a = chr_get_inverse_theta(chr);
+		f32 a = chr_get_theta(chr);
 		f32 b = atan2f(target->pos.x - prop->pos.x, target->pos.z - prop->pos.z);
 		f32 angle = b - a;
 		u32 stack[2];
 
-		if (b < a) {
-			angle += M_BADTAU;
+		if (angle < 0) {
+			angle += BADDTOR(360);
 		}
 
-		if (angle < RAD(45, 0.7852731347084f) || angle > RAD(315, 5.4969120025635f)
-				|| (angle > RAD(135, 2.3558194637299f) && angle < RAD(225, 3.9263656139374f))) {
+		if (angle < BADDTOR(45) || angle > BADDTOR(315)
+				|| (angle > BADDTOR(135) && angle < BADDTOR2(225))) {
 			bool side = (random() % 2) == 0;
 
 			if (chr_can_jump_in_direction(chr, side, 200)) {
@@ -7963,8 +7962,8 @@ void chr_tick_stand(struct chrdata *chr)
 		} else {
 			f32 relangle = chr_get_attack_entity_relative_angle(chr, chr->act_stand.flags, chr->act_stand.entityid);
 
-			if ((relangle > RAD(20, 0.34901028871536f) && relangle < RAD(340, 5.9331746101379f))
-					|| (relangle > RAD(10, 0.17450514435768f) && relangle < RAD(350, 6.1076798439026f) && !chr->act_stand.playwalkanim)) {
+			if ((relangle > BADDTOR(20) && relangle < BADDTOR(340))
+					|| (relangle > BADDTOR(10) && relangle < BADDTOR2(350) && !chr->act_stand.playwalkanim)) {
 				leftgun = chr_get_held_prop(chr, HAND_LEFT);
 				rightgun = chr_get_held_prop(chr, HAND_RIGHT);
 
@@ -8022,13 +8021,13 @@ void chr_tick_stand(struct chrdata *chr)
 		return;
 	}
 
-	sp6c = sp70 = chr_get_inverse_theta(chr);
+	sp6c = sp70 = chr_get_theta(chr);
 
 	for (i = 0; i < ARRAYCOUNT(sp74); i++) {
-		sp6c += RAD(45, 0.7852731347084f);
+		sp6c += BADDTOR(45);
 
-		if (sp6c >= M_BADTAU) {
-			sp6c -= M_BADTAU;
+		if (sp6c >= BADDTOR(360)) {
+			sp6c -= BADDTOR(360);
 		}
 
 		sp74[i] = func0f02e550(chr->prop, sp6c, 1000, CDTYPE_BG, 0, 1);
@@ -8074,10 +8073,10 @@ void chr_tick_stand(struct chrdata *chr)
 
 	if (index >= 0) {
 		i = sp44[index];
-		angle = sp70 + i * RAD(45, 0.7852731347084f);
+		angle = sp70 + i * BADDTOR(45);
 
-		if (angle >= M_BADTAU) {
-			angle -= M_BADTAU;
+		if (angle >= BADDTOR(360)) {
+			angle -= BADDTOR(360);
 		}
 
 		chr_face_entity(chr, ATTACKFLAG_AIMATDIRECTION, angle * 10432.0390625f);
@@ -8160,7 +8159,7 @@ void chr_tick_surrender(struct chrdata *chr)
 
 			if (model_get_anim_num(model) == ANIM_SURRENDER_002F && model_get_cur_anim_frame(model) >= 80.0f) {
 				struct coord coord = {0, 0, 0};
-				f32 value = chr_get_inverse_theta(chr);
+				f32 value = chr_get_theta(chr);
 				coord.x = -sinf(value);
 				coord.z = -cosf(value);
 
@@ -8832,8 +8831,16 @@ void chr_update_fireslot(struct chrdata *chr, s32 handnum, bool withsound, bool 
 
 /**
  * Returns the chr's turn angle difference to 360 degrees, in radians.
+ *
+ *           z+
+ *          (0)
+ *           |
+ * x+ (90) --+-- (270) x-
+ *           |
+ *         (180)
+ *           z-
  */
-f32 chr_get_inverse_theta(struct chrdata *chr)
+f32 chr_get_theta(struct chrdata *chr)
 {
 	if (chr->aibot) {
 		return chr->aibot->lookangle;
@@ -8841,12 +8848,12 @@ f32 chr_get_inverse_theta(struct chrdata *chr)
 
 	if (chr->model == NULL && chr->prop && chr->prop->type == PROPTYPE_PLAYER) {
 		struct player *player = g_Vars.players[playermgr_get_player_num_by_prop(chr->prop)];
-		f32 angle = (360.0f - player->vv_theta) * 0.017450513318181f;
+		f32 angle = BADDTOR2(360 - player->vv_theta);
 
-		if (angle >= M_BADTAU) {
-			angle -= M_BADTAU;
+		if (angle >= BADDTOR(360)) {
+			angle -= BADDTOR(360);
 		} else if (angle < 0) {
-			angle += M_BADTAU;
+			angle += BADDTOR(360);
 		}
 
 		return angle;
@@ -8855,7 +8862,7 @@ f32 chr_get_inverse_theta(struct chrdata *chr)
 	return model_get_chr_rot_y(chr->model);
 }
 
-void chr_set_look_angle(struct chrdata *chr, f32 angle)
+void chr_set_theta(struct chrdata *chr, f32 angle)
 {
 	if (chr->aibot) {
 		chr->aibot->lookangle = angle;
@@ -8884,13 +8891,13 @@ void chr_set_rot_y(struct chrdata *chr, f32 roty)
 
 f32 chr_get_aim_angle(struct chrdata *chr)
 {
-	f32 angle = chr_get_inverse_theta(chr) + chr->aimsideback;
+	f32 angle = chr_get_theta(chr) + chr->aimsideback;
 	f32 offset = 0;
 
-	if (angle >= M_BADTAU) {
-		angle -= M_BADTAU;
+	if (angle >= BADDTOR(360)) {
+		angle -= BADDTOR(360);
 	} else if (angle < 0) {
-		angle += M_BADTAU;
+		angle += BADDTOR(360);
 	}
 
 	if (chr->aibot) {
@@ -8909,15 +8916,15 @@ f32 chr_get_aim_angle(struct chrdata *chr)
 
 	if (offset) {
 		if (chr->model->anim->flip) {
-			offset = M_BADTAU - offset;
+			offset = BADDTOR(360) - offset;
 		}
 
 		angle += offset;
 
-		if (angle >= M_BADTAU) {
-			angle -= M_BADTAU;
-		} else if (angle < M_BADTAU) {
-			angle += M_BADTAU;
+		if (angle >= BADDTOR(360)) {
+			angle -= BADDTOR(360);
+		} else if (angle < BADDTOR(360)) {
+			angle += BADDTOR(360);
 		}
 	}
 
@@ -8929,7 +8936,7 @@ f32 chr_get_pitch_angle(struct chrdata *chr)
 	f32 sum = chr->aimuprshoulder + chr->aimupback;
 
 	if (sum < 0) {
-		sum += M_BADTAU;
+		sum += BADDTOR(360);
 	}
 
 	return sum;
@@ -8944,9 +8951,9 @@ s32 chr_turn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 
 		struct model *model = chr->model;
 		f32 curframe = model_get_cur_anim_frame(model);
 		u32 stack;
-		f32 finalangle = chr_get_inverse_theta(chr);
+		f32 finalangle = chr_get_theta(chr);
 		f32 remainingangle;
-		f32 increment = M_BADTAU / 100.0f * speed * g_Vars.lvupdate60f * model->anim->playspeed;
+		f32 increment = BADDTOR(360) / 100.0f * speed * g_Vars.lvupdate60f * model->anim->playspeed;
 
 		if (chr->aibot) {
 			struct prop *target = chr_get_target_prop(chr);
@@ -8968,37 +8975,37 @@ s32 chr_turn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 
 		remainingangle -= toleranceangle;
 
 		if (remainingangle < 0) {
-			remainingangle += M_BADTAU;
+			remainingangle += BADDTOR(360);
 		}
 
-		if (increment > remainingangle || M_BADTAU - increment < remainingangle) {
+		if (increment > remainingangle || BADDTOR(360) - increment < remainingangle) {
 			// Close enough to stop
 			finalangle += remainingangle;
 
-			if (finalangle >= M_BADTAU) {
-				finalangle -= M_BADTAU;
+			if (finalangle >= BADDTOR(360)) {
+				finalangle -= BADDTOR(360);
 			}
 
-			chr_set_look_angle(chr, finalangle);
+			chr_set_theta(chr, finalangle);
 			turning = TURNSTATE_ONTARGET;
-		} else if (remainingangle < M_PI) {
+		} else if (remainingangle < DTOR(180)) {
 			// Turning in one direction
 			finalangle += increment;
 
-			if (finalangle >= M_BADTAU) {
-				finalangle -= M_BADTAU;
+			if (finalangle >= BADDTOR(360)) {
+				finalangle -= BADDTOR(360);
 			}
 
-			chr_set_look_angle(chr, finalangle);
+			chr_set_theta(chr, finalangle);
 		} else {
 			// Turning in the other direction
 			finalangle -= increment;
 
 			if (finalangle < 0) {
-				finalangle += M_BADTAU;
+				finalangle += BADDTOR(360);
 			}
 
-			chr_set_look_angle(chr, finalangle);
+			chr_set_theta(chr, finalangle);
 		}
 
 		if (curframe >= endanimframe) {
@@ -9109,8 +9116,8 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 		if ((flags & ATTACKFLAG_NOVERTICAL) == 0) {
 			shootrotx = atan2f(sp174, sqrtf(sp178 * sp178 + sp170 * sp170));
 
-			if (shootrotx >= M_PI) {
-				shootrotx -= M_BADTAU;
+			if (shootrotx >= DTOR(180)) {
+				shootrotx -= BADDTOR(360);
 			}
 		}
 
@@ -9211,8 +9218,8 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 			anglev = atan2f(sp178, sp170);
 			aimendsideback = anglev - aimangle;
 
-			if (anglev < aimangle) {
-				aimendsideback += M_BADTAU;
+			if (aimendsideback < 0) {
+				aimendsideback += BADDTOR(360);
 			}
 
 			chrrwdata = model_get_node_rw_data(chr->model, chr->model->definition->rootnode);
@@ -9221,11 +9228,11 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 				aimendsideback -= chrrwdata->unk5c * chrrwdata->unk58;
 
 				if (aimendsideback < 0.0f) {
-					aimendsideback += M_BADTAU;
+					aimendsideback += BADDTOR(360);
 				}
 
-				if (aimendsideback >= M_BADTAU) {
-					aimendsideback -= M_BADTAU;
+				if (aimendsideback >= BADDTOR(360)) {
+					aimendsideback -= BADDTOR(360);
 				}
 			}
 
@@ -9237,16 +9244,16 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 				aimendsideback += chr_get_aim_limit_angle(sqdist) * 0.5f * sinf((((s32) (g_Vars.lvframe60 * chr->model->anim->playspeed) + chr->chrnum) % 60) * 0.10470308f);
 
 				if (aimendsideback < 0.0f) {
-					aimendsideback += M_BADTAU;
+					aimendsideback += BADDTOR(360);
 				}
 
-				if (aimendsideback >= M_BADTAU) {
-					aimendsideback -= M_BADTAU;
+				if (aimendsideback >= BADDTOR(360)) {
+					aimendsideback -= BADDTOR(360);
 				}
 			}
 
-			if (aimendsideback >= M_PI) {
-				aimendsideback -= M_BADTAU;
+			if (aimendsideback >= DTOR(180)) {
+				aimendsideback -= BADDTOR(360);
 			}
 
 			aimendsideback += chr->aimsideback;
@@ -9389,22 +9396,22 @@ void chr_set_hand_firing(struct chrdata *chr, s32 hand, bool firing)
 f32 chr_get_aim_limit_angle(f32 sqdist)
 {
 	if (sqdist > 1600 * 1600) {
-		return 0.018752790987492f;
+		return BADDTOR(1.0746268141502f);
 	}
 
 	if (sqdist > 800 * 800) {
-		return 0.03761787340045f;
+		return BADDTOR(2.155688477219f);
 	}
 
 	if (sqdist > 400 * 400) {
-		return 0.07478791475296f;
+		return BADDTOR(4.2857139836688f);
 	}
 
 	if (sqdist > 200 * 200) {
-		return 0.14957582950592f;
+		return BADDTOR(8.5714279673376f);
 	}
 
-	return 0.2512874007225f;
+	return BADDTOR(14.4f);
 }
 
 /**
@@ -9454,10 +9461,10 @@ void chr_calculate_hit(struct chrdata *chr, bool *angleokptr, bool *hit, struct 
 	limitangle = chr_get_aim_limit_angle(sqdist);
 
 	if (anglediff < 0) {
-		anglediff += M_BADTAU;
+		anglediff += BADDTOR(360);
 	}
 
-	angleok = anglediff < limitangle || anglediff > M_BADTAU - limitangle;
+	angleok = anglediff < limitangle || anglediff > BADDTOR(360) - limitangle;
 
 	*angleokptr = angleok;
 	*hit = false;
@@ -10689,7 +10696,7 @@ void chr_tick_fire(struct chrdata *chr)
 		}
 
 		if (model->anim->flip) {
-			f2 = M_BADTAU - f2;
+			f2 = BADDTOR(360) - f2;
 		}
 
 		chr->act_attack.turning = chr_turn(chr, chr->act_attack.turning, f12, chr_get_ranged_speed(chr, 1, 1.6f), f2);
@@ -10875,7 +10882,7 @@ void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
 	struct prop *prop = chr_get_target_prop(chr);
 	f32 distance = atan2f(prop->pos.x - chr->prop->pos.x, prop->pos.z - chr->prop->pos.z);
 	f32 value = model_tween_rot_axis(arg2, distance, arg1);
-	chr_set_look_angle(chr, value);
+	chr_set_theta(chr, value);
 }
 
 void chr_tick_robot_attack(struct chrdata *chr)
@@ -10886,7 +10893,7 @@ void chr_tick_robot_attack(struct chrdata *chr)
 	struct prop *targetprop = chr_get_target_prop(chr);
 	bool firing;
 	bool empty;
-	f32 invtheta = chr_get_inverse_theta(chr);
+	f32 invtheta = chr_get_theta(chr);
 	struct act_robotattack *act = &chr->act_robotattack;
 
 	func0f0429d8(chr, 0.085f, invtheta);
@@ -10950,11 +10957,11 @@ void chr_tick_robot_attack(struct chrdata *chr)
 			roty = atan2f(targetprop->pos.x - act->pos[i].x, targetprop->pos.z - act->pos[i].z) - invtheta;
 
 			if (roty < 0.0f) {
-				roty += M_BADTAU;
+				roty += BADDTOR(360);
 			}
 
-			if (roty > M_BADPI) {
-				roty -= M_BADTAU;
+			if (roty > BADDTOR(180)) {
+				roty -= BADDTOR(360);
 			}
 
 			if (roty < -0.524f) {
@@ -10968,10 +10975,10 @@ void chr_tick_robot_attack(struct chrdata *chr)
 #define X() (targetprop->pos.x - act->pos[i].x)
 #define Z() (targetprop->pos.z - act->pos[i].z)
 
-			rotx = M_BADTAU - atan2f(aimy - act->pos[i].y, sqrtf(Z() * Z() + X() * X()));
+			rotx = BADDTOR(360) - atan2f(aimy - act->pos[i].y, sqrtf(Z() * Z() + X() * X()));
 
-			if (rotx > M_BADPI) {
-				rotx -= M_BADTAU;
+			if (rotx > BADDTOR(180)) {
+				rotx -= BADDTOR(360);
 			}
 
 			if (rotx < -0.524f) {
@@ -10992,17 +10999,17 @@ void chr_tick_robot_attack(struct chrdata *chr)
 				f32 gunroty = chr->gunroty[i];
 
 				if (gunrotx < 0.0f) {
-					gunrotx += M_BADTAU;
+					gunrotx += BADDTOR(360);
 				}
 
 				if (gunroty < 0.0f) {
-					gunroty += M_BADTAU;
+					gunroty += BADDTOR(360);
 				}
 
 				gunroty += invtheta;
 
-				if (gunroty >= M_BADTAU) {
-					gunroty -= M_BADTAU;
+				if (gunroty >= BADDTOR(360)) {
+					gunroty -= BADDTOR(360);
 				}
 
 				act->dir[i].x = sinf(gunroty) * cosf(gunrotx);
@@ -11409,19 +11416,19 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 	finalangle = chr_get_rot_y(chr);
 	angle2 = angle1 - finalangle;
 
-	if (finalangle > angle1) {
-		angle2 += M_BADTAU;
+	if (angle2 < 0) {
+		angle2 += BADDTOR(360);
 	}
 
 	if (chr->aibot) {
 		if (chr->blurdrugamount > 0) {
 			angle1 += chr->blurdrugamount * PALUPF(0.00031410926021636f) * sinf((g_Vars.lvframe60 % TICKS(1200)) * PALUPF(0.0052351541817188f));
 
-			if (angle1 >= M_BADTAU) {
-				angle1 -= M_BADTAU;
+			if (angle1 >= BADDTOR(360)) {
+				angle1 -= BADDTOR(360);
 			}
 
-			angle1 += M_BADTAU;
+			angle1 += BADDTOR(360);
 		}
 
 		finalangle = angle1;
@@ -11430,17 +11437,17 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 	} else {
 		angle3 = angle2;
 
-		if (angle2 > M_BADPI) {
-			angle3 = M_BADTAU - angle3;
+		if (angle3 > BADDTOR(180)) {
+			angle3 = BADDTOR(360) - angle3;
 		}
 
 		if ((arg2 % 4) == 2) {
 			maxspeed = 0.29915165901184f;
 			accel = 0.014957583509386f;
 		} else if ((arg2 % 4) == 1) {
-			if (angle3 < 0.3926365673542f) {
+			if (angle3 < BADDTOR(22.5f)) {
 				maxspeed = 0.019631829112768f;
-			} else if (angle3 < 1.2564370632172f) {
+			} else if (angle3 < BADDTOR(72)) {
 				maxspeed = 0.098159141838551f;
 			} else {
 				maxspeed = 0.1963182836771f;
@@ -11448,9 +11455,9 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 
 			accel = 0.014957583509386f;
 		} else {
-			if (angle3 < 0.3926365673542f) {
+			if (angle3 < BADDTOR(22.5f)) {
 				maxspeed = 0.0098159145563841f;
-			} else if (angle3 < 1.2564370632172f) {
+			} else if (angle3 < BADDTOR(72)) {
 				maxspeed = 0.049079570919275f;
 			} else {
 				maxspeed = 0.12564370036125f;
@@ -12130,13 +12137,13 @@ bool chr_nav_try_obstacle(struct chrdata *chr, struct coord *arg1, bool arg2, st
 	}
 
 	if (radius * norm > 1.0f) {
-		angle = RAD(45, 0.7852731347084f);
+		angle = BADDTOR(45);
 	} else {
 		angle = acosf(radius * norm);
 	}
 
 	if (!arg2 && angle != 0.0f) {
-		angle = M_BADTAU - angle;
+		angle = BADDTOR(360) - angle;
 	}
 
 	sp48.x = -cosf(angle) * sp68.f[0] + sinf(angle) * sp68.f[2];
@@ -12388,11 +12395,11 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 			spcc = f20 - atan2f(waydata->obstacleright.x - prop->pos.x, waydata->obstacleright.z - prop->pos.z);
 
 			if (spd0 < 0) {
-				spd0 += M_BADTAU;
+				spd0 += BADDTOR(360);
 			}
 
-			if (spd0 >= M_BADPI) {
-				spd0 -= M_BADTAU;
+			if (spd0 >= BADDTOR(180)) {
+				spd0 -= BADDTOR(360);
 			}
 
 			if (spd0 < 0) {
@@ -12400,11 +12407,11 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 			}
 
 			if (spcc < 0) {
-				spcc += M_BADTAU;
+				spcc += BADDTOR(360);
 			}
 
-			if (spcc >= M_BADPI) {
-				spcc -= M_BADTAU;
+			if (spcc >= BADDTOR(180)) {
+				spcc -= BADDTOR(360);
 			}
 
 			if (spcc < 0) {
@@ -12426,11 +12433,11 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 				spbc = f20 - atan2f(spf4.x - prop->pos.x, spf4.z - prop->pos.z);
 
 				if (spc0 < 0) {
-					spc0 += M_BADTAU;
+					spc0 += BADDTOR(360);
 				}
 
-				if (spc0 >= M_BADPI) {
-					spc0 -= M_BADTAU;
+				if (spc0 >= BADDTOR(180)) {
+					spc0 -= BADDTOR(360);
 				}
 
 				if (spc0 < 0) {
@@ -12438,11 +12445,11 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 				}
 
 				if (spbc < 0) {
-					spbc += M_BADTAU;
+					spbc += BADDTOR(360);
 				}
 
-				if (spbc >= M_BADPI) {
-					spbc -= M_BADTAU;
+				if (spbc >= BADDTOR(180)) {
+					spbc -= BADDTOR(360);
 				}
 
 				if (spbc < 0) {
@@ -12469,11 +12476,11 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 				spac = f20 - atan2f(spf4.x - prop->pos.x, spf4.z - prop->pos.z);
 
 				if (spb0 < 0) {
-					spb0 += M_BADTAU;
+					spb0 += BADDTOR(360);
 				}
 
-				if (spb0 >= M_BADPI) {
-					spb0 -= M_BADTAU;
+				if (spb0 >= BADDTOR(180)) {
+					spb0 -= BADDTOR(360);
 				}
 
 				if (spb0 < 0) {
@@ -12481,11 +12488,11 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 				}
 
 				if (spac < 0) {
-					spac += M_BADTAU;
+					spac += BADDTOR(360);
 				}
 
-				if (spac >= M_BADPI) {
-					spac -= M_BADTAU;
+				if (spac >= BADDTOR(180)) {
+					spac -= BADDTOR(360);
 				}
 
 				if (spac < 0) {
@@ -12986,7 +12993,7 @@ void chr_tick_go_pos(struct chrdata *chr)
 						if (sp156 > 0) {
 							sp160 = acosf((sp180 * sp172 + sp176 * sp168) / sp156);
 
-							if (sp160 < RAD(45, 0.7852731347084f) || sp160 > RAD(315, 5.4969120025635f)) {
+							if (sp160 < BADDTOR(45) || sp160 > BADDTOR(315)) {
 								if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
 									chr_go_pos_advance_waypoint(chr);
 								}
@@ -13147,7 +13154,7 @@ bool chr_start_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8
 
 		chr->act_skjump.vel[0] = diffs[0] / time60;
 		chr->act_skjump.vel[1] = diffs[1] / time60;
-		chr->act_skjump.roty = chr_get_inverse_theta(chr) + chr_get_angle_to_pos(chr, &target->pos);
+		chr->act_skjump.roty = chr_get_theta(chr) + chr_get_angle_to_pos(chr, &target->pos);
 		chr->act_skjump.hit = false;
 		chr->act_skjump.timer60 = time60;
 		chr->act_skjump.total60 = time60;
@@ -13202,9 +13209,9 @@ void chr_tick_sk_jump(struct chrdata *chr)
 
 		switch (chr->act_skjump.state) {
 		case SKJUMPSTATE_TAKEOFF:
-			fVar6 = chr_get_inverse_theta(chr);
+			fVar6 = chr_get_theta(chr);
 			fVar5 = model_tween_rot_axis(fVar6, chr->act_skjump.roty, 0.35);
-			chr_set_look_angle(chr, fVar5);
+			chr_set_theta(chr, fVar5);
 			frame = model_get_cur_anim_frame(chr->model);
 
 			if (frame >= model_get_anim_end_frame(chr->model)) {
@@ -13218,7 +13225,7 @@ void chr_tick_sk_jump(struct chrdata *chr)
 
 			if (chr->act_skjump.total60 > 0) {
 				fVar6 = 1.0f - chr->act_skjump.timer60 / (f32)chr->act_skjump.total60;
-				fVar7 = sinf(M_PI * fVar6);
+				fVar7 = sinf(DTOR(180) * fVar6);
 				fVar7 = fVar7 * 160.0f + chr->act_skjump.ground;
 			} else {
 				fVar6 = 1;
@@ -13719,27 +13726,25 @@ bool chr_heard_target_recently(struct chrdata *chr)
 
 f32 chr_get_angle_to_pos(struct chrdata *chr, struct coord *pos)
 {
-	f32 fVar3;
-	f32 fVar2;
-	f32 fVar4;
+	f32 theta;
+	f32 angle;
 	struct prop *prop;
 
 	if (chr->prop->type == PROPTYPE_PLAYER) {
-		u32 playernum = playermgr_get_player_num_by_prop(chr->prop);
-		fVar3 = (360 - g_Vars.players[playernum]->vv_theta) * (M_BADTAU / 360);
+		s32 playernum = playermgr_get_player_num_by_prop(chr->prop);
+		theta = BADDTOR2(360 - g_Vars.players[playernum]->vv_theta);
 	} else {
-		fVar3 = chr_get_inverse_theta(chr);
+		theta = chr_get_theta(chr);
 	}
 
 	prop = chr->prop;
-	fVar2 = atan2f(pos->x - prop->pos.x, pos->z - prop->pos.z);
-	fVar4 = fVar2 - fVar3;
+	angle = atan2f(pos->x - prop->pos.x, pos->z - prop->pos.z) - theta;
 
-	if (fVar2 < fVar3) {
-		fVar4 += M_BADTAU;
+	if (angle < 0) {
+		angle += BADDTOR(360);
 	}
 
-	return fVar4;
+	return angle;
 }
 
 f32 chr_get_angle_to_target(struct chrdata *chr)
@@ -13823,15 +13828,15 @@ f32 chr_get_angle_from_targets_fov(struct chrdata *chr)
 
 		if (target->type == PROPTYPE_PLAYER) {
 			s32 playernum = playermgr_get_player_num_by_prop(target);
-			targetfacingangle = (360.0f - g_Vars.players[playernum]->vv_theta) * M_BADTAU / 360.0f;
+			targetfacingangle = BADDTOR3(360.0f - g_Vars.players[playernum]->vv_theta);
 		} else if (target->type == PROPTYPE_CHR) {
-			targetfacingangle = chr_get_inverse_theta(target->chr);
+			targetfacingangle = chr_get_theta(target->chr);
 		}
 
 		result = angletotarget - targetfacingangle;
 
-		if (angletotarget < targetfacingangle) {
-			result += M_BADTAU;
+		if (result < 0) {
+			result += BADDTOR(360);
 		}
 	}
 
@@ -13856,7 +13861,7 @@ f32 chr_get_vertical_angle_to_target(struct chrdata *chr)
 		result = atan2f(ydiff, sqrtf(xdiff * xdiff + zdiff * zdiff));
 
 		if (result < 0) {
-			result += M_BADTAU;
+			result += BADDTOR(360);
 		}
 	}
 
@@ -13867,8 +13872,8 @@ bool chr_is_in_targets_fov_x(struct chrdata *chr, u8 fov360)
 {
 	f32 angle = chr_get_angle_from_targets_fov(chr);
 
-	if ((angle < fov360 * 0.024539785459638f && angle < M_PI)
-			|| (angle > M_BADTAU - fov360 * 0.024539785459638f && angle > M_PI)) {
+	if ((angle < fov360 * 0.024539785459638f && angle < DTOR(180))
+			|| (angle > BADDTOR(360) - fov360 * 0.024539785459638f && angle > DTOR(180))) {
 		return true;
 	}
 
@@ -13879,8 +13884,8 @@ bool chr_is_vertical_angle_to_target_within(struct chrdata *chr, u8 fov360)
 {
 	f32 val = chr_get_vertical_angle_to_target(chr);
 
-	if ((val < fov360 * 0.024539785459638f && val < M_PI)
-			|| (val > M_BADTAU - fov360 * 0.024539785459638f && val > M_PI)) {
+	if ((val < fov360 * 0.024539785459638f && val < DTOR(180))
+			|| (val > BADDTOR(360) - fov360 * 0.024539785459638f && val > DTOR(180))) {
 		return true;
 	}
 
@@ -13898,12 +13903,12 @@ f32 func0f048fcc(struct chrdata *chr, u8 reverse)
 	f32 zdiff = chrprop->pos.z - targetprop->pos.z;
 
 	f32 angle1 = atan2f(-xdiff, -zdiff);
-	f32 angle2 = chr_get_inverse_theta(chr) + M_PI * (s32)reverse;
+	f32 angle2 = chr_get_theta(chr) + DTOR(180) * (s32)reverse;
 
 	result = angle1 - angle2;
 
-	if (angle1 < angle2) {
-		result += M_BADTAU;
+	if (result < 0) {
+		result += BADDTOR(360);
 	}
 
 	return result;
@@ -13913,8 +13918,8 @@ bool chr_is_target_in_fov(struct chrdata *chr, u8 arg1, u8 reverse)
 {
 	f32 angle = func0f048fcc(chr, reverse);
 
-	if ((angle < arg1 * 0.024539785459638f && angle < M_PI)
-			|| (angle > M_BADTAU - arg1 * 0.024539785459638f && angle > M_PI)) {
+	if ((angle < arg1 * 0.024539785459638f && angle < DTOR(180))
+			|| (angle > BADDTOR(360) - arg1 * 0.024539785459638f && angle > DTOR(180))) {
 		return true;
 	}
 
@@ -13925,8 +13930,8 @@ bool chr_is_looking_at_pos(struct chrdata *chr, struct coord *pos, u8 arg2)
 {
 	f32 angle = chr_get_angle_to_pos(chr, pos);
 
-	if ((angle < arg2 * 0.024539785459638f && angle < M_PI) ||
-			(M_BADTAU - arg2 * 0.024539785459638f < angle && M_PI < angle)) {
+	if ((angle < arg2 * 0.024539785459638f && angle < DTOR(180))
+			|| (angle > BADDTOR(360) - arg2 * 0.024539785459638f && angle > DTOR(180))) {
 		return true;
 	}
 
@@ -14568,10 +14573,10 @@ bool waypoint_is_within_90_degrees_of_pos_angle(struct waypoint *waypoint, struc
 	diffangle = angle - atan2f(pad.pos.x - pos->x, pad.pos.z - pos->z);
 
 	if (diffangle < 0) {
-		diffangle += M_BADTAU;
+		diffangle += BADDTOR(360);
 	}
 
-	if (diffangle < RAD(90, 1.5705462694168f) || diffangle > RAD(270, 4.7116389274597f)) {
+	if (diffangle < BADDTOR(90) || diffangle > BADDTOR(270)) {
 		return true;
 	}
 
@@ -14600,20 +14605,20 @@ s32 chr_find_waypoint_within_pos_quadrant(struct coord *pos, RoomNum *rooms, f32
 	if (waypoint) {
 		switch (quadrant) {
 		case QUADRANT_BACK:
-			angle += M_BADPI;
+			angle += BADDTOR(180);
 			break;
 		case QUADRANT_SIDE1:
-			angle += RAD(90, 1.5705462694168f);
+			angle += BADDTOR(90);
 			break;
 		case QUADRANT_SIDE2:
-			angle += RAD(270, 4.7116389274597f);
+			angle += BADDTOR(270);
 			break;
 		case QUADRANT_FRONT:
 			break;
 		}
 
-		if (angle >= M_BADTAU) {
-			angle -= M_BADTAU;
+		if (angle >= BADDTOR(360)) {
+			angle -= BADDTOR(360);
 		}
 
 		if (waypoint_is_within_90_degrees_of_pos_angle(waypoint, pos, angle)) {
@@ -14628,7 +14633,6 @@ s32 chr_find_waypoint_within_pos_quadrant(struct coord *pos, RoomNum *rooms, f32
 					return g_StageSetup.waypoints[neighbournum].padnum;
 				}
 			}
-
 		}
 	}
 
@@ -14669,7 +14673,7 @@ bool func0f04a4ec(struct chrdata *chr, u8 quadrant)
 			}
 		}
 	} else {
-		s32 padnum = chr_find_waypoint_within_pos_quadrant(&chr->prop->pos, chr->prop->rooms, chr_get_inverse_theta(chr), quadrant);
+		s32 padnum = chr_find_waypoint_within_pos_quadrant(&chr->prop->pos, chr->prop->rooms, chr_get_theta(chr), quadrant);
 
 		if (padnum >= 0) {
 			chr->padpreset1 = padnum;
@@ -14694,9 +14698,9 @@ bool chr_set_pad_preset_to_waypoint_within_target_quadrant(struct chrdata *chr, 
 	prop = chr_get_target_prop(chr);
 
 	if (prop->type == PROPTYPE_PLAYER) {
-		angle = (360.0f - g_Vars.players[playermgr_get_player_num_by_prop(prop)]->vv_theta) * M_BADTAU / 360.0f;
+		angle = BADDTOR3(360.0f - g_Vars.players[playermgr_get_player_num_by_prop(prop)]->vv_theta);
 	} else if (prop->type == PROPTYPE_CHR) {
-		angle = chr_get_inverse_theta(prop->chr);
+		angle = chr_get_theta(prop->chr);
 	}
 
 	padnum = chr_find_waypoint_within_pos_quadrant(&prop->pos, prop->rooms, angle, quadrant);
@@ -14970,10 +14974,10 @@ bool chr_adjust_pos_for_spawn(f32 chrradius, struct coord *pos, RoomNum *rooms, 
 	if (onlysurrounding) {
 		// Skip testing the given pos, and just do the surrounding checks below.
 		// Add 45 degrees to the angle here, but this isn't necessary.
-		curangle += RAD(45, 0.7852731347084f);
+		curangle += BADDTOR(45);
 
-		if (curangle >= M_BADTAU) {
-			curangle -= M_BADTAU;
+		if (curangle >= BADDTOR(360)) {
+			curangle -= BADDTOR(360);
 		}
 	} else {
 		// Check that the chr isn't being spawned out of bounds, and do a volume
@@ -15022,10 +15026,10 @@ bool chr_adjust_pos_for_spawn(f32 chrradius, struct coord *pos, RoomNum *rooms, 
 			}
 		}
 
-		curangle += RAD(45, 0.7852731347084f);
+		curangle += BADDTOR(45);
 
-		if (curangle >= M_BADTAU) {
-			curangle -= M_BADTAU;
+		if (curangle >= BADDTOR(360)) {
+			curangle -= BADDTOR(360);
 		}
 	}
 
@@ -15071,10 +15075,10 @@ bool chr_adjust_pos_for_spawn(f32 chrradius, struct coord *pos, RoomNum *rooms, 
 			return true;
 		}
 
-		curangle += RAD(45, 0.7852731347084f);
+		curangle += BADDTOR(45);
 
-		if (curangle >= M_BADTAU) {
-			curangle -= M_BADTAU;
+		if (curangle >= BADDTOR(360)) {
+			curangle -= BADDTOR(360);
 		}
 	}
 
@@ -15221,7 +15225,7 @@ struct prop *chr_spawn_at_chr(struct chrdata *basechr, s32 body, s32 head, u32 c
 	f32 fvalue;
 
 	if (1) {
-		fvalue = chr_get_inverse_theta(chr);
+		fvalue = chr_get_theta(chr);
 	}
 
 	return chr_spawn_at_coord(body, head, &chr->prop->pos, chr->prop->rooms, fvalue, ailist, spawnflags);
@@ -15305,13 +15309,13 @@ bool chr_move_to_pos(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32
 		}
 
 		chr->chrflags |= CHRCFLAG_FORCETOGROUND;
-		chr_set_look_angle(chr, angle);
+		chr_set_theta(chr, angle);
 
 		if (chr->prop->type == PROPTYPE_PLAYER) {
 			player = g_Vars.players[playermgr_get_player_num_by_prop(chr->prop)];
 			player->vv_manground = ground;
 			player->vv_ground = ground;
-			player->vv_theta = ((M_BADTAU - angle) * 360.0f) / M_BADTAU;
+			player->vv_theta = BADRTOD4(BADDTOR(360) - angle);
 			player->vv_verta = 0;
 			player->unk1c64 = 1;
 		}
@@ -15722,27 +15726,30 @@ bool chr_is_nearly_in_targets_sight(struct chrdata *chr, u32 distance)
 
 f32 chr_get_angle_from_targets_pov(struct chrdata *chr)
 {
-	f32 targetfacingangle = 0;
+	f32 theta = 0;
 	u32 stack;
 	struct prop *target = chr_get_target_prop(chr);
 	f32 angletotarget;
-	f32 result;
+	f32 degrees;
 
 	if (target->type == PROPTYPE_CHR) {
-		targetfacingangle = chr_get_inverse_theta(target->chr);
+		// @bug: chr_get_theta returns the angle in radians but here we assume
+		// it's already in degrees. Because of this, two AI chrs who are
+		// fighting each other will get a bad value from this function.
+		theta = chr_get_theta(target->chr);
 	} else if (target->type == PROPTYPE_PLAYER) {
 		s32 playernum = playermgr_get_player_num_by_prop(target);
-		targetfacingangle = g_Vars.players[playernum]->vv_theta;
+		theta = g_Vars.players[playernum]->vv_theta;
 	}
 
 	angletotarget = atan2f(target->pos.z - chr->prop->pos.z, target->pos.x - chr->prop->pos.x);
-	result = (angletotarget * 360 / M_BADTAU - targetfacingangle) + 90;
+	degrees = BADRTOD4(angletotarget) - theta + 90;
 
-	if (result > 180) {
-		result -= 360;
+	if (degrees > 180.0f) {
+		degrees -= 360.0f;
 	}
 
-	return result;
+	return degrees;
 }
 
 bool chr_flank(struct chrdata *chr, u32 angle360, struct coord *pos, u8 use_closest_side, u8 goposflags)
@@ -15776,7 +15783,7 @@ bool chr_flank(struct chrdata *chr, u32 angle360, struct coord *pos, u8 use_clos
 		}
 
 		angle360f -= targets_pov_angle;
-		angle360f *= M_BADPI / 180.0f;
+		angle360f *= BADDTOR(180) / 180.0f;
 
 		cosine = cosf(angle360f);
 		sine = sinf(angle360f);
@@ -16123,7 +16130,7 @@ void chr_avoid(struct chrdata *chr)
 
 	s32 animindex;
 	struct prop *target = chr_get_target_prop(chr);
-	f32 relangle = chr_get_angle_to_pos(chr, &target->pos) / M_BADTAU * 360;
+	f32 degrees = BADRTOD3(chr_get_angle_to_pos(chr, &target->pos));
 	u32 chranimflags = 0;
 	f32 ymax;
 	f32 ymin;
@@ -16143,27 +16150,27 @@ void chr_avoid(struct chrdata *chr)
 	if (chr_is_ready_for_orders(chr)) {
 		chr_set_perim_enabled(chr, false);
 
-		if (relangle > 45 && relangle <= 135) {
+		if (degrees > 45 && degrees <= 135) {
 			animindex = 3;
 			chranimflags = CHRANIMFLAG_FLIP;
-			chrangle += M_PI;
-		} else if (relangle > 135 && relangle < 225) {
+			chrangle += DTOR(180);
+		} else if (degrees > 135 && degrees < 225) {
 			animindex = 2;
 
 			if ((random() % 255) >= 2) {
 				cdresult = CDRESULT_COLLISION;
 				chr->chrflags &= ~CHRCFLAG_AVOIDING;
 			}
-		} else if (relangle > 225 && relangle < 315) {
+		} else if (degrees > 225 && degrees < 315) {
 			animindex = 3;
-			chrangle += M_PI;
+			chrangle += DTOR(180);
 		} else {
 			animindex = (random() % 100 < 50) ? 0 : 1;
 
 			if (animindex == 0) {
-				chrangle -= RAD(90, 1.5707963705063f);
+				chrangle -= DTOR(90);
 			} else {
-				chrangle += RAD(90, 1.5707963705063f);
+				chrangle += DTOR(90);
 			}
 		}
 

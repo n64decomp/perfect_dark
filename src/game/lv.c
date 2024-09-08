@@ -690,7 +690,7 @@ Gfx *lv_render_man_pos_if_enabled(Gfx *gdl)
 			{'n', '\0', '\0'},
 		};
 
-		s32 degrees = atan2f(-xfrac, zfrac) * 180.0f / M_PI;
+		s32 degrees = RTOD(atan2f(-xfrac, zfrac));
 
 		sprintf(bufroom, "R=%d(%d)", g_Vars.currentplayer->prop->rooms[0], g_Vars.currentplayer->cam_room);
 		sprintf(bufx, "%s%sx %4.0f", "", "", g_Vars.currentplayer->prop->pos.x);
@@ -701,6 +701,7 @@ Gfx *lv_render_man_pos_if_enabled(Gfx *gdl)
 		x = vi_get_view_left() + 17;
 		y = vi_get_view_top() + 17;
 		y2 = y + 10;
+
 		gdl = text0f153628(gdl);
 		gdl = text0f153a34(gdl, 0, y - 1, vi_get_width(), y2 + 1, 0x00000064);
 
@@ -1747,8 +1748,6 @@ u32 var800840b0 = 0;
 #endif
 
 u32 var800840b4 = 0;
-u32 var800840b8 = 0;
-u32 var800840bc = 0;
 
 void lv_update_solo_handicaps(void)
 {

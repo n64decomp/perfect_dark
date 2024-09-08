@@ -192,14 +192,14 @@ void credits_map_4_bg_vertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 
 	vertices[0].s = (sinf(arg4) + cosf(arg4)) * arg5 + a;
 	vertices[0].t = (cosf(arg4) - sinf(arg4)) * arg6 + b;
 
-	vertices[1].s = (sinf(arg4 + RAD(90, 1.5707963705063f)) + cosf(arg4 + RAD(90, 1.5707963705063f))) * arg5 + a;
-	vertices[1].t = (cosf(arg4 + RAD(90, 1.5707963705063f)) - sinf(arg4 + RAD(90, 1.5707963705063f))) * arg6 + b;
+	vertices[1].s = (sinf(arg4 + DTOR(90)) + cosf(arg4 + DTOR(90))) * arg5 + a;
+	vertices[1].t = (cosf(arg4 + DTOR(90)) - sinf(arg4 + DTOR(90))) * arg6 + b;
 
-	vertices[2].s = (sinf(arg4 + RAD(180, 3.1415927410126f)) + cosf(arg4 + RAD(180, 3.1415927410126f))) * arg5 + a;
-	vertices[2].t = (cosf(arg4 + RAD(180, 3.1415927410126f)) - sinf(arg4 + RAD(180, 3.1415927410126f))) * arg6 + b;
+	vertices[2].s = (sinf(arg4 + DTOR(180)) + cosf(arg4 + DTOR(180))) * arg5 + a;
+	vertices[2].t = (cosf(arg4 + DTOR(180)) - sinf(arg4 + DTOR(180))) * arg6 + b;
 
-	vertices[3].s = (sinf(arg4 + RAD(270, 4.7123889923096f)) + cosf(arg4 + RAD(270, 4.7123889923096f))) * arg5 + a;
-	vertices[3].t = (cosf(arg4 + RAD(270, 4.7123889923096f)) - sinf(arg4 + RAD(270, 4.7123889923096f))) * arg6 + b;
+	vertices[3].s = (sinf(arg4 + DTOR(270)) + cosf(arg4 + DTOR(270))) * arg5 + a;
+	vertices[3].t = (cosf(arg4 + DTOR(270)) - sinf(arg4 + DTOR(270))) * arg6 + b;
 }
 
 void credits_map_9_bg_vertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6)
@@ -210,14 +210,14 @@ void credits_map_9_bg_vertices(Vtx *vertices, f32 arg1, f32 arg2, f32 arg3, f32 
 	vertices[0].s = (sinf(arg4) + cosf(arg4)) * arg5 + a;
 	vertices[0].t = (cosf(arg4) - sinf(arg4)) * arg6 + b;
 
-	vertices[2].s = (sinf(arg4 + RAD(90, 1.5707963705063f)) + cosf(arg4 + RAD(90, 1.5707963705063f))) * arg5 + a;
-	vertices[2].t = (cosf(arg4 + RAD(90, 1.5707963705063f)) - sinf(arg4 + RAD(90, 1.5707963705063f))) * arg6 + b;
+	vertices[2].s = (sinf(arg4 + DTOR(90)) + cosf(arg4 + DTOR(90))) * arg5 + a;
+	vertices[2].t = (cosf(arg4 + DTOR(90)) - sinf(arg4 + DTOR(90))) * arg6 + b;
 
-	vertices[8].s = (sinf(arg4 + RAD(180, 3.1415927410126f)) + cosf(arg4 + RAD(180, 3.1415927410126f))) * arg5 + a;
-	vertices[8].t = (cosf(arg4 + RAD(180, 3.1415927410126f)) - sinf(arg4 + RAD(180, 3.1415927410126f))) * arg6 + b;
+	vertices[8].s = (sinf(arg4 + DTOR(180)) + cosf(arg4 + DTOR(180))) * arg5 + a;
+	vertices[8].t = (cosf(arg4 + DTOR(180)) - sinf(arg4 + DTOR(180))) * arg6 + b;
 
-	vertices[6].s = (sinf(arg4 + RAD(270, 4.7123889923096f)) + cosf(arg4 + RAD(270, 4.7123889923096f))) * arg5 + a;
-	vertices[6].t = (cosf(arg4 + RAD(270, 4.7123889923096f)) - sinf(arg4 + RAD(270, 4.7123889923096f))) * arg6 + b;
+	vertices[6].s = (sinf(arg4 + DTOR(270)) + cosf(arg4 + DTOR(270))) * arg5 + a;
+	vertices[6].t = (cosf(arg4 + DTOR(270)) - sinf(arg4 + DTOR(270))) * arg6 + b;
 
 	vertices[1].s = (vertices[0].s + vertices[2].s) / 2;
 	vertices[1].t = (vertices[0].t + vertices[2].t) / 2;
@@ -644,7 +644,7 @@ void credits_reset_particles(void)
 
 		g_CreditsData->particles[i].unk12 = random() % 4;
 		g_CreditsData->particles[i].colourindex = random() % 4;
-		g_CreditsData->particles[i].rotation = RANDOMFRAC() * M_BADTAU;
+		g_CreditsData->particles[i].rotation = RANDOMFRAC() * BADDTOR(360);
 
 		if (g_CreditsData->particleminsize < g_CreditsData->particlemaxsize) {
 			g_CreditsData->particles[i].size = g_CreditsData->particleminsize
@@ -746,7 +746,7 @@ void credits_tick_particles(void)
 			g_CreditsData->particles[i].y = RANDOMFRAC() * 2.0f * 3000.0f - 3000.0f;
 			g_CreditsData->particles[i].unk12 = random() % 4;
 			g_CreditsData->particles[i].colourindex = random() % 4;
-			g_CreditsData->particles[i].rotation = RANDOMFRAC() * M_BADTAU;
+			g_CreditsData->particles[i].rotation = RANDOMFRAC() * BADDTOR(360);
 
 			if (g_CreditsData->particleminsize < g_CreditsData->particlemaxsize) {
 				g_CreditsData->particles[i].size = g_CreditsData->particleminsize
@@ -784,7 +784,7 @@ void credits_get_particle_pos(struct coord *pos, struct particle *particle, s32 
 
 	switch (particle->movetype) {
 	case MOVETYPE_WAVE:
-		sp44 = g_CreditsParticleRotationFrac * M_BADTAU;
+		sp44 = g_CreditsParticleRotationFrac * BADDTOR(360);
 		sp4c = particle->x;
 		sp48 = -400.0f + (sinf(particle->x / 300.0f) + cosf(particle->z / 300.0f)) * 100.0f;
 
@@ -805,7 +805,7 @@ void credits_get_particle_pos(struct coord *pos, struct particle *particle, s32 
 		sp40 = particle->x / 5.0f;
 		sp3c = particle->y / 5.0f;
 		sp38 = particle->z / -8000.0f;
-		sp38 = sp38 * sp38 * M_BADTAU;
+		sp38 = sp38 * sp38 * BADDTOR(360);
 
 		if (sp40 < 0.0f) {
 			sp40 -= 420.0f;
@@ -832,7 +832,7 @@ void credits_get_particle_pos(struct coord *pos, struct particle *particle, s32 
 			sp30 = -sp30;
 		}
 
-		sp2c = sp2c * sp2c * M_BADTAU + g_CreditsParticleRotationFrac * M_BADTAU;
+		sp2c = sp2c * sp2c * BADDTOR(360) + g_CreditsParticleRotationFrac * BADDTOR(360);
 
 		pos->x = sinf(sp2c) * sp34 + cosf(sp2c) * sp30;
 		pos->y = cosf(sp2c) * sp34 - sinf(sp2c) * sp30;
@@ -989,13 +989,13 @@ Gfx *credits_draw_background_text(Gfx *gdl, s32 x, s32 y, char *text, struct fon
 	u32 colour3;
 	s32 i;
 
-	sp98 = ((y / 2) % 100) * M_BADTAU / 100.0f;
+	sp98 = ((y / 2) % 100) * BADDTOR(360) / 100.0f;
 
 	colour1 = colour_blend(0x00ffff00, 0xffffff00, 255.0f * spread);
 	colour2 = colour_blend(0x0000af00, 0xffffff00, 255.0f * spread);
 
 	for (i = 4; i >= 0; i--) {
-		f32 f24 = i * 0.2f + g_CreditsParticleRotationFrac * 10.0f * M_BADTAU + sp98;
+		f32 f24 = i * 0.2f + g_CreditsParticleRotationFrac * 10.0f * BADDTOR(360) + sp98;
 		f32 f26 = i * 0.1f * (spread + 0.5f) + 1.0f;
 
 		if ((random() % 256) == 1) {
@@ -1808,7 +1808,7 @@ Gfx *credits_draw(Gfx *gdl)
 			g_CreditsData->menumodel.newroty = 0;
 			g_CreditsData->menumodel.curroty = 0;
 
-			g_CreditsData->menumodel.currotx = g_CreditsData->menumodel.newrotx = RAD(-15, -0.26175770163536);
+			g_CreditsData->menumodel.currotx = g_CreditsData->menumodel.newrotx = BADDTOR(-15);
 			g_CreditsData->menumodel.currotz = g_CreditsData->menumodel.newrotz = 0;
 
 			g_CreditsData->menumodel.newposx = 833.0f - (scrolltimer240 / TICKS(14400.0f)) * 2413.0f;

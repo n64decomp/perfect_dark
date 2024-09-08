@@ -2040,8 +2040,8 @@
 /**
  * Sets the speed of a component of the given vehicle, such as a rotor or wheel.
  *
- * Speed is the target speed. Time is the amount of time to reach that speed.
- * The units for this aren't known.
+ * Speed is the target speed in revolutions per minute.
+ * Time is the amount of time to reach that speed.
  */
 #define set_rotor_speed(speed, time) \
 	mkshort(0x00d7), \

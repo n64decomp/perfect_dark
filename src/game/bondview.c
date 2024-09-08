@@ -336,7 +336,7 @@ Gfx *bview_draw_slayer_rocket_interlace(Gfx *gdl, u32 colour, u32 alpha)
 	s32 viewwidth = vi_get_view_width();
 	s32 y;
 	s32 viewleft = vi_get_view_left();
-	f32 angle = RAD(30, 0.52359879016876f);
+	f32 angle = DTOR(30);
 	s32 offset = (s32)(g_20SecIntervalFrac * 600.0f) % 12;
 	f32 increment;
 
@@ -350,7 +350,7 @@ Gfx *bview_draw_slayer_rocket_interlace(Gfx *gdl, u32 colour, u32 alpha)
 
 	gDPPipeSync(gdl++);
 
-	increment = (RAD(150, 2.6179938316345f) - angle) / viewheight;
+	increment = (DTOR2(150) - angle) / viewheight;
 
 	gdl = bview_prepare_static_rgba16(gdl, colour, alpha);
 
@@ -2324,7 +2324,7 @@ Gfx *bview_draw_horizon_scanner(Gfx *gdl)
 		{'n', '\0', '\0'},
 	};
 
-	s32 turnangle = atan2f(-lookx, lookz) * 180.0f / M_PI;
+	s32 turnangle = RTOD(atan2f(-lookx, lookz));
 	f32 fovy;
 	char arrows[12];
 	s32 tmplensheight = 130;

@@ -2839,7 +2839,7 @@ Gfx *sky_render_teleport_flare(Gfx *gdl, f32 x, f32 y, f32 z, f32 size, f32 inte
  */
 Gfx *sky_render_teleport_flares(Gfx *gdl)
 {
-	f32 sp154 = g_20SecIntervalFrac * M_BADTAU;
+	f32 sp154 = g_20SecIntervalFrac * BADDTOR(360);
 	s32 i;
 	f32 sizefrac = 0.0f;
 	f32 f20_2;
@@ -2887,7 +2887,7 @@ Gfx *sky_render_teleport_flares(Gfx *gdl)
 	g_TeleportToUp.y = pad.up.y;
 	g_TeleportToUp.z = pad.up.z;
 
-	f22 = -cosf(f22 * M_PI) * 0.5f + .5f;
+	f22 = -cosf(f22 * DTOR(180)) * 0.5f + .5f;
 	f24 = 100 * f22;
 
 	for (i = 0; i < 5; i++) {

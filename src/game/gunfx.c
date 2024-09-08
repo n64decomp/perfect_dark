@@ -153,7 +153,7 @@ void beam_create_for_hand(s32 handnum)
 
 				radians = acosf(disttolast.f[0] * disttocur.f[0] + disttolast.f[1] * disttocur.f[1] + disttolast.f[2] * disttocur.f[2]);
 
-				if (!(radians > RAD(5, 0.08725257f)) || weaponnum == -2) {
+				if (!(radians > BADDTOR(5)) || weaponnum == -2) {
 					beam_create(&g_Fireslots[chr->fireslots[handnum]].beam, weaponnum, &player->chrmuzzlelastpos[handnum], &hand->hitpos);
 
 					if (g_Fireslots[chr->fireslots[handnum]].beam.weaponnum == WEAPON_MAULER) {
@@ -719,15 +719,15 @@ void casing_create_for_hand(s32 handnum, f32 ground, Mtxf *mtx)
 
 		if (weaponnum == WEAPON_PP9I || weaponnum == WEAPON_CC13
 				|| weaponnum == WEAPON_FALCON2 || weaponnum == WEAPON_MAGSEC4) {
-			casing->speed.x = -(RANDOMFRAC() * 0.5333333f * 0.0625f + 0.5333333f);
-			casing->speed.y = RANDOMFRAC() * 2.5f * 0.0625f + 2.5f;
+			casing->speed.x = -(RANDOMFRAC() * 0.5333333f * (1.0f / 16.0f) + 0.5333333f);
+			casing->speed.y = RANDOMFRAC() * 2.5f * (1.0f / 16.0f) + 2.5f;
 			casing->speed.z = 0.0f;
 
 			mtx4_rotate_vec_in_place(mtx, &casing->speed);
 
-			spa4.x = 2.0f * RANDOMFRAC() * M_BADTAU * 0.0625f - 0.39263657f;
-			spa4.y = 2.0f * RANDOMFRAC() * M_BADTAU * 0.0625f - 0.39263657f;
-			spa4.z = 2.0f * RANDOMFRAC() * M_BADTAU * 0.0625f - 0.39263657f;
+			spa4.x = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 16.0f) - BADDTOR(22.5f);
+			spa4.y = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 16.0f) - BADDTOR(22.5f);
+			spa4.z = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 16.0f) - BADDTOR(22.5f);
 
 			mtx4_load_rotation(&spa4, &sp64);
 			mtx4_to_mtx3(&sp64, spc8);
@@ -756,11 +756,11 @@ void casing_create_for_hand(s32 handnum, f32 ground, Mtxf *mtx)
 			}
 		} else {
 			if (weaponnum == WEAPON_REAPER) {
-				casing->speed.x = -(RANDOMFRAC() * 0.41666666f * 0.125f + 0.41666666f);
-				casing->speed.y = RANDOMFRAC() * 3.3333333f * 0.125f + 3.3333333f;
+				casing->speed.x = -(RANDOMFRAC() * 0.41666666f * (1.0f / 8.0f) + 0.41666666f);
+				casing->speed.y = RANDOMFRAC() * 3.3333333f * (1.0f / 8.0f) + 3.3333333f;
 			} else {
-				casing->speed.x = -((RANDOMFRAC() * 1.4166666f * 0.125f) + 1.4166666f);
-				casing->speed.y = RANDOMFRAC() * 1.6666666f * 0.125f + 1.6666666f;
+				casing->speed.x = -((RANDOMFRAC() * 1.4166666f * (1.0f / 8.0f)) + 1.4166666f);
+				casing->speed.y = RANDOMFRAC() * 1.6666666f * (1.0f / 8.0f) + 1.6666666f;
 			}
 
 			casing->speed.z = 0.0f;
@@ -774,17 +774,17 @@ void casing_create_for_hand(s32 handnum, f32 ground, Mtxf *mtx)
 			mtx4_rotate_vec_in_place(mtx, &casing->speed);
 
 			if (weaponnum == WEAPON_REAPER) {
-				spa4.x = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
-				spa4.y = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
-				spa4.z = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
+				spa4.x = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 64.0f) - 0.09815914f;
+				spa4.y = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 64.0f) - 0.09815914f;
+				spa4.z = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 64.0f) - 0.09815914f;
 
 				mtx4_load_rotation(&spa4, &sp64);
 				mtx4_rotate_vec_in_place(&sp64, &casing->speed);
 			}
 
-			spa4.x = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
-			spa4.y = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
-			spa4.z = 2.0f * RANDOMFRAC() * M_BADTAU * 0.015625f - 0.09815914f;
+			spa4.x = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 64.0f) - 0.09815914f;
+			spa4.y = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 64.0f) - 0.09815914f;
+			spa4.z = 2.0f * RANDOMFRAC() * BADDTOR(360) * (1.0f / 64.0f) - 0.09815914f;
 
 			mtx4_load_rotation(&spa4, &sp64);
 			mtx4_to_mtx3(&sp64, spc8);

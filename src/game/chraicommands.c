@@ -1653,7 +1653,7 @@ bool ai_if_target_in_fov_left(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chr_get_angle_to_target(g_Vars.chrdata) < cmd[2] * M_BADTAU * 0.00390625f) {
+	if (chr_get_angle_to_target(g_Vars.chrdata) < cmd[2] * BADDTOR(360) * (1.0f / 256.0f)) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -1669,7 +1669,7 @@ bool ai_if_target_out_of_fov_left(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chr_get_angle_to_target(g_Vars.chrdata) > cmd[2] * M_BADTAU * 0.00390625f) {
+	if (chr_get_angle_to_target(g_Vars.chrdata) > cmd[2] * BADDTOR(360) * (1.0f / 256.0f)) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -4741,7 +4741,7 @@ bool ai_set_rotor_speed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 speedtime = cmd[5] | (cmd[4] << 8);
-	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * M_BADTAU / 3600;
+	f32 speedaim = (cmd[3] | (cmd[2] << 8)) * BADDTOR(360) / 3600;
 
 	if (g_Vars.heli) {
 		g_Vars.heli->rotoryspeedaim = speedaim;
@@ -5194,7 +5194,7 @@ bool ai_chr_move_to_pad(void)
 			chr2 = chr_find_by_id(g_Vars.chrdata, cmd[4]);
 
 			if (chr2 && chr2->prop) {
-				theta = chr_get_inverse_theta(chr2);
+				theta = chr_get_theta(chr2);
 				pass = chr_move_to_pos(chr, &chr2->prop->pos, chr2->prop->rooms, theta, false);
 			}
 		} else {
@@ -5526,7 +5526,7 @@ bool ai_move_camera_to_pos(void)
 	s16 height2 = cmd[11] | (cmd[10] << 8);
 	s32 posangle = cmd[13] | (cmd[12] << 8);
 
-	player_prepare_move_camera_to_pos(posangle * M_BADTAU / 65536, rotangle * M_BADTAU / 65536, range, height1, height2, padnum);
+	player_prepare_move_camera_to_pos(posangle * BADDTOR(360) / 65536, rotangle * BADDTOR(360) / 65536, range, height1, height2, padnum);
 
 	g_Vars.aioffset += 14;
 

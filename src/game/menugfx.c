@@ -325,7 +325,7 @@ Gfx *menugfx_render_bg_green_haze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	for (i = 0; i < 2; i++) {
 		s16 tmp = i * 256;
 		f0 = g_20SecIntervalFrac;
-		f26 = M_BADTAU * g_20SecIntervalFrac;
+		f26 = BADDTOR(360) * g_20SecIntervalFrac;
 
 		if (i == 1) {
 			f26 = -f26;
@@ -1399,7 +1399,7 @@ Gfx *menugfx_render_bg_failure(Gfx *gdl)
 	u32 alpha1;
 	u32 alpha2;
 
-	spb4 = M_TAU * g_20SecIntervalFrac;
+	spb4 = DTOR(360) * g_20SecIntervalFrac;
 
 	g_MenuProjectFromX = g_MenuProjectFromY = 0;
 
@@ -1412,15 +1412,15 @@ Gfx *menugfx_render_bg_failure(Gfx *gdl)
 	gdl = menugfx_draw_plane(gdl, -10000, 300, 10000, 300, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
 
 	for (i = 0; i < 3; i++) {
-		angle = (2.0f * i * M_PI) / 3.0f + spb4;
+		angle = (2.0f * i * DTOR(180)) / 3.0f + spb4;
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += RAD(30, 0.52359879016876f);
+		angle += DTOR(30);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += RAD(30, 0.52359879016876f);
+		angle += DTOR(30);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1434,15 +1434,15 @@ Gfx *menugfx_render_bg_failure(Gfx *gdl)
 		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, MENUPLANE_02);
 		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, MENUPLANE_03);
 
-		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f;
+		angle = -2.0f * spb4 + (2.0f * i * DTOR(180)) / 3.0f;
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += RAD(10, 0.17453293502331f);
+		angle += DTOR(10);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += RAD(5.71428567f, 0.099733099341393f);
+		angle += DTOR(5.7142856f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1459,15 +1459,15 @@ Gfx *menugfx_render_bg_failure(Gfx *gdl)
 		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
 		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
 
-		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f + M_PI;
+		angle = -2.0f * spb4 + (2.0f * i * DTOR(180)) / 3.0f + DTOR(180);
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += RAD(10, 0.17453293502331f);
+		angle += DTOR(10);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += RAD(fake 5.71428567f, 0.099733099341393f);
+		angle += DTOR(5.7142856f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1509,7 +1509,7 @@ Gfx *menugfx_render_bg_cone(Gfx *gdl)
 	u32 colour;
 
 	// Cone 1
-	baseangle = M_TAU * g_20SecIntervalFrac * 2.0f;
+	baseangle = DTOR(360) * g_20SecIntervalFrac * 2.0f;
 	colourupper = (u32) (menu_get_sin_osc_frac(1.0f) * 255.0f) << 16;
 
 	gdl = func0f0d4a3c(gdl, 0);
@@ -1520,12 +1520,12 @@ Gfx *menugfx_render_bg_cone(Gfx *gdl)
 	var8009de94 = 100000;
 
 	for (i = 0; i < 8; i++) {
-		angle = baseangle + i * 2.0f * M_PI * 0.125f;
+		angle = baseangle + i * 2.0f * DTOR(180) * 0.125f;
 
 		x1 = 600.0f * sinf(angle);
 		y1 = 600.0f * cosf(angle);
-		x2 = 600.0f * sinf(angle + RAD(45, 0.78539818525314f));
-		y2 = 600.0f * cosf(angle + RAD(45, 0.78539818525314f));
+		x2 = 600.0f * sinf(angle + DTOR(45));
+		y2 = 600.0f * cosf(angle + DTOR(45));
 
 		x1 += 160;
 		x2 += 160;
@@ -1540,19 +1540,19 @@ Gfx *menugfx_render_bg_cone(Gfx *gdl)
 	// Cone 2
 	colourupper = (u32) (255.0f - menu_get_cos_osc_frac(1.0f) * 255.0f) << 16;
 
-	baseangle = M_TAU * g_20SecIntervalFrac;
+	baseangle = DTOR(360) * g_20SecIntervalFrac;
 
 	if (1);
 
 	for (i = 0; i < 8; i++) {
 		if (gdl && gdl);
 
-		angle = -baseangle + 2.0f * i * M_PI * 0.125f;
+		angle = -baseangle + 2.0f * i * DTOR(180) * 0.125f;
 
 		x1 = 600.0f * sinf(angle);
 		y1 = 600.0f * cosf(angle);
-		x2 = 600.0f * sinf(angle + RAD(45, 0.78539818525314f));
-		y2 = 600.0f * cosf(angle + RAD(45, 0.78539818525314f));
+		x2 = 600.0f * sinf(angle + DTOR(45));
+		y2 = 600.0f * cosf(angle + DTOR(45));
 
 		x1 += 160;
 		x2 += 160;
@@ -1632,7 +1632,7 @@ Gfx *menugfx_render_bg_failure_copy(Gfx *gdl)
 	u32 alpha1;
 	u32 alpha2;
 
-	spb4 = M_TAU * g_20SecIntervalFrac;
+	spb4 = DTOR(360) * g_20SecIntervalFrac;
 
 	g_MenuProjectFromX = g_MenuProjectFromY = 0;
 
@@ -1645,15 +1645,15 @@ Gfx *menugfx_render_bg_failure_copy(Gfx *gdl)
 	gdl = menugfx_draw_plane(gdl, -10000, 300, 10000, 300, 0x00007f7f, 0x00007f7f, MENUPLANE_04);
 
 	for (i = 0; i < 3; i++) {
-		angle = (2.0f * i * M_PI) / 3.0f + spb4;
+		angle = (2.0f * i * DTOR(180)) / 3.0f + spb4;
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += RAD(30, 0.52359879016876f);
+		angle += DTOR(30);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += RAD(30, 0.52359879016876f);
+		angle += DTOR(30);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1667,15 +1667,15 @@ Gfx *menugfx_render_bg_failure_copy(Gfx *gdl)
 		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xff000040, 0xff00007f, MENUPLANE_02);
 		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xff00007f, 0xff000040, MENUPLANE_03);
 
-		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f;
+		angle = -2.0f * spb4 + (2.0f * i * DTOR(180)) / 3.0f;
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += RAD(10, 0.17453293502331f);
+		angle += DTOR(10);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += RAD(fake 5.71428567f, 0.099733099341393f);
+		angle += DTOR(5.7142856f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1692,15 +1692,15 @@ Gfx *menugfx_render_bg_failure_copy(Gfx *gdl)
 		gdl = menugfx_draw_plane(gdl, s6, s3, s2, s0, 0xffff0000 | alpha2, 0xffff0000 | alpha1, MENUPLANE_02);
 		gdl = menugfx_draw_plane(gdl, s2, s0, s1, s7, 0xffff0000 | alpha1, 0xffff0000 | alpha2, MENUPLANE_03);
 
-		angle = -2.0f * spb4 + (2.0f * i * M_PI) / 3.0f + M_PI;
+		angle = -2.0f * spb4 + (2.0f * i * DTOR(180)) / 3.0f + DTOR(180);
 		s6 = sinf(angle) * 600.0f;
 		s3 = cosf(angle) * 600.0f;
 
-		angle += RAD(10, 0.17453293502331f);
+		angle += DTOR(10);
 		s2 = sinf(angle) * 600.0f;
 		s0 = cosf(angle) * 600.0f;
 
-		angle += RAD(fake 5.71428567f, 0.099733099341393f);
+		angle += DTOR(5.7142856f);
 		s1 = sinf(angle) * 600.0f;
 		s7 = cosf(angle) * 600.0f;
 
@@ -1911,8 +1911,8 @@ Gfx *menugfx_render_bg_success(Gfx *gdl)
 		// Draw the particles
 		for (i = NUM_SUCCESS_PARTICLES - 1; i >= 0; i--) {
 			s32 s3 = 0;
-			f32 sine = sinf(f0 * M_BADTAU + M_BADTAU * (i / 15.0f));
-			f32 cosine = cosf(f0 * M_BADTAU + M_BADTAU * (i / 15.0f));
+			f32 sine = sinf(f0 * BADDTOR(360) + BADDTOR(360) * (i / 15.0f));
+			f32 cosine = cosf(f0 * BADDTOR(360) + BADDTOR(360) * (i / 15.0f));
 
 			pos.x = g_MenuParticles[i].x;
 			pos.y = g_MenuParticles[i].y;

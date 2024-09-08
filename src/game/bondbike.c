@@ -125,8 +125,8 @@ void bbike_try_dismount_angle(f32 relativeangle, f32 distance)
 
 		angle += relativeangle;
 
-		if (angle >= M_BADTAU) {
-			angle -= M_BADTAU;
+		if (angle >= BADDTOR(360)) {
+			angle -= BADDTOR(360);
 		}
 
 		pos.x = g_Vars.currentplayer->hoverbike->pos.x + sinf(angle) * distance;
@@ -181,14 +181,14 @@ void bbike_handle_activate(void)
 
 		g_Vars.currentplayer->walkinitmove = false;
 
-		bbike_try_dismount_angle(RAD(90, 1.5705462694168f),  sidedist);  // left
-		bbike_try_dismount_angle(RAD(270, 4.7116389274597f), sidedist);  // right
-		bbike_try_dismount_angle(RAD(45, 0.7852731347084f),  diagdist);  // front left
-		bbike_try_dismount_angle(RAD(315, 5.4969120025635f), diagdist);  // front right
-		bbike_try_dismount_angle(RAD(135, 2.3558194637299f), diagdist);  // back left
-		bbike_try_dismount_angle(RAD(225, 3.9263656139374f), diagdist);  // back right
-		bbike_try_dismount_angle(RAD(0, 0),                  frontdist); // front
-		bbike_try_dismount_angle(RAD(180, 3.1410925388336f), frontdist); // back
+		bbike_try_dismount_angle(BADDTOR(90),  sidedist);  // left
+		bbike_try_dismount_angle(BADDTOR(270), sidedist);  // right
+		bbike_try_dismount_angle(BADDTOR(45),  diagdist);  // front left
+		bbike_try_dismount_angle(BADDTOR(315), diagdist);  // front right
+		bbike_try_dismount_angle(BADDTOR(135), diagdist);  // back left
+		bbike_try_dismount_angle(BADDTOR2(225),  diagdist);  // back right
+		bbike_try_dismount_angle(BADDTOR(0),   frontdist); // front
+		bbike_try_dismount_angle(BADDTOR(180), frontdist); // back
 
 		if (g_Vars.currentplayer->walkinitmove) {
 			bmove_set_mode(MOVEMODE_WALK);
@@ -283,16 +283,16 @@ void bbike_apply_move_data(struct movedata *data)
 
 		sp3c = -bike->exreal;
 
-		if (bike->hov.bobpitchcur < M_PI) {
+		if (bike->hov.bobpitchcur < DTOR(180)) {
 			sp3c += -bike->hov.bobpitchcur * 0.8f;
 		} else {
-			sp3c += (M_BADTAU - bike->hov.bobpitchcur) * 0.8f;
+			sp3c += (BADDTOR(360) - bike->hov.bobpitchcur) * 0.8f;
 		}
 
 		if (sp3c < 0) {
-			sp3c += M_BADTAU;
-		} else if (sp3c >= M_BADTAU) {
-			sp3c -= M_BADTAU;
+			sp3c += BADDTOR(360);
+		} else if (sp3c >= BADDTOR(360)) {
+			sp3c -= BADDTOR(360);
 		}
 
 		sp30.f[0] = 0;
@@ -444,10 +444,10 @@ s32 bbike_calculate_new_position(struct coord *vel, f32 angledelta)
 		f32 newangle = hoverprop_get_turn_angle(&bike->base) - angledelta;
 		Mtxf sp44;
 
-		if (newangle >= M_BADTAU) {
-			newangle -= M_BADTAU;
+		if (newangle >= BADDTOR(360)) {
+			newangle -= BADDTOR(360);
 		} else if (newangle < 0.0f) {
-			newangle += M_BADTAU;
+			newangle += BADDTOR(360);
 		}
 
 		hoverprop_set_turn_angle(&bike->base, newangle);
@@ -559,7 +559,7 @@ void bbike_update_vertical(struct coord *pos)
 	prop_deregister_rooms(g_Vars.currentplayer->prop);
 	rooms_copy(newrooms, g_Vars.currentplayer->prop->rooms);
 
-	g_Vars.currentplayer->vv_theta = (M_BADTAU - angle) * 360.0f / M_BADTAU;
+	g_Vars.currentplayer->vv_theta = BADRTOD4(BADDTOR(360) - angle);
 
 	g_Vars.currentplayer->prop->pos.x = pos->x;
 	g_Vars.currentplayer->prop->pos.y = pos->y;
@@ -941,7 +941,7 @@ void bbike_tick(void)
 
 	bhead_adjust_animation(0);
 	bhead_update(0, 0);
-	mtx4_load_x_rotation((360.0f - g_Vars.currentplayer->vv_verta360) * 0.017450513318181f, &sp164);
+	mtx4_load_x_rotation(BADDTOR2(360 - g_Vars.currentplayer->vv_verta360), &sp164);
 
 	mtx00016d58(&sp124, 0.0f, 0.0f, 0.0f,
 			-g_Vars.currentplayer->headlook.x, -g_Vars.currentplayer->headlook.y, -g_Vars.currentplayer->headlook.z,
@@ -965,7 +965,7 @@ void bbike_tick(void)
 			g_Vars.currentplayer->bondentert = 1.0f;
 		}
 
-		g_Vars.currentplayer->bondentert2 = (cosf(g_Vars.currentplayer->bondentert * M_BADTAU * 0.5f) + 1.0f) * 0.5f;
+		g_Vars.currentplayer->bondentert2 = (cosf(g_Vars.currentplayer->bondentert * BADDTOR(360) * 0.5f) + 1.0f) * 0.5f;
 
 		if (g_Vars.currentplayer->bondentert >= 1.0f) {
 			g_Vars.currentplayer->bondvehiclemode = VEHICLEMODE_ENGINESTART;

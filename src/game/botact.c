@@ -369,9 +369,9 @@ void botact_throw(struct chrdata *chr)
 
 		chr_calculate_trajectory(&prop->pos, 16.666666f, &sp56, &sp152);
 	} else {
-		sp152.x = cosf(RAD(20, 0.34901028871536f)) * sinf(sp80);
-		sp152.y = sinf(RAD(20, 0.34901028871536f));
-		sp152.z = cosf(RAD(20, 0.34901028871536f)) * cosf(sp80);
+		sp152.x = cosf(BADDTOR(20)) * sinf(sp80);
+		sp152.y = sinf(BADDTOR(20));
+		sp152.z = cosf(BADDTOR(20)) * cosf(sp80);
 	}
 
 	mult = 16.666666f;
@@ -383,12 +383,12 @@ void botact_throw(struct chrdata *chr)
 	mtx4_load_identity(&sp164);
 
 	if (chr->aibot->weaponnum == WEAPON_COMBATKNIFE) {
-		mtx4_load_z_rotation(M_BADPI * 1.5f, &sp164);
-		mtx4_load_x_rotation(M_BADPI, &sp84);
+		mtx4_load_z_rotation(BADDTOR(180) * 1.5f, &sp164);
+		mtx4_load_x_rotation(BADDTOR(180), &sp84);
 		mtx4_mult_mtx4_in_place(&sp84, &sp164);
 	}
 
-	mtx4_load_x_rotation(RAD(20, 0.34901028871536f), &sp84);
+	mtx4_load_x_rotation(BADDTOR(20), &sp84);
 	mtx00015be0(&sp84, &sp164);
 	mtx4_load_y_rotation(sp80, &sp84);
 	mtx00015be0(&sp84, &sp164);

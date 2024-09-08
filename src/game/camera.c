@@ -74,14 +74,14 @@ void cam_set_scale(void)
 	f32 fVar5;
 	f32 fVar2;
 
-	player->c_scaley = sinf(player->c_perspfovy * (M_PI / 360.0f)) / (cosf(player->c_perspfovy * (M_PI / 360.0f)) * player->c_halfheight);
+	player->c_scaley = sinf(player->c_perspfovy * (DTOR(180) / 360.0f)) / (cosf(player->c_perspfovy * (DTOR(180) / 360.0f)) * player->c_halfheight);
 	player->c_scalelod = player->c_scaley;
 	player->c_scalex = (player->c_scaley * player->c_perspaspect * player->c_halfheight) / player->c_halfwidth;
 
 	player->c_recipscalex = 1.0f / player->c_scalex;
 	player->c_recipscaley = 1.0f / player->c_scaley;
 
-	fVar4 = sinf(RAD(30, 0.52359879016876f)) / (cosf(RAD(30, 0.52359879016876f)) * 120.0f);
+	fVar4 = sinf(DTOR(30)) / (cosf(DTOR(30)) * 120.0f);
 	player->c_scalelod60 = fVar4;
 	player->c_lodscalez = player->c_scalelod / fVar4;
 	tmp = player->c_lodscalez * 65536.0f;

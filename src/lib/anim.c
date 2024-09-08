@@ -534,23 +534,23 @@ void anim_get_rot_translate_scale(s32 part, bool flip, struct skeleton *skel, s1
 			introt[2] <<= 16 - framelen;
 			bitoffset += readbitlen;
 
-			rot->x = introt[0] * M_BADTAU / 65536.0f;
+			rot->x = introt[0] * BADDTOR(360) / 65536.0f;
 
 			if (flip) {
 				if (introt[1] != 0) {
-					rot->y = (0x10000 - introt[1]) * M_BADTAU / 65536.0f;
+					rot->y = (0x10000 - introt[1]) * BADDTOR(360) / 65536.0f;
 				} else {
 					rot->y = 0.0f;
 				}
 
 				if (introt[2] != 0) {
-					rot->z = (0x10000 - introt[2]) * M_BADTAU / 65536.0f;
+					rot->z = (0x10000 - introt[2]) * BADDTOR(360) / 65536.0f;
 				} else {
 					rot->z = 0.0f;
 				}
 			} else {
-				rot->y = introt[1] * M_BADTAU / 65536.0f;
-				rot->z = introt[2] * M_BADTAU / 65536.0f;
+				rot->y = introt[1] * BADDTOR(360) / 65536.0f;
+				rot->z = introt[2] * BADDTOR(360) / 65536.0f;
 			}
 		} else if (flags & ANIMFIELD_F32_ROTATE) {
 			s32 sp38;
@@ -569,11 +569,11 @@ void anim_get_rot_translate_scale(s32 part, bool flip, struct skeleton *skel, s1
 
 			if (flip) {
 				if (rot->y != 0.0f) {
-					rot->y = M_BADTAU - rot->y;
+					rot->y = BADDTOR(360) - rot->y;
 				}
 
 				if (rot->z != 0.0f) {
-					rot->z = M_BADTAU - rot->z;
+					rot->z = BADDTOR(360) - rot->z;
 				}
 			}
 		} else {
@@ -709,7 +709,7 @@ f32 anim_get_translate_angle(s32 part, bool flip, struct skeleton *skel, s16 ani
 	translate->y = inttranslate[1];
 	translate->z = inttranslate[2];
 
-	return angle * M_BADTAU / 65536.0f;
+	return angle * BADDTOR(360) / 65536.0f;
 }
 
 /**

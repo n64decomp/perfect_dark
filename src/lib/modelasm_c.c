@@ -586,29 +586,29 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 					f5 = rwdata->chrinfo.unk1c - rwdata->chrinfo.yrot;
 
 					if (f5 < 0.0f) {
-						f5 += M_TAU;
+						f5 += DTOR(360);
 					}
 
-					if (f5 >= M_PI) {
+					if (f5 >= DTOR(180)) {
 						f5 *= rwdata->chrinfo.unk18;
 						yrot += f5;
 
-						if (yrot > M_TAU) {
-							yrot -= M_TAU;
+						if (yrot > DTOR(360)) {
+							yrot -= DTOR(360);
 						}
 					} else {
-						f5 = M_TAU - f5;
+						f5 = DTOR(360) - f5;
 						f5 *= rwdata->chrinfo.unk18;
 						yrot -= f5;
 
 						if (yrot < 0.0f) {
-							yrot += M_TAU;
+							yrot += DTOR(360);
 						}
 					}
 				}
 
 				f1 = sinf(yrot);
-				f0 = sinf(yrot + RAD(90, 1.570796251297f));
+				f0 = sinf(yrot + DTOR(90));
 
 				f2 = -f1;
 
@@ -1340,11 +1340,11 @@ static void modelasm_prepare_rot_mtx180(s32 t2, s32 t3, s32 t4)
 	f32 f6 = t2 * 0.000095873801910784f;
 
 	f5 = sinf(f8);
-	f4 = sinf(f8 + RAD(90, 1.570796251297f));
+	f4 = sinf(f8 + DTOR(90));
 	f3 = sinf(f7);
-	f2 = sinf(f7 + RAD(90, 1.570796251297f));
+	f2 = sinf(f7 + DTOR(90));
 	f1 = sinf(f6);
-	f0 = sinf(f6 + RAD(90, 1.570796251297f));
+	f0 = sinf(f6 + DTOR(90));
 }
 
 static void modelasm_prepare_rot_mtx360(s32 t2, s32 t3, s32 t4)
@@ -1355,11 +1355,11 @@ static void modelasm_prepare_rot_mtx360(s32 t2, s32 t3, s32 t4)
 	f32 f6 = t2 * 0.000047936900955392f;
 
 	f5 = sinf(f8);
-	f4 = sinf(f8 + RAD(90, 1.5707963705063f));
+	f4 = sinf(f8 + DTOR(90));
 	f3 = sinf(f7);
-	f2 = sinf(f7 + RAD(90, 1.5707963705063f));
+	f2 = sinf(f7 + DTOR(90));
 	f1 = sinf(f6);
-	f0 = sinf(f6 + RAD(90, 1.5707963705063f));
+	f0 = sinf(f6 + DTOR(90));
 }
 
 /**
@@ -1579,7 +1579,7 @@ static f32 modelasm_acos_or_asin(f32 f6)
 
 f32 cosf(f32 radians)
 {
-	return sinf(radians + RAD(90, 1.570796251297f));
+	return sinf(radians + DTOR(90));
 }
 
 f32 sinf(f32 radians)
@@ -1619,7 +1619,7 @@ f32 sinf(f32 radians)
 			t1 = (s32) (f14 > 0.0f ? f14 + 0.5f : f14 - 0.5f);
 			f14 = t1;
 
-			f15 = M_PI;
+			f15 = DTOR(180);
 			f15 *= f14;
 			radians -= f15;
 

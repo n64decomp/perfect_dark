@@ -463,7 +463,7 @@ void playermgr_allocate_player(s32 index)
 	g_Vars.players[index]->crosssum2[1] = 0;
 	g_Vars.players[index]->gunaimdamp = 0.9f;
 	g_Vars.players[index]->aimangle.x = 0;
-	g_Vars.players[index]->aimangle.y = -M_PI;
+	g_Vars.players[index]->aimangle.y = DTOR(-180);
 	g_Vars.players[index]->aimangle.z = 0;
 
 	g_Vars.players[index]->copiedgoldeneye = 0;

@@ -1091,9 +1091,9 @@ void eyespy_process_input(bool allowbuttons)
 		angle += 360.0f;
 	}
 
-	angle = angle / 360.0f * M_BADTAU;
+	angle = BADDTOR4(angle);
 
-	chr_set_look_angle(chr, angle);
+	chr_set_theta(chr, angle);
 
 	if (g_Vars.currentplayer->eyespy->startuptimer60 < TICKS(50)) {
 		return;

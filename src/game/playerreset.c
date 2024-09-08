@@ -397,15 +397,15 @@ void player_reset(void)
 
 	if (g_NumSpawnPoints > 0) {
 		if (g_Vars.coopplayernum >= 0) {
-			turnanglerad = M_BADTAU - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop);
+			turnanglerad = BADDTOR(360) - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop);
 		} else if (g_Vars.antiplayernum >= 0) {
-			turnanglerad = M_BADTAU - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop);
+			turnanglerad = BADDTOR(360) - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop);
 		} else {
 			if (g_Vars.mplayerisrunning == 0) {
 				g_NumSpawnPoints = 1;
 			}
 
-			turnanglerad = M_BADTAU - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop);
+			turnanglerad = BADDTOR(360) - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop);
 		}
 	}
 
@@ -419,7 +419,7 @@ void player_reset(void)
 	pos.y = g_Vars.currentplayer->vv_eyeheight + groundy;
 	g_Vars.currentplayer->vv_manground = groundy;
 	g_Vars.currentplayer->vv_ground = groundy;
-	g_Vars.currentplayer->vv_theta = (turnanglerad * 360.0f) / M_BADTAU;
+	g_Vars.currentplayer->vv_theta = BADRTOD4(turnanglerad);
 
 	player_reset_bond(&g_Vars.currentplayer->bond2, &pos);
 

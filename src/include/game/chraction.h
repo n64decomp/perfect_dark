@@ -44,7 +44,7 @@ void chr_punch_inflict_damage(struct chrdata *chr, s32 damage, s32 range, u8 rev
 bool chr_try_punch(struct chrdata *chr, u8 reverse);
 struct eyespy *chr_to_eyespy(struct chrdata *chr);
 void chr_update_fireslot(struct chrdata *chr, s32 handnum, bool withsound, bool withbeam, struct coord *from, struct coord *to);
-f32 chr_get_inverse_theta(struct chrdata *chr);
+f32 chr_get_theta(struct chrdata *chr);
 f32 chr_get_aim_angle(struct chrdata *chr);
 f32 chr_get_pitch_angle(struct chrdata *chr);
 bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, s32 arg2, s32 arg3, f32 arg4);
@@ -120,7 +120,7 @@ bool chr_try_start_anim(struct chrdata *chr, s32 animnum, f32 startframe, f32 en
 bool chr_try_start_alarm(struct chrdata *chr, s32 pad_id);
 bool chr_consider_grenade_throw(struct chrdata *chr, u32 attackflags, u32 entityid);
 void chr_fade_corpse_when_off_screen(struct chrdata *chr);
-void chr_set_look_angle(struct chrdata *chr, f32 angle);
+void chr_set_theta(struct chrdata *chr, f32 angle);
 f32 chr_get_rot_y(struct chrdata *chr);
 void chr_reset_aim_end_properties(struct chrdata *chr);
 void chr_set_firing(struct chrdata *chr, s32 hand, bool firing);

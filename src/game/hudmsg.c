@@ -312,7 +312,7 @@ Gfx *hudmsg_render_box(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, 
 
 	g_HudmsgsActive = true;
 
-	f0 = sinf(90 * bgopacity * M_PI / 180.0f);
+	f0 = sinf(90 * bgopacity * DTOR(180) / 180.0f);
 	f22 = (x2 - x1) * 0.5f;
 	f20 = (y2 - y1) * 0.5f;
 
@@ -1394,7 +1394,7 @@ Gfx *hudmsgs_render(Gfx *gdl)
 
 		if (msg->flash) {
 			s32 alpha;
-			sin = sinf((msg->timer * M_PI) / 60.0f);
+			sin = sinf((msg->timer * DTOR(180)) / 60.0f);
 
 			if (sin < 0.0f) {
 				sin = -sin;

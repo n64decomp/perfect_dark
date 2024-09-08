@@ -93,7 +93,7 @@ void menu_tick_timers(void)
  */
 f32 menu_get_sin_osc_frac(f32 freq)
 {
-	return sinf((freq * g_20SecIntervalFrac + freq * g_20SecIntervalFrac) * M_PI) / 2.0f + 0.5f;
+	return sinf((freq * g_20SecIntervalFrac + freq * g_20SecIntervalFrac) * DTOR(180)) / 2.0f + 0.5f;
 }
 
 /**
@@ -105,7 +105,7 @@ f32 menu_get_sin_osc_frac(f32 freq)
  */
 f32 menu_get_cos_osc_frac(f32 freq)
 {
-	return cosf((freq * g_20SecIntervalFrac + freq * g_20SecIntervalFrac) * M_PI) / 2.0f + 0.5f;
+	return cosf((freq * g_20SecIntervalFrac + freq * g_20SecIntervalFrac) * DTOR(180)) / 2.0f + 0.5f;
 }
 
 /**

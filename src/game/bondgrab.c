@@ -59,7 +59,7 @@ void bgrab_init(void)
 	g_Vars.currentplayer->gunextraaimx = 0;
 	g_Vars.currentplayer->gunextraaimy = 0;
 
-	mtx4_load_y_rotation((g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f, &matrix);
+	mtx4_load_y_rotation(BADDTOR3(g_Vars.currentplayer->vv_theta), &matrix);
 	mtx4_rotate_vec_in_place(&matrix, &g_Vars.currentplayer->grabbedposoffset);
 
 	g_Vars.currentplayer->bondprevtheta = g_Vars.currentplayer->vv_theta;
@@ -86,12 +86,12 @@ void bgrab_init(void)
 
 		if (hov) {
 			g_Vars.currentplayer->grabbedrotoffset =
-				hov->yrot - (M_BADTAU - (g_Vars.currentplayer->vv_theta * M_BADTAU) / 360.0f);
+				hov->yrot - (BADDTOR(360) - BADDTOR3(g_Vars.currentplayer->vv_theta));
 
-			if (g_Vars.currentplayer->grabbedrotoffset >= M_BADTAU) {
-				g_Vars.currentplayer->grabbedrotoffset -= M_BADTAU;
+			if (g_Vars.currentplayer->grabbedrotoffset >= BADDTOR(360)) {
+				g_Vars.currentplayer->grabbedrotoffset -= BADDTOR(360);
 			} else if (g_Vars.currentplayer->grabbedrotoffset < 0) {
-				g_Vars.currentplayer->grabbedrotoffset += M_BADTAU;
+				g_Vars.currentplayer->grabbedrotoffset += BADDTOR(360);
 			}
 		}
 
@@ -152,19 +152,17 @@ void bgrab_exit(void)
 			moveamount.y = 0;
 			moveamount.z = (g_Vars.currentplayer->grabbedprop->pos.z - g_Vars.currentplayer->grabbedprevpos.z) / g_Vars.lvupdate60freal;
 
-			rotateamount = -(g_Vars.currentplayer->vv_theta - g_Vars.currentplayer->bondprevtheta)
-				* M_BADTAU / 360;
+			rotateamount = BADDTOR3(-(g_Vars.currentplayer->vv_theta - g_Vars.currentplayer->bondprevtheta));
 
-			if (rotateamount < -M_PI) {
-				rotateamount += M_BADTAU;
-			} else if (rotateamount >= M_PI) {
-				rotateamount -= M_BADTAU;
+			if (rotateamount < DTOR(-180)) {
+				rotateamount += BADDTOR(360);
+			} else if (rotateamount >= DTOR(180)) {
+				rotateamount -= BADDTOR(360);
 			}
 
 			rotateamount /= g_Vars.lvupdate60freal;
 
-			obj_apply_momentum(g_Vars.currentplayer->grabbedprop->obj, &moveamount,
-					rotateamount, 0, 0);
+			obj_apply_momentum(g_Vars.currentplayer->grabbedprop->obj, &moveamount, rotateamount, 0, 0);
 		}
 
 		g_Vars.currentplayer->grabbedprop = NULL;
@@ -446,19 +444,19 @@ s32 bgrab_calculate_new_position(struct coord *delta, f32 angle, bool arg2)
 		}
 
 		if (hov != NULL) {
-			sp78 = M_BADTAU
-				- g_Vars.currentplayer->vv_theta * M_BADTAU / 360.0f
+			sp78 = BADDTOR(360)
+				- BADDTOR3(g_Vars.currentplayer->vv_theta)
 				+ -angle
 				+ g_Vars.currentplayer->grabbedrotoffset
 				- hov->yrot
 				+ rotextra;
 
-			while (sp78 >= M_PI) {
-				sp78 -= M_BADTAU;
+			while (sp78 >= DTOR(180)) {
+				sp78 -= BADDTOR(360);
 			}
 
-			while (sp78 < -M_PI) {
-				sp78 += M_BADTAU;
+			while (sp78 < DTOR(-180)) {
+				sp78 += BADDTOR(360);
 			}
 		}
 
@@ -466,12 +464,12 @@ s32 bgrab_calculate_new_position(struct coord *delta, f32 angle, bool arg2)
 			f32 f12;
 			f32 f18;
 
-			sp74 = M_BADTAU - g_Vars.currentplayer->vv_theta * M_BADTAU / 360.0f - angle;
+			sp74 = BADDTOR(360) - BADDTOR3(g_Vars.currentplayer->vv_theta) - angle;
 
-			if (sp74 >= M_BADTAU) {
-				sp74 -= M_BADTAU;
+			if (sp74 >= BADDTOR(360)) {
+				sp74 -= BADDTOR(360);
 			} else if (sp74 < 0.0f) {
-				sp74 += M_BADTAU;
+				sp74 += BADDTOR(360);
 			}
 
 			sp70 = cosf(sp74);
@@ -503,17 +501,17 @@ s32 bgrab_calculate_new_position(struct coord *delta, f32 angle, bool arg2)
 		var8009de70 = NULL;
 
 		if (arg2) {
-			f32 theta = g_Vars.currentplayer->vv_theta + angle * 360.0f / M_BADTAU;
+			f32 degrees = g_Vars.currentplayer->vv_theta + BADRTOD4(angle);
 
-			while (theta < 0.0f) {
-				theta += 360.0f;
+			while (degrees < 0.0f) {
+				degrees += 360.0f;
 			}
 
-			while (theta >= 360.0f) {
-				theta -= 360.0f;
+			while (degrees >= 360.0f) {
+				degrees -= 360.0f;
 			}
 
-			g_Vars.currentplayer->vv_theta = theta;
+			g_Vars.currentplayer->vv_theta = degrees;
 
 			g_Vars.currentplayer->prop->pos.x = pos.x;
 			g_Vars.currentplayer->prop->pos.y = pos.y;

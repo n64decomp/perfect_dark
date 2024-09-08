@@ -327,17 +327,17 @@ bool bwalk_calculate_new_position(struct coord *vel, f32 rotateamount, bool appl
 	}
 
 	if (result == CDRESULT_NOCOLLISION && apply) {
-		f32 angle = g_Vars.currentplayer->vv_theta + (rotateamount * 360) / M_BADTAU;
+		f32 degrees = g_Vars.currentplayer->vv_theta + BADRTOD4(rotateamount);
 
-		while (angle < 0) {
-			angle += 360;
+		while (degrees < 0) {
+			degrees += 360.0f;
 		}
 
-		while (angle >= 360) {
-			angle -= 360;
+		while (degrees >= 360.0f) {
+			degrees -= 360.0f;
 		}
 
-		g_Vars.currentplayer->vv_theta = angle;
+		g_Vars.currentplayer->vv_theta = degrees;
 
 		g_Vars.currentplayer->prop->pos.x = dstpos.x;
 		g_Vars.currentplayer->prop->pos.y = dstpos.y;
@@ -1443,7 +1443,7 @@ void bwalk0f0c69b8(void)
 			g_Vars.currentplayer->walkinitmove = false;
 		}
 
-		g_Vars.currentplayer->walkinitt2 = 1.0f - (cosf(g_Vars.currentplayer->walkinitt * M_BADPI) + 1.0f) * 0.5f;
+		g_Vars.currentplayer->walkinitt2 = 1.0f - (cosf(g_Vars.currentplayer->walkinitt * BADDTOR(180)) + 1.0f) * 0.5f;
 
 		bmove_update_head_with_mtx(0.0f, 0.0f, 0.0f, &g_Vars.currentplayer->walkinitmtx, 1.0f - g_Vars.currentplayer->walkinitt2);
 

@@ -85,14 +85,14 @@ struct botdifficulty {
  */
 
 struct botdifficulty g_BotDifficulties[] = {
-	//           shootdelay60                                                                     turnunzeromult
-	//           |          minzerospeed                  maxzerospeed                zerotime60  |   zerocloakspeed                forcezerominspeed           dizzyamount
-	/* meat */ { TICKS(90), RAD(15,   0.26175770163536),  RAD(30, 0.52351540327072),  TICKS(600), 10, RAD(40,    0.69802051782608), RAD(20, 0.34901025891304),  TICKS(1000) },
-	/* easy */ { TICKS(60), RAD(7,    0.12215359508991),  RAD(14, 0.24430719017982),  TICKS(360), 10, RAD(28.5f, 0.49733963608742), RAD(8,  0.13960410654545),  TICKS(1000) },
-	/* norm */ { TICKS(30), RAD(4,    0.069802053272724), RAD(8,  0.13960410654545),  TICKS(180), 4,  RAD(20,    0.34901025891304), RAD(5,  0.08725256472826),  TICKS(1500) },
-	/* hard */ { TICKS(15), RAD(1.5f, 0.026175770908594), RAD(4,  0.069802053272724), TICKS(90),  2,  RAD(14,    0.24430719017982), RAD(2,  0.034901026636362), TICKS(2500) },
-	/* perf */ { TICKS(0),  RAD(0,    0),                 RAD(2,  0.034901026636362), TICKS(45),  1,  RAD(10,    0.17450512945652), RAD(0,  0),                 TICKS(4000) },
-	/* dark */ { TICKS(0),  RAD(0,    0),                 RAD(0,  0),                 TICKS(0),   0,  RAD(8,     0.13960410654545), RAD(0,  0),                 TICKS(4000) },
+	//           shootdelay60                                       turnunzeromult      forcezerominspeed
+	//           |          minzerospeed   maxzerospeed zerotime60  |   zerocloakspeed  |            dizzyamount
+	/* meat */ { TICKS(90), BADDTOR2(15),   BADDTOR2(30), TICKS(600), 10, BADDTOR2(40),    BADDTOR2(20), TICKS(1000) },
+	/* easy */ { TICKS(60), BADDTOR2(7),    BADDTOR2(14), TICKS(360), 10, BADDTOR2(28.5f), BADDTOR2(8),  TICKS(1000) },
+	/* norm */ { TICKS(30), BADDTOR2(4),    BADDTOR2(8),  TICKS(180), 4,  BADDTOR2(20),    BADDTOR2(5),  TICKS(1500) },
+	/* hard */ { TICKS(15), BADDTOR2(1.5f), BADDTOR2(4),  TICKS(90),  2,  BADDTOR2(14),    BADDTOR2(2),  TICKS(2500) },
+	/* perf */ { TICKS(0),  BADDTOR2(0),    BADDTOR2(2),  TICKS(45),  1,  BADDTOR2(10),    BADDTOR2(0),  TICKS(4000) },
+	/* dark */ { TICKS(0),  BADDTOR2(0),    BADDTOR2(0),  TICKS(0),   0,  BADDTOR2(8),     BADDTOR2(0),  TICKS(4000) },
 	{ 0 },
 };
 
@@ -773,10 +773,10 @@ bool bot_apply_movement(struct chrdata *chr)
 
 	aibot = chr->aibot;
 
-	angle = chr_get_inverse_theta(chr) - chr_get_rot_y(chr);
+	angle = chr_get_theta(chr) - chr_get_rot_y(chr);
 
 	if (angle < 0) {
-		angle += M_BADTAU;
+		angle += BADDTOR(360);
 	}
 
 	speedforwards = aibot->speedmultforwards * cosf(angle) - sinf(angle) * aibot->speedmultsideways;
@@ -784,14 +784,14 @@ bool bot_apply_movement(struct chrdata *chr)
 
 	player_choose_third_person_animation(chr, bot_guess_crouch_pos(chr), speedsideways, speedforwards, aibot->speedtheta, &aibot->angleoffset, &aibot->attackanimconfig);
 
-	angle2 = chr_get_inverse_theta(chr) - aibot->angleoffset;
+	angle2 = chr_get_theta(chr) - aibot->angleoffset;
 
 	if (angle2 < 0) {
-		angle2 += M_BADTAU;
+		angle2 += BADDTOR(360);
 	}
 
-	if (angle2 >= M_BADTAU) {
-		angle2 -= M_BADTAU;
+	if (angle2 >= BADDTOR(360)) {
+		angle2 -= BADDTOR(360);
 	}
 
 	model_set_chr_rot_y(chr->model, angle2);
@@ -869,19 +869,19 @@ bool bot_is_about_to_attack(struct chrdata *chr, bool arg1)
 			f32 angle = atan2f(target->pos.x - chr->prop->pos.x, target->pos.z - chr->prop->pos.z) - tmp;
 
 			if (angle < 0) {
-				angle += M_BADTAU;
+				angle += BADDTOR(360);
 			}
 
-			if (angle > M_PI) {
-				angle = M_BADTAU - angle;
+			if (angle > DTOR(180)) {
+				angle = BADDTOR(360) - angle;
 			}
 
 			if (chr->aibot->config->difficulty == BOTDIFF_MEAT) {
-				if (angle > RAD(25, 0.43626284599304f)) {
+				if (angle > BADDTOR(25)) {
 					result = false;
 				}
 			} else {
-				if (chr->aibot->config->difficulty == BOTDIFF_EASY && angle > RAD(90, 1.5705461502075f)) {
+				if (chr->aibot->config->difficulty == BOTDIFF_EASY && angle > BADDTOR2(90)) {
 					result = false;
 				}
 			}
@@ -935,12 +935,12 @@ s32 bot_tick(struct prop *prop)
 			}
 
 			// Calculate target angle
-			oldangle = chr_get_inverse_theta(chr);
+			oldangle = chr_get_theta(chr);
 
 			if (chr_is_dead(chr)) {
-				targetangle = chr_get_inverse_theta(chr);
+				targetangle = chr_get_theta(chr);
 			} else if (aibot->skrocket) {
-				targetangle = chr_get_inverse_theta(chr);
+				targetangle = chr_get_theta(chr);
 			} else if (bot_is_about_to_attack(chr, false)) {
 				struct prop *target = chr_get_target_prop(chr);
 				targetangle = chr_get_angle_to_pos(chr, &target->pos);
@@ -953,7 +953,7 @@ s32 bot_tick(struct prop *prop)
 					&& aibot->chrdistances[aibot->followingplayernum] < 300
 					&& aibot->realignangleframe >= g_Vars.lvframe60 - TICKS(60)
 					&& aibot->config->difficulty != BOTDIFF_MEAT) {
-				targetangle = chr_get_inverse_theta(g_MpAllChrPtrs[aibot->followingplayernum]);
+				targetangle = chr_get_theta(g_MpAllChrPtrs[aibot->followingplayernum]);
 			} else if (chr->myaction == MA_AIBOTDEFEND
 					&& aibot->realignangleframe >= g_Vars.lvframe60 - TICKS(60)
 					&& aibot->config->difficulty != BOTDIFF_MEAT) {
@@ -962,31 +962,31 @@ s32 bot_tick(struct prop *prop)
 				targetangle = chr_get_rot_y(chr);
 			}
 
-			while (targetangle >= M_BADTAU) {
-				targetangle -= M_BADTAU;
+			while (targetangle >= BADDTOR(360)) {
+				targetangle -= BADDTOR(360);
 			}
 
 			while (targetangle < 0) {
-				targetangle += M_BADTAU;
+				targetangle += BADDTOR(360);
 			}
 
 			if (chr->blurdrugamount > 0 && !chr_is_dead(chr) && aibot->skrocket == NULL) {
 				targetangle += chr->blurdrugamount * PALUPF(0.00031410926021636f) * sinf((g_Vars.lvframe60 % TICKS(120)) * PALUPF(0.052351541817188f));
 
-				if (targetangle >= M_BADTAU) {
-					targetangle -= M_BADTAU;
+				if (targetangle >= BADDTOR(360)) {
+					targetangle -= BADDTOR(360);
 				}
 
-				targetangle += M_BADTAU;
+				targetangle += BADDTOR(360);
 			}
 
 			tweenangle = g_Vars.lvupdate60freal * 0.061590049415827f;
 			diffangle = targetangle - oldangle;
 
-			if (diffangle < -M_PI) {
-				diffangle += M_BADTAU;
-			} else if (diffangle >= M_PI) {
-				diffangle -= M_BADTAU;
+			if (diffangle < DTOR(-180)) {
+				diffangle += BADDTOR(360);
+			} else if (diffangle >= DTOR(180)) {
+				diffangle -= BADDTOR(360);
 			}
 
 			if (diffangle >= 0) {
@@ -995,8 +995,8 @@ s32 bot_tick(struct prop *prop)
 				} else {
 					newangle = oldangle + tweenangle;
 
-					if (newangle >= M_BADTAU) {
-						newangle -= M_BADTAU;
+					if (newangle >= BADDTOR(360)) {
+						newangle -= BADDTOR(360);
 					}
 				}
 			} else {
@@ -1006,7 +1006,7 @@ s32 bot_tick(struct prop *prop)
 					newangle = oldangle - tweenangle;
 
 					if (newangle < 0) {
-						newangle += M_BADTAU;
+						newangle += BADDTOR(360);
 					}
 				}
 			}
@@ -1014,25 +1014,25 @@ s32 bot_tick(struct prop *prop)
 			aibot->speedtheta = newangle - oldangle;
 
 			if (aibot->speedtheta < 0) {
-				aibot->speedtheta += M_BADTAU;
+				aibot->speedtheta += BADDTOR(360);
 			}
 
-			if (aibot->speedtheta >= M_PI) {
-				aibot->speedtheta -= M_BADTAU;
+			if (aibot->speedtheta >= DTOR(180)) {
+				aibot->speedtheta -= BADDTOR(360);
 			}
 
 			aibot->speedtheta /= g_Vars.lvupdate60freal;
 			aibot->speedtheta *= 16.236389160156f;
 
-			while (newangle >= M_BADTAU) {
-				newangle -= M_BADTAU;
+			while (newangle >= BADDTOR(360)) {
+				newangle -= BADDTOR(360);
 			}
 
 			while (newangle < 0) {
-				newangle += M_BADTAU;
+				newangle += BADDTOR(360);
 			}
 
-			chr_set_look_angle(chr, newangle);
+			chr_set_theta(chr, newangle);
 
 			if (chr->target != -1 && !aibot->ismeleeweapon) {
 				bool left = chr->weapons_held[HAND_LEFT] ? true : false;

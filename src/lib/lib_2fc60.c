@@ -123,7 +123,7 @@ ALMicroTime updateOsc(void *oscState, f32 *updateVal)
 		}
 
 		sp2c = (f32)state->unk24 / (f32)state->unk22;
-		sp2c = sinf(sp2c * M_TAU);
+		sp2c = sinf(sp2c * DTOR(360));
 		sp2c = sp2c * state->data.a.unk28;
 		*updateVal = state->data.a.unk29 + sp2c;
 		break;
@@ -135,7 +135,7 @@ ALMicroTime updateOsc(void *oscState, f32 *updateVal)
 		}
 
 		sp2c = (f32)state->unk24 / (f32)state->unk22;
-		sp2c = sinf(sp2c * M_TAU) * state->data.b.unk28;
+		sp2c = sinf(sp2c * DTOR(360)) * state->data.b.unk28;
 		*updateVal = alCents2Ratio(sp2c);
 		break;
 	default:

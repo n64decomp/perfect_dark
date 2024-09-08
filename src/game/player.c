@@ -525,7 +525,7 @@ void player_start_new_life(void)
 
 	hudmsgs_set_on(0xffffffff);
 
-	angle = M_BADTAU - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop); // var7f1ad534
+	angle = BADDTOR(360) - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop);
 
 	groundy = cd_find_ground_info_at_cyl(&pos, 30, rooms,
 			&g_Vars.currentplayer->floorcol,
@@ -537,7 +537,7 @@ void player_start_new_life(void)
 	pos.y = groundy + g_Vars.currentplayer->vv_eyeheight;
 
 	g_Vars.currentplayer->vv_manground = groundy;
-	g_Vars.currentplayer->vv_theta = angle * 360.0f / M_BADTAU;
+	g_Vars.currentplayer->vv_theta = BADRTOD4(angle);
 	g_Vars.currentplayer->vv_ground = groundy;
 
 	player_reset_bond(&g_Vars.currentplayer->bond2, &pos);
@@ -828,7 +828,7 @@ bool player_spawn_anti(struct chrdata *hostchr, bool force)
 	playerchr->hidden |= CHRHFLAG_WARPONSCREEN;
 	playerchr->radius = hostchr->radius;
 
-	if (chr_move_to_pos(playerchr, &hostchr->prop->pos, hostchr->prop->rooms, chr_get_inverse_theta(hostchr), false) || force) {
+	if (chr_move_to_pos(playerchr, &hostchr->prop->pos, hostchr->prop->rooms, chr_get_theta(hostchr), false) || force) {
 		if (hostchr->weapons_held[0] && hostchr->weapons_held[1]) {
 			// Dual wielding
 			struct weaponobj *weapon1 = hostchr->weapons_held[0]->weapon;
@@ -1280,7 +1280,7 @@ void player_choose_body_and_head(s32 *bodynum, s32 *headnum, bool *isperfecthead
  */
 void player_tick_chr_body(void)
 {
-	f32 turnangle = (360.0f - g_Vars.currentplayer->vv_theta) * M_BADTAU / 360.0f;
+	f32 turnangle = BADDTOR3(360.0f - g_Vars.currentplayer->vv_theta);
 
 	if (g_Vars.currentplayer->haschrbody == false) {
 		struct chrdata *chr;
@@ -1476,7 +1476,7 @@ void player_tick_chr_body(void)
 		chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 
 		model_set_root_position(g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos);
-		chr_set_look_angle(g_Vars.currentplayer->prop->chr, turnangle);
+		chr_set_theta(g_Vars.currentplayer->prop->chr, turnangle);
 
 		chr->headnum = headnum;
 		chr->bodynum = bodynum;
@@ -1530,7 +1530,7 @@ void player_tick_chr_body(void)
 			chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 			func0f02e9a0(chr, 0);
 			model_set_root_position(g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos);
-			chr_set_look_angle(g_Vars.currentplayer->prop->chr, turnangle);
+			chr_set_theta(g_Vars.currentplayer->prop->chr, turnangle);
 			bmove_update_rooms(g_Vars.currentplayer);
 		}
 	}
@@ -1625,7 +1625,7 @@ void player_tick_mp_swirl(void)
 		}
 	}
 
-	angle = (g_MpSwirlAngleDegrees - g_Vars.currentplayer->vv_theta) * M_PI / 180.0f;
+	angle = DTOR(g_MpSwirlAngleDegrees - g_Vars.currentplayer->vv_theta);
 
 	pos.x = sinf(angle) * g_MpSwirlDistance + g_Vars.currentplayer->bond2.unk10.x;
 	pos.y = g_Vars.currentplayer->bond2.unk10.y + g_MpSwirlDistance * 0.08f;
@@ -1788,12 +1788,12 @@ void player_change_camera(void)
 
 		g_MoveCameraPosPosAngle += g_MoveCameraPosRotAngle * g_Vars.lvupdate60freal;
 
-		while (g_MoveCameraPosPosAngle >= M_BADTAU) {
-			g_MoveCameraPosPosAngle -= M_BADTAU;
+		while (g_MoveCameraPosPosAngle >= BADDTOR(360)) {
+			g_MoveCameraPosPosAngle -= BADDTOR(360);
 		}
 
 		while (g_MoveCameraPosPosAngle < 0) {
-			g_MoveCameraPosPosAngle += M_BADTAU;
+			g_MoveCameraPosPosAngle += BADDTOR(360);
 		}
 	}
 
@@ -1868,10 +1868,10 @@ void player_reorient_for_cutscene_stop(s32 tweenduration60)
 	mtx4_load_rotation(&rot, &rotmtx);
 
 	theta = atan2f(-rotmtx.m[2][0], -rotmtx.m[2][2]);
-	theta = (M_BADTAU - theta) * 57.304901123047f;
+	theta = BADRTOD((BADDTOR(360.0f) - theta));
 	g_Vars.bond->vv_theta = theta;
 
-	chr_set_look_angle(g_Vars.bond->prop->chr, (360 - theta) * 0.017450513318181f);
+	chr_set_theta(g_Vars.bond->prop->chr, BADDTOR2(360.0f - theta));
 }
 
 void player_tick_cutscene(bool arg0)
@@ -1980,7 +1980,7 @@ void player_tick_cutscene(bool arg0)
 		tweenfrac = 1 - (f32)(endframe - g_CutsceneCurAnimFrame60) / (f32)g_CutsceneTweenDuration60;
 
 		g_CutsceneTweenFrac = tweenfrac;
-		sp104 = 1 - cosf(RAD(90, 1.5705462694168f) * tweenfrac);
+		sp104 = 1 - cosf(BADDTOR(90) * tweenfrac);
 
 		bmove_set_mode(MOVEMODE_WALK);
 
@@ -2093,7 +2093,7 @@ f32 player_get_teleport_fov_y(void)
 	}
 
 	time = time / 48.0f;
-	time = 1.0f - cosf(time * M_PI * 0.5f);
+	time = 1.0f - cosf(time * DTOR(180) * 0.5f);
 	fovyoffset = 117.0f * time;
 
 	return fovyoffset + 60.0f;
@@ -3077,7 +3077,7 @@ void player_tick_teleport(f32 *aspectratio)
 		} else if (time >= 48) {
 			g_Vars.currentplayer->teleporttime = 48;
 		} else {
-			f32 tmp = 1 - cosf((time / 48.0f) * M_PI * 0.5f);
+			f32 tmp = 1 - cosf((time / 48.0f) * DTOR(180) * 0.5f);
 			g_Vars.currentplayer->teleporttime = time;
 			*aspectratio = *aspectratio / (1.0f + 4.0f * tmp);
 		}
@@ -3100,7 +3100,7 @@ void player_tick_teleport(f32 *aspectratio)
 			g_Vars.currentplayer->teleporttime = 0;
 			g_Vars.currentplayer->teleportstate = TELEPORTSTATE_INACTIVE;
 		} else {
-			f32 tmp = 1 - cosf(((47 - time) / 48.0f) * M_PI * 0.5f);
+			f32 tmp = 1 - cosf(((47 - time) / 48.0f) * DTOR(180) * 0.5f);
 			g_Vars.currentplayer->teleporttime = time;
 			*aspectratio = *aspectratio * (1.0f + 4.0f * tmp);
 		}
@@ -3695,21 +3695,21 @@ void player_tick(bool arg0)
 						prop = chr_spawn_at_coord(BODY_DARK_COMBAT, HEAD_VD,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
+								BADDTOR2(g_Vars.currentplayer->vv_theta / 2),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					} else if (stage_get_index(g_Vars.stagenum) == STAGEINDEX_MBR) {
 						prop = chr_spawn_at_coord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chr_spawn_at_coord(BODY_DARK_COMBAT, HEAD_VD,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta / 2),
+								BADDTOR2(g_Vars.currentplayer->vv_theta / 2),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					}
@@ -3748,14 +3748,14 @@ void player_tick(bool arg0)
 						prop = chr_spawn_at_coord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chr_spawn_at_coord(BODY_CARRINGTON, HEAD_JAMIE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_PUGILIST_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					}
@@ -3792,14 +3792,14 @@ void player_tick(bool arg0)
 						prop = chr_spawn_at_coord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chr_spawn_at_coord(BODY_MRBLONDE, HEAD_MARK2,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					}
@@ -3838,14 +3838,14 @@ void player_tick(bool arg0)
 						prop = chr_spawn_at_coord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chr_spawn_at_coord(BODY_CISOLDIER, HEAD_CHRIST,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					}
@@ -3885,14 +3885,14 @@ void player_tick(bool arg0)
 						prop = chr_spawn_at_coord(BODY_MRBLONDE, HEAD_MRBLONDE,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					} else {
 						prop = chr_spawn_at_coord(BODY_ELVIS1, HEAD_MAIAN_S,
 								&g_Vars.currentplayer->prop->pos,
 								g_Vars.currentplayer->prop->rooms,
-								BADDEG2RAD(g_Vars.currentplayer->vv_theta),
+								BADDTOR2(g_Vars.currentplayer->vv_theta),
 								ailist_find_by_id(GAILIST_INIT_DEFAULT_BUDDY),
 								SPAWNFLAG_ALLOWONSCREEN);
 					}
@@ -3974,35 +3974,35 @@ void player_tick(bool arg0)
 		zdist = pad.pos.z - g_Vars.currentplayer->bond2.unk10.z;
 		targetangle = atan2f(xdist, zdist);
 
-		if (targetangle > M_BADTAU) {
-			targetangle -= M_BADTAU;
+		if (targetangle > BADDTOR(360)) {
+			targetangle -= BADDTOR(360);
 		}
 
 		if (targetangle < 0) {
-			targetangle += M_BADTAU;
+			targetangle += BADDTOR(360);
 		}
 
 		oldangle = atan2f(g_Vars.currentplayer->bond2.unk00.x, g_Vars.currentplayer->bond2.unk00.z);
 
-		if (oldangle > M_BADTAU) {
-			oldangle -= M_BADTAU;
+		if (oldangle > BADDTOR(360)) {
+			oldangle -= BADDTOR(360);
 		}
 
 		if (oldangle < 0) {
-			oldangle += M_BADTAU;
+			oldangle += BADDTOR(360);
 		}
 
 		diffangle = oldangle - targetangle;
 
-		if (diffangle > M_PI) {
-			diffangle -= M_BADTAU;
+		if (diffangle > DTOR(180)) {
+			diffangle -= BADDTOR(360);
 		}
 
-		if (diffangle < -M_PI) {
-			diffangle += M_BADTAU;
+		if (diffangle < DTOR(-180)) {
+			diffangle += BADDTOR(360);
 		}
 
-		direction = (diffangle / M_PI < 0) ? -1 : 1;
+		direction = (diffangle / DTOR(180) < 0) ? -1 : 1;
 
 		g_Vars.currentplayer->autocontrol_x = (f32)direction * g_Vars.currentplayer->autocontrol_turnspeed;
 
@@ -4016,7 +4016,7 @@ void player_tick(bool arg0)
 		}
 
 		if (g_Vars.currentplayer->vv_verta <= 30) {
-			g_Vars.currentplayer->vv_verta += g_Vars.currentplayer->autocontrol_lookup / 360.0f * M_BADTAU;
+			g_Vars.currentplayer->vv_verta += BADDTOR4(g_Vars.currentplayer->autocontrol_lookup);
 		}
 
 		if (g_Vars.currentplayer->autocontrol_walkspeed) {
@@ -4137,12 +4137,12 @@ void player_tick(bool arg0)
 #define TURNMODE_SQUAT_NOTURN   5
 #define TURNMODE_SQUAT_TURN     6
 
-struct attackanimconfig var800709f4 = { ANIM_0281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, RAD(20, 0.34901028871536), RAD(-90, -1.5705462694168), RAD(90, 1.5705462694168), RAD(-90, -1.5705462694168), 0,      0     };
-struct attackanimconfig var80070a3c = { ANIM_0285, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, RAD(20, 0.34901028871536), RAD(-90, -1.5705462694168), RAD(90, 1.5705462694168), RAD(-90, -1.5705462694168), 0,      0     };
-struct attackanimconfig var80070a84 = { ANIM_0282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, RAD(20, 0.34901028871536), RAD(-90, -1.5705462694168), RAD(90, 1.5705462694168), RAD(-90, -1.5705462694168), RAD(92, 1.6), RAD(92, 1.6) };
-struct attackanimconfig var80070acc = { ANIM_0286, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, RAD(10, 0.17450514435768), RAD(-90, -1.5705462694168), RAD(90, 1.5705462694168), RAD(-90, -1.5705462694168), RAD(92, 1.6), RAD(92, 1.6) };
-struct attackanimconfig var80070b14 = { ANIM_0283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, RAD(20, 0.34901028871536), RAD(-90, -1.5705462694168), RAD(90, 1.5705462694168), RAD(-90, -1.5705462694168), 0,      0     };
-struct attackanimconfig var80070b5c = { ANIM_0287, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, RAD(10, 0.17450514435768), RAD(-90, -1.5705462694168), RAD(90, 1.5705462694168), RAD(-90, -1.5705462694168), 0,      0     };
+struct attackanimconfig var800709f4 = { ANIM_0281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, BADDTOR(20), BADDTOR(-90), BADDTOR(90), BADDTOR(-90), 0,   0   };
+struct attackanimconfig var80070a3c = { ANIM_0285, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, BADDTOR(20), BADDTOR(-90), BADDTOR(90), BADDTOR(-90), 0,   0   };
+struct attackanimconfig var80070a84 = { ANIM_0282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, BADDTOR(20), BADDTOR(-90), BADDTOR(90), BADDTOR(-90), 1.6, 1.6 };
+struct attackanimconfig var80070acc = { ANIM_0286, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, BADDTOR(10), BADDTOR(-90), BADDTOR(90), BADDTOR(-90), 1.6, 1.6 };
+struct attackanimconfig var80070b14 = { ANIM_0283, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, BADDTOR(20), BADDTOR(-90), BADDTOR(90), BADDTOR(-90), 0,   0   };
+struct attackanimconfig var80070b5c = { ANIM_0287, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, BADDTOR(10), BADDTOR(-90), BADDTOR(90), BADDTOR(-90), 0,   0   };
 
 struct var80070ba4 {
 	struct attackanimconfig *animcfg;
@@ -4155,37 +4155,37 @@ struct var80070ba4 {
 
 struct var80070ba4 var80070ba4[4][7] = { // [wieldmode][turnmode]
 	{
-		{ var80065be0,           0,                       0.1,   79, 87,  RAD(60, 1.0470308065414)  },
-		{ &g_WalkAttackAnims[2], 0,                       0.5,   -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &g_WalkAttackAnims[3], 0,                       0.5,   -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &var800709f4,          0,                       0.001, 0,  0.1, RAD(60, 1.0470308065414)  },
-		{ &var800709f4,          0,                       0.503, -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &var80070a3c,          0,                       0.001, 0,  0.1, RAD(30, 0.52351540327072) },
-		{ &var80070a3c,          0,                       0.45,  -1, -1,  RAD(30, 0.52351540327072) },
+		{ var80065be0,           0,                       0.1,   79, 87,  BADDTOR(60) },
+		{ &g_WalkAttackAnims[2], 0,                       0.5,   -1, -1,  BADDTOR(60) },
+		{ &g_WalkAttackAnims[3], 0,                       0.5,   -1, -1,  BADDTOR(60) },
+		{ &var800709f4,          0,                       0.001, 0,  0.1, BADDTOR(60) },
+		{ &var800709f4,          0,                       0.503, -1, -1,  BADDTOR(60) },
+		{ &var80070a3c,          0,                       0.001, 0,  0.1, BADDTOR(30) },
+		{ &var80070a3c,          0,                       0.45,  -1, -1,  BADDTOR(30) },
 	}, {
-		{ var800656c0,           0,                       0.05,  35, 40,  RAD(60, 1.0470308065414)  },
-		{ &g_WalkAttackAnims[0], 0,                       0.5,   -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &g_WalkAttackAnims[1], 0,                       0.5,   -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &var80070a84,          0,                       0.001, 0,  0.1, RAD(60, 1.0470308065414)  },
-		{ &var80070a84,          0,                       0.503, -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &var80070acc,          0,                       0.001, 0,  0.1, RAD(30, 0.52351540327072) },
-		{ &var80070acc,          0,                       0.45,  -1, -1,  RAD(30, 0.52351540327072) },
+		{ var800656c0,           0,                       0.05,  35, 40,  BADDTOR(60) },
+		{ &g_WalkAttackAnims[0], 0,                       0.5,   -1, -1,  BADDTOR(60) },
+		{ &g_WalkAttackAnims[1], 0,                       0.5,   -1, -1,  BADDTOR(60) },
+		{ &var80070a84,          0,                       0.001, 0,  0.1, BADDTOR(60) },
+		{ &var80070a84,          0,                       0.503, -1, -1,  BADDTOR(60) },
+		{ &var80070acc,          0,                       0.001, 0,  0.1, BADDTOR(30) },
+		{ &var80070acc,          0,                       0.45,  -1, -1,  BADDTOR(30) },
 	}, {
-		{ NULL,                  ANIM_006A,               0.25,  0,  -1,  RAD(60, 1.0470308065414)  },
-		{ NULL,                  ANIM_006B,               0.5,   -1, -1,  RAD(60, 1.0470308065414)  },
-		{ NULL,                  ANIM_RUNNING_ONEHANDGUN, 0.5,   -1, -1,  RAD(60, 1.0470308065414)  },
-		{ NULL,                  ANIM_0280,               0.001, 0,  0.1, RAD(60, 1.0470308065414)  },
-		{ NULL,                  ANIM_0280,               0.503, -1, -1,  RAD(60, 1.0470308065414)  },
-		{ NULL,                  ANIM_0284,               0.001, 0,  0.1, RAD(30, 0.52351540327072) },
-		{ NULL,                  ANIM_0284,               0.45,  -1, -1,  RAD(30, 0.52351540327072) },
+		{ NULL,                  ANIM_006A,               0.25,  0,  -1,  BADDTOR(60) },
+		{ NULL,                  ANIM_006B,               0.5,   -1, -1,  BADDTOR(60) },
+		{ NULL,                  ANIM_RUNNING_ONEHANDGUN, 0.5,   -1, -1,  BADDTOR(60) },
+		{ NULL,                  ANIM_0280,               0.001, 0,  0.1, BADDTOR(60) },
+		{ NULL,                  ANIM_0280,               0.503, -1, -1,  BADDTOR(60) },
+		{ NULL,                  ANIM_0284,               0.001, 0,  0.1, BADDTOR(30) },
+		{ NULL,                  ANIM_0284,               0.45,  -1, -1,  BADDTOR(30) },
 	}, {
-		{ var800663d8,           0,                       0.1,   32, 42,  RAD(60, 1.0470308065414)  },
-		{ &g_WalkAttackAnims[4], 0,                       0.5,   -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &g_WalkAttackAnims[5], 0,                       0.5,   -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &var80070b14,          0,                       0.001, 0,  0.1, RAD(60, 1.0470308065414)  },
-		{ &var80070b14,          0,                       0.503, -1, -1,  RAD(60, 1.0470308065414)  },
-		{ &var80070b5c,          0,                       0.001, 0,  0.1, RAD(30, 0.52351540327072) },
-		{ &var80070b5c,          0,                       0.45,  -1, -1,  RAD(30, 0.52351540327072) },
+		{ var800663d8,           0,                       0.1,   32, 42,  BADDTOR(60) },
+		{ &g_WalkAttackAnims[4], 0,                       0.5,   -1, -1,  BADDTOR(60) },
+		{ &g_WalkAttackAnims[5], 0,                       0.5,   -1, -1,  BADDTOR(60) },
+		{ &var80070b14,          0,                       0.001, 0,  0.1, BADDTOR(60) },
+		{ &var80070b14,          0,                       0.503, -1, -1,  BADDTOR(60) },
+		{ &var80070b5c,          0,                       0.001, 0,  0.1, BADDTOR(30) },
+		{ &var80070b5c,          0,                       0.45,  -1, -1,  BADDTOR(30) },
 	},
 };
 
@@ -4307,18 +4307,18 @@ Gfx *player_update_shoot_rot(Gfx *gdl)
 	value = sqrtf(sp3c.z * sp3c.z + sp3c.x * sp3c.x);
 
 	rotx = atan2f(y, value);
-	rotx += (g_Vars.currentplayer->vv_verta * M_BADTAU) / 360.0f;
+	rotx += BADDTOR3(g_Vars.currentplayer->vv_verta);
 
-	if (rotx >= M_PI) {
-		rotx -= M_BADTAU;
+	if (rotx >= DTOR(180)) {
+		rotx -= BADDTOR(360);
 	}
 
 	g_Vars.currentplayer->shootrotx = rotx;
 
 	roty = atan2f(-sp3c.x, -sp3c.z);
 
-	if (roty >= M_PI) {
-		roty -= M_BADTAU;
+	if (roty >= DTOR(180)) {
+		roty -= BADDTOR(360);
 	}
 
 	g_Vars.currentplayer->shootroty = roty;
@@ -4372,10 +4372,10 @@ Gfx *player_render_shield(Gfx *gdl)
 			g_Vars.currentplayer->shieldshowrot -= maxrotf;
 		}
 
-		f20 = (sinf(g_Vars.currentplayer->shieldshowrot * (M_BADTAU / maxrotf)) + 1) * 0.5f;
+		f20 = (sinf(g_Vars.currentplayer->shieldshowrot * (BADDTOR(360) / maxrotf)) + 1) * 0.5f;
 		sp90[0] = cam_get_screen_left() + cam_get_screen_width() * f20;
 
-		f20 = (cosf(g_Vars.currentplayer->shieldshowrot * (M_BADTAU / maxrotf)) + 1) * 0.5f;
+		f20 = (cosf(g_Vars.currentplayer->shieldshowrot * (BADDTOR(360) / maxrotf)) + 1) * 0.5f;
 		sp90[1] = cam_get_screen_top() + cam_get_screen_height() * f20;
 
 		sp88[0] = cam_get_screen_width() * (1.0f + 0.002f * ((g_Vars.currentplayer->shieldshowrnd >> 20) % 100) + (g_Vars.currentplayer->shieldshowtime * (0.2f + 0.002f * (g_Vars.currentplayer->shieldshowrnd % 100)) * (1.0f / 60.0f)));
@@ -4863,7 +4863,7 @@ void player_check_if_shot_in_back(s32 attackerplayernum, f32 x, f32 z)
 	if (g_Vars.normmplayerisrunning) {
 		s32 victimplayernum = g_Vars.currentplayernum;
 		f32 angle = atan2f(x, z);
-		f32 finalangle = g_Vars.players[victimplayernum]->vv_theta - (360.0f - RAD2DEG2(angle));
+		f32 finalangle = g_Vars.players[victimplayernum]->vv_theta - (360.0f - RTOD(angle));
 
 		if (finalangle < 0) {
 			finalangle = -finalangle;
@@ -5324,14 +5324,14 @@ s32 player_tick_third_person(struct prop *prop)
 				sp9c.y = spa8.m[3][1] + spa8.m[1][1] * 7;
 				sp9c.z = spa8.m[3][2] + spa8.m[1][2] * 7;
 
-				player->vv_theta = (M_BADTAU - chr_get_inverse_theta(chr)) * 360.0f / M_BADTAU;
+				player->vv_theta = BADRTOD4(BADDTOR(360) - chr_get_theta(chr));
 				player->vv_verta = 0;
 			} else {
 				sp9c.x = player->prop->pos.x;
 				sp9c.y = player->prop->pos.y;
 				sp9c.z = player->prop->pos.z;
 
-				player->vv_theta = (M_BADTAU - chr_get_inverse_theta(chr)) * 360.0f / M_BADTAU;
+				player->vv_theta = BADRTOD4(BADDTOR(360) - chr_get_theta(chr));
 				player->vv_verta = 0;
 			}
 
@@ -5394,15 +5394,15 @@ s32 player_tick_third_person(struct prop *prop)
 
 		model_set_root_position(chr->model, &sp8c);
 
-		angle = (360.0f - player->vv_theta) * 0.017450513318181f - player->angleoffset;
+		angle = (360.0f - player->vv_theta) * BADDTOR(1) - player->angleoffset;
 
-		if (angle >= M_BADTAU) {
-			angle -= M_BADTAU;
+		if (angle >= BADDTOR(360)) {
+			angle -= BADDTOR(360);
 		} else if (angle < 0) {
-			angle += M_BADTAU;
+			angle += BADDTOR(360);
 		}
 
-		chr_set_look_angle(chr, angle);
+		chr_set_theta(chr, angle);
 
 		chr->chrflags |= CHRHFLAG_DROPPINGITEM;
 
@@ -5592,8 +5592,8 @@ void player_choose_third_person_animation(struct chrdata *chr, s32 crouchpos, f3
 			} else {
 				angle = atan2f(speedsideways, speedforwards);
 
-				if (angle >= M_BADPI) {
-					angle -= M_BADTAU;
+				if (angle >= BADDTOR(180)) {
+					angle -= BADDTOR(360);
 				}
 
 				if (crouchpos == CROUCHPOS_SQUAT) {
@@ -5629,10 +5629,10 @@ void player_choose_third_person_animation(struct chrdata *chr, s32 crouchpos, f3
 				}
 
 				if (angle < -1.6333680152893f) {
-					angle += M_BADPI;
+					angle += BADDTOR(180);
 					speed = -speed;
 				} else if (angle > 1.6333680152893f) {
-					angle -= M_BADPI;
+					angle -= BADDTOR(180);
 					speed = -speed;
 				}
 
@@ -5645,7 +5645,7 @@ void player_choose_third_person_animation(struct chrdata *chr, s32 crouchpos, f3
 				}
 			}
 
-			limit = g_Vars.lvupdate60freal * (M_BADTAU / 60.0f);
+			limit = g_Vars.lvupdate60freal * (BADDTOR(360) / 60.0f);
 
 			if (angle - *angleoffset > limit) {
 				*angleoffset += limit;

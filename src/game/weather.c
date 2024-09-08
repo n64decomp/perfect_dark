@@ -345,7 +345,7 @@ void weather_tick_rain(struct weatherdata *weather)
 
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
 		// Force weather direction - but Air Base doesn't use rain...
-		weather->windanglerad = RAD(90, 1.5707963705063f);
+		weather->windanglerad = DTOR(90);
 		weather->windspeedz = -weather->windspeed;
 		weather->windspeedx = 0;
 	} else if (weather->unk10 > 0) {
@@ -358,7 +358,7 @@ void weather_tick_rain(struct weatherdata *weather)
 			weather->unk10 -= lvupdate;
 		}
 
-		if (weather->windanglerad > M_TAU) {
+		if (weather->windanglerad > DTOR(360)) {
 			weather->windanglerad = 0;
 		}
 
@@ -368,7 +368,7 @@ void weather_tick_rain(struct weatherdata *weather)
 	} else if (RANDOMFRAC() > 0.99f) {
 		rand = RANDOMFRAC();
 
-		weather->unk0c = (rand + rand) * M_PI;
+		weather->unk0c = (rand + rand) * DTOR(180);
 		weather->unk10 = (weather->unk0c - weather->windanglerad) / (PAL ? 0.012f : 0.01f);
 
 		if (weather->unk10 < 0) {
@@ -441,7 +441,7 @@ void weather_tick_snow(struct weatherdata *weather)
 	main_override_variable("snowspeedxtra", &g_SnowSpeedExtra);
 
 	if (g_StageIndex == STAGEINDEX_AIRBASE) {
-		weather->windanglerad = RAD(90, 1.5707963705063f);
+		weather->windanglerad = DTOR(90);
 		weather->windspeedz = -weather->windspeed;
 		weather->windspeedx = 0;
 	} else if (weather->unk10 > 0) {
@@ -454,7 +454,7 @@ void weather_tick_snow(struct weatherdata *weather)
 			weather->unk10 -= lvupdate;
 		}
 
-		if (weather->windanglerad > M_TAU) {
+		if (weather->windanglerad > DTOR(360)) {
 			weather->windanglerad = 0;
 		}
 
@@ -464,7 +464,7 @@ void weather_tick_snow(struct weatherdata *weather)
 	} else if (RANDOMFRAC() > 0.99f) {
 		rand = RANDOMFRAC();
 
-		weather->unk0c = (rand + rand) * M_PI;
+		weather->unk0c = (rand + rand) * DTOR(180);
 		weather->unk10 = (weather->unk0c - weather->windanglerad) / (PAL ? 0.012f : 0.01f);
 
 		if (weather->unk10 < 0) {
@@ -478,88 +478,88 @@ void weather_tick_snow(struct weatherdata *weather)
 	data->unk3ec8[0] += 0.04f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[0] < 0) {
-		data->unk3ec8[0] += M_TAU;
+		data->unk3ec8[0] += DTOR(360);
 	}
 
-	if (data->unk3ec8[0] > M_TAU) {
-		data->unk3ec8[0] -= M_TAU;
+	if (data->unk3ec8[0] > DTOR(360)) {
+		data->unk3ec8[0] -= DTOR(360);
 	}
 
 	// 1
 	data->unk3ec8[1] += -0.03f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[1] < 0) {
-		data->unk3ec8[1] += M_TAU;
+		data->unk3ec8[1] += DTOR(360);
 	}
 
-	if (data->unk3ec8[1] > M_TAU) {
-		data->unk3ec8[1] -= M_TAU;
+	if (data->unk3ec8[1] > DTOR(360)) {
+		data->unk3ec8[1] -= DTOR(360);
 	}
 
 	// 2
 	data->unk3ec8[2] += 0.04f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[2] < 0) {
-		data->unk3ec8[2] += M_TAU;
+		data->unk3ec8[2] += DTOR(360);
 	}
 
-	if (data->unk3ec8[2] > M_TAU) {
-		data->unk3ec8[2] -= M_TAU;
+	if (data->unk3ec8[2] > DTOR(360)) {
+		data->unk3ec8[2] -= DTOR(360);
 	}
 
 	// 3
 	data->unk3ec8[3] += 0.03f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[3] < 0) {
-		data->unk3ec8[3] += M_TAU;
+		data->unk3ec8[3] += DTOR(360);
 	}
 
-	if (data->unk3ec8[3] > M_TAU) {
-		data->unk3ec8[3] -= M_TAU;
+	if (data->unk3ec8[3] > DTOR(360)) {
+		data->unk3ec8[3] -= DTOR(360);
 	}
 
 	// 4
 	data->unk3ec8[4] += 0.02f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[4] < 0) {
-		data->unk3ec8[4] += M_TAU;
+		data->unk3ec8[4] += DTOR(360);
 	}
 
-	if (data->unk3ec8[4] > M_TAU) {
-		data->unk3ec8[4] -= M_TAU;
+	if (data->unk3ec8[4] > DTOR(360)) {
+		data->unk3ec8[4] -= DTOR(360);
 	}
 
 	// 5
 	data->unk3ec8[5] += 0.01f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[5] < 0) {
-		data->unk3ec8[5] += M_TAU;
+		data->unk3ec8[5] += DTOR(360);
 	}
 
-	if (data->unk3ec8[5] > M_TAU) {
-		data->unk3ec8[5] -= M_TAU;
+	if (data->unk3ec8[5] > DTOR(360)) {
+		data->unk3ec8[5] -= DTOR(360);
 	}
 
 	// 6
 	data->unk3ec8[6] += -0.01f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[6] < 0) {
-		data->unk3ec8[6] += M_TAU;
+		data->unk3ec8[6] += DTOR(360);
 	}
 
-	if (data->unk3ec8[6] > M_TAU) {
-		data->unk3ec8[6] -= M_TAU;
+	if (data->unk3ec8[6] > DTOR(360)) {
+		data->unk3ec8[6] -= DTOR(360);
 	}
 
 	// 7
 	data->unk3ec8[7] += -0.02f * LVUPDATE60FREAL();
 
 	if (data->unk3ec8[7] < 0) {
-		data->unk3ec8[7] += M_TAU;
+		data->unk3ec8[7] += DTOR(360);
 	}
 
-	if (data->unk3ec8[7] > M_TAU) {
-		data->unk3ec8[7] -= M_TAU;
+	if (data->unk3ec8[7] > DTOR(360)) {
+		data->unk3ec8[7] -= DTOR(360);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(data->particles); i++) {
@@ -3086,12 +3086,12 @@ Gfx *weather_render_snow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	for (j = 0; j < 8; j++) {
 		sp1168[j][0][0] = sinf(particledata->unk3ec8[j]);
 		sp1168[j][0][1] = cosf(particledata->unk3ec8[j]);
-		sp1168[j][1][0] = sinf(particledata->unk3ec8[j] + M_PI * 0.5f);
-		sp1168[j][1][1] = cosf(particledata->unk3ec8[j] + M_PI * 0.5f);
-		sp1168[j][2][0] = sinf(particledata->unk3ec8[j] + M_PI);
-		sp1168[j][2][1] = cosf(particledata->unk3ec8[j] + M_PI);
-		sp1168[j][3][0] = sinf(particledata->unk3ec8[j] + M_PI * 1.5f);
-		sp1168[j][3][1] = cosf(particledata->unk3ec8[j] + M_PI * 1.5f);
+		sp1168[j][1][0] = sinf(particledata->unk3ec8[j] + DTOR(180) * 0.5f);
+		sp1168[j][1][1] = cosf(particledata->unk3ec8[j] + DTOR(180) * 0.5f);
+		sp1168[j][2][0] = sinf(particledata->unk3ec8[j] + DTOR(180));
+		sp1168[j][2][1] = cosf(particledata->unk3ec8[j] + DTOR(180));
+		sp1168[j][3][0] = sinf(particledata->unk3ec8[j] + DTOR(180) * 1.5f);
+		sp1168[j][3][1] = cosf(particledata->unk3ec8[j] + DTOR(180) * 1.5f);
 	}
 
 	// 514c

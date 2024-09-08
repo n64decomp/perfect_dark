@@ -1377,7 +1377,7 @@ void menu_open_dialog(struct menudialogdef *dialogdef, struct menudialog *dialog
 	dialog->type = dialogdef->type;
 	dialog->transitionfrac = -1;
 	dialog->redrawtimer = 0;
-	dialog->unk4c = RANDOMFRAC() * M_TAU;
+	dialog->unk4c = DTOR(360) * RANDOMFRAC();
 
 	g_Menus[g_MpPlayerNum].curdialog->state = MENUDIALOGSTATE_PREOPEN;
 	g_Menus[g_MpPlayerNum].curdialog->statefrac = 0;
@@ -2001,7 +2001,7 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 					menumodel->curposz = menumodel->newposz;
 					menumodel->curscale = menumodel->newscale;
 				} else {
-					f32 fracnew = (-cosf(menumodel->configurefrac * M_PI) * 0.5f) + 0.5f;
+					f32 fracnew = (-cosf(menumodel->configurefrac * DTOR(180)) * 0.5f) + 0.5f;
 					f32 fraccur = 1.0f - fracnew;
 
 					if (menumodel->flags & MENUMODELFLAG_HASPOSITION) {
@@ -3789,7 +3789,7 @@ void menu_reset(void)
 		}
 
 		g_MenuData.hudpiece.newparams = MENUMODELPARAMS_SET_FILENUM(FILE_GHUDPIECE);
-		g_MenuData.hudpiece.curroty = g_MenuData.hudpiece.newroty = -M_PI;
+		g_MenuData.hudpiece.curroty = g_MenuData.hudpiece.newroty = DTOR(-180);
 		g_MenuData.hudpiece.currotx = g_MenuData.hudpiece.newrotx = 0;
 		g_MenuData.hudpiece.currotz = g_MenuData.hudpiece.newrotz = 0;
 		g_MenuData.hudpiece.curposx = g_MenuData.hudpiece.newposx = -205.5f;

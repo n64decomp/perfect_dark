@@ -501,7 +501,7 @@ u32 smoke_tick(struct prop *prop)
 
 						part->alpha = (random() % 70) + 110.0f;
 						part->count = 0;
-						part->rot = RANDOMFRAC() * M_BADTAU;
+						part->rot = BADDTOR(360) * RANDOMFRAC();
 						part->deltarot = (0.5f - RANDOMFRAC()) * g_SmokeTypes[smoke->type].bgrotatespeed;
 
 						if (smoke->type >= SMOKETYPE_MUZZLE_PISTOL && smoke->type <= SMOKETYPE_MUZZLE_SHOTGUN) {

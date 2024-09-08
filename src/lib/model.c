@@ -551,19 +551,19 @@ void model_set_chr_rot_y(struct model *model, f32 angle)
 		f32 diff = angle - rwdata->yrot;
 
 		if (diff < 0) {
-			diff += M_BADTAU;
+			diff += BADDTOR(360);
 		}
 
 		rwdata->unk30 += diff;
 
-		if (rwdata->unk30 >= M_BADTAU) {
-			rwdata->unk30 -= M_BADTAU;
+		if (rwdata->unk30 >= BADDTOR(360)) {
+			rwdata->unk30 -= BADDTOR(360);
 		}
 
 		rwdata->unk20 += diff;
 
-		if (rwdata->unk20 >= M_BADTAU) {
-			rwdata->unk20 -= M_BADTAU;
+		if (rwdata->unk20 >= BADDTOR(360)) {
+			rwdata->unk20 -= BADDTOR(360);
 		}
 
 		rwdata->yrot = angle;
@@ -599,20 +599,20 @@ f32 model_tween_rot_axis(f32 curangle, f32 goalangle, f32 mult)
 	f32 diff = goalangle - curangle;
 
 	if (goalangle < curangle) {
-		diff += M_BADTAU;
+		diff += BADDTOR(360);
 	}
 
-	if (diff < M_PI) {
+	if (diff < DTOR(180)) {
 		curangle += diff * mult;
 
-		if (curangle >= M_BADTAU) {
-			curangle -= M_BADTAU;
+		if (curangle >= BADDTOR(360)) {
+			curangle -= BADDTOR(360);
 		}
 	} else {
-		curangle -= (M_BADTAU - diff) * mult;
+		curangle -= (BADDTOR(360) - diff) * mult;
 
 		if (curangle < 0) {
-			curangle += M_BADTAU;
+			curangle += BADDTOR(360);
 		}
 	}
 
@@ -917,19 +917,19 @@ void model_position_joint_using_vec_rot(struct modelrenderdata *renderdata, stru
 		Mtxf *finalmtx = rendermtx ? &mtx68 : &matrices[mtxindex2];
 		f32 roty = rot->y;
 
-		if (roty < M_PI) {
+		if (roty < DTOR(180)) {
 			roty *= 0.5f;
 		} else {
-			roty = M_BADTAU - (M_BADTAU - roty) * 0.5f;
+			roty = BADDTOR(360) - (BADDTOR(360) - roty) * 0.5f;
 		}
 
 		mtx4_load_y_rotation(roty, finalmtx);
 
-		if (roty >= M_PI) {
-			roty = M_BADTAU - roty;
+		if (roty >= DTOR(180)) {
+			roty = BADDTOR(360) - roty;
 		}
 
-		if (roty < 0.890118f) { // 51 degrees
+		if (roty < DTOR(51)) {
 			roty = func0f096700(roty);
 		} else {
 			roty = 1.5f;
@@ -1021,19 +1021,19 @@ void model_position_joint_using_quat_rot(struct modelrenderdata *renderdata, str
 		Mtxf *finalmtx = rendermtx ? &mtx58 : &matrices[mtxindex2];
 		f32 roty = 2.0f * acosf(rot[0]);
 
-		if (roty < M_PI) {
+		if (roty < DTOR(180)) {
 			roty *= 0.5f;
 		} else {
-			roty = M_BADTAU - (M_BADTAU - roty) * 0.5f;
+			roty = BADDTOR(360) - (BADDTOR(360) - roty) * 0.5f;
 		}
 
 		mtx4_load_y_rotation(roty, finalmtx);
 
-		if (roty >= M_PI) {
-			roty = M_BADTAU - roty;
+		if (roty >= DTOR(180)) {
+			roty = BADDTOR(360) - roty;
 		}
 
-		if (roty < 0.890118f) { // 51 degrees
+		if (roty < DTOR(51)) {
 			roty = func0f096700(roty);
 		} else {
 			roty = 1.5f;
@@ -1887,8 +1887,8 @@ void model_set_animation2(struct model *model, s16 animnum, s32 flip, f32 fstart
 					if (rwdata->unk18 == 0) {
 						rwdata->unk20 = rwdata->unk30 + sp84;
 
-						if (rwdata->unk20 >= M_BADTAU) {
-							rwdata->unk20 -= M_BADTAU;
+						if (rwdata->unk20 >= BADDTOR(360)) {
+							rwdata->unk20 -= BADDTOR(360);
 						}
 					}
 
@@ -1913,7 +1913,7 @@ void model_set_animation2(struct model *model, s16 animnum, s32 flip, f32 fstart
 					angle = rwdata->yrot - sp84;
 
 					if (angle < 0) {
-						angle += M_BADTAU;
+						angle += BADDTOR(360);
 					}
 
 					rwdata->unk30 = model_tween_rot_axis(rwdata->yrot, angle, anim->frac);
@@ -1921,8 +1921,8 @@ void model_set_animation2(struct model *model, s16 animnum, s32 flip, f32 fstart
 					if (rwdata->unk18 == 0) {
 						rwdata->unk20 = rwdata->unk30 + sp84;
 
-						if (rwdata->unk20 >= M_BADTAU) {
-							rwdata->unk20 -= M_BADTAU;
+						if (rwdata->unk20 >= BADDTOR(360)) {
+							rwdata->unk20 -= BADDTOR(360);
 						}
 					}
 
@@ -2316,7 +2316,7 @@ void model_set_anim_frame2_with_chr_stuff(struct model *model, f32 curframe, f32
 								translate.z = -translate.z;
 
 								if (f22 > 0.0f) {
-									f22 = M_BADTAU - f22;
+									f22 = BADDTOR(360) - f22;
 								}
 							}
 
@@ -2334,8 +2334,8 @@ void model_set_anim_frame2_with_chr_stuff(struct model *model, f32 curframe, f32
 							if (rwdata->unk18 == 0.0f) {
 								f30 += f22;
 
-								if (f30 >= M_BADTAU) {
-									f30 -= M_BADTAU;
+								if (f30 >= BADDTOR(360)) {
+									f30 -= BADDTOR(360);
 								}
 							}
 						}
@@ -2365,7 +2365,7 @@ void model_set_anim_frame2_with_chr_stuff(struct model *model, f32 curframe, f32
 								translate.z = -translate.z;
 
 								if (f22 > 0.0f) {
-									f22 = M_BADTAU - f22;
+									f22 = BADDTOR(360) - f22;
 								}
 							}
 
@@ -2422,17 +2422,17 @@ void model_set_anim_frame2_with_chr_stuff(struct model *model, f32 curframe, f32
 								f22 += rwdata->unk58 * increment;
 
 								if (f22 < 0.0f) {
-									f22 += M_BADTAU;
-								} else if (f22 >= M_BADTAU) {
-									f22 -= M_BADTAU;
+									f22 += BADDTOR(360);
+								} else if (f22 >= BADDTOR(360)) {
+									f22 -= BADDTOR(360);
 								}
 							}
 
 							if (rwdata->unk18 == 0.0f) {
 								spcc = f30 + f22;
 
-								if (spcc >= M_BADTAU) {
-									spcc -= M_BADTAU;
+								if (spcc >= BADDTOR(360)) {
+									spcc -= BADDTOR(360);
 								}
 							}
 						}
@@ -3406,7 +3406,7 @@ void model_render_node_chr_gunfire(struct modelrenderdata *renderdata, struct mo
 		tmp = -(spe0.f[0] * mtx->m[0][0] + spe0.f[1] * mtx->m[0][1] + spe0.f[2] * mtx->m[0][2]);
 
 		if (tmp < 0) {
-			spf0 = M_BADTAU - spf0;
+			spf0 = BADDTOR(360) - spf0;
 		}
 
 		spdc = cosf(spf0);

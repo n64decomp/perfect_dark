@@ -469,10 +469,10 @@ f32 bmove_calculate_lookahead(void)
 					&& sp78 - ground < 200
 					&& sp78 - ground > -200) {
 				angle = atan2f(sp78 - g_Vars.currentplayer->vv_ground, value);
-				angle = (angle * 360) / M_BADTAU + -4;
+				angle = BADRTOD4(angle) + -4;
 
-				if (angle >= 180) {
-					angle -= 360;
+				if (angle >= 180.0f) {
+					angle -= 360.0f;
 				}
 
 				if (angle >= -50 && angle <= 40) {
@@ -1989,8 +1989,8 @@ void bmove_update_verta(void)
 		g_Vars.currentplayer->vv_verta = -90;
 	}
 
-	g_Vars.currentplayer->vv_costheta = cosf(BADDEG2RAD(g_Vars.currentplayer->vv_theta));
-	g_Vars.currentplayer->vv_sintheta = sinf(BADDEG2RAD(g_Vars.currentplayer->vv_theta));
+	g_Vars.currentplayer->vv_costheta = cosf(BADDTOR2(g_Vars.currentplayer->vv_theta));
+	g_Vars.currentplayer->vv_sintheta = sinf(BADDTOR2(g_Vars.currentplayer->vv_theta));
 
 	g_Vars.currentplayer->vv_verta360 = g_Vars.currentplayer->vv_verta;
 
@@ -1998,8 +1998,8 @@ void bmove_update_verta(void)
 		g_Vars.currentplayer->vv_verta360 += 360;
 	}
 
-	g_Vars.currentplayer->vv_cosverta = cosf(BADDEG2RAD(g_Vars.currentplayer->vv_verta360));
-	g_Vars.currentplayer->vv_sinverta = sinf(BADDEG2RAD(g_Vars.currentplayer->vv_verta360));
+	g_Vars.currentplayer->vv_cosverta = cosf(BADDTOR2(g_Vars.currentplayer->vv_verta360));
+	g_Vars.currentplayer->vv_sinverta = sinf(BADDTOR2(g_Vars.currentplayer->vv_verta360));
 
 	g_Vars.currentplayer->bond2.unk00.x = -g_Vars.currentplayer->vv_sintheta;
 	g_Vars.currentplayer->bond2.unk00.y = 0;
@@ -2009,7 +2009,7 @@ void bmove_update_verta(void)
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 		if (chr && chr->model) {
-			chr_set_look_angle(chr, BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta));
+			chr_set_theta(chr, BADDTOR2(360 - g_Vars.currentplayer->vv_theta));
 		}
 	}
 }
@@ -2096,7 +2096,7 @@ void bmove_update_head_with_mtx(f32 heartrate, f32 speedforwards, f32 speedsidew
 	}
 
 	bhead_update(newspeedforwards, speedsideways);
-	mtx4_load_x_rotation(BADDEG2RAD(360 - g_Vars.currentplayer->vv_verta360), &sp180);
+	mtx4_load_x_rotation(BADDTOR2(360 - g_Vars.currentplayer->vv_verta360), &sp180);
 
 	if (options_get_head_roll(g_Vars.currentplayerstats->mpindex)) {
 		mtx00016d58(&sp116,
@@ -2106,7 +2106,7 @@ void bmove_update_head_with_mtx(f32 heartrate, f32 speedforwards, f32 speedsidew
 		mtx4_mult_mtx4_in_place(&sp116, &sp180);
 	}
 
-	mtx4_load_y_rotation(BADDEG2RAD(360 - g_Vars.currentplayer->vv_theta), &sp116);
+	mtx4_load_y_rotation(BADDTOR2(360 - g_Vars.currentplayer->vv_theta), &sp116);
 	mtx4_mult_mtx4_in_place(&sp116, &sp180);
 
 	if (mtx) {

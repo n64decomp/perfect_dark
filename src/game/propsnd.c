@@ -1292,7 +1292,7 @@ s32 ps_calculate_pan2(struct coord *pos, s32 arg1, f32 arg2, struct pschannel *c
 		f32 sp3c;
 		f32 sp38;
 
-		f2 = -(atan2f(pos->x - campos->x, pos->z - campos->z) * 180.0f / M_PI + g_Vars.currentplayer->vv_theta);
+		f2 = -(atan2f(pos->x - campos->x, pos->z - campos->z) * 180.0f / DTOR(180) + g_Vars.currentplayer->vv_theta);
 
 		if (arg2 >= 0.0f) {
 			sp3c = sinf(0.017453292f * f2);
@@ -1305,14 +1305,14 @@ s32 ps_calculate_pan2(struct coord *pos, s32 arg1, f32 arg2, struct pschannel *c
 			if (sp3c >= 0.0f && sp38 >= 0.0f) {
 				// empty
 			} else if (sp3c >= 0.0f) {
-				f2 = M_PI - f2;
+				f2 = DTOR(180) - f2;
 			} else if (sp38 >= 0.0f) {
 				f2 = -f2;
 			} else {
-				f2 = -(M_PI - f2);
+				f2 = -(DTOR(180) - f2);
 			}
 
-			degrees = f2 * 57.295776f;
+			degrees = RTOD2(f2);
 		} else {
 			degrees = f2;
 		}

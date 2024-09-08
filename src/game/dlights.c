@@ -1273,7 +1273,7 @@ void rooms_tick_lighting(void)
 		case LIGHTOP_SINELOOP:
 			timer240 = g_Rooms[i].lightop_timer240 > 0 ? g_Rooms[i].lightop_timer240 : -g_Rooms[i].lightop_timer240;
 
-			angle = (timer240 % (s32) g_Rooms[i].lightop_duration240) * M_TAU / g_Rooms[i].lightop_duration240;
+			angle = (timer240 % (s32) g_Rooms[i].lightop_duration240) * DTOR(360) / g_Rooms[i].lightop_duration240;
 			average = (g_Rooms[i].lightop_to_frac + g_Rooms[i].lightop_from_frac) * 0.5f;
 
 			g_Rooms[i].lightop_cur_frac = g_Rooms[i].lightop_to_frac + (cosf(angle) + 1.0f) * average;

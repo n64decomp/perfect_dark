@@ -1321,7 +1321,7 @@ struct prop *chr_place(struct prop *prop, struct model *model,
 	model->chr = chr;
 	model->unk01 = 1;
 	chr->model = model;
-	chr_set_look_angle(chr, faceangle);
+	chr_set_theta(chr, faceangle);
 	model_set_anim_play_speed(model, PALUPF(g_ChrsAnimSpeed), 0);
 
 	testpos.x = pos->x;
@@ -1546,7 +1546,7 @@ void chr_flinch_head(struct chrdata *chr, f32 arg1)
 
 	chr->hidden2 &= 0x0fff;
 	chr->hidden2 |= CHRH2FLAG_HEADSHOTTED;
-	value = (arg1 + 0.3926365673542f) * 8.0f / M_BADTAU;
+	value = (arg1 + BADDTOR(22.5f)) * 8.0f / BADDTOR(360);
 
 	if (value < 0) {
 		value = 0;
@@ -1565,13 +1565,13 @@ f32 chr_get_flinch_amount(struct chrdata *chr)
 
 	if (chr->hidden2 & CHRH2FLAG_HEADSHOTTED) {
 		if (value < 4) {
-			value = sinf(value * RAD(90, 1.5705462694168f) / 4);
+			value = sinf(value * BADDTOR(90) / 4);
 		} else {
 			value = 1 - sinf((value - 4) * (PAL ? RAD(4, 0.07478791475296f) : RAD(3, 0.060405626893044f)));
 		}
 	} else {
 		if (value < TICKS(10)) {
-			value = sinf(value * RAD(90, 1.5705462694168f) / TICKS(10));
+			value = sinf(value * BADDTOR(90) / TICKS(10));
 		} else {
 			value = 1 - sinf((value - TICKS(10)) * (PAL ? RAD(6, 0.098159141838551f) : RAD(4, 0.078527316451073f)));
 		}
@@ -1617,7 +1617,7 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 
 	if (g_CurModelChr->model->definition->skel == &g_SkelRobot) {
 		// Handle Chicago robot guns
-		theta = chr_get_inverse_theta(g_CurModelChr);
+		theta = chr_get_theta(g_CurModelChr);
 
 		if (joint == 1) {
 			gunrotx = g_CurModelChr->gunrotx[0];
@@ -1640,17 +1640,17 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 		mtx->m[3][2] = 0.0f;
 
 		if (gunrotx < 0.0f) {
-			gunrotx += M_BADTAU;
+			gunrotx += BADDTOR(360);
 		}
 
 		if (gunroty < 0.0f) {
-			gunroty += M_BADTAU;
+			gunroty += BADDTOR(360);
 		}
 
-		gunrot = M_BADTAU - theta + RAD(90, 1.5707963705063f);
+		gunrot = BADDTOR(360) - theta + DTOR(90);
 
-		if (gunrot >= M_BADTAU) {
-			gunrot -= M_BADTAU;
+		if (gunrot >= BADDTOR(360)) {
+			gunrot -= BADDTOR(360);
 		}
 
 		mtx4_load_y_rotation(gunrot, &spb8);
@@ -1660,8 +1660,8 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 
 		gunrot = gunroty + theta;
 
-		if (gunrot >= M_BADTAU) {
-			gunrot -= M_BADTAU;
+		if (gunrot >= BADDTOR(360)) {
+			gunrot -= BADDTOR(360);
 		}
 
 		mtx4_load_y_rotation(gunrot, &spb8);
@@ -1717,10 +1717,10 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 				xrot = g_CurModelChr->aimupback;
 
 				if (g_CurModelChr->hidden2 & CHRH2FLAG_AUTOANIM) {
-					if (xrot > RAD(60, 1.0470308065414f)) {
-						xrot -= RAD(60, 1.0470308065414f);
-					} else if (xrot < RAD(-50, -0.87252569198608f)) {
-						xrot += RAD(50, 0.87252569198608f);
+					if (xrot > BADDTOR(60)) {
+						xrot -= BADDTOR(60);
+					} else if (xrot < BADDTOR(-50)) {
+						xrot += BADDTOR(50);
 					} else {
 						xrot = 0.0f;
 					}
@@ -1739,10 +1739,10 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 				if (g_CurModelChr->hidden2 & CHRH2FLAG_AUTOANIM) {
 					xrot = g_CurModelChr->aimupback;
 
-					if (xrot > RAD(60, 1.0470308065414f)) {
-						xrot = RAD(60, 1.0470308065414f);
-					} else if (xrot < RAD(-50, -0.87252569198608f)) {
-						xrot = RAD(-50, -0.87252569198608f);
+					if (xrot > BADDTOR(60)) {
+						xrot = BADDTOR(60);
+					} else if (xrot < BADDTOR(-50)) {
+						xrot = BADDTOR(-50);
 					}
 				} else if (g_CurModelChr->model->anim->flip) {
 					xrot = g_CurModelChr->aimuplshoulder;
@@ -1755,8 +1755,8 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 						&& g_Vars.tickmode != TICKMODE_CUTSCENE
 						&& g_CurModelChr->actiontype != ACT_DEAD
 						&& g_CurModelChr->actiontype != ACT_DIE) {
-					zrot = g_CurModelChr->drugheadsway / 360.0f * M_BADTAU;
-					xrot -= (28.0f - ABS(g_CurModelChr->drugheadsway)) / 250.0f * M_BADTAU;
+					zrot = BADDTOR4(g_CurModelChr->drugheadsway);
+					xrot -= (28.0f - ABS(g_CurModelChr->drugheadsway)) / 250.0f * BADDTOR(360);
 				}
 			}
 
@@ -1769,27 +1769,27 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 					if (joint == neckjoint) {
 						f32 flinchamount = chr_get_flinch_amount(g_CurModelChr);
 						s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
-						f32 mult = isskedar ? 25.0f : 60.0f;
+						f32 degrees = isskedar ? 25.0f : 60.0f;
 
 						if ((flinchtype & 1) == 0) {
-							mult = isskedar ? 37.5f : 85.0f;
+							degrees = isskedar ? 37.5f : 85.0f;
 						}
 
 						if (flinchtype >= 5 && flinchtype < 8) {
-							zrot -= flinchamount * (M_BADTAU * mult / 360.0f);
+							zrot -= flinchamount * (M_BADTAU * degrees / 360.0f);
 						} else if (flinchtype > 0 && flinchtype < 4) {
-							zrot += flinchamount * (M_BADTAU * mult / 360.0f);
+							zrot += flinchamount * (M_BADTAU * degrees / 360.0f);
 						}
 
 						if (flinchtype == 7 || flinchtype == 0 || flinchtype == 1) {
-							xrot += flinchamount * (M_BADTAU * mult / 360.0f);
+							xrot += flinchamount * (M_BADTAU * degrees / 360.0f);
 						} else if (flinchtype >= 3 && flinchtype < 6) {
-							xrot -= flinchamount * (M_BADTAU * mult / 360.0f);
+							xrot -= flinchamount * (M_BADTAU * degrees / 360.0f);
 						}
 					}
 				} else if (joint == rshoulderjoint || joint == lshoulderjoint) {
 					s32 flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
-					f32 flinchamount = chr_get_flinch_amount(g_CurModelChr) * RAD(15, 0.26175770163536f);
+					f32 flinchamount = chr_get_flinch_amount(g_CurModelChr) * BADDTOR(15);
 
 					xrot -= flinchamount;
 
@@ -1805,18 +1805,18 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 					flinchamount = chr_get_flinch_amount(g_CurModelChr);
 					flinchtype = (g_CurModelChr->hidden2 >> 13) & 7;
 
-					xrot += flinchamount * RAD(15, 0.26175770163536f);
+					xrot += flinchamount * BADDTOR(15);
 
 					if (flinchtype < 3) {
-						yrot += flinchamount * RAD(15, 0.26175770163536f);
+						yrot += flinchamount * BADDTOR(15);
 					} else if (flinchtype >= 3 && flinchtype < 6) {
-						yrot -= flinchamount * RAD(15, 0.26175770163536f);
+						yrot -= flinchamount * BADDTOR(15);
 					}
 
 					if (flinchtype == 2 || flinchtype == 5 || flinchtype == 7) {
-						zrot += flinchamount * RAD(10, 0.17450514435768f);
+						zrot += flinchamount * BADDTOR(10);
 					} else if (flinchtype == 1 || flinchtype == 4 || flinchtype == 6) {
-						zrot -= flinchamount * RAD(10, 0.17450514435768f);
+						zrot -= flinchamount * BADDTOR(10);
 					}
 				}
 			}
@@ -1831,11 +1831,11 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 				if (xrot < 0.0f) {
 					xrot = -xrot;
 				} else {
-					xrot = M_BADTAU - xrot;
+					xrot = BADDTOR(360) - xrot;
 				}
 
 				if (yrot < 0.0f) {
-					yrot += M_BADTAU;
+					yrot += BADDTOR(360);
 				}
 
 				mtx00015be0(cam_get_projection_mtxf(), mtx);
@@ -1852,7 +1852,7 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 					yrot -= aimangle;
 
 					if (yrot < 0.0f) {
-						yrot += M_BADTAU;
+						yrot += BADDTOR(360);
 					}
 
 					mtx4_load_y_rotation(yrot, &tmpmtx);
@@ -1992,14 +1992,14 @@ void chr_tick_child(struct chrdata *chr, struct prop *prop, bool fulltick)
 			thing.unk00 = &sp80;
 		} else if (CHRRACE(chr) == RACE_SKEDAR) {
 			// The skedar hand position is rotated weirdly, so compensate for it
-			mtx4_load_y_rotation(RAD(76, 1.3192588090897f), &sp80);
-			mtx4_load_z_rotation(RAD(90, 1.5705462694168f), &sp40);
+			mtx4_load_y_rotation(BADDTOR(75.6), &sp80);
+			mtx4_load_z_rotation(BADDTOR(90.0), &sp40);
 			mtx4_mult_mtx4_in_place(&sp40, &sp80);
 			mtx4_mult_mtx4_in_place(sp104, &sp80);
 			thing.unk00 = &sp80;
 		} else if (prop == chr->weapons_held[HAND_LEFT]) {
 			// Flip the model
-			mtx4_load_z_rotation(M_BADPI, &sp80);
+			mtx4_load_z_rotation(BADDTOR(180), &sp80);
 			mtx4_mult_mtx4_in_place(sp104, &sp80);
 			thing.unk00 = &sp80;
 		} else {
@@ -2221,7 +2221,7 @@ void chr_update_cloak(struct chrdata *chr)
 		if (chr->cloakfadefinished == true) {
 			chr->cloakfadefinished = false;
 
-			fVar14 = 1.0f - cosf((chr->cloakfadefrac / 127.0f + chr->cloakfadefrac / 127.0f) * M_PI);
+			fVar14 = 1.0f - cosf((chr->cloakfadefrac / 127.0f + chr->cloakfadefrac / 127.0f) * DTOR(180));
 			chr->cloakfadefrac = (254 - (s32)(fVar14 * 20.0f * 0.5f)) / 2;
 		}
 
@@ -2245,7 +2245,7 @@ s32 chr_get_cloak_alpha(struct chrdata *chr)
 		if (!chr->cloakfadefinished) {
 			alpha = 255 - chr->cloakfadefrac * 2;
 		} else {
-			f32 fVar3 = (f32)cosf((chr->cloakfadefrac / 127.0f + chr->cloakfadefrac / 127.0f) * M_PI);
+			f32 fVar3 = (f32)cosf((chr->cloakfadefrac / 127.0f + chr->cloakfadefrac / 127.0f) * DTOR(180));
 			alpha = (1.0f - fVar3) * 20.0f * 0.5f;
 		}
 
@@ -2314,7 +2314,7 @@ void chr_tick_poisoned(struct chrdata *chr)
 			if (chr->poisoncounter <= 0) {
 				if (!g_Vars.normmplayerisrunning) {
 					chr_damage_by_dizziness(chr, 100, &coord, &gset, chr->poisonprop);
-					chr_flinch_head(chr, M_PI);
+					chr_flinch_head(chr, DTOR(180));
 				}
 
 				chr->poisoncounter = 0;
@@ -2410,7 +2410,7 @@ s32 chr_tick(struct prop *prop)
 			chr->drugheadsway = 0;
 		} else if (chr->blurdrugamount > TICKS(1000) && chr->actiontype != ACT_DRUGGEDKO) {
 			chr->drugheadcount += g_Vars.lvupdate240 >> 1;
-			chr->drugheadsway = cosf(chr->drugheadcount / 255.0f * M_BADTAU) * 20.0f;
+			chr->drugheadsway = cosf(chr->drugheadcount / 255.0f * BADDTOR(360)) * 20.0f;
 		} else if (chr->drugheadsway != 0.0f) {
 			chr->drugheadcount = 0;
 
@@ -2683,7 +2683,7 @@ s32 chr_tick(struct prop *prop)
 		g_CurModelChr = chr;
 
 		if (CHRRACE(chr) == RACE_DRCAROLL && g_Vars.tickmode != TICKMODE_CUTSCENE) {
-			angle = chr_get_inverse_theta(chr);
+			angle = chr_get_theta(chr);
 
 			sp190.x = sinf(angle) * 19;
 			sp190.y = 0.0f;
@@ -2698,7 +2698,7 @@ s32 chr_tick(struct prop *prop)
 			player = g_Vars.players[playermgr_get_player_num_by_prop(prop)];
 
 			if (player->bondmovemode == MOVEMODE_BIKE) {
-				sp178 = chr_get_inverse_theta(chr);
+				sp178 = chr_get_theta(chr);
 				bike = (struct hoverbikeobj *)player->hoverbike->obj;
 				sp130 = bike->w * 1000;
 
@@ -3631,7 +3631,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 							radius *= 0.4f;
 						}
 
-						gdl = gfx_render_radial_shadow(gdl, prop->pos.x, chr->ground, prop->pos.z, chr_get_inverse_theta(chr), radius, 0xffffff00 | shadowalpha);
+						gdl = gfx_render_radial_shadow(gdl, prop->pos.x, chr->ground, prop->pos.z, chr_get_theta(chr), radius, 0xffffff00 | shadowalpha);
 					}
 				}
 			}

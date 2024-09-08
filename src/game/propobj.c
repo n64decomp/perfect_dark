@@ -2238,7 +2238,7 @@ void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum
 	bool isnegative;
 
 	if (obj->flags & OBJFLAG_UPSIDEDOWN) {
-		mtx4_load_z_rotation(M_BADPI, &sp70);
+		mtx4_load_z_rotation(BADDTOR(180), &sp70);
 		mtx4_mult_mtx4_in_place(mtx, &sp70);
 
 		pos2.x = centre->x - sp70.m[1][0] * max;
@@ -2359,8 +2359,8 @@ void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, RoomNu
 	bbox = model_find_bbox_rodata(obj->model);
 	mult = obj_get_local_z_min(bbox);
 
-	mtx4_load_x_rotation(RAD(270, 4.7116389274597f), &sp5c);
-	mtx4_load_y_rotation(M_BADPI, &sp1c);
+	mtx4_load_x_rotation(BADDTOR(270), &sp5c);
+	mtx4_load_y_rotation(BADDTOR(180), &sp1c);
 	mtx4_mult_mtx4_in_place(&sp1c, &sp5c);
 	mtx4_mult_mtx4_in_place(arg2, &sp5c);
 
@@ -3621,20 +3621,20 @@ void apply_rotation(f32 *angle, f32 maxrot, f32 *speed, f32 accel, f32 decel, f3
 {
 	f32 tmp = maxrot - *angle;
 
-	if (tmp < -M_PI) {
-		maxrot += M_BADTAU;
-	} else if (tmp >= M_PI) {
-		maxrot -= M_BADTAU;
+	if (tmp < DTOR(-180)) {
+		maxrot += BADDTOR(360);
+	} else if (tmp >= DTOR(180)) {
+		maxrot -= BADDTOR(360);
 	}
 
 	apply_speed(angle, maxrot, speed, accel, decel, maxspeed);
 
 	if (*angle < 0) {
-		*angle += M_BADTAU;
+		*angle += BADDTOR(360);
 	}
 
-	if (*angle >= M_BADTAU) {
-		*angle -= M_BADTAU;
+	if (*angle >= BADDTOR(360)) {
+		*angle -= BADDTOR(360);
 	}
 }
 
@@ -3973,8 +3973,8 @@ void func0f06e9cc(struct coord *arg0, Mtxf *arg1)
 
 	spf0 = atan2f(sp24.x, sp24.y);
 
-	mtx4_load_y_rotation(RAD(-90, -1.5705463f) + spf4, &sp70);
-	mtx4_load_x_rotation(RAD(-90, -1.5705463f) - spf0, &sp30);
+	mtx4_load_y_rotation(BADDTOR(-90) + spf4, &sp70);
+	mtx4_load_x_rotation(BADDTOR(-90) - spf0, &sp30);
 
 	mtx4_mult_mtx4(&sp70, &sp30, arg1);
 }
@@ -4055,7 +4055,7 @@ void knife_land(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	sp1c.z = RANDOMFRAC() * 0.8f + arg2->z - 0.4f;
 
 	func0f06e9cc(&sp1c, &sp90);
-	mtx4_load_x_rotation(RAD(-90, -1.5705463f), &sp50);
+	mtx4_load_x_rotation(BADDTOR(-90), &sp50);
 	mtx4_mult_mtx4(&sp90, &sp50, &spd0);
 	mtx00015f04(obj->model->scale, &spd0);
 
@@ -5289,20 +5289,20 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 			if (ground1 >= -30000.0f && ground2 >= -30000.0f) {
 				groundangle = atan2f(ground1 - ground2, sp1cc - sp1d0);
 
-				if (groundangle >= M_PI) {
-					groundangle -= M_BADTAU;
+				if (groundangle >= DTOR(180)) {
+					groundangle -= BADDTOR(360);
 				}
 			} else if (ground1 >= -30000.0f) {
 				groundangle = atan2f(ground1 - hov->ground, -sp1d0);
 
-				if (groundangle >= M_PI) {
-					groundangle -= M_BADTAU;
+				if (groundangle >= DTOR(180)) {
+					groundangle -= BADDTOR(360);
 				}
 			} else if (ground2 >= -30000.0f) {
 				groundangle = atan2f(hov->ground - ground2, sp1cc);
 
-				if (groundangle >= M_PI) {
-					groundangle -= M_BADTAU;
+				if (groundangle >= DTOR(180)) {
+					groundangle -= BADDTOR(360);
 				}
 			} else {
 				groundangle = 0.0f;
@@ -5346,8 +5346,8 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 			if (hov->bobpitchspeed <= 2.0f * type->bobpitchaccel && hov->bobpitchspeed >= 2.0f * -type->bobpitchaccel) {
 				hov->bobpitchspeed = 0.0f;
 
-				if (hov->bobpitchtarget < M_PI) {
-					hov->bobpitchtarget = M_BADTAU - type->bobpitchminangle - RANDOMFRAC() * type->bobpitchrandangle;
+				if (hov->bobpitchtarget < DTOR(180)) {
+					hov->bobpitchtarget = BADDTOR(360) - type->bobpitchminangle - RANDOMFRAC() * type->bobpitchrandangle;
 				} else {
 					hov->bobpitchtarget = type->bobpitchminangle + RANDOMFRAC() * type->bobpitchrandangle;
 				}
@@ -5361,8 +5361,8 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 			if (hov->bobrollspeed <= 2.0f * type->bobrollaccel && hov->bobrollspeed >= 2.0f * -type->bobrollaccel) {
 				hov->bobrollspeed = 0.0f;
 
-				if (hov->bobrolltarget < M_PI) {
-					hov->bobrolltarget = M_BADTAU - type->bobrollminangle - RANDOMFRAC() * type->bobrollrandangle;
+				if (hov->bobrolltarget < DTOR(180)) {
+					hov->bobrolltarget = BADDTOR(360) - type->bobrollminangle - RANDOMFRAC() * type->bobrollrandangle;
 				} else {
 					hov->bobrolltarget = type->bobrollminangle + RANDOMFRAC() * type->bobrollrandangle;
 				}
@@ -5436,10 +5436,10 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 
 		xrot = hov->groundpitch + hov->bobpitchcur;
 
-		if (xrot >= M_BADTAU) {
-			xrot -= M_BADTAU;
+		if (xrot >= BADDTOR(360)) {
+			xrot -= BADDTOR(360);
 		} else if (xrot < 0.0f) {
-			xrot += M_BADTAU;
+			xrot += BADDTOR(360);
 		}
 
 		mtx4_load_x_rotation(xrot, &sp108);
@@ -5520,10 +5520,10 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		if (arg2 != 0.0f) {
 			yrot = arg2 + hoverprop_get_turn_angle(obj);
 
-			if (yrot >= M_BADTAU) {
-				yrot -= M_BADTAU;
+			if (yrot >= BADDTOR(360)) {
+				yrot -= BADDTOR(360);
 			} else if (yrot < 0.0f) {
-				yrot += M_BADTAU;
+				yrot += BADDTOR(360);
 			}
 		} else {
 			yrot = hoverprop_get_turn_angle(obj);
@@ -5536,10 +5536,10 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		yrot = 0.0f;
 
 		if (arg2 != 0.0f) {
-			if (arg2 >= M_BADTAU) {
-				arg2 -= M_BADTAU;
+			if (arg2 >= BADDTOR(360)) {
+				arg2 -= BADDTOR(360);
 			} else if (arg2 < 0.0f) {
-				arg2 += M_BADTAU;
+				arg2 += BADDTOR(360);
 			}
 
 			mtx4_load_y_rotation(arg2, &sp64);
@@ -5857,7 +5857,7 @@ void hoverbike_update_movement(struct hoverbikeobj *bike, f32 speedforwards, f32
 		}
 	}
 
-	sp70 += f12 * 0.04f * M_BADTAU;
+	sp70 += f12 * 0.04f * BADDTOR(360);
 
 	if (speedsideways >= 0) {
 		f12 = (speedsideways + 0.1f) * 0.3f * g_Vars.lvupdate60freal;
@@ -6070,7 +6070,7 @@ bool rocket_tick_fbw(struct weaponobj *rocket)
 			projectile->unk014 = model_tween_rot_axis(projectile->unk014, yrot, PAL ? 0.02246f : 0.01875f);
 		}
 
-		mtx4_load_x_rotation(M_BADTAU - projectile->unk014, &sp118);
+		mtx4_load_x_rotation(BADDTOR(360) - projectile->unk014, &sp118);
 		mtx4_load_y_rotation(projectile->unk018, &spd8);
 		mtx4_mult_mtx4(&spd8, &sp118, &sp98);
 		mtx00015f04(rocket->base.model->scale, &sp98);
@@ -7776,7 +7776,7 @@ void door_init_matrices(struct prop *prop)
 
 	if (model->definition->skel == &g_Skel11) {
 		union modelrodata *rodata;
-		f32 xrot = M_BADTAU - door->frac * 0.017450513318181f;
+		f32 xrot = BADDTOR(360) - BADDTOR2(door->frac);
 
 		rodata = model_get_part_rodata(model->definition, MODELPART_0001);
 		mtx4_load_x_rotation(xrot, MTX(1));
@@ -7784,18 +7784,18 @@ void door_init_matrices(struct prop *prop)
 		mtx4_mult_mtx4_in_place(MTX(0), MTX(1));
 
 		rodata = model_get_part_rodata(model->definition, MODELPART_0002);
-		mtx4_load_x_rotation(M_BADTAU - xrot, MTX(2));
+		mtx4_load_x_rotation(BADDTOR(360) - xrot, MTX(2));
 		mtx4_set_translation(&rodata->position.pos, MTX(2));
 		mtx4_mult_mtx4_in_place(MTX(0), MTX(2));
 	} else if (model->definition->skel == &g_Skel13) {
 		union modelrodata *rodata;
 		f32 zrot1 = 0;
-		f32 zrot2 = door->frac * 0.017450513318181f;
+		f32 zrot2 = BADDTOR2(door->frac);
 		f32 limit = door->maxfrac * 0.3f;
 		s32 i;
 
 		if (door->frac > limit) {
-			zrot1 = ((door->maxfrac * (door->frac - limit)) / (door->maxfrac - limit)) * 0.017450513318181f;
+			zrot1 = BADDTOR2((door->maxfrac * (door->frac - limit)) / (door->maxfrac - limit));
 		}
 
 		for (i = 0; i < 6; i++) {
@@ -8241,34 +8241,34 @@ void cctv_tick(struct prop *camprop)
 		f32 finalangle;
 
 		if (yrot < 0) {
-			yrot += M_BADTAU;
-		} else if (yrot >= M_BADTAU) {
-			yrot -= M_BADTAU;
+			yrot += BADDTOR(360);
+		} else if (yrot >= BADDTOR(360)) {
+			yrot -= BADDTOR(360);
 		}
 
 		yrot += camera->yzero;
 
-		if (yrot >= M_BADTAU) {
-			yrot -= M_BADTAU;
+		if (yrot >= BADDTOR(360)) {
+			yrot -= BADDTOR(360);
 		}
 
 		finalangle = angle - yrot;
 
 		if (angle < yrot) {
-			finalangle += M_BADTAU;
+			finalangle += BADDTOR(360);
 		}
 
-		finalangle -= M_BADPI;
+		finalangle -= BADDTOR(180);
 
 		if (finalangle < 0) {
-			finalangle += M_BADTAU;
+			finalangle += BADDTOR(360);
 		}
 
-		if (finalangle > M_BADPI) {
-			finalangle -= M_BADTAU;
+		if (finalangle > BADDTOR(180)) {
+			finalangle -= BADDTOR(360);
 		}
 
-		if (finalangle > RAD(45, 0.7852731347084f) || finalangle < RAD(-45, -0.7852731347084f)) {
+		if (finalangle > BADDTOR(45) || finalangle < BADDTOR(-45)) {
 			canseeplayer = false;
 		}
 	}
@@ -8279,20 +8279,20 @@ void cctv_tick(struct prop *camprop)
 		f32 finalangle = angle - camera->xzero;
 
 		if (angle < camera->xzero) {
-			finalangle = angle - camera->xzero + M_BADTAU;
+			finalangle = angle - camera->xzero + BADDTOR(360);
 		}
 
-		if (finalangle > M_BADTAU) {
-			finalangle -= M_BADTAU;
+		if (finalangle > BADDTOR(360)) {
+			finalangle -= BADDTOR(360);
 		}
 
-		if (finalangle > M_BADPI) {
-			finalangle -= M_BADTAU;
+		if (finalangle > BADDTOR(180)) {
+			finalangle -= BADDTOR(360);
 		}
 
 		if (finalangle);
 
-		if (finalangle > RAD(45, 0.7852731347084f) || finalangle < RAD(-45, -0.7852731347084f)) {
+		if (finalangle > BADDTOR(45) || finalangle < BADDTOR(-45)) {
 			canseeplayer = false;
 		}
 	}
@@ -8397,9 +8397,9 @@ void cctv_init_matrices(struct prop *prop, Mtxf *mtx)
 	f32 yrot = cctv->yrot;
 
 	if (yrot < 0) {
-		yrot += M_BADTAU;
-	} else if (yrot >= M_BADTAU) {
-		yrot -= M_BADTAU;
+		yrot += BADDTOR(360);
+	} else if (yrot >= BADDTOR(360)) {
+		yrot -= BADDTOR(360);
 	}
 
 	mtx4_load_y_rotation(yrot, &sp24);
@@ -8455,8 +8455,8 @@ void fan_tick(struct prop *prop)
 	if (fan->yspeed > 0) {
 		fan->yrot += fan->yspeed * g_Vars.lvupdate60freal;
 
-		while (fan->yrot >= RAD(90, 1.5705462694168f)) {
-			fan->yrot -= RAD(90, 1.5705462694168f);
+		while (fan->yrot >= BADDTOR(90)) {
+			fan->yrot -= BADDTOR(90);
 		}
 
 		fan->yrotprev = fan->yrot;
@@ -8471,8 +8471,8 @@ void fan_update_model(struct prop *prop)
 	f32 sp24[3][3];
 	f32 angle = fan->yspeed * g_Vars.lvupdate60freal;
 
-	while (angle >= M_BADTAU) {
-		angle -= M_BADTAU;
+	while (angle >= BADDTOR(360)) {
+		angle -= BADDTOR(360);
 	}
 
 	mtx4_load_y_rotation(angle, &sp6c);
@@ -8526,12 +8526,12 @@ void autogun_tick(struct prop *prop)
 			autogun->xzero = autogun->xrot;
 			autogun->yzero = autogun->yrot;
 		} else if (autogun->yrot == autogun->yzero && autogun->xrot == autogun->xzero) {
-			autogun->xzero = (RANDOMFRAC() * 39.0f + 1.0f) * 0.017450513f;
-			autogun->yzero = RANDOMFRAC() * M_BADTAU;
+			autogun->xzero = (RANDOMFRAC() * 39.0f + 1.0f) * BADDTOR(1);
+			autogun->yzero = RANDOMFRAC() * BADDTOR(360);
 		}
 
-		apply_rotation(&autogun->yrot, autogun->yzero, &autogun->yspeed, PALUPF(0.00001163367596746f), PALUPF(0.00001163367596746f), PALUPF(0.00069802056532353f));
-		apply_rotation(&autogun->xrot, autogun->xzero, &autogun->xspeed, PALUPF(0.0000058168379837298f), PALUPF(0.0000058168379837298f), PALUPF(0.00034901028266177f));
+		apply_rotation(&autogun->yrot, autogun->yzero, &autogun->yspeed, PALUPF(0.00001163367596746f), PALUPF(0.00001163367596746f), PALUPF(BADDTOR(0.04f)));
+		apply_rotation(&autogun->xrot, autogun->xzero, &autogun->xspeed, PALUPF(0.0000058168379837298f), PALUPF(0.0000058168379837298f), PALUPF(BADDTOR(0.02f)));
 		return;
 	}
 
@@ -8544,11 +8544,11 @@ void autogun_tick(struct prop *prop)
 			autogun->xzero = autogun->xrot;
 			autogun->yzero = autogun->yrot;
 		} else if (autogun->yrot == autogun->yzero) {
-			autogun->yzero = RANDOMFRAC() * M_BADTAU;
+			autogun->yzero = RANDOMFRAC() * BADDTOR(360);
 		}
 
-		apply_rotation(&autogun->yrot, autogun->yzero, &autogun->yspeed, PALUPF(0.00001163367596746f), PALUPF(0.00001163367596746f), PALUPF(0.00069802056532353f));
-		apply_rotation(&autogun->xrot, autogun->xzero, &autogun->xspeed, PALUPF(0.0000058168379837298f), PALUPF(0.0000058168379837298f), PALUPF(0.00034901028266177f));
+		apply_rotation(&autogun->yrot, autogun->yzero, &autogun->yspeed, PALUPF(0.00001163367596746f), PALUPF(0.00001163367596746f), PALUPF(BADDTOR(0.04f)));
+		apply_rotation(&autogun->xrot, autogun->xzero, &autogun->xspeed, PALUPF(0.0000058168379837298f), PALUPF(0.0000058168379837298f), PALUPF(BADDTOR(0.02f)));
 
 		maxspeed = cosf(autogun->yrot);
 
@@ -8581,8 +8581,8 @@ void autogun_tick(struct prop *prop)
 		if (autogun->barrelspeed > 0.0f) {
 			autogun->barrelrot += autogun->barrelspeed * g_Vars.lvupdate60freal;
 
-			while (autogun->barrelrot >= M_BADTAU) {
-				autogun->barrelrot -= M_BADTAU;
+			while (autogun->barrelrot >= BADDTOR(360)) {
+				autogun->barrelrot -= BADDTOR(360);
 			}
 		}
 
@@ -8721,24 +8721,24 @@ void autogun_tick(struct prop *prop)
 				f12 = targetangleh - autogun->yrot;
 
 				if (f12 < 0.0f) {
-					f12 += M_BADTAU;
+					f12 += BADDTOR(360);
 				}
 
-				if (f12 > M_BADPI) {
-					f12 -= M_BADTAU;
+				if (f12 > BADDTOR(180)) {
+					f12 -= BADDTOR(360);
 				}
 
 				f2 = targetanglev - autogun->xrot;
 
 				if (f2 < 0.0f) {
-					f2 += M_BADTAU;
+					f2 += BADDTOR(360);
 				}
 
-				if (f2 > M_BADPI) {
-					f2 -= M_BADTAU;
+				if (f2 > BADDTOR(180)) {
+					f2 -= BADDTOR(360);
 				}
 
-				if (f12 < 1.221536f && f12 > -1.221536f) {
+				if (f12 < BADDTOR(70) && f12 > BADDTOR(-70)) {
 					awake = true;
 				}
 			}
@@ -8747,10 +8747,10 @@ void autogun_tick(struct prop *prop)
 				relangleh = targetangleh - autogun->yzero;
 				track = true;
 
-				if (relangleh < -M_PI) {
-					relangleh += M_BADTAU;
-				} else if (relangleh >= M_PI) {
-					relangleh -= M_BADTAU;
+				if (relangleh < DTOR(-180)) {
+					relangleh += BADDTOR(360);
+				} else if (relangleh >= DTOR(180)) {
+					relangleh -= BADDTOR(360);
 				}
 
 				// Decide if target can be tracked
@@ -8822,23 +8822,23 @@ void autogun_tick(struct prop *prop)
 
 	// The turret swivels left and right while firing
 	if (autogun->firing) {
-		goalyrot += limitangle * 0.8f * sinf((g_Vars.lvframe60 % TICKS(120)) * PALUPF(0.05235154f));
+		goalyrot += limitangle * 0.8f * sinf((g_Vars.lvframe60 % TICKS(120)) * PALUPF(BADDTOR(3)));
 
 		if (goalyrot < 0.0f) {
-			goalyrot += M_BADTAU;
+			goalyrot += BADDTOR(360);
 		}
 
-		if (goalyrot >= M_BADTAU) {
-			goalyrot -= M_BADTAU;
+		if (goalyrot >= BADDTOR(360)) {
+			goalyrot -= BADDTOR(360);
 		}
 	}
 
 	f0 = goalyrot - autogun->yzero;
 
-	if (f0 < -M_PI) {
-		f0 += M_BADTAU;
-	} else if (f0 >= M_PI) {
-		f0 -= M_BADTAU;
+	if (f0 < DTOR(-180)) {
+		f0 += BADDTOR(360);
+	} else if (f0 >= DTOR(180)) {
+		f0 -= BADDTOR(360);
 	}
 
 	if (f0 > autogun->ymaxleft) {
@@ -8848,11 +8848,11 @@ void autogun_tick(struct prop *prop)
 	}
 
 	if (goalyrot < 0.0f) {
-		goalyrot += M_BADTAU;
+		goalyrot += BADDTOR(360);
 	}
 
-	if (goalyrot >= M_BADTAU) {
-		goalyrot -= M_BADTAU;
+	if (goalyrot >= BADDTOR(360)) {
+		goalyrot -= BADDTOR(360);
 	}
 
 	apply_rotation(&autogun->yrot, goalyrot, &autogun->yspeed, PALUPF(0.00087252567755058f), PALUPF(0.00087252567755058f), autogun->maxspeed);
@@ -8861,21 +8861,21 @@ void autogun_tick(struct prop *prop)
 	f12 = goalyrot - autogun->yrot;
 
 	if (f12 < 0.0f) {
-		f12 += M_BADTAU;
+		f12 += BADDTOR(360);
 	}
 
-	if (f12 > M_BADPI) {
-		f12 -= M_BADTAU;
+	if (f12 > BADDTOR(180)) {
+		f12 -= BADDTOR(360);
 	}
 
 	f2 = goalxrot - autogun->xrot;
 
 	if (f2 < 0.0f) {
-		f2 += M_BADTAU;
+		f2 += BADDTOR(360);
 	}
 
-	if (f2 > M_BADPI) {
-		f2 -= M_BADTAU;
+	if (f2 > BADDTOR(180)) {
+		f2 -= BADDTOR(360);
 	}
 
 	autogun->firing = false;
@@ -8929,8 +8929,8 @@ void autogun_tick(struct prop *prop)
 	if (autogun->barrelspeed > 0.0f) {
 		autogun->barrelrot += autogun->barrelspeed * g_Vars.lvupdate60freal;
 
-		while (autogun->barrelrot >= M_BADTAU) {
-			autogun->barrelrot -= M_BADTAU;
+		while (autogun->barrelrot >= BADDTOR(360)) {
+			autogun->barrelrot -= BADDTOR(360);
 		}
 	}
 }
@@ -8942,7 +8942,7 @@ void autogun_init_matrices(struct prop *prop, Mtxf *mtx)
 	Mtxf *matrices = model->matrices;
 	union modelrodata *rodata;
 	struct coord sp4c;
-	f32 yrot = autogun->yrot + RAD(90, 1.5705462694168f);
+	f32 yrot = autogun->yrot + BADDTOR(90);
 	f32 xrot = -autogun->xrot;
 	Mtxf *tmp;
 	struct modelnode *node2;
@@ -8950,8 +8950,8 @@ void autogun_init_matrices(struct prop *prop, Mtxf *mtx)
 	struct modelnode *node4;
 	struct modelnode *node6;
 
-	if (yrot >= M_BADTAU) {
-		yrot -= M_BADTAU;
+	if (yrot >= BADDTOR(360)) {
+		yrot -= BADDTOR(360);
 	}
 
 	rodata = model_get_part_rodata(model->definition, MODELPART_AUTOGUN_0001);
@@ -9420,8 +9420,8 @@ void chopper_init_matrices(struct prop *prop)
 	Mtxf sp28;
 
 	rodata = model_get_part_rodata(model->definition, MODELPART_CHOPPER_0001);
-	mtx4_load_z_rotation(M_BADTAU - chopper->gunrotx, &sp68);
-	mtx4_load_y_rotation(chopper->gunroty + RAD(90, 1.5707963705063f), &sp28);
+	mtx4_load_z_rotation(BADDTOR(360) - chopper->gunrotx, &sp68);
+	mtx4_load_y_rotation(chopper->gunroty + DTOR(90), &sp28);
 	mtx00015be4(&sp28, &sp68, &spa8);
 
 	mtx4_set_translation(&rodata->position.pos, &spa8);
@@ -9463,8 +9463,8 @@ bool chopper_check_target_in_fov(struct chopperobj *hovercar, u8 fov)
 		f32 angle = atan2f(prop->pos.x - target->pos.x, prop->pos.z - target->pos.z);
 		f32 anglediff = angle - roty;
 
-		if (angle < roty) {
-			anglediff += M_BADTAU;
+		if (anglediff < 0) {
+			anglediff += BADDTOR(360);
 		}
 
 		visible = false;
@@ -9472,8 +9472,8 @@ bool chopper_check_target_in_fov(struct chopperobj *hovercar, u8 fov)
 		// This logic looks wrong, but is actually correct. I think the fov is
 		// actually the not viewable area and starts at the back of the chopper,
 		// which makes sense because the chopper's windows go around the side.
-		if (!(anglediff < fov * 0.024539785459638f && anglediff < M_PI)
-				&& !(anglediff > M_BADTAU - fov * 0.024539785459638f && anglediff > M_PI)) {
+		if (!(anglediff < fov * 0.024539785459638f && anglediff < DTOR(180))
+				&& !(anglediff > BADDTOR(360) - fov * 0.024539785459638f && anglediff > DTOR(180))) {
 			visible = true;
 		}
 
@@ -9691,39 +9691,39 @@ void chopper_increment_barrel(struct prop *chopperprop, bool firing)
 		angleh = atan2f(targetprop->pos.x - gunpos.x, targetprop->pos.z - gunpos.z);
 
 		if (angleh <= 0.0f) {
-			angleh += M_BADTAU;
+			angleh += BADDTOR(360);
 		}
 
-		if (angleh > M_BADTAU) {
-			angleh -= M_BADTAU;
+		if (angleh > BADDTOR(360)) {
+			angleh -= BADDTOR(360);
 		}
 
 		angleh -= chopper->roty;
 
-		if (angleh > M_PI) {
-			angleh -= M_BADTAU;
+		if (angleh > DTOR(180)) {
+			angleh -= BADDTOR(360);
 		}
 
-		if (angleh < -M_PI) {
-			angleh += M_BADTAU;
+		if (angleh < DTOR(-180)) {
+			angleh += BADDTOR(360);
 		}
 
-		anglev = atan2f(gunaimy - gunpos.y, sqrtf((targetprop->pos.x - gunpos.x) * (targetprop->pos.x - gunpos.x) + (targetprop->pos.z - gunpos.z) * (targetprop->pos.z - gunpos.z))) - chopper->rotx + M_BADTAU;
+		anglev = atan2f(gunaimy - gunpos.y, sqrtf((targetprop->pos.x - gunpos.x) * (targetprop->pos.x - gunpos.x) + (targetprop->pos.z - gunpos.z) * (targetprop->pos.z - gunpos.z))) - chopper->rotx + BADDTOR(360);
 
-		if (anglev > M_PI) {
-			anglev -= M_BADTAU;
+		if (anglev > DTOR(180)) {
+			anglev -= BADDTOR(360);
 		}
 
-		if (chopper->barrelrotspeed < RAD(20, 0.34906584f)) {
-			chopper->barrelrotspeed += RAD(1, 0.017453292f) * LVUPDATE60FREAL();
+		if (chopper->barrelrotspeed < DTOR2(20)) {
+			chopper->barrelrotspeed += DTOR(1) * LVUPDATE60FREAL();
 		} else {
-			chopper->barrelrotspeed = RAD(20, 0.34906584f);
+			chopper->barrelrotspeed = DTOR2(20);
 		}
 	} else {
 		speedmult = 0.125f;
 
 		if (chopper->barrelrotspeed > 0.0f) {
-			chopper->barrelrotspeed -= RAD(1, 0.017453292f);
+			chopper->barrelrotspeed -= DTOR(1);
 		} else {
 			chopper->barrelrotspeed = 0.0f;
 		}
@@ -9837,7 +9837,7 @@ void chopper_increment_movement(struct prop *prop, f32 goalroty, f32 goalrotx, s
 
 	chopper->bob += 0.052359f;
 
-	if (chopper->bob > M_BADTAU) {
+	if (chopper->bob > BADDTOR(360)) {
 		chopper->bob = 0.0f;
 		chopper->bobstrength = ((random() % 8) + 2) * 0.01f;
 
@@ -9880,7 +9880,7 @@ void chopper_increment_movement(struct prop *prop, f32 goalroty, f32 goalrotx, s
 		}
 	}
 
-	if (goalrotx > M_PI && goalrotx < 5.8f) {
+	if (goalrotx > DTOR(180) && goalrotx < 5.8f) {
 		goalrotx = 5.8f;
 	}
 
@@ -9912,14 +9912,14 @@ void chopper_increment_movement(struct prop *prop, f32 goalroty, f32 goalrotx, s
 
 	currotz += (-turnyspeed * 40.0f - currotz) * 0.1f;
 
-	spfc.x = M_BADTAU - currotx;
+	spfc.x = BADDTOR(360) - currotx;
 	spfc.y = curroty;
 	spfc.z = 0.0f;
 
 	if (currotz >= 0) {
 		mtx4_load_z_rotation(currotz, &sp3c);
 	} else {
-		mtx4_load_z_rotation(currotz + M_BADTAU, &sp3c);
+		mtx4_load_z_rotation(currotz + BADDTOR(360), &sp3c);
 	}
 
 	mtx4_load_rotation(&spfc, &sp7c);
@@ -9948,7 +9948,7 @@ void chopper_increment_movement(struct prop *prop, f32 goalroty, f32 goalrotx, s
 		angle = -(curroty - goalroty);
 	}
 
-	chopper->ontarget = angle < RAD(10, 0.1745f);
+	chopper->ontarget = angle < DTOR(9.998114f);
 
 	newpos.x = prop->pos.x + chopper->vx * g_Vars.lvupdate60freal;
 	newpos.y = prop->pos.y + chopper->vy * g_Vars.lvupdate60freal;
@@ -10054,7 +10054,7 @@ void chopper_tick_fall(struct prop *chopperprop)
 			ps_stop_sound(chopperprop, PSTYPE_GENERAL, 0xffff);
 			obj->hidden |= OBJHFLAG_DELETING;
 		} else {
-			chopper_increment_movement(chopperprop, goalroty, chopper->rotx < 0 ? M_PI : -M_PI, &speed, false);
+			chopper_increment_movement(chopperprop, goalroty, chopper->rotx < 0 ? DTOR(180) : DTOR(-180), &speed, false);
 		}
 	} else {
 		// Area 51 interceptors do collision checks
@@ -10069,7 +10069,7 @@ void chopper_tick_fall(struct prop *chopperprop)
 
 		bob = chopper->bob + 0.052358999848366f;
 
-		if (bob > M_BADTAU) {
+		if (bob > BADDTOR(360)) {
 			bob = 0;
 
 			chopper->bobstrength = (random() % 8 + 2) * 0.01f;
@@ -10142,7 +10142,7 @@ void chopper_tick_fall(struct prop *chopperprop)
 			chopper->dead = true;
 		} else {
 			smoke_create_simple(&chopperprop->pos, chopperprop->rooms, SMOKETYPE_3);
-			chopper_increment_movement(chopperprop, goalroty, chopper->rotx < 0 ? M_PI : -M_PI, &speed, false);
+			chopper_increment_movement(chopperprop, goalroty, chopper->rotx < 0 ? DTOR(180) : DTOR(-180), &speed, false);
 		}
 	}
 }
@@ -10642,14 +10642,14 @@ void hovercar_tick(struct prop *prop)
 			sp188 += (-sp184 * 120 - sp188) * 0.1f;
 		}
 
-		sp12c.x = ishoverbot ? M_BADTAU - sp18c : 0;
+		sp12c.x = ishoverbot ? BADDTOR(360) - sp18c : 0;
 		sp12c.y = sp190;
 		sp12c.z = 0;
 
 		if (sp188 >= 0) {
 			mtx4_load_z_rotation(sp188, &sp6c);
 		} else {
-			mtx4_load_z_rotation(sp188 + M_BADTAU, &sp6c);
+			mtx4_load_z_rotation(sp188 + BADDTOR(360), &sp6c);
 		}
 
 		mtx4_load_rotation(&sp12c, &spac);
@@ -13157,18 +13157,18 @@ Gfx *tvscreen_render(struct model *model, struct modelnode *node, struct tvscree
 				screen->offset += 3;
 				break;
 			case TVCMD_ROTATEABS:
-				screen->rot = cmd->arg1 * (M_BADTAU / 65536.0f);
+				screen->rot = cmd->arg1 * (BADDTOR(360) / 65536.0f);
 				screen->offset += 2;
 				break;
 			case TVCMD_ROTATEREL:
-				screen->rot += g_Vars.lvupdate60f * cmd->arg1 * (M_BADTAU / 65536.0f);
+				screen->rot += g_Vars.lvupdate60f * cmd->arg1 * (BADDTOR(360) / 65536.0f);
 
-				if (screen->rot >= M_BADTAU) {
-					screen->rot -= M_BADTAU;
+				if (screen->rot >= BADDTOR(360)) {
+					screen->rot -= BADDTOR(360);
 				}
 
 				if (screen->rot < 0.0f) {
-					screen->rot += M_BADTAU;
+					screen->rot += BADDTOR(360);
 				}
 
 				screen->offset += 2;
@@ -14462,12 +14462,12 @@ bool obj_drop(struct prop *prop, bool lazy)
 
 			spa4 = RANDOMFRAC() * 13.333333015442f;
 			spa0 = atan2f(spe4.x, spe4.z);
-			spa0 += RANDOMFRAC() * RAD(45, 0.7852731347084f) - RAD(22, 0.3926365673542f);
+			spa0 += RANDOMFRAC() * BADDTOR(45) - BADDTOR(22.5f);
 
-			if (spa0 >= M_BADTAU) {
-				spa0 -= M_BADTAU;
+			if (spa0 >= BADDTOR(360)) {
+				spa0 -= BADDTOR(360);
 			} else if (spa0 < 0.0f) {
-				spa0 += M_BADTAU;
+				spa0 += BADDTOR(360);
 			}
 
 			projectile->speed.x += spa4 * sinf(spa0);
@@ -14485,7 +14485,7 @@ bool obj_drop(struct prop *prop, bool lazy)
 			if (projectile->droptype == DROPTYPE_SURRENDER && parent->type == PROPTYPE_CHR) {
 				struct chrdata *chr = parent->chr;
 				struct coord rot = {0, 0, 0};
-				f32 angle = chr_get_inverse_theta(chr);
+				f32 angle = chr_get_theta(chr);
 
 				projectile->speed.x = sinf(angle) * 1.6666666269302f;
 				projectile->speed.y = -RANDOMFRAC() * 0.83333331346512f;
@@ -14499,7 +14499,7 @@ bool obj_drop(struct prop *prop, bool lazy)
 			} else if (projectile->droptype == DROPTYPE_THROWGRENADE && parent->type == PROPTYPE_CHR) {
 				struct chrdata *chr = parent->chr;
 				struct coord rot = {0, 0, 0};
-				f32 angle = chr_get_inverse_theta(chr);
+				f32 angle = chr_get_theta(chr);
 				f32 dist;
 
 				if (chr->aibot) {
@@ -16008,17 +16008,17 @@ bool obj_test_for_interact(struct prop *prop)
 		}
 
 		if (x * x + z * z < range * range && y < range && y > -range) {
-			f32 angle = atan2f(x, z) - (360.0f - g_Vars.currentplayer->vv_theta) * M_BADTAU / 360.0f;
+			f32 angle = atan2f(x, z) - (360.0f - g_Vars.currentplayer->vv_theta) * BADDTOR(360) / 360.0f;
 
 			if (angle < 0.0f) {
-				angle += M_BADTAU;
+				angle += BADDTOR(360);
 			}
 
-			if (angle > M_BADPI) {
-				angle = M_BADTAU - angle;
+			if (angle > BADDTOR(180)) {
+				angle = BADDTOR(360) - angle;
 			}
 
-			if (angle <= RAD(22.5f, 0.3926365673542f)) {
+			if (angle <= BADDTOR(22.5f)) {
 				if ((obj->flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0
 						|| cd_test_los06(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
 					g_InteractProp = prop;
@@ -16065,11 +16065,11 @@ bool current_player_try_mount_hoverbike(struct prop *prop)
 		angle -= hoverprop_get_turn_angle(obj);
 
 		if (angle < 0) {
-			angle += M_BADTAU;
+			angle += BADDTOR(360);
 		}
 
-		if ((angle > RAD(22, 0.3926365673542f) && angle < RAD(135, 2.3558194637299f))
-				|| (angle < RAD(337, 5.8895483016968f) && angle > RAD(225, 3.9263656139374f))) {
+		if ((angle > BADDTOR(22.5f) && angle < BADDTOR(135))
+				|| (angle < BADDTOR2(337.5f) && angle > BADDTOR2(225))) {
 			g_Vars.currentplayer->hoverbike = prop;
 			bmove_set_mode(MOVEMODE_BIKE);
 			return true;
@@ -17615,7 +17615,7 @@ s32 obj_test_for_pickup(struct prop *prop)
 		}
 	}
 
-	if (g_Vars.currentplayer->vv_verta * M_BADTAU / 360.0f < RAD(-45, -0.7852731347084f)) {
+	if (BADDTOR3(g_Vars.currentplayer->vv_verta) < BADDTOR(-45)) {
 		if (g_Vars.currentplayer->magnetattracttime < 0) {
 			return TICKOP_NONE;
 		}
@@ -19147,9 +19147,9 @@ void door_update_tiles(struct doorobj *door)
 
 		if (door->doortype == DOORTYPE_AZTECCHAIR) {
 			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
-				mtx4_load_z_rotation(M_BADTAU - door->frac * 0.017450513318181f, &sp98);
+				mtx4_load_z_rotation(BADDTOR(360) - door->frac * BADDTOR(1), &sp98);
 			} else {
-				mtx4_load_z_rotation(door->frac * 0.017450513318181f, &sp98);
+				mtx4_load_z_rotation(door->frac * BADDTOR(1), &sp98);
 			}
 		} else if (door->doortype == DOORTYPE_HULL) {
 			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
@@ -19159,9 +19159,9 @@ void door_update_tiles(struct doorobj *door)
 			}
 		} else {
 			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
-				mtx4_load_y_rotation(M_BADTAU - door->frac * 0.017450513318181f, &sp98);
+				mtx4_load_y_rotation(BADDTOR(360) - door->frac * BADDTOR(1), &sp98);
 			} else {
-				mtx4_load_y_rotation(door->frac * 0.017450513318181f, &sp98);
+				mtx4_load_y_rotation(door->frac * BADDTOR(1), &sp98);
 			}
 		}
 
@@ -20337,17 +20337,17 @@ f32 door_get_activation_angle(f32 x, f32 y)
 			&& g_Vars.currentplayer->eyespy->active
 			&& g_Vars.currentplayer->eyespy->prop
 			&& g_Vars.currentplayer->eyespy->prop->chr) {
-		angle -= chr_get_inverse_theta(g_Vars.currentplayer->eyespy->prop->chr);
+		angle -= chr_get_theta(g_Vars.currentplayer->eyespy->prop->chr);
 	} else {
-		angle -= (360.0f - g_Vars.currentplayer->vv_theta) * M_BADTAU / 360.0f;
+		angle -= BADDTOR3(360.0f - g_Vars.currentplayer->vv_theta);
 	}
 
 	if (angle < 0) {
-		angle += M_BADTAU;
+		angle += BADDTOR(360);
 	}
 
-	if (angle > M_BADPI) {
-		angle -= M_BADTAU;
+	if (angle > BADDTOR(180)) {
+		angle -= BADDTOR(360);
 	}
 
 	return angle;
@@ -20426,11 +20426,11 @@ void door_get_activation_angles(struct doorobj *door, f32 *homeminangle, f32 *ho
 
 	if (doorminangle != NULL && doormaxangle != NULL) {
 		if (door->doortype == DOORTYPE_SWINGING) {
-			angle = door->frac * 0.017450513318181f;
+			angle = BADDTOR2(door->frac);
 			value3 = value1;
 
 			if (door->base.flags & OBJFLAG_DOOR_OPENTOFRONT) {
-				angle = M_BADTAU - angle;
+				angle = BADDTOR(360) - angle;
 			}
 
 			cosine = cosf(angle);
@@ -20473,7 +20473,7 @@ bool door_test_interact_angle(struct doorobj *door, bool altcoordsystem)
 	f32 doormaxangle;
 	bool includedoor;
 	struct prop *playerprop;
-	f32 limit = RAD(20, 0.34901028871536f);
+	f32 limit = BADDTOR(20);
 
 	if (g_InteractProp == NULL) {
 		includedoor = false;
@@ -20497,7 +20497,7 @@ bool door_test_interact_angle(struct doorobj *door, bool altcoordsystem)
 		}
 
 		if (includedoor && ((doorminangle >= -limit && doorminangle <= limit && doormaxangle >= -limit && doormaxangle <= limit)
-					|| (doormaxangle - doorminangle < M_BADPI && doorminangle < 0.0f && doormaxangle > 0.0f))) {
+					|| (doormaxangle - doorminangle < BADDTOR(180) && doorminangle < 0.0f && doormaxangle > 0.0f))) {
 			g_InteractProp = door->base.prop;
 			checkmore = false;
 		} else if (homeminangle >= -limit && homeminangle <= limit && homemaxangle >= -limit && homemaxangle <= limit) {
@@ -20522,7 +20522,7 @@ bool door_test_interact_angle(struct doorobj *door, bool altcoordsystem)
 				sibling = sibling->sibling;
 			}
 
-			if (homemaxangle - homeminangle < M_BADPI && homeminangle < 0.0f && homemaxangle > 0.0f) {
+			if (homemaxangle - homeminangle < BADDTOR(180) && homeminangle < 0.0f && homemaxangle > 0.0f) {
 				g_InteractProp = door->base.prop;
 				checkmore = false;
 			}

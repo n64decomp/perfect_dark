@@ -490,7 +490,7 @@ void bg_choose_xray_vtx_colour(bool *inrange, s16 vertex[3], u32 *colour, struct
 
 						if (1);
 
-						colfrac = sinf((1.0f - anglefrac) * RAD(90, 1.5707964f));
+						colfrac = sinf((1.0f - anglefrac) * DTOR(90));
 
 						*colour = (u32)(colfrac * 255.0f) << player->ecol_1
 							| (u32)((1.0f - colfrac) * 255.0f) << player->ecol_2
@@ -501,7 +501,7 @@ void bg_choose_xray_vtx_colour(bool *inrange, s16 vertex[3], u32 *colour, struct
 
 						if (1);
 
-						colfrac = sinf(anglefrac * RAD(90, 1.5707964f));
+						colfrac = sinf(anglefrac * DTOR(90));
 
 						*colour = (u32)(colfrac * 255.0f) << player->ecol_3
 							| 0xff << player->ecol_2

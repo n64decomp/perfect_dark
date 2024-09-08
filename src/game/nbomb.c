@@ -39,7 +39,7 @@ u32 var80061648 = 0;
 	vertices[i].y = src.y * var80061644; \
 	vertices[i].z = src.z * var80061644; \
 	vertices[i].s = src.y * 256.0f * 32.0f; \
-	vertices[i].t = atan2f(src.x, src.z) / M_TAU * 256.0f * 32.0f; \
+	vertices[i].t = atan2f(src.x, src.z) / DTOR(360) * 256.0f * 32.0f; \
 	vertices[i].colour = var80061648 * 0; \
 \
 	var80061648 = 1 - var80061648; \
@@ -390,7 +390,7 @@ Gfx *nbomb_render(Gfx *gdl, struct nbomb *nbomb, Gfx *subgdl)
 	mtx4_load_translation(&nbomb->pos, &sp48);
 
 	sp3c.x = 0;
-	sp3c.y = nbomb->unk14 / divider * M_TAU;
+	sp3c.y = nbomb->unk14 / divider * DTOR(360);
 	sp3c.z = 0;
 
 	mtx4_load_rotation(&sp3c, &sp88);
@@ -999,7 +999,7 @@ Gfx *gas_render(Gfx *gdl)
 			f2 = (camposx + camposz) / 3000.0f;
 			f16 = (f2 - (s32) f2);
 
-			sp78 = atan2f(-lookx, lookz) / M_BADTAU;
+			sp78 = atan2f(-lookx, lookz) / BADDTOR(360);
 
 			layer2s = ((s32) (2.0f * ((menu_get_sin_osc_frac(4.0f) - 0.5f) / 6.0f + sp78 + f16 * 1.5f) * 128.0f * 32.0f) % 2048);
 			layer1s = ((s32) (2.0f * ((menu_get_cos_osc_frac(4.0f) - 0.5f) / -9.0f + sp78 + f16) * 128.0f * 32.0f) % 2048);

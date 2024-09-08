@@ -15,9 +15,9 @@ void projectile_load_random_rotation(Mtxf *mtx)
 {
 	struct coord rot = {0, 0, 0};
 
-	rot.x = RANDOMFRAC() * PALUPF(M_BADTAU) * (1.0f / 128.0f) - PALUPF(M_BADPI / 128.0f);
-	rot.y = RANDOMFRAC() * PALUPF(M_BADTAU) * (1.0f / 128.0f) - PALUPF(M_BADPI / 128.0f);
-	rot.z = RANDOMFRAC() * PALUPF(M_BADTAU) * (1.0f / 128.0f) - PALUPF(M_BADPI / 128.0f);
+	rot.x = RANDOMFRAC() * PALUPF(BADDTOR(360)) * (1.0f / 128.0f) - PALUPF(BADDTOR(180) / 128.0f);
+	rot.y = RANDOMFRAC() * PALUPF(BADDTOR(360)) * (1.0f / 128.0f) - PALUPF(BADDTOR(180) / 128.0f);
+	rot.z = RANDOMFRAC() * PALUPF(BADDTOR(360)) * (1.0f / 128.0f) - PALUPF(BADDTOR(180) / 128.0f);
 
 	mtx4_load_rotation(&rot, mtx);
 }

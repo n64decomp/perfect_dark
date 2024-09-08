@@ -464,8 +464,8 @@ void htm_tick_chr(struct chrdata *chr)
 
 	if (playernum == data->dlplayernum && data->dlterminalnum != -1) {
 		struct coord *terminalpos = &data->terminals[data->dlterminalnum].prop->pos;
-		f32 angle;
-		f32 relangle;
+		f32 degrees;
+		f32 reldegrees;
 		f32 rangexz;
 		f32 rangey;
 		struct coord *chrpos;
@@ -474,11 +474,11 @@ void htm_tick_chr(struct chrdata *chr)
 
 		if (chr) {
 			chrpos = &chr->prop->pos;
-			angle = (M_BADTAU - chr_get_inverse_theta(chr)) * 57.295776367188f;
+			degrees = RTOD2(BADDTOR(360) - chr_get_theta(chr));
 			holdinguplink = chr->aibot->weaponnum == WEAPON_UNARMED;
 		} else {
 			chrpos = &g_Vars.currentplayer->prop->pos;
-			angle = g_Vars.currentplayer->vv_theta;
+			degrees = g_Vars.currentplayer->vv_theta;
 			holdinguplink = bgun_get_weapon_num(HAND_RIGHT) == WEAPON_DATAUPLINK;
 		}
 
@@ -490,20 +490,20 @@ void htm_tick_chr(struct chrdata *chr)
 
 		rangey = ABS(dist.y);
 
-		relangle = atan2f(dist.x, dist.z) * 57.295776367188f + angle;
+		reldegrees = degrees + RTOD2(atan2f(dist.x, dist.z));
 
-		while (relangle < 180) {
-			relangle += 360;
+		while (reldegrees < 180) {
+			reldegrees += 360;
 		}
 
-		while (relangle > 180) {
-			relangle -= 360;
+		while (reldegrees > 180) {
+			reldegrees -= 360;
 		}
 
-		if (relangle > 0) {
+		if (reldegrees > 0) {
 			// empty
 		} else {
-			relangle = -relangle;
+			reldegrees = -reldegrees;
 		}
 
 		osSyncPrintf("HTM : Player %d - Term Pos = (%d,%d,%d)", playernum, (s32)terminalpos->x, (s32)terminalpos->y, (s32)terminalpos->z);
@@ -512,9 +512,9 @@ void htm_tick_chr(struct chrdata *chr)
 
 		osSyncPrintf("HTM : Player %d - Range XZ = %d", playernum, rangexz);
 		osSyncPrintf("HTM : Player %d - Range Y  = %d", playernum, rangey);
-		osSyncPrintf("HTM : Player %d - Angle XZ = %d", playernum, relangle);
+		osSyncPrintf("HTM : Player %d - Angle XZ = %d", playernum, reldegrees);
 
-		if (rangexz > 250 || rangey > 200 || relangle > 45 || !holdinguplink) {
+		if (rangexz > 250 || rangey > 200 || reldegrees > 45 || !holdinguplink) {
 			if (rangexz < 250 && rangey < 200) {
 				data->playernuminrange = playernum;
 			} else {

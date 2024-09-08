@@ -208,11 +208,11 @@ void botcmd_apply(struct chrdata *chr, u32 command)
 		bot_apply_protect(chr, g_Vars.currentplayer->prop);
 		break;
 	case AIBOTCMD_DEFEND:
-		value = chr_get_inverse_theta(g_Vars.currentplayer->prop->chr);
+		value = chr_get_theta(g_Vars.currentplayer->prop->chr);
 		bot_apply_defend(chr, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, value);
 		break;
 	case AIBOTCMD_HOLD:
-		value = chr_get_inverse_theta(g_Vars.currentplayer->prop->chr);
+		value = chr_get_theta(g_Vars.currentplayer->prop->chr);
 		bot_apply_hold(chr, &g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, value);
 		break;
 	default:

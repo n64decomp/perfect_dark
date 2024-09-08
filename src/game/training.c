@@ -924,10 +924,10 @@ bool fr_execute_target_script(s32 targetnum)
 		case FRCMD_ROTATE:
 			if (g_FrData.targets[targetnum].rotateoncloak == false) {
 				f32 angles[4];
-				angles[0] = DEG2RAD(-90);
-				angles[1] = DEG2RAD(-180);
-				angles[2] = DEG2RAD(90);
-				angles[3] = DEG2RAD(180);
+				angles[0] = DTOR(-90);
+				angles[1] = DTOR(-180);
+				angles[2] = DTOR(90);
+				angles[3] = DTOR(180);
 
 				g_FrData.targets[targetnum].rotatetoangle = g_FrData.targets[targetnum].angle + angles[script[offset + 1]];
 				g_FrData.targets[targetnum].rotatespeed = angles[script[offset + 1]] / (script[offset + 2] * 15);
@@ -1034,9 +1034,9 @@ void fr_init_targets(void)
 
 			if (g_FrData.targets[i].flags & FRTARGETFLAG_SPAWNFACINGAWAY) {
 				mtx4_load_y_rotation(0.0f, &sp144);
-				g_FrData.targets[i].angle = M_PI;
+				g_FrData.targets[i].angle = DTOR(180);
 			} else {
-				mtx4_load_y_rotation(M_PI, &sp144);
+				mtx4_load_y_rotation(DTOR(180), &sp144);
 			}
 
 			mtx00015f04(obj->model->scale, &sp144);
@@ -1426,7 +1426,7 @@ f32 fr_get_target_angle_to_pos(struct coord *targetpos, f32 targetangle, struct 
 	f32 relativeangle = directangle - targetangle;
 
 	if (directangle < targetangle) {
-		relativeangle += M_BADTAU;
+		relativeangle += BADDTOR(360);
 	}
 
 	return relativeangle;
@@ -1446,7 +1446,7 @@ bool fr_is_target_facing_pos(struct prop *prop, struct coord *pos)
 
 			angle = fr_get_target_angle_to_pos(&prop->pos, g_FrData.targets[i].angle, pos);
 
-			if (angle > RAD(90, 1.5707963705063f) && angle < RAD(270, 4.7116389274597f)) {
+			if (angle > DTOR(90) && angle < BADDTOR(270)) {
 				return false;
 			}
 
@@ -1472,7 +1472,7 @@ struct prop *fr_choose_autogun_target(struct coord *autogunpos)
 				&& g_FrData.targets[i].active) {
 			f32 angle = fr_get_target_angle_to_pos(&g_FrData.targets[i].prop->pos, g_FrData.targets[i].angle, autogunpos);
 
-			if (angle > RAD(90, 1.5707963705063f) && angle < RAD(270, 4.7116389274597f)) {
+			if (angle > DTOR(90) && angle < BADDTOR(270)) {
 				// facing away
 			} else {
 				facingtargets[len++] = i;
@@ -1884,7 +1884,7 @@ void fr_tick(void)
 						-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			}
 
-			if (g_FrData.targets[i].angle > RAD(131, 2.2915925979614f) && g_FrData.targets[i].angle < RAD(229, 3.9915928840637f)) {
+			if (g_FrData.targets[i].angle > DTOR(131.29858422661f) && g_FrData.targets[i].angle < DTOR2(228.7014257913f)) {
 				obj->damage = 0;
 			}
 
@@ -1895,7 +1895,7 @@ void fr_tick(void)
 			}
 
 			if (obj->damage > 0) {
-				if (invincible || g_FrData.targets[i].angle == M_PI) {
+				if (invincible || g_FrData.targets[i].angle == DTOR(180)) {
 					obj->damage = 0;
 				} else if (g_FrData.targets[i].flags & FRTARGETFLAG_ONEHITEXPLODE
 						|| obj->damage >= obj->maxdamage
@@ -2081,16 +2081,16 @@ void fr_tick(void)
 					cloaked = chr->hidden & CHRHFLAG_CLOAKED;
 
 					if (cloaked) {
-						if (g_FrData.targets[i].angle == M_PI) {
+						if (g_FrData.targets[i].angle == DTOR(180)) {
 							g_FrData.targets[i].timeuntilrotate = TICKS(60);
 							g_FrData.targets[i].rotatetoangle = 0;
-							g_FrData.targets[i].rotatespeed = -M_PI / 90;
+							g_FrData.targets[i].rotatespeed = DTOR(-180) / 90;
 						}
 					} else {
 						if (g_FrData.targets[i].angle == 0) {
 							g_FrData.targets[i].timeuntilrotate = TICKS(60);
-							g_FrData.targets[i].rotatetoangle = M_PI;
-							g_FrData.targets[i].rotatespeed = M_PI / 90;
+							g_FrData.targets[i].rotatetoangle = DTOR(180);
+							g_FrData.targets[i].rotatespeed = DTOR(180) / 90;
 						}
 					}
 				} else {
@@ -2138,16 +2138,16 @@ void fr_tick(void)
 					g_FrData.targets[i].scriptenabled = true;
 					g_FrData.targets[i].scriptsleep = 0;
 
-					while (g_FrData.targets[i].angle > M_BADTAU) {
-						g_FrData.targets[i].angle -= M_BADTAU;
+					while (g_FrData.targets[i].angle > BADDTOR(360)) {
+						g_FrData.targets[i].angle -= BADDTOR(360);
 					}
 
 					while (g_FrData.targets[i].angle < 0) {
-						g_FrData.targets[i].angle += M_BADTAU;
+						g_FrData.targets[i].angle += BADDTOR(360);
 					}
 				}
 
-				mtx4_load_y_rotation(g_FrData.targets[i].angle + M_PI, &spbc);
+				mtx4_load_y_rotation(g_FrData.targets[i].angle + DTOR(180), &spbc);
 				mtx00015f04(obj->model->scale, &spbc);
 				mtx4_to_mtx3(&spbc, sp98);
 				mtx3_copy(sp98, obj->realrot);

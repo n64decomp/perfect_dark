@@ -489,7 +489,7 @@ void mtx00016e98(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
 
 void mtx4_align(f32 mtx[4][4], f32 angle, f32 x, f32 y, f32 z)
 {
-	angle = RAD2DEG(angle);
+	angle = RTOD2(angle);
 	guAlignF(mtx, angle, x, y, z);
 }
 

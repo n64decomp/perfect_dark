@@ -191,7 +191,7 @@ void shard_create(RoomNum room, struct coord *pos, f32 rotx, f32 size, s32 type)
 
 	g_Shards[g_NextShardNum].rot.x = rotx;
 	g_Shards[g_NextShardNum].rot.y = 0;
-	g_Shards[g_NextShardNum].rot.z = RANDOMFRAC() * M_BADTAU;
+	g_Shards[g_NextShardNum].rot.z = RANDOMFRAC() * BADDTOR(360);
 
 	g_Shards[g_NextShardNum].rotspeed.x = RANDOMFRAC() * PALUPF(0.1f);
 	g_Shards[g_NextShardNum].rotspeed.y = RANDOMFRAC() * PALUPF(0.1f);

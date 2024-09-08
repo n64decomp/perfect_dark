@@ -219,7 +219,7 @@ void bgun_reset(void)
 	g_Vars.currentplayer->crosssum2[1] = 0;
 	g_Vars.currentplayer->gunaimdamp = 0.9f;
 	g_Vars.currentplayer->aimangle.x = 0;
-	g_Vars.currentplayer->aimangle.y = -M_PI;
+	g_Vars.currentplayer->aimangle.y = DTOR(-180);
 	g_Vars.currentplayer->aimangle.z = 0;
 	g_Vars.currentplayer->copiedgoldeneye = false;
 	g_Vars.currentplayer->magnetattracttime = -1;
