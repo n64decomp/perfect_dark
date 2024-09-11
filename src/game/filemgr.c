@@ -1948,11 +1948,11 @@ Gfx *filemgr_render_perfect_head_thumbnail(Gfx *gdl, struct menuitemrenderdata *
 		gDPTileSync(gdl++);
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 4) << 2) * g_ScaleX,
+				((renderdata->x + 4) << 2) * g_UiScaleX,
 				(renderdata->y + 2) << 2,
-				((renderdata->x + 20) << 2) * g_ScaleX,
+				((renderdata->x + 20) << 2) * g_UiScaleX,
 				(renderdata->y + 18) << 2,
-				G_TX_RENDERTILE, 0, 512, 1024 / g_ScaleX, -1024);
+				G_TX_RENDERTILE, 0, 512, 1024 / g_UiScaleX, -1024);
 
 		gDPLoadSync(gdl++);
 		gDPTileSync(gdl++);
@@ -2059,17 +2059,17 @@ MenuItemHandlerResult filemgr_file_to_copy_or_delete_list_menu_handler(s32 opera
 				x = renderdata->x + 2;
 				y = renderdata->y + 2;
 
-				gdl = text0f153628(gdl);
+				gdl = text_begin(gdl);
 
 				if (file) {
 					filemgr_get_select_name(text, file, g_Menus[g_MpPlayerNum].fm.filetypeplusone - 1);
-					gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+					gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							colour, vi_get_width(), vi_get_height(), 0, 1);
 					y = renderdata->y + 12;
 					x = renderdata->x + 2;
 				}
 
-				gdl = text0f153780(gdl);
+				gdl = text_end(gdl);
 			}
 
 			return (uintptr_t) gdl;
@@ -2251,7 +2251,7 @@ MenuItemHandlerResult pak_game_note_list_menu_handler(s32 operation, struct menu
 		sprintf(generalbuffer, "%d:\n", data->list.unk04 + 1);
 		x = renderdata->x + 4;
 		y = renderdata->y + 1;
-		gdl = text_render_projected(gdl, &x, &y, generalbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+		gdl = text_render_v2(gdl, &x, &y, generalbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 		// Prepare buffers for remaining text
@@ -2273,13 +2273,13 @@ MenuItemHandlerResult pak_game_note_list_menu_handler(s32 operation, struct menu
 		// Render note name
 		x = renderdata->x + 20;
 		y = renderdata->y + 1;
-		gdl = text_render_projected(gdl, &x, &y, generalbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+		gdl = text_render_v2(gdl, &x, &y, generalbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 		// Render ext character (for when a game has multiple notes)
 		x = renderdata->x + (VERSION == VERSION_JPN_FINAL ? 220 : 190);
 		y = renderdata->y + 1;
-		gdl = text_render_projected(gdl, &x, &y, extbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+		gdl = text_render_v2(gdl, &x, &y, extbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 		// Render number of pages
@@ -2287,7 +2287,7 @@ MenuItemHandlerResult pak_game_note_list_menu_handler(s32 operation, struct menu
 
 		x = renderdata->x + renderdata->width - textwidth - 6;
 		y = renderdata->y + 1;
-		gdl = text_render_projected(gdl, &x, &y, pagesbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+		gdl = text_render_v2(gdl, &x, &y, pagesbuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 		return (uintptr_t) gdl;
@@ -2656,23 +2656,23 @@ MenuItemHandlerResult filemgr_choose_agent_list_menu_handler(s32 operation, stru
 				TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 4) << 2) * g_ScaleX,
+				((renderdata->x + 4) << 2) * g_UiScaleX,
 				(renderdata->y + 2) << 2,
-				((renderdata->x + 60) << 2) * g_ScaleX,
+				((renderdata->x + 60) << 2) * g_UiScaleX,
 				(renderdata->y + 38) << 2,
-				G_TX_RENDERTILE, 0, 1152, 1024 / g_ScaleX, -1024);
+				G_TX_RENDERTILE, 0, 1152, 1024 / g_UiScaleX, -1024);
 
 		x = renderdata->x + 62;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 3 : 4);
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 
 		if (data->list.unk04 == g_FileLists[0]->numfiles) {
 			// "New Agent..."
-			gdl = text_render_projected(gdl, &x, &y, lang_get(L_OPTIONS_403),
+			gdl = text_render_v2(gdl, &x, &y, lang_get(L_OPTIONS_403),
 					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 		} else if (file) {
 			// Render file name
-			gdl = text_render_projected(gdl, &x, &y, name,
+			gdl = text_render_v2(gdl, &x, &y, name,
 					g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, vi_get_width(), vi_get_height(), 0, 1);
 
 			// Prepare and render stage name
@@ -2689,7 +2689,7 @@ MenuItemHandlerResult filemgr_choose_agent_list_menu_handler(s32 operation, stru
 			}
 
 			strcat(buffer, "\n");
-			gdl = text_render_projected(gdl, &x, &y, buffer,
+			gdl = text_render_v2(gdl, &x, &y, buffer,
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
 			// Prepare and render mission time
@@ -2715,17 +2715,17 @@ MenuItemHandlerResult filemgr_choose_agent_list_menu_handler(s32 operation, stru
 			text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 #endif
 
-			gdl = text_render_projected(gdl, &x, &y, buffer,
+			gdl = text_render_v2(gdl, &x, &y, buffer,
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
 			// Render seconds part of mission time (uses a smaller font)
 			y += (VERSION == VERSION_JPN_FINAL) ? 3 : 1;
 			x++;
 			sprintf(buffer, ".%02d", seconds);
-			gdl = text_render_projected(gdl, &x, &y, buffer,
+			gdl = text_render_v2(gdl, &x, &y, buffer,
 					g_CharsHandelGothicXs, g_FontHandelGothicXs, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 		}
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 		return (uintptr_t) gdl;
 	case MENUOP_GETOPTIONHEIGHT:
 		data->list.value = 40;

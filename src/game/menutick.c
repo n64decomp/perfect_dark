@@ -64,9 +64,9 @@ void menu_tick(void)
 	s32 anyopen = false;
 
 #if PAL
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 #else
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
+	g_UiScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
 	menu_tick_timers();
@@ -750,6 +750,6 @@ void menu_tick(void)
 		}
 	}
 
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 	g_MenuData.unk5d5_06 = sp344 ? true : false;
 }

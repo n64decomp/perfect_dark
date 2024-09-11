@@ -16044,7 +16044,7 @@ Gfx *chrs_render_chr_stats(Gfx *gdl, RoomNum *rooms)
 	s32 i;
 	s32 numchrs = chrs_get_num_slots();
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	for (i = 0; i < numchrs; i++) {
 		struct chrdata *chr = &g_ChrSlots[i];
@@ -16079,15 +16079,15 @@ Gfx *chrs_render_chr_stats(Gfx *gdl, RoomNum *rooms)
 				x2 = x + textwidth;
 				y2 = y + textheight;
 
-				gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-				gdl = text_render(gdl, &x, &y, fullbuffer,
+				gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+				gdl = text_render_v1(gdl, &x, &y, fullbuffer,
 						g_CharsHandelGothicXs, g_FontHandelGothicXs,
 						0xff8800aa, 0x00000088, vi_get_width(), vi_get_height(), 0, 0);
 			}
 		}
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	return gdl;
 }

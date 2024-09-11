@@ -211,7 +211,7 @@ extern struct wallhit *g_FreeWallhits;
 extern struct wallhit *g_ActiveWallhits;
 extern s32 g_MaxShards;
 extern struct shard *g_Shards;
-extern Gfx *var800a4634;
+extern Gfx *g_TextHoloRayGdl;
 extern struct room *g_Rooms;
 extern u8 *g_MpRoomVisibility;
 extern struct bgroom *g_BgRooms;

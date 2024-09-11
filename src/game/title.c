@@ -237,7 +237,7 @@ Gfx *title0f0165f0(Gfx *gdl, s32 xcentre, s32 ycentre, s32 xscale, s32 yscale, c
 	x = xcentre - xscale * textwidth / 2;
 	y = ycentre - yscale * textheight / 2;
 
-	gdl = text_render_projected(gdl, &x, &y, text, font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 
 	return gdl;
 }
@@ -333,7 +333,7 @@ Gfx *title_render_legal(Gfx *gdl)
 #if VERSION == VERSION_JPN_FINAL
 		gdl = func0f0d479c(gdl);
 #endif
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 
 		elem = g_LegalElements;
 		end = &g_LegalElements[ARRAYCOUNT(g_LegalElements)];
@@ -383,15 +383,15 @@ Gfx *title_render_legal(Gfx *gdl)
 			}
 
 			if (elem->type == LEGALELEMENTTYPE_LINE) {
-				gdl = text0f153780(gdl);
+				gdl = text_end(gdl);
 #if VERSION == VERSION_JPN_FINAL
-				gdl = text0f153a34(gdl, elem->x, elem->y - 1, vi_get_width(), elem->y + 1, 0x7f7fff7f);
+				gdl = text_draw_box(gdl, elem->x, elem->y - 1, vi_get_width(), elem->y + 1, 0x7f7fff7f);
 #else
-				gdl = text0f153a34(gdl, elem->x, elem->y, vi_get_width(), elem->y + 2, 0x7f7fff7f);
+				gdl = text_draw_box(gdl, elem->x, elem->y, vi_get_width(), elem->y + 2, 0x7f7fff7f);
 #endif
-				gdl = text0f153628(gdl);
+				gdl = text_begin(gdl);
 			} else if (elem->type == LEGALELEMENTTYPE_DOLBYLOGO) {
-				gdl = text0f153780(gdl);
+				gdl = text_end(gdl);
 
 				gDPPipeSync(gdl++);
 				gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -412,9 +412,9 @@ Gfx *title_render_legal(Gfx *gdl)
 						(elem->y + 24) << 2,
 						G_TX_RENDERTILE, 0, 0x0300, 0x0400, -0x0400);
 
-				gdl = text0f153628(gdl);
+				gdl = text_begin(gdl);
 			} else if (elem->type == LEGALELEMENTTYPE_RARELOGO) {
-				gdl = text0f153780(gdl);
+				gdl = text_end(gdl);
 
 				gDPPipeSync(gdl++);
 				gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -435,7 +435,7 @@ Gfx *title_render_legal(Gfx *gdl)
 						(elem->y + 42) << 2,
 						G_TX_RENDERTILE, 0, 0x0540, 0x0400, -0x0400);
 
-				gdl = text0f153628(gdl);
+				gdl = text_begin(gdl);
 			} else {
 #if VERSION == VERSION_JPN_FINAL
 				u32 stack;
@@ -445,23 +445,23 @@ Gfx *title_render_legal(Gfx *gdl)
 				if (elem->type == LEGALELEMENTTYPE_WHITETEXTLG || elem->type == LEGALELEMENTTYPE_WHITETEXTSM) {
 					y -= 3;
 
-					var8007fad0 = 2;
+					g_TextScaleX = 2;
 					var80080108jf = 2;
 
 					if (elem->x == -1) {
 						x += 24;
 					}
 
-					gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
+					gdl = text_render_v2(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 
-					var8007fad0 = 1;
+					g_TextScaleX = 1;
 					var80080108jf = 1;
 				} else {
-					gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), vi_get_width(), vi_get_height(), 0, 0);
+					gdl = text_render_v2(gdl, &x, &y, lang_get(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), vi_get_width(), vi_get_height(), 0, 0);
 
 					x = elem->x == -1 ? prevx : elem->x;
 					y = elem->y;
-					gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
+					gdl = text_render_v2(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 
 					prevx = x;
 				}
@@ -470,28 +470,28 @@ Gfx *title_render_legal(Gfx *gdl)
 				// Render a darker copy of the text one pixel above
 				x = elem->x == -1 ? prevx : elem->x;
 				y = elem->y - 1;
-				gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), vi_get_width(), vi_get_height(), 0, 0);
+				gdl = text_render_v2(gdl, &x, &y, lang_get(elem->textid), font1, font2, (colour & 0xffffff00) | ((colour & 0xff) * 2 / 3), vi_get_width(), vi_get_height(), 0, 0);
 
 				// Render the text properly
 				x = elem->x == -1 ? prevx : elem->x;
 				y = elem->y;
-				gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
+				gdl = text_render_v2(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 
 				prevx = x;
 #elif VERSION >= VERSION_PAL_BETA
 				x = elem->x == -1 ? prevx : elem->x;
 				y = elem->y;
-				gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
+				gdl = text_render_v2(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 				prevx = x;
 #else
 				x = elem->x;
 				y = elem->y;
-				gdl = text_render_projected(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
+				gdl = text_render_v2(gdl, &x, &y, lang_get(elem->textid), font1, font2, colour, vi_get_width(), vi_get_height(), 0, 0);
 #endif
 			}
 		}
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 	}
 
 	return gdl;
@@ -1702,7 +1702,7 @@ Gfx *title_render_typewriter_text(Gfx *gdl, s32 *x, s32 *y, u16 textnum, s32 tim
 		*colourcomponent = tmp = (60 - remaining) * 255 / 60;
 
 		buffer[0] = text[i];
-		gdl = text_render_projected(gdl, x, y, buffer, g_CharsHandelGothicLg, g_FontHandelGothicLg,
+		gdl = text_render_v2(gdl, x, y, buffer, g_CharsHandelGothicLg, g_FontHandelGothicLg,
 				0x7f7fffff | (tmp << 8) | (tmp << 16), vi_get_width(), vi_get_height(), 0, 0);
 	}
 
@@ -1716,7 +1716,7 @@ Gfx *title_render_rare_presents(Gfx *gdl)
 	s32 colourcomponent = 255;
 
 	gdl = title_clear(gdl);
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	x = vi_get_view_left() + 50;
 	y = vi_get_view_top() + vi_get_view_height() - 80;
@@ -1735,7 +1735,7 @@ Gfx *title_render_rare_presents(Gfx *gdl)
 		gdl = title_render_typewriter_text(gdl, &x, &y, L_OPTIONS_007, g_TitleTimer - 35, &colourcomponent); // "rare presents"
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	if (g_TitleTypewriterFinishing) {
 		if (g_TitleAudioHandle == NULL) {
@@ -1751,7 +1751,7 @@ Gfx *title_render_rare_presents(Gfx *gdl)
 
 	if (((s32)(g_20SecIntervalFrac * 80.0f) % 2) == 0) {
 		u32 colour = (colourcomponent << 8) | 0x7f7fffff | (colourcomponent << 16);
-		gdl = text0f153a34(gdl, x + 2, y, x + 12, y + 20, colour);
+		gdl = text_draw_box(gdl, x + 2, y, x + 12, y + 20, colour);
 	}
 
 	gdl = bview_draw_intro_text(gdl);
@@ -1760,7 +1760,7 @@ Gfx *title_render_rare_presents(Gfx *gdl)
 		f32 alpha = ((g_TitleTimer - TICKS(222.0f)) / TICKS(78.0f));
 		u32 stack;
 
-		gdl = text0f153a34(gdl, vi_get_view_left(), vi_get_view_top(),
+		gdl = text_draw_box(gdl, vi_get_view_left(), vi_get_view_top(),
 				vi_get_view_left() + vi_get_view_width(),
 				vi_get_view_top() + vi_get_view_height(),
 				255.0f * alpha);
@@ -2277,12 +2277,12 @@ Gfx *title_render_no_controller(Gfx *gdl)
 	joy_get_connected_controllers();
 
 	gdl = title_clear(gdl);
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 #if VERSION >= VERSION_JPN_FINAL
 	y = g_TitleViewHeight / 2 - 50;
 
-	var8007fad0 = 2;
+	g_TextScaleX = 2;
 	var80080108jf = 2;
 
 	// Line 1
@@ -2290,7 +2290,7 @@ Gfx *title_render_no_controller(Gfx *gdl)
 	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - textwidth;
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 	y += 18;
 
 	// Line 2
@@ -2298,7 +2298,7 @@ Gfx *title_render_no_controller(Gfx *gdl)
 	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - textwidth;
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 	y += 28;
 
 	// Line 3
@@ -2306,7 +2306,7 @@ Gfx *title_render_no_controller(Gfx *gdl)
 	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - textwidth;
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 	y += 18;
 
 	// Line 4
@@ -2314,10 +2314,10 @@ Gfx *title_render_no_controller(Gfx *gdl)
 	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 
 	x = 288 - textwidth;
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 	y += 18;
 
-	var8007fad0 = 1;
+	g_TextScaleX = 1;
 	var80080108jf = 1;
 #else
 	// Line 1
@@ -2329,10 +2329,10 @@ Gfx *title_render_no_controller(Gfx *gdl)
 
 	if (g_Jpn) {
 		width = vi_get_width();
-		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, vi_get_height(), 0, 0);
+		gdl = text_render_v1(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, vi_get_height(), 0, 0);
 	} else {
 		width = vi_get_width();
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	}
 
 	// Line 2
@@ -2344,14 +2344,14 @@ Gfx *title_render_no_controller(Gfx *gdl)
 
 	if (g_Jpn) {
 		width = vi_get_width();
-		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, vi_get_height(), 0, 0);
+		gdl = text_render_v1(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, 0x008000ff, width, vi_get_height(), 0, 0);
 	} else {
 		width = vi_get_width();
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	}
 #endif
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	return gdl;
 }
@@ -2401,39 +2401,39 @@ Gfx *title_render_no_expansion(Gfx *gdl)
 	joy_get_connected_controllers();
 
 	gdl = title_clear(gdl);
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	x = 50;
 	y = g_TitleViewHeight / 2 - 36;
 
-	var8007fad0 = 2;
+	g_TextScaleX = 2;
 	var80080108jf = 2;
 
 	text = lang_get(L_MPWEAPONS_281);
 	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 	x = 288 - textwidth;
 	width = vi_get_width();
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	y += 18;
 
 	text = lang_get(L_MPWEAPONS_282);
 	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 	x = 288 - textwidth;
 	width = vi_get_width();
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	y += 18;
 
 	text = lang_get(L_MPWEAPONS_284);
 	text_measure(&textheight, &textwidth, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0);
 	x = 288 - textwidth;
 	width = vi_get_width();
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicLg, g_FontHandelGothicLg, 0xffffffff, width, vi_get_height(), 0, 0);
 	y += 18;
 
-	var8007fad0 = 1;
+	g_TextScaleX = 1;
 	var80080108jf = 1;
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	return gdl;
 }

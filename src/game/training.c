@@ -3668,13 +3668,13 @@ Gfx *fr_render_hud_element(Gfx *gdl, s32 x, s32 y, char *string1, char *string2,
 
 	x2 = x - (textwidth >> 1);
 	y2 = y;
-	gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+	gdl = text_draw_black_box(gdl, &x2, &y2, &textwidth, &textheight);
 
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x2, &y2, string1,
+	gdl = text_render_vx(gdl, &x2, &y2, string1,
 			g_CharsHandelGothicMd, g_FontHandelGothicMd, fullcolour, halfalpha, vi_get_width(), vi_get_height(), 0, 0);
 
 	if (string2) {
+#if VERSION >= VERSION_JPN_FINAL
 		s32 textheight2;
 		s32 textwidth2;
 		s32 textheight3;
@@ -3689,9 +3689,9 @@ Gfx *fr_render_hud_element(Gfx *gdl, s32 x, s32 y, char *string1, char *string2,
 		y2 = y;
 		y2 += 17;
 
-		gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+		gdl = text_draw_black_box(gdl, &x2, &y2, &textwidth, &textheight);
 
-		gdl = func0f1574d0jf(gdl, &x2, &y2, string2,
+		gdl = text_render_vx(gdl, &x2, &y2, string2,
 			g_CharsHandelGothicSm, g_FontHandelGothicSm, fullcolour, halfalpha, vi_get_width(), vi_get_height(), 0, 0);
 
 		y2 = y;
@@ -3699,24 +3699,19 @@ Gfx *fr_render_hud_element(Gfx *gdl, s32 x, s32 y, char *string1, char *string2,
 		y2++;
 		x2 -= 4;
 
-		gdl = func0f1574d0jf(gdl, &x2, &y2, string3,
+		gdl = text_render_vx(gdl, &x2, &y2, string3,
 			g_CharsHandelGothicSm, g_FontHandelGothicSm, fullcolour, halfalpha, vi_get_width(), vi_get_height(), 0, 0);
-	}
 #else
-	gdl = text_render(gdl, &x2, &y2, string1,
-			g_CharsHandelGothicMd, g_FontHandelGothicMd, fullcolour, halfalpha, vi_get_width(), vi_get_height(), 0, 0);
-
-	if (string2) {
 		text_measure(&textheight, &textwidth, string2, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 		x2 = x - (textwidth >> 1);
 		y2 = y + 17;
-		gdl = text0f153858(gdl, &x2, &y2, &textwidth, &textheight);
+		gdl = text_draw_black_box(gdl, &x2, &y2, &textwidth, &textheight);
 
-		gdl = text_render(gdl, &x2, &y2, string2,
+		gdl = text_render_vx(gdl, &x2, &y2, string2,
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, fullcolour, halfalpha, vi_get_width(), vi_get_height(), 0, 0);
-	}
 #endif
+	}
 
 	return gdl;
 }
@@ -3746,7 +3741,7 @@ Gfx *fr_render_hud(Gfx *gdl)
 		alpha = (f32)(g_FrData.menucountdown * 160) / TICKS(60.0f);
 	}
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	// Time
 	red = fr_format_time(string1);
@@ -3790,7 +3785,7 @@ Gfx *fr_render_hud(Gfx *gdl)
 				string1, string2, string3, 0x00ff00a0, alpha);
 	}
 
-	return text0f153780(gdl);
+	return text_end(gdl);
 }
 #else
 Gfx *fr_render_hud(Gfx *gdl)
@@ -3816,7 +3811,7 @@ Gfx *fr_render_hud(Gfx *gdl)
 		alpha = (f32)(g_FrData.menucountdown * 160) / TICKS(60.0f);
 	}
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	// Time
 	red = fr_format_time(string1);
@@ -3858,6 +3853,6 @@ Gfx *fr_render_hud(Gfx *gdl)
 				string1, string2, 0x00ff00a0, alpha);
 	}
 
-	return text0f153780(gdl);
+	return text_end(gdl);
 }
 #endif

@@ -311,7 +311,7 @@ Gfx *pac_render_hud(Gfx *gdl)
 		secs = (time240 + (TICKS(240) - 1)) / TICKS(240);
 		sprintf(text, "%d:%02d", mins, secs);
 
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 
 		x -= textwidth / 2;
@@ -319,13 +319,13 @@ Gfx *pac_render_hud(Gfx *gdl)
 		textheight += y;
 
 #if VERSION >= VERSION_NTSC_1_0
-		gdl = text0f153990(gdl, x, y, textwidth, textheight);
-		gdl = text_render(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_textbox(gdl, x, y, textwidth, textheight);
+		gdl = text_render_v1(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0xa0, vi_get_width(), vi_get_height(), 0, 0);
 #else
-		gdl = text0f153858(gdl, &x, &y, &textwidth, &textheight);
-		gdl = text_render(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textwidth, &textheight);
+		gdl = text_render_v1(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x88, vi_get_width(), vi_get_height(), 0, 0);
 #endif
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 	}
 
 	return gdl;

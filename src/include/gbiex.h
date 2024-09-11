@@ -92,13 +92,13 @@
 
 /**
  * gDPFillRectangleScaled - a wrapper around gDPFillRectangle which applies
- * g_ScaleX to the X coordinates.
+ * g_UiScaleX to the X coordinates.
  *
- * g_ScaleX is normally 1, but 2 when using hi-res.
+ * g_UiScaleX is normally 1, but 2 when using hi-res.
  */
-#define gDPFillRectangleScaled(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_ScaleX, y1, (x2) * g_ScaleX, y2)
+#define gDPFillRectangleScaled(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_UiScaleX, y1, (x2) * g_UiScaleX, y2)
 
-#define gDPHudRectangle(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_ScaleX, y1, ((x2 + 1)) * g_ScaleX, (y2) + 1)
+#define gDPHudRectangle(pkt, x1, y1, x2, y2) gDPFillRectangle(pkt, (x1) * g_UiScaleX, y1, ((x2 + 1)) * g_UiScaleX, (y2) + 1)
 
 /**
  * Custom combiner modes.

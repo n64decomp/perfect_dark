@@ -919,11 +919,11 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 #endif
 
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
-		gdl = text_set_prim_colour(gdl, 0x00ff0028);
+		gdl = text_begin_boxmode(gdl, 0x00ff0028);
 	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
-		gdl = text_set_prim_colour(gdl, 0x2244ffa0);
+		gdl = text_begin_boxmode(gdl, 0x2244ffa0);
 	} else {
-		gdl = text_set_prim_colour(gdl, 0xff3300a0);
+		gdl = text_begin_boxmode(gdl, 0xff3300a0);
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -980,15 +980,10 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 	y = savedy;
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
-	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
+	gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
 
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextbright, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-	gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 
 	// "H/M"
 	sprintf(text, "%s %s%4.2f", lang_get(L_MISC_074), "", g_Vars.currentplayer->eyespy->height * 0.01f);
@@ -998,14 +993,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 	y = savedy;
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
-	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextbright, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-	gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 
 	// "Y/D"
 	sprintf(text, "%s %d", lang_get(L_MISC_075), (s32)g_Vars.currentplayer->eyespy->theta);
@@ -1015,14 +1005,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 	y = savedy;
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
-	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextbright, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-	gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 
 	// "P/D"
 	sprintf(text, "%s %d", lang_get(L_MISC_076), (s32)g_Vars.currentplayer->eyespy->verta);
@@ -1032,14 +1017,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 	y = savedy;
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
-	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextbright, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-	gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextbright, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 
 	// "CI 2023"
 	sprintf(text, "%s", lang_get(L_MISC_077));
@@ -1054,14 +1034,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 #endif
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
-	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-	gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 		sprintf(text, "%s", lang_get(L_MISC_078)); // "YKK: 95935"
@@ -1083,14 +1058,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
-	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-	gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 		// "CAMSPY"
@@ -1109,14 +1079,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 #endif
 		x2 = x + textwidth; \
 		y2 = y + textheight; \
-		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+		gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 	} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 		// "DRUGSPY"
 		sprintf(text, "   %s", lang_get(L_MISC_468));
@@ -1134,14 +1099,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 #endif
 		x2 = x + textwidth; \
 		y2 = y + textheight; \
-		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+		gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 	} else {
 		// "BOMBSPY"
 		sprintf(text, "   %s", lang_get(L_MISC_469));
@@ -1159,14 +1119,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 #endif
 		x2 = x + textwidth; \
 		y2 = y + textheight; \
-		gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+		gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-				colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 	}
 
 	// Model number
@@ -1191,14 +1146,9 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 #endif
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
-	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-	gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 
 	// Gyrostat/dartammo text
 	if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY
@@ -1222,16 +1172,11 @@ Gfx *bview_draw_eyespy_metrics(Gfx *gdl)
 	if (1);
 	x2 = x + textwidth; \
 	y2 = y + textheight; \
-	gdl = text0f153858(gdl, &x, &y, &x2, &y2);
-#if VERSION >= VERSION_JPN_FINAL
-	gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_draw_black_box(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#else
-	gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
-			colourtextdull, colourglow, vi_get_width(), vi_get_height(), 0, 0);
-#endif
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	{
 		s8 contpadnum = options_get_contpad_num1(g_Vars.currentplayerstats->mpindex);
@@ -2366,12 +2311,12 @@ Gfx *bview_draw_horizon_scanner(Gfx *gdl)
 	lenstop = viewtop + (viewheight / 2) - (lensheight / 2);
 
 	// Black out areas above and below lens
-	gdl = text_set_prim_colour(gdl, 0x000000ff);
+	gdl = text_begin_boxmode(gdl, 0x000000ff);
 
 	gDPFillRectangle(gdl++, viewleft, viewtop, viewleft + viewwidth, lenstop);
 	gDPFillRectangle(gdl++, viewleft, lenstop + lensheight, viewleft + viewwidth, viewtop + viewheight);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	// Prepare text buffers
 	sprintf(directiontext, "%s %s:%03d", arrows, &directions[(turnangle + 22) / 45], turnangle);
@@ -2387,7 +2332,7 @@ Gfx *bview_draw_horizon_scanner(Gfx *gdl)
 
 	sprintf(zoomtext, "%s %s%s%4.2fX", arrows, "", "", fovy);
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	// Arrows left of product name
 	if (vsplit) {
@@ -2397,7 +2342,7 @@ Gfx *bview_draw_horizon_scanner(Gfx *gdl)
 	}
 
 	y = lenstop - 7;
-	gdl = text_render_projected(gdl, &x, &y, arrows,
+	gdl = text_render_v2(gdl, &x, &y, arrows,
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, vi_get_width(), vi_get_height(), 0, 0);
 
 	// Product name
@@ -2410,17 +2355,17 @@ Gfx *bview_draw_horizon_scanner(Gfx *gdl)
 
 	strcat(nametext, " SCANNER\n");
 
-	gdl = text_render_projected(gdl, &x, &y, nametext,
+	gdl = text_render_v2(gdl, &x, &y, nametext,
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, vi_get_width(), vi_get_height(), 0, 0);
 #else
-	gdl = text_render_projected(gdl, &x, &y, " JMBC WIDE BAND SCANNER\n",
+	gdl = text_render_v2(gdl, &x, &y, " JMBC WIDE BAND SCANNER\n",
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, vi_get_width(), vi_get_height(), 0, 0);
 #endif
 
 	// Hertz
 	x = viewleft + 75 * scale;
 	y = lenstop + lensheight + 1;
-	gdl = text_render_projected(gdl, &x, &y, hertztext,
+	gdl = text_render_v2(gdl, &x, &y, hertztext,
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, vi_get_width(), vi_get_height(), 0, 0);
 
 	// Zoom level
@@ -2432,7 +2377,7 @@ Gfx *bview_draw_horizon_scanner(Gfx *gdl)
 		y = lenstop + lensheight + 1;
 	}
 
-	gdl = text_render_projected(gdl, &x, &y, zoomtext,
+	gdl = text_render_v2(gdl, &x, &y, zoomtext,
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, vi_get_width(), vi_get_height(), 0, 0);
 
 	// Direction
@@ -2444,9 +2389,9 @@ Gfx *bview_draw_horizon_scanner(Gfx *gdl)
 		y = lenstop + lensheight + 1;
 	}
 
-	gdl = text_render_projected(gdl, &x, &y, directiontext,
+	gdl = text_render_v2(gdl, &x, &y, directiontext,
 			g_CharsHandelGothicXs, g_FontHandelGothicXs, 0xffffff7f, vi_get_width(), vi_get_height(), 0, 0);
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	gDPPipeSync(gdl++);
 

@@ -63,9 +63,9 @@ void menugfx_create_blur(void)
 	static u32 cccc = 1;
 
 #if PAL
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 #else
-	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
+	g_UiScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
 #endif
 
 	if (cccc == 1) {
@@ -82,7 +82,7 @@ void menugfx_create_blur(void)
 #if PAL
 			s32 samplestartindex = (((s32) ((f32) dstx * 2 * 4 * 2 * scale) + (s32) (dsty * fbwidthinbytes * 8)) & 0xfffffffe);
 #else
-			s32 samplestartindex = PXTOBYTES(dstx * SAMPLE_WIDTH) * g_ScaleX + dsty * fbwidthinbytes * SAMPLE_HEIGHT;
+			s32 samplestartindex = PXTOBYTES(dstx * SAMPLE_WIDTH) * g_UiScaleX + dsty * fbwidthinbytes * SAMPLE_HEIGHT;
 #endif
 
 			r = g = b = 0;
@@ -92,7 +92,7 @@ void menugfx_create_blur(void)
 #if PAL
 					s32 index = (samplestartindex + (s32) (PXTOBYTES((f32) srcx) * scale) + srcy * fbwidthinbytes) & 0xfffffffe;
 #else
-					s32 index = samplestartindex + PXTOBYTES(srcx) * g_ScaleX + srcy * fbwidthinbytes;
+					s32 index = samplestartindex + PXTOBYTES(srcx) * g_UiScaleX + srcy * fbwidthinbytes;
 #endif
 
 					colour = fb[index] << 8 | fb[index + 1];
@@ -112,7 +112,7 @@ void menugfx_create_blur(void)
 		}
 	}
 
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 }
 
 Gfx *menugfx_render_bg_blur(Gfx *gdl, u32 colour, s16 arg2, s16 arg3)
@@ -245,11 +245,11 @@ Gfx *menugfx_render_dialog_background(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, 
 	u32 rightcolour;
 
 	// Render the dialog's background fill
-	gdl = text_set_prim_colour(gdl, colour1);
+	gdl = text_begin_boxmode(gdl, colour1);
 
 	gDPFillRectangleScaled(gdl++, x1, y1, x2, y2);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	if (dialog->transitionfrac < 0.0f) {
 		leftcolour = g_MenuColours[dialog->type].dialog_border1;
@@ -443,8 +443,8 @@ Gfx *menugfx_draw_dropdown_background(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	vertices[4].colour = 8;
 	vertices[5].colour = 8;
 
-	colour1 = text0f1543ac((x1 + x2) / 2, (y2 + y1) / 2, 0xffffffff) & 0xff;
-	colour2 = (text0f1543ac((x1 + x2) / 2, (y2 + y1) / 2, 0xffffff7f) & 0xff) | 0x00006f00;
+	colour1 = text_get_colour_at_pos((x1 + x2) / 2, (y2 + y1) / 2, 0xffffffff) & 0xff;
+	colour2 = (text_get_colour_at_pos((x1 + x2) / 2, (y2 + y1) / 2, 0xffffff7f) & 0xff) | 0x00006f00;
 
 	colours[0].word = colour1 | 0x00006f00;
 	colours[1].word = colour2;
@@ -522,8 +522,8 @@ Gfx *menugfx_draw_list_group_header(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, s3
 	alpha1 = alpha;
 	alpha2 = alpha;
 #else
-	alpha1 = text0f1543ac((x1 + x2) / 2, (y1 + y2) / 2, 0xffffffff) & 0xff;
-	alpha2 = text0f1543ac((x1 + x2) / 2, (y1 + y2) / 2, 0xffffff7f) & 0xff;
+	alpha1 = text_get_colour_at_pos((x1 + x2) / 2, (y1 + y2) / 2, 0xffffffff) & 0xff;
+	alpha2 = text_get_colour_at_pos((x1 + x2) / 2, (y1 + y2) / 2, 0xffffff7f) & 0xff;
 #endif
 
 	colours[0].word = 0x00006f00 | alpha1;
@@ -1368,19 +1368,19 @@ Gfx *menugfx_draw_dialog_chevron(Gfx *gdl, s32 x, s32 y, s32 size, s32 direction
 Gfx *menugfx_draw_checkbox(Gfx *gdl, s32 x, s32 y, s32 size, bool fill, u32 bordercolour, u32 fillcolour)
 {
 	if (fill) {
-		gdl = text_set_prim_colour(gdl, fillcolour);
+		gdl = text_begin_boxmode(gdl, fillcolour);
 		gDPFillRectangleScaled(gdl++, x, y, x + size, y + size);
-		gdl = text0f153838(gdl);
+		gdl = text_end_boxmode(gdl);
 	}
 
-	gdl = text_set_prim_colour(gdl, bordercolour);
+	gdl = text_begin_boxmode(gdl, bordercolour);
 
 	gDPFillRectangleScaled(gdl++, x, y, x + size + 1, y + 1);
 	gDPFillRectangleScaled(gdl++, x, y + size, x + size + 1, y + size + 1);
 	gDPFillRectangleScaled(gdl++, x, y + 1, x + 1, y + size);
 	gDPFillRectangleScaled(gdl++, x + size, y + 1, x + size + 1, y + size);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }

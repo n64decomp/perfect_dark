@@ -9577,8 +9577,8 @@ Gfx *bgun_draw_hud_string(Gfx *gdl, char *text, s32 x, bool halign, s32 y, s32 v
 		y1 = y2 - textheight;
 	}
 
-	gdl = text0f153858(gdl, &x1, &y1, &x2, &y2);
-	gdl = text_render(gdl, &x1, &y1, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_draw_black_box(gdl, &x1, &y1, &x2, &y2);
+	gdl = text_render_v1(gdl, &x1, &y1, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
 
 	return gdl;
 }
@@ -9754,7 +9754,7 @@ Gfx *bgun_draw_hud_gauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag 
 
 		if (partitiony > gaugetop) {
 			// Render empty partition
-			gdl = text_set_prim_colour(gdl, emptycolour);
+			gdl = text_begin_boxmode(gdl, emptycolour);
 
 			if (flip) {
 				gDPFillRectangleScaled(gdl++, x1, y2 - partitiony + y1, x2, gaugeheight + y1);
@@ -9762,11 +9762,11 @@ Gfx *bgun_draw_hud_gauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag 
 				gDPFillRectangleScaled(gdl++, x1, gaugetop, x2, partitiony);
 			}
 
-			gdl = text0f153838(gdl);
+			gdl = text_end_boxmode(gdl);
 		}
 
 		// Render filled partition
-		gdl = text_set_prim_colour(gdl, filledcolour);
+		gdl = text_begin_boxmode(gdl, filledcolour);
 
 		if (flip) {
 			gDPFillRectangleScaled(gdl++, x1, y2 - tmp + y1, x2, y2 - partitiony + y1);
@@ -9778,7 +9778,7 @@ Gfx *bgun_draw_hud_gauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag 
 		s32 unittop;
 		s32 unitbottom;
 
-		gdl = text_set_prim_colour(gdl, emptycolour);
+		gdl = text_begin_boxmode(gdl, emptycolour);
 
 		unittop = gaugetop;
 		unitbottom = -1;
@@ -9918,7 +9918,7 @@ Gfx *bgun_draw_hud_gauge(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, struct abmag 
 		}
 	}
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	gDPSetRenderMode(gdl++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
 
@@ -9974,12 +9974,12 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 	}
 
 #if PAL
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 #else
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
+	g_UiScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	if (playercount >= 2) {
 		barwidth = 5;
@@ -10016,7 +10016,7 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 	}
 #endif
 
-	xpos = (vi_get_view_left() + vi_get_view_width()) / g_ScaleX - barwidth - 24;
+	xpos = (vi_get_view_left() + vi_get_view_width()) / g_UiScaleX - barwidth - 24;
 
 	if (playercount == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 0) {
 		xpos += 15;
@@ -10049,11 +10049,11 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 		fncolour = ((ctrl->fnfader * 2) - 256) << 16 | 0xff000040;
 	}
 
-	gdl = text_set_prim_colour(gdl, fncolour);
+	gdl = text_begin_boxmode(gdl, fncolour);
 
 	gDPFillRectangleScaled(gdl++, xpos - 13, bottom - 11, xpos - 2, bottom);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	// Draw weapon name and function name
 	if (options_get_show_gun_function(g_Vars.currentplayerstats->mpindex)) {
@@ -10106,14 +10106,14 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 				if (0xffffff00);
 			}
 
-			gdl = text_set_prim_colour(gdl, 0);
+			gdl = text_begin_boxmode(gdl, 0);
 
 			gDPFillRectangleScaled(gdl++, x - 1, y - 1, xpos - 11, bottom);
 
-			gdl = text0f153838(gdl);
+			gdl = text_end_boxmode(gdl);
 			text_set_wave_blend(g_20SecIntervalFrac * 50.0f, 0, 50);
 			text_set_wave_colours(0xffffffff, 0xffffffff);
-			gdl = text_render_projected(gdl, &x, &y, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, textwidth, 1000, 0, 0);
+			gdl = text_render_v2(gdl, &x, &y, str, g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, textwidth, 1000, 0, 0);
 			text_reset_blends();
 		}
 
@@ -10173,16 +10173,16 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 					colour = (colour & 0xffffff00) | alpha;
 				}
 
-				gdl = text_set_prim_colour(gdl, 0);
+				gdl = text_begin_boxmode(gdl, 0);
 
 				gDPFillRectangleScaled(gdl++, x - 1, y - 1, xpos - 11, bottom + 3);
 
-				gdl = text0f153838(gdl);
+				gdl = text_end_boxmode(gdl);
 
 				text_set_wave_blend(g_20SecIntervalFrac * 50.0f, 0, 50);
 				text_set_wave_colours(0xffffffff, 0xffffffff);
 
-				gdl = text_render_projected(gdl, &x, &y, str,
+				gdl = text_render_v2(gdl, &x, &y, str,
 						g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, textwidth,
 						1000, 0, 0);
 
@@ -10201,8 +10201,8 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 		}
 
 		if (ammoindex == -1) {
-			gdl = text0f153780(gdl);
-			g_ScaleX = 1;
+			gdl = text_end(gdl);
+			g_UiScaleX = 1;
 			return gdl;
 		}
 	}
@@ -10218,7 +10218,7 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 	if (lefthand->inuse
 			&& weapon->ammos[ammoindex] != NULL
 			&& lefthand->gset.weaponnum != WEAPON_REMOTEMINE) {
-		xpos = vi_get_view_left() / g_ScaleX + 24;
+		xpos = vi_get_view_left() / g_UiScaleX + 24;
 
 		if (playercount == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 1) {
 			xpos -= 14;
@@ -10245,13 +10245,13 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 		ammotype = player->gunctrl.ammotypes[ammoindex];
 
 #if VERSION >= VERSION_NTSC_1_0
-		xpos = (vi_get_view_left() + vi_get_view_width()) / g_ScaleX - barwidth - 24;
+		xpos = (vi_get_view_left() + vi_get_view_width()) / g_UiScaleX - barwidth - 24;
 #else
 		// NTSC Beta omits the brackets here. This would normally cause the
 		// ammo info to be misaligned for players on the right side of the
 		// screen and when using hi-res, but I'm not sure if hi-res can even be
 		// active when using multiple players...
-		xpos = vi_get_view_left() + vi_get_view_width() / g_ScaleX - barwidth - 24;
+		xpos = vi_get_view_left() + vi_get_view_width() / g_UiScaleX - barwidth - 24;
 #endif
 
 		if (playercount == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || IS4MB()) && playernum == 0) {
@@ -10313,9 +10313,9 @@ Gfx *bgun_draw_hud(Gfx *gdl)
 		}
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 
 	return gdl;
 }

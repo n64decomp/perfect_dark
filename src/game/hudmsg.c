@@ -129,7 +129,7 @@ Gfx *hudmsg_render_mission_timer(Gfx *gdl, u32 alpha)
 
 	textcolour = alpha;
 
-	viewleft = vi_get_view_left() / g_ScaleX;
+	viewleft = vi_get_view_left() / g_UiScaleX;
 	viewtop = vi_get_view_top();
 	viewheight = vi_get_view_height();
 	playercount = PLAYERCOUNT();
@@ -190,7 +190,7 @@ Gfx *hudmsg_render_mission_timer(Gfx *gdl, u32 alpha)
 	x = viewleft + g_HudPaddingX + 3;
 	y = timery;
 
-	gdl = text_render(gdl, &x, &y, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, vi_get_width(), vi_get_height_hack(), 0, 0);
+	gdl = text_render_v1(gdl, &x, &y, buffer, g_CharsNumeric, g_FontNumeric, textcolour, 0x000000a0, vi_get_width(), vi_get_height_hack(), 0, 0);
 
 	return gdl;
 }
@@ -219,8 +219,8 @@ Gfx *hudmsg_render_zoom_range(Gfx *gdl, u32 alpha)
 
 	colour = (alpha * 0xa0 / 255) | 0x00ff0000;
 	viewtop = vi_get_view_top();
-	viewleft = vi_get_view_left() / g_ScaleX;
-	viewhalfwidth = (vi_get_view_width() / g_ScaleX) >> 1;
+	viewleft = vi_get_view_left() / g_UiScaleX;
+	viewhalfwidth = (vi_get_view_width() / g_UiScaleX) >> 1;
 	viewheight = vi_get_view_height();
 	texty = viewheight + viewtop - 1;
 	maxzoom = 1.0f;
@@ -272,8 +272,8 @@ Gfx *hudmsg_render_zoom_range(Gfx *gdl, u32 alpha)
 	x2 = x + textwidth;
 	y2 = y + textheight;
 
-	gdl = text0f1538e4(gdl, &x, &y, &x2, &y2);
-	gdl = text_render(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_draw_black_uibox(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_v1(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
 
 	// Divider
 	sprintf(text, "/");
@@ -284,8 +284,8 @@ Gfx *hudmsg_render_zoom_range(Gfx *gdl, u32 alpha)
 	x2 = x + textwidth;
 	y2 = y + textheight;
 
-	gdl = text0f1538e4(gdl, &x, &y, &x2, &y2);
-	gdl = text_render(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_draw_black_uibox(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_v1(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
 
 	// Right side - max zoom level
 	sprintf(text, "%s%s%4.2fX", "", "", maxzoom);
@@ -296,8 +296,8 @@ Gfx *hudmsg_render_zoom_range(Gfx *gdl, u32 alpha)
 	x2 = x + textwidth;
 	y2 = y + textheight;
 
-	gdl = text0f1538e4(gdl, &x, &y, &x2, &y2);
-	gdl = text_render(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
+	gdl = text_draw_black_uibox(gdl, &x, &y, &x2, &y2);
+	gdl = text_render_v1(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, colour, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
 
 	return gdl;
 }
@@ -336,10 +336,10 @@ Gfx *hudmsg_render_box(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, 
 		f32 width = (x1 + x2) * 0.5f;
 		f32 height = (y1 + y2) * 0.5f;
 
-		gdl = text0f153a34(gdl,
-				(s32)((width - f22) + 1.0f) * g_ScaleX,
+		gdl = text_draw_box(gdl,
+				(s32)((width - f22) + 1.0f) * g_UiScaleX,
 				(height - f20) + 1.0f,
-				(s32)(width + f22) * g_ScaleX,
+				(s32)(width + f22) * g_UiScaleX,
 				height + f20,
 				128.0f * textopacity);
 	}
@@ -350,7 +350,7 @@ Gfx *hudmsg_render_box(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, 
 s32 hudmsg0f0ddb1c(s32 *arg0, s32 arg1)
 {
 #if VERSION >= VERSION_PAL_FINAL
-	s32 viewwidth = vi_get_view_width() / g_ScaleX;
+	s32 viewwidth = vi_get_view_width() / g_UiScaleX;
 	s32 result = 0;
 
 	*arg0 = 24;
@@ -379,7 +379,7 @@ s32 hudmsg0f0ddb1c(s32 *arg0, s32 arg1)
 #endif
 	}
 #else
-	s32 viewwidth = g_Vars.currentplayer->viewwidth / g_ScaleX;
+	s32 viewwidth = g_Vars.currentplayer->viewwidth / g_UiScaleX;
 	s32 result = 0;
 
 	*arg0 = 24;
@@ -829,9 +829,9 @@ void hudmsg_calculate_position(struct hudmessage *msg)
 {
 	s32 x;
 	s32 y;
-	s32 viewleft = g_Vars.players[msg->playernum]->viewleft / g_ScaleX;
+	s32 viewleft = g_Vars.players[msg->playernum]->viewleft / g_UiScaleX;
 	s32 viewtop = g_Vars.players[msg->playernum]->viewtop;
-	s32 viewwidth = g_Vars.players[msg->playernum]->viewwidth / g_ScaleX;
+	s32 viewwidth = g_Vars.players[msg->playernum]->viewwidth / g_UiScaleX;
 	s32 viewheight = g_Vars.players[msg->playernum]->viewheight;
 	s32 v0;
 
@@ -992,9 +992,9 @@ void hudmsg_create_from_args(char *text, s32 type, s32 conf00, s32 conf01, s32 c
 		}
 
 #if PAL
-		g_ScaleX = 1;
+		g_UiScaleX = 1;
 #else
-		g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
+		g_UiScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
 		// Find an unused index for the new message
@@ -1092,7 +1092,7 @@ void hudmsg_create_from_args(char *text, s32 type, s32 conf00, s32 conf01, s32 c
 			}
 		}
 
-		g_ScaleX = 1;
+		g_UiScaleX = 1;
 	}
 }
 
@@ -1120,9 +1120,9 @@ void hudmsgs_tick(void)
 	g_HudmsgsActive = false;
 
 #if PAL
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 #else
-	g_ScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
+	g_UiScaleX = (g_ViRes == VIRES_HI) ? 2 : 1;
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1325,7 +1325,7 @@ void hudmsgs_tick(void)
 		}
 	}
 
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 }
 
 void hudmsgs_set_on(u32 reason)
@@ -1365,12 +1365,12 @@ Gfx *hudmsgs_render(Gfx *gdl)
 	s32 spdc = true;
 
 #if PAL
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 #else
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
+	g_UiScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	if ((g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0)
 			&& g_InCutscene
@@ -1430,12 +1430,12 @@ Gfx *hudmsgs_render(Gfx *gdl)
 		if (msg->type == HUDMSGTYPE_CUTSCENESUBTITLE) {
 #if VERSION >= VERSION_NTSC_1_0
 			gDPSetScissor(gdl++, 0,
-					(x - 4) * g_ScaleX, 0,
-					(x + msg->width + 3) * g_ScaleX, vi_get_buf_height());
+					(x - 4) * g_UiScaleX, 0,
+					(x + msg->width + 3) * g_UiScaleX, vi_get_buf_height());
 #else
 			gDPSetScissor(gdl++, 0,
-					(x - 4) * g_ScaleX, y - 4,
-					(x + msg->width + 3) * g_ScaleX, y + msg->height + 3);
+					(x - 4) * g_UiScaleX, y - 4,
+					(x + msg->width + 3) * g_UiScaleX, y + msg->height + 3);
 #endif
 		}
 
@@ -1481,15 +1481,10 @@ Gfx *hudmsgs_render(Gfx *gdl)
 					gdl = hudmsg_render_box(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, spc0);
 #endif
 
-					gdl = text_render_projected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, vi_get_width(), vi_get_height(), 0, 0);
+					gdl = text_render_v2(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, vi_get_width(), vi_get_height(), 0, 0);
 				} else {
-					gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
-
-#if VERSION >= VERSION_JPN_FINAL
-					gdl = func0f1574d0jf(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
-#else
-					gdl = text_render(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
-#endif
+					gdl = text_draw_box(gdl, x, y, x + msg->width, y + msg->height, 0);
+					gdl = text_render_vx(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
 				}
 
 				if (msg->alignv == 6) {
@@ -1514,15 +1509,10 @@ Gfx *hudmsgs_render(Gfx *gdl)
 				gdl = hudmsg_render_box(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f);
 #endif
 
-				gdl = text_render_projected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, vi_get_width(), vi_get_height(), 0, 0);
+				gdl = text_render_v2(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, vi_get_width(), vi_get_height(), 0, 0);
 			} else {
-				gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
-
-#if VERSION >= VERSION_JPN_FINAL
-				gdl = func0f1574d0jf(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
-#else
-				gdl = text_render(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
-#endif
+				gdl = text_draw_box(gdl, x, y, x + msg->width, y + msg->height, 0);
+				gdl = text_render_vx(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
 			}
 			if (msg->alignv == 6) {
 				timerthing = 0;
@@ -1563,15 +1553,10 @@ Gfx *hudmsgs_render(Gfx *gdl)
 					gdl = hudmsg_render_box(gdl, x - 3, y - 3, x + msg->width + 2, y + msg->height + 2, 1.0f, bordercolour, 1.0f - spa8);
 #endif
 
-					gdl = text_render_projected(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, vi_get_width(), vi_get_height(), 0, 0);
+					gdl = text_render_v2(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, vi_get_width(), vi_get_height(), 0, 0);
 				} else {
-					gdl = text0f153a34(gdl, x, y, x + msg->width, y + msg->height, 0);
-
-#if VERSION >= VERSION_JPN_FINAL
-					gdl = func0f1574d0jf(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
-#else
-					gdl = text_render(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
-#endif
+					gdl = text_draw_box(gdl, x, y, x + msg->width, y + msg->height, 0);
+					gdl = text_render_vx(gdl, &x, &y, msg->text, msg->font1, msg->font2, textcolour, glowcolour, vi_get_width(), vi_get_height(), 0, 0);
 				}
 
 				if (msg->alignv == 6) {
@@ -1607,9 +1592,9 @@ Gfx *hudmsgs_render(Gfx *gdl)
 		gdl = countdown_timer_render(gdl);
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 
 	return gdl;
 }

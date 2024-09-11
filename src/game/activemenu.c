@@ -187,9 +187,9 @@ MenuItemHandlerResult am_pick_target_menu_list(s32 operation, struct menuitem *i
 			x = renderdata->x + 10;
 			y = renderdata->y + 1;
 
-			gdl = text0f153628(gdl);
-			gdl = text_render_projected(gdl, &x, &y, g_MpAllChrConfigPtrs[chrindex]->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, vi_get_width(), vi_get_height(), 0, 0);
-			gdl = text0f153780(gdl);
+			gdl = text_begin(gdl);
+			gdl = text_render_v2(gdl, &x, &y, g_MpAllChrConfigPtrs[chrindex]->name, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, vi_get_width(), vi_get_height(), 0, 0);
+			gdl = text_end(gdl);
 			return (s32)gdl;
 		}
 	case MENUOP_GETOPTIONHEIGHT:
@@ -834,7 +834,7 @@ void am_calculate_slot_position(s16 column, s16 row, s16 *x, s16 *y)
 		*y = (*y * 7) / 10;
 	}
 
-	*x += vi_get_view_left() / g_ScaleX + vi_get_view_width() / (g_ScaleX * 2);
+	*x += vi_get_view_left() / g_UiScaleX + vi_get_view_width() / (g_UiScaleX * 2);
 	*y += vi_get_view_top() + vi_get_view_height() / 2;
 
 	if (playercount >= 2) {
@@ -890,7 +890,7 @@ void am_calculate_slot_position(s16 column, s16 row, s16 *x, s16 *y)
 		*y = (*y * 3) / 5;
 	}
 
-	*x += vi_get_view_left() / g_ScaleX + vi_get_view_width() / (g_ScaleX * 2);
+	*x += vi_get_view_left() / g_UiScaleX + vi_get_view_width() / (g_UiScaleX * 2);
 	*y += vi_get_view_top() + vi_get_view_height() / 2;
 
 	if ((playercount == 2 && (options_get_screen_split() == SCREENSPLIT_VERTICAL || IS4MB()))
@@ -938,7 +938,7 @@ void am_calculate_slot_position(s16 column, s16 row, s16 *x, s16 *y)
 		*y = (*y * 3) / 5;
 	}
 
-	*x += vi_get_view_left() / g_ScaleX + vi_get_view_width() / (g_ScaleX * 2);
+	*x += vi_get_view_left() / g_UiScaleX + vi_get_view_width() / (g_UiScaleX * 2);
 	*y += vi_get_view_top() + vi_get_view_height() / 2;
 
 	if ((playercount == 2 && options_get_screen_split() == SCREENSPLIT_VERTICAL) || playercount >= 3) {
@@ -962,7 +962,7 @@ Gfx *am_render_text(Gfx *gdl, char *text, u32 colour, s16 left, s16 top)
 
 	x = left - (textwidth / 2);
 	y = top - 4;
-	gdl = text_render_projected(gdl, &x, &y, text, g_AmFont1, g_AmFont2, colour, SCREEN_320, SCREEN_240, 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_AmFont1, g_AmFont2, colour, SCREEN_320, SCREEN_240, 0, 0);
 
 	return gdl;
 }
@@ -1018,8 +1018,8 @@ Gfx *am_render_aibot_info(Gfx *gdl, s32 buddynum)
 
 		text_measure(&textheight, &textwidth, aibotname, g_AmFont1, g_AmFont2, 0);
 
-		x = vi_get_view_left() / g_ScaleX
-			+ (s32)(vi_get_view_width() / g_ScaleX * 0.5f)
+		x = vi_get_view_left() / g_UiScaleX
+			+ (s32)(vi_get_view_width() / g_UiScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
@@ -1031,34 +1031,30 @@ Gfx *am_render_aibot_info(Gfx *gdl, s32 buddynum)
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (wide) {
-			x = vi_get_view_left() / g_ScaleX + 32;
+			x = vi_get_view_left() / g_UiScaleX + 32;
 		}
 #endif
 
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
+		gdl = text_render_vx(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 
 		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
-#else
-		gdl = text_render(gdl, &x, &y, aibotname, g_AmFont1, g_AmFont2, -1,
-				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 
-		y += (PLAYERCOUNT() >= 2) ? 0 : (s32)(textheight * 1.1f);
+#if VERSION != VERSION_JPN_FINAL
 		text_measure(&textheight, &textwidth, weaponname, g_AmFont1, g_AmFont2, 0);
 
-		x = vi_get_view_left() / g_ScaleX
-			+ (s32)(vi_get_view_width() / g_ScaleX * 0.5f)
+		x = vi_get_view_left() / g_UiScaleX
+			+ (s32)(vi_get_view_width() / g_UiScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (wide) {
-			x = vi_get_view_left() / g_ScaleX + 32;
+			x = vi_get_view_left() / g_UiScaleX + 32;
 		}
 #endif
 
-		gdl = text_render(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
+		gdl = text_render_v1(gdl, &x, &y, weaponname, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
 #endif
 
@@ -1068,8 +1064,8 @@ Gfx *am_render_aibot_info(Gfx *gdl, s32 buddynum)
 
 		text_measure(&textheight, &textwidth, title, g_AmFont1, g_AmFont2, 0);
 
-		x = vi_get_view_left() / g_ScaleX
-			+ (s32)(vi_get_view_width() / g_ScaleX * 0.5f)
+		x = vi_get_view_left() / g_UiScaleX
+			+ (s32)(vi_get_view_width() / g_UiScaleX * 0.5f)
 			- (s32)(textwidth * 0.5f)
 			+ offset;
 
@@ -1081,17 +1077,12 @@ Gfx *am_render_aibot_info(Gfx *gdl, s32 buddynum)
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (wide) {
-			x = vi_get_view_left() / g_ScaleX + 32;
+			x = vi_get_view_left() / g_UiScaleX + 32;
 		}
 #endif
 
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
+		gdl = text_render_vx(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
 				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
-#else
-		gdl = text_render(gdl, &x, &y, title, g_AmFont1, g_AmFont2, -1,
-				0x000000ff, SCREEN_320, SCREEN_240, 0, 0);
-#endif
 	}
 
 	return gdl;
@@ -1168,7 +1159,7 @@ Gfx *am_render_slot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 		colour = 0x0000006f;
 	}
 
-	gdl = text_set_prim_colour(gdl, colour);
+	gdl = text_begin_boxmode(gdl, colour);
 
 	gDPFillRectangleScaled(gdl++,
 			x - g_AmMenus[g_AmIndex].slotwidth / 2 + 1,
@@ -1176,7 +1167,7 @@ Gfx *am_render_slot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 			x + g_AmMenus[g_AmIndex].slotwidth / 2,
 			y + paddingbottom);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	// Render borders
 	colour = obcol;
@@ -1195,7 +1186,7 @@ Gfx *am_render_slot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 		colour = 0x4f4f4f7f;
 	}
 
-	gdl = text_set_prim_colour(gdl, colour);
+	gdl = text_begin_boxmode(gdl, colour);
 
 	// Top border
 	gDPFillRectangleScaled(gdl++,
@@ -1225,7 +1216,7 @@ Gfx *am_render_slot(Gfx *gdl, char *text, s16 x, s16 y, s32 mode, s32 flags)
 			x + g_AmMenus[g_AmIndex].slotwidth / 2 + 1,
 			y + paddingbottom);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	// Render text
 	colour = defcol;
@@ -1265,9 +1256,9 @@ Gfx *am_render(Gfx *gdl)
 	s16 tmp2;
 
 #if PAL
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 #else
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
+	g_UiScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
 	g_AmIndex = g_Vars.currentplayernum;
@@ -1275,7 +1266,7 @@ Gfx *am_render(Gfx *gdl)
 
 	if (g_Vars.currentplayer->activemenumode != AMMODE_CLOSED) {
 		// Draw diamond
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 
 		if (g_Vars.normmplayerisrunning
 				&& g_AmMenus[g_AmIndex].screenindex >= 2) {
@@ -1502,7 +1493,7 @@ Gfx *am_render(Gfx *gdl)
 				colour = 0x4f4f4f7f;
 			}
 
-			gdl = text_set_prim_colour(gdl, colour);
+			gdl = text_begin_boxmode(gdl, colour);
 
 			halfwidth = g_AmMenus[g_AmIndex].slotwidth / 2;
 
@@ -1558,10 +1549,10 @@ Gfx *am_render(Gfx *gdl)
 					g_AmMenus[g_AmIndex].selx + halfwidth + 1,
 					g_AmMenus[g_AmIndex].sely + below);
 
-			gdl = text0f153838(gdl);
+			gdl = text_end_boxmode(gdl);
 		}
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 	}
 
 #if VERSION != VERSION_JPN_FINAL
@@ -1604,10 +1595,10 @@ Gfx *am_render(Gfx *gdl)
 		}
 
 		if (PLAYERCOUNT() == 1 && options_get_effective_screen_size() != SCREENSIZE_FULL) {
-			part1left = vi_get_view_left() / g_ScaleX + 32;
+			part1left = vi_get_view_left() / g_UiScaleX + 32;
 		} else {
-			part1left = (s32) ((vi_get_view_width() / g_ScaleX) * 0.5f)
-				+ (s32) (vi_get_view_left() / g_ScaleX)
+			part1left = (s32) ((vi_get_view_width() / g_UiScaleX) * 0.5f)
+				+ (s32) (vi_get_view_left() / g_UiScaleX)
 				- (s32) (barwidth * 0.5f)
 				+ xoffset;
 		}
@@ -1616,8 +1607,8 @@ Gfx *am_render(Gfx *gdl)
 			xoffset = (g_Vars.currentplayernum & 1) == 0 ? 8 : -8;
 		}
 
-		part1left = (s32) ((vi_get_view_width() / g_ScaleX) * 0.5f)
-			+ (s32) (vi_get_view_left() / g_ScaleX)
+		part1left = (s32) ((vi_get_view_width() / g_UiScaleX) * 0.5f)
+			+ (s32) (vi_get_view_left() / g_UiScaleX)
 			- (s32) (barwidth * 0.5f)
 			+ xoffset;
 #endif
@@ -1698,7 +1689,7 @@ Gfx *am_render(Gfx *gdl)
 	}
 #endif
 
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 
 	return gdl;
 }

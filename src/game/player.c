@@ -3117,7 +3117,7 @@ void player_configure_vi(void)
 	f32 ratio = player_get_aspect_ratio();
 	g_ViRes = VIRES_LO;
 
-	text0f1531dc(false);
+	text_set_hires(false);
 
 #if VERSION >= VERSION_JPN_FINAL
 	var800800f0jf = 0;
@@ -3149,12 +3149,12 @@ void player_tick(bool arg0)
 	}
 
 #if PAL
-	text0f1531dc(false);
+	text_set_hires(false);
 #else
 	if (g_ViRes == VIRES_HI) {
-		text0f1531dc(true);
+		text_set_hires(true);
 	} else {
-		text0f1531dc(false);
+		text_set_hires(false);
 	}
 #endif
 
@@ -4526,9 +4526,9 @@ Gfx *player_render_hud(Gfx *gdl)
 		s32 c = vi_get_view_left() + vi_get_view_width();
 		s32 d = vi_get_view_top() + vi_get_view_height();
 
-		gdl = text0f153628(gdl);
-		gdl = text0f153a34(gdl, a, b, c, d, 0x000000a0);
-		gdl = text0f153780(gdl);
+		gdl = text_begin(gdl);
+		gdl = text_draw_box(gdl, a, b, c, d, 0x000000a0);
+		gdl = text_end(gdl);
 	}
 
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
@@ -4776,9 +4776,9 @@ Gfx *player_render_hud(Gfx *gdl)
 			s32 c = vi_get_view_left() + vi_get_view_width();
 			s32 d = vi_get_view_top() + vi_get_view_height();
 
-			gdl = text0f153628(gdl);
-			gdl = text0f153a34(gdl, a, b, c, d, 0x000000a0);
-			gdl = text0f153780(gdl);
+			gdl = text_begin(gdl);
+			gdl = text_draw_box(gdl, a, b, c, d, 0x000000a0);
+			gdl = text_end(gdl);
 		}
 
 		gdl = hudmsgs_render(gdl);

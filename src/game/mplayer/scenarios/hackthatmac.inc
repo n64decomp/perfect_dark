@@ -592,13 +592,13 @@ Gfx *htm_render_hud(Gfx *gdl)
 		barright = t6 + a1 / 2;
 		s1 = barleft + (s32) (a1 * (dltime / TICKS(4800.0f)));
 
-		gdl = text0f153628(gdl);
-		gdl = text_set_prim_colour(gdl, 0x60000060);
+		gdl = text_begin(gdl);
+		gdl = text_begin_boxmode(gdl, 0x60000060);
 
 		gDPFillRectangle(gdl++, barleft, viewtop + 8, barright, viewtop + 16);
 
-		gdl = text0f153838(gdl);
-		gdl = text_set_prim_colour(gdl, 0xc00000d0);
+		gdl = text_end_boxmode(gdl);
+		gdl = text_begin_boxmode(gdl, 0xc00000d0);
 
 		v1 = barleft + 1;
 		a0 = barleft;
@@ -609,8 +609,8 @@ Gfx *htm_render_hud(Gfx *gdl)
 			a0 += 2;
 		}
 
-		gdl = text0f153838(gdl);
-		gdl = text0f153780(gdl);
+		gdl = text_end_boxmode(gdl);
+		gdl = text_end(gdl);
 	}
 
 	return gdl;

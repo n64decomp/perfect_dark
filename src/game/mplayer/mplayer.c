@@ -1194,8 +1194,8 @@ void mp_set_paused(u8 mode)
  * Render "Paused" in the middle of the viewport if paused,
  * or "Press START" if player has finished their death animation.
  *
- * @bug: When calling text_render(), vi_get_width() is used twice but it should be
- * vi_get_view_width() and vi_get_view_height(). These arguments to text_render() set
+ * @bug: When calling text_render_v1(), vi_get_width() is used twice but it should be
+ * vi_get_view_width() and vi_get_view_height(). These arguments to text_render_v1() set
  * the crop box for the text, but the text doesn't extend past the box anyway
  * so it has no effect.
  */
@@ -1209,21 +1209,21 @@ Gfx *mp_render_modal_text(Gfx *gdl)
 	s32 stack1;
 
 #if VERSION >= VERSION_JPN_FINAL
-	g_ScaleX = g_ViRes == VIRES_HI ? 2 : 1;
+	g_UiScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
 	if (g_MpSetup.paused == MPPAUSEMODE_PAUSED) {
 		s32 red = (s32) ((1.0f - g_20SecIntervalFrac) * 20.0f * 255.0f) % 255;
 		s32 stack2;
 
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 
 		strcpy(text, lang_get(L_MPWEAPONS_040)); // "Paused"
 
 		x = vi_get_view_left() + vi_get_view_width() / 2;
 
 #if VERSION >= VERSION_JPN_FINAL
-		x = x / g_ScaleX;
+		x = x / g_UiScaleX;
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -1237,9 +1237,7 @@ Gfx *mp_render_modal_text(Gfx *gdl)
 			y = vi_get_view_top() + vi_get_view_height() / 2;
 		}
 
-#if VERSION >= VERSION_JPN_FINAL
-		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
-#elif PAL
+#if VERSION >= VERSION_PAL_BETA
 		// Use smaller fonts
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 #else
@@ -1247,15 +1245,13 @@ Gfx *mp_render_modal_text(Gfx *gdl)
 #endif
 		x -= textwidth / 2;
 
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, (red << 24) | 0x00ff00ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
-#elif PAL
-		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, (red << 24) | 0x00ff00ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
+#if VERSION >= VERSION_PAL_BETA
+		gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, (red << 24) | 0x00ff00ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #else
-		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, (red << 24) | 0x00ff00ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
+		gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, (red << 24) | 0x00ff00ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 #endif
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 	} else if (!g_MainIsEndscreen
 			&& g_MpSetup.paused == MPPAUSEMODE_UNPAUSED
 			&& g_Vars.currentplayer->isdead
@@ -1265,14 +1261,14 @@ Gfx *mp_render_modal_text(Gfx *gdl)
 			&& !(g_Vars.antiplayernum >= 0 && ((g_Vars.currentplayer != g_Vars.anti || g_InCutscene)))
 			&& g_NumReasonsToEndMpMatch == 0) {
 		// Render "Press START" text
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 
 		strcpy(text, lang_get(L_MPWEAPONS_039));
 
 		x = vi_get_view_left() + vi_get_view_width() / 2;
 
 #if VERSION >= VERSION_JPN_FINAL
-		x = x / g_ScaleX;
+		x = x / g_UiScaleX;
 #endif
 
 		y = vi_get_view_top() + vi_get_view_height() / 2;
@@ -1280,11 +1276,7 @@ Gfx *mp_render_modal_text(Gfx *gdl)
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x -= textwidth / 2;
 
-#if VERSION >= VERSION_JPN_FINAL
-		gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
-#else
-		gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
-#endif
+		gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 
 		if (g_Vars.currentplayer->deadtimer > 0) {
 			// Render countdown timer
@@ -1292,7 +1284,7 @@ Gfx *mp_render_modal_text(Gfx *gdl)
 			s32 countdownx = vi_get_view_left() + vi_get_view_width() / 2;
 
 #if VERSION >= VERSION_JPN_FINAL
-			countdownx = countdownx / g_ScaleX;
+			countdownx = countdownx / g_UiScaleX;
 #endif
 			sprintf(text, "%d\n", (g_Vars.currentplayer->deadtimer + TICKS(60) - 1) / TICKS(60));
 
@@ -1300,20 +1292,16 @@ Gfx *mp_render_modal_text(Gfx *gdl)
 			x = countdownx - textwidth / 2;
 			y = countdowny;
 
-#if VERSION >= VERSION_JPN_FINAL
-			gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
-#else
-			gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
-#endif
+			gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xff0000ff, 0x000000ff, vi_get_width(), vi_get_width(), 0, 0);
 		}
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 
 		g_Menus[g_Vars.currentplayerstats->mpindex].openinhibit = 10;
 	}
 
 #if VERSION >= VERSION_JPN_FINAL
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 #endif
 
 	return gdl;

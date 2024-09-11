@@ -1815,10 +1815,10 @@ Gfx *phead_draw_texture(Gfx *gdl, struct textureconfig *tconfig, f32 pos[2], f32
 	gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 
 	gSPTextureRectangle(gdl++,
-			x * g_ScaleX, y,
-			pxwidth * g_ScaleX, pxheight,
+			x * g_UiScaleX, y,
+			pxwidth * g_UiScaleX, pxheight,
 			G_TX_RENDERTILE, 16, sp28,
-			(s32)(1024.0f / width) / g_ScaleX,
+			(s32)(1024.0f / width) / g_UiScaleX,
 			(s32)(1024.0f / height));
 
 	return gdl;

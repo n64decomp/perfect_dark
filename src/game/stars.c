@@ -262,7 +262,7 @@ Gfx *stars_render(Gfx *gdl)
 	sp148.f[1] = g_Vars.currentplayer->cam_look.f[1];
 	sp148.f[2] = g_Vars.currentplayer->cam_look.f[2];
 
-	gdl = text_set_prim_colour(gdl, 0xffffffff);
+	gdl = text_begin_boxmode(gdl, 0xffffffff);
 
 	gDPSetRenderMode(gdl++, G_RM_CLD_SURF, G_RM_CLD_SURF2);
 
@@ -330,7 +330,7 @@ Gfx *stars_render(Gfx *gdl)
 		}
 	}
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }

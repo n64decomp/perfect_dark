@@ -1993,9 +1993,9 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 #endif
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 4) << 2) * g_ScaleX, (renderdata->y + 3) << 2,
-				((renderdata->x + 60) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
-				G_TX_RENDERTILE, 0, 0x0480, 1024 / g_ScaleX, -1024);
+				((renderdata->x + 4) << 2) * g_UiScaleX, (renderdata->y + 3) << 2,
+				((renderdata->x + 60) << 2) * g_UiScaleX, (renderdata->y + 39) << 2,
+				G_TX_RENDERTILE, 0, 0x0480, 1024 / g_UiScaleX, -1024);
 
 		if (g_MissionConfig.isanti) {
 			// No stars
@@ -2027,9 +2027,9 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 				}
 
 				gSPTextureRectangle(gdl++,
-						((renderdata->x + relx) << 2) * g_ScaleX, (renderdata->y + 25) << 2,
-						((renderdata->x + relx + 14) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
-						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024 / g_ScaleX, -1024);
+						((renderdata->x + relx) << 2) * g_UiScaleX, (renderdata->y + 25) << 2,
+						((renderdata->x + relx + 14) << 2) * g_UiScaleX, (renderdata->y + 39) << 2,
+						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024 / g_UiScaleX, -1024);
 			}
 		} else {
 			tex_select(&gdl, &g_TexGeneralConfigs[34], 2, 0, 2, true, NULL);
@@ -2066,31 +2066,31 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 				}
 
 				gSPTextureRectangle(gdl++,
-						((renderdata->x + relx) << 2) * g_ScaleX, (renderdata->y + 25) << 2,
-						((renderdata->x + relx + 14) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
-						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024 / g_ScaleX, -1024);
+						((renderdata->x + relx) << 2) * g_UiScaleX, (renderdata->y + 25) << 2,
+						((renderdata->x + relx + 14) << 2) * g_UiScaleX, (renderdata->y + 39) << 2,
+						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024 / g_UiScaleX, -1024);
 			}
 		}
 
 		x = renderdata->x + 62;
 		y = renderdata->y + 3;
 
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 
 		// Draw first part of name
 		strcpy(text, lang_get(g_SoloStages[stageindex].name1));
 		strcat(text, "\n");
 
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd,
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicMd, g_FontHandelGothicMd,
 				renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
 		// Draw last part of name
 		strcpy(text, lang_get(g_SoloStages[stageindex].name2));
 
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 
 		return (s32) gdl;
 	case MENUOP_GETOPTIONHEIGHT:

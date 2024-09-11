@@ -57,8 +57,8 @@ s32 g_JpnKerning[13 * 13];
 #endif
 
 struct blendsettings g_Blend;
-Gfx *var800a4634;
-Gfx *var800a4638;
+Gfx *g_TextHoloRayGdl;
+Gfx *g_TextHoloRayGdlEnd;
 #if VERSION == VERSION_JPN_FINAL
 struct fontchar g_TmpJpnChar;
 #endif
@@ -66,29 +66,29 @@ u32 var800a463c;
 
 #if VERSION == VERSION_JPN_FINAL
 s32 var800800f0jf = 0;
-s32 g_ScaleX = 1;
+s32 g_UiScaleX = 1;
 bool var80080104jf = false;
-s32 var8007fac4 = 0;
+s32 g_TextCharOverlap = 0;
 bool g_TextRotated90 = false;
 s32 g_WrapIndentCount = 0;
-s32 var8007fad0 = 1;
+s32 g_TextScaleX = 1;
 s32 var80080108jf = 1;
 #else
-s32 g_ScaleX = 1;
-s32 var8007fac4 = 0;
+s32 g_UiScaleX = 1;
+s32 g_TextCharOverlap = 0;
 bool g_TextRotated90 = false;
 s32 g_WrapIndentCount = 0;
-s32 var8007fad0 = 1;
+s32 g_TextScaleX = 1;
 #endif
 
-s32 var8007fad4 = -1;
-u32 var8007fad8 = 0x00000000;
+s32 g_TextParaOverlap = -1; // higher value reduces margin between paragraphs
+bool g_TextUseAverageSampling = false;
 s32 var8007fadc = 0;
 s32 var8007fae0 = 0;
-u32 var8007fae4 = 0x00000000;
-u32 var8007fae8 = 0x00000000;
-u32 var8007faec = 0x00000000;
-u32 var8007faf0 = 0x00000000;
+u32 var8007fae4 = 0;
+u32 var8007fae8 = 0;
+u32 var8007faec = 0;
+u32 var8007faf0 = 0;
 
 struct font *g_FontTahoma2 = NULL;
 struct fontchar *g_FontTahoma1 = NULL;
@@ -103,12 +103,12 @@ struct fontchar *g_CharsHandelGothicMd = NULL;
 struct font *g_FontHandelGothicLg = NULL;
 struct fontchar *g_CharsHandelGothicLg = NULL;
 
-u32 var8007fb24 = 0x00000000;
-u32 var8007fb28 = 0x00000000;
-u32 var8007fb2c = 0x00000000;
-u32 var8007fb30 = 0x00000000;
-u32 var8007fb34 = 0x00000000;
-u32 var8007fb38 = 0x00000000;
+u32 var8007fb24 = 0;
+u32 var8007fb28 = 0;
+u32 var8007fb2c = 0;
+u32 var8007fb30 = 0;
+u32 var8007fb34 = 0;
+u32 var8007fb38 = 0;
 
 u16 var8007fb3c[] = {
 	0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00, 0xff00,
@@ -129,28 +129,28 @@ u16 var800801d8jf[] = {
 };
 #endif
 
-bool var8007fb9c = false;
-s32 var8007fba0 = 0;
-s32 var8007fba4 = -1;
-u32 var8007fba8 = 0x00000000;
-u32 var8007fbac = 0x00000001;
-u32 var8007fbb0 = 0x00000064;
-u32 var8007fbb4 = 0x0000002c;
-u32 var8007fbb8 = 0x00000080;
-u32 var8007fbbc = 0x0000003c;
-u32 var8007fbc0 = 0x44444400;
-u32 var8007fbc4 = 0xffffff00;
+bool g_TextHoloRayEnabled = false;
+s32 g_TextBlendDistance = 0;
+s32 g_TextLastBlendY = -1;
+s32 var8007fba8 = 0;
+u32 g_TextLAlpha = 1;
+u32 g_TextLFade = 100;
+u32 g_TextLLimbo = 44;
+u32 g_TextSubleTY = 128;
+u32 g_TextSubtleTX = 60;
+u32 g_TextColourX = 0x44444400;
+u32 g_TextColourY = 0xffffff00;
 
-Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
+Gfx *text_render_char_v1_part2(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
 
 void text_init(void)
 {
 	// empty
 }
 
-void text0f1531a8(s32 arg0)
+void text_set_default_kerning(s32 kerning)
 {
-	var8007fac4 = -arg0;
+	g_TextCharOverlap = -kerning;
 }
 
 void text_set_rotation90(bool rotated)
@@ -163,17 +163,17 @@ void text_set_wrap_indent(s32 count)
 	g_WrapIndentCount = count;
 }
 
-void text0f1531d0(s32 arg0)
+void text_set_paragraph_overlap(s32 margin)
 {
-	var8007fad4 = arg0;
+	g_TextParaOverlap = margin;
 }
 
-void text0f1531dc(bool arg0)
+void text_set_hires(bool hires)
 {
-	if (arg0) {
-		var8007fad0 = 2;
+	if (hires) {
+		g_TextScaleX = 2;
 	} else {
-		var8007fad0 = 1;
+		g_TextScaleX = 1;
 	}
 
 #if VERSION == VERSION_JPN_FINAL
@@ -296,11 +296,11 @@ void text_reset(void)
 	var8007fb30 = 0;
 	var8007fb38 = 0;
 
-	var8007fac4 = 0;
+	g_TextCharOverlap = 0;
 	g_TextRotated90 = false;
 	g_WrapIndentCount = 0;
-	var8007fad4 = -1;
-	var8007fad8 = 0;
+	g_TextParaOverlap = -1;
+	g_TextUseAverageSampling = 0;
 	var8007fadc = 0;
 	var8007fae0 = 0;
 	var8007fae4 = 0;
@@ -323,7 +323,7 @@ void text_reset(void)
 			if (IS4MB()) {
 				s32 i;
 
-				for (i = 0; i < 169; i++) {
+				for (i = 0; i < ARRAYCOUNT(g_JpnKerning); i++) {
 					g_JpnKerning[i] = 0;
 				}
 
@@ -371,7 +371,7 @@ void text_reset(void)
 	}
 }
 
-Gfx *text0f153628(Gfx *gdl)
+Gfx *text_begin(Gfx *gdl)
 {
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -386,7 +386,7 @@ Gfx *text0f153628(Gfx *gdl)
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 	gDPSetTextureLUT(gdl++, G_TT_NONE);
 
-	if (var8007fad8) {
+	if (g_TextUseAverageSampling) {
 		gDPSetTextureFilter(gdl++, G_TF_AVERAGE);
 	}
 #if VERSION == VERSION_JPN_FINAL
@@ -401,7 +401,7 @@ Gfx *text0f153628(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *text0f153780(Gfx *gdl)
+Gfx *text_end(Gfx *gdl)
 {
 	gDPPipeSync(gdl++);
 	gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -411,7 +411,7 @@ Gfx *text0f153780(Gfx *gdl)
 	return gdl;
 }
 
-Gfx *text_set_prim_colour(Gfx *gdl, u32 colour)
+Gfx *text_begin_boxmode(Gfx *gdl, u32 colour)
 {
 	gDPPipeSync(gdl++);
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
@@ -422,103 +422,104 @@ Gfx *text_set_prim_colour(Gfx *gdl, u32 colour)
 	return gdl;
 }
 
-Gfx *text0f153838(Gfx *gdl)
+Gfx *text_end_boxmode(Gfx *gdl)
 {
 	gDPSetCombineMode(gdl++, G_CC_CUSTOM_02, G_CC_CUSTOM_02);
 
 	return gdl;
 }
 
-Gfx *text0f153858(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
+Gfx *text_draw_black_box(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 {
-	gdl = text_set_prim_colour(gdl, 0x00000000);
+	gdl = text_begin_boxmode(gdl, 0x00000000);
 
 	gDPFillRectangle(gdl++, *x1, *y1, *x2, *y2);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
 
-Gfx *text0f1538e4(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
+Gfx *text_draw_black_uibox(Gfx *gdl, s32 *x1, s32 *y1, s32 *x2, s32 *y2)
 {
-	gdl = text_set_prim_colour(gdl, 0x00000000);
+	gdl = text_begin_boxmode(gdl, 0x00000000);
 
 	gDPFillRectangleScaled(gdl++, *x1, *y1, *x2, *y2);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
 
 #if VERSION >= VERSION_NTSC_1_0
-Gfx *text0f153990(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
+Gfx *text_draw_black_textbox(Gfx *gdl, s32 left, s32 top, s32 width, s32 height)
 {
-	gdl = text_set_prim_colour(gdl, 0x00000000);
+	gdl = text_begin_boxmode(gdl, 0x00000000);
 
 #if VERSION >= VERSION_JPN_FINAL
-	gDPFillRectangle(gdl++, left - 1, top - 1, width * var8007fad0 + left + 1, top + height * var80080108jf + 1);
+	gDPFillRectangle(gdl++, left - 1, top - 1, width * g_TextScaleX + left + 1, top + height * var80080108jf + 1);
 #else
-	gDPFillRectangle(gdl++, left - 1, top - 1, width * var8007fad0 + left + 1, top + height + 1);
+	gDPFillRectangle(gdl++, left - 1, top - 1, width * g_TextScaleX + left + 1, top + height + 1);
 #endif
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
 #endif
 
-Gfx *text0f153a34(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour)
+Gfx *text_draw_box(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, u32 colour)
 {
-	gdl = text_set_prim_colour(gdl, colour);
+	gdl = text_begin_boxmode(gdl, colour);
 
 	gDPFillRectangle(gdl++, x1, y1, x2, y2);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
 
-Gfx *text0f153ab0(Gfx *gdl)
+Gfx *text_enable_holo_ray(Gfx *gdl)
 {
 	Gfx *allocation;
 
-	var8007fb9c = true;
+	g_TextHoloRayEnabled = true;
 
 	allocation = gfx_allocate(sizeof(Gfx) * 530);
 
-	var800a4634 = allocation;
-	var800a4638 = allocation + 530;
+	g_TextHoloRayGdl = allocation;
+	g_TextHoloRayGdlEnd = allocation + 530;
 
-	gSPDisplayList(gdl++, var800a4634);
+	gSPDisplayList(gdl++, g_TextHoloRayGdl);
 
 	gdl = func0f0d4c80(gdl);
 
-	var800a4634 = func0f0d4a3c(var800a4634, 0);
-	var8007fba4 = -1;
+	g_TextHoloRayGdl = func0f0d4a3c(g_TextHoloRayGdl, 0);
+
+	g_TextLastBlendY = -1;
 
 	return gdl;
 }
 
-void text0f153b40(void)
+void text_disable_holo_ray(void)
 {
-	var8007fb9c = false;
+	g_TextHoloRayEnabled = false;
 
-	gSPEndDisplayList(var800a4634++);
+	gSPEndDisplayList(g_TextHoloRayGdl++);
 }
 
-void text0f153b6c(s32 arg0)
+void text_calculate_blend_distance(s32 y)
 {
-	if (arg0 != var8007fba4) {
-		f32 tmp = g_Blend.diagtimer * g_Blend.diagtimer - (f32)((arg0 - g_Blend.diagrefy) * (arg0 - g_Blend.diagrefy));
+	if (y != g_TextLastBlendY) {
+		f32 sqdist = g_Blend.diagtimer * g_Blend.diagtimer - (f32)((y - g_Blend.diagrefy) * (y - g_Blend.diagrefy));
 
-		if (tmp > 0.0f) {
-			var8007fba0 = sqrtf(tmp) + g_Blend.diagrefx;
+		if (sqdist > 0.0f) {
+			g_TextBlendDistance = g_Blend.diagrefx + sqrtf(sqdist);
 		} else {
-			var8007fba0 = 0;
+			g_TextBlendDistance = 0;
 		}
 
-		var8007fba4 = arg0;
+		g_TextLastBlendY = y;
 	}
 }
 
@@ -638,9 +639,9 @@ u32 text_apply_projection_colour(s32 x, s32 y, u32 colour)
 			f12 = 3000.0f;
 		}
 
-		f14 = var8007fbac;
-		f18 = var8007fbb0;
-		f16 = var8007fbb4;
+		f14 = g_TextLAlpha;
+		f18 = g_TextLFade;
+		f16 = g_TextLLimbo;
 
 		if (g_Blend.diagmode == 0) {
 			if (g_Blend.diagtimer < f12) {
@@ -677,7 +678,7 @@ u32 text_apply_projection_colour(s32 x, s32 y, u32 colour)
 	return result;
 }
 
-u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
+u32 text_get_colour_at_pos(s32 x, s32 y, u32 colourarg)
 {
 	f32 f14;
 	f32 f18;
@@ -742,9 +743,9 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 			f12 = 3000.0f;
 		}
 
-		f14 = var8007fbac;
-		f18 = var8007fbb0;
-		f16 = var8007fbb4;
+		f14 = g_TextLAlpha;
+		f18 = g_TextLFade;
+		f16 = g_TextLLimbo;
 
 		if (g_Blend.diagmode == 0) {
 			if (g_Blend.diagtimer < f12) {
@@ -829,10 +830,10 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 		}
 
 		if (f0 < 0.0f) {
-			s32 weight = var8007fbbc * (0 - f0);
+			s32 weight = g_TextSubtleTX * (0 - f0);
 			colour = colour_blend(g_Blend.wavecolour1 | (colour & 0xff), colour, weight);
 		} else {
-			s32 weight = var8007fbb8 * f0;
+			s32 weight = g_TextSubleTY * f0;
 			colour = colour_blend(g_Blend.wavecolour2 | (colour & 0xff), colour, weight);
 		}
 	}
@@ -840,9 +841,9 @@ u32 text0f1543ac(s32 x, s32 y, u32 colourarg)
 	return colour;
 }
 
-Gfx *text0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
+Gfx *text_configure_colours_v2(Gfx *gdl, s32 x, s32 y)
 {
-	u32 colour = text0f1543ac(arg1, arg2, g_Blend.colour04);
+	u32 colour = text_get_colour_at_pos(x, y, g_Blend.colour04);
 
 	if (colour != g_Blend.colour44) {
 		gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
@@ -854,7 +855,7 @@ Gfx *text0f154ecc(Gfx *gdl, u32 arg1, u32 arg2)
 }
 
 #if VERSION >= VERSION_PAL_BETA
-void text_map_code_unit_to_char2(u8 *c)
+void text_map_codeunit_to_char(u8 *c)
 {
 	switch (*c) {
 	case 0xc0:
@@ -933,124 +934,124 @@ void text_map_code_unit_to_char2(u8 *c)
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-s32 func0f154784jf(u16 arg0)
+char text_codepoint_to_sbchar(u16 codepoint)
 {
-	u8 result = 0;
-	u16 u16val = arg0;
-	u8 u8val = arg0;
+	char c = '\0';
+	u16 codepoint16 = codepoint;
+	u8 codepoint8 = codepoint;
 
-	if (arg0 >= 0x10 && arg0 < 0x1a) {
-		result = u16val;
-		result += 0x20;
+	if (codepoint >= 0x10 && codepoint < 0x1a) { // 0-9
+		c = codepoint16;
+		c += 0x20;
 	}
 
-	if (arg0 >= 0x1a && arg0 < 0x34) {
-		result = u16val;
-		result += 0x27;
+	if (codepoint >= 0x1a && codepoint < 0x34) { // A-Z
+		c = codepoint16;
+		c += 0x27;
 	}
 
-	if (arg0 >= 0x95 && arg0 < 0xaf) {
-		result = u16val;
-		result -= 0x34;
+	if (codepoint >= 0x95 && codepoint < 0xaf) { // a-z
+		c = codepoint16;
+		c -= 0x34;
 	}
 
-	if (arg0 == 0x3fe || arg0 == 0x3ff) {
-		result = 0x2d;
+	if (codepoint == 0x3fe || codepoint == 0x3ff) {
+		c = '-';
 	}
 
-	if (arg0 < 0xff) {
-		switch (u8val) {
-		case 0x00: result = 0x20; break;
-		case 0x01: result = 0x2c; break;
-		case 0x02: result = 0x24; break;
-		case 0x03: result = 0x28; break;
-		case 0x04: result = 0x29; break;
-		case 0x05: result = 0x2e; break;
-		case 0x06: result = 0x25; break;
-		case 0x07: result = 0x5b; break;
-		case 0x08: result = 0x5d; break;
-		case 0x09: result = 0x22; break;
-		case 0x0a: result = 0x3c; break;
-		case 0x0b: result = 0x3e; break;
-		case 0x0c: result = 0x26; break;
-		case 0x0d: result = 0x7e; break;
-		case 0x0e: result = 0x2e; break;
-		case 0x0f: result = 0x20; break;
-		case 0x34: result = 0x21; break;
-		case 0x35: result = 0x22; break;
-		case 0x36: result = 0x23; break;
-		case 0x37: result = 0x22; break;
-		case 0x38: result = 0x2a; break;
-		case 0x39: result = 0x2b; break;
-		case 0x3a: result = 0x2c; break;
-		case 0x3b: result = 0x2d; break;
-		case 0x3c: result = 0x2e; break;
-		case 0x3d: result = 0x2f; break;
-		case 0x3e: result = 0x3a; break;
-		case 0x3f: result = 0x3d; break;
-		case 0x40: result = 0x3f; break;
-		case 0x41: result = 0x40; break;
+	if (codepoint < 0xff) {
+		switch (codepoint8) {
+		case 0x00: c = ' '; break;
+		case 0x01: c = ','; break;
+		case 0x02: c = '$'; break;
+		case 0x03: c = '('; break;
+		case 0x04: c = ')'; break;
+		case 0x05: c = '.'; break;
+		case 0x06: c = '%'; break;
+		case 0x07: c = '['; break;
+		case 0x08: c = ']'; break;
+		case 0x09: c = '"'; break;
+		case 0x0a: c = '<'; break;
+		case 0x0b: c = '>'; break;
+		case 0x0c: c = '&'; break;
+		case 0x0d: c = '~'; break;
+		case 0x0e: c = '.'; break;
+		case 0x0f: c = ' '; break;
+		case 0x34: c = '!'; break;
+		case 0x35: c = '"'; break;
+		case 0x36: c = '#'; break;
+		case 0x37: c = '"'; break;
+		case 0x38: c = '*'; break;
+		case 0x39: c = '+'; break;
+		case 0x3a: c = ','; break;
+		case 0x3b: c = '-'; break;
+		case 0x3c: c = '.'; break;
+		case 0x3d: c = '/'; break;
+		case 0x3e: c = ':'; break;
+		case 0x3f: c = '='; break;
+		case 0x40: c = '?'; break;
+		case 0x41: c = '@'; break;
 		}
 	}
 
-	return result;
+	return c;
 }
 #endif
 
 #if VERSION >= VERSION_JPN_FINAL
-u16 func0f154968jf(u8 value)
+u16 text_sbchar_to_codepoint(u8 c)
 {
-	u16 result = 0;
+	u16 codepoint = 0;
 
-	if (value >= 0x30 && value < 0x3a) {
-		result = value - 0x20;
+	if (c >= '0' && c <= '9') {
+		codepoint = c - 0x20;
 	}
 
-	if (value >= 0x41 && value < 0x5b) {
-		result = value - 0x27;
+	if (c >= 'A' && c <= 'Z') {
+		codepoint = c - 0x27;
 	}
 
-	if (value >= 0x61 && value < 0x7b) {
-		result = value + 0x34;
+	if (c >= 'a' && c <= 'z') {
+		codepoint = c + 0x34;
 	}
 
-	switch (value) {
-	case 0x20: result = 0x00; break;
-	case 0x2c: result = 0x01; break;
-	case 0x24: result = 0x02; break;
-	case 0x28: result = 0x03; break;
-	case 0x29: result = 0x04; break;
-	case 0x2e: result = 0x05; break;
-	case 0x25: result = 0x06; break;
-	case 0x5b: result = 0x07; break;
-	case 0x5d: result = 0x08; break;
-	case 0x22: result = 0x09; break;
-	case 0x3c: result = 0x0a; break;
-	case 0x3e: result = 0x0b; break;
-	case 0x26: result = 0x0c; break;
-	case 0x7e: result = 0x0d; break;
-	case 0x21: result = 0x34; break;
-	case 0x23: result = 0x36; break;
-	case 0x2a: result = 0x38; break;
-	case 0x2b: result = 0x39; break;
-	case 0x2d: result = 0x3b; break;
-	case 0x2f: result = 0x3d; break;
-	case 0x3a: result = 0x3e; break;
-	case 0x3d: result = 0x3f; break;
-	case 0x3f: result = 0x40; break;
-	case 0x40: result = 0x41; break;
+	switch (c) {
+	case ' ': codepoint = 0x00; break;
+	case ',': codepoint = 0x01; break;
+	case '$': codepoint = 0x02; break;
+	case '(': codepoint = 0x03; break;
+	case ')': codepoint = 0x04; break;
+	case '.': codepoint = 0x05; break;
+	case '%': codepoint = 0x06; break;
+	case '[': codepoint = 0x07; break;
+	case ']': codepoint = 0x08; break;
+	case '"': codepoint = 0x09; break;
+	case '<': codepoint = 0x0a; break;
+	case '>': codepoint = 0x0b; break;
+	case '&': codepoint = 0x0c; break;
+	case '~': codepoint = 0x0d; break;
+	case '!': codepoint = 0x34; break;
+	case '#': codepoint = 0x36; break;
+	case '*': codepoint = 0x38; break;
+	case '+': codepoint = 0x39; break;
+	case '-': codepoint = 0x3b; break;
+	case '/': codepoint = 0x3d; break;
+	case ':': codepoint = 0x3e; break;
+	case '=': codepoint = 0x3f; break;
+	case '?': codepoint = 0x40; break;
+	case '@': codepoint = 0x41; break;
 	}
 
-	return result;
+	return codepoint;
 }
 #endif
 
-void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar);
+void text_parse_char(char **text, struct fontchar **thischarptr, struct fontchar **prevcharptr, struct fontchar *chars, u8 *prevchar);
 
 #if VERSION == VERSION_JPN_FINAL
 #if MATCHING
 GLOBAL_ASM(
-glabel text_map_code_unit_to_char
+glabel text_parse_char
 /*  f154b00:	27bdffd0 */ 	addiu	$sp,$sp,-48
 /*  f154b04:	afbf001c */ 	sw	$ra,0x1c($sp)
 /*  f154b08:	afb00018 */ 	sw	$s0,0x18($sp)
@@ -1081,7 +1082,7 @@ glabel text_map_code_unit_to_char
 /*  f154b68:	a0650003 */ 	sb	$a1,0x3($v1)
 /*  f154b6c:	a0650004 */ 	sb	$a1,0x4($v1)
 /*  f154b70:	a4600006 */ 	sh	$zero,0x6($v1)
-/*  f154b74:	0fc5525a */ 	jal	func0f154968jf
+/*  f154b74:	0fc5525a */ 	jal	text_sbchar_to_codepoint
 /*  f154b78:	ac600008 */ 	sw	$zero,0x8($v1)
 /*  f154b7c:	8fab0034 */ 	lw	$t3,0x34($sp)
 /*  f154b80:	3c03800a */ 	lui	$v1,%hi(g_TmpJpnChar)
@@ -1151,7 +1152,7 @@ glabel text_map_code_unit_to_char
 /*  f154c74:	93a80029 */ 	lbu	$t0,0x29($sp)
 /*  f154c78:	11c00006 */ 	beqz	$t6,.JF0f154c94
 /*  f154c7c:	8fb00024 */ 	lw	$s0,0x24($sp)
-/*  f154c80:	0fc551e1 */ 	jal	func0f154784jf
+/*  f154c80:	0fc551e1 */ 	jal	text_codepoint_to_sbchar
 /*  f154c84:	3204ffff */ 	andi	$a0,$s0,0xffff
 /*  f154c88:	3c03800a */ 	lui	$v1,%hi(g_TmpJpnChar)
 /*  f154c8c:	24635008 */ 	addiu	$v1,$v1,%lo(g_TmpJpnChar)
@@ -1198,13 +1199,13 @@ u32 ope = 0;
 
 const char var7f1b8068jf[] = "ope";
 #else
-void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
+void text_parse_char(char **text, struct fontchar **thischarptr, struct fontchar **prevcharptr, struct fontchar *chars, u8 *prevchar)
 {
 	u16 c;
 	u8 c1;
 	u8 c2;
-	u16 sp2a;
-	u8 sp29;
+	u16 codepoint;
+	u8 sbchar;
 
 	static u32 ope = 0;
 
@@ -1219,74 +1220,73 @@ void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct font
 			g_TmpJpnChar.kerningindex = 0;
 			g_TmpJpnChar.pixeldata = NULL;
 
-			g_TmpJpnChar.index = 0x80 + func0f154968jf(c);
+			g_TmpJpnChar.index = 0x80 + text_sbchar_to_codepoint(c);
 
-			*arg1 = &g_TmpJpnChar;
-			*arg2 = &g_TmpJpnChar;
+			*thischarptr = &g_TmpJpnChar;
+			*prevcharptr = &g_TmpJpnChar;
 		} else {
-			*arg1 = &chars[c - 0x21];
-			*arg2 = &chars[*prevchar - 0x21];
+			*thischarptr = &chars[c - 0x21];
+			*prevcharptr = &chars[*prevchar - 0x21];
 		}
 
 		*prevchar = **text;
 		*text += 1;
-		return;
-	}
+	} else {
+		g_TmpJpnChar.index = 0;
+		g_TmpJpnChar.baseline = 0;
+		g_TmpJpnChar.height = 11;
+		g_TmpJpnChar.width = 11;
+		g_TmpJpnChar.kerningindex = 0;
+		g_TmpJpnChar.pixeldata = NULL;
 
-	g_TmpJpnChar.index = 0;
-	g_TmpJpnChar.baseline = 0;
-	g_TmpJpnChar.height = 11;
-	g_TmpJpnChar.width = 11;
-	g_TmpJpnChar.kerningindex = 0;
-	g_TmpJpnChar.pixeldata = NULL;
+		c1 = **text;
+		*text = *text + 1;
+		c2 = **text;
+		*text = *text + 1;
 
-	c1 = **text;
-	*text = *text + 1;
-	c2 = **text;
-	*text = *text + 1;
+		codepoint = ((c1 & 0x7f) << 7) | (c2 & 0x7f);
+		sbchar = '\0';
 
-	sp2a = ((c1 & 0x7f) << 7) | (c2 & 0x7f);
-	sp29 = 0;
+		main_override_variable("ope", &ope);
 
-	main_override_variable("ope", &ope);
-
-	if (ope) {
-		sp29 = func0f154784jf(sp2a);
-	}
-
-	if (sp29 == 0 || chars == NULL) {
-		if ((sp2a & 0x1fff) >= 0x400) {
-			sp2a = 2;
+		if (ope) {
+			sbchar = text_codepoint_to_sbchar(codepoint);
 		}
 
-		g_TmpJpnChar.index = sp2a + 0x80;
+		if (sbchar == '\0' || chars == NULL) {
+			if ((codepoint & 0x1fff) >= 0x400) {
+				codepoint = 2;
+			}
 
-		*arg1 = &g_TmpJpnChar;
-		*arg2 = &g_TmpJpnChar;
-	} else {
-		*arg1 = &chars[sp29 - 0x21];
-		*arg2 = &g_TmpJpnChar;
+			g_TmpJpnChar.index = codepoint + 0x80;
+
+			*thischarptr = &g_TmpJpnChar;
+			*prevcharptr = &g_TmpJpnChar;
+		} else {
+			*thischarptr = &chars[sbchar - 0x21];
+			*prevcharptr = &g_TmpJpnChar;
+		}
 	}
 }
 #endif
 #elif VERSION >= VERSION_PAL_BETA
-void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct fontchar **arg2, struct fontchar *chars, u8 *prevchar)
+void text_parse_char(char **text, struct fontchar **thischarptr, struct fontchar **prevcharptr, struct fontchar *chars, u8 *prevchar)
 {
 	u8 c;
 	u8 index;
 
 	if (g_Jpn) {
 		if (**text < 0x80) {
-			*arg1 = &chars[**text - 0x21];
-			*arg2 = &chars[*prevchar - 0x21];
+			*thischarptr = &chars[**text - 0x21];
+			*prevcharptr = &chars[*prevchar - 0x21];
 
 			*prevchar = **text;
 			*text += 1;
 			return;
 		}
 
-		*arg1 = &chars[*prevchar - 0x21];
-		*arg2 = &chars[*prevchar - 0x21];
+		*thischarptr = &chars[*prevchar - 0x21];
+		*prevcharptr = &chars[*prevchar - 0x21];
 		return;
 	}
 
@@ -1338,27 +1338,27 @@ void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct font
 		case 0xaa: index = 0x86; break;
 		}
 	} else {
-		text_map_code_unit_to_char2(&c);
+		text_map_codeunit_to_char(&c);
 	}
 
 	if (index > 0) {
-		*arg1 = &chars[index];
+		*thischarptr = &chars[index];
 	} else {
 		if (c < 0x21) {
-			c = 0x21;
+			c = '!';
 		}
 
 		if (c > 0x7e) {
-			c = 0x21;
+			c = '!';
 		}
 
-		*arg1 = &chars[c - 0x21];
+		*thischarptr = &chars[c - 0x21];
 	}
 
-	*arg2 = &chars[*prevchar - 0x21];
+	*prevcharptr = &chars[*prevchar - 0x21];
 
 	if (index > 0) {
-		text_map_code_unit_to_char2(&c);
+		text_map_codeunit_to_char(&c);
 	}
 
 	*prevchar = c;
@@ -1366,7 +1366,7 @@ void text_map_code_unit_to_char(char **text, struct fontchar **arg1, struct font
 }
 #endif
 
-Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar,
+Gfx *text_render_credits_char(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar *prevchar,
 		struct font *font, f32 widthscale, f32 heightscale, f32 x, f32 y)
 {
 	s32 tmp1;
@@ -1382,7 +1382,7 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 	Vtx *vertices;
 	Col *colours;
 
-	tmp2 = font->kerning[prevchar->kerningindex * 13 + curchar->kerningindex] + var8007fac4;
+	tmp2 = font->kerning[prevchar->kerningindex * 13 + curchar->kerningindex] + g_TextCharOverlap;
 	*arg1 = *arg1 - tmp2 + 1;
 
 #if VERSION >= VERSION_JPN_FINAL
@@ -1469,7 +1469,7 @@ Gfx *text0f154f38(Gfx *gdl, s32 *arg1, struct fontchar *curchar, struct fontchar
 	return gdl;
 }
 
-Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
+Gfx *text_render_credits(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 		char *text, struct fontchar *chars, struct font *font, u32 colour, s32 hdir, s32 vdir)
 {
 	s32 totalheight;
@@ -1527,12 +1527,12 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 	if (text != NULL) {
 		while (*text != '\0') {
 			if (*text == ' ') {
-				relx = relx + var8007fad0 * 5;
+				relx = relx + g_TextScaleX * 5;
 				prevchar = 'H';
 				text += 1;
 			} else if (*text == '\n') {
-				if (var8007fad4 >= 0 && relx == 0) {
-					totalheight += var8007fad4;
+				if (g_TextParaOverlap >= 0 && relx == 0) {
+					totalheight += g_TextParaOverlap;
 					relx = 0;
 				} else {
 					relx = 0;
@@ -1549,8 +1549,8 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 				struct fontchar *sp84;
 				struct fontchar *sp80;
 
-				text_map_code_unit_to_char(&text, &sp84, &sp80, chars, &prevchar);
-				gdl = text0f154f38(gdl, &relx, sp84, sp80, font, widthscale, heightscale, fx, fy);
+				text_parse_char(&text, &sp84, &sp80, chars, &prevchar);
+				gdl = text_render_credits_char(gdl, &relx, sp84, sp80, font, widthscale, heightscale, fx, fy);
 			}
 		}
 	}
@@ -1560,20 +1560,20 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 			if (*text == ' ') {
 				prevchar = 'H';
 				text += 1;
-				relx = relx + var8007fad0 * 5;
+				relx = relx + g_TextScaleX * 5;
 			} else if (*text == '\n') {
 				prevchar = 'H';
 				text += 1;
 
-				if (var8007fad4 >= 0 && relx == 0) {
-					totalheight += var8007fad4;
+				if (g_TextParaOverlap >= 0 && relx == 0) {
+					totalheight += g_TextParaOverlap;
 					relx = 0;
 				} else {
 					totalheight += lineheight;
 					relx = 0;
 				}
 			} else if (*text < 0x80) {
-				gdl = text0f154f38(gdl, &relx, &chars[*text - 0x21], &chars[prevchar - 0x21], font,
+				gdl = text_render_credits_char(gdl, &relx, &chars[*text - 0x21], &chars[prevchar - 0x21], font,
 						widthscale, heightscale, fx, fy);
 				prevchar = *text;
 				text += 1;
@@ -1604,13 +1604,13 @@ Gfx *text0f1552d4(Gfx *gdl, f32 x, f32 y, f32 widthscale, f32 heightscale,
 	return gdl;
 }
 
-Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fontchar *prevchar,
-		struct font *font, s32 savedx, s32 savedy, s32 width, s32 height, s32 arg10)
+Gfx *text_render_char_v2(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fontchar *prevchar,
+		struct font *font, s32 savedx, s32 savedy, s32 width, s32 height, s32 shadowoffset)
 {
 #if VERSION >= VERSION_JPN_FINAL
 	s32 tmp;
 	s32 sp90;
-	s32 xscale = var8007fad0;
+	s32 xscale = g_TextScaleX;
 	s32 yscale = var80080108jf;
 
 	savedy -= 2;
@@ -1619,8 +1619,8 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 		xscale = 1;
 	}
 
-	sp90 = *y + arg10;
-	tmp = var8007fac4 + font->kerning[prevchar->kerningindex * 13 + curchar->kerningindex];
+	sp90 = *y + shadowoffset;
+	tmp = g_TextCharOverlap + font->kerning[prevchar->kerningindex * 13 + curchar->kerningindex];
 	*x -= (tmp - 1) * xscale;
 	width *= xscale;
 	height *= yscale;
@@ -1660,7 +1660,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 			gDPPipeSync(gdl++);
 
 			if (g_Blend.types) {
-				gdl = text0f154ecc(gdl, *x / g_ScaleX, *y + arg10);
+				gdl = text_configure_colours_v2(gdl, *x / g_UiScaleX, *y + shadowoffset);
 			}
 
 			if (1);
@@ -1670,7 +1670,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 					if (curchar->baseline * yscale + sp90 + curchar->height * yscale <= savedy + height) {
 						if (g_TextRotated90) {
 							gSPTextureRectangleFlip(gdl++,
-									(sp90 - curchar->baseline - curchar->height * var8007fad0) * 4 + var8007fae0,
+									(sp90 - curchar->baseline - curchar->height * g_TextScaleX) * 4 + var8007fae0,
 									*x * 4 + var8007fadc,
 									(sp90 - curchar->baseline) * 4 + var8007fae0,
 									(*x + curchar->width * var80080108jf) * 4 + var8007fadc,
@@ -1678,38 +1678,38 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 									var8007fae8 + 32,
 									((curchar->height - 1) << 5) + var8007fae4 + 32,
 									1024 / var80080108jf,
-									65536 - 1024 / var8007fad0);
+									65536 - 1024 / g_TextScaleX);
 						} else {
 							gSPTextureRectangle(gdl++,
 									*x * 4 + var8007fadc,
 									(sp90 + curchar->baseline * var80080108jf) * 4 + var8007fae0,
-									(*x + curchar->width * var8007fad0) * 4 + var8007fadc,
+									(*x + curchar->width * g_TextScaleX) * 4 + var8007fadc,
 									(sp90 + curchar->baseline * var80080108jf + curchar->height * var80080108jf) * 4 + var8007fae0 - (var80080108jf - 1) * 4,
 									G_TX_RENDERTILE,
 									var8007fae4 + 32,
 									var8007fae8 + 32,
-									1024 / var8007fad0,
+									1024 / g_TextScaleX,
 									1024 / var80080108jf);
 
-							if (var8007fb9c) {
-								text0f153b6c(*y + arg10);
+							if (g_TextHoloRayEnabled) {
+								text_calculate_blend_distance(*y + shadowoffset);
 
-								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
-									var800a4634 = menugfx_draw_plane(var800a4634,
-											var8007fba0,
+								if (g_TextBlendDistance >= *x / g_UiScaleX && *x / g_UiScaleX + curchar->width * g_TextScaleX >= g_TextBlendDistance) {
+									g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl,
+											g_TextBlendDistance,
 											curchar->baseline * var80080108jf + sp90,
-											var8007fba0,
+											g_TextBlendDistance,
 											curchar->baseline * var80080108jf + sp90 + curchar->height * var80080108jf,
 											g_Blend.colour04,
 											g_Blend.colour04,
 											MENUPLANE_00);
 								}
 
-								if (var8007fba0 - 3 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0 - 3) {
-									var800a4634 = menugfx_draw_plane(var800a4634,
-											var8007fba0,
+								if (g_TextBlendDistance - 3 >= *x / g_UiScaleX && *x / g_UiScaleX + curchar->width * g_TextScaleX >= g_TextBlendDistance - 3) {
+									g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl,
+											g_TextBlendDistance,
 											curchar->baseline * var80080108jf + sp90,
-											var8007fba0,
+											g_TextBlendDistance,
 											curchar->baseline * var80080108jf + sp90 + curchar->height * var80080108jf,
 											g_Blend.colour04,
 											g_Blend.colour04,
@@ -1721,12 +1721,12 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 						gSPTextureRectangle(gdl++,
 								*x * 4 + var8007fadc,
 								(sp90 + curchar->baseline * var80080108jf) * 4 + var8007fae0,
-								(*x + curchar->width * var8007fad0) * 4 + var8007fadc,
+								(*x + curchar->width * g_TextScaleX) * 4 + var8007fadc,
 								(savedy + height) * 4 + var8007fae0,
 								G_TX_RENDERTILE,
 								var8007fae4 + 32,
 								var8007fae8 + 32,
-								1024 / var8007fad0,
+								1024 / g_TextScaleX,
 								1024 / var80080108jf);
 					}
 				} else {
@@ -1734,12 +1734,12 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 						gSPTextureRectangle(gdl++,
 								*x * 4 + var8007fadc,
 								savedy * 4 + var8007fae0,
-								(*x + curchar->width * var8007fad0) * 4 + var8007fadc,
+								(*x + curchar->width * g_TextScaleX) * 4 + var8007fadc,
 								(curchar->baseline * var80080108jf + sp90 + curchar->height * var80080108jf) * 4 + var8007fae0,
 								G_TX_RENDERTILE,
 								var8007fae4 + 32,
 								((savedy - sp90 - curchar->baseline * var80080108jf) << 5) + var8007fae8 + 32,
-								1024 / var8007fad0,
+								1024 / g_TextScaleX,
 								1024 / var80080108jf);
 					}
 				}
@@ -1749,7 +1749,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 #else
 	s32 tmp;
 	s32 sp90;
-	s32 xscale = var8007fad0;
+	s32 xscale = g_TextScaleX;
 
 #if VERSION >= VERSION_PAL_BETA
 	savedy -= 2;
@@ -1759,8 +1759,8 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 		xscale = 1;
 	}
 
-	sp90 = *y + arg10;
-	tmp = var8007fac4 + font->kerning[prevchar->kerningindex * 13 + curchar->kerningindex];
+	sp90 = *y + shadowoffset;
+	tmp = g_TextCharOverlap + font->kerning[prevchar->kerningindex * 13 + curchar->kerningindex];
 	*x -= (tmp - 1) * xscale;
 	width *= xscale;
 
@@ -1775,7 +1775,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 			gDPPipeSync(gdl++);
 
 			if (g_Blend.types) {
-				gdl = text0f154ecc(gdl, *x / g_ScaleX, *y + arg10);
+				gdl = text_configure_colours_v2(gdl, *x / g_UiScaleX, *y + shadowoffset);
 			}
 
 			if (1);
@@ -1785,7 +1785,7 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 					if (curchar->baseline + sp90 + curchar->height <= savedy + height) {
 						if (g_TextRotated90) {
 							gSPTextureRectangleFlip(gdl++,
-									(sp90 - curchar->baseline - curchar->height * var8007fad0) * 4 + var8007fae0,
+									(sp90 - curchar->baseline - curchar->height * g_TextScaleX) * 4 + var8007fae0,
 									*x * 4 + var8007fadc,
 									(sp90 - curchar->baseline) * 4 + var8007fae0,
 									(*x + curchar->width) * 4 + var8007fadc,
@@ -1793,38 +1793,38 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 									var8007fae8 + 32,
 									((curchar->height - 1) << 5) + var8007fae4 + 32,
 									1024,
-									65536 - 1024 / var8007fad0);
+									65536 - 1024 / g_TextScaleX);
 						} else {
 							gSPTextureRectangle(gdl++,
 									*x * 4 + var8007fadc,
 									(sp90 + curchar->baseline) * 4 + var8007fae0,
-									(*x + curchar->width * var8007fad0) * 4 + var8007fadc,
+									(*x + curchar->width * g_TextScaleX) * 4 + var8007fadc,
 									(sp90 + curchar->baseline + curchar->height) * 4 + var8007fae0,
 									G_TX_RENDERTILE,
 									var8007fae4 + 32,
 									var8007fae8 + 32,
-									1024 / var8007fad0,
+									1024 / g_TextScaleX,
 									1024);
 
-							if (var8007fb9c) {
-								text0f153b6c(*y + arg10);
+							if (g_TextHoloRayEnabled) {
+								text_calculate_blend_distance(*y + shadowoffset);
 
-								if (var8007fba0 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0) {
-									var800a4634 = menugfx_draw_plane(var800a4634,
-											var8007fba0,
+								if (g_TextBlendDistance >= *x / g_UiScaleX && *x / g_UiScaleX + curchar->width * g_TextScaleX >= g_TextBlendDistance) {
+									g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl,
+											g_TextBlendDistance,
 											curchar->baseline + sp90,
-											var8007fba0,
+											g_TextBlendDistance,
 											curchar->baseline + sp90 + curchar->height,
 											g_Blend.colour04,
 											g_Blend.colour04,
 											MENUPLANE_00);
 								}
 
-								if (var8007fba0 - 3 >= *x / g_ScaleX && *x / g_ScaleX + curchar->width * var8007fad0 >= var8007fba0 - 3) {
-									var800a4634 = menugfx_draw_plane(var800a4634,
-											var8007fba0,
+								if (g_TextBlendDistance - 3 >= *x / g_UiScaleX && *x / g_UiScaleX + curchar->width * g_TextScaleX >= g_TextBlendDistance - 3) {
+									g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl,
+											g_TextBlendDistance,
 											curchar->baseline + sp90,
-											var8007fba0,
+											g_TextBlendDistance,
 											curchar->baseline + sp90 + curchar->height,
 											g_Blend.colour04,
 											g_Blend.colour04,
@@ -1836,12 +1836,12 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 						gSPTextureRectangle(gdl++,
 								*x * 4 + var8007fadc,
 								(sp90 + curchar->baseline) * 4 + var8007fae0,
-								(*x + curchar->width * var8007fad0) * 4 + var8007fadc,
+								(*x + curchar->width * g_TextScaleX) * 4 + var8007fadc,
 								(savedy + height) * 4 + var8007fae0,
 								G_TX_RENDERTILE,
 								var8007fae4 + 32,
 								var8007fae8 + 32,
-								1024 / var8007fad0,
+								1024 / g_TextScaleX,
 								1024);
 					}
 				} else {
@@ -1849,12 +1849,12 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 						gSPTextureRectangle(gdl++,
 								*x * 4 + var8007fadc,
 								savedy * 4 + var8007fae0,
-								(*x + curchar->width * var8007fad0) * 4 + var8007fadc,
+								(*x + curchar->width * g_TextScaleX) * 4 + var8007fadc,
 								(curchar->baseline + sp90 + curchar->height) * 4 + var8007fae0,
 								G_TX_RENDERTILE,
 								var8007fae4 + 32,
 								((savedy - sp90 - curchar->baseline) << 5) + var8007fae8 + 32,
-								1024 / var8007fad0,
+								1024 / g_TextScaleX,
 								1024);
 					}
 				}
@@ -1868,29 +1868,41 @@ Gfx *text0f15568c(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, struct fon
 	return gdl;
 }
 
-u32 var8007fbd8 = 0;
+bool g_TextShadowEnabled = false;
 
-void text0f156024(s32 arg0)
+void text_set_shadow_enabled(bool enabled)
 {
-	var8007fbd8 = arg0;
+	g_TextShadowEnabled = enabled;
 }
 
-void text0f156030(u32 colour)
+void text_set_shadow_colour(u32 colour)
 {
 	var800a463c = colour;
 }
 
-Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *chars, struct font *font,
-		s32 colour, s32 width, s32 height, s32 arg9, s32 lineheight)
+/**
+ * The v2 renderer has full support for all of PD's text rendering features.
+ * - Text can be rotated 90 degrees.
+ * - Shadows can be enabled/disabled and colour chosen using the above functions.
+ * - The hologram refresh line can be enabled and disabled using their functions.
+ * - In versions prior to JPN, shadows are drawn using the v1 renderer which
+ *   means they don't use the special effects. In JPN they are drawn using a
+ *   recursive call to v2 so they have all the special effects.
+ * - JPN draws the shadows 4 times, each offset in each direction.
+ * - Blend settings are supported, such as the fading out hologram effect and
+ *   the wavy pattern in gun and function names during gameplay.
+ */
+Gfx *text_render_v2(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *chars, struct font *font,
+		u32 textcolour, s32 width, s32 height, s32 shadowoffset, s32 lineheight)
 {
 	s32 savedx;
 	s32 savedy;
 	u8 prevchar;
-	s32 spb0;
-	u32 colour2;
-	u32 tmpcolour;
-	s32 newx;
-	s32 newy;
+	s32 scalex;
+	u32 textcolourforshadow;
+	u32 shadowcolour;
+	s32 shadowx;
+	s32 shadowy;
 #if VERSION >= VERSION_JPN_FINAL
 	s32 savedmode;
 	s32 savedtypes;
@@ -1899,32 +1911,32 @@ Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar
 
 	static u32 sbrd = 0x00000000;
 
-	spb0 = var8007fad0;
+	scalex = g_TextScaleX;
 
 	if (g_TextRotated90) {
-		*y *= g_ScaleX;
-		spb0 = 1;
+		*y *= g_UiScaleX;
+		scalex = 1;
 	} else {
-		*x *= g_ScaleX;
+		*x *= g_UiScaleX;
 	}
 
-	if (var8007fbd8) {
+	if (g_TextShadowEnabled) {
+		alpha = (1.0f - menu_get_sin_osc_frac(40.0f)) * 100.0f + 150.0f;
+		shadowx = *x / g_UiScaleX;
+		shadowy = *y;
+		shadowcolour = var800a463c;
 #if VERSION >= VERSION_JPN_FINAL
-		menu_get_sin_osc_frac(40);
-		newx = *x / g_ScaleX;
-		newy = *y;
-		tmpcolour = var800a463c;
 		savedmode = g_Blend.diagmode;
 		savedtypes = g_Blend.types;
 
 		if (!g_TextRotated90) {
-			newy--;
+			shadowy--;
 		}
 
 		main_override_variable("sbrd", &sbrd);
 
-		if (sbrd != 0) {
-			tmpcolour = sbrd;
+		if (sbrd) {
+			shadowcolour = sbrd;
 		}
 
 		g_Blend.types &= ~BLENDTYPE_WAVE;
@@ -1935,42 +1947,38 @@ Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar
 			g_Blend.diagmode = DIAGMODE_FADEOUT;
 		}
 
-		var8007fbd8 = 0;
+		g_TextShadowEnabled = false;
 
-		newx = *x / g_ScaleX + 1;
-		newy = *y - 1;
-		gdl = text_render_projected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
+		shadowx = *x / g_UiScaleX + 1;
+		shadowy = *y - 1;
+		gdl = text_render_v2(gdl, &shadowx, &shadowy, text, chars, font, shadowcolour, width, height, shadowoffset, lineheight);
 
-		newx = *x / g_ScaleX + 1;
-		newy = *y + 1;
-		gdl = text_render_projected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
+		shadowx = *x / g_UiScaleX + 1;
+		shadowy = *y + 1;
+		gdl = text_render_v2(gdl, &shadowx, &shadowy, text, chars, font, shadowcolour, width, height, shadowoffset, lineheight);
 
-		newx = *x / g_ScaleX - 1;
-		newy = *y - 1;
-		gdl = text_render_projected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
+		shadowx = *x / g_UiScaleX - 1;
+		shadowy = *y - 1;
+		gdl = text_render_v2(gdl, &shadowx, &shadowy, text, chars, font, shadowcolour, width, height, shadowoffset, lineheight);
 
-		newx = *x / g_ScaleX - 1;
-		newy = *y + 1;
-		gdl = text_render_projected(gdl, &newx, &newy, text, chars, font, tmpcolour, width, height, arg9, lineheight);
+		shadowx = *x / g_UiScaleX - 1;
+		shadowy = *y + 1;
+		gdl = text_render_v2(gdl, &shadowx, &shadowy, text, chars, font, shadowcolour, width, height, shadowoffset, lineheight);
 
-		var8007fbd8 = 1;
+		g_TextShadowEnabled = true;
 
 		g_Blend.types = savedtypes;
 		g_Blend.diagmode = savedmode;
 #else
-		alpha = (1.0f - menu_get_sin_osc_frac(40.0f)) * 100.0f + 150.0f;
-		newx = *x / g_ScaleX;
-		newy = *y;
-		tmpcolour = var800a463c;
-		colour2 = (colour & 0xffffff00) | (u32) alpha;
+		textcolourforshadow = (textcolour & 0xffffff00) | (u32) alpha;
 
 		main_override_variable("sbrd", &sbrd);
 
 		if (sbrd) {
-			tmpcolour = sbrd;
+			shadowcolour = sbrd;
 		}
 
-		gdl = text_render(gdl, &newx, &newy, text, chars, font, colour2, tmpcolour, width, height, arg9, lineheight);
+		gdl = text_render_v1(gdl, &shadowx, &shadowy, text, chars, font, textcolourforshadow, shadowcolour, width, height, shadowoffset, lineheight);
 #endif
 	}
 
@@ -1980,13 +1988,13 @@ Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar
 	}
 #endif
 
-	main_override_variable("lalpha", &var8007fbac);
-	main_override_variable("subtlety", &var8007fbb8);
-	main_override_variable("subtletx", &var8007fbbc);
-	main_override_variable("coly", &var8007fbc4);
-	main_override_variable("colx", &var8007fbc0);
-	main_override_variable("lfade", &var8007fbb0);
-	main_override_variable("llimbo", &var8007fbb4);
+	main_override_variable("lalpha", &g_TextLAlpha);
+	main_override_variable("subtlety", &g_TextSubleTY);
+	main_override_variable("subtletx", &g_TextSubtleTX);
+	main_override_variable("coly", &g_TextColourY);
+	main_override_variable("colx", &g_TextColourX);
+	main_override_variable("lfade", &g_TextLFade);
+	main_override_variable("llimbo", &g_TextLLimbo);
 
 	savedx = *x;
 	savedy = *y;
@@ -2022,22 +2030,22 @@ Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar
 	gDPLoadTLUTCmd(gdl++, 6, 15);
 	gDPSetTile(gdl++, G_IM_FMT_CI, G_IM_SIZ_4b, 1, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
 	gDPSetTileSize(gdl++, G_TX_RENDERTILE, 0, 0, 0x007c, 0x007c);
-	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
+	gDPSetPrimColorViaWord(gdl++, 0, 0, textcolour);
 	gDPPipeSync(gdl++);
 
-	g_Blend.colour04 = colour;
-	g_Blend.colour44 = colour;
+	g_Blend.colour04 = textcolour;
+	g_Blend.colour44 = textcolour;
 
 #if VERSION >= VERSION_PAL_BETA
 	if (text != NULL) {
 		while (*text != '\0') {
 			if (*text == ' ') {
-				*x += spb0 * 5;
+				*x += scalex * 5;
 				prevchar = 'H';
 				text++;
 			} else if (*text == '\n') {
-				if (var8007fad4 >= 0 && savedx == *x) {
-					*y += var8007fad4;
+				if (g_TextParaOverlap >= 0 && savedx == *x) {
+					*y += g_TextParaOverlap;
 				} else {
 					*y += lineheight;
 				}
@@ -2046,12 +2054,12 @@ Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar
 				prevchar = 'H';
 				text++;
 			} else {
-				struct fontchar *sp78;
-				struct fontchar *sp74;
+				struct fontchar *thischardata;
+				struct fontchar *prevchardata;
 
-				text_map_code_unit_to_char(&text, &sp78, &sp74, chars, &prevchar);
+				text_parse_char(&text, &thischardata, &prevchardata, chars, &prevchar);
 
-				gdl = text0f15568c(gdl, x, y, sp78, sp74, font, savedx, savedy, width, height, arg9);
+				gdl = text_render_char_v2(gdl, x, y, thischardata, prevchardata, font, savedx, savedy, width, height, shadowoffset);
 			}
 		}
 	}
@@ -2060,21 +2068,21 @@ Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar
 		while (*text != '\0') {
 			if (*text == ' ') {
 				prevchar = 'H';
-				*x += spb0 * 5;
+				*x += scalex * 5;
 				text++;
 			} else if (*text == '\n') {
 				prevchar = 'H';
 				text++;
 
-				if (var8007fad4 >= 0 && savedx == *x) {
-					*y += var8007fad4;
+				if (g_TextParaOverlap >= 0 && savedx == *x) {
+					*y += g_TextParaOverlap;
 				} else {
 					*y += lineheight;
 				}
 
 				*x = savedx;
 			} else if (*text < 0x80) {
-				gdl = text0f15568c(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21], font, savedx, savedy, width, height, arg9);
+				gdl = text_render_char_v2(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21], font, savedx, savedy, width, height, shadowoffset);
 				prevchar = *text;
 				text++;
 			} else {
@@ -2093,7 +2101,7 @@ Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar
 				tmpchar.index = codepoint + 0x80;
 				tmpchar.pixeldata = (void *)lang_get_jpn_char_pixels(codepoint);
 
-				gdl = text0f15568c(gdl, x, y, &tmpchar, &tmpchar, font, savedx, savedy, width, height, arg9);
+				gdl = text_render_char_v2(gdl, x, y, &tmpchar, &tmpchar, font, savedx, savedy, width, height, shadowoffset);
 
 				text += 2;
 			}
@@ -2102,17 +2110,17 @@ Gfx *text_render_projected(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar
 #endif
 
 	if (g_TextRotated90) {
-		*y = *y / g_ScaleX;
+		*y = *y / g_UiScaleX;
 	} else {
-		*x = *x / g_ScaleX;
+		*x = *x / g_UiScaleX;
 	}
 
 	return gdl;
 }
 
-Gfx *text0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
+Gfx *text_configure_colours_v1(Gfx *gdl, s32 x, s32 y)
 {
-	u32 colour = text0f1543ac(arg1, arg2, g_Blend.colour04);
+	u32 colour = text_get_colour_at_pos(x, y, g_Blend.colour04);
 
 	if (colour != g_Blend.colour44) {
 		gDPSetColor(gdl++, G_SETENVCOLOR, colour);
@@ -2120,7 +2128,7 @@ Gfx *text0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
 
 	g_Blend.colour44 = colour;
 
-	colour = (g_Blend.colour08 & 0xffffff00) | (text0f1543ac(arg1, arg2, g_Blend.colour08) & 0xff);
+	colour = (g_Blend.colour08 & 0xffffff00) | (text_get_colour_at_pos(x, y, g_Blend.colour08) & 0xff);
 
 	if (colour != g_Blend.colour48) {
 		gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
@@ -2131,73 +2139,73 @@ Gfx *text0f1566cc(Gfx *gdl, u32 arg1, u32 arg2)
 	return gdl;
 }
 
-Gfx *text_render_char(Gfx *gdl, s32 *x, s32 *y, struct fontchar *char1, struct fontchar *char2,
-		struct font *font, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10)
+Gfx *text_render_char_v1(Gfx *gdl, s32 *x, s32 *y, struct fontchar *thischardata, struct fontchar *prevchardata,
+		struct font *font, s32 left, s32 top, s32 width, s32 height, s32 shadowoffset)
 {
 	s32 tmp;
 	s32 sp38;
 
-	sp38 = *y + arg10;
+	sp38 = *y + shadowoffset;
 
-	tmp = font->kerning[char2->kerningindex * 13 + char1->kerningindex] + var8007fac4;
-	*x -= (tmp - 1) * var8007fad0;
+	tmp = font->kerning[prevchardata->kerningindex * 13 + thischardata->kerningindex] + g_TextCharOverlap;
+	*x -= (tmp - 1) * g_TextScaleX;
 
 	if (*x > 0
 			&& *x <= vi_get_width()
-			&& sp38 + char1->baseline <= vi_get_height()
-			&& *x <= arg6 + arg8
-			&& char1->baseline + sp38 <= arg7 + arg9
-			&& *x >= arg6
-			&& sp38 + char1->baseline + char1->height >= arg7) {
+			&& sp38 + thischardata->baseline <= vi_get_height()
+			&& *x <= left + width
+			&& thischardata->baseline + sp38 <= top + height
+			&& *x >= left
+			&& sp38 + thischardata->baseline + thischardata->height >= top) {
 #if VERSION >= VERSION_JPN_FINAL
-		if (char1->pixeldata == NULL) {
-			char1->pixeldata = (void *)lang_get_jpn_char_pixels(char1->index - 0x80);
+		if (thischardata->pixeldata == NULL) {
+			thischardata->pixeldata = (void *)lang_get_jpn_char_pixels(thischardata->index - 0x80);
 		}
 #else
 		if (g_Blend.types) {
-			gdl = text0f1566cc(gdl, *x / g_ScaleX, *y + arg10);
+			gdl = text_configure_colours_v1(gdl, *x / g_UiScaleX, *y + shadowoffset);
 		}
 #endif
 
-		gDPSetTextureImage(gdl++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, char1->pixeldata);
+		gDPSetTextureImage(gdl++, G_IM_FMT_CI, G_IM_SIZ_16b, 1, thischardata->pixeldata);
 		gDPLoadSync(gdl++);
-		gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, ((char1->height * 8 + 17) >> 1) - 1, 2048);
+		gDPLoadBlock(gdl++, G_TX_LOADTILE, 0, 0, ((thischardata->height * 8 + 17) >> 1) - 1, 2048);
 		gDPPipeSync(gdl++);
 
-		gdl = text0f156a24(gdl, *x - var8007fad0, sp38 - 1, char1, arg6, arg7 - 1, arg8, arg9);
+		gdl = text_render_char_v1_part2(gdl, *x - g_TextScaleX, sp38 - 1, thischardata, left, top - 1, width, height);
 	}
 
-	*x += char1->width * var8007fad0;
+	*x += thischardata->width * g_TextScaleX;
 
 	return gdl;
 }
 
-Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
+Gfx *text_render_char_v1_part2(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
 {
 	if (arg4 + arg6 >= char1->width + x + 2) {
 		if (y + char1->baseline >= arg5) {
 			if (arg5 + arg7 >= y + char1->baseline + char1->height + 2) {
 				if (g_TextRotated90) {
 					gSPTextureRectangleFlip(gdl++,
-							((y - char1->baseline) - ((char1->height + 2) * var8007fad0)) * 4,
+							((y - char1->baseline) - ((char1->height + 2) * g_TextScaleX)) * 4,
 							x * 4,
 							(y - char1->baseline) * 4,
 							(x + char1->width + 2) * 4,
 							G_TX_RENDERTILE,
 							0,
 							(char1->height + 1) << 5,
-							1024 / var8007fad0,
+							1024 / g_TextScaleX,
 							-1024);
 				} else {
 					gSPTextureRectangle(gdl++,
 							x * 4,
 							(y + char1->baseline) * 4,
-							(x + char1->width * var8007fad0 + 2) * 4,
+							(x + char1->width * g_TextScaleX + 2) * 4,
 							(y + char1->baseline + char1->height + 2) * 4,
 							G_TX_RENDERTILE,
 							0,
 							0,
-							1024 / var8007fad0,
+							1024 / g_TextScaleX,
 							1024);
 				}
 			} else {
@@ -2205,12 +2213,12 @@ Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 
 					gSPTextureRectangle(gdl++,
 							x * 4,
 							(y + char1->baseline) * 4,
-							(x + char1->width * var8007fad0 + 2) * 4,
+							(x + char1->width * g_TextScaleX + 2) * 4,
 							(arg5 + arg7) * 4,
 							G_TX_RENDERTILE,
 							0,
 							0,
-							1024 / var8007fad0,
+							1024 / g_TextScaleX,
 							1024);
 				}
 			}
@@ -2219,12 +2227,12 @@ Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 
 				gSPTextureRectangle(gdl++,
 						x * 4,
 						arg5 * 4,
-						(x + char1->width * var8007fad0 + 2) * 4,
+						(x + char1->width * g_TextScaleX + 2) * 4,
 						(y + char1->baseline + char1->height + 2) * 4,
 						G_TX_RENDERTILE,
 						0,
 						(arg5 - char1->baseline - y) << 5,
-						1024 / var8007fad0,
+						1024 / g_TextScaleX,
 						1024);
 			}
 		}
@@ -2233,9 +2241,17 @@ Gfx *text0f156a24(Gfx *gdl, s32 x, s32 y, struct fontchar *char1, s32 arg4, s32 
 	return gdl;
 }
 
-Gfx *text_render(Gfx *gdl, s32 *x, s32 *y, char *text,
-		struct fontchar *chars, struct font *font, u32 arg6, u32 colour,
-		s32 width, s32 height, u32 arg10, s32 lineheight)
+/**
+ * The v1 renderer is likely very similar, if not the same as GE's.
+ *
+ * It has support for shadows and implements them using the environment colour.
+ *
+ * It does not support the hologram refresh effect, oscillating focus colour
+ * or blend effects.
+ */
+Gfx *text_render_v1(Gfx *gdl, s32 *x, s32 *y, char *text,
+		struct fontchar *chars, struct font *font, u32 textcolour, u32 glowcolour,
+		s32 width, s32 height, s32 shadowoffset, s32 lineheight)
 {
 	s32 savedx;
 	s32 savedy;
@@ -2245,7 +2261,7 @@ Gfx *text_render(Gfx *gdl, s32 *x, s32 *y, char *text,
 	s32 prevchar;
 #endif
 
-	*x *= g_ScaleX;
+	*x *= g_UiScaleX;
 
 	savedx = *x;
 	savedy = *y;
@@ -2290,19 +2306,19 @@ Gfx *text_render(Gfx *gdl, s32 *x, s32 *y, char *text,
 	gDPSetCombineLERP(gdl++,
 			ENVIRONMENT, PRIMITIVE, TEXEL1_ALPHA, PRIMITIVE, 0, 0, 0, TEXEL0,
 			0, 0, 0, COMBINED, COMBINED, 0, ENVIRONMENT, 0);
-	gDPSetPrimColorViaWord(gdl++, 0, 0, colour);
-	gDPSetEnvColorViaWord(gdl++, arg6);
+	gDPSetPrimColorViaWord(gdl++, 0, 0, glowcolour);
+	gDPSetEnvColorViaWord(gdl++, textcolour);
 	gDPPipeSync(gdl++);
 
-	g_Blend.colour08 = colour;
-	g_Blend.colour48 = colour;
-	g_Blend.colour04 = arg6;
-	g_Blend.colour44 = arg6;
+	g_Blend.colour08 = glowcolour;
+	g_Blend.colour48 = glowcolour;
+	g_Blend.colour04 = textcolour;
+	g_Blend.colour44 = textcolour;
 
 #if VERSION >= VERSION_PAL_BETA
 	while (*text != '\0') {
 		if (*text == ' ') {
-			*x += var8007fad0 * 5;
+			*x += g_TextScaleX * 5;
 			prevchar = 'H';
 			text++;
 		} else if (*text == '\n') {
@@ -2311,19 +2327,19 @@ Gfx *text_render(Gfx *gdl, s32 *x, s32 *y, char *text,
 			prevchar = 'H';
 			text++;
 		} else {
-			struct fontchar *sp78;
-			struct fontchar *sp74;
+			struct fontchar *thischardata;
+			struct fontchar *prevchardata;
 
-			text_map_code_unit_to_char(&text, &sp78, &sp74, chars, &prevchar);
+			text_parse_char(&text, &thischardata, &prevchardata, chars, &prevchar);
 
-			gdl = text_render_char(gdl, x, y, sp78, sp74,
-					font, savedx, savedy, width * var8007fad0, height, arg10);
+			gdl = text_render_char_v1(gdl, x, y, thischardata, prevchardata,
+					font, savedx, savedy, width * g_TextScaleX, height, shadowoffset);
 		}
 	}
 #else
 	while (*text != '\0') {
 		if (*text == ' ') {
-			*x += var8007fad0 * 5;
+			*x += g_TextScaleX * 5;
 			prevchar = 'H';
 			text++;
 		} else if (*text == '\n') {
@@ -2332,27 +2348,27 @@ Gfx *text_render(Gfx *gdl, s32 *x, s32 *y, char *text,
 			prevchar = 'H';
 			text++;
 		} else if (*text < 0x80) {
-			gdl = text_render_char(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21],
-					font, savedx, savedy, width * var8007fad0, height, arg10);
+			gdl = text_render_char_v1(gdl, x, y, &chars[*text - 0x21], &chars[prevchar - 0x21],
+					font, savedx, savedy, width * g_TextScaleX, height, shadowoffset);
 			prevchar = *text;
 			text++;
 		} else {
 			u16 codepoint = ((*text & 0x7f) << 7) | (text[1] & 0x7f);
-			struct fontchar sp74 = {0, 0, 12, 11};
+			struct fontchar chardata = {0, 0, 12, 11};
 
 			if (codepoint & 0x2000) {
-				sp74.width = 15;
-				sp74.height = 16;
+				chardata.width = 15;
+				chardata.height = 16;
 			}
 
 			if ((codepoint & 0x1fff) >= 0x3c8) {
 				codepoint = 2;
 			}
 
-			sp74.index = codepoint + 0x80;
-			sp74.pixeldata = (void *)lang_get_jpn_char_pixels(codepoint);
+			chardata.index = codepoint + 0x80;
+			chardata.pixeldata = (void *)lang_get_jpn_char_pixels(codepoint);
 
-			gdl = text_render_char(gdl, x, y, &sp74, &sp74, font, savedx, savedy, width * var8007fad0, height, arg10);
+			gdl = text_render_char_v1(gdl, x, y, &chardata, &chardata, font, savedx, savedy, width * g_TextScaleX, height, shadowoffset);
 
 			text += 2;
 		}
@@ -2365,15 +2381,29 @@ Gfx *text_render(Gfx *gdl, s32 *x, s32 *y, char *text,
 			0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0,
 			0, 0, 0, PRIMITIVE, TEXEL0, 0, PRIMITIVE, 0);
 
-	*x = *x / g_ScaleX;
+	*x = *x / g_UiScaleX;
 
 	return gdl;
 }
 
 #if VERSION == VERSION_JPN_FINAL
-Gfx *func0f1574d0jf(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1, struct font *font2, s32 colour, u32 colour2, s32 width, s32 height, s32 arg9, u32 arg10)
+/**
+ * In all versions prior to JPN, there are two functions to render text:
+ * text_render_v1 and text_render_v2.
+ *
+ * For the Japanese version, Rare wanted to switch many of the calls from
+ * text_render_v1 to text_render_v2. They introduced this helper function which
+ * has the same arguments as text_render_v1 but wraps text_render_v2. This means
+ * they only had to replace the function name in all the places where they
+ * wanted to switch to the other function rather than change the arguments too.
+ *
+ * In decomp, to avoid ifdefs everywhere where it was changed, we call
+ * text_render_vx. In versions prior to JPN this is redefined to text_render_v1
+ * in text.h. In JPN it's Rare's wrapper function.
+ */
+Gfx *text_render_vx(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1, struct font *font2, u32 textcolour, u32 shadowcolour, s32 width, s32 height, s32 shadowoffset, s32 lineheight)
 {
-	return text_render_projected(gdl, x, y, text, font1, font2, colour, width, height, arg9, arg10);
+	return text_render_v2(gdl, x, y, text, font1, font2, textcolour, width, height, shadowoffset, lineheight);
 }
 #endif
 
@@ -2409,8 +2439,8 @@ glabel text_measure
 /*  f157358:	10c00059 */ 	beqz	$a2,.L0f1574c0
 /*  f15735c:	00000000 */ 	nop
 /*  f157360:	90c40000 */ 	lbu	$a0,0x0($a2)
-/*  f157364:	3c148008 */ 	lui	$s4,%hi(var8007fac4)
-/*  f157368:	2694fac4 */ 	addiu	$s4,$s4,%lo(var8007fac4)
+/*  f157364:	3c148008 */ 	lui	$s4,%hi(g_TextCharOverlap)
+/*  f157368:	2694fac4 */ 	addiu	$s4,$s4,%lo(g_TextCharOverlap)
 /*  f15736c:	10800054 */ 	beqz	$a0,.L0f1574c0
 /*  f157370:	00804025 */ 	or	$t0,$a0,$zero
 /*  f157374:	2413000d */ 	addiu	$s3,$zero,0xd
@@ -2505,14 +2535,14 @@ glabel text_measure
 /*  f1574b8:	1480ffb3 */ 	bnez	$a0,.L0f157388
 /*  f1574bc:	00804025 */ 	or	$t0,$a0,$zero
 .L0f1574c0:
-/*  f1574c0:	3c0e8008 */ 	lui	$t6,%hi(g_ScaleX)
-/*  f1574c4:	8dcefac0 */ 	lw	$t6,%lo(g_ScaleX)($t6)
+/*  f1574c0:	3c0e8008 */ 	lui	$t6,%hi(g_UiScaleX)
+/*  f1574c4:	8dcefac0 */ 	lw	$t6,%lo(g_UiScaleX)($t6)
 /*  f1574c8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1574cc:	3c0f8008 */ 	lui	$t7,%hi(var8007fad0)
+/*  f1574cc:	3c0f8008 */ 	lui	$t7,%hi(g_TextScaleX)
 /*  f1574d0:	55c10008 */ 	bnel	$t6,$at,.L0f1574f4
 /*  f1574d4:	8cae0000 */ 	lw	$t6,0x0($a1)
 /*  f1574d8:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f1574dc:	8deffad0 */ 	lw	$t7,%lo(var8007fad0)($t7)
+/*  f1574dc:	8deffad0 */ 	lw	$t7,%lo(g_TextScaleX)($t7)
 /*  f1574e0:	032f0019 */ 	multu	$t9,$t7
 /*  f1574e4:	0000c012 */ 	mflo	$t8
 /*  f1574e8:	acb80000 */ 	sw	$t8,0x0($a1)
@@ -2542,8 +2572,8 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 #if VERSION == VERSION_JPN_FINAL
 	s32 overlap = 0;
 	struct fontchar *tmp2 = font1;
-	struct fontchar *sp54;
-	struct fontchar *sp50;
+	struct fontchar *thischardata;
+	struct fontchar *prevchardata;
 #endif
 	s32 tmp;
 
@@ -2595,50 +2625,50 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 				text++;
 			} else {
 #if VERSION >= VERSION_JPN_FINAL
-				text_map_code_unit_to_char(&text, &sp54, &sp50, font1, &prevchar);
+				text_parse_char(&text, &thischardata, &prevchardata, font1, &prevchar);
 
 				overlap = 0;
 
-				if (sp54->index == 0xbe) {
+				if (thischardata->index == 0xbe) {
 					overlap = 4;
 				}
 
-				if (sp54->index == 0x84) {
+				if (thischardata->index == 0x84) {
 					overlap = 7;
 				}
 
 				if (font2) {
-					tmp = font2->kerning[sp50->kerningindex * 13 + sp54->kerningindex] + var8007fac4 - 1;
+					tmp = font2->kerning[prevchardata->kerningindex * 13 + thischardata->kerningindex] + g_TextCharOverlap - 1;
 				} else {
 					tmp = 0;
 				}
 
-				*textwidth = *textwidth + sp54->width - tmp;
+				*textwidth = *textwidth + thischardata->width - tmp;
 #elif VERSION >= VERSION_PAL_BETA
-				struct fontchar *sp50;
-				struct fontchar *sp4c;
+				struct fontchar *thischardata;
+				struct fontchar *prevchardata;
 
-				text_map_code_unit_to_char(&text, &sp50, &sp4c, font1, &prevchar);
+				text_parse_char(&text, &thischardata, &prevchardata, font1, &prevchar);
 
-				tmp = font2->kerning[sp4c->kerningindex * 13 + sp50->kerningindex] + var8007fac4 - 1;
-				*textwidth = *textwidth + sp50->width - tmp;
+				tmp = font2->kerning[prevchardata->kerningindex * 13 + thischardata->kerningindex] + g_TextCharOverlap - 1;
+				*textwidth = *textwidth + thischardata->width - tmp;
 #else
 				if (*text < 0x80) {
 					// Normal single-byte character
 					thischar = *text;
-					tmp = font2->kerning[font1[prevchar - 0x21].kerningindex * 13 + font1[thischar - 0x21].kerningindex] + var8007fac4 - 1;
+					tmp = font2->kerning[font1[prevchar - 0x21].kerningindex * 13 + font1[thischar - 0x21].kerningindex] + g_TextCharOverlap - 1;
 					*textwidth = font1[thischar - 0x21].width + *textwidth - tmp;
 
 					prevchar = *text;
 					text++;
 				} else if (*text < 0xc0) {
 					// Multi-byte character
-					tmp = font2->kerning[0] + var8007fac4 - 1;
+					tmp = font2->kerning[0] + g_TextCharOverlap - 1;
 					*textwidth = *textwidth - tmp + 11;
 					text += 2;
 				} else {
 					// Multi-byte character
-					tmp = font2->kerning[0] + var8007fac4 - 1;
+					tmp = font2->kerning[0] + g_TextCharOverlap - 1;
 					*textwidth = *textwidth - tmp + 15;
 					text += 2;
 				}
@@ -2648,8 +2678,8 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 	}
 
 	// @bug? Shouldn't this go at the very end of the function?
-	if (g_ScaleX == 1) {
-		*textwidth *= var8007fad0;
+	if (g_UiScaleX == 1) {
+		*textwidth *= g_TextScaleX;
 	}
 
 #if VERSION >= VERSION_JPN_FINAL
@@ -2663,7 +2693,7 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 #endif
 
 #if VERSION == VERSION_JPN_FINAL
-bool func0f157768jf(s32 arg0, s32 arg1)
+bool text_stub(s32 arg0, s32 arg1)
 {
 	return false;
 }
@@ -2716,7 +2746,7 @@ glabel text_wrap
 /*  f157810:	24170001 */ 	li	$s7,0x1
 /*  f157814:	3051ffff */ 	andi	$s1,$v0,0xffff
 /*  f157818:	3044ffff */ 	andi	$a0,$v0,0xffff
-/*  f15781c:	0fc551e1 */ 	jal	func0f154784jf
+/*  f15781c:	0fc551e1 */ 	jal	text_codepoint_to_sbchar
 /*  f157820:	afa70094 */ 	sw	$a3,0x94($sp)
 /*  f157824:	8fa70094 */ 	lw	$a3,0x94($sp)
 /*  f157828:	16000002 */ 	bnez	$s0,.JF0f157834
@@ -2817,7 +2847,7 @@ glabel text_wrap
 /*  f157960:	000e79c0 */ 	sll	$t7,$t6,0x7
 /*  f157964:	01f82025 */ 	or	$a0,$t7,$t8
 /*  f157968:	3099ffff */ 	andi	$t9,$a0,0xffff
-/*  f15796c:	0fc551e1 */ 	jal	func0f154784jf
+/*  f15796c:	0fc551e1 */ 	jal	text_codepoint_to_sbchar
 /*  f157970:	03202025 */ 	move	$a0,$t9
 /*  f157974:	14400002 */ 	bnez	$v0,.JF0f157980
 /*  f157978:	8fa70094 */ 	lw	$a3,0x94($sp)
@@ -3043,7 +3073,7 @@ void text_wrap(s32 wrapwidth, char *src, char *dst, struct fontchar *chars, stru
 				c2 = src[1];
 				multibyte = true;
 				codepoint = ((c1 & 0x7f) << 7) | (c2 & 0x7f);
-				c = func0f154784jf(codepoint);
+				c = text_codepoint_to_sbchar(codepoint);
 
 				if (c2 == '\0') {
 					multibyte = false;
@@ -3102,7 +3132,7 @@ void text_wrap(s32 wrapwidth, char *src, char *dst, struct fontchar *chars, stru
 					u8 c2 = curword[wordlen - 1];
 					u16 codepoint = ((c1 & 0x7f) << 7) | (c2 & 0x7f);
 
-					if (func0f154784jf(codepoint) == '\0') {
+					if (text_codepoint_to_sbchar(codepoint) == '\0') {
 						isvalidchar = false;
 					}
 				}

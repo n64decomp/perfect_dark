@@ -711,15 +711,15 @@ MenuItemHandlerResult mp_challenges_list_handler(s32 operation, struct menuitem 
 		x = renderdata->x + 10;
 		y = renderdata->y + 1;
 
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 
 		name = challenge_get_name2(g_MpPlayerNum, challengeindex);
 
-		gdl = text_render_projected(gdl, &x, &y, name,
+		gdl = text_render_v2(gdl, &x, &y, name,
 				g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour,
 				vi_get_width(), vi_get_height(), 0, 0);
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 
 		gDPPipeSync(gdl++);
 		gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -754,12 +754,12 @@ MenuItemHandlerResult mp_challenges_list_handler(s32 operation, struct menuitem 
 					TEXEL0, 0, ENVIRONMENT, 0);
 
 			gSPTextureRectangle(gdl++,
-					((renderdata->x + loopx) << 2) * g_ScaleX,
+					((renderdata->x + loopx) << 2) * g_UiScaleX,
 					(renderdata->y + size) << 2,
-					((renderdata->x + size + loopx) << 2) * g_ScaleX,
+					((renderdata->x + size + loopx) << 2) * g_UiScaleX,
 					(renderdata->y + size * 2) << 2,
 					G_TX_RENDERTILE,
-					0, 0x0160, 0x0400 / g_ScaleX, 0xfc00);
+					0, 0x0160, 0x0400 / g_UiScaleX, 0xfc00);
 
 			loopx += 13;
 		}
@@ -994,9 +994,9 @@ MenuItemHandlerResult mp_medal_menu_handler(s32 operation, struct menuitem *item
 				TEXEL0, 0, ENVIRONMENT, 0);
 
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 9) << 2) * g_ScaleX, renderdata->y << 2,
-				((renderdata->x + 20) << 2) * g_ScaleX, (renderdata->y + 11) << 2,
-				G_TX_RENDERTILE, 0, 0x0160, 1024 / g_ScaleX, -1024);
+				((renderdata->x + 9) << 2) * g_UiScaleX, renderdata->y << 2,
+				((renderdata->x + 20) << 2) * g_UiScaleX, (renderdata->y + 11) << 2,
+				G_TX_RENDERTILE, 0, 0x0160, 1024 / g_UiScaleX, -1024);
 
 		return (s32) gdl;
 	}
@@ -4526,9 +4526,9 @@ MenuItemHandlerResult mp_challenges_list_menu_handler(s32 operation, struct menu
 		x = renderdata->x + 10;
 		y = renderdata->y + 1;
 
-		gdl = text0f153628(gdl);
-		gdl = text_render_projected(gdl, &x, &y, challenge_get_name_by_slot(data->type19.unk04), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
-		gdl = text0f153780(gdl);
+		gdl = text_begin(gdl);
+		gdl = text_render_v2(gdl, &x, &y, challenge_get_name_by_slot(data->type19.unk04), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_end(gdl);
 
 		gDPPipeSync(gdl++);
 		gDPSetTexturePersp(gdl++, G_TP_NONE);
@@ -4563,9 +4563,9 @@ MenuItemHandlerResult mp_challenges_list_menu_handler(s32 operation, struct menu
 				TEXEL0, 0, ENVIRONMENT, 0);
 
 			gSPTextureRectangle(gdl++,
-				((renderdata->x + marginleft) << 2) * g_ScaleX, (renderdata->y + 11) << 2,
-				((renderdata->x + marginleft + 11) << 2) * g_ScaleX, (renderdata->y + 22) << 2,
-				G_TX_RENDERTILE, 0, 0x0160, 1024 / g_ScaleX, -1024);
+				((renderdata->x + marginleft) << 2) * g_UiScaleX, (renderdata->y + 11) << 2,
+				((renderdata->x + marginleft + 11) << 2) * g_UiScaleX, (renderdata->y + 22) << 2,
+				G_TX_RENDERTILE, 0, 0x0160, 1024 / g_UiScaleX, -1024);
 
 			marginleft += 13;
 		}

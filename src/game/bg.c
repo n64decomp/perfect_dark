@@ -1081,14 +1081,14 @@ Gfx *bg_render_scene(Gfx *gdl)
 					|| stagenum == STAGE_INFILTRATION
 					|| stagenum == STAGE_ESCAPE
 					|| stagenum == STAGE_ATTACKSHIP)) {
-			gdl = text0f153628(gdl);
+			gdl = text_begin(gdl);
 
 			gSPMatrix(gdl++, osVirtualToPhysical(cam_get_orthogonal_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 
 			gdl = player_load_matrix(gdl);
 			gdl = env_stop_fog(gdl);
 			gdl = stars_render(gdl);
-			gdl = text0f153780(gdl);
+			gdl = text_end(gdl);
 			gdl = vi0000ab78(gdl);
 		}
 

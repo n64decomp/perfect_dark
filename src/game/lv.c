@@ -561,7 +561,7 @@ Gfx *lv_render_fade(Gfx *gdl)
 			vi_get_view_left() + vi_get_view_width() + 1,
 			vi_get_view_top() + vi_get_view_height() - inset + 2);
 
-	return text0f153838(gdl);
+	return text_end_boxmode(gdl);
 }
 
 bool lv_is_fade_active(void)
@@ -702,24 +702,24 @@ Gfx *lv_render_man_pos_if_enabled(Gfx *gdl)
 		y = vi_get_view_top() + 17;
 		y2 = y + 10;
 
-		gdl = text0f153628(gdl);
-		gdl = text0f153a34(gdl, 0, y - 1, vi_get_width(), y2 + 1, 0x00000064);
+		gdl = text_begin(gdl);
+		gdl = text_draw_box(gdl, 0, y - 1, vi_get_width(), y2 + 1, 0x00000064);
 
-		gdl = text_render_projected(gdl, &x, &y, bufroom, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, bufroom, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
 		x = vi_get_view_left() + 87;
-		gdl = text_render_projected(gdl, &x, &y, bufx, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, bufx, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
 		x = vi_get_view_left() + 141;
-		gdl = text_render_projected(gdl, &x, &y, bufy, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, bufy, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
 		x = vi_get_view_left() + 195;
-		gdl = text_render_projected(gdl, &x, &y, bufz, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, bufz, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
 		x = vi_get_view_left() + 249;
-		gdl = text_render_projected(gdl, &x, &y, bufdir, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, bufdir, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, vi_get_width(), vi_get_height(), 0, 0);
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 	}
 
 	return gdl;
@@ -1375,7 +1375,7 @@ Gfx *lv_render(Gfx *gdl)
 									vi_get_view_left() + vi_get_view_width(),
 									vi_get_view_top() + vi_get_view_height());
 
-								gdl = text0f153838(gdl);
+								gdl = text_end_boxmode(gdl);
 							}
 						}
 #endif
@@ -1582,12 +1582,12 @@ Gfx *lv_render(Gfx *gdl)
 						}
 
 						if (alpha) {
-							gdl = text0f153628(gdl);
-							gdl = text0f153a34(gdl,
+							gdl = text_begin(gdl);
+							gdl = text_draw_box(gdl,
 									vi_get_view_left(), vi_get_view_top(),
 									vi_get_view_left() + vi_get_view_width(),
 									vi_get_view_top() + vi_get_view_height(), 0xffffff00 | alpha);
-							gdl = text0f153780(gdl);
+							gdl = text_end(gdl);
 						}
 					}
 				}

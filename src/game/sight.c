@@ -343,9 +343,9 @@ s32 sight_calculate_box_bound(s32 targetx, s32 viewleft, s32 timeelapsed, s32 ti
  */
 Gfx *sight_draw_target_box(Gfx *gdl, struct trackedprop *trackedprop, s32 textid, s32 time)
 {
-	s32 viewleft = vi_get_view_left() / g_ScaleX;
+	s32 viewleft = vi_get_view_left() / g_UiScaleX;
 	s32 viewtop = vi_get_view_top();
-	s32 viewwidth = vi_get_view_width() / g_ScaleX;
+	s32 viewwidth = vi_get_view_width() / g_UiScaleX;
 	s32 viewheight = vi_get_view_height();
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
@@ -360,15 +360,15 @@ Gfx *sight_draw_target_box(Gfx *gdl, struct trackedprop *trackedprop, s32 textid
 		time = TICKS(512);
 	}
 
-	boxleft = sight_calculate_box_bound(trackedprop->x1 / g_ScaleX, viewleft, time, TICKS(80));
+	boxleft = sight_calculate_box_bound(trackedprop->x1 / g_UiScaleX, viewleft, time, TICKS(80));
 	boxtop = sight_calculate_box_bound(trackedprop->y1, viewtop, time, TICKS(80));
-	boxright = sight_calculate_box_bound(trackedprop->x2 / g_ScaleX, viewright, time, TICKS(80));
+	boxright = sight_calculate_box_bound(trackedprop->x2 / g_UiScaleX, viewright, time, TICKS(80));
 	boxbottom = sight_calculate_box_bound(trackedprop->y2, viewbottom, time, TICKS(80));
 
 	if (trackedprop->prop) {
 		colour = sight_is_prop_friendly(trackedprop->prop) ? 0x000ff60 : 0xff000060;
 
-		gdl = text_set_prim_colour(gdl, colour);
+		gdl = text_begin_boxmode(gdl, colour);
 
 		// Left
 		if (boxleft >= viewleft && boxleft <= viewright && boxtop <= viewbottom && boxbottom >= viewtop) {
@@ -402,7 +402,7 @@ Gfx *sight_draw_target_box(Gfx *gdl, struct trackedprop *trackedprop, s32 textid
 					(boxright < viewright ? boxright : viewright), boxbottom);
 		}
 
-		gdl = text0f153838(gdl);
+		gdl = text_end_boxmode(gdl);
 
 		if (textid != 0 && textonscreen) {
 			s32 x = boxright + 3;
@@ -414,14 +414,10 @@ Gfx *sight_draw_target_box(Gfx *gdl, struct trackedprop *trackedprop, s32 textid
 				// textid 1 writes '0'
 				label[0] = textid + 0x2f;
 
-				gdl = text_render(gdl, &x, &y, label, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
+				gdl = text_render_v1(gdl, &x, &y, label, g_CharsNumeric, g_FontNumeric, 0x00ff00a0, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
 			} else {
 				char *text = lang_get(textid);
-#if VERSION >= VERSION_JPN_FINAL
-				gdl = func0f1574d0jf(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
-#else
-				gdl = text_render(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
-#endif
+				gdl = text_render_vx(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0, vi_get_width(), vi_get_height(), 0, 0);
 			}
 		}
 	}
@@ -431,14 +427,14 @@ Gfx *sight_draw_target_box(Gfx *gdl, struct trackedprop *trackedprop, s32 textid
 
 Gfx *sight_draw_aimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 colour)
 {
-	s32 viewleft = vi_get_view_left() / g_ScaleX;
+	s32 viewleft = vi_get_view_left() / g_UiScaleX;
 	s32 viewtop = vi_get_view_top();
-	s32 viewwidth = vi_get_view_width() / g_ScaleX;
+	s32 viewwidth = vi_get_view_width() / g_UiScaleX;
 	s32 viewheight = vi_get_view_height();
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 
-	gdl = text_set_prim_colour(gdl, 0x00ff0028);
+	gdl = text_begin_boxmode(gdl, 0x00ff0028);
 
 	// Draw the lines that span most of the viewport
 	if (PLAYERCOUNT() == 1) {
@@ -453,8 +449,8 @@ Gfx *sight_draw_aimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 col
 		gDPHudRectangle(gdl++, x, y + radius - 2, x, viewbottom);
 	}
 
-	gdl = text0f153838(gdl);
-	gdl = text_set_prim_colour(gdl, colour);
+	gdl = text_end_boxmode(gdl);
+	gdl = text_begin_boxmode(gdl, colour);
 
 	// Draw the box
 	gDPHudRectangle(gdl++, x - radius, y - radius, x - radius, y + radius);
@@ -472,7 +468,7 @@ Gfx *sight_draw_aimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap, u32 col
 	gDPHudRectangle(gdl++, x - radius, y + radius, x - cornergap, y + radius);
 	gDPHudRectangle(gdl++, x + cornergap, y + radius, x + radius, y + radius);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
@@ -584,16 +580,16 @@ Gfx *sight_draw_delayed_aimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap,
 	boxx = xpos;
 	boxy = ypos;
 
-	gdl = text_set_prim_colour(gdl, 0x00ff0028);
+	gdl = text_begin_boxmode(gdl, 0x00ff0028);
 
 	// Fill a 3x3 box at the live crosshair
 	gDPHudRectangle(gdl++, x - 1, y - 1, x + 1, y - 1);
 	gDPHudRectangle(gdl++, x - 1, y + 0, x + 1, y + 0);
 	gDPHudRectangle(gdl++, x - 1, y + 1, x + 1, y + 1);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
-	gdl = text_set_prim_colour(gdl, colour);
+	gdl = text_begin_boxmode(gdl, colour);
 
 	// Draw the box
 	gDPHudRectangle(gdl++, boxx - radius, boxy - radius, boxx - radius, boxy + radius);
@@ -611,7 +607,7 @@ Gfx *sight_draw_delayed_aimer(Gfx *gdl, s32 x, s32 y, s32 radius, s32 cornergap,
 	gDPHudRectangle(gdl++, boxx - radius, boxy + radius, boxx - cornergap, boxy + radius);
 	gDPHudRectangle(gdl++, boxx + cornergap, boxy + radius, boxx + radius, boxy + radius);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
@@ -621,7 +617,7 @@ Gfx *sight_draw_default(Gfx *gdl, bool sighton)
 	s32 radius;
 	s32 cornergap;
 	u32 colour;
-	s32 x = (s32) g_Vars.currentplayer->crosspos[0] / g_ScaleX;
+	s32 x = (s32) g_Vars.currentplayer->crosspos[0] / g_UiScaleX;
 	s32 y = g_Vars.currentplayer->crosspos[1];
 	struct trackedprop *trackedprop;
 	s32 i;
@@ -629,7 +625,7 @@ Gfx *sight_draw_default(Gfx *gdl, bool sighton)
 	static s32 sight = 0;
 	static s32 identifytimer = 0;
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	if (1);
 
@@ -693,15 +689,9 @@ Gfx *sight_draw_default(Gfx *gdl, bool sighton)
 
 			if (identifytimer & 0x80) {
 				// "Identify"
-#if VERSION == VERSION_JPN_FINAL
-				gdl = func0f1574d0jf(gdl, &textx, &texty, lang_get(L_MISC_439),
+				gdl = text_render_vx(gdl, &textx, &texty, lang_get(L_MISC_439),
 						g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0,
 						vi_get_width(), vi_get_height(), 0, 0);
-#else
-				gdl = text_render(gdl, &textx, &texty, lang_get(L_MISC_439),
-						g_CharsHandelGothicXs, g_FontHandelGothicXs, 0x00ff00a0, 0x000000a0,
-						vi_get_width(), vi_get_height(), 0, 0);
-#endif
 			}
 
 			gdl = sight_draw_aimer(gdl, x, y, radius, cornergap, colour);
@@ -807,7 +797,7 @@ Gfx *sight_draw_default(Gfx *gdl, bool sighton)
 		break;
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	return gdl;
 }
@@ -851,7 +841,7 @@ Gfx *sight_draw_classic(Gfx *gdl, bool sighton)
 	spc4[0] = x;
 	spc4[1] = y;
 
-	spbc[0] = (tconfig->width >> 1) * (f32)g_ScaleX;
+	spbc[0] = (tconfig->width >> 1) * (f32)g_UiScaleX;
 	spbc[1] = tconfig->height >> 1;
 
 	tex_select(&gdl, tconfig, 2, 0, 0, 1, NULL);
@@ -965,15 +955,15 @@ Gfx *sight_draw_skedar_triangle(Gfx *gdl, s32 x, s32 y, s32 dir, u32 colour)
 
 Gfx *sight_draw_skedar(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = vi_get_view_left() / g_ScaleX;
+	s32 viewleft = vi_get_view_left() / g_UiScaleX;
 	s32 viewtop = vi_get_view_top();
-	s32 viewwidth = vi_get_view_width() / g_ScaleX;
+	s32 viewwidth = vi_get_view_width() / g_UiScaleX;
 	s32 viewheight = vi_get_view_height();
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
 	s32 paddingy = viewheight / 4;
 	s32 paddingx = viewwidth / 4;
-	s32 x = (s32) (g_Vars.currentplayer->crosspos[0] / g_ScaleX);
+	s32 x = (s32) (g_Vars.currentplayer->crosspos[0] / g_UiScaleX);
 	s32 trix1;
 	s32 trix2;
 	s32 y = g_Vars.currentplayer->crosspos[1];
@@ -1149,9 +1139,9 @@ Gfx *sight_draw_skedar(Gfx *gdl, bool sighton)
 
 Gfx *sight_draw_zoom(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = vi_get_view_left() / g_ScaleX;
+	s32 viewleft = vi_get_view_left() / g_UiScaleX;
 	s32 viewtop = vi_get_view_top();
-	s32 viewhalfwidth = (vi_get_view_width() / g_ScaleX) >> 1;
+	s32 viewhalfwidth = (vi_get_view_width() / g_UiScaleX) >> 1;
 	s32 viewhalfheight = vi_get_view_height() >> 1;
 	s32 viewright = viewleft + viewhalfwidth * 2 - 1;
 	s32 viewbottom = viewtop + viewhalfheight * 2 - 1;
@@ -1198,8 +1188,8 @@ Gfx *sight_draw_zoom(Gfx *gdl, bool sighton)
 	}
 
 	if (showzoomrange) {
-		gdl = text0f153628(gdl);
-		gdl = text_set_prim_colour(gdl, 0x00ff0028);
+		gdl = text_begin(gdl);
+		gdl = text_begin_boxmode(gdl, 0x00ff0028);
 
 		if (frac < 0.2f) {
 			cornerwidth *= 0.2f;
@@ -1276,8 +1266,8 @@ Gfx *sight_draw_zoom(Gfx *gdl, bool sighton)
 		gDPHudRectangle(gdl++, BOXRIGHT - cornerwidth, BOXBOTTOM, BOXRIGHT, BOXBOTTOM);
 		gDPHudRectangle(gdl++, BOXRIGHT, BOXBOTTOM - cornerheight, BOXRIGHT, BOXBOTTOM);
 
-		gdl = text0f153838(gdl);
-		gdl = text0f153780(gdl);
+		gdl = text_end_boxmode(gdl);
+		gdl = text_end(gdl);
 	}
 
 	gdl = sight_draw_default(gdl, sighton);
@@ -1287,13 +1277,13 @@ Gfx *sight_draw_zoom(Gfx *gdl, bool sighton)
 
 Gfx *sight_draw_maian(Gfx *gdl, bool sighton)
 {
-	s32 viewleft = vi_get_view_left() / g_ScaleX;
+	s32 viewleft = vi_get_view_left() / g_UiScaleX;
 	s32 viewtop = vi_get_view_top();
-	s32 viewwidth = vi_get_view_width() / g_ScaleX;
+	s32 viewwidth = vi_get_view_width() / g_UiScaleX;
 	s32 viewheight = vi_get_view_height();
 	s32 viewright = viewleft + viewwidth - 1;
 	s32 viewbottom = viewtop + viewheight - 1;
-	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX;
+	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_UiScaleX;
 	s32 y = g_Vars.currentplayer->crosspos[1];
 	Vtx *vertices;
 	Col *colours;
@@ -1369,7 +1359,7 @@ Gfx *sight_draw_maian(Gfx *gdl, bool sighton)
 	gSPTri4(gdl++, 0, 4, 5, 5, 3, 6, 7, 6, 1, 4, 7, 2);
 
 	gdl = func0f0d49c8(gdl);
-	gdl = text_set_prim_colour(gdl, 0x00ff0028);
+	gdl = text_begin_boxmode(gdl, 0x00ff0028);
 
 	// Draw border over inner points
 	gDPHudRectangle(gdl++, x - 4, y - 4, x - 4, y + 4); // left
@@ -1377,14 +1367,14 @@ Gfx *sight_draw_maian(Gfx *gdl, bool sighton)
 	gDPHudRectangle(gdl++, x - 4, y - 4, x + 4, y - 4); // top
 	gDPHudRectangle(gdl++, x - 4, y + 4, x + 4, y + 4); // bottom
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
 
 Gfx *sight_draw_target(Gfx *gdl)
 {
-	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_ScaleX;
+	s32 x = (s32)g_Vars.currentplayer->crosspos[0] / g_UiScaleX;
 	s32 y = g_Vars.currentplayer->crosspos[1];
 
 	static u32 var80070f9c = 0x00ff00ff;
@@ -1393,7 +1383,7 @@ Gfx *sight_draw_target(Gfx *gdl)
 	main_override_variable("sout", &var80070f9c);
 	main_override_variable("sin", &var80070fa0);
 
-	gdl = text_set_prim_colour(gdl, 0x00ff0028);
+	gdl = text_begin_boxmode(gdl, 0x00ff0028);
 
 	gDPHudRectangle(gdl++, x + 2, y + 0, x + 6, y + 0);
 	gDPHudRectangle(gdl++, x + 2, y + 0, x + 4, y + 0);
@@ -1404,7 +1394,7 @@ Gfx *sight_draw_target(Gfx *gdl)
 	gDPHudRectangle(gdl++, x + 0, y - 6, x + 0, y - 2);
 	gDPHudRectangle(gdl++, x + 0, y - 4, x + 0, y - 2);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
@@ -1434,12 +1424,12 @@ Gfx *sight_draw(Gfx *gdl, bool sighton, s32 sight)
 	}
 
 #if PAL
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 #else
 	if (g_ViRes == VIRES_HI) {
-		g_ScaleX = 2;
+		g_UiScaleX = 2;
 	} else {
-		g_ScaleX = 1;
+		g_UiScaleX = 1;
 	}
 #endif
 
@@ -1485,7 +1475,7 @@ Gfx *sight_draw(Gfx *gdl, bool sighton, s32 sight)
 		}
 	}
 
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 
 	return gdl;
 }

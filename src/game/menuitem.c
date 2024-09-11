@@ -168,13 +168,13 @@ Gfx *menuitem_list_render_header(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, 
 		colour = (colour_blend(colour, 0, 0x2c) & 0xffffff00) | (colour & 0xff);
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 #if VERSION >= VERSION_NTSC_1_0
 	gdl = menugfx_draw_list_group_header(gdl, x1, y1, x1 + width, y1 + height, x1 + arg4, colour & 0xff);
 #else
 	gdl = menugfx_draw_list_group_header(gdl, x1, y1, x1 + width, y1 + height, x1 + arg4);
 #endif
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	x = x1 + 3;
 	y = y1 + 2;
@@ -187,7 +187,7 @@ Gfx *menuitem_list_render_header(Gfx *gdl, s16 x1, s16 y1, s16 width, s16 arg4, 
 
 	text_set_wave_colours(g_MenuWave2Colours[dialog->type].listgroup_headerfg, g_MenuWave1Colours[dialog->type].listgroup_headerfg);
 
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, width, height, 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, width, height, 0, 0);
 
 	return gdl;
 }
@@ -245,8 +245,8 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	g_ScissorX1 = context->x * g_ScaleX;
-	g_ScissorX2 = (context->x + width) * g_ScaleX;
+	g_ScissorX1 = context->x * g_UiScaleX;
+	g_ScissorX2 = (context->x + width) * g_UiScaleX;
 	g_ScissorY1 = context->y;
 	g_ScissorY2 = context->y + context->height;
 
@@ -293,8 +293,8 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, g_ScissorX1, g_ScissorY1, g_ScissorX2, g_ScissorY2);
 #else
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE,
-			context->x * g_ScaleX, context->y,
-			(context->x + width) * g_ScaleX, context->y + context->height);
+			context->x * g_UiScaleX, context->y,
+			(context->x + width) * g_UiScaleX, context->y + context->height);
 #endif
 
 	halfheight = context->height / 2;
@@ -333,7 +333,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 	firstonscreenoptionindex = menuitem0f0e5d2c(itemdata->curoffsety - halfheight, context->item);
 	y = context->y + tmp;
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	optionindex = firstonscreenoptionindex;
 
@@ -464,11 +464,11 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 						// If not transitioning the dialog type
 						if ((!(context->dialog->transitionfrac >= 0.0f) || context->dialog->type2 != 0)
 								&& (!(context->dialog->transitionfrac < 0.0f) || context->dialog->type != 0)) {
-							text0f156024(1);
+							text_set_shadow_enabled(true);
 							spb4 = true;
 						}
 #else
-						text0f156024(1);
+						text_set_shadow_enabled(true);
 						spb4 = true;
 #endif
 					}
@@ -513,19 +513,19 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 						}
 
 						// This logic doesn't look right...
-						if (sp94left / g_ScaleX > vi_get_width()) {
-							sp94left = vi_get_width() / g_ScaleX;
+						if (sp94left / g_UiScaleX > vi_get_width()) {
+							sp94left = vi_get_width() / g_UiScaleX;
 						}
 
-						if (sp8cright / g_ScaleX > vi_get_width()) {
-							sp8cright = vi_get_width() / g_ScaleX;
+						if (sp8cright / g_UiScaleX > vi_get_width()) {
+							sp8cright = vi_get_width() / g_UiScaleX;
 						}
 
 						gDPPipeSync(gdl++);
 
 #if VERSION >= VERSION_NTSC_1_0
-						g_ScissorX1 = sp94left * g_ScaleX;
-						g_ScissorX2 = sp8cright * g_ScaleX;
+						g_ScissorX1 = sp94left * g_UiScaleX;
+						g_ScissorX2 = sp8cright * g_UiScaleX;
 						g_ScissorY1 = sp90top;
 						g_ScissorY2 = sp88bottom;
 
@@ -571,7 +571,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 
 						gDPSetScissor(gdl++, G_SC_NON_INTERLACE, g_ScissorX1, g_ScissorY1, g_ScissorX2, g_ScissorY2);
 #else
-						gDPSetScissor(gdl++, G_SC_NON_INTERLACE, sp94left * g_ScaleX, sp90top, sp8cright * g_ScaleX, sp88bottom);
+						gDPSetScissor(gdl++, G_SC_NON_INTERLACE, sp94left * g_UiScaleX, sp90top, sp8cright * g_UiScaleX, sp88bottom);
 #endif
 
 						spb8.type19.gdl = gdl;
@@ -606,7 +606,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 							height = 0;
 						}
 
-						gdl = text_render_projected(gdl, &x, &y, text2, chars, font, colour, context->width - left + context->x, height, sp128, 0);
+						gdl = text_render_v2(gdl, &x, &y, text2, chars, font, colour, context->width - left + context->x, height, sp128, 0);
 
 						// Consider a checkbox
 						spb8.list.value = optionindex;
@@ -620,7 +620,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 					}
 
 					if (spb4) {
-						text0f156024(0);
+						text_set_shadow_enabled(false);
 					}
 				}
 
@@ -650,10 +650,10 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 		y = context->y + context->height / 2;
 
 		// "< Empty >"
-		gdl = text_render_projected(gdl, &x, &y, lang_get(L_OPTIONS_313), chars, font, colour, context->width - left + context->x, vi_get_height(), sp128, 0);
+		gdl = text_render_v2(gdl, &x, &y, lang_get(L_OPTIONS_313), chars, font, colour, context->width - left + context->x, vi_get_height(), sp128, 0);
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	return gdl;
 }
@@ -883,11 +883,11 @@ Gfx *menuitem_dropdown_render(Gfx *gdl, struct menurendercontext *context)
 		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_disabled, g_MenuWave1Colours[context->dialog->type].item_disabled);
 	}
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	x = context->x + 10;
 	y = context->y + 2;
-	gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 
 	if (context->dialog->unk6e) {
 		x = context->x + 80;
@@ -914,10 +914,10 @@ Gfx *menuitem_dropdown_render(Gfx *gdl, struct menurendercontext *context)
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 		x = context->x + context->width - textwidth - 10;
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	return gdl;
 }
@@ -1113,7 +1113,7 @@ Gfx *menuitem_keyboard_render(Gfx *gdl, struct menurendercontext *context)
 			g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 	// Draw input field background
-	gdl = text_set_prim_colour(gdl, 0x0000ff7f);
+	gdl = text_begin_boxmode(gdl, 0x0000ff7f);
 
 	if (context->item->param3 == 0) {
 		// Half width
@@ -1128,14 +1128,14 @@ Gfx *menuitem_keyboard_render(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	// Render text value
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	x = context->x + 4;
 	y = context->y + 2;
 
-	gdl = text0f153628(gdl);
-	gdl = text_render_projected(gdl, &x, &y, data->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, context->width, context->height, 0, 0);
-	gdl = text0f153780(gdl);
+	gdl = text_begin(gdl);
+	gdl = text_render_v2(gdl, &x, &y, data->string, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0xffffffff, context->width, context->height, 0, 0);
+	gdl = text_end(gdl);
 
 	// Render cursor
 	alpha = menu_get_sin_osc_frac(40) * 255;
@@ -1151,11 +1151,11 @@ Gfx *menuitem_keyboard_render(Gfx *gdl, struct menurendercontext *context)
 
 	cursorcolour = colour_blend(colour_blend(0x0000ffff, 0x000000ff, 127), cursorcolour, alpha);
 
-	gdl = text_set_prim_colour(gdl, cursorcolour);
+	gdl = text_begin_boxmode(gdl, cursorcolour);
 
 	gDPFillRectangleScaled(gdl++, x + 1, context->y + 2, x + 3, context->y + 9);
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	// Render horizontal grid lines
 	for (row = 0; row < 6; row++) {
@@ -1175,7 +1175,7 @@ Gfx *menuitem_keyboard_render(Gfx *gdl, struct menurendercontext *context)
 				context->x + col * 12 + 5, context->y + rowspan * 11 + 14, 0x00ffff7f, 0x00ffff7f);
 	}
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	x = context->x + 10;
 	y = context->y + 2;
@@ -1276,7 +1276,7 @@ Gfx *menuitem_keyboard_render(Gfx *gdl, struct menurendercontext *context)
 								g_MenuWave1Colours[context->dialog->type].item_disabled);
 					}
 
-					gdl = text_render_projected(gdl, &x, &y, lang_get(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, textcolour, context->width, context->height, 0, 0);
+					gdl = text_render_v2(gdl, &x, &y, lang_get(labels[index]), g_CharsHandelGothicXs, g_FontHandelGothicXs, textcolour, context->width, context->height, 0, 0);
 
 					if (index == 3 && menuitem_keyboard_is_string_empty_or_spaces(data->string)) {
 						text_set_wave_colours(
@@ -1295,12 +1295,12 @@ Gfx *menuitem_keyboard_render(Gfx *gdl, struct menurendercontext *context)
 
 				text_measure(&textheight, &textwidth, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 				x = (12 - textwidth) / 2 + x;
-				gdl = text_render_projected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
+				gdl = text_render_v2(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 			}
 		}
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	// Highlight border of focused button
 	{
@@ -1651,20 +1651,20 @@ Gfx *menuitem_objectives_render_one(Gfx *gdl, struct menudialog *dialog, s32 ind
 	buffer[0] = '\0';
 
 	// Render objective number
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 	sprintf(buffer, "%d: ", position);
 	text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 	x = objx - textwidth + 25;
-	gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
+	gdl = text_render_v2(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
 
 	x = objx + 25;
 
 	if (narrow) {
 		text_wrap(85, sp120, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs);
-		gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, sp12c, width, height, 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, buffer, g_CharsHandelGothicXs, g_FontHandelGothicXs, sp12c, width, height, 0, 0);
 	} else {
 		sprintf(buffer, "%s", sp120);
-		gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, sp12c, width, height, 0, 0);
 	}
 
 	if (withstatus) {
@@ -1701,19 +1701,19 @@ Gfx *menuitem_objectives_render_one(Gfx *gdl, struct menudialog *dialog, s32 ind
 		y = objy + spbc + 9;
 #endif
 
-		gdl = text_render_projected(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8, width, height, 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8, width, height, 0, 0);
 
 #if VERSION != VERSION_JPN_FINAL
 		x = objx + width - textwidth - 10;
 		y = objy + spbc + 9;
 
-		gdl = text_render_projected(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8 & 0xffffff7f, width, height, 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, spcc, g_CharsHandelGothicXs, g_FontHandelGothicXs, spc8 & 0xffffff7f, width, height, 0, 0);
 #endif
 
 		x = objx + width - textwidth - 13;
 		y = objy + 9;
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 
 		spb4 = objx + 22;
 		spb0 = objy - 2;
@@ -1766,7 +1766,7 @@ Gfx *menuitem_objectives_render_one(Gfx *gdl, struct menudialog *dialog, s32 ind
 		sp6c = objx + textwidth + 25;
 		sp58 = (objx * 3 + objx + 66) / 4 - 1;
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 		gdl = menugfx0f0e2498(gdl);
 
 		gdl = menugfx_draw_projected_line(gdl, objx, sp7c, sp80, sp7c + 1, sp12c & 0xffffff00, (sp12c & 0xffffff00) | 0x3f);
@@ -1867,7 +1867,7 @@ Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 	s32 x;
 	s32 y;
 	struct menudfc *menudfc;
-	u8 savedvalue = var8007fb9c;
+	u8 savedvalue = g_TextHoloRayEnabled;
 	struct fontchar *font1 = g_CharsHandelGothicSm;
 	struct font *font2 = g_FontHandelGothicSm;
 
@@ -1964,7 +1964,7 @@ Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 
 		text_backup_diagonal_blend_settings();
 		text_set_diagonal_blend(x, y, menudfc->unk04 * 300, 0);
-		var8007fb9c = true;
+		g_TextHoloRayEnabled = true;
 	}
 
 	colour2 = colour1;
@@ -1985,8 +1985,8 @@ Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 		colour1 = data.label.colour1;
 	}
 
-	gdl = text0f153628(gdl);
-	gdl = text_render_projected(gdl, &x, &y, text,
+	gdl = text_begin(gdl);
+	gdl = text_render_v2(gdl, &x, &y, text,
 			font1, font2, colour1, context->width, context->height, 0, 0);
 
 	if ((context->item->flags & MENUITEMFLAG_LABEL_HASRIGHTTEXT) == 0) {
@@ -2013,19 +2013,19 @@ Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 				x += 6;
 			}
 
-			gdl = text_render_projected(gdl, &x, &y, text,
+			gdl = text_render_v2(gdl, &x, &y, text,
 					font1, font2, colour2, context->width, context->height, 0, 0);
 		}
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	if (menudfc) {
 		if (context->width + 200 < menudfc->unk04 * 300 && context->dialog->redrawtimer < 0) {
 			func0f0f13ec(context->item);
 		}
 
-		var8007fb9c = savedvalue;
+		g_TextHoloRayEnabled = savedvalue;
 
 		text_restore_diagonal_blend_settings();
 	}
@@ -2087,23 +2087,23 @@ Gfx *menuitem_meter_render(Gfx *gdl, struct menurendercontext *context)
 	x2 = x1 + a;
 	x3 = x2 + 6;
 
-	gdl = text_set_prim_colour(gdl, colour1);
+	gdl = text_begin_boxmode(gdl, colour1);
 	gDPFillRectangleScaled(gdl++, x1, context->y, x2, context->y + 5);
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
-	gdl = text_set_prim_colour(gdl, colour2);
+	gdl = text_begin_boxmode(gdl, colour2);
 	gDPFillRectangleScaled(gdl++, x2, context->y, x3, context->y + 5);
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	text = menu_resolve_param2_text(context->item);
 
 	if (text) {
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 		x = context->x;
 		y = context->y - 1;
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				colour2 & 0xffffff7f, context->width, context->height, 0, 0);
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 	}
 
 	return gdl;
@@ -2206,8 +2206,8 @@ Gfx *menuitem_selectable_render(Gfx *gdl, struct menurendercontext *context)
 		y += 6;
 	}
 
-	gdl = text0f153628(gdl);
-	gdl = text_render_projected(gdl, &x, &y, text, font1, font2,
+	gdl = text_begin(gdl);
+	gdl = text_render_v2(gdl, &x, &y, text, font1, font2,
 			leftcolour, context->width, context->height, 0, 0);
 
 	if ((context->item->flags & (MENUITEMFLAG_LABEL_HASRIGHTTEXT | MENUITEMFLAG_BIGFONT)) == 0) {
@@ -2223,12 +2223,12 @@ Gfx *menuitem_selectable_render(Gfx *gdl, struct menurendercontext *context)
 			text_measure(&textheight, &textwidth, text, font1, font2, 0);
 			x = context->x + context->width - textwidth - 10;
 
-			gdl = text_render_projected(gdl, &x, &y, text, font1, font2,
+			gdl = text_render_v2(gdl, &x, &y, text, font1, font2,
 					rightcolour, context->width, context->height, 0, 0);
 		}
 	}
 
-	return text0f153780(gdl);
+	return text_end(gdl);
 }
 
 bool menuitem_selectable_tick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
@@ -2344,8 +2344,8 @@ Gfx *menuitem_slider_render(Gfx *gdl, struct menurendercontext *context)
 		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
-	gdl = text0f153628(gdl);
-	gdl = text_render_projected(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
+	gdl = text_begin(gdl);
+	gdl = text_render_v2(gdl, &x, &y, label, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 
 	if ((context->item->flags & MENUITEMFLAG_SLIDER_HIDEVALUE) == 0) {
 		strcpy(buffer, "");
@@ -2372,10 +2372,10 @@ Gfx *menuitem_slider_render(Gfx *gdl, struct menurendercontext *context)
 		text_set_wave_colours(g_MenuWave2Colours[context->dialog->type].item_unfocused, g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
 		colour = (colour & 0xffffff00) | ((colour & 0xff) >> 1);
-		gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
+		gdl = text_render_v2(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, context->width, context->height, 0, 0);
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	return gdl;
 }
@@ -2660,7 +2660,7 @@ Gfx *menuitem_checkbox_render(Gfx *gdl, struct menurendercontext *context)
 				g_MenuWave1Colours[context->dialog->type].item_unfocused);
 	}
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	if (context->focused) {
 		// Mismatch: The addiu and lui at ec8fc and ec900 are swapped. The addiu
@@ -2714,10 +2714,10 @@ Gfx *menuitem_checkbox_render(Gfx *gdl, struct menurendercontext *context)
 
 	x = context->x + 10;
 	y = context->y + 2;
-	gdl = text_render_projected(gdl, &x, &y, text, font1, font2,
+	gdl = text_render_v2(gdl, &x, &y, text, font1, font2,
 			maincolour, context->width, context->height, 0, 0);
 
-	return text0f153780(gdl);
+	return text_end(gdl);
 }
 
 bool menuitem_checkbox_tick(struct menuitem *item, struct menuinputs *inputs, u32 tickflags)
@@ -2864,28 +2864,28 @@ Gfx *menuitem_scrollable_render(Gfx *gdl, struct menurendercontext *context)
 			g_MenuWave2Colours[context->dialog->type].item_unfocused,
 			g_MenuWave1Colours[context->dialog->type].item_unfocused);
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	// Heading text shadow
 	x = context->x + 3;
 	y = context->y + 3;
-	gdl = text_render_projected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_v2(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0x000000ff, context->width - 4, context->height - 4, -data->scrolloffset, 0);
 
 	// Heading text (red)
 	x = context->x + 2;
 	y = context->y + 2;
-	gdl = text_render_projected(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_v2(gdl, &x, &y, headingtext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0xff4444ff, context->width - 4, context->height - 4, -data->scrolloffset, 0);
 
 	// Body text
 	x = menu_is_scrollable_unscrollable(context->item) ? context->x + 5 : context->x + 12;
 	y = context->y + 2;
 
-	gdl = text_render_projected(gdl, &x, &y, bodytext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_v2(gdl, &x, &y, bodytext, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			colour, context->width - 4, context->height - 1, -data->scrolloffset, 0);
 
-	return text0f153780(gdl);
+	return text_end(gdl);
 }
 
 bool menuitem_scrollable_tick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
@@ -3090,8 +3090,8 @@ Gfx *menuitem_marquee_render(Gfx *gdl, struct menurendercontext *context)
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	g_ScissorX1 = context->x * g_ScaleX;
-	g_ScissorX2 = (context->x + context->width) * g_ScaleX;
+	g_ScissorX1 = context->x * g_UiScaleX;
+	g_ScissorX2 = (context->x + context->width) * g_UiScaleX;
 	g_ScissorY1 = context->y;
 	g_ScissorY2 = context->y + context->height - 1;
 
@@ -3138,8 +3138,8 @@ Gfx *menuitem_marquee_render(Gfx *gdl, struct menurendercontext *context)
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, g_ScissorX1, g_ScissorY1, g_ScissorX2, g_ScissorY2);
 #else
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE,
-			context->x * g_ScaleX, context->y,
-			(context->x + context->width) * g_ScaleX, context->y + context->height - 1);
+			context->x * g_UiScaleX, context->y,
+			(context->x + context->width) * g_UiScaleX, context->y + context->height - 1);
 #endif
 
 	text_backup_and_reset_blends();
@@ -3154,10 +3154,10 @@ Gfx *menuitem_marquee_render(Gfx *gdl, struct menurendercontext *context)
 		text_set_horizontal_blend(context->x, context->x, 14);
 	}
 
-	gdl = text0f153628(gdl);
-	gdl = text_render_projected(gdl, &x, &y, &text[i], font1, font2, colour,
+	gdl = text_begin(gdl);
+	gdl = text_render_v2(gdl, &x, &y, &text[i], font1, font2, colour,
 			context->width + context->x - x, context->height, 0, 0);
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 	gdl = menu_apply_scissor(gdl);
 
 	text_restore_blends();
@@ -3263,7 +3263,7 @@ Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 		numrows = mp_get_player_rankings(rankings);
 	}
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	// Gap from last item to bottom of dialog + header height
 #if VERSION >= VERSION_JPN_FINAL
@@ -3298,7 +3298,7 @@ Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 		text_measure(&textheight, &textwidth, lang_get(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 		x = (context->x - textwidth) + 91;
 		y = context->y + 1;
-		gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_render_v2(gdl, &x, &y, lang_get(L_MPMENU_277), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				textcolour, context->width, context->height, 0, 0);
 	}
 
@@ -3306,9 +3306,9 @@ Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 	text_measure(&textheight, &textwidth, lang_get(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 	x = (context->x - textwidth) + 120;
 	y = context->y + 1;
-	gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_render_v2(gdl, &x, &y, lang_get(L_MPMENU_278), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			textcolour, context->width, context->height, 0, 0);
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	dialog = context->dialog;
 
@@ -3351,8 +3351,8 @@ Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 	gDPPipeSync(gdl++);
 
 #if VERSION >= VERSION_NTSC_1_0
-	g_ScissorX1 = context->x * g_ScaleX;
-	g_ScissorX2 = (context->x + context->width) * g_ScaleX;
+	g_ScissorX1 = context->x * g_UiScaleX;
+	g_ScissorX2 = (context->x + context->width) * g_UiScaleX;
 	g_ScissorY1 = context->y + (VERSION == VERSION_JPN_FINAL ? 14 : 10);
 	g_ScissorY2 = context->y + context->height - 1;
 
@@ -3399,13 +3399,13 @@ Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, g_ScissorX1, g_ScissorY1, g_ScissorX2, g_ScissorY2);
 #else
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE,
-			context->x * g_ScaleX,
+			context->x * g_UiScaleX,
 			context->y + 10,
-			(context->x + context->width) * g_ScaleX,
+			(context->x + context->width) * g_UiScaleX,
 			context->y + context->height - 1);
 #endif
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	for (i = 0; i < numrows; i++) {
 		struct ranking *ranking = &rankings[i];
@@ -3429,10 +3429,10 @@ Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 #endif
 
 		if (team) {
-			gdl = text_render_projected(gdl, &x, &y, g_BossFile.teamnames[ranking->teamnum],
+			gdl = text_render_v2(gdl, &x, &y, g_BossFile.teamnames[ranking->teamnum],
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		} else {
-			gdl = text_render_projected(gdl, &x, &y, ranking->mpchr->name,
+			gdl = text_render_v2(gdl, &x, &y, ranking->mpchr->name,
 					g_CharsHandelGothicSm, g_FontHandelGothicSm, textcolour, context->width, context->height, 0, 0);
 		}
 
@@ -3447,7 +3447,7 @@ Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 #else
 			y = context->y + i * 10 - data->scrolloffset + 14;
 #endif
-			gdl = text_render_projected(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+			gdl = text_render_v2(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 					textcolour, context->width, context->height, 0, 0);
 		}
 
@@ -3461,11 +3461,11 @@ Gfx *menuitem_ranking_render(Gfx *gdl, struct menurendercontext *context)
 #else
 		y = context->y + i * 10 - data->scrolloffset + 14;
 #endif
-		gdl = text_render_projected(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+		gdl = text_render_v2(gdl, &x, &y, valuebuffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 				textcolour, context->width, context->height, 0, 0);
 	}
 
-	return text0f153780(gdl);
+	return text_end(gdl);
 }
 
 bool menuitem_ranking_tick(struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
@@ -3528,7 +3528,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 
 	mpchr = MPCHR(playernum);
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	// Write selected player's name
 	weight = menu_get_sin_osc_frac(40) * 255;
@@ -3546,7 +3546,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 	x = context->x + 2;
 	y = context->y + 1;
 
-	gdl = text_render_projected(gdl, &x, &y, mpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_v2(gdl, &x, &y, mpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			selectioncolour, context->width, context->height, 0, 0);
 
 	// "Suicides" heading
@@ -3571,7 +3571,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 #endif
 	y = context->y + 1;
 
-	gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs,
+	gdl = text_render_v2(gdl, &x, &y, lang_get(L_MPMENU_281), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 			maincolour, context->width, context->height, 0, 0);
 
 	// Num suicides
@@ -3591,7 +3591,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 	y++;
 #endif
 
-	gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+	gdl = text_render_v2(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 			0xffff00ff, context->width, context->height, 0, 0);
 
 	// Move ypos past top row
@@ -3619,7 +3619,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 		text_measure(&textheight, &textwidth, lang_get(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs, 0);
 		x = context->x - textwidth + 120;
 		y = context->y + ypos;
-		gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_render_v2(gdl, &x, &y, lang_get(L_MPMENU_282), g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				maincolour, context->width, context->height, 0, 0);
 
 		// "Kills" heading
@@ -3632,7 +3632,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 #endif
 
 		y = context->y + ypos;
-		gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPMENU_283),  g_CharsHandelGothicXs, g_FontHandelGothicXs,
+		gdl = text_render_v2(gdl, &x, &y, lang_get(L_MPMENU_283),  g_CharsHandelGothicXs, g_FontHandelGothicXs,
 				maincolour, context->width, context->height, 0, 0);
 
 		// Move ypos past heading row
@@ -3661,8 +3661,8 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 		gDPPipeSync(gdl++);
 
 #if VERSION >= VERSION_NTSC_1_0
-		g_ScissorX1 = context->x * g_ScaleX;
-		g_ScissorX2 = (context->x + context->width) * g_ScaleX;
+		g_ScissorX1 = context->x * g_UiScaleX;
+		g_ScissorX2 = (context->x + context->width) * g_UiScaleX;
 		g_ScissorY1 = context->y + ypos;
 		g_ScissorY2 = context->y + context->height;
 
@@ -3709,9 +3709,9 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 		gDPSetScissor(gdl++, G_SC_NON_INTERLACE, g_ScissorX1, g_ScissorY1, g_ScissorX2, g_ScissorY2);
 #else
 		gDPSetScissor(gdl++, G_SC_NON_INTERLACE,
-				context->x * g_ScaleX,
+				context->x * g_UiScaleX,
 				context->y + ypos,
-				(context->x + context->width) * g_ScaleX,
+				(context->x + context->width) * g_UiScaleX,
 				context->y + context->height);
 #endif
 
@@ -3725,7 +3725,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 					// Name
 					x = context->x + 29;
 					y = context->y + ypos;
-					gdl = text_render_projected(gdl, &x, &y, loopmpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+					gdl = text_render_v2(gdl, &x, &y, loopmpchr->name, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0x00ffffff, context->width, context->height, 0, 0);
 
 					// Num deaths
@@ -3733,7 +3733,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 					text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 					x = context->x - textwidth + 120;
 					y = context->y + ypos;
-					gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+					gdl = text_render_v2(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0xff4040ff, context->width, context->height, 0, 0);
 
 					// Num kills
@@ -3747,7 +3747,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 #endif
 
 					y = context->y + ypos;
-					gdl = text_render_projected(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
+					gdl = text_render_v2(gdl, &x, &y, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm,
 							0x00ff00ff, context->width, context->height, 0, 0);
 
 #if VERSION == VERSION_JPN_FINAL
@@ -3760,7 +3760,7 @@ Gfx *menuitem_player_stats_render(Gfx *gdl, struct menurendercontext *context)
 		}
 	}
 
-	return text0f153780(gdl);
+	return text_end(gdl);
 }
 
 bool menuitem_player_stats_tick(struct menuitem *item, struct menudialog *dialog, struct menuinputs *inputs, u32 tickflags, union menuitemdata *data)
@@ -3820,12 +3820,12 @@ Gfx *menuitem_controller_render_line(Gfx *gdl, s32 speed, s32 x1, s32 y1, s32 x2
 	speed = speed + (x1 % 4);
 
 	gSPTextureRectangle(gdl++,
-			x1 * 4 * g_ScaleX, y1 * 4,
-			x2 * 4 * g_ScaleX, y2 * 4,
+			x1 * 4 * g_UiScaleX, y1 * 4,
+			x2 * 4 * g_UiScaleX, y2 * 4,
 			G_TX_RENDERTILE,
 			speed * 32,
 			(y1 % 4) * 32,
-			1024 / g_ScaleX, 1024);
+			1024 / g_UiScaleX, 1024);
 
 	return gdl;
 }
@@ -3853,9 +3853,9 @@ Gfx *menuitem_controller_render_texture(Gfx *gdl, s32 x, s32 y, s32 texturenum, 
 	gDPSetColor(gdl++, G_SETENVCOLOR, 0xffffff00 | alpha);
 
 	gSPTextureRectangle(gdl++,
-			(x << 2) * g_ScaleX, y << 2,
-			((x + 32) << 2) * g_ScaleX, (y + 32) << 2,
-			0, 16, 1008, 1024 / g_ScaleX, 0xfc00);
+			(x << 2) * g_UiScaleX, y << 2,
+			((x + 32) << 2) * g_UiScaleX, (y + 32) << 2,
+			0, 16, 1008, 1024 / g_UiScaleX, 0xfc00);
 
 	return gdl;
 }
@@ -4085,7 +4085,7 @@ Gfx *menuitem_controller_render_text(Gfx *gdl, s32 curmode, struct menurendercon
 
 	s32 i;
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	for (i = 0; i < ARRAYCOUNT(labels); i++) {
 #if VERSION == VERSION_JPN_FINAL
@@ -4103,7 +4103,7 @@ Gfx *menuitem_controller_render_text(Gfx *gdl, s32 curmode, struct menurendercon
 #if VERSION < VERSION_NTSC_1_0
 			ry = i * 7 + context->y + pady;
 #endif
-			gdl = text_render_projected(gdl, &rx, &ry, lang_get(labels[i]),
+			gdl = text_render_v2(gdl, &rx, &ry, lang_get(labels[i]),
 					g_CharsHandelGothicXs, g_FontHandelGothicXs, labelcolour, vi_get_width(), vi_get_height(), 0, 0);
 		}
 
@@ -4138,11 +4138,11 @@ Gfx *menuitem_controller_render_text(Gfx *gdl, s32 curmode, struct menurendercon
 			colour |= 0xffffff00;
 		}
 
-		gdl = text_render_projected(gdl, &rx, &ry, lang_get(textnum),
+		gdl = text_render_v2(gdl, &rx, &ry, lang_get(textnum),
 				g_CharsHandelGothicXs, g_FontHandelGothicXs, colour, vi_get_width(), vi_get_height(), 0, 0);
 	}
 
-	return text0f153780(gdl);
+	return text_end(gdl);
 }
 
 Gfx *menuitem_controller_render_pad(Gfx *gdl, struct menurendercontext *context, s32 padx, s32 pady, s32 curmode, u32 alpha, u32 colour1, u32 colour2, s8 prevmode)
@@ -4233,7 +4233,7 @@ Gfx *menuitem_controller_render(Gfx *gdl, struct menurendercontext *context)
 
 	textalpha = data->textfadetimer;
 	contalpha = data->contfadetimer;
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	if (dialog->transitionfrac < 0) {
 		colour = g_MenuColours[dialog->type].item_unfocused;
@@ -4264,9 +4264,9 @@ Gfx *menuitem_controller_render(Gfx *gdl, struct menurendercontext *context)
 
 	x = context->x + 2;
 	y = context->y + 2;
-	gdl = text_render_projected(gdl, &x, &y, text,
+	gdl = text_render_v2(gdl, &x, &y, text,
 			g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, vi_get_width(), vi_get_height(), 0, 0);
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	textcolour = colour_blend(colour, colour & 0xffffff00, textalpha);
 	colour = colour_blend(colour, colour & 0xffffff00, contalpha);
@@ -4290,10 +4290,10 @@ Gfx *menuitem_controller_render(Gfx *gdl, struct menurendercontext *context)
 		y += 34;
 #endif
 
-		gdl = text0f153628(gdl);
-		gdl = text_render_projected(gdl, &x, &y, lang_get(L_MPWEAPONS_216), // "Hold weapon button for ..."
+		gdl = text_begin(gdl);
+		gdl = text_render_v2(gdl, &x, &y, lang_get(L_MPWEAPONS_216), // "Hold weapon button for ..."
 				g_CharsHandelGothicSm, g_FontHandelGothicSm, colour, vi_get_width(), vi_get_height(), 0, 0);
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 	}
 
 	text_restore_blends();

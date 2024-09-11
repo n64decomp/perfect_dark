@@ -154,9 +154,9 @@ MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem
 		y++;
 #endif
 
-		gdl = text0f153628(gdl);
-		gdl = text_render_projected(gdl, &x, &y, bgun_get_name(weaponnum2), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
-		gdl = text0f153780(gdl);
+		gdl = text_begin(gdl);
+		gdl = text_render_v2(gdl, &x, &y, bgun_get_name(weaponnum2), g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_end(gdl);
 
 		// Prepare the star texture for the difficulties
 		gDPPipeSync(gdl++);
@@ -201,9 +201,9 @@ MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem
 					TEXEL0, 0, ENVIRONMENT, 0, TEXEL0, 0, ENVIRONMENT, 0);
 
 			gSPTextureRectangle(gdl++,
-					(((renderdata->x + i * 13) + 125) << 2) * g_ScaleX, (renderdata->y) << 2,
-					(((renderdata->x + i * 13) + 136) << 2) * g_ScaleX, (renderdata->y + 11) << 2,
-					G_TX_RENDERTILE, 0, 0x0160, 1024 / g_ScaleX, -1024);
+					(((renderdata->x + i * 13) + 125) << 2) * g_UiScaleX, (renderdata->y) << 2,
+					(((renderdata->x + i * 13) + 136) << 2) * g_UiScaleX, (renderdata->y + 11) << 2,
+					G_TX_RENDERTILE, 0, 0x0160, 1024 / g_UiScaleX, -1024);
 		}
 
 		return (s32)gdl;
@@ -645,33 +645,33 @@ MenuItemHandlerResult fr_scoring_menu_handler(s32 operation, struct menuitem *it
 
 		// Top left quarter of target
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 10) << 2) * g_ScaleX, (renderdata->y + 5) << 2,
-				((renderdata->x + 42) << 2) * g_ScaleX, (renderdata->y + 37) << 2,
-				G_TX_RENDERTILE, 16, 1024, 1024 / g_ScaleX, -1024);
+				((renderdata->x + 10) << 2) * g_UiScaleX, (renderdata->y + 5) << 2,
+				((renderdata->x + 42) << 2) * g_UiScaleX, (renderdata->y + 37) << 2,
+				G_TX_RENDERTILE, 16, 1024, 1024 / g_UiScaleX, -1024);
 
 		// Top right quarter of target
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 41) << 2) * g_ScaleX, (renderdata->y + 5) << 2,
-				((renderdata->x + 73) << 2) * g_ScaleX, (renderdata->y + 37) << 2,
-				G_TX_RENDERTILE, 16, 1024, -1024 / g_ScaleX, -1024);
+				((renderdata->x + 41) << 2) * g_UiScaleX, (renderdata->y + 5) << 2,
+				((renderdata->x + 73) << 2) * g_UiScaleX, (renderdata->y + 37) << 2,
+				G_TX_RENDERTILE, 16, 1024, -1024 / g_UiScaleX, -1024);
 
 		// Bottom left quarter of target
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 10) << 2) * g_ScaleX, (renderdata->y + 36) << 2,
-				((renderdata->x + 42) << 2) * g_ScaleX, (renderdata->y + 68) << 2,
-				G_TX_RENDERTILE, 16, 1024, 1024 / g_ScaleX, 1024);
+				((renderdata->x + 10) << 2) * g_UiScaleX, (renderdata->y + 36) << 2,
+				((renderdata->x + 42) << 2) * g_UiScaleX, (renderdata->y + 68) << 2,
+				G_TX_RENDERTILE, 16, 1024, 1024 / g_UiScaleX, 1024);
 
 		// Bottom right quarter of target
 		gSPTextureRectangle(gdl++,
-				((renderdata->x + 41) << 2) * g_ScaleX, (renderdata->y + 36) << 2,
-				((renderdata->x + 73) << 2) * g_ScaleX, (renderdata->y + 68) << 2,
-				G_TX_RENDERTILE, 16, 1024, -1024 / g_ScaleX, 1024);
+				((renderdata->x + 41) << 2) * g_UiScaleX, (renderdata->y + 36) << 2,
+				((renderdata->x + 73) << 2) * g_UiScaleX, (renderdata->y + 68) << 2,
+				G_TX_RENDERTILE, 16, 1024, -1024 / g_UiScaleX, 1024);
 
 #if VERSION >= VERSION_NTSC_1_0
-		gdl = text_set_prim_colour(gdl, ((failed ? 0xff000055 : 0x00ff0055) & 0xffffff00) | (((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8));
+		gdl = text_begin_boxmode(gdl, ((failed ? 0xff000055 : 0x00ff0055) & 0xffffff00) | (((failed ? 0xff000055 : 0x00ff0055) & 0xff) * (renderdata->colour & 0xff) >> 8));
 		colour = ((failed ? 0xff6969aa : renderdata->colour) & 0xffffff00) | ((((failed ? 0xff6969aa : renderdata->colour) & 0xff) * (renderdata->colour & 0xff)) >> 8);
 #else
-		gdl = text_set_prim_colour(gdl, failed ? 0xff000055 : 0x00ff0055);
+		gdl = text_begin_boxmode(gdl, failed ? 0xff000055 : 0x00ff0055);
 #endif
 
 		// NTSC beta uses a static alpha channel, while newer versions take the
@@ -691,90 +691,90 @@ MenuItemHandlerResult fr_scoring_menu_handler(s32 operation, struct menuitem *it
 		sprintf(text, "%d\n", frdata->numhitsbullseye);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Bull's-eye"
 		sprintf(text, lang_get(L_MPMENU_461));
 		x = renderdata->x + 122;
 		y = renderdata->y + 14;
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Bull's-eye score
 		sprintf(text, "%d\n", frdata->numhitsbullseye * 10);
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 15 : 14);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 1 count
 		sprintf(text, "%d\n", frdata->numhitsring1);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Zone 1"
 		sprintf(text, lang_get(L_MPMENU_462));
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 26 : 25);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 1 score
 		sprintf(text, "%d\n", frdata->numhitsring1 * 5);
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 27 : 25);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 2 count
 		sprintf(text, "%d\n", frdata->numhitsring2);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Zone 2"
 		sprintf(text, lang_get(L_MPMENU_463));
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 38 : 36);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 2 score
 		sprintf(text, "%d\n", frdata->numhitsring2 * 2);
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 39 : 36);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 3 count
 		sprintf(text, "%d\n", frdata->numhitsring3);
 		x = renderdata->x + 93;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Zone 3"
 		// Note: developers forgot to remove last argument when copy/pasting
 		sprintf(text, lang_get(L_MPMENU_464), frdata->numhitsring3);
 		x = renderdata->x + 122;
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 50 : 47);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Zone 3 score
 		sprintf(text, "%d\n", frdata->numhitsring3);
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 		x = renderdata->x - textheight + (VERSION == VERSION_JPN_FINAL ? 192 : 182);
 		y = renderdata->y + (VERSION == VERSION_JPN_FINAL ? 51 : 47);
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Hit total"
 		sprintf(text, lang_get(L_MPMENU_465));
@@ -786,8 +786,8 @@ MenuItemHandlerResult fr_scoring_menu_handler(s32 operation, struct menuitem *it
 		y += 3;
 #endif
 
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// Hit total count
 		sprintf(text, "%d\n", frdata->numhitsring3 + frdata->numhitsbullseye + frdata->numhitsring1 + frdata->numhitsring2);
@@ -800,45 +800,45 @@ MenuItemHandlerResult fr_scoring_menu_handler(s32 operation, struct menuitem *it
 		y += 3;
 #endif
 
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "Scoring"
 		sprintf(text, lang_get(L_MPMENU_466));
 		x = renderdata->x + 83;
 		y = renderdata->y + 1;
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, COLOUR(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "10"
 		sprintf(text, lang_get(L_MPMENU_467));
 		x = renderdata->x + 38;
 		y = renderdata->y + 35;
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "5"
 		sprintf(text, lang_get(L_MPMENU_468));
 		x = renderdata->x + 32;
 		y = renderdata->y + 26;
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "2"
 		sprintf(text, lang_get(L_MPMENU_469));
 		x = renderdata->x + 24;
 		y = renderdata->y + 16;
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
 
 		// "1"
 		sprintf(text, lang_get(L_MPMENU_470));
 		x = renderdata->x + 14;
 		y = renderdata->y + 4;
-		gdl = text0f153858(gdl, &x, &y, &textheight, &textwidth);
-		gdl = text_render_projected(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_draw_black_box(gdl, &x, &y, &textheight, &textwidth);
+		gdl = text_render_v2(gdl, &x, &y, text, g_CharsNumeric, g_FontNumeric, COLOURWHITE(), vi_get_width(), vi_get_height(), 0, 0);
 
-		gdl = text0f153838(gdl);
+		gdl = text_end_boxmode(gdl);
 
 		// Render lines between the score table and the target texture
 
@@ -2565,9 +2565,9 @@ MenuItemHandlerResult ci_hangar_title_menu_handler(s32 operation, struct menuite
 #endif
 
 			gSPTextureRectangle(gdl++,
-					((renderdata->x + 6) << 2) * g_ScaleX, (renderdata->y + 3) << 2,
-					((renderdata->x + 60) << 2) * g_ScaleX, (renderdata->y + 39) << 2,
-					G_TX_RENDERTILE, 0, 0x0480, 1024 / g_ScaleX, -1024);
+					((renderdata->x + 6) << 2) * g_UiScaleX, (renderdata->y + 3) << 2,
+					((renderdata->x + 60) << 2) * g_UiScaleX, (renderdata->y + 39) << 2,
+					G_TX_RENDERTILE, 0, 0x0480, 1024 / g_UiScaleX, -1024);
 
 			leftmargin = -1;
 		} else {
@@ -2575,7 +2575,7 @@ MenuItemHandlerResult ci_hangar_title_menu_handler(s32 operation, struct menuite
 			leftmargin = item->param2 / 2;
 		}
 
-		gdl = text0f153628(gdl);
+		gdl = text_begin(gdl);
 
 		// Render title
 		text = bio_menu_text_name(NULL);
@@ -2588,7 +2588,7 @@ MenuItemHandlerResult ci_hangar_title_menu_handler(s32 operation, struct menuite
 		}
 
 		textheight = renderdata->y + 8;
-		gdl = text_render_projected(gdl, &textwidth, &textheight, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &textwidth, &textheight, text, g_CharsHandelGothicMd, g_FontHandelGothicMd, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
 		// Render subheading
 		text = ci_menu_text_hangar_bio_subheading(NULL);
@@ -2601,9 +2601,9 @@ MenuItemHandlerResult ci_hangar_title_menu_handler(s32 operation, struct menuite
 		}
 
 		textheight = renderdata->y + 25;
-		gdl = text_render_projected(gdl, &textwidth, &textheight, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
+		gdl = text_render_v2(gdl, &textwidth, &textheight, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, renderdata->colour, vi_get_width(), vi_get_height(), 0, 0);
 
-		gdl = text0f153780(gdl);
+		gdl = text_end(gdl);
 
 		return (s32)gdl;
 	}

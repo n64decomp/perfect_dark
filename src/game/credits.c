@@ -569,11 +569,11 @@ Gfx *credits_fill_framebuffer(Gfx *gdl, u32 colour)
 {
 	gSPDisplayList(gdl++, &var800613a0);
 
-	gdl = text_set_prim_colour(gdl, colour);
+	gdl = text_begin_boxmode(gdl, colour);
 
 	gDPFillRectangle(gdl++, 0, 0, vi_get_width(), vi_get_height());
 
-	gdl = text0f153838(gdl);
+	gdl = text_end_boxmode(gdl);
 
 	return gdl;
 }
@@ -1010,7 +1010,7 @@ Gfx *credits_draw_background_text(Gfx *gdl, s32 x, s32 y, char *text, struct fon
 			f32 value = (i * 0.3f * (spread + 0.5f)) + 1.0f;
 			u32 stack[2];
 
-			gdl = text0f1552d4(gdl, x + sinf(f24) * mult, y + cosf(f24) * mult, f26, value, text, chars, font, colour3, 0, 1);
+			gdl = text_render_credits(gdl, x + sinf(f24) * mult, y + cosf(f24) * mult, f26, value, text, chars, font, colour3, 0, 1);
 		}
 	}
 
@@ -1059,7 +1059,7 @@ Gfx *credits_draw_foreground_text(Gfx *gdl, s32 x, s32 y, char *text, struct fon
 
 	colour = 0xffffff00 | (u32) (255.0f * opacityfrac);
 
-	gdl = text0f1552d4(gdl, x, y, widthscale, heightscale, text, chars, font, colour, hdir, vdir);
+	gdl = text_render_credits(gdl, x, y, widthscale, heightscale, text, chars, font, colour, hdir, vdir);
 
 	return gdl;
 }
@@ -1511,7 +1511,7 @@ Gfx *credits_draw_slide(Gfx *gdl)
 #endif
 	}
 
-	gdl = text0f153628(gdl);
+	gdl = text_begin(gdl);
 
 	// Draw text repetitions
 	for (i = 0; i < g_CreditsData->numthisslide * 2; i++) {
@@ -1664,7 +1664,7 @@ Gfx *credits_draw_slide(Gfx *gdl)
 		}
 	}
 
-	gdl = text0f153780(gdl);
+	gdl = text_end(gdl);
 
 	return gdl;
 }
@@ -1764,13 +1764,13 @@ Gfx *credits_draw(Gfx *gdl)
 
 	static u32 scrolltimer240 = 0;
 
-	text0f1531dc(false);
+	text_set_hires(false);
 
 #if VERSION >= VERSION_JPN_FINAL
 	var800800f0jf = 0;
 #endif
 
-	g_ScaleX = 1;
+	g_UiScaleX = 1;
 
 	gdl = vi_prepare_zbuf(gdl);
 	gdl = vi0000b1d0(gdl);
