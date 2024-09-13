@@ -2253,163 +2253,6 @@ Gfx *text_render_vx(Gfx *gdl, s32 *x, s32 *y, char *text, struct fontchar *font1
 }
 #endif
 
-#if VERSION < VERSION_PAL_BETA && MATCHING
-GLOBAL_ASM(
-glabel text_measure
-/*  f1572f8:	27bdffe8 */ 	addiu	$sp,$sp,-24
-/*  f1572fc:	afb10008 */ 	sw	$s1,0x8($sp)
-/*  f157300:	8fb1002c */ 	lw	$s1,0x2c($sp)
-/*  f157304:	afb40014 */ 	sw	$s4,0x14($sp)
-/*  f157308:	afb30010 */ 	sw	$s3,0x10($sp)
-/*  f15730c:	afb2000c */ 	sw	$s2,0xc($sp)
-/*  f157310:	afb00004 */ 	sw	$s0,0x4($sp)
-/*  f157314:	ac800000 */ 	sw	$zero,0x0($a0)
-/*  f157318:	00808025 */ 	or	$s0,$a0,$zero
-/*  f15731c:	24030048 */ 	addiu	$v1,$zero,0x48
-/*  f157320:	00001025 */ 	or	$v0,$zero,$zero
-/*  f157324:	16200004 */ 	bnez	$s1,.L0f157338
-/*  f157328:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f15732c:	90ee0446 */ 	lbu	$t6,0x446($a3)
-/*  f157330:	80ef0445 */ 	lb	$t7,0x445($a3)
-/*  f157334:	01cf8821 */ 	addu	$s1,$t6,$t7
-.L0f157338:
-/*  f157338:	3c188008 */ 	lui	$t8,%hi(g_Jpn)
-/*  f15733c:	8f184120 */ 	lw	$t8,%lo(g_Jpn)($t8)
-/*  f157340:	2a21000e */ 	slti	$at,$s1,0xe
-/*  f157344:	13000004 */ 	beqz	$t8,.L0f157358
-/*  f157348:	00000000 */ 	nop
-/*  f15734c:	10200002 */ 	beqz	$at,.L0f157358
-/*  f157350:	00000000 */ 	nop
-/*  f157354:	2411000e */ 	addiu	$s1,$zero,0xe
-.L0f157358:
-/*  f157358:	10c00059 */ 	beqz	$a2,.L0f1574c0
-/*  f15735c:	00000000 */ 	nop
-/*  f157360:	90c40000 */ 	lbu	$a0,0x0($a2)
-/*  f157364:	3c148008 */ 	lui	$s4,%hi(g_TextCharOverlap)
-/*  f157368:	2694fac4 */ 	addiu	$s4,$s4,%lo(g_TextCharOverlap)
-/*  f15736c:	10800054 */ 	beqz	$a0,.L0f1574c0
-/*  f157370:	00804025 */ 	or	$t0,$a0,$zero
-/*  f157374:	2413000d */ 	addiu	$s3,$zero,0xd
-/*  f157378:	2412000c */ 	addiu	$s2,$zero,0xc
-/*  f15737c:	240c000a */ 	addiu	$t4,$zero,0xa
-/*  f157380:	240b0020 */ 	addiu	$t3,$zero,0x20
-/*  f157384:	8fa90028 */ 	lw	$t1,0x28($sp)
-.L0f157388:
-/*  f157388:	1568000a */ 	bne	$t3,$t0,.L0f1573b4
-/*  f15738c:	00000000 */ 	nop
-/*  f157390:	90d90001 */ 	lbu	$t9,0x1($a2)
-/*  f157394:	24030048 */ 	addiu	$v1,$zero,0x48
-/*  f157398:	11990004 */ 	beq	$t4,$t9,.L0f1573ac
-/*  f15739c:	00000000 */ 	nop
-/*  f1573a0:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f1573a4:	25cf0005 */ 	addiu	$t7,$t6,0x5
-/*  f1573a8:	acaf0000 */ 	sw	$t7,0x0($a1)
-.L0f1573ac:
-/*  f1573ac:	10000041 */ 	b	.L0f1574b4
-/*  f1573b0:	24c60001 */ 	addiu	$a2,$a2,0x1
-.L0f1573b4:
-/*  f1573b4:	1588000c */ 	bne	$t4,$t0,.L0f1573e8
-/*  f1573b8:	29010080 */ 	slti	$at,$t0,0x80
-/*  f1573bc:	8ca40000 */ 	lw	$a0,0x0($a1)
-/*  f1573c0:	0044082a */ 	slt	$at,$v0,$a0
-/*  f1573c4:	50200003 */ 	beqzl	$at,.L0f1573d4
-/*  f1573c8:	aca00000 */ 	sw	$zero,0x0($a1)
-/*  f1573cc:	00801025 */ 	or	$v0,$a0,$zero
-/*  f1573d0:	aca00000 */ 	sw	$zero,0x0($a1)
-.L0f1573d4:
-/*  f1573d4:	8e180000 */ 	lw	$t8,0x0($s0)
-/*  f1573d8:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1573dc:	0311c821 */ 	addu	$t9,$t8,$s1
-/*  f1573e0:	10000034 */ 	b	.L0f1574b4
-/*  f1573e4:	ae190000 */ 	sw	$t9,0x0($s0)
-.L0f1573e8:
-/*  f1573e8:	5020001d */ 	beqzl	$at,.L0f157460
-/*  f1573ec:	290100c0 */ 	slti	$at,$t0,0xc0
-/*  f1573f0:	308800ff */ 	andi	$t0,$a0,0xff
-/*  f1573f4:	01120019 */ 	multu	$t0,$s2
-/*  f1573f8:	24c60001 */ 	addiu	$a2,$a2,0x1
-/*  f1573fc:	00007012 */ 	mflo	$t6
-/*  f157400:	00ee5021 */ 	addu	$t2,$a3,$t6
-/*  f157404:	8d4ffe78 */ 	lw	$t7,-0x188($t2)
-/*  f157408:	00720019 */ 	multu	$v1,$s2
-/*  f15740c:	000fc080 */ 	sll	$t8,$t7,0x2
-/*  f157410:	0138c821 */ 	addu	$t9,$t1,$t8
-/*  f157414:	00007012 */ 	mflo	$t6
-/*  f157418:	00ee7821 */ 	addu	$t7,$a3,$t6
-/*  f15741c:	8df8fe78 */ 	lw	$t8,-0x188($t7)
-/*  f157420:	03130019 */ 	multu	$t8,$s3
-/*  f157424:	00007012 */ 	mflo	$t6
-/*  f157428:	000e7880 */ 	sll	$t7,$t6,0x2
-/*  f15742c:	032fc021 */ 	addu	$t8,$t9,$t7
-/*  f157430:	8f0e0000 */ 	lw	$t6,0x0($t8)
-/*  f157434:	8e990000 */ 	lw	$t9,0x0($s4)
-/*  f157438:	9158fe77 */ 	lbu	$t8,-0x189($t2)
-/*  f15743c:	8caf0000 */ 	lw	$t7,0x0($a1)
-/*  f157440:	01d92021 */ 	addu	$a0,$t6,$t9
-/*  f157444:	2484ffff */ 	addiu	$a0,$a0,-1
-/*  f157448:	01f87021 */ 	addu	$t6,$t7,$t8
-/*  f15744c:	01c4c823 */ 	subu	$t9,$t6,$a0
-/*  f157450:	acb90000 */ 	sw	$t9,0x0($a1)
-/*  f157454:	10000017 */ 	b	.L0f1574b4
-/*  f157458:	90c3ffff */ 	lbu	$v1,-0x1($a2)
-/*  f15745c:	290100c0 */ 	slti	$at,$t0,0xc0
-.L0f157460:
-/*  f157460:	5020000c */ 	beqzl	$at,.L0f157494
-/*  f157464:	8d380000 */ 	lw	$t8,0x0($t1)
-/*  f157468:	8d2f0000 */ 	lw	$t7,0x0($t1)
-/*  f15746c:	8e980000 */ 	lw	$t8,0x0($s4)
-/*  f157470:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f157474:	24c60002 */ 	addiu	$a2,$a2,0x2
-/*  f157478:	01f82021 */ 	addu	$a0,$t7,$t8
-/*  f15747c:	2484ffff */ 	addiu	$a0,$a0,-1
-/*  f157480:	01c4c823 */ 	subu	$t9,$t6,$a0
-/*  f157484:	272f000b */ 	addiu	$t7,$t9,0xb
-/*  f157488:	1000000a */ 	b	.L0f1574b4
-/*  f15748c:	acaf0000 */ 	sw	$t7,0x0($a1)
-/*  f157490:	8d380000 */ 	lw	$t8,0x0($t1)
-.L0f157494:
-/*  f157494:	8e8e0000 */ 	lw	$t6,0x0($s4)
-/*  f157498:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f15749c:	24c60002 */ 	addiu	$a2,$a2,0x2
-/*  f1574a0:	030e2021 */ 	addu	$a0,$t8,$t6
-/*  f1574a4:	2484ffff */ 	addiu	$a0,$a0,-1
-/*  f1574a8:	03247823 */ 	subu	$t7,$t9,$a0
-/*  f1574ac:	25f8000f */ 	addiu	$t8,$t7,0xf
-/*  f1574b0:	acb80000 */ 	sw	$t8,0x0($a1)
-.L0f1574b4:
-/*  f1574b4:	90c40000 */ 	lbu	$a0,0x0($a2)
-/*  f1574b8:	1480ffb3 */ 	bnez	$a0,.L0f157388
-/*  f1574bc:	00804025 */ 	or	$t0,$a0,$zero
-.L0f1574c0:
-/*  f1574c0:	3c0e8008 */ 	lui	$t6,%hi(g_UiScaleX)
-/*  f1574c4:	8dcefac0 */ 	lw	$t6,%lo(g_UiScaleX)($t6)
-/*  f1574c8:	24010001 */ 	addiu	$at,$zero,0x1
-/*  f1574cc:	3c0f8008 */ 	lui	$t7,%hi(g_TextScaleX)
-/*  f1574d0:	55c10008 */ 	bnel	$t6,$at,.L0f1574f4
-/*  f1574d4:	8cae0000 */ 	lw	$t6,0x0($a1)
-/*  f1574d8:	8cb90000 */ 	lw	$t9,0x0($a1)
-/*  f1574dc:	8deffad0 */ 	lw	$t7,%lo(g_TextScaleX)($t7)
-/*  f1574e0:	032f0019 */ 	multu	$t9,$t7
-/*  f1574e4:	0000c012 */ 	mflo	$t8
-/*  f1574e8:	acb80000 */ 	sw	$t8,0x0($a1)
-/*  f1574ec:	00000000 */ 	nop
-/*  f1574f0:	8cae0000 */ 	lw	$t6,0x0($a1)
-.L0f1574f4:
-/*  f1574f4:	01c2082a */ 	slt	$at,$t6,$v0
-/*  f1574f8:	50200003 */ 	beqzl	$at,.L0f157508
-/*  f1574fc:	8fb00004 */ 	lw	$s0,0x4($sp)
-/*  f157500:	aca20000 */ 	sw	$v0,0x0($a1)
-/*  f157504:	8fb00004 */ 	lw	$s0,0x4($sp)
-.L0f157508:
-/*  f157508:	8fb10008 */ 	lw	$s1,0x8($sp)
-/*  f15750c:	8fb2000c */ 	lw	$s2,0xc($sp)
-/*  f157510:	8fb30010 */ 	lw	$s3,0x10($sp)
-/*  f157514:	8fb40014 */ 	lw	$s4,0x14($sp)
-/*  f157518:	03e00008 */ 	jr	$ra
-/*  f15751c:	27bd0018 */ 	addiu	$sp,$sp,0x18
-);
-#else
-// Mismatch: Regalloc
 void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *font1, struct font *font2, s32 lineheight)
 {
 	char prevchar;
@@ -2422,9 +2265,12 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 	struct fontchar *prevchardata;
 #endif
 	s32 tmp;
+#if VERSION < VERSION_PAL_BETA
+	char hack1 = 1;
+#endif
 
 	prevchar = 'H';
-	thischar = '\0';
+	tmp = 0;
 	longest = 0;
 	*textheight = 0;
 	*textwidth = 0;
@@ -2440,8 +2286,10 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 		lineheight = font1['['].baseline + font1['['].height;
 	}
 
-	if (g_Jpn && lineheight < 14) {
-		lineheight = 14;
+	if (g_Jpn) {
+		if (lineheight < 14) {
+			lineheight = 14;
+		}
 	}
 #endif
 
@@ -2450,7 +2298,7 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 			if (*text == ' ') {
 				// Space
 				if (text[1] != '\n') {
-					*textwidth += 5;
+					*textwidth += SPACE_WIDTH;
 				}
 
 				prevchar = 'H';
@@ -2489,7 +2337,7 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 					tmp = 0;
 				}
 
-				*textwidth = *textwidth + thischardata->width - tmp;
+				*textwidth += thischardata->width - tmp;
 #elif VERSION >= VERSION_PAL_BETA
 				struct fontchar *thischardata;
 				struct fontchar *prevchardata;
@@ -2497,25 +2345,27 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 				text_parse_char(&text, &thischardata, &prevchardata, font1, &prevchar);
 
 				tmp = font2->kerning[prevchardata->kerningindex * 13 + thischardata->kerningindex] + g_TextCharOverlap - 1;
-				*textwidth = *textwidth + thischardata->width - tmp;
+				*textwidth += thischardata->width - tmp;
 #else
+				s32 hack2 = hack1;
 				if (*text < 0x80) {
 					// Normal single-byte character
 					thischar = *text;
+					if (hack2);
 					tmp = font2->kerning[font1[prevchar - 0x21].kerningindex * 13 + font1[thischar - 0x21].kerningindex] + g_TextCharOverlap - 1;
-					*textwidth = font1[thischar - 0x21].width + *textwidth - tmp;
+					*textwidth += font1[thischar - 0x21].width - tmp;
 
 					prevchar = *text;
 					text++;
 				} else if (*text < 0xc0) {
 					// Multi-byte character
 					tmp = font2->kerning[0] + g_TextCharOverlap - 1;
-					*textwidth = *textwidth - tmp + 11;
+					*textwidth -= tmp - 11;
 					text += 2;
 				} else {
 					// Multi-byte character
 					tmp = font2->kerning[0] + g_TextCharOverlap - 1;
-					*textwidth = *textwidth - tmp + 15;
+					*textwidth -= tmp - 15;
 					text += 2;
 				}
 #endif
@@ -2524,7 +2374,7 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 	}
 
 	// @bug? Shouldn't this go at the very end of the function?
-	if (g_UiScaleX == 1) {
+	if (g_UiScaleX == 1u) {
 		*textwidth *= g_TextScaleX;
 	}
 
@@ -2536,7 +2386,6 @@ void text_measure(s32 *textheight, s32 *textwidth, char *text, struct fontchar *
 		*textwidth = longest;
 	}
 }
-#endif
 
 #if VERSION == VERSION_JPN_FINAL
 bool text_stub(s32 arg0, s32 arg1)
