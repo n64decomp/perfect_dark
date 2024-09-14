@@ -5206,9 +5206,9 @@ struct light {
 	/*0x0a*/ struct vec3s16 bbox[4];
 };
 
-struct var80061420 {
-	u8 *unk00;
-	u8 *unk04;
+struct transfertableentry {
+	u8 *horizontal;
+	u8 *vertical;
 };
 
 struct menurendercontext {

@@ -29,55 +29,29 @@
 #include "data.h"
 #include "types.h"
 
-const char var7f1a78e0[] = "LIGHTS : Hit occured on light %d in room %d\n";
-const char var7f1a7910[] = "L2(%d) -> ";
-const char var7f1a791c[] = "L2 -> BUILD LIGHTS TRANSFER TABLE - Starting\n";
-const char var7f1a794c[] = "L2(%d) -> ";
-const char var7f1a7958[] = "L2_BuildTransferTables -> Found %d portals\n";
-const char var7f1a7984[] = "L2(%d) -> ";
-const char var7f1a7990[] = "L2_BuildTransferTables -> Found %d rooms\n";
-const char var7f1a79bc[] = "L2(%d) -> ";
-const char var7f1a79c8[] = "L2_BuildTransferTables -> Alloc %u bytes of free memory\n";
-const char var7f1a7a04[] = "L2(%d) -> ";
-const char var7f1a7a10[] = "L2_BuildTransferTables -> Alloc %u bytes for scratch\n";
-const char var7f1a7a48[] = "L2(%d) -> ";
-const char var7f1a7a54[] = "L2 -> Building room based light transmission table\n";
-const char var7f1a7a88[] = "L2(%d) -> ";
-const char var7f1a7a94[] = "L2 -> Finished\n";
-const char var7f1a7aa4[] = "L2(%d) -> ";
-const char var7f1a7ab0[] = "L2 -> Generating room parameters from BG data\n";
-const char var7f1a7ae0[] = "L2(%d) -> ";
-const char var7f1a7aec[] = "L2 -> Light2_ProcessBgParams room %d does not have a 3D bounding box => Room Volume is bodged!\n";
-const char var7f1a7b4c[] = "L2(%d) -> ";
-const char var7f1a7b58[] = "%s%sL2 -> Surface area bodged for room %d - using %f\n";
-const char var7f1a7b90[] = "";
-const char var7f1a7b94[] = "";
-const char var7f1a7b98[] = "L2(%d) -> ";
-const char var7f1a7ba4[] = "L2 -> Finished\n";
-
 s32 *var8009cad0;
 u32 var8009cad4;
-s32 *var8009cad8;
+bool *g_PortalsNotGlassTmp;
 s32 g_NumPortals;
-s32 var8009cae0;
-s32 var8009cae4;
-f32 (*var8009cae8)(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2);
-u8 var8009caec;
-u8 var8009caed;
-u8 var8009caee;
-u8 var8009caef;
-u8 var8009caf0;
+s32 g_NumRooms;
+s32 g_RecursionLimit;
+f32 (*g_CalculateTransferHandler)(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2);
+u8 g_GooglesRoomBrightness;
+u8 g_GogglesObjColourIntensity;
+u8 g_GogglesObjColourAlpha;
+u8 g_GogglesChrColourIntensity;
+u8 g_GogglesChrColourAlpha;
 
-struct var80061420 *var80061420 = NULL;
-u32 var80061424 = 0x00000000;
-struct coord *var80061428 = NULL;
-u16 **var8006142c = NULL;
-u16 **var80061430 = NULL;
-f32 *var80061434 = NULL;
-bool *var80061438 = NULL;
-f32 var8006143c = 50;
-u32 var80061440 = 0x00000000;
-u32 var80061444 = 1;
+struct transfertableentry *g_LightTransferLookup = NULL;
+bool var80061424 = false;
+struct coord *g_PortalPositionsTmp = NULL;
+u16 **g_PortalDistTableTmp = NULL;
+u16 **g_PortalDistLookup = NULL;
+f32 *g_RoomTransferTmp = NULL;
+bool *g_PortalsOpenTmp = NULL;
+f32 g_MinTransferAmount = 50;
+s32 g_PortalTransmissionCount = 0;
+bool g_PortalDistTableEnabled = true;
 u32 var80061448 = 0x00000000;
 bool g_IsSwitchingGoggles = false;
 u32 var80061450 = 0x00000000;
@@ -87,23 +61,23 @@ u32 var80061454 = 0xffffffff;
 s32 g_LightsPrevTickMode = 0;
 #endif
 
-void func0f00215c(u8 *arg0);
+void l2_build_transfer_table(u8 *arg0);
 void lights_calculate_room_dimensions(void);
-void func0f00259c(s32 roomnum);
-void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum);
+void l2_build_transfer_for_room(s32 roomnum);
+void l2_build_transfer_through_portal(s32 roomnum, f32 arg1, s32 recursioncount, s32 portalnum);
 void rooms_tick_lighting(void);
 void room_flash_local_lighting(s32 roomnum, s32 increment, s32 limit);
-void func0f004c6c(void);
-void func0f00505c(void);
-void func0f005bb0(void);
+void l3_build_portal_dist_lookup(void);
+void l3_build_portal_dist_table(void);
+void lights_update_goggle_sounds(void);
 
-u32 func0f000920(s32 portalnum1, s32 portalnum2)
+u32 portal_get_acoustic_distance_to_portal(s32 portalnum1, s32 portalnum2)
 {
 	if (portalnum1 != portalnum2) {
 		s32 upper = (portalnum1 > portalnum2) ? portalnum1 : portalnum2;
 		s32 lower = (portalnum1 < portalnum2) ? portalnum1 : portalnum2;
 
-		return var80061430[upper][lower];
+		return g_PortalDistLookup[upper][lower];
 	}
 
 	return 0;
@@ -134,7 +108,7 @@ u8 room_get_final_brightness_for_player(s32 roomnum)
 	s32 brightness = g_Rooms[roomnum].br_flash;
 
 	if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-		brightness += var8009caec;
+		brightness += g_GooglesRoomBrightness;
 	} else {
 		brightness += g_Rooms[roomnum].br_settled_regional;
 	}
@@ -150,7 +124,7 @@ u8 room_get_final_brightness_for_player(s32 roomnum)
 	return brightness;
 }
 
-u8 func0f000b18(u32 arg0)
+u8 room_get_max_possible_brightness(s32 arg0)
 {
 	return 255;
 }
@@ -160,7 +134,7 @@ u8 room_get_settled_regional_brightness_for_player(s32 roomnum)
 	u32 brightness;
 
 	if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
-		return var8009caec;
+		return g_GooglesRoomBrightness;
 	}
 
 	if (g_Rooms[roomnum].flags & ROOMFLAG_BRIGHTNESS_CALCED) {
@@ -294,13 +268,19 @@ void light_get_direction(s32 roomnum, u32 lightnum, struct coord *dir)
 	dir->z = light->dirz;
 }
 
-void func0f0010b4(void)
+/**
+ * Unused function.
+ *
+ * The use of var80061424 makes sense if the function was able to call itself
+ * recursively and skip a part when recursing.
+ */
+void lights_do_nothing_useful(void)
 {
 	if (var80061424) {
-		var80061424 = 0;
+		var80061424 = false;
 	}
 
-	var80061424 = 1;
+	var80061424 = true;
 }
 
 void room_set_defaults(struct room *room)
@@ -559,17 +539,38 @@ void room_set_light_broken(s32 roomnum, s32 lightnum)
 	light->healthy = false;
 	light->on = false;
 
+	osSyncPrintf("LIGHTS : Hit occured on light %d in room %d\n", lightnum, roomnum);
+
 	g_Rooms[roomnum].flags |= ROOMFLAG_LIGHTS_DIRTY;
 }
 
-void lights_reset(void)
+/**
+ * lights_reset_3 is called after BG is loaded, after lights_reset_2 and after
+ * portals have been reset.
+ *
+ * It handles building the portal distance lookup table. This is a table of
+ * distances between every combination of portals, where the distance are routed
+ * through rooms and portals.
+ */
+void lights_reset_3(void)
 {
-	if (var80061444) {
-		func0f004c6c();
+	if (g_PortalDistTableEnabled) {
+		l3_build_portal_dist_lookup();
 	}
 }
 
-void func0f001c0c(void)
+/**
+ * lights_reset_2 is called after BG is loaded, but before portals have been reset.
+ *
+ * The purpose of this function is to allocate and populate g_LightTransferLookup,
+ * which is a table of how much each room emits light into another rooms,
+ * so that when lights are shot out or turned off the nearby rooms can be
+ * darked appropriately. This is all based on the volume and surface area of
+ * each room, as well as the size of the portals (doorways) between each room.
+ *
+ * To calculate this, temporary tables are allocated out the z-buffer.
+ */
+void lights_reset_2(void)
 {
 	s32 i;
 	s32 sp68;
@@ -585,26 +586,36 @@ void func0f001c0c(void)
 	s32 j;
 	s32 stack[4];
 
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2 -> BUILD LIGHTS TRANSFER TABLE - Starting\n");
+
 	osGetCount();
 
-	var80061440 = 0;
+	g_PortalTransmissionCount = 0;
 
 	lights_calculate_room_dimensions();
 
 	if (1);
 	for (g_NumPortals = 0; g_BgPortals[g_NumPortals].verticesoffset != 0; g_NumPortals++);
 
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2_BuildTransferTables -> Found %d portals\n", g_NumPortals);
+
 	if (g_NumPortals == 0) {
 		return;
 	}
 
-	table1size = align16(g_Vars.roomcount * 4);
-	table2size = align16(g_NumPortals * 4);
-	table3size = align16(g_Vars.roomcount * 4);
-	table4size = align16((u32)var8009cae0 * (u32)var8009cae0);
-	sp68 = align16(g_Vars.roomcount * 8);
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2_BuildTransferTables -> Found %d rooms\n", g_NumRooms);
 
-	memp_get_stage_free();
+	table1size = align16(sizeof(g_RoomTransferTmp[0]) * g_Vars.roomcount);
+	table2size = align16(sizeof(g_PortalsOpenTmp[0]) * g_NumPortals);
+	table3size = align16(sizeof(sp44[0]) * g_Vars.roomcount);
+	table4size = align16(sizeof(sp48[0]) * g_NumRooms * g_NumRooms);
+	sp68 = align16(sizeof(g_LightTransferLookup[0]) * g_Vars.roomcount);
+
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2_BuildTransferTables -> Alloc %u bytes of free memory\n", memp_get_stage_free());
 
 	/**
 	 * This lighting initialisation needs to build temporary tables in memory.
@@ -620,13 +631,13 @@ void func0f001c0c(void)
 	 */
 	ptr = zbuf_get_allocation();
 
-	var80061434 = (f32 *)ptr;
+	g_RoomTransferTmp = (f32 *)ptr;
 	ptr += table1size;
 
-	var80061438 = (bool *)ptr;
+	g_PortalsOpenTmp = (bool *)ptr;
 	ptr += table2size;
 
-	sp44 = (s32 *)(ptr);
+	sp44 = (s32 *)ptr;
 	ptr += table3size;
 
 	sp48 = (u8 *)ptr;
@@ -634,26 +645,33 @@ void func0f001c0c(void)
 
 	s5 = (u8 *)ptr;
 
-	var80061420 = memp_alloc(sp68, MEMPOOL_STAGE);
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2_BuildTransferTables -> Alloc %u bytes for scratch\n", sp68);
+
+	g_LightTransferLookup = memp_alloc(sp68, MEMPOOL_STAGE);
 
 	for (i = 0; i < g_NumPortals; i++) {
 		if (PORTAL_IS_CLOSED(i)) {
-			var80061438[i] = false;
+			g_PortalsOpenTmp[i] = false;
 		} else {
-			var80061438[i] = true;
+			g_PortalsOpenTmp[i] = true;
 			if (1);
 		}
 	}
 
 	if (g_Vars.stagenum == STAGE_EXTRACTION || g_Vars.stagenum == STAGE_DEFECTION) {
-		var80061438[98] = false;
-		var80061438[100] = false;
+		g_PortalsOpenTmp[98] = false;
+		g_PortalsOpenTmp[100] = false;
 	}
 
-	func0f00215c(sp48);
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2 -> Building room based light transmission table\n");
 
+	l2_build_transfer_table(sp48);
+
+	// Do horizontal stuff
 	for (i = 1, table3size = 0; i < g_Vars.roomcount; i++) {
-		sp44[i] = func0f177a54((void *)(i * var8009cae0 + sp48), g_Vars.roomcount, (void *)(&s5[i * var8009cae0]), 1);
+		sp44[i] = func0f177a54((void *)(i * g_NumRooms + sp48), g_Vars.roomcount, (void *)(&s5[i * g_NumRooms]), 1);
 		table3size += align4(sp44[i]);
 	}
 
@@ -666,35 +684,36 @@ void func0f001c0c(void)
 	for (i = 1; i < g_Vars.roomcount; i++) {
 		s32 size = align4(sp44[i]);
 
-		var80061420[i].unk00 = ptr;
+		g_LightTransferLookup[i].horizontal = ptr;
 
 		ptr += size;
 		sp54 += size;
 
 		for (j = 0; j < sp44[i]; j++) {
-			var80061420[i].unk00[j] = *(&s5[i * var8009cae0] + j);
+			g_LightTransferLookup[i].horizontal[j] = *(&s5[i * g_NumRooms] + j);
 		}
 	}
 
 	table3size = 0;
 
+	// Do vertical stuff
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		sp44[i] = func0f177a54((void *)(sp48 + i), g_Vars.roomcount, (void *)(&s5[i * var8009cae0]), var8009cae0);
+		sp44[i] = func0f177a54((void *)(sp48 + i), g_Vars.roomcount, (void *)(&s5[i * g_NumRooms]), g_NumRooms);
 
 		table3size += align4(sp44[i]);
 	}
 
 	ptr = memp_alloc(align16(table3size), MEMPOOL_STAGE);
 
-	align16(table3size);
+	sp68 += align16(table3size);
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		var80061420[i].unk04 = ptr;
+		g_LightTransferLookup[i].vertical = ptr;
 
 		ptr += align4(sp44[i]);
 
 		for (j = 0; j < sp44[i]; j++) {
-			var80061420[i].unk04[j] = *(&s5[i * var8009cae0] + j);
+			g_LightTransferLookup[i].vertical[j] = *(&s5[i * g_NumRooms] + j);
 		}
 	}
 
@@ -710,51 +729,73 @@ void func0f001c0c(void)
 
 	osGetCount();
 
-	if (sp68);
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2 -> Finished\n");
 }
 
-f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2);
+f32 l2_calculate_room_transfer(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2);
 
-void func0f00215c(u8 *arg0)
+/**
+ * dst is effectively a square grid with dimensions roomcount * roomcount.
+ *
+ * For each room, calculate how much that room transfers light into every other
+ * room and write this to dst.
+ *
+ * Where the transfer between rooms A -> B and B -> A are different,
+ * use the smallest of the two.
+ *
+ * The resulting grid should be diagonally mirrored.
+ */
+void l2_build_transfer_table(u8 *dst)
 {
 	s32 i;
 	s32 j;
 
-	var8009cae8 = &func0f002334;
+	g_CalculateTransferHandler = l2_calculate_room_transfer;
 
-	var8006143c = 50.0f;
-	var8009cae4 = 20;
-	var80061440 = 0;
+	g_MinTransferAmount = 50;
+	g_RecursionLimit = 20;
+	g_PortalTransmissionCount = 0;
 
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		u8 *ptr = &arg0[i * var8009cae0];
+		u8 *dstptr = &dst[i * g_NumRooms];
 
-		func0f00259c(i);
+		l2_build_transfer_for_room(i); // populates g_RoomTransferTmp
 
 		for (j = 0; j < 1; j++) {
-			ptr[j] = 0;
+			dstptr[j] = 0;
 		}
 
 		for (j = 1; j < g_Vars.roomcount; j++) {
-			if (var80061434[i] < var80061434[j]) {
-				var80061434[j] = var80061434[i];
+			if (g_RoomTransferTmp[i] < g_RoomTransferTmp[j]) {
+				g_RoomTransferTmp[j] = g_RoomTransferTmp[i];
 			}
 
-			ptr[j] = var80061434[j];
+			dstptr[j] = g_RoomTransferTmp[j];
 		}
 	}
 }
 
-f32 func0f002334(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2)
+/**
+ * Both portalnums are portals for the given room.
+ *
+ * Light is coming into the room through portal 1, is being absorbed
+ * evenly by the room's surface area and is exiting via portal 2.
+ *
+ * Calculate the fraction of light being transferred out.
+ * This is portal 2's surface area as a percentage of the total surface area
+ * excluding portal 1's surface area.
+ */
+f32 l2_calculate_room_transfer(s32 roomnum, f32 mult, s32 portalnum1, s32 portalnum2)
 {
-	f32 surfacearea = 0;
+	f32 portal1surfacearea = 0;
 	f32 result;
 
 	if (portalnum1 != -1) {
-		surfacearea = bg_calculate_portal_surface_area(portalnum1);
+		portal1surfacearea = bg_calculate_portal_surface_area(portalnum1);
 	}
 
-	result = (bg_calculate_portal_surface_area(portalnum2) / (g_Rooms[roomnum].surfacearea - surfacearea)) * mult;
+	result = (bg_calculate_portal_surface_area(portalnum2) / (g_Rooms[roomnum].surfacearea - portal1surfacearea)) * mult;
 	return result;
 }
 
@@ -762,6 +803,9 @@ void lights_calculate_room_dimensions(void)
 {
 	s32 i;
 	s32 j;
+
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2 -> Generating room parameters from BG data\n");
 
 	for (i = 0; i < g_Vars.roomcount; i++) {
 		bool valid = true;
@@ -775,6 +819,8 @@ void lights_calculate_room_dimensions(void)
 			if (diff > 0.0f) {
 				g_Rooms[i].volume *= (g_Rooms[i].bbmax[j] - g_Rooms[i].bbmin[j]) / 100.0f;
 			} else {
+				osSyncPrintf("L2(%d) -> ", __LINE__);
+				osSyncPrintf("L2 -> Light2_ProcessBgParams room %d does not have a 3D bounding box => Room Volume is bodged!\n", i);
 				valid = false;
 			}
 		}
@@ -790,76 +836,92 @@ void lights_calculate_room_dimensions(void)
 			f32 ydiff = g_Rooms[i].bbmax[1] - g_Rooms[i].bbmin[1];
 			f32 zdiff = g_Rooms[i].bbmax[2] - g_Rooms[i].bbmin[2];
 
-			if (!(xdiff > 0)) {
-				xdiff = -xdiff;
-			}
-
-			if (!(ydiff > 0)) {
-				ydiff = -ydiff;
-			}
-
-			if (!(zdiff > 0)) {
-				zdiff = -zdiff;
-			}
+			xdiff = xdiff > 0 ? xdiff : -xdiff;
+			ydiff = ydiff > 0 ? ydiff : -ydiff;
+			zdiff = zdiff > 0 ? zdiff : -zdiff;
 
 			g_Rooms[i].surfacearea = 2.0f * (xdiff * ydiff + xdiff * zdiff + ydiff * zdiff);
 		} else {
 			g_Rooms[i].surfacearea = 20000000.0f;
+			osSyncPrintf("L2(%d) -> ", __LINE__);
+			osSyncPrintf("%s%sL2 -> Surface area bodged for room %d - using %f\n", "", "", i, g_Rooms[i].surfacearea);
 		}
 	}
+
+	osSyncPrintf("L2(%d) -> ", __LINE__);
+	osSyncPrintf("L2 -> Finished\n");
 }
 
-void func0f00259c(s32 roomnum)
+/**
+ * Given roomnum, calculate how much light can be transferred from this room
+ * into every other room and write the amounts to g_RoomTransferTmp.
+ *
+ * g_RoomTransferTmp is a pointer to an array with {roomcount} elements.
+ */
+void l2_build_transfer_for_room(s32 roomnum)
 {
 	s32 i;
-	f32 sp58;
-	f32 f20 = 0.0f;
+	f32 wallsurfaceareafrac;
+	f32 portalsurfacearea = 0.0f;
 
+	// Reset the array
 	for (i = 0; i < g_Vars.roomcount; i++) {
-		var80061434[i] = 0.0f;
+		g_RoomTransferTmp[i] = 0.0f;
 	}
 
-	var80061434[roomnum] = sqrtf(g_Rooms[roomnum].volume) * 255.0f;
+	// Write the light value into the given room's slot
+	g_RoomTransferTmp[roomnum] = sqrtf(g_Rooms[roomnum].volume) * 255.0f;
 	if (1);
 
+	// Iterate portals recursively and calculate the transfers into the other slots.
+	// This updates other slots in g_RoomTransferTmp.
 	if (g_Rooms[roomnum].numportals != 0) {
-		func0f002844(roomnum, var80061434[roomnum], 0, -1);
+		l2_build_transfer_through_portal(roomnum, g_RoomTransferTmp[roomnum], 0, -1);
 		if (1);
 		if (1);
 	}
 
+	// Calculate how much of the given room's surface area is walls or other
+	// solid surfaces, as opposed to portals which let light out.
 	for (i = 0; i < g_Rooms[roomnum].numportals; i++) {
-		f20 += bg_calculate_portal_surface_area(g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i]);
+		portalsurfacearea += bg_calculate_portal_surface_area(g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i]);
 	}
 
-	sp58 = (g_Rooms[roomnum].surfacearea - f20) / g_Rooms[roomnum].surfacearea;
+	wallsurfaceareafrac = (g_Rooms[roomnum].surfacearea - portalsurfacearea) / g_Rooms[roomnum].surfacearea;
 
+	// Presumably this is normalising each room's transfer values based on the room's volume
 	for (i = 1; i < g_Vars.roomcount; i++) {
-		var80061434[i] *= 3.0f / sqrtf(g_Rooms[i].volume);
+		g_RoomTransferTmp[i] *= 3.0f / sqrtf(g_Rooms[i].volume);
 	}
 
-	if (var80061434[roomnum] > 255.0f) {
-		var80061434[roomnum] = 255.0f;
+	if (g_RoomTransferTmp[roomnum] > 255.0f) {
+		g_RoomTransferTmp[roomnum] = 255.0f;
 	}
 
-	if (sp58 < 0.1f) {
+	// Edge case: If the room is almost entirely made up of portals, fudge some values.
+	// Maybe to avoid a divide by zero error somewhere?
+	if (wallsurfaceareafrac < 0.1f) {
 		g_Rooms[roomnum].br_light_min = g_Rooms[roomnum].br_light_max >> 1;
-		var80061434[roomnum] = g_Rooms[roomnum].br_light_max;
+		g_RoomTransferTmp[roomnum] = g_Rooms[roomnum].br_light_max;
 	}
 }
 
-void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum)
+/**
+ * Recursively iterate each room's neighbours and calculate how much light can
+ * be transferred into each. Write results to g_RoomTransferTmp.
+ */
+void l2_build_transfer_through_portal(s32 roomnum, f32 mult, s32 recursioncount, s32 portalnum)
 {
 	s32 i;
 	s32 otherroomnum = -1;
 
-	var80061440++;
+	g_PortalTransmissionCount++;
 
 	if (portalnum != -1) {
 		if (roomnum == g_BgPortals[portalnum].roomnum1) {
-			otherroomnum = (s32) g_BgPortals[portalnum].roomnum2;
+			otherroomnum = g_BgPortals[portalnum].roomnum2;
 		} else {
-			otherroomnum = (s32) g_BgPortals[portalnum].roomnum1;
+			otherroomnum = g_BgPortals[portalnum].roomnum1;
 		}
 	}
 
@@ -867,7 +929,7 @@ void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum)
 		s32 iterportalnum = g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + i];
 		s32 iterroomnum;
 
-		if (var80061438[iterportalnum]) {
+		if (g_PortalsOpenTmp[iterportalnum]) {
 			if (roomnum == g_BgPortals[iterportalnum].roomnum1) {
 				iterroomnum = g_BgPortals[iterportalnum].roomnum2;
 			} else {
@@ -875,28 +937,28 @@ void func0f002844(s32 roomnum, f32 arg1, s32 arg2, s32 portalnum)
 			}
 
 			if (iterroomnum != otherroomnum) {
-				f32 f0 = var8009cae8(roomnum, arg1, portalnum, iterportalnum);
+				f32 amount = g_CalculateTransferHandler(roomnum, mult, portalnum, iterportalnum);
 
-				if (f0 > var8006143c && arg2 < var8009cae4) {
-					var80061434[roomnum] -= f0;
-					var80061434[iterroomnum] += f0;
+				if (amount > g_MinTransferAmount && recursioncount < g_RecursionLimit) {
+					g_RoomTransferTmp[roomnum] -= amount;
+					g_RoomTransferTmp[iterroomnum] += amount;
 
-					if (var80061434[roomnum] < 0.0f) {
-						var80061434[roomnum] = 0.0f;
+					if (g_RoomTransferTmp[roomnum] < 0.0f) {
+						g_RoomTransferTmp[roomnum] = 0.0f;
 					}
 
-					func0f002844(iterroomnum, f0, arg2 + 1, iterportalnum);
+					l2_build_transfer_through_portal(iterroomnum, amount, recursioncount + 1, iterportalnum);
 				}
 			}
 		}
 	}
 }
 
-void func0f002a98(void)
+void lights_reset_1(void)
 {
 	s32 i;
 
-	var8009cae0 = align4(g_Vars.roomcount);
+	g_NumRooms = align4(g_Vars.roomcount);
 #if VERSION >= VERSION_NTSC_1_0
 	g_LightsPrevTickMode = 0;
 #endif
@@ -907,10 +969,10 @@ void func0f002a98(void)
 		room_init_lights(i);
 	}
 
-	var80061420 = NULL;
+	g_LightTransferLookup = NULL;
 
 	if (IS4MB()) {
-		var80061444 = 0;
+		g_PortalDistTableEnabled = false;
 	}
 }
 
@@ -1217,7 +1279,7 @@ void rooms_tick_lighting(void)
 	}
 #endif
 
-	if (var80061420 == NULL) {
+	if (g_LightTransferLookup == NULL) {
 		return;
 	}
 
@@ -1350,18 +1412,18 @@ void rooms_tick_lighting(void)
 		if (g_Rooms[i].br_flash != 0) {
 			s32 increment = g_Vars.lvupdate240 * 2;
 
-			if (var80061420 != NULL) {
+			if (g_LightTransferLookup != NULL) {
 				s32 spa0 = 0;
 				s32 sp9c = 0;
 
-				s32 ret = func0f177c8c(var80061420[i].unk04, &spa0, &sp9c);
+				s32 ret = func0f177c8c(g_LightTransferLookup[i].vertical, &spa0, &sp9c);
 
 				while (ret != -1) {
 					if (ret != 0) {
 						g_Rooms[sp9c].flags |= ROOMFLAG_BRIGHTNESS_DIRTY_TEMP;
 					}
 
-					ret = func0f177c8c(var80061420[i].unk04, &spa0, &sp9c);
+					ret = func0f177c8c(g_LightTransferLookup[i].vertical, &spa0, &sp9c);
 				}
 			}
 
@@ -1404,7 +1466,7 @@ void rooms_tick_lighting(void)
 					s32 sp90 = 0;
 					s32 sp8c = 0;
 
-					s32 ret = func0f177c8c(var80061420[i].unk00, &sp90, &sp8c);
+					s32 ret = func0f177c8c(g_LightTransferLookup[i].horizontal, &sp90, &sp8c);
 
 					while (ret != -1) {
 						if (sp8c != 0) {
@@ -1417,7 +1479,7 @@ void rooms_tick_lighting(void)
 							sum += add;
 						}
 
-						ret = func0f177c8c(var80061420[i].unk00, &sp90, &sp8c);
+						ret = func0f177c8c(g_LightTransferLookup[i].horizontal, &sp90, &sp8c);
 					}
 
 					if (sum > 255) {
@@ -1485,14 +1547,14 @@ void lights_tick(void)
 	struct hand *hand1 = &g_Vars.currentplayer->hands[0];
 	struct hand *hand2 = &g_Vars.currentplayer->hands[1];
 
-	func0f005bb0();
+	lights_update_goggle_sounds();
 
 	if (hand1->flashon || hand2->flashon) {
 		room_flash_lighting(g_Vars.currentplayer->prop->rooms[0], 64, 80);
 	}
 }
 
-void func0f004384(void)
+void lights_stub(void)
 {
 	// empty
 }
@@ -1504,12 +1566,12 @@ void func0f004384(void)
  */
 void room_flash_lighting(s32 roomnum, s32 start, s32 limit)
 {
-	if (var80061420 && !(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
+	if (g_LightTransferLookup && !(g_Rooms[roomnum].flags & ROOMFLAG_OUTDOORS ? 1 : 0)) {
 		s32 value;
 		s32 sp78 = 0;
 		s32 neighbournum = 0;
 
-		value = func0f177c8c(var80061420[roomnum].unk04, &sp78, &neighbournum);
+		value = func0f177c8c(g_LightTransferLookup[roomnum].vertical, &sp78, &neighbournum);
 
 		while (value != -1) {
 			f32 increment = value * (1.0f / 255.0f) * start * 5.0f;
@@ -1529,7 +1591,7 @@ void room_flash_lighting(s32 roomnum, s32 start, s32 limit)
 				room_flash_local_lighting(neighbournum, increment, limit);
 			}
 
-			value = func0f177c8c(var80061420[roomnum].unk04, &sp78, &neighbournum);
+			value = func0f177c8c(g_LightTransferLookup[roomnum].vertical, &sp78, &neighbournum);
 		}
 	}
 }
@@ -1692,7 +1754,7 @@ void room_highlight(s32 roomnum)
 	}
 }
 
-void func0f004c6c(void)
+void l3_build_portal_dist_lookup(void)
 {
 	s32 sp44;
 	s32 sp40;
@@ -1705,30 +1767,30 @@ void func0f004c6c(void)
 	u8 *ptr;
 	u8 *backupptr;
 
-	sp44 = align16(0x2000);
-	sp40 = align16(g_NumPortals * 4);
-	sp3c = align16(g_NumPortals * 0xc);
-	sp38 = align16(g_NumPortals * 4);
-	sp34 = align16(g_NumPortals * 2);
+	sp44 = align16(MAX_PORTALS * sizeof(var8009cad0[0]));
+	sp40 = align16(g_NumPortals * sizeof(g_PortalsNotGlassTmp[0]));
+	sp3c = align16(g_NumPortals * sizeof(g_PortalPositionsTmp[0]));
+	sp38 = align16(g_NumPortals * sizeof(g_PortalDistLookup[0]));
+	sp34 = align16(g_NumPortals * sizeof(g_PortalDistLookup[0][0]));
 
 	for (i = 0, s4 = sp38; i < g_NumPortals; i++) {
 		if (i != 0) {
-			s4 += i * 2;
+			s4 += i * sizeof(g_PortalDistLookup[0][0]);
 		}
 	}
 
 	s4 = align16(s4);
 	ptr = memp_alloc(align16(s4), MEMPOOL_STAGE);
-	var80061430 = (void *)ptr;
+	g_PortalDistLookup = (void *)ptr;
 
 	ptr += sp38;
 
 	for (i = 0; i < g_NumPortals; i++) {
 		if (i != 0) {
-			var80061430[i] = (void *)ptr;
-			ptr += i * 2;
+			g_PortalDistLookup[i] = (void *)ptr;
+			ptr += i * sizeof(g_PortalDistLookup[0][0]);
 		} else {
-			var80061430[i] = 0;
+			g_PortalDistLookup[i] = NULL;
 		}
 	}
 
@@ -1744,60 +1806,60 @@ void func0f004c6c(void)
 	var8009cad0 = (void *)ptr;
 	ptr += sp44;
 
-	var8009cad8 = (void *)ptr;
+	g_PortalsNotGlassTmp = (void *)ptr;
 	ptr += sp40;
 
-	var8006142c = (void *)ptr;
+	g_PortalDistTableTmp = (void *)ptr;
 	ptr += sp38;
 
 	backupptr = ptr;
 
 	ptr += g_NumPortals * sp34;
-	var80061428 = (void *)ptr;
+	g_PortalPositionsTmp = (void *)ptr;
 	ptr = backupptr;
 
 	s4 = sp38;
 
 	for (i = 0; i < g_NumPortals; i++) {
-		var8006142c[i] = (void *)ptr;
+		g_PortalDistTableTmp[i] = (void *)ptr;
 		ptr += sp34;
 		s4 += sp34;
 
 		for (j = 0; j < g_NumPortals; j++) {
-			var8006142c[i][j] = 0x8009;
+			g_PortalDistTableTmp[i][j] = 0x8009;
 		}
 	}
 
 	for (i = 0; i < g_NumPortals; i++) {
-		var8009cad8[i] = portal_get_xlu_frac(i) > 0.5f;
+		g_PortalsNotGlassTmp[i] = portal_get_xlu_frac(i) > 0.5f;
 
-		portal_get_avg_vertex_pos(i, &var80061428[i]);
+		portal_get_centre(i, &g_PortalPositionsTmp[i]);
 	}
 
 	if (g_Vars.stagenum == STAGE_INVESTIGATION) {
-		var8009cad8[0] = 1;
+		g_PortalsNotGlassTmp[0] = true;
 	}
 
 	for (i = 0; i < g_NumPortals; i++) {
-		var8006142c[i][i] = 0;
+		g_PortalDistTableTmp[i][i] = 0;
 	}
 
-	func0f00505c();
+	l3_build_portal_dist_table();
 
 	for (i = 0; i < g_NumPortals; i++) {
 		for (j = 0; j < i; j++) {
-			u16 a = var8006142c[i][j];
-			u16 b = var8006142c[j][i];
+			u16 a = g_PortalDistTableTmp[i][j];
+			u16 b = g_PortalDistTableTmp[j][i];
 
-			var80061430[i][j] = a < b ? a : b;
+			g_PortalDistLookup[i][j] = a < b ? a : b;
 		}
 	}
 }
 
-void func0f00505c(void)
+void l3_build_portal_dist_table(void)
 {
-	s32 j;
-	s32 sp78;
+	u32 j;
+	u32 sp78;
 	s32 i;
 	s32 k;
 	s32 portalnum;
@@ -1808,7 +1870,7 @@ void func0f00505c(void)
 	u32 stack;
 
 	for (i = 0; i < g_NumPortals; i++) {
-		for (j = 0, var8009cad0[0] = i, sp78 = 1; j != sp78; j = (j + 1) & 0x7ff) {
+		for (j = 0, var8009cad0[0] = i, sp78 = 1; j != sp78; j = (j + 1) % 0x800) {
 			portalnum = var8009cad0[j];
 
 			for (k = 0; k < 2; k++) {
@@ -1821,24 +1883,25 @@ void func0f00505c(void)
 				for (l = 0; l < g_Rooms[roomnum].numportals; l++) {
 					portalnum2 = g_RoomPortals[g_Rooms[roomnum].roomportallistoffset + l];
 
-					if (portalnum2 != portalnum && var8009cad8[portalnum2] != 0) {
-						if (var8006142c[portalnum][portalnum2] >= 0x8000) {
-							f32 xdiff = var80061428[portalnum].x - var80061428[portalnum2].x;
-							f32 ydiff = var80061428[portalnum].y - var80061428[portalnum2].y;
-							f32 zdiff = var80061428[portalnum].z - var80061428[portalnum2].z;
+					if (portalnum2 != portalnum && g_PortalsNotGlassTmp[portalnum2]) {
+						// If we haven't visited this slot yet
+						if (g_PortalDistTableTmp[portalnum][portalnum2] >= 0x8000) {
+							f32 xdiff = g_PortalPositionsTmp[portalnum].x - g_PortalPositionsTmp[portalnum2].x;
+							f32 ydiff = g_PortalPositionsTmp[portalnum].y - g_PortalPositionsTmp[portalnum2].y;
+							f32 zdiff = g_PortalPositionsTmp[portalnum].z - g_PortalPositionsTmp[portalnum2].z;
 
 							f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 
-							var8006142c[portalnum][portalnum2] = dist;
-							var8006142c[portalnum2][portalnum] = dist;
+							g_PortalDistTableTmp[portalnum][portalnum2] = dist;
+							g_PortalDistTableTmp[portalnum2][portalnum] = dist;
 						}
 
-						dist = (var8006142c[i][portalnum] + var8006142c[portalnum2][portalnum]);
+						dist = g_PortalDistTableTmp[i][portalnum] + g_PortalDistTableTmp[portalnum2][portalnum];
 
-						if (dist <= 5800 && ((i == portalnum) != 0 || dist < var8006142c[i][portalnum2])) {
-							var8006142c[i][portalnum2] = dist;
+						if (dist <= 5800 && ((i == portalnum) != 0 || dist < g_PortalDistTableTmp[i][portalnum2])) {
+							g_PortalDistTableTmp[i][portalnum2] = dist;
 							var8009cad0[sp78] = portalnum2;
-							sp78 = (sp78 + 1) & 0x7ff;
+							sp78 = (sp78 + 1) % 0x800;
 						}
 					}
 				}
@@ -1847,80 +1910,88 @@ void func0f00505c(void)
 	}
 }
 
-f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2, struct coord *pos2, s32 portalnum2, f32 *arg6)
+/**
+ * Find the distance between pos1 and pos2 via portals.
+ *
+ * resultarg can be a pointer to a float containing the max distance to check,
+ * or NULL if there is no realistic limit.
+ *
+ * The calculated distance is returned, and written to the pointer argument if provided.
+ */
+f32 lights_find_distance_through_portals(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2, struct coord *pos2, s32 portalnum2, f32 *resultarg)
 {
-	f32 sp6c;
-	f32 *sp68;
-	f32 sp64;
+	f32 resultstatic;
+	f32 *resultptr;
+	f32 limit;
 	f32 xdiff;
 	f32 ydiff;
 	f32 zdiff;
 
-	sp6c = 32767.0f;
-	sp68 = arg6 ? arg6 : &sp6c;
-	sp64 = *sp68;
+	resultstatic = 32767.0f;
+	resultptr = resultarg ? resultarg : &resultstatic;
+	limit = *resultptr;
 
 	xdiff = pos1->x - pos2->x;
-	xdiff = xdiff > 0.0f ? xdiff : -xdiff;
+	xdiff = ABSF(xdiff);
 
-	if (xdiff < sp64) {
+	if (xdiff < limit) {
 		zdiff = pos1->z - pos2->z;
-		zdiff = zdiff > 0.0f ? zdiff : -zdiff;
+		zdiff = ABSF(zdiff);
 
-		if (zdiff < sp64) {
+		if (zdiff < limit) {
 			ydiff = pos1->y - pos2->y;
-			ydiff = ydiff > 0.0f ? ydiff : -ydiff;
+			ydiff = ABSF(ydiff);
 
-			if (ydiff < sp64) {
+			if (ydiff < limit) {
 				f32 dist = sqrtf(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff);
 
-				if (dist < sp64) {
+				if (dist < limit) {
 					if (roomnum1 == roomnum2 || portalnum1 == portalnum2) {
-						if (dist < *sp68) {
-							*sp68 = dist;
+						if (dist < *resultptr) {
+							*resultptr = dist;
 						}
 					} else {
-						f32 sp50 = func0f000920(portalnum1, portalnum2);
+						f32 portalsdist = portal_get_acoustic_distance_to_portal(portalnum1, portalnum2);
 
-						if (sp50 < sp64) {
-							struct coord sp44;
+						if (portalsdist < limit) {
+							struct coord portalpos;
 							f32 xdiff2;
 							f32 zdiff2;
 
-							portal_get_avg_vertex_pos(portalnum1, &sp44);
-							sp64 -= sp50;
+							portal_get_centre(portalnum1, &portalpos);
+							limit -= portalsdist;
 
-							xdiff2 = sp44.x - pos1->x;
-							xdiff2 = xdiff2 > 0.0f ? xdiff2 : -xdiff2;
+							xdiff2 = portalpos.x - pos1->x;
+							xdiff2 = ABSF(xdiff2);
 
-							if (xdiff2 < sp64) {
-								zdiff2 = sp44.z - pos1->z;
-								zdiff2 = zdiff2 > 0.0f ? zdiff2 : -zdiff2;
+							if (xdiff2 < limit) {
+								zdiff2 = portalpos.z - pos1->z;
+								zdiff2 = ABSF(zdiff2);
 
-								if (zdiff2 < sp64) {
-									f32 sp38 = sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
+								if (zdiff2 < limit) {
+									f32 dist2 = sqrtf(xdiff2 * xdiff2 + zdiff2 * zdiff2);
 
-									if (sp38 < sp64) {
-										struct coord sp2c;
+									if (dist2 < limit) {
+										struct coord portalpos2;
 										f32 xdiff3;
 										f32 zdiff3;
 
-										portal_get_avg_vertex_pos(portalnum2, &sp2c);
-										sp64 -= sp38;
+										portal_get_centre(portalnum2, &portalpos2);
+										limit -= dist2;
 
-										xdiff3 = sp2c.x - pos2->x;
-										xdiff3 = xdiff3 > 0.0f ? xdiff3 : -xdiff3;
+										xdiff3 = portalpos2.x - pos2->x;
+										xdiff3 = ABSF(xdiff3);
 
-										if (xdiff3 < sp64) {
-											zdiff3 = sp2c.z - pos2->z;
-											zdiff3 = zdiff3 > 0.0f ? zdiff3 : -zdiff3;
+										if (xdiff3 < limit) {
+											zdiff3 = portalpos2.z - pos2->z;
+											zdiff3 = ABSF(zdiff3);
 
-											if (zdiff3 < sp64) {
+											if (zdiff3 < limit) {
 												f32 dist3 = sqrtf(xdiff3 * xdiff3 + zdiff3 * zdiff3);
 
-												if (dist3 < sp64) {
-													sp64 -= dist3;
-													*sp68 -= sp64;
+												if (dist3 < limit) {
+													limit -= dist3;
+													*resultptr -= limit;
 												}
 											}
 										}
@@ -1934,37 +2005,28 @@ f32 func0f0053d0(s32 roomnum1, struct coord *pos1, s32 portalnum1, s32 roomnum2,
 		}
 	}
 
-	return *sp68;
+	return *resultptr;
 }
 
-void func0f0056f4(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *pos2, s32 arg4, f32 *result, s32 arg6)
+void lights_find_distance_through_rooms_with_limit(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *pos2, s32 arg4, f32 *result, bool arg6)
 {
 	f32 dist;
 
-	if (!var80061444
+	if (!g_PortalDistTableEnabled
 			|| PLAYERCOUNT() >= 3
 			|| roomnum1 == roomnum2
 			|| roomnum1 == -1
 			|| roomnum2 == -1) {
 		f32 xdist = pos1->x - pos2->x;
-
-		if (!(xdist > 0.0f)) {
-			xdist = -xdist;
-		}
+		xdist = ABSF(xdist);
 
 		if (xdist < *result) {
 			f32 zdist = pos1->z - pos2->z;
-
-			if (!(zdist > 0.0f)) {
-				zdist = -zdist;
-			}
+			zdist = ABSF(zdist);
 
 			if (zdist < *result) {
 				f32 ydist = pos1->y - pos2->y;
-
-				if (!(ydist > 0.0f)) {
-					ydist = -ydist;
-				}
+				ydist = ABSF(ydist);
 
 				if (ydist < *result) {
 					dist = sqrtf(xdist * xdist + ydist * ydist + zdist * zdist);
@@ -1987,7 +2049,7 @@ void func0f0056f4(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
 			for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
 				portalnum2 = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
 
-				dist = func0f0053d0(roomnum1, pos1, portalnum1, roomnum2, pos2, portalnum2, result);
+				dist = lights_find_distance_through_portals(roomnum1, pos1, portalnum1, roomnum2, pos2, portalnum2, result);
 
 				if (dist < *result) {
 					*result = dist;
@@ -1997,7 +2059,7 @@ void func0f0056f4(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
 	}
 }
 
-void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *pos2, s32 arg4, f32 *result)
+void lights_find_distance_through_rooms(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *pos2, s32 arg4, f32 *result)
 {
 	s32 portalnum1;
 	s32 portalnum2;
@@ -2009,22 +2071,21 @@ void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
 
 	if (roomnum1 == roomnum2) {
 		*result = coords_get_distance(pos1, pos2);
-		return;
-	}
+	} else {
+		for (i = 0; i < g_Rooms[roomnum1].numportals; i++) {
+			portalnum1 = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + i];
+			if (1);
 
-	for (i = 0; i < g_Rooms[roomnum1].numportals; i++) {
-		portalnum1 = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + i];
-		if (1);
+			for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
+				portalnum2 = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
+				if (j);
+				if (j);
 
-		for (j = 0; j < g_Rooms[roomnum2].numportals; j++) {
-			portalnum2 = g_RoomPortals[g_Rooms[roomnum2].roomportallistoffset + j];
-			if (j);
-			if (j);
+				dist = lights_find_distance_through_portals(roomnum1, pos1, portalnum1, roomnum2, pos2, portalnum2, NULL);
 
-			dist = func0f0053d0(roomnum1, pos1, portalnum1, roomnum2, pos2, portalnum2, NULL);
-
-			if (dist < *result) {
-				*result = dist;
+				if (dist < *result) {
+					*result = dist;
+				}
 			}
 		}
 	}
@@ -2036,7 +2097,7 @@ void func0f0059fc(s32 roomnum1, struct coord *pos1, s32 roomnum2, struct coord *
  * - Sets g_IsSwitchingGoggles if equipping or unequipping NV/IR on this frame.
  * - Updates the player's usinggoggles property.
  */
-void func0f005bb0(void)
+void lights_update_goggle_sounds(void)
 {
 	s32 brightness = room_get_final_brightness(g_Vars.currentplayer->prop->rooms[0]);
 

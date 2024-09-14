@@ -1185,7 +1185,7 @@ s32 ps_calculate_vol(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, RoomNum
 			camroom = -1;
 		}
 
-		func0f0056f4(camroom, &player->cam_pos, roomnum, pos, 0, &playerdist, s0);
+		lights_find_distance_through_rooms_with_limit(camroom, &player->cam_pos, roomnum, pos, 0, &playerdist, s0);
 	}
 
 	if (playerdistptr != NULL) {

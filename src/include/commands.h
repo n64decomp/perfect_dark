@@ -3801,7 +3801,11 @@
 	chr, \
 	label,
 
-#define cmd01aa(label) \
+/**
+ * Checks if the current chr is within 30 metres of the player,
+ * routing through portals rather than straight through walls.
+ */
+#define if_dist_to_player_through_portals_lt_30m(label) \
 	mkshort(0x01aa), \
 	label,
 

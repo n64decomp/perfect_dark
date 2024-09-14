@@ -8853,19 +8853,19 @@ bool ai_if_target_y_difference_less_than(void)
 /**
  * @cmd 01aa
  */
-bool ai01aa(void)
+bool ai_if_dist_to_player_through_portals_lt_30m(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	f32 a = 3000;
+	f32 dist = 3000;
 
-	func0f0056f4(
+	lights_find_distance_through_rooms_with_limit(
 			g_Vars.currentplayer->prop->rooms[0],
 			&g_Vars.currentplayer->prop->pos,
 			g_Vars.chrdata->prop->rooms[0],
 			&g_Vars.chrdata->prop->pos,
-			0, &a, 0);
+			0, &dist, 0);
 
-	if (a < 3000) {
+	if (dist < 3000) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;

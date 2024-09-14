@@ -23,6 +23,7 @@
 #define MAX_MPCHRS             (MAX_PLAYERS + MAX_BOTS)
 #define MAX_MPPLAYERCONFIGS    (MAX_PLAYERS + 2)
 #define MAX_OBJECTIVES         10
+#define MAX_PORTALS            2048
 #define MAX_PLAYERS            4
 #define MAX_PROPSPERROOMCHUNK  7
 #define MAX_ROOMPROPLISTCHUNKS 256

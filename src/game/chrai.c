@@ -437,7 +437,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x01a7*/ ai_if_chr_not_talking,
 	/*0x01a8*/ NULL,
 	/*0x01a9*/ NULL,
-	/*0x01aa*/ ai01aa,
+	/*0x01aa*/ ai_if_dist_to_player_through_portals_lt_30m,
 	/*0x01ab*/ ai_if_num_knocked_out_chrs,
 	/*0x01ac*/ NULL,
 	/*0x01ad*/ ai_release_object,

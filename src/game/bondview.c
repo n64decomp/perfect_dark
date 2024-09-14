@@ -1911,11 +1911,11 @@ Gfx *bview_draw_nv_lens(Gfx *gdl)
 
 	strcpy(var800a41c0, "Fullscreen_DrawFaultScope");
 
-	var8009caec = 0xbc;
-	var8009caef = 0xbe;
-	var8009caf0 = 0xde;
-	var8009caed = 0x50;
-	var8009caee = 0xc0;
+	g_GooglesRoomBrightness = 0xbc;
+	g_GogglesChrColourIntensity = 0xbe;
+	g_GogglesChrColourAlpha = 0xde;
+	g_GogglesObjColourIntensity = 0x50;
+	g_GogglesObjColourAlpha = 0xc0;
 
 	brightness = room_get_final_brightness(g_Vars.currentplayer->prop->rooms[0]);
 
@@ -2083,9 +2083,9 @@ Gfx *bview_draw_ir_lens(Gfx *gdl)
 	}
 #endif
 
-	var8009caec = 0xff;
-	var8009caef = 0xde;
-	var8009caf0 = 0xde;
+	g_GooglesRoomBrightness = 0xff;
+	g_GogglesChrColourIntensity = 0xde;
+	g_GogglesChrColourAlpha = 0xde;
 
 	gDPPipeSync(gdl++);
 

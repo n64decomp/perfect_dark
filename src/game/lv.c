@@ -440,7 +440,7 @@ void lv_reset(s32 stagenum)
 
 		acoustic_reset();
 		portals_reset();
-		lights_reset();
+		lights_reset_3();
 		set_current_player_num(0);
 	}
 

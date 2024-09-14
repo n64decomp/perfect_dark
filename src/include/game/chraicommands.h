@@ -392,7 +392,7 @@
 /*0x01a5*/ bool ai_if_using_lift(void);
 /*0x01a6*/ bool ai_if_target_y_difference_less_than(void);
 /*0x01a7*/ bool ai_if_chr_not_talking(void);
-/*0x01aa*/ bool ai01aa(void);
+/*0x01aa*/ bool ai_if_dist_to_player_through_portals_lt_30m(void);
 /*0x01ab*/ bool ai_if_num_knocked_out_chrs(void);
 /*0x01ad*/ bool ai_release_object(void);
 /*0x01ae*/ bool ai_clear_inventory(void);

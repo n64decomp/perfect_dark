@@ -451,46 +451,46 @@ void func0f177a38(u32 arg0, u32 arg1, u32 arg2, u32 arg3)
 	}
 }
 
-s32 func0f177a54(u8 *arg0, s32 arg1, u8 *arg2, s32 arg3)
+s32 func0f177a54(u8 *src, s32 count, u8 *dst, s32 stepsize)
 {
 	s32 i = 0;
-	s32 v1 = 0;
-	s32 t0 = 0;
+	s32 dstlen = 0;
+	s32 accum = 0;
 
-	for (; i < arg1; i++) {
-		s32 index = i * arg3;
+	for (; i < count; i++) {
+		s32 index = i * stepsize;
 
-		if (arg0[index] != 0) {
-			u8 *ptr = &arg0[index];
+		if (src[index] != 0) {
+			u8 *srcptr = &src[index];
 
-			if (i != 0 && ptr[-arg3] == 0) {
-				arg2[v1++] = 0;
+			if (i != 0 && srcptr[-stepsize] == 0) {
+				dst[dstlen++] = 0;
 
-				if (t0 == 255) {
-					arg2[v1++] = 200;
-					arg2[v1++] = 0;
-					t0 -= 200;
+				if (accum == 255) {
+					dst[dstlen++] = 200;
+					dst[dstlen++] = 0;
+					accum -= 200;
 				} else {
-					while (t0 > 255) {
-						arg2[v1++] = 255;
-						t0 -= 255;
+					while (accum > 255) {
+						dst[dstlen++] = 255;
+						accum -= 255;
 					}
 				}
 
-				arg2[v1++] = t0;
-				t0 = 0;
+				dst[dstlen++] = accum;
+				accum = 0;
 			}
 
-			arg2[v1++] = arg0[index];
+			dst[dstlen++] = src[index];
 		} else {
-			t0++;
+			accum++;
 		}
 	}
 
-	arg2[v1++] = 0;
-	arg2[v1++] = 0;
+	dst[dstlen++] = 0;
+	dst[dstlen++] = 0;
 
-	return v1;
+	return dstlen;
 }
 
 u8 func0f177b44(u8 *arg0, s32 *arg1)

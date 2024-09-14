@@ -8272,10 +8272,10 @@ void bgun_render(Gfx **gdlptr)
 				renderdata.envcolour = (shade << 24 | shade << 16 | shade << 8) + col[3];
 
 				if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-					spb0[0] = var8009caef;
-					spb0[1] = var8009caef;
-					spb0[2] = var8009caef;
-					spb0[3] = var8009caf0;
+					spb0[0] = g_GogglesChrColourIntensity;
+					spb0[1] = g_GogglesChrColourIntensity;
+					spb0[2] = g_GogglesChrColourIntensity;
+					spb0[3] = g_GogglesChrColourAlpha;
 
 					colour = (spb0[0] << 24 | spb0[1] << 16 | spb0[2] << 8) + spb0[3];
 				} else if (USINGDEVICE(DEVICE_IRSCANNER)) {

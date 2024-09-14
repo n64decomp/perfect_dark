@@ -22,9 +22,9 @@ void room_init_lights(s32 roomnum);
 bool lights_handle_hit(struct coord *gunpos, struct coord *hitpos, s32 roomnum);
 void room_set_lights_faulty(s32 roomnum, s32 chance);
 void room_set_light_broken(s32 roomnum, s32 lightnum);
-void lights_reset(void);
-void func0f001c0c(void);
-void func0f002a98(void);
+void lights_reset_3(void);
+void lights_reset_2(void);
+void lights_reset_1(void);
 void room_set_lights_on(s32 roomnum, s32 enable);
 void room_set_light_op(s32 roomnum, s32 operation, u8 br_to, u8 br_from, u8 duration60);
 bool light_tick_broken(s32 roomnum, s32 lightnum);
@@ -32,6 +32,6 @@ void lighting_tick(void);
 void lights_tick(void);
 void room_flash_lighting(s32 roomnum, s32 start, s32 limit);
 void room_highlight(s32 roomnum);
-void func0f0056f4(s32 room1, struct coord *coord1, s32 room2, struct coord *coord2, s32 arg4, f32 *arg5, s32 arg6);
+void lights_find_distance_through_rooms_with_limit(s32 room1, struct coord *coord1, s32 room2, struct coord *coord2, s32 arg4, f32 *arg5, s32 arg6);
 
 #endif

@@ -2036,8 +2036,8 @@ void bg_build_tables(s32 stagenum)
 	var8007fc10 = 200;
 
 	wallhit_reset();
-	func0f002a98();
-	func0f001c0c();
+	lights_reset_1();
+	lights_reset_2();
 
 #if VERSION < VERSION_NTSC_1_0
 	bg_build_reference_light_sums();

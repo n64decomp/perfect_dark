@@ -108,7 +108,7 @@ void portal0f0b65a8(s32 numportals)
 {
 	if (numportals > 0) {
 		g_NumPortalXluFracs = numportals;
-		g_PortalXluFracs = memp_alloc(ALIGN16(numportals * 2), MEMPOOL_STAGE);
+		g_PortalXluFracs = memp_alloc(ALIGN16(numportals * sizeof(g_PortalXluFracs[0])), MEMPOOL_STAGE);
 	} else {
 		g_PortalXluFracs = NULL;
 	}

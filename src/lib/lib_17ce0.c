@@ -12,7 +12,7 @@ u8 var8005ef20 = 254;
 
 u8 var8009a4e0[456][2];
 
-void portal_get_avg_vertex_pos(s32 portalnum, struct coord *avg)
+void portal_get_centre(s32 portalnum, struct coord *avg)
 {
 	struct portalvertices *pvertices = (struct portalvertices *)((uintptr_t)g_BgPortals + g_BgPortals[portalnum].verticesoffset);
 	f32 f0;

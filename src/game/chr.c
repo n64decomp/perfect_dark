@@ -3494,10 +3494,10 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 
 		// Configure colours for night vision if in use
 		if (USINGDEVICE(DEVICE_NIGHTVISION)) {
-			colour[0] = var8009caef;
-			colour[1] = var8009caef;
-			colour[2] = var8009caef;
-			colour[3] = var8009caf0;
+			colour[0] = g_GogglesChrColourIntensity;
+			colour[1] = g_GogglesChrColourIntensity;
+			colour[2] = g_GogglesChrColourIntensity;
+			colour[3] = g_GogglesChrColourAlpha;
 		}
 
 		// Configure colours for xray if in use
