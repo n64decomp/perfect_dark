@@ -95,7 +95,7 @@ void chopper_fire_rocket(struct chopperobj *chopper, bool side);
 u32 obj_tick(struct prop *prop);
 s32 obj_tick_player(struct prop *prop);
 Gfx *props_render_beams(Gfx *gdl);
-void tvscreen_set_image_by_num(struct tvscreen *screen, s32 imagenum);
+void tvscreen_set_program(struct tvscreen *screen, s32 programnum);
 Gfx *tvscreen_render(struct model *model, struct modelnode *node, struct tvscreen *screen, Gfx *gdl, s32 arg4, s32 arg5);
 Gfx *gfx_render_radial_shadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radius, u32 colour);
 Gfx *obj_render(struct prop *prop, Gfx *gdl, bool xlupass);

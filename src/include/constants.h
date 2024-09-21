@@ -4219,66 +4219,66 @@
 #define TVCMD_SETCMDLIST     0x09
 #define TVCMD_RANDSETCMDLIST 0x0a
 #define TVCMD_RESTART        0x0b
-#define TVCMD_YIELD          0x0c
+#define TVCMD_STOP           0x0c
 #define TVCMD_SETCOLOUR      0x0d
 #define TVCMD_ROTATEABS      0x0e
 #define TVCMD_ROTATEREL      0x0f
 
-#define TVCMDLIST_00 0x00
-#define TVCMDLIST_01 0x01
-#define TVCMDLIST_02 0x02
-#define TVCMDLIST_03 0x03
-#define TVCMDLIST_04 0x04
-#define TVCMDLIST_05 0x05
-#define TVCMDLIST_06 0x06
-#define TVCMDLIST_07 0x07
-#define TVCMDLIST_08 0x08
-#define TVCMDLIST_09 0x09
-#define TVCMDLIST_0A 0x0a
-#define TVCMDLIST_0B 0x0b
-#define TVCMDLIST_0C 0x0c
-#define TVCMDLIST_0D 0x0d
-#define TVCMDLIST_0E 0x0e
-#define TVCMDLIST_0F 0x0f
-#define TVCMDLIST_10 0x10
-#define TVCMDLIST_11 0x11
-#define TVCMDLIST_12 0x12
-#define TVCMDLIST_13 0x13
-#define TVCMDLIST_14 0x14
-#define TVCMDLIST_15 0x15
-#define TVCMDLIST_16 0x16
-#define TVCMDLIST_17 0x17
-#define TVCMDLIST_18 0x18
-#define TVCMDLIST_19 0x19
-#define TVCMDLIST_1A 0x1a
-#define TVCMDLIST_1B 0x1b
-#define TVCMDLIST_1C 0x1c
-#define TVCMDLIST_1D 0x1d
-#define TVCMDLIST_1E 0x1e
-#define TVCMDLIST_1F 0x1f
-#define TVCMDLIST_20 0x20
-#define TVCMDLIST_21 0x21
-#define TVCMDLIST_22 0x22
-#define TVCMDLIST_23 0x23
-#define TVCMDLIST_24 0x24
-#define TVCMDLIST_25 0x25
-#define TVCMDLIST_26 0x26
-#define TVCMDLIST_27 0x27
-#define TVCMDLIST_28 0x28
-#define TVCMDLIST_29 0x29
-#define TVCMDLIST_2A 0x2a
-#define TVCMDLIST_2B 0x2b
-#define TVCMDLIST_2C 0x2c
-#define TVCMDLIST_2D 0x2d
-#define TVCMDLIST_2E 0x2e
-#define TVCMDLIST_2F 0x2f
-#define TVCMDLIST_30 0x30
-#define TVCMDLIST_31 0x31
-#define TVCMDLIST_32 0x32
-#define TVCMDLIST_33 0x33
-#define TVCMDLIST_34 0x34
-#define TVCMDLIST_35 0x35
-#define TVCMDLIST_36 0x36
+#define TVPROGRAM_DEFAULT                 0x00 // scrolling green text
+#define TVPROGRAM_SINEWAVE1               0x01
+#define TVPROGRAM_SINEWAVE2               0x02 // not used
+#define TVPROGRAM_SCROLL_TEXT_GREEN       0x03
+#define TVPROGRAM_SCROLLUP_TEXT_RED       0x04
+#define TVPROGRAM_SCROLLUP_TEXT_GREEN     0x05
+#define TVPROGRAM_BARS_YELLOW             0x06
+#define TVPROGRAM_BARS_TEAL               0x07 // not used
+#define TVPROGRAM_BARS_GREEN              0x08
+#define TVPROGRAM_SCROLL_TEXT_GREEN_09    0x09 // not used
+#define TVPROGRAM_SCROLL_TEXT_GREEN_0A    0x0a // not used
+#define TVPROGRAM_SCROLL_TEXT_GREEN_0B    0x0b // not used
+#define TVPROGRAM_SCROLL_TEXT_GREEN_0C    0x0c // not used
+#define TVPROGRAM_SCROLL_TEXT_GREEN_0D    0x0d // not used
+#define TVPROGRAM_SCROLL_TEXT_GREEN_0E    0x0e // not used
+#define TVPROGRAM_PULSE_RED               0x0f
+#define TVPROGRAM_PULSE_GREEN             0x10 // not used
+#define TVPROGRAM_SOLID_GRAY              0x11
+#define TVPROGRAM_SOLID_RED               0x12
+#define TVPROGRAM_SOLID_GREEN             0x13
+#define TVPROGRAM_SOLID_BLACK             0x14
+#define TVPROGRAM_TRANSPARENT             0x15
+#define TVPROGRAM_MAIAN                   0x16 // not used
+#define TVPROGRAM_BIO                     0x17 // not used
+#define TVPROGRAM_JOHEAD                  0x18 // not used
+#define TVPROGRAM_JOFROCK                 0x19 // not used
+#define TVPROGRAM_PLANET1                 0x1a // not used
+#define TVPROGRAM_PLANET2                 0x1b // not used
+#define TVPROGRAM_PLANET3                 0x1c // not used
+#define TVPROGRAM_SKEDAR                  0x1d // not used
+#define TVPROGRAM_BARS_GREEN_1E           0x1e // not used
+#define TVPROGRAM_BARS_GREEN_1F           0x1f // not used
+#define TVPROGRAM_BARS_GREEN_20           0x20
+#define TVPROGRAM_BARS_GREEN_21           0x21
+#define TVPROGRAM_BARS_GREEN_22           0x22
+#define TVPROGRAM_BARS_GREEN_23           0x23
+#define TVPROGRAM_CYCLE_PLANETS           0x24 // not used
+#define TVPROGRAM_CASSHEAD                0x25 // not used
+#define TVPROGRAM_DIAGRAM                 0x26 // not used
+#define TVPROGRAM_SCROLL_GALAXY1_GREEN    0x27 // not used
+#define TVPROGRAM_SCROLLUP_GALAXY1_BLUE   0x28 // not used
+#define TVPROGRAM_STAR                    0x29 // not used
+#define TVPROGRAM_SCROLL_STAR             0x2a // not used
+#define TVPROGRAM_SCROLL_GALAXY2_GREEN    0x2b // not used
+#define TVPROGRAM_SCROLLUP_GALAXY2_BLUE   0x2c // not used
+#define TVPROGRAM_NEBULA                  0x2d // not used
+#define TVPROGRAM_SCROLL_SYMBOLS_GREEN    0x2e // not used
+#define TVPROGRAM_SCROLLUP_SYMBOLS_ORANGE 0x2f // not used
+#define TVPROGRAM_GREENOBJECT1            0x30 // not used
+#define TVPROGRAM_GREENOBJECT2            0x31 // not used
+#define TVPROGRAM_GREENOBJECT3            0x32 // not used
+#define TVPROGRAM_CYCLE_GREENOBJECTS      0x33 // not used
+#define TVPROGRAM_PCSTAND                 0x34 // not used
+#define TVPROGRAM_EARTH                   0x35 // not used
+#define TVPROGRAM_SHRINE                  0x36 // not used
 
 #define USETIMER_CONTINUE 0
 #define USETIMER_STOP     1

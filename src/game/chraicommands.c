@@ -4782,13 +4782,13 @@ bool ai_set_obj_image(void)
 	if (obj && obj->prop) {
 		if (obj->type == OBJTYPE_SINGLEMONITOR) {
 			struct singlemonitorobj *sm = (struct singlemonitorobj *) obj;
-			tvscreen_set_image_by_num(&sm->screen, cmd[4]);
+			tvscreen_set_program(&sm->screen, cmd[4]);
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
 			struct multimonitorobj *mm = (struct multimonitorobj *) obj;
 			u8 slot = cmd[3];
 
 			if (slot < ARRAYCOUNT(mm->screens)) {
-				tvscreen_set_image_by_num(&mm->screens[slot], cmd[4]);
+				tvscreen_set_program(&mm->screens[slot], cmd[4]);
 			}
 		}
 	}

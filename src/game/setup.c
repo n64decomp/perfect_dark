@@ -252,9 +252,9 @@ void setup_create_blocked_path(struct blockedpathobj *blockedpath)
 
 void setup_reset_tvscreens(void)
 {
-	{ struct tvscreen tmp = MKTVSCREEN(g_TvCmdlist00); var8009ce98 = tmp; }
-	{ struct tvscreen tmp = MKTVSCREEN(var8006aaa0); var8009cf10 = tmp; }
-	{ struct tvscreen tmp = MKTVSCREEN(var8006aae4); var8009cf88 = tmp; }
+	{ struct tvscreen tmp = MKTVSCREEN(g_TvCmdlistDefault); g_TvCmdlistDefaultCopy = tmp; }
+	{ struct tvscreen tmp = MKTVSCREEN(g_TvCmdlistBondZoom); g_TvCmdlistBondZoomCopy = tmp; }
+	{ struct tvscreen tmp = MKTVSCREEN(g_TvCmdlistBondPan); g_TvCmdlistBondPanCopy = tmp; }
 }
 
 u32 var80061bdc = 0;
@@ -806,8 +806,8 @@ void setup_create_single_monitor(struct singlemonitorobj *monitor, s32 cmdindex)
 {
 	u32 stack[2];
 
-	monitor->screen = var8009ce98;
-	tvscreen_set_image_by_num(&monitor->screen, monitor->imagenum);
+	monitor->screen = g_TvCmdlistDefaultCopy;
+	tvscreen_set_program(&monitor->screen, monitor->imagenum);
 
 	// In GE, monitors with a negative pad are hanging TVs which attach to a
 	// hangingmonitors object, which is actually just the mount. In PD, hanging
@@ -870,17 +870,17 @@ void setup_create_single_monitor(struct singlemonitorobj *monitor, s32 cmdindex)
 
 void setup_create_multi_monitor(struct multimonitorobj *monitor, s32 cmdindex)
 {
-	monitor->screens[0] = var8009ce98;
-	tvscreen_set_image_by_num(&monitor->screens[0], monitor->imagenums[0]);
+	monitor->screens[0] = g_TvCmdlistDefaultCopy;
+	tvscreen_set_program(&monitor->screens[0], monitor->imagenums[0]);
 
-	monitor->screens[1] = var8009ce98;
-	tvscreen_set_image_by_num(&monitor->screens[1], monitor->imagenums[1]);
+	monitor->screens[1] = g_TvCmdlistDefaultCopy;
+	tvscreen_set_program(&monitor->screens[1], monitor->imagenums[1]);
 
-	monitor->screens[2] = var8009ce98;
-	tvscreen_set_image_by_num(&monitor->screens[2], monitor->imagenums[2]);
+	monitor->screens[2] = g_TvCmdlistDefaultCopy;
+	tvscreen_set_program(&monitor->screens[2], monitor->imagenums[2]);
 
-	monitor->screens[3] = var8009ce98;
-	tvscreen_set_image_by_num(&monitor->screens[3], monitor->imagenums[3]);
+	monitor->screens[3] = g_TvCmdlistDefaultCopy;
+	tvscreen_set_program(&monitor->screens[3], monitor->imagenums[3]);
 
 	setup_create_object(&monitor->base, cmdindex);
 }

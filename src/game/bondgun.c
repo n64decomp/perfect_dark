@@ -8253,7 +8253,7 @@ void bgun_render(Gfx **gdlptr)
 					rwdata->toggle.visible = true;
 				}
 
-				gdl = tvscreen_render(&hand->gunmodel, node, &var8009cf88, gdl, 0, 1);
+				gdl = tvscreen_render(&hand->gunmodel, node, &g_TvCmdlistBondPanCopy, gdl, 0, 1);
 			}
 
 			renderdata.gdl = gdl;

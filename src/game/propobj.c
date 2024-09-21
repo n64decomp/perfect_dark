@@ -11423,7 +11423,7 @@ void tvscreen_set_cmdlist(struct tvscreen *screen, u32 *cmdlist)
 	screen->offset = 0;
 }
 
-u32 g_TvCmdlist00[] = {
+u32 g_TvCmdlistDefault[] = {
 	tvcmd_settexture(29),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrely(-512, 80),
@@ -11439,7 +11439,7 @@ u32 g_TvCmdlist00[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist01[] = {
+u32 g_TvCmdlistSinewave1[] = {
 	tvcmd_setcolour(0x202020ff, 1),
 	tvcmd_settexture(28),
 	tvcmd_scrollrelx(2048, 120),
@@ -11462,7 +11462,7 @@ u32 g_TvCmdlist01[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist02[] = {
+u32 g_TvCmdlistSinewave2[] = {
 	tvcmd_setcolour(0x202020ff, 1),
 	tvcmd_settexture(28),
 	tvcmd_scaleabsx(128, 1),
@@ -11474,7 +11474,7 @@ u32 g_TvCmdlist02[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist03[] = {
+u32 g_TvCmdlistScrollTextGreen[] = {
 	tvcmd_settexture(29),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrely(-512, 80),
@@ -11490,7 +11490,7 @@ u32 g_TvCmdlist03[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist15[] = {
+u32 g_TvCmdlistTransparent[] = {
 	tvcmd_settexture(50),
 	tvcmd_setcolour(0x008000fe, 1),
 	tvcmd_scrollrely(-512, 80),
@@ -11506,7 +11506,7 @@ u32 g_TvCmdlist15[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist04[] = {
+u32 g_TvCmdlistScrollUpTextRed[] = {
 	tvcmd_settexture(29),
 	tvcmd_setcolour(0x280000ff, 1),
 	tvcmd_scrollrely(512, 80),
@@ -11525,7 +11525,7 @@ u32 g_TvCmdlist04[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist05[] = {
+u32 g_TvCmdlistScrollUpTextGreen[] = {
 	tvcmd_settexture(29),
 	tvcmd_setcolour(0x003c00ff, 1),
 	tvcmd_scrollrely(512, 80),
@@ -11543,7 +11543,7 @@ u32 g_TvCmdlist05[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist06[] = {
+u32 g_TvCmdlistBarsYellow[] = {
 	tvcmd_settexture(30),
 	tvcmd_setcolour(0x404000ff, 1),
 	tvcmd_scrollrelx(640, 1),
@@ -11551,7 +11551,7 @@ u32 g_TvCmdlist06[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist07[] = {
+u32 g_TvCmdlistBarsTeal[] = {
 	tvcmd_settexture(30),
 	tvcmd_setcolour(0x004040ff, 1),
 	tvcmd_scrollrelx(640, 1),
@@ -11559,7 +11559,7 @@ u32 g_TvCmdlist07[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist08[] = {
+u32 g_TvCmdlistBarsGreen[] = {
 	tvcmd_settexture(30),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrelx(-640, 1),
@@ -11567,7 +11567,7 @@ u32 g_TvCmdlist08[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist0F[] = {
+u32 g_TvCmdlistPulseRed[] = {
 	tvcmd_settexture(49),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
@@ -11578,7 +11578,7 @@ u32 g_TvCmdlist0F[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist10[] = {
+u32 g_TvCmdlistPulseGreen[] = {
 	tvcmd_settexture(49),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
@@ -11589,7 +11589,7 @@ u32 g_TvCmdlist10[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist11[] = {
+u32 g_TvCmdlistSolidGray[] = {
 	tvcmd_settexture(49),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
@@ -11598,7 +11598,7 @@ u32 g_TvCmdlist11[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist12[] = {
+u32 g_TvCmdlistSolidRed[] = {
 	tvcmd_settexture(49),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
@@ -11607,7 +11607,7 @@ u32 g_TvCmdlist12[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist13[] = {
+u32 g_TvCmdlistSolidGreen[] = {
 	tvcmd_settexture(49),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
@@ -11616,56 +11616,56 @@ u32 g_TvCmdlist13[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist16[] = {
+u32 g_TvCmdlistMaian[] = {
 	tvcmd_settexture(51),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist17[] = {
+u32 g_TvCmdlistBio[] = {
 	tvcmd_settexture(72),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist18[] = {
+u32 g_TvCmdlistJoHead[] = {
 	tvcmd_settexture(73),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist19[] = {
+u32 g_TvCmdlistJoFrock[] = {
 	tvcmd_settexture(74),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist1A[] = {
+u32 g_TvCmdlistPlanet1[] = {
 	tvcmd_settexture(75),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist1B[] = {
+u32 g_TvCmdlistPlanet2[] = {
 	tvcmd_settexture(76),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist1C[] = {
+u32 g_TvCmdlistPlanet3[] = {
 	tvcmd_settexture(77),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist24[] = {
+u32 g_TvCmdlistCyclePlanets[] = {
 	tvcmd_setcolour(0x000000ff, 1),
 	tvcmd_settexture(75),
 	tvcmd_pause(1),
@@ -11688,14 +11688,14 @@ u32 g_TvCmdlist24[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist1D[] = {
+u32 g_TvCmdlistSkedar[] = {
 	tvcmd_settexture(78),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 var8006a4dc[] = {
+u32 g_TvCmdlistWhiteCoat[] = {
 	tvcmd_settexture(52),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(5),
@@ -11708,7 +11708,7 @@ u32 var8006a4dc[] = {
 	tvcmd_restart(),
 };
 
-u32 var8006a52c[] = {
+u32 g_TvCmdlistStripedShirt[] = {
 	tvcmd_settexture(79),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(5),
@@ -11721,7 +11721,7 @@ u32 var8006a52c[] = {
 	tvcmd_restart(),
 };
 
-u32 var8006a57c[] = {
+u32 g_TvCmdlistFinger[] = {
 	tvcmd_settexture(56),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
@@ -11734,7 +11734,7 @@ u32 var8006a57c[] = {
 	tvcmd_restart(),
 };
 
-u32 var8006a5cc[] = {
+u32 g_TvCmdlistFist[] = {
 	tvcmd_settexture(60),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(15),
@@ -11743,7 +11743,7 @@ u32 var8006a5cc[] = {
 	tvcmd_restart(),
 };
 
-u32 var8006a5fc[] = {
+u32 g_TvCmdlistPatrol1[] = {
 	tvcmd_settexture(62),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
@@ -11758,7 +11758,7 @@ u32 var8006a5fc[] = {
 	tvcmd_restart(),
 };
 
-u32 var8006a65c[] = {
+u32 g_TvCmdlistPatrol2[] = {
 	tvcmd_settexture(67),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
@@ -11773,21 +11773,21 @@ u32 var8006a65c[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist25[] = {
+u32 g_TvCmdlistCassHead[] = {
 	tvcmd_settexture(83),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist26[] = {
+u32 g_TvCmdlistDiagram[] = {
 	tvcmd_settexture(84),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist27[] = {
+u32 g_TvCmdlistScrollGalaxy1Green[] = {
 	tvcmd_settexture(85),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrely(-512, 80),
@@ -11795,7 +11795,7 @@ u32 g_TvCmdlist27[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist28[] = {
+u32 g_TvCmdlistScrollUpGalaxy1Blue[] = {
 	tvcmd_settexture(85),
 	tvcmd_setcolour(0x0032c8ff, 1),
 	tvcmd_scrollrely(512, 80),
@@ -11803,14 +11803,14 @@ u32 g_TvCmdlist28[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist29[] = {
+u32 g_TvCmdlistStar[] = {
 	tvcmd_settexture(86),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist2A[] = {
+u32 g_TvCmdlistScrollStar[] = {
 	tvcmd_settexture(86),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_scrollrely(-512, 80),
@@ -11818,7 +11818,7 @@ u32 g_TvCmdlist2A[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist2B[] = {
+u32 g_TvCmdlistScrollGalaxy2Green[] = {
 	tvcmd_settexture(87),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrely(-512, 80),
@@ -11826,7 +11826,7 @@ u32 g_TvCmdlist2B[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist2C[] = {
+u32 g_TvCmdlistScrollUpGalaxy2Blue[] = {
 	tvcmd_settexture(87),
 	tvcmd_setcolour(0x0032c8ff, 1),
 	tvcmd_scrollrely(512, 80),
@@ -11834,14 +11834,14 @@ u32 g_TvCmdlist2C[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist2D[] = {
+u32 g_TvCmdlistNebula[] = {
 	tvcmd_settexture(88),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist2E[] = {
+u32 g_TvCmdlistScrollSymbolsGreen[] = {
 	tvcmd_settexture(89),
 	tvcmd_setcolour(0x007f00ff, 1),
 	tvcmd_scrollrely(-512, 80),
@@ -11857,7 +11857,7 @@ u32 g_TvCmdlist2E[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist2F[] = {
+u32 g_TvCmdlistScrollUpSymbolsOrange[] = {
 	tvcmd_settexture(89),
 	tvcmd_setcolour(0xff7f00ff, 1),
 	tvcmd_scrollrely(512, 80),
@@ -11873,28 +11873,28 @@ u32 g_TvCmdlist2F[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist30[] = {
+u32 g_TvCmdlistGreenObject1[] = {
 	tvcmd_settexture(90),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist31[] = {
+u32 g_TvCmdlistGreenObject2[] = {
 	tvcmd_settexture(91),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist32[] = {
+u32 g_TvCmdlistGreenObject3[] = {
 	tvcmd_settexture(92),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist33[] = {
+u32 g_TvCmdlistCycleGreenObjects[] = {
 	tvcmd_setcolour(0x000000ff, 1),
 	tvcmd_settexture(90),
 	tvcmd_pause(1),
@@ -11917,35 +11917,34 @@ u32 g_TvCmdlist33[] = {
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist34[] = {
+u32 g_TvCmdlistPcStand[] = {
 	tvcmd_settexture(93),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist35[] = {
+u32 g_TvCmdlistEarth[] = {
 	tvcmd_settexture(94),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist36[] = {
+u32 g_TvCmdlistShrine[] = {
 	tvcmd_settexture(95),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
-u32 g_TvCmdlist14[] = {
+u32 g_TvCmdlistSolidBlack[] = {
 	tvcmd_settexture(0),
 	tvcmd_setcolour(0x000000ff, 0),
-	tvcmd_yield(),
-	// flow on to next cmdlist
+	tvcmd_stop(),
 };
 
-u32 var8006aaa0[] = {
+u32 g_TvCmdlistBondZoom[] = {
 	tvcmd_scaleabsx(1024, 0),
 	tvcmd_scaleabsy(1024, 0),
 	tvcmd_pause(1),
@@ -11955,7 +11954,7 @@ u32 var8006aaa0[] = {
 	tvcmd_restart(),
 };
 
-u32 var8006aae4[] = {
+u32 g_TvCmdlistBondPan[] = {
 	tvcmd_settexture(0),
 	tvcmd_scrollrelx(1024, 20),
 	tvcmd_pause(20),
@@ -11972,70 +11971,70 @@ u32 var8006aae4[] = {
 	tvcmd_restart(),
 };
 
-void tvscreen_set_image_by_num(struct tvscreen *screen, s32 imagenum)
+void tvscreen_set_program(struct tvscreen *screen, s32 programnum)
 {
-	u32 *image = g_TvCmdlist00;
+	u32 *cmdlist = g_TvCmdlistDefault;
 
-	switch (imagenum) {
-	case TVCMDLIST_01: image = g_TvCmdlist01; break;
-	case TVCMDLIST_02: image = g_TvCmdlist02; break;
-	case TVCMDLIST_03: image = g_TvCmdlist03; break;
-	case TVCMDLIST_04: image = g_TvCmdlist04; break;
-	case TVCMDLIST_05: image = g_TvCmdlist05; break;
-	case TVCMDLIST_06: image = g_TvCmdlist06; break;
-	case TVCMDLIST_07: image = g_TvCmdlist07; break;
-	case TVCMDLIST_08: image = g_TvCmdlist08; break;
-	case TVCMDLIST_09: image = g_TvCmdlist03; break;
-	case TVCMDLIST_0A: image = g_TvCmdlist03; break;
-	case TVCMDLIST_0B: image = g_TvCmdlist03; break;
-	case TVCMDLIST_0C: image = g_TvCmdlist03; break;
-	case TVCMDLIST_0D: image = g_TvCmdlist03; break;
-	case TVCMDLIST_0E: image = g_TvCmdlist03; break;
-	case TVCMDLIST_0F: image = g_TvCmdlist0F; break;
-	case TVCMDLIST_10: image = g_TvCmdlist10; break;
-	case TVCMDLIST_11: image = g_TvCmdlist11; break;
-	case TVCMDLIST_12: image = g_TvCmdlist12; break;
-	case TVCMDLIST_13: image = g_TvCmdlist13; break;
-	case TVCMDLIST_14: image = g_TvCmdlist14; break;
-	case TVCMDLIST_15: image = g_TvCmdlist15; break;
-	case TVCMDLIST_16: image = g_TvCmdlist16; break;
-	case TVCMDLIST_17: image = g_TvCmdlist17; break;
-	case TVCMDLIST_18: image = g_TvCmdlist18; break;
-	case TVCMDLIST_19: image = g_TvCmdlist19; break;
-	case TVCMDLIST_1A: image = g_TvCmdlist1A; break;
-	case TVCMDLIST_1B: image = g_TvCmdlist1B; break;
-	case TVCMDLIST_1C: image = g_TvCmdlist1C; break;
-	case TVCMDLIST_1D: image = g_TvCmdlist1D; break;
-	case TVCMDLIST_24: image = g_TvCmdlist24; break;
-	case TVCMDLIST_1E: image = g_TvCmdlist08; break;
-	case TVCMDLIST_1F: image = g_TvCmdlist08; break;
-	case TVCMDLIST_20: image = g_TvCmdlist08; break;
-	case TVCMDLIST_21: image = g_TvCmdlist08; break;
-	case TVCMDLIST_22: image = g_TvCmdlist08; break;
-	case TVCMDLIST_23: image = g_TvCmdlist08; break;
-	case TVCMDLIST_25: image = g_TvCmdlist25; break;
-	case TVCMDLIST_26: image = g_TvCmdlist26; break;
-	case TVCMDLIST_27: image = g_TvCmdlist27; break;
-	case TVCMDLIST_28: image = g_TvCmdlist28; break;
-	case TVCMDLIST_29: image = g_TvCmdlist29; break;
-	case TVCMDLIST_2A: image = g_TvCmdlist2A; break;
-	case TVCMDLIST_2B: image = g_TvCmdlist2B; break;
-	case TVCMDLIST_2C: image = g_TvCmdlist2C; break;
-	case TVCMDLIST_2D: image = g_TvCmdlist2D; break;
-	case TVCMDLIST_2E: image = g_TvCmdlist2E; break;
-	case TVCMDLIST_2F: image = g_TvCmdlist2F; break;
-	case TVCMDLIST_30: image = g_TvCmdlist30; break;
-	case TVCMDLIST_31: image = g_TvCmdlist31; break;
-	case TVCMDLIST_32: image = g_TvCmdlist32; break;
-	case TVCMDLIST_33: image = g_TvCmdlist33; break;
-	case TVCMDLIST_34: image = g_TvCmdlist34; break;
-	case TVCMDLIST_35: image = g_TvCmdlist35; break;
-	case TVCMDLIST_36: image = g_TvCmdlist36; break;
-	case TVCMDLIST_00:
+	switch (programnum) {
+	case TVPROGRAM_SINEWAVE1:               cmdlist = g_TvCmdlistSinewave1;             break;
+	case TVPROGRAM_SINEWAVE2:               cmdlist = g_TvCmdlistSinewave2;             break;
+	case TVPROGRAM_SCROLL_TEXT_GREEN:       cmdlist = g_TvCmdlistScrollTextGreen;       break;
+	case TVPROGRAM_SCROLLUP_TEXT_RED:       cmdlist = g_TvCmdlistScrollUpTextRed;       break;
+	case TVPROGRAM_SCROLLUP_TEXT_GREEN:     cmdlist = g_TvCmdlistScrollUpTextGreen;     break;
+	case TVPROGRAM_BARS_YELLOW:             cmdlist = g_TvCmdlistBarsYellow;            break;
+	case TVPROGRAM_BARS_TEAL:               cmdlist = g_TvCmdlistBarsTeal;              break;
+	case TVPROGRAM_BARS_GREEN:              cmdlist = g_TvCmdlistBarsGreen;             break;
+	case TVPROGRAM_SCROLL_TEXT_GREEN_09:    cmdlist = g_TvCmdlistScrollTextGreen;       break;
+	case TVPROGRAM_SCROLL_TEXT_GREEN_0A:    cmdlist = g_TvCmdlistScrollTextGreen;       break;
+	case TVPROGRAM_SCROLL_TEXT_GREEN_0B:    cmdlist = g_TvCmdlistScrollTextGreen;       break;
+	case TVPROGRAM_SCROLL_TEXT_GREEN_0C:    cmdlist = g_TvCmdlistScrollTextGreen;       break;
+	case TVPROGRAM_SCROLL_TEXT_GREEN_0D:    cmdlist = g_TvCmdlistScrollTextGreen;       break;
+	case TVPROGRAM_SCROLL_TEXT_GREEN_0E:    cmdlist = g_TvCmdlistScrollTextGreen;       break;
+	case TVPROGRAM_PULSE_RED:               cmdlist = g_TvCmdlistPulseRed;              break;
+	case TVPROGRAM_PULSE_GREEN:             cmdlist = g_TvCmdlistPulseGreen;            break;
+	case TVPROGRAM_SOLID_GRAY:              cmdlist = g_TvCmdlistSolidGray;             break;
+	case TVPROGRAM_SOLID_RED:               cmdlist = g_TvCmdlistSolidRed;              break;
+	case TVPROGRAM_SOLID_GREEN:             cmdlist = g_TvCmdlistSolidGreen;            break;
+	case TVPROGRAM_SOLID_BLACK:             cmdlist = g_TvCmdlistSolidBlack;            break;
+	case TVPROGRAM_TRANSPARENT:             cmdlist = g_TvCmdlistTransparent;           break;
+	case TVPROGRAM_MAIAN:                   cmdlist = g_TvCmdlistMaian;                 break;
+	case TVPROGRAM_BIO:                     cmdlist = g_TvCmdlistBio;                   break;
+	case TVPROGRAM_JOHEAD:                  cmdlist = g_TvCmdlistJoHead;                break;
+	case TVPROGRAM_JOFROCK:                 cmdlist = g_TvCmdlistJoFrock;               break;
+	case TVPROGRAM_PLANET1:                 cmdlist = g_TvCmdlistPlanet1;               break;
+	case TVPROGRAM_PLANET2:                 cmdlist = g_TvCmdlistPlanet2;               break;
+	case TVPROGRAM_PLANET3:                 cmdlist = g_TvCmdlistPlanet3;               break;
+	case TVPROGRAM_SKEDAR:                  cmdlist = g_TvCmdlistSkedar;                break;
+	case TVPROGRAM_CYCLE_PLANETS:           cmdlist = g_TvCmdlistCyclePlanets;          break;
+	case TVPROGRAM_BARS_GREEN_1E:           cmdlist = g_TvCmdlistBarsGreen;             break;
+	case TVPROGRAM_BARS_GREEN_1F:           cmdlist = g_TvCmdlistBarsGreen;             break;
+	case TVPROGRAM_BARS_GREEN_20:           cmdlist = g_TvCmdlistBarsGreen;             break;
+	case TVPROGRAM_BARS_GREEN_21:           cmdlist = g_TvCmdlistBarsGreen;             break;
+	case TVPROGRAM_BARS_GREEN_22:           cmdlist = g_TvCmdlistBarsGreen;             break;
+	case TVPROGRAM_BARS_GREEN_23:           cmdlist = g_TvCmdlistBarsGreen;             break;
+	case TVPROGRAM_CASSHEAD:                cmdlist = g_TvCmdlistCassHead;              break;
+	case TVPROGRAM_DIAGRAM:                 cmdlist = g_TvCmdlistDiagram;               break;
+	case TVPROGRAM_SCROLL_GALAXY1_GREEN:    cmdlist = g_TvCmdlistScrollGalaxy1Green;    break;
+	case TVPROGRAM_SCROLLUP_GALAXY1_BLUE:   cmdlist = g_TvCmdlistScrollUpGalaxy1Blue;   break;
+	case TVPROGRAM_STAR:                    cmdlist = g_TvCmdlistStar;                  break;
+	case TVPROGRAM_SCROLL_STAR:             cmdlist = g_TvCmdlistScrollStar;            break;
+	case TVPROGRAM_SCROLL_GALAXY2_GREEN:    cmdlist = g_TvCmdlistScrollGalaxy2Green;    break;
+	case TVPROGRAM_SCROLLUP_GALAXY2_BLUE:   cmdlist = g_TvCmdlistScrollUpGalaxy2Blue;   break;
+	case TVPROGRAM_NEBULA:                  cmdlist = g_TvCmdlistNebula;                break;
+	case TVPROGRAM_SCROLL_SYMBOLS_GREEN:    cmdlist = g_TvCmdlistScrollSymbolsGreen;    break;
+	case TVPROGRAM_SCROLLUP_SYMBOLS_ORANGE: cmdlist = g_TvCmdlistScrollUpSymbolsOrange; break;
+	case TVPROGRAM_GREENOBJECT1:            cmdlist = g_TvCmdlistGreenObject1;          break;
+	case TVPROGRAM_GREENOBJECT2:            cmdlist = g_TvCmdlistGreenObject2;          break;
+	case TVPROGRAM_GREENOBJECT3:            cmdlist = g_TvCmdlistGreenObject3;          break;
+	case TVPROGRAM_CYCLE_GREENOBJECTS:      cmdlist = g_TvCmdlistCycleGreenObjects;     break;
+	case TVPROGRAM_PCSTAND:                 cmdlist = g_TvCmdlistPcStand;               break;
+	case TVPROGRAM_EARTH:                   cmdlist = g_TvCmdlistEarth;                 break;
+	case TVPROGRAM_SHRINE:                  cmdlist = g_TvCmdlistShrine;                break;
+	case TVPROGRAM_DEFAULT:
 		break;
 	}
 
-	tvscreen_set_cmdlist(screen, image);
+	tvscreen_set_cmdlist(screen, cmdlist);
 }
 
 void tvscreen_set_texture(struct tvscreen *screen, s32 texturenum)
@@ -13135,7 +13134,7 @@ Gfx *tvscreen_render(struct model *model, struct modelnode *node, struct tvscree
 			case TVCMD_RESTART:
 				screen->offset = 0;
 				break;
-			case TVCMD_YIELD:
+			case TVCMD_STOP:
 				yielding = true;
 				break;
 			case TVCMD_SETCOLOUR:
@@ -15516,16 +15515,16 @@ void obj_damage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapo
 			struct singlemonitorobj *monitor = (struct singlemonitorobj *) obj;
 
 			if (obj_get_destroyed_level(obj) == 1) {
-				tvscreen_set_cmdlist(&monitor->screen, g_TvCmdlist14);
+				tvscreen_set_cmdlist(&monitor->screen, g_TvCmdlistSolidBlack);
 			}
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
 			struct multimonitorobj *monitor = (struct multimonitorobj *) obj;
 
 			if (obj_get_destroyed_level(obj) == 1) {
-				tvscreen_set_cmdlist(&monitor->screens[0], g_TvCmdlist14);
-				tvscreen_set_cmdlist(&monitor->screens[1], g_TvCmdlist14);
-				tvscreen_set_cmdlist(&monitor->screens[2], g_TvCmdlist14);
-				tvscreen_set_cmdlist(&monitor->screens[3], g_TvCmdlist14);
+				tvscreen_set_cmdlist(&monitor->screens[0], g_TvCmdlistSolidBlack);
+				tvscreen_set_cmdlist(&monitor->screens[1], g_TvCmdlistSolidBlack);
+				tvscreen_set_cmdlist(&monitor->screens[2], g_TvCmdlistSolidBlack);
+				tvscreen_set_cmdlist(&monitor->screens[3], g_TvCmdlistSolidBlack);
 			}
 		} else if (obj->type == OBJTYPE_GASBOTTLE) {
 			if (obj_get_destroyed_level(obj) == 1) {
