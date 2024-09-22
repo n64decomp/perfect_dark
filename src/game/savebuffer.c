@@ -142,9 +142,9 @@ Gfx *func0f0d4a3c(Gfx *gdl, s32 arg1)
 	gDPPipeSync(gdl++);
 
 	if (arg1 == 0) {
-		tex_select(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_MENURAY0], 2, 0, 2, 1, NULL);
 	} else if (arg1 == 1) {
-		tex_select(&gdl, &g_TexGeneralConfigs[11], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_MENURAY1], 2, 0, 2, 1, NULL);
 	}
 
 	gDPPipeSync(gdl++);

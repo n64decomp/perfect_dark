@@ -1980,13 +1980,13 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
 #if VERSION >= VERSION_NTSC_1_0
-		tex_select(&gdl, g_TexGeneralConfigs + 13 + stageindex, 2, 0, 2, true, NULL);
+		tex_select(&gdl, g_TexGeneralConfigs + TEX_GENERAL_DEFECTION + stageindex, 2, 0, 2, true, NULL);
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_CUSTOM_00, G_CC_CUSTOM_00);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 		gDPSetEnvColorViaWord(gdl++, 0xffffff00 | ((renderdata->colour & 0xff) * 255 / 256));
 #else
-		tex_select(&gdl, g_TexGeneralConfigs + 13 + stageindex, 1, 0, 2, true, NULL);
+		tex_select(&gdl, g_TexGeneralConfigs + TEX_GENERAL_DEFECTION + stageindex, 1, 0, 2, true, NULL);
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -2000,7 +2000,7 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 		if (g_MissionConfig.isanti) {
 			// No stars
 		} else if (g_MissionConfig.iscoop) {
-			tex_select(&gdl, &g_TexGeneralConfigs[36], 2, 0, 2, true, NULL);
+			tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_SILVERSTAR], 2, 0, 2, true, NULL);
 
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 			gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -2032,7 +2032,7 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 						G_TX_RENDERTILE, 0x0010, 0x01c0, 1024 / g_UiScaleX, -1024);
 			}
 		} else {
-			tex_select(&gdl, &g_TexGeneralConfigs[34], 2, 0, 2, true, NULL);
+			tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_GOLDSTAR], 2, 0, 2, true, NULL);
 
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 			gDPSetTextureFilter(gdl++, G_TF_POINT);

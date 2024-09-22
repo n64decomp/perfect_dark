@@ -252,7 +252,7 @@ Gfx *radar_render(Gfx *gdl)
 	u32 colour;
 	s32 i;
 
-	tconfig = g_TexRadarConfigs;
+	tconfig = &g_TexRadarConfigs[TEX_RADAR_BG];
 	playernum = g_Vars.currentplayernum;
 	playercount = PLAYERCOUNT();
 

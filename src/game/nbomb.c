@@ -141,7 +141,7 @@ Gfx *func0f0073ac(Gfx *gdl, struct coord *pos, f32 arg2)
 
 	gSPMatrix(gdl++, osVirtualToPhysical(modelmtx), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
 
-	tex_select(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, true, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_NBOMBDOME], 2, 1, 2, true, NULL);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -311,7 +311,7 @@ s32 nbomb_calculate_alpha(struct nbomb *nbomb)
 Gfx *nbomb_create_gdl(void)
 {
 	Vtx *vertices;
-	u32 gdlsizes[] = { 0x0a30, 0x0330 }; // 1 player, 2+ players
+	u32 gdlsizes[] = { 326 * sizeof(Gfx), 102 * sizeof(Gfx) }; // 1 player, 2+ players
 	Gfx *gdlstart;
 	Gfx *gdl;
 	s32 index = 0;
@@ -324,7 +324,7 @@ Gfx *nbomb_create_gdl(void)
 
 	gdl = gdlstart = gfx_allocate(gdlsizes[index]);
 
-	tex_select(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_NBOMBDOME], 2, 1, 2, 1, NULL);
 
 	gDPPipeSync(gdl++);
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -843,7 +843,7 @@ Gfx *nbomb_render_overlay(Gfx *gdl)
 
 		if (1);
 
-		tex_select(&gdl, &g_TexGeneralConfigs[10], 2, 1, 2, true, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_NBOMBDOME], 2, 1, 2, true, NULL);
 
 		gDPPipeSync(gdl++);
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
@@ -1013,7 +1013,7 @@ Gfx *gas_render(Gfx *gdl)
 
 			if (1);
 
-			tex_select(&gdl, &g_TexGeneralConfigs[6], 4, 1, 2, true, NULL);
+			tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_MENURAY0], 4, 1, 2, true, NULL);
 
 			gDPPipeSync(gdl++);
 			gDPSetCycleType(gdl++, G_CYC_1CYCLE);

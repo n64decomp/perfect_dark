@@ -2602,7 +2602,7 @@ MenuItemHandlerResult filemgr_choose_agent_list_menu_handler(s32 operation, stru
 		break;
 	case MENUOP_RENDER:
 		gdl = data->type19.gdl;
-		texturenum = 12;
+		texturenum = TEX_GENERAL_NEWAGENT;
 		file = NULL;
 		renderdata = data->type19.renderdata2;
 		seconds = 0;
@@ -2632,7 +2632,7 @@ MenuItemHandlerResult filemgr_choose_agent_list_menu_handler(s32 operation, stru
 					difficulty = DIFF_PA;
 				}
 
-				texturenum = stage + 12;
+				texturenum += stage;
 
 				days = time / 1440;
 				hours = (time - days * 1440) / 60;

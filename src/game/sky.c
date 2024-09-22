@@ -2595,7 +2595,7 @@ Gfx *sky_render_suns(Gfx *gdl, bool xray)
 
 					g_SunFlareTimers240[i] += g_Vars.lvupdate240;
 
-					tex_select(&gdl, &g_TexLightGlareConfigs[5], 4, 0, 2, 1, NULL);
+					tex_select(&gdl, &g_TexLightGlareConfigs[TEX_LIGHT_05], 4, 0, 2, 1, NULL);
 
 					gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 					gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -2616,7 +2616,7 @@ Gfx *sky_render_suns(Gfx *gdl, bool xray)
 					sp12c[0] = radius * 0.50f * xscale;
 					sp12c[1] = radius * 0.50f;
 
-					func0f0b2150(&gdl, sp134, sp12c, g_TexLightGlareConfigs[5].width, g_TexLightGlareConfigs[5].height, 0, 1, 1, 1, 0, 1);
+					func0f0b2150(&gdl, sp134, sp12c, g_TexLightGlareConfigs[TEX_LIGHT_05].width, g_TexLightGlareConfigs[TEX_LIGHT_05].height, 0, 1, 1, 1, 0, 1);
 
 					gDPPipeSync(gdl++);
 					gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -2681,7 +2681,7 @@ Gfx *sky_render_flare(Gfx *gdl, f32 x, f32 y, f32 intensityfrac, f32 size, s32 f
 	ydist = (y - vi_get_view_height() / 2.0f) * 0.01f;
 
 	// Render the source artifact (eg. the artifact that is on top of the sun)
-	tex_select(&gdl, &g_TexLightGlareConfigs[6], 4, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexLightGlareConfigs[TEX_LIGHT_06], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -2707,10 +2707,10 @@ Gfx *sky_render_flare(Gfx *gdl, f32 x, f32 y, f32 intensityfrac, f32 size, s32 f
 	sp174[1] = f2 * 0.5f;
 	sp174[0] = f2 * 0.5f * scale;
 
-	func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[6].width, g_TexLightGlareConfigs[6].height, 0, 1, 1, 1, 0, 1);
+	func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[TEX_LIGHT_06].width, g_TexLightGlareConfigs[TEX_LIGHT_06].height, 0, 1, 1, 1, 0, 1);
 
 	// Render the other artifacts
-	tex_select(&gdl, &g_TexLightGlareConfigs[1], 4, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexLightGlareConfigs[TEX_LIGHT_01], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -2764,7 +2764,7 @@ Gfx *sky_render_flare(Gfx *gdl, f32 x, f32 y, f32 intensityfrac, f32 size, s32 f
 		sp174[1] = tmp * 0.5f;
 		sp174[0] = tmp * 0.5f * scale;
 
-		func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[1].width, g_TexLightGlareConfigs[1].height, 0, 0, 0, 0, 0, 1);
+		func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[TEX_LIGHT_01].width, g_TexLightGlareConfigs[TEX_LIGHT_01].height, 0, 0, 0, 0, 0, 1);
 	}
 
 	// Check if the source is close to the center of the screen and create the bloom effect if so

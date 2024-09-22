@@ -8233,7 +8233,7 @@ void bgun_render(Gfx **gdlptr)
 		weaponnum = bgun_get_weapon_num2(handnum);
 
 		if (hand->visible) {
-			gdl = beam_render(gdl, &hand->beam, 0, 0);
+			gdl = beam_render(gdl, &hand->beam, 0, TEX_BEAM_ORANGE);
 
 			if (gset_has_weapon_flag(hand->gset.weaponnum, WEAPONFLAG_BRIGHTER)) {
 				gSPSetLights1(gdl++, var80070090);

@@ -49,7 +49,7 @@ Gfx *weather_render(Gfx *gdl)
 	gSPDisplayList(gdl++, &var80061380);
 
 	if (weather->type == WEATHERTYPE_SNOW) {
-		tex_select(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_1PXWHITE], 2, 1, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetColorDither(gdl++, G_CD_NOISE);
@@ -822,7 +822,7 @@ Gfx *weather_render_rain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 		timings1[i] = 0;
 	}
 
-	tex_select(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_1PXWHITE], 2, 1, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetColorDither(gdl++, G_CD_DISABLE);
@@ -1401,7 +1401,7 @@ Gfx *weather_render_snow(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 	static u32 snowcol1 = 0x8888aaff;
 	static u32 snowcol2 = 0xffffff7f;
 
-	tex_select(&gdl, &g_TexGeneralConfigs[0], 4, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_SNOW], 4, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetColorDither(gdl++, G_CD_DISABLE);

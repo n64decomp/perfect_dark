@@ -3735,26 +3735,26 @@ void menu_reset(void)
 
 	g_MenuData.unk5d5_01 = false;
 
-	tex_load_from_config(&g_TexGeneralConfigs[1]);
-	tex_load_from_config(&g_TexGeneralConfigs[6]);
-	tex_load_from_config(&g_TexGeneralConfigs[51]);
-	tex_load_from_config(&g_TexGeneralConfigs[52]);
-	tex_load_from_config(&g_TexGeneralConfigs[53]);
-	tex_load_from_config(&g_TexGeneralConfigs[54]);
-	tex_load_from_config(&g_TexGeneralConfigs[55]);
+	tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_1PXWHITE]);
+	tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_MENURAY0]);
+	tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_CONTROLLER_TL]);
+	tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_CONTROLLER_TR]);
+	tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_CONTROLLER_BL]);
+	tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_CONTROLLER_BR]);
+	tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_CONTROLLER_LINE]);
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
-		for (i = 12; i < 34; i++) {
+		for (i = TEX_GENERAL_NEWAGENT; i <= TEX_GENERAL_DUEL; i++) {
 			tex_load_from_config(&g_TexGeneralConfigs[i]);
 		}
 
-		tex_load_from_config(&g_TexGeneralConfigs[34]);
-		tex_load_from_config(&g_TexGeneralConfigs[36]);
-		tex_load_from_config(&g_TexGeneralConfigs[35]);
+		tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_GOLDSTAR]);
+		tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_SILVERSTAR]);
+		tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_ENVSTAR]);
 	}
 
 	if (g_Vars.mplayerisrunning) {
-		tex_load_from_config(&g_TexGeneralConfigs[35]);
+		tex_load_from_config(&g_TexGeneralConfigs[TEX_GENERAL_ENVSTAR]);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_Menus); i++) {

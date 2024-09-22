@@ -333,7 +333,7 @@ Gfx *shards_render_glass(Gfx *gdl)
 		if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 			tex_select(&gdl, NULL, 2, 1, 2, 1, NULL);
 		} else {
-			tex_select(&gdl, &g_TexShardConfigs[1], 2, 1, 2, 1, NULL);
+			tex_select(&gdl, &g_TexShardConfigs[TEX_SHARD_01], 2, 1, 2, 1, NULL);
 		}
 
 		gSPTexture(gdl++, 0x0d80, 0x0d80, 2, G_TX_RENDERTILE, G_ON);

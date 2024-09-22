@@ -9,7 +9,7 @@ void lasersights_reset(void);
 
 void beam_create(struct beam *beam, s32 weaponnum, struct coord *from, struct coord *to);
 void beam_create_for_hand(s32 handnum);
-Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3);
+Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 texnum);
 void beam_tick(struct beam *beam);
 
 void casing_create_for_hand(s32 handnum, f32 ground, Mtxf *mtx);

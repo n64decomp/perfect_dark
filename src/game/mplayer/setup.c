@@ -727,7 +727,7 @@ MenuItemHandlerResult mp_challenges_list_handler(s32 operation, struct menuitem 
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		tex_select(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_ENVSTAR], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -960,7 +960,7 @@ MenuItemHandlerResult mp_medal_menu_handler(s32 operation, struct menuitem *item
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		tex_select(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_ENVSTAR], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -4536,7 +4536,7 @@ MenuItemHandlerResult mp_challenges_list_menu_handler(s32 operation, struct menu
 		gDPSetTextureLOD(gdl++, G_TL_TILE);
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-		tex_select(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_ENVSTAR], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);

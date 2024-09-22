@@ -5598,7 +5598,7 @@ Gfx *shieldhit_render_component(Gfx *gdl, struct shieldhit *hit, struct prop *pr
 	} else {
 		f32 shield;
 
-		tex_select(&gdl, &g_TexShieldConfigs[0], 4, 1, 2, true, NULL);
+		tex_select(&gdl, &g_TexShieldConfigs[TEX_SHIELD_00], 4, 1, 2, true, NULL);
 
 		if (side >= 0) {
 			shield = hit->shield;

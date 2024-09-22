@@ -399,7 +399,7 @@ Gfx *title_render_legal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				tex_select(&gdl, &g_TexGeneralConfigs[47], 1, 0, 2, 1, 0);
+				tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_DOLBYLOGO], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -422,7 +422,7 @@ Gfx *title_render_legal(Gfx *gdl)
 				gDPSetTextureLOD(gdl++, G_TL_TILE);
 				gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-				tex_select(&gdl, &g_TexGeneralConfigs[49], 1, 0, 2, 1, 0);
+				tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_RARELOGO], 1, 0, 2, 1, 0);
 
 				gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 				gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);

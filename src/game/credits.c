@@ -330,18 +330,18 @@ struct creditsbgtype {
 };
 
 struct creditsbgtype g_CreditsBgTypes[] = {
-	{ 10000, 10000, -200, 0x04, 120, 0 },
-	{ 1000,  1000,  -200, 0x05, 220, 0 },
-	{ 1000,  10000, -50,  0x06, 220, 0 },
-	{ 1000,  10000, -200, 0x26, 220, 0 },
-	{ 500,   10000, -200, 0x26, 520, 0 },
-	{ 1000,  20000, -50,  0x26, 120, 0 },
-	{ 10000, 10000, -200, 0x2a, 120, 0 },
-	{ 10000, 10000, -200, 0x2b, 80,  0 },
-	{ 10000, 3000,  -200, 0x2b, 80,  0 },
-	{ 3000,  3000,  -200, 0x2d, 120, 0 },
-	{ 10000, 10000, -200, 0x07, 80,  0 },
-	{ 10000, 1000,  -200, 0x2d, 220, 0 },
+	{ 10000, 10000, -200, TEX_GENERAL_LASERDOT, 120, 0 },
+	{ 1000,  1000,  -200, TEX_GENERAL_05, 220, 0 },
+	{ 1000,  10000, -50,  TEX_GENERAL_MENURAY0, 220, 0 },
+	{ 1000,  10000, -200, TEX_GENERAL_38, 220, 0 },
+	{ 500,   10000, -200, TEX_GENERAL_38, 520, 0 },
+	{ 1000,  20000, -50,  TEX_GENERAL_38, 120, 0 },
+	{ 10000, 10000, -200, TEX_GENERAL_42, 120, 0 },
+	{ 10000, 10000, -200, TEX_GENERAL_43, 80,  0 },
+	{ 10000, 3000,  -200, TEX_GENERAL_43, 80,  0 },
+	{ 3000,  3000,  -200, TEX_GENERAL_45, 120, 0 },
+	{ 10000, 10000, -200, TEX_GENERAL_07, 80,  0 },
+	{ 10000, 1000,  -200, TEX_GENERAL_45, 220, 0 },
 };
 
 Gfx *credits_draw_background_layer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32 alpha, s32 arg5)
@@ -383,11 +383,11 @@ Gfx *credits_draw_background_layer(Gfx *gdl, u8 type, u8 layernum, f32 arg3, u32
 
 	credits_map_9_bg_vertices(vertices, pan, b, c, rotation, g_CreditsBgTypes[type].unk00, g_CreditsBgTypes[type].unk02);
 
-	if (g_CreditsBgTypes[type].texturenum == 4) {
+	if (g_CreditsBgTypes[type].texturenum == TEX_GENERAL_LASERDOT) {
 		alpha = alpha * 2 / 3;
 	}
 
-	if (g_CreditsBgTypes[type].texturenum == 0x26) {
+	if (g_CreditsBgTypes[type].texturenum == TEX_GENERAL_38) {
 		alpha = alpha * 2 / 3;
 	}
 
@@ -524,8 +524,8 @@ struct g_CreditParticleConfigs {
 };
 
 struct g_CreditParticleConfigs g_CreditParticleConfigs[] = {
-	{ 0x2a, 0, 0, 32, 32 },
-	{ 0x2b, 0, 0, 32, 32 },
+	{ TEX_GENERAL_42, 0, 0, 32, 32 },
+	{ TEX_GENERAL_43, 0, 0, 32, 32 },
 };
 
 /**

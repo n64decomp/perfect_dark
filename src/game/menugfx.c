@@ -305,7 +305,7 @@ Gfx *menugfx_render_bg_green_haze(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2)
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gDPSetTextureFilter(gdl++, G_TF_BILERP);
 
-	tex_select(&gdl, &g_TexGeneralConfigs[6], 2, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_MENURAY0], 2, 0, 2, 1, NULL);
 
 	gDPSetRenderMode(gdl++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
 
@@ -1829,7 +1829,7 @@ Gfx *menugfx_render_bg_success(Gfx *gdl)
 	gdl = func0f0d4c80(gdl);
 	gdl = func0f0d49c8(gdl);
 
-	tex_select(&gdl, &g_TexGeneralConfigs[1], 2, 1, 2, true, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_1PXWHITE], 2, 1, 2, true, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetColorDither(gdl++, G_CD_DISABLE);

@@ -804,7 +804,7 @@ Gfx *sight_draw_default(Gfx *gdl, bool sighton)
 
 Gfx *sight_draw_classic(Gfx *gdl, bool sighton)
 {
-	struct textureconfig *tconfig = &g_TexGeCrosshairConfigs[0];
+	struct textureconfig *tconfig = &g_TexGeCrosshairConfigs[TEX_GECROSSHAIR_00];
 	f32 spc4[2];
 	f32 spbc[2];
 	s32 x = g_Vars.currentplayer->crosspos[0];

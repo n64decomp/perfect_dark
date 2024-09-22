@@ -3955,7 +3955,7 @@ Gfx *menuitem_controller_render_lines(Gfx *gdl, struct menurendercontext *contex
 	gDPSetTextureLOD(gdl++, G_TL_TILE);
 	gDPSetTextureConvert(gdl++, G_TC_FILT);
 
-	tex_select(&gdl, &g_TexGeneralConfigs[55], 2, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_CONTROLLER_LINE], 2, 0, 2, 1, NULL);
 
 	gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 	gDPSetTextureFilter(gdl++, G_TF_POINT);
@@ -4151,10 +4151,10 @@ Gfx *menuitem_controller_render_pad(Gfx *gdl, struct menurendercontext *context,
 	s32 ry = context->y + pady + (VERSION == VERSION_JPN_FINAL ? 25 : 4);
 
 	// The controller graphic is split into 4 textures
-	gdl = menuitem_controller_render_texture(gdl, rx, ry, 0x33, alpha);
-	gdl = menuitem_controller_render_texture(gdl, rx + 32, ry, 0x34, alpha);
-	gdl = menuitem_controller_render_texture(gdl, rx, ry + 32, 0x35, alpha);
-	gdl = menuitem_controller_render_texture(gdl, rx + 32, ry + 32, 0x36, alpha);
+	gdl = menuitem_controller_render_texture(gdl, rx, ry, TEX_GENERAL_CONTROLLER_TL, alpha);
+	gdl = menuitem_controller_render_texture(gdl, rx + 32, ry, TEX_GENERAL_CONTROLLER_TR, alpha);
+	gdl = menuitem_controller_render_texture(gdl, rx, ry + 32, TEX_GENERAL_CONTROLLER_BL, alpha);
+	gdl = menuitem_controller_render_texture(gdl, rx + 32, ry + 32, TEX_GENERAL_CONTROLLER_BR, alpha);
 
 #if VERSION >= VERSION_JPN_FINAL
 	if (curmode >= CONTROLMODE_21) {

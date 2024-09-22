@@ -166,7 +166,7 @@ MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem
 		gDPSetTextureConvert(gdl++, G_TC_FILT);
 		gDPSetTextureFilter(gdl++, G_TF_POINT);
 
-		tex_select(&gdl, &g_TexGeneralConfigs[35], 2, 0, 2, 1, NULL);
+		tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_ENVSTAR], 2, 0, 2, 1, NULL);
 
 		gDPSetCycleType(gdl++, G_CYC_1CYCLE);
 		gDPSetCombineMode(gdl++, G_CC_DECALRGBA, G_CC_DECALRGBA);
@@ -577,7 +577,7 @@ MenuItemHandlerResult fr_scoring_menu_handler(s32 operation, struct menuitem *it
 		s32 y;
 		s32 textheight;
 		s32 textwidth;
-		struct textureconfig *tconfig = &g_TexGeneralConfigs[50];
+		struct textureconfig *tconfig = &g_TexGeneralConfigs[TEX_GENERAL_FRTARGET];
 		struct frdata *frdata = fr_get_data();
 		char text[128];
 		bool failed = frdata->menutype == FRMENUTYPE_FAILED;
@@ -2545,7 +2545,22 @@ MenuItemHandlerResult ci_hangar_title_menu_handler(s32 operation, struct menuite
 
 		if (index < NUM_BIO_LOCATIONS) {
 			// Location bio - render texture
-			u8 texturenums[] = { 0x1b, 0x0d, 0x0e, 0x10, 0x11, 0x12, 0x13, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1c, 0x1d };
+			u8 texturenums[] = {
+				TEX_GENERAL_DEFENSE,
+				TEX_GENERAL_DEFECTION,
+				TEX_GENERAL_INVESTIGATION,
+				TEX_GENERAL_VILLA,
+				TEX_GENERAL_CHICAGO,
+				TEX_GENERAL_G5BUILDING,
+				TEX_GENERAL_INFILTRATION,
+				TEX_GENERAL_AIRBASE,
+				TEX_GENERAL_AIRFORCEONE,
+				TEX_GENERAL_CRASHSITE,
+				TEX_GENERAL_PELAGIC,
+				TEX_GENERAL_DEEPSEA,
+				TEX_GENERAL_ATTACKSHIP,
+				TEX_GENERAL_SKEDARRUINS,
+			};
 			s32 texturenum = texturenums[index];
 
 			gDPPipeSync(gdl++);

@@ -11376,15 +11376,15 @@ Gfx *props_render_beams(Gfx *gdl)
 			struct chrdata *chr = prop->chr;
 
 			if (CHRRACE(chr) == RACE_ROBOT) {
-				gdl = beam_render(gdl, chr->unk348[0]->beam, true, true);
-				gdl = beam_render(gdl, chr->unk348[1]->beam, true, true);
+				gdl = beam_render(gdl, chr->unk348[0]->beam, true, TEX_BEAM_BLUE);
+				gdl = beam_render(gdl, chr->unk348[1]->beam, true, TEX_BEAM_BLUE);
 			} else {
 				if (chr->fireslots[0] >= 0) {
-					gdl = beam_render(gdl, &g_Fireslots[chr->fireslots[0]].beam, true, false);
+					gdl = beam_render(gdl, &g_Fireslots[chr->fireslots[0]].beam, true, TEX_BEAM_ORANGE);
 				}
 
 				if (chr->fireslots[1] >= 0) {
-					gdl = beam_render(gdl, &g_Fireslots[chr->fireslots[1]].beam, true, false);
+					gdl = beam_render(gdl, &g_Fireslots[chr->fireslots[1]].beam, true, TEX_BEAM_ORANGE);
 				}
 			}
 		} else if (prop->type == PROPTYPE_OBJ) {
@@ -11392,21 +11392,21 @@ Gfx *props_render_beams(Gfx *gdl)
 
 			if (obj->type == OBJTYPE_AUTOGUN) {
 				struct autogunobj *autogun = (struct autogunobj *)prop->obj;
-				gdl = beam_render(gdl, autogun->beam, true, false);
+				gdl = beam_render(gdl, autogun->beam, true, TEX_BEAM_ORANGE);
 			} else if (obj->type == OBJTYPE_CHOPPER) {
 				struct chopperobj *chopper = (struct chopperobj *)prop->obj;
-				gdl = beam_render(gdl, chopper->fireslotthing->beam, true, true);
+				gdl = beam_render(gdl, chopper->fireslotthing->beam, true, TEX_BEAM_BLUE);
 			}
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			if (prop->chr && playermgr_get_player_num_by_prop(prop) != g_Vars.currentplayernum) {
 				struct chrdata *chr = prop->chr;
 
 				if (chr->fireslots[0] >= 0) {
-					gdl = beam_render(gdl, &g_Fireslots[chr->fireslots[0]].beam, true, false);
+					gdl = beam_render(gdl, &g_Fireslots[chr->fireslots[0]].beam, true, TEX_BEAM_ORANGE);
 				}
 
 				if (chr->fireslots[1] >= 0) {
-					gdl = beam_render(gdl, &g_Fireslots[chr->fireslots[1]].beam, true, false);
+					gdl = beam_render(gdl, &g_Fireslots[chr->fireslots[1]].beam, true, TEX_BEAM_ORANGE);
 				}
 			}
 		}
@@ -11424,7 +11424,7 @@ void tvscreen_set_cmdlist(struct tvscreen *screen, u32 *cmdlist)
 }
 
 u32 g_TvCmdlistDefault[] = {
-	tvcmd_settexture(29),
+	tvcmd_settexture(TEX_SCREEN_TEXT),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrely(-512, 80),
 	tvcmd_pause(120),
@@ -11441,7 +11441,7 @@ u32 g_TvCmdlistDefault[] = {
 
 u32 g_TvCmdlistSinewave1[] = {
 	tvcmd_setcolour(0x202020ff, 1),
-	tvcmd_settexture(28),
+	tvcmd_settexture(TEX_SCREEN_SINEWAVE),
 	tvcmd_scrollrelx(2048, 120),
 	tvcmd_pause(120),
 	tvcmd_scaleabsx(256, 1),
@@ -11464,7 +11464,7 @@ u32 g_TvCmdlistSinewave1[] = {
 
 u32 g_TvCmdlistSinewave2[] = {
 	tvcmd_setcolour(0x202020ff, 1),
-	tvcmd_settexture(28),
+	tvcmd_settexture(TEX_SCREEN_SINEWAVE),
 	tvcmd_scaleabsx(128, 1),
 	tvcmd_scaleabsy(2048, 60),
 	tvcmd_scaleabsy(1024, 120),
@@ -11475,7 +11475,7 @@ u32 g_TvCmdlistSinewave2[] = {
 };
 
 u32 g_TvCmdlistScrollTextGreen[] = {
-	tvcmd_settexture(29),
+	tvcmd_settexture(TEX_SCREEN_TEXT),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrely(-512, 80),
 	tvcmd_pause(120),
@@ -11491,7 +11491,7 @@ u32 g_TvCmdlistScrollTextGreen[] = {
 };
 
 u32 g_TvCmdlistTransparent[] = {
-	tvcmd_settexture(50),
+	tvcmd_settexture(TEX_SCREEN_TRANSPARENT),
 	tvcmd_setcolour(0x008000fe, 1),
 	tvcmd_scrollrely(-512, 80),
 	tvcmd_pause(120),
@@ -11507,7 +11507,7 @@ u32 g_TvCmdlistTransparent[] = {
 };
 
 u32 g_TvCmdlistScrollUpTextRed[] = {
-	tvcmd_settexture(29),
+	tvcmd_settexture(TEX_SCREEN_TEXT),
 	tvcmd_setcolour(0x280000ff, 1),
 	tvcmd_scrollrely(512, 80),
 	tvcmd_pause(120),
@@ -11526,7 +11526,7 @@ u32 g_TvCmdlistScrollUpTextRed[] = {
 };
 
 u32 g_TvCmdlistScrollUpTextGreen[] = {
-	tvcmd_settexture(29),
+	tvcmd_settexture(TEX_SCREEN_TEXT),
 	tvcmd_setcolour(0x003c00ff, 1),
 	tvcmd_scrollrely(512, 80),
 	tvcmd_pause(120),
@@ -11544,7 +11544,7 @@ u32 g_TvCmdlistScrollUpTextGreen[] = {
 };
 
 u32 g_TvCmdlistBarsYellow[] = {
-	tvcmd_settexture(30),
+	tvcmd_settexture(TEX_SCREEN_BARS),
 	tvcmd_setcolour(0x404000ff, 1),
 	tvcmd_scrollrelx(640, 1),
 	tvcmd_pause(10),
@@ -11552,7 +11552,7 @@ u32 g_TvCmdlistBarsYellow[] = {
 };
 
 u32 g_TvCmdlistBarsTeal[] = {
-	tvcmd_settexture(30),
+	tvcmd_settexture(TEX_SCREEN_BARS),
 	tvcmd_setcolour(0x004040ff, 1),
 	tvcmd_scrollrelx(640, 1),
 	tvcmd_pause(10),
@@ -11560,7 +11560,7 @@ u32 g_TvCmdlistBarsTeal[] = {
 };
 
 u32 g_TvCmdlistBarsGreen[] = {
-	tvcmd_settexture(30),
+	tvcmd_settexture(TEX_SCREEN_BARS),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrelx(-640, 1),
 	tvcmd_pause(10),
@@ -11568,7 +11568,7 @@ u32 g_TvCmdlistBarsGreen[] = {
 };
 
 u32 g_TvCmdlistPulseRed[] = {
-	tvcmd_settexture(49),
+	tvcmd_settexture(TEX_SCREEN_FILL),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
 	tvcmd_setcolour(0xdc2828ff, 60),
@@ -11579,7 +11579,7 @@ u32 g_TvCmdlistPulseRed[] = {
 };
 
 u32 g_TvCmdlistPulseGreen[] = {
-	tvcmd_settexture(49),
+	tvcmd_settexture(TEX_SCREEN_FILL),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
 	tvcmd_setcolour(0x32c832ff, 60),
@@ -11590,7 +11590,7 @@ u32 g_TvCmdlistPulseGreen[] = {
 };
 
 u32 g_TvCmdlistSolidGray[] = {
-	tvcmd_settexture(49),
+	tvcmd_settexture(TEX_SCREEN_FILL),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
 	tvcmd_setcolour(0x323232ff, 10),
@@ -11599,7 +11599,7 @@ u32 g_TvCmdlistSolidGray[] = {
 };
 
 u32 g_TvCmdlistSolidRed[] = {
-	tvcmd_settexture(49),
+	tvcmd_settexture(TEX_SCREEN_FILL),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
 	tvcmd_setcolour(0xdc2828ff, 10),
@@ -11608,7 +11608,7 @@ u32 g_TvCmdlistSolidRed[] = {
 };
 
 u32 g_TvCmdlistSolidGreen[] = {
-	tvcmd_settexture(49),
+	tvcmd_settexture(TEX_SCREEN_FILL),
 	tvcmd_scaleabsx(512, 0),
 	tvcmd_scaleabsy(512, 0),
 	tvcmd_setcolour(0x32c832ff, 10),
@@ -11617,49 +11617,49 @@ u32 g_TvCmdlistSolidGreen[] = {
 };
 
 u32 g_TvCmdlistMaian[] = {
-	tvcmd_settexture(51),
+	tvcmd_settexture(TEX_SCREEN_MAIAN),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistBio[] = {
-	tvcmd_settexture(72),
+	tvcmd_settexture(TEX_SCREEN_BIO),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistJoHead[] = {
-	tvcmd_settexture(73),
+	tvcmd_settexture(TEX_SCREEN_JOHEAD),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistJoFrock[] = {
-	tvcmd_settexture(74),
+	tvcmd_settexture(TEX_SCREEN_JOFROCK),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistPlanet1[] = {
-	tvcmd_settexture(75),
+	tvcmd_settexture(TEX_SCREEN_PLANET1),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistPlanet2[] = {
-	tvcmd_settexture(76),
+	tvcmd_settexture(TEX_SCREEN_PLANET2),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistPlanet3[] = {
-	tvcmd_settexture(77),
+	tvcmd_settexture(TEX_SCREEN_PLANET3),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
@@ -11667,19 +11667,19 @@ u32 g_TvCmdlistPlanet3[] = {
 
 u32 g_TvCmdlistCyclePlanets[] = {
 	tvcmd_setcolour(0x000000ff, 1),
-	tvcmd_settexture(75),
+	tvcmd_settexture(TEX_SCREEN_PLANET1),
 	tvcmd_pause(1),
 	tvcmd_setcolour(0xffffffff, 180),
 	tvcmd_pause(360),
 	tvcmd_setcolour(0x000000ff, 30),
 	tvcmd_pause(30),
-	tvcmd_settexture(76),
+	tvcmd_settexture(TEX_SCREEN_PLANET2),
 	tvcmd_pause(1),
 	tvcmd_setcolour(0xffffffff, 180),
 	tvcmd_pause(360),
 	tvcmd_setcolour(0x000000ff, 30),
 	tvcmd_pause(30),
-	tvcmd_settexture(77),
+	tvcmd_settexture(TEX_SCREEN_PLANET3),
 	tvcmd_pause(1),
 	tvcmd_setcolour(0xffffffff, 180),
 	tvcmd_pause(360),
@@ -11689,106 +11689,106 @@ u32 g_TvCmdlistCyclePlanets[] = {
 };
 
 u32 g_TvCmdlistSkedar[] = {
-	tvcmd_settexture(78),
+	tvcmd_settexture(TEX_SCREEN_SKEDAR),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistWhiteCoat[] = {
-	tvcmd_settexture(52),
+	tvcmd_settexture(TEX_SCREEN_WHITECOAT_FRAME1),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(5),
-	tvcmd_settexture(53),
+	tvcmd_settexture(TEX_SCREEN_WHITECOAT_FRAME2),
 	tvcmd_pause(5),
-	tvcmd_settexture(54),
+	tvcmd_settexture(TEX_SCREEN_WHITECOAT_FRAME3),
 	tvcmd_pause(5),
-	tvcmd_settexture(55),
+	tvcmd_settexture(TEX_SCREEN_WHITECOAT_FRAME4),
 	tvcmd_pause(5),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistStripedShirt[] = {
-	tvcmd_settexture(79),
+	tvcmd_settexture(TEX_SCREEN_STRIPEDSHIRT_FRAME1),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(5),
-	tvcmd_settexture(80),
+	tvcmd_settexture(TEX_SCREEN_STRIPEDSHIRT_FRAME2),
 	tvcmd_pause(5),
-	tvcmd_settexture(81),
+	tvcmd_settexture(TEX_SCREEN_STRIPEDSHIRT_FRAME3),
 	tvcmd_pause(5),
-	tvcmd_settexture(82),
+	tvcmd_settexture(TEX_SCREEN_STRIPEDSHIRT_FRAME4),
 	tvcmd_pause(5),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistFinger[] = {
-	tvcmd_settexture(56),
+	tvcmd_settexture(TEX_SCREEN_FINGER_FRAME1),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
-	tvcmd_settexture(57),
+	tvcmd_settexture(TEX_SCREEN_FINGER_FRAME2),
 	tvcmd_pause(10),
-	tvcmd_settexture(58),
+	tvcmd_settexture(TEX_SCREEN_FINGER_FRAME3),
 	tvcmd_pause(10),
-	tvcmd_settexture(59),
+	tvcmd_settexture(TEX_SCREEN_FINGER_FRAME4),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistFist[] = {
-	tvcmd_settexture(60),
+	tvcmd_settexture(TEX_SCREEN_FIST_FRAME1),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(15),
-	tvcmd_settexture(61),
+	tvcmd_settexture(TEX_SCREEN_FIST_FRAME2),
 	tvcmd_pause(15),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistPatrol1[] = {
-	tvcmd_settexture(62),
+	tvcmd_settexture(TEX_SCREEN_PATROL1_FRAME1),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
-	tvcmd_settexture(63),
+	tvcmd_settexture(TEX_SCREEN_PATROL1_FRAME2),
 	tvcmd_pause(10),
-	tvcmd_settexture(64),
+	tvcmd_settexture(TEX_SCREEN_PATROL1_FRAME3),
 	tvcmd_pause(10),
-	tvcmd_settexture(65),
+	tvcmd_settexture(TEX_SCREEN_PATROL1_FRAME4),
 	tvcmd_pause(10),
-	tvcmd_settexture(66),
+	tvcmd_settexture(TEX_SCREEN_PATROL1_FRAME5),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistPatrol2[] = {
-	tvcmd_settexture(67),
+	tvcmd_settexture(TEX_SCREEN_PATROL2_FRAME1),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
-	tvcmd_settexture(68),
+	tvcmd_settexture(TEX_SCREEN_PATROL2_FRAME2),
 	tvcmd_pause(10),
-	tvcmd_settexture(69),
+	tvcmd_settexture(TEX_SCREEN_PATROL2_FRAME3),
 	tvcmd_pause(10),
-	tvcmd_settexture(70),
+	tvcmd_settexture(TEX_SCREEN_PATROL2_FRAME4),
 	tvcmd_pause(10),
-	tvcmd_settexture(71),
+	tvcmd_settexture(TEX_SCREEN_PATROL2_FRAME5),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistCassHead[] = {
-	tvcmd_settexture(83),
+	tvcmd_settexture(TEX_SCREEN_CASSHEAD),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistDiagram[] = {
-	tvcmd_settexture(84),
+	tvcmd_settexture(TEX_SCREEN_DIAGRAM),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistScrollGalaxy1Green[] = {
-	tvcmd_settexture(85),
+	tvcmd_settexture(TEX_SCREEN_GALAXY1),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrely(-512, 80),
 	tvcmd_pause(80),
@@ -11796,7 +11796,7 @@ u32 g_TvCmdlistScrollGalaxy1Green[] = {
 };
 
 u32 g_TvCmdlistScrollUpGalaxy1Blue[] = {
-	tvcmd_settexture(85),
+	tvcmd_settexture(TEX_SCREEN_GALAXY1),
 	tvcmd_setcolour(0x0032c8ff, 1),
 	tvcmd_scrollrely(512, 80),
 	tvcmd_pause(80),
@@ -11804,14 +11804,14 @@ u32 g_TvCmdlistScrollUpGalaxy1Blue[] = {
 };
 
 u32 g_TvCmdlistStar[] = {
-	tvcmd_settexture(86),
+	tvcmd_settexture(TEX_SCREEN_STAR),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistScrollStar[] = {
-	tvcmd_settexture(86),
+	tvcmd_settexture(TEX_SCREEN_STAR),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_scrollrely(-512, 80),
 	tvcmd_pause(80),
@@ -11819,7 +11819,7 @@ u32 g_TvCmdlistScrollStar[] = {
 };
 
 u32 g_TvCmdlistScrollGalaxy2Green[] = {
-	tvcmd_settexture(87),
+	tvcmd_settexture(TEX_SCREEN_GALAXY2),
 	tvcmd_setcolour(0x008000ff, 1),
 	tvcmd_scrollrely(-512, 80),
 	tvcmd_pause(80),
@@ -11827,7 +11827,7 @@ u32 g_TvCmdlistScrollGalaxy2Green[] = {
 };
 
 u32 g_TvCmdlistScrollUpGalaxy2Blue[] = {
-	tvcmd_settexture(87),
+	tvcmd_settexture(TEX_SCREEN_GALAXY2),
 	tvcmd_setcolour(0x0032c8ff, 1),
 	tvcmd_scrollrely(512, 80),
 	tvcmd_pause(80),
@@ -11835,14 +11835,14 @@ u32 g_TvCmdlistScrollUpGalaxy2Blue[] = {
 };
 
 u32 g_TvCmdlistNebula[] = {
-	tvcmd_settexture(88),
+	tvcmd_settexture(TEX_SCREEN_NEBULA),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistScrollSymbolsGreen[] = {
-	tvcmd_settexture(89),
+	tvcmd_settexture(TEX_SCREEN_SYMBOLS),
 	tvcmd_setcolour(0x007f00ff, 1),
 	tvcmd_scrollrely(-512, 80),
 	tvcmd_pause(120),
@@ -11858,7 +11858,7 @@ u32 g_TvCmdlistScrollSymbolsGreen[] = {
 };
 
 u32 g_TvCmdlistScrollUpSymbolsOrange[] = {
-	tvcmd_settexture(89),
+	tvcmd_settexture(TEX_SCREEN_SYMBOLS),
 	tvcmd_setcolour(0xff7f00ff, 1),
 	tvcmd_scrollrely(512, 80),
 	tvcmd_pause(120),
@@ -11874,21 +11874,21 @@ u32 g_TvCmdlistScrollUpSymbolsOrange[] = {
 };
 
 u32 g_TvCmdlistGreenObject1[] = {
-	tvcmd_settexture(90),
+	tvcmd_settexture(TEX_SCREEN_GREENOBJECT1),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistGreenObject2[] = {
-	tvcmd_settexture(91),
+	tvcmd_settexture(TEX_SCREEN_GREENOBJECT2),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistGreenObject3[] = {
-	tvcmd_settexture(92),
+	tvcmd_settexture(TEX_SCREEN_GREENOBJECT3),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
@@ -11896,19 +11896,19 @@ u32 g_TvCmdlistGreenObject3[] = {
 
 u32 g_TvCmdlistCycleGreenObjects[] = {
 	tvcmd_setcolour(0x000000ff, 1),
-	tvcmd_settexture(90),
+	tvcmd_settexture(TEX_SCREEN_GREENOBJECT1),
 	tvcmd_pause(1),
 	tvcmd_setcolour(0xffffffff, 180),
 	tvcmd_pause(360),
 	tvcmd_setcolour(0x000000ff, 30),
 	tvcmd_pause(30),
-	tvcmd_settexture(91),
+	tvcmd_settexture(TEX_SCREEN_GREENOBJECT2),
 	tvcmd_pause(1),
 	tvcmd_setcolour(0xffffffff, 180),
 	tvcmd_pause(360),
 	tvcmd_setcolour(0x000000ff, 30),
 	tvcmd_pause(30),
-	tvcmd_settexture(92),
+	tvcmd_settexture(TEX_SCREEN_GREENOBJECT3),
 	tvcmd_pause(1),
 	tvcmd_setcolour(0xffffffff, 180),
 	tvcmd_pause(360),
@@ -11918,28 +11918,28 @@ u32 g_TvCmdlistCycleGreenObjects[] = {
 };
 
 u32 g_TvCmdlistPcStand[] = {
-	tvcmd_settexture(93),
+	tvcmd_settexture(TEX_SCREEN_PCSTAND),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistEarth[] = {
-	tvcmd_settexture(94),
+	tvcmd_settexture(TEX_SCREEN_EARTH),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistShrine[] = {
-	tvcmd_settexture(95),
+	tvcmd_settexture(TEX_SCREEN_SHRINE),
 	tvcmd_setcolour(0xffffffff, 1),
 	tvcmd_pause(10),
 	tvcmd_restart(),
 };
 
 u32 g_TvCmdlistSolidBlack[] = {
-	tvcmd_settexture(0),
+	tvcmd_settexture(TEX_SCREEN_BOND),
 	tvcmd_setcolour(0x000000ff, 0),
 	tvcmd_stop(),
 };
@@ -11955,7 +11955,7 @@ u32 g_TvCmdlistBondZoom[] = {
 };
 
 u32 g_TvCmdlistBondPan[] = {
-	tvcmd_settexture(0),
+	tvcmd_settexture(TEX_SCREEN_BOND),
 	tvcmd_scrollrelx(1024, 20),
 	tvcmd_pause(20),
 	tvcmd_scrollrely(1024, 20),
@@ -13502,7 +13502,7 @@ Gfx *gfx_render_radial_shadow(Gfx *gdl, f32 x, f32 y, f32 z, f32 angle, f32 radi
 	vertices = gfx_allocate_vertices(4);
 	colours = gfx_allocate_colours(1);
 
-	tconfig = &g_TexShadowConfigs[0];
+	tconfig = &g_TexShadowConfigs[TEX_SHADOW_00];
 
 	colours[0].word = colour;
 

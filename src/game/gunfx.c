@@ -295,13 +295,13 @@ Gfx *beam_render_generic(Gfx *gdl, struct textureconfig *texconfig,
 	return gdl;
 }
 
-Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
+Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 texnum)
 {
 	u32 stack;
 	Mtxf *sp188;
 	Mtxf sp148;
 
-	if (arg3 < 5 && beam->age >= 0) {
+	if (texnum <= TEX_BEAM_GREEN && beam->age >= 0) {
 		Col *colours = gfx_allocate_colours(1);
 		struct coord sp138;
 		struct coord *campos = &g_Vars.currentplayer->cam_pos;
@@ -314,7 +314,7 @@ Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 		struct coord sp100 = {0, 0, 0};
 		struct coord spf4 = {0, 0, 0};
 		f32 spf0 = 1.4142f;
-		struct textureconfig *texconfig = &g_TexBeamConfigs[arg3];
+		struct textureconfig *texconfig = &g_TexBeamConfigs[texnum];
 		s32 i;
 		Mtxf *worldtoscreenmtx = cam_get_world_to_screen_mtxf();
 		s32 j;
@@ -332,17 +332,17 @@ Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 
 		switch (beam->weaponnum) {
 		case WEAPON_CYCLONE:
-			texconfig = &g_TexBeamConfigs[1];
+			texconfig = &g_TexBeamConfigs[TEX_BEAM_BLUE];
 			break;
 		case WEAPON_TRANQUILIZER:
-			texconfig = &g_TexBeamConfigs[3];
+			texconfig = &g_TexBeamConfigs[TEX_BEAM_YELLOW];
 			break;
 		case WEAPON_MAULER:
 		case WEAPON_PHOENIX:
 		case WEAPON_CALLISTO:
 		case WEAPON_REAPER:
 		case WEAPON_FARSIGHT:
-			texconfig = &g_TexBeamConfigs[4];
+			texconfig = &g_TexBeamConfigs[TEX_BEAM_GREEN];
 			break;
 		}
 
@@ -355,11 +355,11 @@ Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 		if (beam->weaponnum == WEAPON_LASER) {
 			// Laser primary
 			sp130 = 50.0f;
-			texconfig = &g_TexLaserConfigs[0];
+			texconfig = &g_TexLaserConfigs[TEX_LASER_00];
 		} else if (beam->weaponnum == -2) {
 			// Laser secondary
 			sp130 = 10.0f;
-			texconfig = &g_TexLaserConfigs[0];
+			texconfig = &g_TexLaserConfigs[TEX_LASER_00];
 
 			colours[0].a = 150 + (random() % 50);
 
@@ -373,7 +373,7 @@ Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 		if (beam->weaponnum <= -3) {
 			// Mauler
 			sp130 = sp130 * ((beam->weaponnum + 3) * 2.0f + 1.0f);
-			texconfig = &g_TexBeamConfigs[4];
+			texconfig = &g_TexBeamConfigs[TEX_BEAM_GREEN];
 		}
 
 		sp138.f[0] = beam->from.f[0];
@@ -537,8 +537,8 @@ Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 						vertices[4].x = spf4.f[0] + sp118.f[0] * spf0;
 						vertices[4].y = spf4.f[1] + sp118.f[1] * spf0;
 						vertices[4].z = spf4.f[2] + sp118.f[2] * spf0;
-						vertices[4].s = g_TexGroup03Configs[0].width * 32;
-						vertices[4].t = g_TexGroup03Configs[0].height * 32;
+						vertices[4].s = g_TexGroup03Configs[TEX_MUZZLE_LASER].width * 32;
+						vertices[4].t = g_TexGroup03Configs[TEX_MUZZLE_LASER].height * 32;
 						vertices[4].colour = 0;
 
 						vertices[5].x = spf4.f[0] - sp118.f[0] * spf0;
@@ -552,13 +552,13 @@ Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 						vertices[6].y = spf4.f[1] + sp10c.f[1] * spf0;
 						vertices[6].z = spf4.f[2] + sp10c.f[2] * spf0;
 						vertices[6].s = 0;
-						vertices[6].t = g_TexGroup03Configs[0].height * 32;
+						vertices[6].t = g_TexGroup03Configs[TEX_MUZZLE_LASER].height * 32;
 						vertices[6].colour = 0;
 
 						vertices[7].x = spf4.f[0] - sp10c.f[0] * spf0;
 						vertices[7].y = spf4.f[1] - sp10c.f[1] * spf0;
 						vertices[7].z = spf4.f[2] - sp10c.f[2] * spf0;
-						vertices[7].s = g_TexGroup03Configs[0].width * 32;
+						vertices[7].s = g_TexGroup03Configs[TEX_MUZZLE_LASER].width * 32;
 						vertices[7].t = 0;
 						vertices[7].colour = 0;
 					}
@@ -575,7 +575,7 @@ Gfx *beam_render(Gfx *gdl, struct beam *beam, bool arg2, u8 arg3)
 					gSPColor(gdl++, osVirtualToPhysical(colours), 1);
 
 					if (beam->weaponnum == WEAPON_LASER) {
-						tex_select(&gdl, &g_TexGroup03Configs[0], 4, arg2, 2, true, NULL);
+						tex_select(&gdl, &g_TexGroup03Configs[TEX_MUZZLE_LASER], 4, arg2, 2, true, NULL);
 
 						gSPVertex(gdl++, osVirtualToPhysical(vertices), 8, 0);
 						gSPTri2(gdl++, 4, 5, 6, 4, 5, 7);
@@ -980,7 +980,7 @@ Gfx *boltbeams_render(Gfx *gdl)
 
 	for (i = 0; i < ARRAYCOUNT(g_BoltBeams); i++) {
 		if (g_BoltBeams[i].unk00 != -1) {
-			gdl = beam_render_generic(gdl, g_TexLaserConfigs, 1, &g_BoltBeams[i].headpos, 0xafafff00, 2, &g_BoltBeams[i].tailpos, 0xafafff7f);
+			gdl = beam_render_generic(gdl, &g_TexLaserConfigs[TEX_LASER_00], 1, &g_BoltBeams[i].headpos, 0xafafff00, 2, &g_BoltBeams[i].tailpos, 0xafafff7f);
 		}
 	}
 
@@ -1167,7 +1167,7 @@ Gfx *lasersight_render_dot(Gfx *gdl)
 						}
 					}
 
-					tex_select(&gdl, &g_TexGeneralConfigs[4], 4, 0, 2, true, NULL);
+					tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_LASERDOT], 4, 0, 2, true, NULL);
 
 					if (rot.f[0] == 0.0f && rot.f[2] == 0.0f) {
 						spcc = 0.0f;
@@ -1260,7 +1260,7 @@ Gfx *lasersight_render_beam(Gfx *gdl)
 	gDPSetCombineMode(gdl++, G_CC_BLENDIA, G_CC_BLENDIA);
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 
-	tex_select(&gdl, &g_TexGeneralConfigs[3], 4, 0, 2, 1, NULL);
+	tex_select(&gdl, &g_TexGeneralConfigs[TEX_GENERAL_LASERBEAM], 4, 0, 2, 1, NULL);
 	mtx4_load_identity(&sp14c);
 
 	mtx00015be0(cam_get_world_to_screen_mtxf(), &sp14c);
