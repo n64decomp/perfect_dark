@@ -2,15 +2,13 @@
 
 This repository contains a complete decompilation of Perfect Dark for the Nintendo 64.
 
-The project aims to be a matching decompilation. When a matching decompilation is compiled with the same compiler that the original developers used, the output will be exactly the same as the retail game, byte for byte.
+The project is a matching decompilation. When a matching decompilation is compiled with the same compiler that the original developers used, the output will be exactly the same as the retail game, byte for byte.
 
 To build the project, you must already have a Perfect Dark ROM. The project can build the exact same ROM from decomp's source code combined with assets that it extracts from your base ROM.
 
 ## Status
 
 See the [Perfect Dark Decompilation Status Page](https://ryandwyer.gitlab.io/pdstatus/).
-
-All versions of the game are fully decompiled but a small handful of functions are not yet byte-matching even though they are functionally the same. The status page doesn't show these as 100% because it counts matching functions only.
 
 ## Installation Requirements
 
