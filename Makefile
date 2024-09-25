@@ -447,13 +447,6 @@ ifeq ($(COMPILER), ido)
         -Wab,-w \
         -woff 581,649,819,820,821,838,852 \
         $(MIPSISET) -32
-
-    # Files containing GLOBAL_ASM must be built with the asm_processor
-    ifeq ($(MATCHING), 1)
-        GLOBALASM_C_FILES != grep -rl 'GLOBAL_ASM(' $(C_FILES)
-        GLOBALASM_O_FILES = $(patsubst src/%.c, $(B_DIR)/%.o, $(GLOBALASM_C_FILES))
-        $(GLOBALASM_O_FILES): CC := /usr/bin/env python3 tools/asm_processor/build.py $(CC) -- $(TOOLCHAIN)-as $(ASFLAGS) --
-    endif
 else ifeq ($(COMPILER), gcc)
     CC := $(TOOLCHAIN)-gcc
 
