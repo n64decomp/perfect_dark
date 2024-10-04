@@ -855,79 +855,79 @@ Gfx *text_configure_colours_v2(Gfx *gdl, s32 x, s32 y)
 }
 
 #if VERSION >= VERSION_PAL_BETA
-void text_map_codeunit_to_char(u8 *c)
+void text_latin1_to_ascii(u8 *c)
 {
 	switch (*c) {
-	case 0xc0:
-	case 0xc1:
-	case 0xc4:
-		*c = 0x41;
+	case 0xc0: // À
+	case 0xc1: // Á
+	case 0xc4: // Ä
+		*c = 'A';
 		break;
-	case 0xc8:
-	case 0xc9:
-		*c = 0x45;
+	case 0xc8: // È
+	case 0xc9: // É
+		*c = 'E';
 		break;
-	case 0xcc:
-	case 0xcd:
-		*c = 0x49;
+	case 0xcc: // Ì
+	case 0xcd: // Í
+		*c = 'I';
 		break;
-	case 0xd2:
-	case 0xd3:
-	case 0xd6:
-		*c = 0x4f;
+	case 0xd2: // Ò
+	case 0xd3: // Ó
+	case 0xd6: // Ö
+		*c = 'O';
 		break;
-	case 0xd9:
-	case 0xda:
-	case 0xdc:
-		*c = 0x55;
+	case 0xd9: // Ù
+	case 0xda: // Ú
+	case 0xdc: // Ü
+		*c = 'U';
 		break;
-	case 0xe0:
-	case 0xe1:
-	case 0xe2:
-	case 0xe4:
-		*c = 0x61;
+	case 0xe0: // à
+	case 0xe1: // á
+	case 0xe2: // â
+	case 0xe4: // ä
+		*c = 'a';
 		break;
-	case 0xe8:
-	case 0xe9:
-	case 0xea:
-	case 0xeb:
-		*c = 0x65;
+	case 0xe8: // è
+	case 0xe9: // é
+	case 0xea: // ê
+	case 0xeb: // ë
+		*c = 'e';
 		break;
-	case 0xec:
-	case 0xed:
-	case 0xee:
-	case 0xef:
-		*c = 0x69;
+	case 0xec: // ì
+	case 0xed: // í
+	case 0xee: // î
+	case 0xef: // ï
+		*c = 'i';
 		break;
-	case 0xf2:
-	case 0xf3:
-	case 0xf4:
-	case 0xf6:
-		*c = 0x6f;
+	case 0xf2: // ò
+	case 0xf3: // ó
+	case 0xf4: // ô
+	case 0xf6: // ö
+		*c = 'o';
 		break;
-	case 0xf9:
-	case 0xfa:
-	case 0xfb:
-	case 0xfc:
-		*c = 0x75;
+	case 0xf9: // ù
+	case 0xfa: // ú
+	case 0xfb: // û
+	case 0xfc: // ü
+		*c = 'u';
 		break;
-	case 0xd1:
-		*c = 0x4e;
+	case 0xd1: // Ñ
+		*c = 'N';
 		break;
-	case 0xf1:
-		*c = 0x6e;
+	case 0xf1: // ñ
+		*c = 'n';
 		break;
-	case 0xe7:
-		*c = 0x63;
+	case 0xe7: // ç
+		*c = 'c';
 		break;
-	case 0xdf:
-		*c = 0x42;
+	case 0xdf: // ß
+		*c = 'B';
 		break;
-	case 0xa1:
-	case 0xaa:
-	case 0xb0:
-	case 0xbf:
-		*c = 0x20;
+	case 0xa1: // ¡
+	case 0xaa: // ª
+	case 0xb0: // °
+	case 0xbf: // ¿
+		*c = ' ';
 		break;
 	}
 }
@@ -1141,50 +1141,50 @@ void text_parse_char(char **text, struct fontchar **thischarptr, struct fontchar
 
 	if (chars == g_CharsHandelGothicSm || chars == g_CharsHandelGothicMd || chars == g_CharsHandelGothicXs) {
 		switch (c) {
-		case 0xc4: index = 0x5e; break;
-		case 0xc1: index = 0x66; break;
-		case 0xc0: index = 0x70; break;
-		case 0xc9: index = 0x67; break;
-		case 0xc8: index = 0x71; break;
-		case 0xcd: index = 0x68; break;
-		case 0xcc: index = 0x72; break;
-		case 0xd6: index = 0x5f; break;
-		case 0xd3: index = 0x69; break;
-		case 0xd2: index = 0x73; break;
-		case 0xdc: index = 0x60; break;
-		case 0xda: index = 0x6a; break;
-		case 0xd9: index = 0x74; break;
-		case 0xe4: index = 0x61; break;
-		case 0xe1: index = 0x6b; break;
-		case 0xe0: index = 0x75; break;
-		case 0xe2: index = 0x7a; break;
-		case 0xea: index = 0x7b; break;
-		case 0xe9: index = 0x6c; break;
-		case 0xeb: index = 0x62; break;
-		case 0xe8: index = 0x76; break;
-		case 0xec: index = 0x77; break;
-		case 0xef: index = 0x63; break;
-		case 0xed: index = 0x6d; break;
-		case 0xee: index = 0x7c; break;
-		case 0xf4: index = 0x7d; break;
-		case 0xf6: index = 0x64; break;
-		case 0xf3: index = 0x6e; break;
-		case 0xf2: index = 0x78; break;
-		case 0xf9: index = 0x79; break;
-		case 0xfc: index = 0x65; break;
-		case 0xfa: index = 0x6f; break;
-		case 0xfb: index = 0x7e; break;
-		case 0xd1: index = 0x7f; break;
-		case 0xf1: index = 0x80; break;
-		case 0xe7: index = 0x81; break;
-		case 0xdf: index = 0x82; break;
-		case 0xbf: index = 0x83; break;
-		case 0xa1: index = 0x84; break;
-		case 0xb0: index = 0x85; break;
-		case 0xaa: index = 0x86; break;
+		case 0xc4 /*Ä*/: index = 94; break;
+		case 0xc1 /*Á*/: index = 102; break;
+		case 0xc0 /*À*/: index = 112; break;
+		case 0xc9 /*É*/: index = 103; break;
+		case 0xc8 /*È*/: index = 113; break;
+		case 0xcd /*Í*/: index = 104; break;
+		case 0xcc /*Ì*/: index = 114; break;
+		case 0xd6 /*Ö*/: index = 95; break;
+		case 0xd3 /*Ó*/: index = 105; break;
+		case 0xd2 /*Ò*/: index = 115; break;
+		case 0xdc /*Ü*/: index = 96; break;
+		case 0xda /*Ú*/: index = 106; break;
+		case 0xd9 /*Ù*/: index = 116; break;
+		case 0xe4 /*ä*/: index = 97; break;
+		case 0xe1 /*á*/: index = 107; break;
+		case 0xe0 /*à*/: index = 117; break;
+		case 0xe2 /*â*/: index = 122; break;
+		case 0xea /*ê*/: index = 123; break;
+		case 0xe9 /*é*/: index = 108; break;
+		case 0xeb /*ë*/: index = 98; break;
+		case 0xe8 /*è*/: index = 118; break;
+		case 0xec /*ì*/: index = 119; break;
+		case 0xef /*ï*/: index = 99; break;
+		case 0xed /*í*/: index = 109; break;
+		case 0xee /*î*/: index = 124; break;
+		case 0xf4 /*ô*/: index = 125; break;
+		case 0xf6 /*ö*/: index = 100; break;
+		case 0xf3 /*ó*/: index = 110; break;
+		case 0xf2 /*ò*/: index = 120; break;
+		case 0xf9 /*ù*/: index = 121; break;
+		case 0xfc /*ü*/: index = 101; break;
+		case 0xfa /*ú*/: index = 111; break;
+		case 0xfb /*û*/: index = 126; break;
+		case 0xd1 /*Ñ*/: index = 127; break;
+		case 0xf1 /*ñ*/: index = 128; break;
+		case 0xe7 /*ç*/: index = 129; break;
+		case 0xdf /*ß*/: index = 130; break;
+		case 0xbf /*¿*/: index = 131; break;
+		case 0xa1 /*¡*/: index = 132; break;
+		case 0xb0 /*°*/: index = 133; break;
+		case 0xaa /*ª*/: index = 134; break;
 		}
 	} else {
-		text_map_codeunit_to_char(&c);
+		text_latin1_to_ascii(&c);
 	}
 
 	if (index > 0) {
@@ -1204,7 +1204,7 @@ void text_parse_char(char **text, struct fontchar **thischarptr, struct fontchar
 	*prevcharptr = &chars[*prevchar - 0x21];
 
 	if (index > 0) {
-		text_map_codeunit_to_char(&c);
+		text_latin1_to_ascii(&c);
 	}
 
 	*prevchar = c;
