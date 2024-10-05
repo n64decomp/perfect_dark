@@ -3447,17 +3447,16 @@ struct audioconfig {
 
 struct artifact {
 	u16 type;
-	u16 unk02;
-	u16 unk04;
-	u16 unk06;
-	u16 *unk08;
+	u16 actualdepth;
+	u16 expecteddepth;
+	u16 *zbufptr;
 	union {
-		u16 *u16p;
+		u16 *depthptr;
 		struct {
-			u16 u16_1;
-			u16 u16_2;
+			u16 screeny;
+			u16 screenx;
 		};
-	} unk0c;
+	};
 	struct light *light;
 };
 

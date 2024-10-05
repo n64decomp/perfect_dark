@@ -73,7 +73,7 @@ u32 var8008de14;
 OSTimer g_SchedRspTimer;
 u32 g_SchedDpCounters[4];
 struct artifact g_ArtifactLists[3][120];
-u8 g_SchedSpecialArtifactIndexes[3];
+u8 g_SchedArtifactsWithDualBuffers[3];
 s32 g_SchedWriteArtifactsIndex;
 s32 g_SchedFrontArtifactsIndex;
 s32 g_SchedPendingArtifactsIndex;
@@ -479,7 +479,7 @@ void sched_init_artifacts(void)
 			g_ArtifactLists[i][j].type = ARTIFACTTYPE_FREE;
 		}
 
-		g_SchedSpecialArtifactIndexes[i] = 0;
+		g_SchedArtifactsWithDualBuffers[i] = false;
 	}
 }
 
@@ -494,19 +494,13 @@ struct artifact *sched_get_write_artifacts(void)
 
 /**
  * The front list is the artifact list that is currently being displayed on the
- * screen. Rendering logic reads this list. The list may be re-used for multiple
- * frames in a row during lag.
+ * screen. Rendering logic reads this list.
  */
 struct artifact *sched_get_front_artifacts(void)
 {
 	return g_ArtifactLists[g_SchedFrontArtifactsIndex];
 }
 
-/**
- * The pending list is possibly misnamed. I'm not sure how this list works.
- *
- * @TODO: Investigate.
- */
 struct artifact *sched_get_pending_artifacts(void)
 {
 	return g_ArtifactLists[g_SchedPendingArtifactsIndex];
@@ -543,25 +537,25 @@ void sched_update_pending_artifacts(void)
 		struct artifact *artifact = &artifacts[i];
 
 		if (artifact->type != ARTIFACTTYPE_FREE) {
-			u16 *unk08 = artifact->unk08;
-			u16 value08 = unk08[0];
+			u16 *currdepthptr = artifact->zbufptr;
+			u16 currdepth = *currdepthptr;
 
-			if (g_SchedSpecialArtifactIndexes[g_SchedPendingArtifactsIndex] == 1) {
-				u16 *unk0c = artifact->unk0c.u16p;
-				u16 value0c = unk0c[0];
+			if (g_SchedArtifactsWithDualBuffers[g_SchedPendingArtifactsIndex] == true) {
+				u16 *prevdepthptr = artifact->depthptr;
+				u16 prevdepth = *prevdepthptr;
 
-				if (value0c > value08) {
-					artifact->unk02 = value08;
+				if (currdepth < prevdepth) {
+					artifact->actualdepth = currdepth;
 				} else {
-					artifact->unk02 = value0c;
+					artifact->actualdepth = prevdepth;
 				}
 			} else {
-				artifact->unk02 = value08;
+				artifact->actualdepth = currdepth;
 			}
 		}
 	}
 
-	g_SchedSpecialArtifactIndexes[g_SchedPendingArtifactsIndex] = 0;
+	g_SchedArtifactsWithDualBuffers[g_SchedPendingArtifactsIndex] = false;
 
 	sched_increment_pending_artifacts();
 }

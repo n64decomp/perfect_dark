@@ -4651,7 +4651,7 @@ enum weaponnum {
 #define INVAIMFLAG_AUTOAIM            0x00000002
 #define INVAIMFLAG_ACCURATESINGLESHOT 0x00000004
 
-#define WEAPONFLAG_THROWABLE         0x00000001 // Entire weapon is throwable (eg. grendes, mines, knives)
+#define WEAPONFLAG_THROWABLE         0x00000001 // Entire weapon is throwable (eg. grenades, mines, knives)
 #define WEAPONFLAG_00000004          0x00000004
 #define WEAPONFLAG_ONEHANDED         0x00000008 // Makes guards carry the gun with one hand
 #define WEAPONFLAG_AICANUSE          0x00000010

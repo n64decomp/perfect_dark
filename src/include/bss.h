@@ -12,7 +12,7 @@ extern OSViMode *var8008dd60[NUM_GFXTASKS];
 extern s32 var8008de08;
 extern s32 g_ViCurVStart0;
 extern s32 g_ViCurVStart1;
-extern u8 g_SchedSpecialArtifactIndexes[3];
+extern u8 g_SchedArtifactsWithDualBuffers[3];
 extern s32 g_SchedWriteArtifactsIndex;
 extern OSPiHandle CartRomHandle;
 extern OSPiHandle LeoDiskHandle;

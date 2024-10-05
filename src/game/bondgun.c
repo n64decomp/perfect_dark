@@ -8195,7 +8195,7 @@ void bgun_render(Gfx **gdlptr)
 		return;
 	}
 
-	gdl = zbuf_draw_artifacts_offscreen(gdl);
+	gdl = zbuf_save_artifact_depths(gdl);
 	gdl = vi_prepare_zbuf(gdl);
 	gdl = vi0000b1d0(gdl);
 

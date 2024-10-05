@@ -2427,9 +2427,9 @@ void sky_create_sun_artifact(struct artifact *artifact, s32 x, s32 y)
 	s32 viewheight = vi_get_view_height();
 
 	if (x >= viewleft && x < viewleft + viewwidth && y >= viewtop && y < viewtop + viewheight) {
-		artifact->unk08 = &g_ZbufPtr1[(s32)cam_get_screen_width() * y + x];
-		artifact->unk0c.u16_2 = x;
-		artifact->unk0c.u16_1 = y;
+		artifact->zbufptr = &g_ZbufPtr1[(s32)cam_get_screen_width() * y + x];
+		artifact->screenx = x;
+		artifact->screeny = y;
 		artifact->type = ARTIFACTTYPE_CIRCLE;
 	}
 }
@@ -2440,7 +2440,7 @@ f32 sky_get_artifact_group_intensity_frac(struct artifact *artifacts)
 	s32 i;
 
 	for (i = 0; i < 8; i++) {
-		if (artifacts[i].type == ARTIFACTTYPE_CIRCLE && artifacts[i].unk02 == 0xfffc) {
+		if (artifacts[i].type == ARTIFACTTYPE_CIRCLE && artifacts[i].actualdepth == 0xfffc) {
 			sum += 0.125f;
 		}
 	}
@@ -2616,7 +2616,8 @@ Gfx *sky_render_suns(Gfx *gdl, bool xray)
 					sp12c[0] = radius * 0.50f * xscale;
 					sp12c[1] = radius * 0.50f;
 
-					func0f0b2150(&gdl, sp134, sp12c, g_TexLightGlareConfigs[TEX_LIGHT_05].width, g_TexLightGlareConfigs[TEX_LIGHT_05].height, 0, 1, 1, 1, 0, 1);
+					func0f0b2150(&gdl, sp134, sp12c, g_TexLightGlareConfigs[TEX_LIGHT_05].width, g_TexLightGlareConfigs[TEX_LIGHT_05].height,
+							false, true, true, true, 0, true);
 
 					gDPPipeSync(gdl++);
 					gDPSetColorDither(gdl++, G_CD_BAYER);
@@ -2707,7 +2708,8 @@ Gfx *sky_render_flare(Gfx *gdl, f32 x, f32 y, f32 intensityfrac, f32 size, s32 f
 	sp174[1] = f2 * 0.5f;
 	sp174[0] = f2 * 0.5f * scale;
 
-	func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[TEX_LIGHT_06].width, g_TexLightGlareConfigs[TEX_LIGHT_06].height, 0, 1, 1, 1, 0, 1);
+	func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[TEX_LIGHT_06].width, g_TexLightGlareConfigs[TEX_LIGHT_06].height,
+			false, true, true, true, 0, true);
 
 	// Render the other artifacts
 	tex_select(&gdl, &g_TexLightGlareConfigs[TEX_LIGHT_01], 4, 0, 2, 1, NULL);
@@ -2764,7 +2766,8 @@ Gfx *sky_render_flare(Gfx *gdl, f32 x, f32 y, f32 intensityfrac, f32 size, s32 f
 		sp174[1] = tmp * 0.5f;
 		sp174[0] = tmp * 0.5f * scale;
 
-		func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[TEX_LIGHT_01].width, g_TexLightGlareConfigs[TEX_LIGHT_01].height, 0, 0, 0, 0, 0, 1);
+		func0f0b2150(&gdl, sp17c, sp174, g_TexLightGlareConfigs[TEX_LIGHT_01].width, g_TexLightGlareConfigs[TEX_LIGHT_01].height,
+				false, false, false, false, 0, true);
 	}
 
 	// Check if the source is close to the center of the screen and create the bloom effect if so

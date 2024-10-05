@@ -13,9 +13,9 @@
 
 u32 g_ZbufWidth;
 u32 g_ZbufHeight;
-u16 g_ArtifactsCfb0[0x180];
-u16 g_ArtifactsCfb1[0x180];
-u16 g_ArtifactsCfb2[0x180];
+u16 g_ArtifactDepths0[384];
+u16 g_ArtifactDepths1[384];
+u16 g_ArtifactDepths2[384];
 
 u16 *g_ZbufPtr1 = NULL;
 u16 *g_ZbufPtr2 = NULL;
@@ -76,12 +76,17 @@ void zbuf_allocate(void)
 }
 
 /**
- * Note: There is only one z-buffer, so there is nothing to swap.
- * Both of these pointers always have the same value.
+ * In an older implementation, the game almost certainly had two z-buffers.
+ * It needs a fresh z-buffer after rendering the scene and before rendering the
+ * player's gun, but it also needs to read values off both z-buffers for
+ * lighting purposes. In this older implementation, two z-buffers would have
+ * been used and swapped.
  *
- * We assume this is a swap function due to the context in which it's called.
- * Perhaps the developers implemented two buffers with swapping before realising
- * they only needed one.
+ * Due to memory limitations, this method was removed and an alternative
+ * solution was used to read this values.
+ *
+ * This function is still called but it does nothing.
+ * There is only one z-buffer, and both pointers always have the same value.
  */
 void zbuf_swap(void)
 {
@@ -154,20 +159,20 @@ Gfx *zbuf_clear(Gfx *gdl)
 	return gdl;
 }
 
-u16 *zbuf_get_artifacts_cfb(s32 index)
+u16 *zbuf_get_artifacts_depth_samples(s32 index)
 {
 	u16 *addr;
 
 	if (index == 0) {
-		addr = g_ArtifactsCfb0;
+		addr = g_ArtifactDepths0;
 	}
 
 	if (index == 1) {
-		addr = g_ArtifactsCfb1;
+		addr = g_ArtifactDepths1;
 	}
 
 	if (index == 2) {
-		addr = g_ArtifactsCfb2;
+		addr = g_ArtifactDepths2;
 	}
 
 	addr = (u16 *) (((uintptr_t) addr + 0x3f) & ~0x3f);
@@ -175,23 +180,29 @@ u16 *zbuf_get_artifacts_cfb(s32 index)
 	return addr;
 }
 
-Gfx *zbuf_draw_artifacts_offscreen(Gfx *gdl)
+/**
+ * Append GDL commands which make the GPU read from the z-buffer as a texture
+ * and write it to the scheduler's write artifacts list. Only the individual
+ * pixels of interest are copied.
+ */
+Gfx *zbuf_save_artifact_depths(Gfx *gdl)
 {
 	struct artifact *artifacts = sched_get_write_artifacts();
 	u32 stack;
-	u16 *sp4c = g_ZbufPtr1;
-	u32 s4 = 0;
-	u16 *sp44;
-	u16 *s2;
-	u16 *image;
+	u16 *zbuf = g_ZbufPtr1;
+	u32 numsamples = 0;
+	u16 *samples;
+	u16 *thissample;
+	u16 *zbufrow;
 	s32 i;
 
 	vi_get_back_buffer();
-	sp44 = zbuf_get_artifacts_cfb(g_SchedWriteArtifactsIndex);
-	g_SchedSpecialArtifactIndexes[g_SchedWriteArtifactsIndex] = 1;
+	samples = zbuf_get_artifacts_depth_samples(g_SchedWriteArtifactsIndex);
+
+	g_SchedArtifactsWithDualBuffers[g_SchedWriteArtifactsIndex] = true;
 
 	gDPPipeSync(gdl++);
-	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, vi_get_buf_width(), OS_PHYSICAL_TO_K0(sp44));
+	gDPSetColorImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, vi_get_buf_width(), OS_PHYSICAL_TO_K0(samples));
 	gDPSetScissor(gdl++, G_SC_NON_INTERLACE, 0, 0, SCREEN_320, SCREEN_240);
 	gDPSetCycleType(gdl++, G_CYC_COPY);
 	gDPSetTile(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0x0000, 5, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD);
@@ -218,24 +229,24 @@ Gfx *zbuf_draw_artifacts_offscreen(Gfx *gdl)
 		if (1);
 
 		if (artifacts[i].type != ARTIFACTTYPE_FREE) {
-			s2 = &sp44[s4];
-			image = &sp4c[artifacts[i].unk0c.u16_1 * vi_get_width()];
+			thissample = &samples[numsamples];
+			zbufrow = &zbuf[artifacts[i].screeny * vi_get_width()];
 
 			gDPPipeSync(gdl++);
-			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_320, image);
+			gDPSetTextureImage(gdl++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_320, zbufrow);
 			gDPLoadSync(gdl++);
 			gDPLoadBlock(gdl++, 5, 0, 0, vi_get_width() - 1, 0);
 			gDPPipeSync(gdl++);
 
 			gSPTextureRectangle(gdl++,
-					s4 << 2, 0,
-					(s4 + 3) << 2, 0,
-					G_TX_RENDERTILE, (artifacts[i].unk0c.u16_2 * 32) + 16, 0x0010, 0x1000, 0);
+					numsamples << 2, 0,
+					(numsamples + 3) << 2, 0,
+					G_TX_RENDERTILE, (artifacts[i].screenx * 32) + 16, 0x0010, 0x1000, 0);
 
-			artifacts[i].unk0c.u16p = s2;
-			s4++;
+			artifacts[i].depthptr = thissample;
+			numsamples++;
 
-			if (s2);
+			if (thissample);
 		}
 	}
 
@@ -249,7 +260,7 @@ Gfx *zbuf_draw_artifacts_offscreen(Gfx *gdl)
 	gDPSetTexturePersp(gdl++, G_TP_PERSP);
 	gDPSetColorDither(gdl++, G_CD_BAYER);
 
-	if (sp44);
+	if (samples);
 
 	return gdl;
 }

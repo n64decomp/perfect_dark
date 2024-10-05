@@ -10,7 +10,7 @@
  * With this function stubbed, light glares do not render,
  * nor do suns or their lens flares.
  */
-void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 tile, s32 arg10)
+void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, bool flip, bool arg6, bool arg7, bool arg8, s32 tile, bool arg10)
 {
 	if (arg2[0] > 0.0f && arg2[1] > 0.0f) {
 		Gfx *gdl = *gdlptr;
@@ -50,7 +50,7 @@ void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32
 			}
 
 			if (xl < 0) {
-				if (arg5) {
+				if (flip) {
 					t += ((-xl * height) << 5) / (xh - xl);
 				} else {
 					s += ((-xl * width) << 5) / (xh - xl);
@@ -60,7 +60,7 @@ void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32
 			}
 
 			if (yl < 0) {
-				if (arg5) {
+				if (flip) {
 					s += ((-yl * width) << 5) / (yh - yl);
 				} else {
 					t += ((-yl * height) << 5) / (yh - yl);
@@ -80,7 +80,7 @@ void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32
 				yh = heightx4;
 			}
 
-			if (arg5) {
+			if (flip) {
 				dsdx = width / (2.0f * arg2[1]) * 1024.0f;
 				dtdy = height / (2.0f * arg2[0]) * 1024.0f;
 			} else {
@@ -113,7 +113,7 @@ void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32
 				}
 			}
 
-			if (arg5) {
+			if (flip) {
 				gSPTextureRectangleFlip(gdl++, xl, yl, xh, yh, tile, s, t, dsdx, dtdy);
 			} else {
 				gSPTextureRectangle(gdl++, xl, yl, xh, yh, tile, s, t, dsdx, dtdy);
@@ -126,17 +126,17 @@ void func0f0b2150(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 width, s32 height, s32
 	}
 }
 
-void func0f0b26f0(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool arg5, bool arg6, bool arg7, bool arg8, s32 tile)
+void func0f0b26f0(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool flip, bool arg6, bool arg7, bool arg8, s32 tile)
 {
-	func0f0b2150(gdl, arg1, arg2, width, height, arg5, arg6, arg7, arg8, tile, false);
+	func0f0b2150(gdl, arg1, arg2, width, height, flip, arg6, arg7, arg8, tile, false);
 }
 
-void func0f0b2740(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool arg5, bool arg6, bool arg7, u32 arg8)
+void func0f0b2740(Gfx **gdl, f32 *arg1, f32 *arg2, s32 width, s32 height, bool flip, bool arg6, bool arg7, bool arg8)
 {
-	func0f0b2150(gdl, arg1, arg2, width, height, arg5, arg6, arg7, arg8, G_TX_RENDERTILE, false);
+	func0f0b2150(gdl, arg1, arg2, width, height, flip, arg6, arg7, arg8, G_TX_RENDERTILE, false);
 }
 
-void func0f0b278c(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 twidth, u32 theight, u32 arg5, u32 arg6, u32 arg7, u32 r, u32 g, u32 b, u32 alpha, u32 arg12, u32 arg13)
+void func0f0b278c(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 twidth, u32 theight, bool flip, bool arg6, bool arg7, u32 r, u32 g, u32 b, u32 alpha, bool arg12, bool arg13)
 {
 	if (arg2[0] > 0.0f && arg2[1] > 0.0f) {
 		Gfx *gdl = *gdlptr;
@@ -153,6 +153,6 @@ void func0f0b278c(Gfx **gdlptr, f32 *arg1, f32 *arg2, s32 twidth, u32 theight, u
 
 		*gdlptr = gdl;
 
-		func0f0b2150(gdlptr, arg1, arg2, twidth, theight, arg5, arg6, arg7, false, G_TX_RENDERTILE, false);
+		func0f0b2150(gdlptr, arg1, arg2, twidth, theight, flip, arg6, arg7, false, G_TX_RENDERTILE, false);
 	}
 }
