@@ -9,31 +9,31 @@ void vtxstore_reset(void)
 {
 	s32 i;
 	s32 j;
-	s32 num;
-	s32 val;
+	s32 numbatches;
+	s32 maxunits;
 
 	for (i = 0; i < ARRAYCOUNT(g_VtxstoreTypes); i++) {
 		if (PLAYERCOUNT() >= 2) {
-			val = g_VtxstoreTypes[i].valifmp;
-			num = g_VtxstoreTypes[i].numifmp;
+			maxunits = g_VtxstoreTypes[i].mpmaxunits;
+			numbatches = g_VtxstoreTypes[i].mpnumbatches;
 		} else if (g_Vars.stagenum >= STAGE_TITLE) {
-			val = g_VtxstoreTypes[i].valifspecial;
-			num = g_VtxstoreTypes[i].numifspecial;
+			maxunits = g_VtxstoreTypes[i].othermaxunits;
+			numbatches = g_VtxstoreTypes[i].othernumbatches;
 		} else {
-			val = g_VtxstoreTypes[i].valifsp;
-			num = g_VtxstoreTypes[i].numifsp;
+			maxunits = g_VtxstoreTypes[i].spmaxunits;
+			numbatches = g_VtxstoreTypes[i].spnumbatches;
 		}
 
-		if (num > 0) {
-			g_VtxstoreTypes[i].unk24 = memp_alloc(num * sizeof(struct var8007e3d0_data), MEMPOOL_STAGE);
+		if (numbatches > 0) {
+			g_VtxstoreTypes[i].batches = memp_alloc(numbatches * sizeof(struct vtxstorebatch), MEMPOOL_STAGE);
 		}
 
-		for (j = 0; j < num; j++) {
-			g_VtxstoreTypes[i].unk24[j].unk0e = 0;
+		for (j = 0; j < numbatches; j++) {
+			g_VtxstoreTypes[i].batches[j].refcount = 0;
 		}
 
-		g_VtxstoreTypes[i].numallocated = num;
-		g_VtxstoreTypes[i].val1 = val;
-		g_VtxstoreTypes[i].val2 = val;
+		g_VtxstoreTypes[i].numbatches = numbatches;
+		g_VtxstoreTypes[i].numunitsmax = maxunits;
+		g_VtxstoreTypes[i].numunitsfree = maxunits;
 	}
 }

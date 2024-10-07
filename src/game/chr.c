@@ -1395,7 +1395,7 @@ void chr_remove(struct prop *prop, bool free)
 	wallhit_fade_splats_for_removed_chr(prop);
 	ps_stop_sound(prop, PSTYPE_GENERAL, 0xffff);
 	shieldhits_remove_by_prop(prop);
-	model_free_vertices(VTXSTORETYPE_CHRVTX, model);
+	model_free_vtxstores(VTXSTORETYPE_CHRVTX, model);
 	prop_deregister_rooms(prop);
 
 	if (g_Vars.stagenum == STAGE_CITRAINING) {
@@ -4271,11 +4271,9 @@ void chr_bruise(struct model *model, s32 hitpart, struct modelnode *node, struct
 /**
  * Disfigure and darken a chr due to them dying from explosion damage.
  *
- * Vertices and colours are typically stored in the model definition which is
- * shared between all instances of that model. To have different vertices and
- * colours for a single instance requires copying that information out of the
- * model definition and into a vtx store. If the vtx store is full, the chr will
- * not become disfigured.
+ * Vertices and colours are copied from the modeldef into new vtxstore
+ * allocations. If the vtxstore is full, the chr will not become disfigured
+ * or will only be partially disfigured.
  *
  * The function looks for displaylist nodes in the chr's model. For each DL node
  * found, its vertex and colour information is copied to the vtx store. The GBI

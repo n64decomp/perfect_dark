@@ -5359,28 +5359,28 @@ struct pschannel {
 #endif
 };
 
-struct var8007e3d0_data {
-	void *unk00;
-	struct modelnode *node;
-	s32 level;
-	s16 count;
-	s16 unk0e;
+struct vtxstoretype {
+	s32 spmaxunits;
+	s32 spnumbatches;
+	s32 mpmaxunits;
+	s32 mpnumbatches;
+	s32 othermaxunits;
+	s32 othernumbatches;
+	s32 unused18;
+	s32 unused1c;
+	s32 unused20;
+	struct vtxstorebatch *batches;
+	s32 numunitsmax;
+	s32 numunitsfree;
+	s32 numbatches;
 };
 
-struct vtxstoretype {
-	s32 valifsp;
-	s32 numifsp;
-	s32 valifmp;
-	s32 numifmp;
-	s32 valifspecial;
-	s32 numifspecial;
-	s32 unk18;
-	s32 unk1c;
-	s32 unk20;
-	struct var8007e3d0_data *unk24;
-	s32 val1;
-	s32 val2;
-	s32 numallocated;
+struct vtxstorebatch {
+	void *allocation;
+	struct modelnode *node;
+	s32 level;
+	s16 numunitsalloced;
+	s16 refcount;
 };
 
 struct wallhit {

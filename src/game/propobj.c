@@ -2560,7 +2560,7 @@ void obj_free(struct defaultobj *obj, bool freeprop, bool canregen)
 			prop_deregister_rooms(obj->prop);
 
 			if (obj->prop->type != PROPTYPE_DOOR) {
-				model_free_vertices(1, obj->model);
+				model_free_vtxstores(VTXSTORETYPE_OBJVTX, obj->model);
 			}
 
 			modelmgr_free_model(obj->model);
@@ -10926,7 +10926,7 @@ u32 obj_tick(struct prop *prop)
 					obj->hidden &= ~OBJHFLAG_GONE;
 				}
 			} else {
-				// Object was previously damaged. Probably glass.
+				// Object was previously damaged. Probably glass or deformed object.
 				if (obj->hidden2 & OBJH2FLAG_CORE_GEO_EXISTS) {
 					obj->flags |= OBJFLAG_CORE_GEO_INUSE;
 				} else {
@@ -10935,7 +10935,8 @@ u32 obj_tick(struct prop *prop)
 
 				obj->damage = 0;
 				obj->hidden2 &= ~OBJH2FLAG_DESTROYED;
-				model_free_vertices(1, obj->model);
+
+				model_free_vtxstores(VTXSTORETYPE_OBJVTX, obj->model);
 			}
 
 			if (obj->type == OBJTYPE_SHIELD) {
@@ -12420,7 +12421,7 @@ void obj_render_prop(struct prop *prop, struct modelrenderdata *renderdata, bool
 			if (renderdata->unk30 == 9) {
 				renderdata->envcolour &= 0xffffff00;
 			}
-		} else if ((obj->hidden2 & OBJH2FLAG_80) == 0) {
+		} else if ((obj->hidden2 & OBJH2FLAG_DEFORMED) == 0) {
 			renderdata->cullmode = CULLMODE_BACK;
 
 			if (renderdata->unk30 == 9) {
@@ -13118,11 +13119,11 @@ void obj_deform(struct defaultobj *obj, s32 level)
 		}
 	}
 
-	if ((obj->hidden2 & OBJH2FLAG_80) == 0) {
+	if ((obj->hidden2 & OBJH2FLAG_DEFORMED) == 0) {
 		if (!ok) {
-			model_free_vertices(VTXSTORETYPE_OBJVTX, model);
+			model_free_vtxstores(VTXSTORETYPE_OBJVTX, model);
 		} else {
-			obj->hidden2 |= OBJH2FLAG_80;
+			obj->hidden2 |= OBJH2FLAG_DEFORMED;
 		}
 	}
 }
@@ -16697,7 +16698,7 @@ bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *xrange, f32 *yrang
 	return false;
 }
 
-void model_free_vertices(s32 vtxstoretype, struct model *model)
+void model_free_vtxstores(s32 vtxstoretype, struct model *model)
 {
 	struct modeldef *modeldef = model->definition;
 	struct modelnode *node = modeldef->rootnode;
@@ -16706,7 +16707,6 @@ void model_free_vertices(s32 vtxstoretype, struct model *model)
 		u32 type = node->type & 0xff;
 		union modelrodata *rodata;
 		union modelrwdata *rwdata;
-		s32 newtype;
 
 		switch (type) {
 		case MODELNODETYPE_DL:
@@ -16720,14 +16720,7 @@ void model_free_vertices(s32 vtxstoretype, struct model *model)
 				}
 
 				if ((uintptr_t)rwdata->dl.colours != ALIGN8((uintptr_t)rodata->dl.vertices + rodata->dl.numvertices * sizeof(Vtx))) {
-					if (vtxstoretype == VTXSTORETYPE_OBJVTX) {
-						newtype = VTXSTORETYPE_OBJCOL;
-					} else {
-						newtype = VTXSTORETYPE_CHRCOL;
-					}
-
-					vtxstore_free(newtype, rwdata->dl.colours);
-
+					vtxstore_free(vtxstoretype == VTXSTORETYPE_OBJVTX ? VTXSTORETYPE_OBJCOL : VTXSTORETYPE_CHRCOL, rwdata->dl.colours);
 					rwdata->dl.colours = (Col *)ALIGN8((uintptr_t)rodata->dl.vertices + rodata->dl.numvertices * sizeof(Vtx));
 				}
 			}
@@ -20040,7 +20033,7 @@ void alarm_tick(void)
 	g_PlayersDetonatingMines = 0;
 }
 
-void func0f091030(void)
+void obj_free_all_offscreen_deformed_objs(void)
 {
 	struct prop *prop = g_Vars.activeprops;
 
@@ -20048,7 +20041,7 @@ void func0f091030(void)
 		if (prop->type == PROPTYPE_OBJ
 				&& (prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0
 				&& (prop->obj->hidden2 & OBJH2FLAG_DESTROYED)
-				&& (prop->obj->hidden2 & OBJH2FLAG_80)) {
+				&& (prop->obj->hidden2 & OBJH2FLAG_DEFORMED)) {
 			obj_free_permanently(prop->obj, true);
 			return;
 		}

@@ -3170,13 +3170,13 @@
 #define OBJHFLAG_GRABBED            0x08000000
 
 // obj->hidden2
-#define OBJH2FLAG_HASOPA       0x01 // obj has opaque polygons (ie. most objects)
-#define OBJH2FLAG_HASXLU       0x02 // obj has translucent polygons
-#define OBJH2FLAG_CANREGEN     0x04
-#define OBJH2FLAG_CORE_GEO_EXISTS           0x08
-#define OBJH2FLAG_10           0x10
-#define OBJH2FLAG_DESTROYED    0x40
-#define OBJH2FLAG_80           0x80
+#define OBJH2FLAG_HASOPA          0x01 // obj has opaque polygons (ie. most objects)
+#define OBJH2FLAG_HASXLU          0x02 // obj has translucent polygons
+#define OBJH2FLAG_CANREGEN        0x04
+#define OBJH2FLAG_CORE_GEO_EXISTS 0x08
+#define OBJH2FLAG_10              0x10
+#define OBJH2FLAG_DESTROYED       0x40
+#define OBJH2FLAG_DEFORMED        0x80
 
 #define OBJTYPE_DOOR               0x01
 #define OBJTYPE_DOORSCALE          0x02
