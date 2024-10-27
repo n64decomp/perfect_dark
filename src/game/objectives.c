@@ -506,10 +506,10 @@ void objective_check_holograph(f32 maxdist)
 					maxdist = maxdist * maxdist;
 				}
 
-				if (dist < maxdist && func0f0899dc(obj->prop, &sp9c, xrange, yrange)) {
+				if (dist < maxdist && prop_get_screen_coords(obj->prop, &sp9c, xrange, yrange)) {
 					f32 sp78[2];
 					f32 sp70[2];
-					func0f06803c(&sp9c, xrange, yrange, sp78, sp70);
+					obj_get_screeninfo(&sp9c, xrange, yrange, sp78, sp70);
 
 					if (sp78[0] > cam_get_screen_left()
 							&& sp78[0] < cam_get_screen_left() + cam_get_screen_width()

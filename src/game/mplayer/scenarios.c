@@ -1373,7 +1373,7 @@ void scenario_handle_dropped_token(struct chrdata *chr, struct prop *prop)
 				rooms[0] = pad.room;
 				rooms[1] = -1;
 
-				func0f06a730(obj, &pad.pos, &mtx, rooms, &pad.pos);
+				obj_place_3d(obj, &pad.pos, &mtx, rooms, &pad.pos);
 			}
 		}
 	}

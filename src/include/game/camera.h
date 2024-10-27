@@ -43,6 +43,6 @@ f32 cam_get_persp_aspect(void);
 void cam0f0b5838(void);
 bool cam0f0b5b9c(struct coord *arg0, f32 arg1);
 bool cam_is_pos_in_screen_box(struct coord *pos, f32 arg1, struct drawslot *drawslot);
-bool cam_is_pos_in_fov_and_visible_room(RoomNum *rooms, struct coord *pos, f32 arg2);
+bool cam_is_pos_in_fov_and_visible_room(RoomNum *rooms, struct coord *pos, f32 modelscale);
 
 #endif

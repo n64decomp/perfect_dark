@@ -2009,7 +2009,7 @@ void chr_tick_child(struct chrdata *chr, struct prop *prop, bool fulltick)
 		thing.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
 		model_set_matrices(&thing, model);
 
-		func0f07063c(prop, fulltick);
+		obj_child_tick_player(prop, fulltick);
 
 		child = prop->child;
 
@@ -2024,13 +2024,13 @@ void chr_tick_child(struct chrdata *chr, struct prop *prop, bool fulltick)
 	} else {
 		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 
-		func0f07063c(prop, fulltick);
+		obj_child_tick_player(prop, fulltick);
 
 		child = prop->child;
 
 		while (child) {
 			next = child->next;
-			func0f0706f8(child, fulltick);
+			obj_child_tick_player_offscreen(child, fulltick);
 			child = next;
 		}
 	}
@@ -2481,7 +2481,7 @@ s32 chr_tick(struct prop *prop)
 			if (eyespy == g_Vars.currentplayer->eyespy && eyespy->active) {
 				needsupdate = false;
 			} else {
-				needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+				needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 			}
 
 			if (fulltick) {
@@ -2526,7 +2526,7 @@ s32 chr_tick(struct prop *prop)
 	} else if (chr->actiontype == ACT_PATROL || chr->actiontype == ACT_GOPOS) {
 		if ((chr->actiontype == ACT_PATROL && chr->act_patrol.waydata.mode == WAYMODE_MAGIC)
 				|| (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_MAGIC)) {
-			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+			needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 
 			if (needsupdate) {
 				model->anim->average = false;
@@ -2538,7 +2538,7 @@ s32 chr_tick(struct prop *prop)
 				chr_update_anim(chr, lvupdate240, true);
 			}
 
-			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+			needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 
 			if (needsupdate) {
 				if (chr->actiontype == ACT_PATROL) {
@@ -2552,7 +2552,7 @@ s32 chr_tick(struct prop *prop)
 				&& !((prop->flags & (PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) != 0);
 		}
 	} else if (chr->actiontype == ACT_ANIM && !chr->act_anim.movewheninvis) {
-		needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+		needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 
 		if (fulltick) {
 			model->anim->average = false;
@@ -2568,9 +2568,9 @@ s32 chr_tick(struct prop *prop)
 
 		if (chr->chrflags & CHRCFLAG_FORCETOGROUND) {
 			chr_update_anim(chr, lvupdate240, true);
-			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+			needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 		} else {
-			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+			needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 
 			if (g_Vars.mplayerisrunning) {
 				if (fulltick) {
@@ -2595,14 +2595,14 @@ s32 chr_tick(struct prop *prop)
 			}
 		}
 	} else if (chr->actiontype == ACT_DEAD) {
-		needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+		needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 	} else if (prop->type == PROPTYPE_PLAYER
 			&& (g_Vars.mplayerisrunning
 				|| (player = g_Vars.players[playermgr_get_player_num_by_prop(prop)], player->cameramode == CAMERAMODE_EYESPY)
 				|| (player->cameramode == CAMERAMODE_THIRDPERSON && player->visionmode == VISIONMODE_SLAYERROCKET))) {
 		model->anim->average = false;
 		chr_update_anim(chr, lvupdate240, true);
-		needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+		needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 	} else {
 		isrepeatframe2 = false;
 
@@ -2622,7 +2622,7 @@ s32 chr_tick(struct prop *prop)
 		if (isrepeatframe2) {
 			needsupdate = false;
 		} else {
-			needsupdate = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), true);
+			needsupdate = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), true);
 		}
 	}
 
@@ -2878,7 +2878,7 @@ s32 chr_tick(struct prop *prop)
 
 		while (child) {
 			next = child->next;
-			func0f0706f8(child, fulltick);
+			obj_child_tick_player_offscreen(child, fulltick);
 			child = next;
 		}
 
@@ -3451,7 +3451,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 			gdl = chr_render_cloak(gdl, chr->prop, chr->prop);
 		}
 
-		if (func0f08e5a8(prop->rooms, &screenbox) > 0 && (chr->chrflags & CHRCFLAG_UNPLAYABLE) == 0) {
+		if (rooms_get_cumulative_screenbox(prop->rooms, &screenbox) > 0 && (chr->chrflags & CHRCFLAG_UNPLAYABLE) == 0) {
 			gdl = bg_scissor_within_viewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
 			gdl = bg_scissor_to_viewport(gdl);
@@ -3479,7 +3479,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 
 		if (!speb) {
-			colour[3] = colour[3] - func0f068fc8(prop, true);
+			colour[3] = colour[3] - obj_get_brightness(prop, true);
 
 			if (colour[3] > 0xff) {
 				colour[3] = 0xff;
@@ -4520,7 +4520,7 @@ void chr_test_hit(struct prop *prop, struct shotdata *shotdata, bool isshooting,
 			Mtxf *mtx;
 			f32 sp68;
 
-			if (func0f06b39c(&shotdata->gunpos2d, &shotdata->gundir2d, (struct coord *)rootmtx->m[3], radius)) {
+			if (pos_is_facing_pos(&shotdata->gunpos2d, &shotdata->gundir2d, (struct coord *)rootmtx->m[3], radius)) {
 				spb8 = 1;
 				hitpart = 1;
 			}
@@ -4534,7 +4534,7 @@ void chr_test_hit(struct prop *prop, struct shotdata *shotdata, bool isshooting,
 
 				while (child) {
 					next = child->next;
-					func0f0859a0(child, shotdata);
+					obj_attachment_test_hit(child, shotdata);
 					child = next;
 				}
 
@@ -4542,7 +4542,7 @@ void chr_test_hit(struct prop *prop, struct shotdata *shotdata, bool isshooting,
 					hitpart = model_test_for_hit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
 
 					while (hitpart > 0) {
-						if (func0f084594(model, node, &shotdata->gunpos2d, &shotdata->gundir2d, &sp88, &sp84, &sp80)) {
+						if (obj_find_hitthing_by_bboxrodata_mtx(model, node, &shotdata->gunpos2d, &shotdata->gundir2d, &sp88, &sp84, &sp80)) {
 							mtx4_transform_vec(&model->matrices[sp84], &sp88.pos, &spdc);
 							mtx4_transform_vec_in_place(cam_get_projection_mtxf(), &spdc);
 							mtx4_rotate_vec(&model->matrices[sp84], &sp88.unk0c, &spd0);
@@ -4556,7 +4556,7 @@ void chr_test_hit(struct prop *prop, struct shotdata *shotdata, bool isshooting,
 					hitpart = model_test_for_hit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node);
 
 					if (hitpart > 0) {
-						if (func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, &shotdata->gunpos2d,
+						if (projectile_0f06bea0(model, model->definition->rootnode, model->definition->rootnode, &shotdata->gunpos2d,
 									&shotdata->gundir2d, &sp88.pos, &sp70, &node, &hitpart, &sp84, &sp80)) {
 							mtx4_transform_vec(cam_get_projection_mtxf(), &sp88.pos, &spdc);
 							mtx4_rotate_vec(cam_get_projection_mtxf(), &sp88.unk0c, &spd0);

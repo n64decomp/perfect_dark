@@ -206,7 +206,7 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 			spbc.y = 0.0f;
 			spbc.z = (sp98.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate60freal;
 
-			func0f082e84(obj, &spd4, &spc8, &spbc, false);
+			obj_push(obj, &spd4, &spc8, &spbc, false);
 		} else {
 			struct coord sp8c;
 			struct coord sp80;
@@ -256,7 +256,7 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 				sp74.z += delta->z / g_Vars.lvupdate60freal;
 			}
 
-			func0f082e84(obj, &sp8c, &sp80, &sp74, false);
+			obj_push(obj, &sp8c, &sp80, &sp74, false);
 
 			if (angle != 0.0f) {
 				f32 sp40 = sp8c.x - g_Vars.currentplayer->prop->pos.x;

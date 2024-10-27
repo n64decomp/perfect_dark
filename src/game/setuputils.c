@@ -24,62 +24,62 @@ u32 setup_get_cmd_length(u32 *cmd)
 #endif
 
 	switch ((u8)cmd[0]) {
-	case OBJTYPE_CHR:                return sizeof(struct packedchr) / sizeof(u32);
-	case OBJTYPE_DOOR:               return sizeof(struct doorobj) / sizeof(u32);
-	case OBJTYPE_DOORSCALE:          return sizeof(struct doorscaleobj) / sizeof(u32);
-	case OBJTYPE_BASIC:              return sizeof(struct defaultobj) / sizeof(u32);
-	case OBJTYPE_DEBRIS:             return sizeof(struct debrisobj) / sizeof(u32);
-	case OBJTYPE_GLASS:              return sizeof(struct glassobj) / sizeof(u32);
-	case OBJTYPE_TINTEDGLASS:        return sizeof(struct tintedglassobj) / sizeof(u32);
-	case OBJTYPE_SAFE:               return sizeof(struct safeobj) / sizeof(u32);
-	case OBJTYPE_GASBOTTLE:          return sizeof(struct gasbottleobj) / sizeof(u32);
-	case OBJTYPE_KEY:                return sizeof(struct keyobj) / sizeof(u32);
-	case OBJTYPE_ALARM:              return sizeof(struct alarmobj) / sizeof(u32);
-	case OBJTYPE_CCTV:               return sizeof(struct cctvobj) / sizeof(u32);
-	case OBJTYPE_AMMOCRATE:          return sizeof(struct ammocrateobj) / sizeof(u32);
-	case OBJTYPE_WEAPON:             return sizeof(struct weaponobj) / sizeof(u32);
-	case OBJTYPE_SINGLEMONITOR:      return sizeof(struct singlemonitorobj) / sizeof(u32);
-	case OBJTYPE_MULTIMONITOR:       return sizeof(struct multimonitorobj) / sizeof(u32);
-	case OBJTYPE_HANGINGMONITORS:    return sizeof(struct hangingmonitorsobj) / sizeof(u32);
-	case OBJTYPE_AUTOGUN:            return sizeof(struct autogunobj) / sizeof(u32);
-	case OBJTYPE_LINKGUNS:           return sizeof(struct linkgunsobj) / sizeof(u32);
-	case OBJTYPE_HAT:                return sizeof(struct hatobj) / sizeof(u32);
-	case OBJTYPE_GRENADEPROB:        return sizeof(struct grenadeprobobj) / sizeof(u32);
-	case OBJTYPE_LINKLIFTDOOR:       return sizeof(struct linkliftdoorobj) / sizeof(u32);
-	case OBJTYPE_SAFEITEM:           return sizeof(struct safeitemobj) / sizeof(u32);
-	case OBJTYPE_MULTIAMMOCRATE:     return sizeof(struct multiammocrateobj) / sizeof(u32);
-	case OBJTYPE_SHIELD:             return sizeof(struct shieldobj) / sizeof(u32);
-	case OBJTYPE_TAG:                return sizeof(struct tag) / sizeof(u32);
-	case OBJTYPE_RENAMEOBJ:          return sizeof(struct textoverride) / sizeof(u32);
-	case OBJTYPE_BEGINOBJECTIVE:     return sizeof(struct objective) / sizeof(u32);
-	case OBJTYPE_ENDOBJECTIVE:       return 1;
-	case OBJECTIVETYPE_DESTROYOBJ:   return 2;
-	case OBJECTIVETYPE_COMPFLAGS:    return 2;
-	case OBJECTIVETYPE_FAILFLAGS:    return 2;
-	case OBJECTIVETYPE_COLLECTOBJ:   return 2;
-	case OBJECTIVETYPE_THROWOBJ:     return 2;
-	case OBJECTIVETYPE_HOLOGRAPH:    return sizeof(struct criteria_holograph) / sizeof(u32);
-	case OBJECTIVETYPE_1F:           return 1;
-	case OBJECTIVETYPE_ENTERROOM:    return sizeof(struct criteria_roomentered) / sizeof(u32);
-	case OBJECTIVETYPE_THROWINROOM:  return sizeof(struct criteria_throwinroom) / sizeof(u32);
-	case OBJTYPE_22:                 return 1;
-	case OBJTYPE_BRIEFING:           return sizeof(struct briefingobj) / sizeof(u32);
-	case OBJTYPE_PADLOCKEDDOOR:      return sizeof(struct padlockeddoorobj) / sizeof(u32);
-	case OBJTYPE_TRUCK:              return sizeof(struct truckobj) / sizeof(u32);
-	case OBJTYPE_HELI:               return sizeof(struct heliobj) / sizeof(u32);
-	case OBJTYPE_TANK:               return 32;
-	case OBJTYPE_CAMERAPRESET:          return sizeof(struct camerapresetobj) / sizeof(u32);
-	case OBJTYPE_LIFT:               return sizeof(struct liftobj) / sizeof(u32);
-	case OBJTYPE_CONDITIONALSCENERY: return sizeof(struct linksceneryobj) / sizeof(u32);
-	case OBJTYPE_BLOCKEDPATH:        return sizeof(struct blockedpathobj) / sizeof(u32);
-	case OBJTYPE_HOVERBIKE:          return sizeof(struct hoverbikeobj) / sizeof(u32);
-	case OBJTYPE_HOVERPROP:          return sizeof(struct hoverpropobj) / sizeof(u32);
-	case OBJTYPE_FAN:                return sizeof(struct fanobj) / sizeof(u32);
-	case OBJTYPE_HOVERCAR:           return sizeof(struct hovercarobj) / sizeof(u32);
-	case OBJTYPE_CHOPPER:            return sizeof(struct chopperobj) / sizeof(u32);
-	case OBJTYPE_PADEFFECT:          return sizeof(struct padeffectobj) / sizeof(u32);
-	case OBJTYPE_MINE:               return sizeof(struct weaponobj) / sizeof(u32);
-	case OBJTYPE_ESCASTEP:           return sizeof(struct escalatorobj) / sizeof(u32);
+	case OBJTYPE_CHR:                 return sizeof(struct packedchr) / sizeof(u32);
+	case OBJTYPE_DOOR:                return sizeof(struct doorobj) / sizeof(u32);
+	case OBJTYPE_DOORSCALE:           return sizeof(struct doorscaleobj) / sizeof(u32);
+	case OBJTYPE_BASIC:               return sizeof(struct defaultobj) / sizeof(u32);
+	case OBJTYPE_DEBRIS:              return sizeof(struct debrisobj) / sizeof(u32);
+	case OBJTYPE_GLASS:               return sizeof(struct glassobj) / sizeof(u32);
+	case OBJTYPE_TINTEDGLASS:         return sizeof(struct tintedglassobj) / sizeof(u32);
+	case OBJTYPE_SAFE:                return sizeof(struct safeobj) / sizeof(u32);
+	case OBJTYPE_GASBOTTLE:           return sizeof(struct gasbottleobj) / sizeof(u32);
+	case OBJTYPE_KEY:                 return sizeof(struct keyobj) / sizeof(u32);
+	case OBJTYPE_ALARM:               return sizeof(struct alarmobj) / sizeof(u32);
+	case OBJTYPE_CCTV:                return sizeof(struct cctvobj) / sizeof(u32);
+	case OBJTYPE_AMMOCRATE:           return sizeof(struct ammocrateobj) / sizeof(u32);
+	case OBJTYPE_WEAPON:              return sizeof(struct weaponobj) / sizeof(u32);
+	case OBJTYPE_SINGLEMONITOR:       return sizeof(struct singlemonitorobj) / sizeof(u32);
+	case OBJTYPE_MULTIMONITOR:        return sizeof(struct multimonitorobj) / sizeof(u32);
+	case OBJTYPE_HANGINGMONITORS:     return sizeof(struct hangingmonitorsobj) / sizeof(u32);
+	case OBJTYPE_AUTOGUN:             return sizeof(struct autogunobj) / sizeof(u32);
+	case OBJTYPE_LINKGUNS:            return sizeof(struct linkgunsobj) / sizeof(u32);
+	case OBJTYPE_HAT:                 return sizeof(struct hatobj) / sizeof(u32);
+	case OBJTYPE_GRENADEPROB:         return sizeof(struct grenadeprobobj) / sizeof(u32);
+	case OBJTYPE_LINKLIFTDOOR:        return sizeof(struct linkliftdoorobj) / sizeof(u32);
+	case OBJTYPE_SAFEITEM:            return sizeof(struct safeitemobj) / sizeof(u32);
+	case OBJTYPE_MULTIAMMOCRATE:      return sizeof(struct multiammocrateobj) / sizeof(u32);
+	case OBJTYPE_SHIELD:              return sizeof(struct shieldobj) / sizeof(u32);
+	case OBJTYPE_TAG:                 return sizeof(struct tag) / sizeof(u32);
+	case OBJTYPE_RENAMEOBJ:           return sizeof(struct textoverride) / sizeof(u32);
+	case OBJTYPE_BEGINOBJECTIVE:      return sizeof(struct objective) / sizeof(u32);
+	case OBJTYPE_ENDOBJECTIVE:        return 1;
+	case OBJECTIVETYPE_DESTROYOBJ:    return 2;
+	case OBJECTIVETYPE_COMPFLAGS:     return 2;
+	case OBJECTIVETYPE_FAILFLAGS:     return 2;
+	case OBJECTIVETYPE_COLLECTOBJ:    return 2;
+	case OBJECTIVETYPE_THROWOBJ:      return 2;
+	case OBJECTIVETYPE_HOLOGRAPH:     return sizeof(struct criteria_holograph) / sizeof(u32);
+	case OBJECTIVETYPE_1F:            return 1;
+	case OBJECTIVETYPE_ENTERROOM:     return sizeof(struct criteria_roomentered) / sizeof(u32);
+	case OBJECTIVETYPE_THROWINROOM:   return sizeof(struct criteria_throwinroom) / sizeof(u32);
+	case OBJECTIVETYPE_COPYGOLDENEYE: return 1;
+	case OBJTYPE_BRIEFING:            return sizeof(struct briefingobj) / sizeof(u32);
+	case OBJTYPE_PADLOCKEDDOOR:       return sizeof(struct padlockeddoorobj) / sizeof(u32);
+	case OBJTYPE_TRUCK:               return sizeof(struct truckobj) / sizeof(u32);
+	case OBJTYPE_HELI:                return sizeof(struct heliobj) / sizeof(u32);
+	case OBJTYPE_TANK:                return 32;
+	case OBJTYPE_CAMERAPRESET:        return sizeof(struct camerapresetobj) / sizeof(u32);
+	case OBJTYPE_LIFT:                return sizeof(struct liftobj) / sizeof(u32);
+	case OBJTYPE_CONDITIONALSCENERY:  return sizeof(struct linksceneryobj) / sizeof(u32);
+	case OBJTYPE_BLOCKEDPATH:         return sizeof(struct blockedpathobj) / sizeof(u32);
+	case OBJTYPE_HOVERBIKE:           return sizeof(struct hoverbikeobj) / sizeof(u32);
+	case OBJTYPE_HOVERPROP:           return sizeof(struct hoverpropobj) / sizeof(u32);
+	case OBJTYPE_FAN:                 return sizeof(struct fanobj) / sizeof(u32);
+	case OBJTYPE_HOVERCAR:            return sizeof(struct hovercarobj) / sizeof(u32);
+	case OBJTYPE_CHOPPER:             return sizeof(struct chopperobj) / sizeof(u32);
+	case OBJTYPE_PADEFFECT:           return sizeof(struct padeffectobj) / sizeof(u32);
+	case OBJTYPE_MINE:                return sizeof(struct weaponobj) / sizeof(u32);
+	case OBJTYPE_ESCASTEP:            return sizeof(struct escalatorobj) / sizeof(u32);
 	}
 
 #if VERSION < VERSION_NTSC_1_0
@@ -265,7 +265,7 @@ struct defaultobj *setup_get_obj_by_cmd_index(u32 cmdindex)
 		case OBJECTIVETYPE_1F:
 		case OBJECTIVETYPE_ENTERROOM:
 		case OBJECTIVETYPE_THROWINROOM:
-		case OBJTYPE_22:
+		case OBJECTIVETYPE_COPYGOLDENEYE:
 		case OBJTYPE_BRIEFING:
 		case OBJTYPE_RENAMEOBJ:
 		case OBJTYPE_PADLOCKEDDOOR:

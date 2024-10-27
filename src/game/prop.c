@@ -1212,7 +1212,7 @@ void hand_inflict_melee_damage(s32 handnum, struct gset *gset, bool arg2)
 					model = chr->model;
 				}
 
-				if (func0f0679ac(model, &distance, &sp110, spfc, spf4)
+				if (obj_is_any_node_in_range(model, &distance, &sp110, spfc, spf4)
 						&& sp110 <= 0
 						&& distance >= -rangelimit) {
 					cdtypes = CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG;
@@ -1234,7 +1234,7 @@ void hand_inflict_melee_damage(s32 handnum, struct gset *gset, bool arg2)
 								f32 damage = gset_get_damage(gset) * 2.5f;
 								skipthething = true;
 								bgun_play_glass_hit_sound(&playerprop->pos, playerprop->rooms, -1);
-								obj_take_gunfire(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
+								obj_damage_by_gunfire(obj, damage, &prop->pos, gset->weaponnum, g_Vars.currentplayernum);
 								obj_drop_recursively(prop, false);
 							}
 						} else if (arg2) {
@@ -1637,7 +1637,7 @@ u8 g_PausableObjs[] = {
 	0, // OBJECTIVETYPE_1F
 	0, // OBJECTIVETYPE_ENTERROOM
 	0, // OBJECTIVETYPE_THROWINROOM
-	0, // OBJTYPE_22
+	0, // OBJECTIVETYPE_COPYGOLDENEYE
 	0, // OBJTYPE_BRIEFING
 	1, // OBJTYPE_GASBOTTLE
 	1, // OBJTYPE_RENAMEOBJ

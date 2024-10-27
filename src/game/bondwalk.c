@@ -174,7 +174,7 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	tween.y = 0;
 	tween.z = (abstarget.z - g_Vars.currentplayer->prop->pos.z) / g_Vars.lvupdate60freal;
 
-	func0f082e84(obj, &posunk, &vector, &tween, false);
+	obj_push(obj, &posunk, &vector, &tween, false);
 }
 
 /**

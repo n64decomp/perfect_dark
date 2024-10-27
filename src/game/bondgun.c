@@ -4134,7 +4134,7 @@ void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, RoomNum *rooms, M
 		prop_activate(objprop);
 		prop_enable(objprop);
 		mtx00015f04(obj->model->scale, matrix1);
-		func0f06a580(obj, coord, matrix1, rooms);
+		obj_place(obj, coord, matrix1, rooms);
 
 		if (obj->type == OBJTYPE_WEAPON && ((struct weaponobj *) obj)->weaponnum == WEAPON_BOLT) {
 			s32 beamnum = boltbeam_find_by_prop(objprop);
@@ -4507,7 +4507,7 @@ void bgun_update_held_rocket(s32 handnum)
 				mtx.m[3][2] = 0;
 
 				mtx00015f04(obj->model->scale, &mtx);
-				func0f06a580(obj, &hand->muzzlepos, &mtx, playerprop->rooms);
+				obj_place(obj, &hand->muzzlepos, &mtx, playerprop->rooms);
 				prop_deregister_rooms(objprop);
 			}
 

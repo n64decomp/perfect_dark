@@ -152,10 +152,10 @@ void door_play_opened_sound(s32 soundtype, struct prop *prop);
 bool door_test_interact_angle(struct doorobj *door, bool altcoordsystem);
 void doors_calc_frac(struct doorobj *door);
 void gas_release_from_pos(struct coord *pos);
-s32 door_is_closed(struct doorobj *door);
-bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *dstmtxindex, struct modelnode **dstnode);
+bool door_is_closed(struct doorobj *door);
+bool obj_find_hitthing_by_gfx_tris(struct model *model, struct modelnode *nodearg, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *dstmtxindex, struct modelnode **dstnode);
 bool door_is_range_empty(struct doorobj *door);
-s32 door_is_open(struct doorobj *door);
+bool door_is_open(struct doorobj *door);
 bool pos_is_in_front_of_door(struct coord *pos, struct doorobj *door);
 
 /**
@@ -750,7 +750,7 @@ bool pos_is_within_dist_of_padvol(struct coord *playerpos, f32 dist, s32 padnum)
 	return pos_is_within_padding_of_padvol(playerpos, &padding, padnum);
 }
 
-bool func0f0679ac(struct model *model, f32 *max, f32 *min, f32 arg3[2], f32 arg4[2])
+bool obj_is_any_node_in_range(struct model *model, f32 *max, f32 *min, f32 arg3[2], f32 arg4[2])
 {
 	struct modelnode *node = model->definition->rootnode;
 	bool first = true;
@@ -898,7 +898,7 @@ bool model_get_screen_coords2(struct model *model, f32 *x2, f32 *x1, f32 *y2, f3
 						sp5c[0] = obj_get_rotated_local_y_min_by_mtx4(bbox, mtx) + sp50.f[1];
 						sp5c[1] = obj_get_rotated_local_y_max_by_mtx4(bbox, mtx) + sp50.f[1];
 
-						func0f06803c(&sp50, sp64, sp5c, sp74, sp6c);
+						obj_get_screeninfo(&sp50, sp64, sp5c, sp74, sp6c);
 
 						if (first || sp74[0] < *x1) {
 							*x1 = sp74[0];
@@ -946,7 +946,7 @@ bool model_get_screen_coords(struct model *model, f32 *x2, f32 *x1, f32 *y2, f32
 	return model_get_screen_coords2(model, x2, x1, y2, y1);
 }
 
-void func0f06803c(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
+void obj_get_screeninfo(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4)
 {
 	struct coord sp4c;
 	f32 sp44[2];
@@ -1015,14 +1015,14 @@ struct defaultobj *obj_find_by_pad_num(s32 padnum)
 struct defaultobj *obj_find_by_pos(struct coord *pos, RoomNum *rooms)
 {
 	struct prop *prop = g_Vars.activeprops;
-	u8 *sp38;
-	u8 *sp34;
+	u8 *start;
+	u8 *end;
 
 	while (prop) {
 		if (prop->type == PROPTYPE_OBJ
 				&& array_intersects(prop->rooms, rooms)
-				&& prop_get_geometry(prop, &sp38, &sp34)
-				&& cd_000266a4(pos->x, pos->z, (struct geo *)sp38)) {
+				&& prop_get_geometry(prop, &start, &end)
+				&& cd_is_2d_point_in_geo(pos->x, pos->z, (struct geo *)start)) {
 			return prop->obj;
 		}
 
@@ -1527,7 +1527,7 @@ s32 door_calc_average_brightness(struct prop *prop, s32 *arg1, s32 *arg2)
 	return result;
 }
 
-s32 func0f068fc8(struct prop *prop, bool arg1)
+s32 obj_get_brightness(struct prop *prop, s32 type)
 {
 	struct defaultobj *obj = prop->obj;
 	s32 actual = 0;
@@ -1544,8 +1544,8 @@ s32 func0f068fc8(struct prop *prop, bool arg1)
 		if (g_Vars.normmplayerisrunning) {
 			actual = 255;
 		} else {
-			actualptr = arg1 == 0 ? &actual : NULL;
-			extraptr = arg1 == 1 ? &extra : NULL;
+			actualptr = type == 0 ? &actual : NULL;
+			extraptr = type == 1 ? &extra : NULL;
 
 			door_calc_average_brightness(prop, actualptr, extraptr);
 
@@ -1574,11 +1574,11 @@ s32 func0f068fc8(struct prop *prop, bool arg1)
 		extra = obj_get_average_brightness_in_rooms(prop->rooms, 1);
 	}
 
-	if (arg1 == 0) {
+	if (type == 0) {
 		return actual;
 	}
 
-	if (arg1 == 1) {
+	if (type == 1) {
 		return extra;
 	}
 
@@ -1637,7 +1637,7 @@ void prop_calculate_shade_colour(struct prop *prop, u8 *nextcol, u16 floorcol)
 	if (obj == NULL || (obj->flags & OBJFLAG_IGNOREROOMCOLOUR) == 0)
 #endif
 	{
-		s32 shade = func0f068fc8(prop, 0);
+		s32 shade = obj_get_brightness(prop, 0);
 
 		roomr = shade;
 		roomg = shade;
@@ -2164,11 +2164,11 @@ struct prop *obj_init_with_auto_model(struct defaultobj *obj)
 	return obj_init_with_modeldef(obj, g_ModelStates[obj->modelnum].modeldef);
 }
 
-void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, RoomNum *rooms)
+void obj_place(struct defaultobj *obj, struct coord *pos, Mtxf *rotmtx, RoomNum *rooms)
 {
 	struct prop *prop = obj->prop;
 
-	mtx4_to_mtx3(matrix, obj->realrot);
+	mtx4_to_mtx3(rotmtx, obj->realrot);
 
 	prop->pos.x = pos->x;
 	prop->pos.y = pos->y;
@@ -2184,7 +2184,11 @@ void func0f06a580(struct defaultobj *obj, struct coord *pos, Mtxf *matrix, RoomN
 	obj->shadecol[3] = obj->nextcol[3];
 }
 
-f32 func0f06a620(struct defaultobj *obj)
+/**
+ * Most objects sit 4cm above the ground for unknown reasons.
+ * It's barely noticeable.
+ */
+f32 obj_get_ground_clearance(struct defaultobj *obj)
 {
 	if (obj->type == OBJTYPE_WEAPON) {
 		return 0;
@@ -2193,37 +2197,40 @@ f32 func0f06a620(struct defaultobj *obj)
 	return 4;
 }
 
-void func0f06a650(struct defaultobj *obj, struct coord *pos, Mtxf *arg2, RoomNum *rooms)
+void obj_place_grounded(struct defaultobj *obj, struct coord *pos, Mtxf *rotmtx, RoomNum *rooms)
 {
 	struct modelrodata_bbox *bbox;
 	RoomNum room;
-	f32 sp3c;
+	f32 ground;
 	struct coord newpos;
 	RoomNum newrooms[2];
 
 	bbox = model_find_bbox_rodata(obj->model);
 
 #if VERSION >= VERSION_NTSC_1_0
-	room = cd_find_floor_room_y_colour_flags_at_pos(pos, rooms, &sp3c, &obj->floorcol, NULL);
+	room = cd_find_floor_room_y_colour_flags_at_pos(pos, rooms, &ground, &obj->floorcol, NULL);
 #else
-	room = cd_find_floor_room_y_colour_flags_at_pos(pos, rooms, &sp3c, &obj->floorcol);
+	room = cd_find_floor_room_y_colour_flags_at_pos(pos, rooms, &ground, &obj->floorcol);
 #endif
 
 	if (room > 0) {
 		newpos.x = pos->x;
-		newpos.y = (sp3c + func0f06a620(obj)) - obj_get_rotated_local_y_min_by_mtx4(bbox, arg2);
+		newpos.y = ground + obj_get_ground_clearance(obj) - obj_get_rotated_local_y_min_by_mtx4(bbox, rotmtx);
 		newpos.z = pos->z;
 
 		newrooms[0] = room;
 		newrooms[1] = -1;
 
-		func0f06a580(obj, &newpos, arg2, newrooms);
+		obj_place(obj, &newpos, rotmtx, newrooms);
 	} else {
-		func0f06a580(obj, pos, arg2, rooms);
+		obj_place(obj, pos, rotmtx, rooms);
 	}
 }
 
-void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum *rooms, struct coord *centre)
+/**
+ * Place a 3D object with all the checks.
+ */
+void obj_place_3d(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum *rooms, struct coord *centre)
 {
 	struct modelrodata_bbox *bbox = model_find_bbox_rodata(obj->model);
 	f32 min = obj_get_local_y_min(bbox);
@@ -2331,23 +2338,26 @@ void func0f06a730(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum
 				if (prop_get_geometry(obj2->prop, &start, &end)
 						&& (block = (struct geoblock *) start, block->header.type == GEOTYPE_BLOCK)
 						&& block->ymax > y
-						&& block->ymin < y + (max - min) * sp70.m[row][1] + func0f06a620(obj)) {
+						&& block->ymin < y + (max - min) * sp70.m[row][1] + obj_get_ground_clearance(obj)) {
 					pos2.y = block->ymax - sp70.m[row][1] * min;
 					obj->hidden |= OBJHFLAG_00008000;
 				} else {
-					pos2.y = y - min * sp70.m[row][1] + func0f06a620(obj);
+					pos2.y = y - min * sp70.m[row][1] + obj_get_ground_clearance(obj);
 				}
 			} else {
-				pos2.y = y - min * sp70.m[row][1] + func0f06a620(obj);
+				pos2.y = y - min * sp70.m[row][1] + obj_get_ground_clearance(obj);
 			}
 		}
 	}
 
 	los_find_final_room_exhaustive(arg1, rooms, &pos2, rooms2);
-	func0f06a580(obj, &pos2, &sp70, rooms2);
+	obj_place(obj, &pos2, &sp70, rooms2);
 }
 
-void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, RoomNum *rooms, struct coord *arg4)
+/**
+ * Place a 2D object such as glass or TV screens.
+ */
+void obj_place_2d(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, RoomNum *rooms, struct coord *arg4)
 {
 	struct modelrodata_bbox *bbox;
 	f32 mult;
@@ -2369,7 +2379,7 @@ void func0f06ab60(struct defaultobj *obj, struct coord *arg1, Mtxf *arg2, RoomNu
 	newpos.z = arg4->z - sp5c.m[2][2] * mult;
 
 	los_find_final_room_exhaustive(arg1, rooms, &newpos, newrooms);
-	func0f06a580(obj, &newpos, &sp5c, newrooms);
+	obj_place(obj, &newpos, &sp5c, newrooms);
 }
 
 void obj_free_projectile(struct defaultobj *obj)
@@ -2591,22 +2601,22 @@ f32 obj_get_radius(struct defaultobj *obj)
 	return 10;
 }
 
-bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f32 arg3)
+bool pos_is_facing_pos(struct coord *frompos, struct coord *dir, struct coord *topos, f32 toradius)
 {
-	struct coord sp0c;
+	struct coord relpos;
 	f32 value;
 
-	sp0c.x = arg2->x - arg0->x;
-	sp0c.y = arg2->y - arg0->y;
-	sp0c.z = arg2->z - arg0->z;
+	relpos.x = topos->x - frompos->x;
+	relpos.y = topos->y - frompos->y;
+	relpos.z = topos->z - frompos->z;
 
-	value = arg1->f[0] * sp0c.f[0] + arg1->f[1] * sp0c.f[1] + arg1->f[2] * sp0c.f[2];
+	value = dir->f[0] * relpos.f[0] + dir->f[1] * relpos.f[1] + dir->f[2] * relpos.f[2];
 
 	if (value > 0) {
-		f32 a = arg1->f[0] * arg1->f[0] + arg1->f[1] * arg1->f[1] + arg1->f[2] * arg1->f[2];
-		f32 b = sp0c.f[0] * sp0c.f[0] + sp0c.f[1] * sp0c.f[1] + sp0c.f[2] * sp0c.f[2];
+		f32 a = dir->f[0] * dir->f[0] + dir->f[1] * dir->f[1] + dir->f[2] * dir->f[2];
+		f32 b = relpos.f[0] * relpos.f[0] + relpos.f[1] * relpos.f[1] + relpos.f[2] * relpos.f[2];
 
-		if ((b - arg3 * arg3) * a <= value * value) {
+		if ((b - toradius * toradius) * a <= value * value) {
 			return true;
 		}
 	}
@@ -2614,7 +2624,7 @@ bool func0f06b39c(struct coord *arg0, struct coord *arg1, struct coord *arg2, f3
 	return false;
 }
 
-bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5, f32 *arg6)
+bool projectile_0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4, struct coord *arg5, f32 *arg6)
 {
 	struct coord sp3c;
 	struct coord sp30;
@@ -2669,7 +2679,7 @@ bool func0f06b488(struct prop *prop, struct coord *arg1, struct coord *arg2, str
 	return false;
 }
 
-bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9)
+bool projectile_0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9)
 {
 	struct model *model = obj->model;
 	f32 f0 = model_get_effective_scale(model);
@@ -2708,7 +2718,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 				hitpart = model_test_for_hit(model, arg5, arg6, &spe4);
 
 				while (hitpart > 0) {
-					if (func0f084594(model, spe4, arg5, arg6, &thing1, &mtxindex1, &node1)) {
+					if (obj_find_hitthing_by_bboxrodata_mtx(model, spe4, arg5, arg6, &thing1, &mtxindex1, &node1)) {
 						mtx4_transform_vec(&model->matrices[mtxindex1], &thing1.pos, &spfc);
 
 						sum2 = (spfc.f[0] - arg5->f[0]) * arg6->f[0]
@@ -2750,7 +2760,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 					hitpart = model_test_for_hit(model, arg5, arg6, &spe4);
 
 					if (hitpart > 0) {
-						if (func0f0849dc(model, spe4, arg5, arg6, &thing1, &mtxindex1, &node1)) {
+						if (obj_find_hitthing_by_gfx_tris(model, spe4, arg5, arg6, &thing1, &mtxindex1, &node1)) {
 							break;
 						}
 					}
@@ -2759,7 +2769,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 				if (obj->flags3 & OBJFLAG3_HOVERBEDSHIELD) {
 					node = model_get_part(model->definition, MODELPART_BASIC_SHIELD);
 
-					if (node && func0f084594(model, node, arg5, arg6, &thing2, &mtxindex2, &node2)) {
+					if (node && obj_find_hitthing_by_bboxrodata_mtx(model, node, arg5, arg6, &thing2, &mtxindex2, &node2)) {
 						if (hitpart <= 0 ||
 								+ model->matrices[mtxindex2].m[0][2] * thing2.pos.f[0]
 								+ model->matrices[mtxindex2].m[1][2] * thing2.pos.f[1]
@@ -2826,8 +2836,8 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 				}
 			}
 		} else {
-			if (func0f06b39c(arg1, arg3, &prop->pos, model_get_effective_scale(model))
-					&& func0f06b488(prop, arg1, arg2, arg3, arg7, arg8, arg9)) {
+			if (pos_is_facing_pos(arg1, arg3, &prop->pos, model_get_effective_scale(model))
+					&& projectile_0f06b488(prop, arg1, arg2, arg3, arg7, arg8, arg9)) {
 				g_EmbedModel = model;
 				g_EmbedNode = model->definition->rootnode;
 				result = true;
@@ -2840,7 +2850,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 		while (child) {
 			if (child->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-				if (func0f06b610(child->obj, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)) {
+				if (projectile_0f06b610(child->obj, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)) {
 					result = true;
 				}
 			}
@@ -2852,7 +2862,7 @@ bool func0f06b610(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 	return result;
 }
 
-s32 func0f06be44(struct modelnode *rootnode)
+s32 obj_count_nodes(struct modelnode *rootnode)
 {
 	s32 count = 0;
 	struct modelnode *node = rootnode;
@@ -2861,7 +2871,7 @@ s32 func0f06be44(struct modelnode *rootnode)
 		count++;
 
 		if (node->child) {
-			count += func0f06be44(node->child);
+			count += obj_count_nodes(node->child);
 		}
 
 		node = node->next;
@@ -2870,7 +2880,7 @@ s32 func0f06be44(struct modelnode *rootnode)
 	return count;
 }
 
-bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelnode *node, struct coord *arg3, struct coord *arg4, void *arg5, f32 *arg6, struct modelnode **arg7, s32 *hitpart, s32 *arg9, struct modelnode **arg10)
+bool projectile_0f06bea0(struct model *model, struct modelnode *endnode, struct modelnode *node, struct coord *arg3, struct coord *arg4, void *arg5, f32 *arg6, struct modelnode **arg7, s32 *hitpart, s32 *arg9, struct modelnode **arg10)
 {
 	u32 stack;
 	union modelrodata *rodata;
@@ -3010,7 +3020,7 @@ bool func0f06bea0(struct model *model, struct modelnode *endnode, struct modelno
 	return ok;
 }
 
-bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9)
+bool projectile_0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, struct coord *arg3, f32 arg4, struct coord *arg5, struct coord *arg6, struct coord *arg7, struct coord *arg8, f32 *arg9)
 {
 	f32 spec;
 	struct prop *prop = chr->prop;
@@ -3034,13 +3044,13 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 		var8005efc0 = 10.0f / chr->model->scale;
 	}
 
-	if (-spe4 <= spd4 && spd4 <= arg4 + spe4 && func0f06b39c(arg1, arg3, &prop->pos, spe4)) {
+	if (-spe4 <= spd4 && spd4 <= arg4 + spe4 && pos_is_facing_pos(arg1, arg3, &prop->pos, spe4)) {
 		if ((prop->flags & PROPFLAG_ONTHISSCREENTHISTICK)) {
 			if (var8005efc0 > 0.0f) {
 				hitpart = model_test_for_hit(model, arg5, arg6, &spcc);
 
 				while (hitpart > 0) {
-					if (func0f084594(model, spcc, arg5, arg6, &sp7c, &sp78, &sp74)) {
+					if (obj_find_hitthing_by_bboxrodata_mtx(model, spcc, arg5, arg6, &sp7c, &sp78, &sp74)) {
 						mtx4_transform_vec(&model->matrices[sp78], &sp7c.pos, &spb8);
 
 						spec = (spb8.f[0] - arg5->f[0]) * arg6->f[0]
@@ -3081,7 +3091,7 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 				hitpart = model_test_for_hit(model, arg5, arg6, &spcc);
 
 				if (hitpart > 0
-						&& func0f06bea0(model, model->definition->rootnode, model->definition->rootnode, arg5, arg6, &sp7c.pos, &spec, &spcc, &hitpart, &sp78, &sp74)
+						&& projectile_0f06bea0(model, model->definition->rootnode, model->definition->rootnode, arg5, arg6, &sp7c.pos, &spec, &spcc, &hitpart, &sp78, &sp74)
 						&& spec < *arg9) {
 					*arg9 = spec;
 					mtx4_transform_vec(cam_get_projection_mtxf(), &sp7c.pos, arg7);
@@ -3101,7 +3111,7 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 					result = true;
 				}
 			}
-		} else if (func0f06b488(prop, arg1, arg2, arg3, arg7, arg8, arg9)) {
+		} else if (projectile_0f06b488(prop, arg1, arg2, arg3, arg7, arg8, arg9)) {
 			g_EmbedHitPart = HITPART_TORSO;
 			result = true;
 		}
@@ -3112,7 +3122,7 @@ bool func0f06c28c(struct chrdata *chr, struct coord *arg1, struct coord *arg2, s
 
 		while (child) {
 			if (child->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
-				if (func0f06b610(child->obj, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)) {
+				if (projectile_0f06b610(child->obj, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)) {
 					result = true;
 				}
 			}
@@ -3196,7 +3206,7 @@ bool projectile_find_colliding_prop(struct prop *prop, struct coord *pos1, struc
 							}
 						}
 
-						if (func0f06b610(obj, pos1, pos2, &sp98, dist, &sp88, &sp7c, arg4, arg5, &spa8)) {
+						if (projectile_0f06b610(obj, pos1, pos2, &sp98, dist, &sp88, &sp7c, arg4, arg5, &spa8)) {
 							spa4 = true;
 						}
 					}
@@ -3216,12 +3226,12 @@ bool projectile_find_colliding_prop(struct prop *prop, struct coord *pos1, struc
 						}
 					}
 
-					if (func0f06c28c(chr, pos1, pos2, &sp98, dist, &sp88, &sp7c, arg4, arg5, &spa8)) {
+					if (projectile_0f06c28c(chr, pos1, pos2, &sp98, dist, &sp88, &sp7c, arg4, arg5, &spa8)) {
 						spa4 = true;
 					}
 				} else if (iterprop->type == PROPTYPE_PLAYER
 						&& g_Vars.players[playermgr_get_player_num_by_prop(iterprop)]->bondperimenabled) {
-					if (func0f06b488(iterprop, pos1, pos2, &sp98, arg4, arg5, &spa8)) {
+					if (projectile_0f06b488(iterprop, pos1, pos2, &sp98, arg4, arg5, &spa8)) {
 						spa4 = true;
 					}
 				}
@@ -3979,7 +3989,7 @@ void func0f06e9cc(struct coord *arg0, Mtxf *arg1)
 	mtx4_mult_mtx4(&sp70, &sp30, arg1);
 }
 
-void obj_land2(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
+void obj_land_sticky(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 {
 	Mtxf sp40;
 	struct coord newpos;
@@ -3996,10 +4006,10 @@ void obj_land2(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	newpos.z = arg1->z - sp40.m[1][2] * ymin;
 
 	los_find_final_room_exhaustive(&prop->pos, prop->rooms, &newpos, newrooms);
-	func0f06a580(obj, &newpos, &sp40, newrooms);
+	obj_place(obj, &newpos, &sp40, newrooms);
 }
 
-void bolt_land(struct weaponobj *weapon, struct coord *arg1)
+void obj_land_bolt(struct weaponobj *weapon, struct coord *arg1)
 {
 	Mtxf mtx;
 	struct coord newpos;
@@ -4024,7 +4034,7 @@ void bolt_land(struct weaponobj *weapon, struct coord *arg1)
 	newpos.z = arg1->z - mtx.m[2][2] * zmax;
 
 	los_find_final_room_properly(&prop->pos, prop->rooms, &newpos, newrooms);
-	func0f06a580(&weapon->base, &newpos, &mtx, newrooms);
+	obj_place(&weapon->base, &newpos, &mtx, newrooms);
 
 	beamnum = boltbeam_find_by_prop(prop);
 
@@ -4034,7 +4044,7 @@ void bolt_land(struct weaponobj *weapon, struct coord *arg1)
 	}
 }
 
-void knife_land(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
+void obj_land_knife(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 {
 	Mtxf spd0;
 	Mtxf sp90;
@@ -4064,7 +4074,7 @@ void knife_land(struct defaultobj *obj, struct coord *arg1, struct coord *arg2)
 	newpos.z = arg1->z - zero;
 
 	los_find_final_room_exhaustive(&prop->pos, prop->rooms, &newpos, newrooms);
-	func0f06a580(obj, &newpos, &spd0, newrooms);
+	obj_place(obj, &newpos, &spd0, newrooms);
 }
 
 bool obj_embed(struct prop *prop, struct prop *parent, struct model *model, struct modelnode *node)
@@ -4142,16 +4152,16 @@ void obj_land(struct prop *prop, struct coord *arg1, struct coord *arg2, bool *e
 		objective_check_throw_in_room(weapon->weaponnum, prop->rooms);
 
 		if (weapon->weaponnum == WEAPON_BOLT) {
-			bolt_land(weapon, arg1);
+			obj_land_bolt(weapon, arg1);
 		} else if (weapon->weaponnum == WEAPON_COMBATKNIFE) {
-			knife_land(obj, arg1, arg2);
+			obj_land_knife(obj, arg1, arg2);
 		} else {
-			obj_land2(obj, arg1, arg2);
+			obj_land_sticky(obj, arg1, arg2);
 		}
 	} else if (obj->type == OBJTYPE_AUTOGUN) {
 		struct autogunobj *autogun = (struct autogunobj *)obj;
 
-		obj_land2(obj, arg1, arg2);
+		obj_land_sticky(obj, arg1, arg2);
 
 		autogun->yzero = atan2f(arg2->x, arg2->z);
 		autogun->xzero = atan2f(arg2->y, sqrtf(arg2->f[0] * arg2->f[0] + arg2->f[2] * arg2->f[2]));
@@ -4718,7 +4728,7 @@ void weapon_tick(struct prop *prop)
 	}
 }
 
-void func0f07063c(struct prop *prop, bool fulltick)
+void obj_child_tick_player(struct prop *prop, bool fulltick)
 {
 	struct defaultobj *obj = prop->obj;
 
@@ -4743,7 +4753,7 @@ void obj_drop_recursively(struct prop *prop, bool arg1)
 	}
 }
 
-void func0f0706f8(struct prop *prop, bool arg1)
+void obj_child_tick_player_offscreen(struct prop *prop, bool fulltick)
 {
 	struct defaultobj *obj = prop->obj;
 	struct prop *child;
@@ -4752,20 +4762,19 @@ void func0f0706f8(struct prop *prop, bool arg1)
 		obj_free(obj, true, obj->hidden2 & OBJH2FLAG_CANREGEN);
 	} else {
 		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
-		func0f07063c(prop, arg1);
+		obj_child_tick_player(prop, fulltick);
 
-		// Recurse into children
 		child = prop->child;
 
 		while (child) {
 			struct prop *next = child->next;
-			func0f0706f8(child, arg1);
+			obj_child_tick_player_offscreen(child, fulltick);
 			child = next;
 		}
 	}
 }
 
-void func0f07079c(struct prop *prop, bool fulltick)
+void obj_child_tick_player_onscreen(struct prop *prop, bool fulltick)
 {
 	struct defaultobj *obj = prop->obj;
 	struct model *model = obj->model;
@@ -4790,25 +4799,25 @@ void func0f07079c(struct prop *prop, bool fulltick)
 		renderdata.unk00 = &sp30;
 
 		model_set_matrices(&renderdata, model);
-		func0f07063c(prop, fulltick);
+		obj_child_tick_player(prop, fulltick);
 
 		child = prop->child;
 
 		while (child) {
 			next = child->next;
-			func0f07079c(child, fulltick);
+			obj_child_tick_player_onscreen(child, fulltick);
 			child = next;
 		}
 	} else {
 		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
 
-		func0f07063c(prop, fulltick);
+		obj_child_tick_player(prop, fulltick);
 
 		child = prop->child;
 
 		while (child) {
 			next = child->next;
-			func0f0706f8(child, fulltick);
+			obj_child_tick_player_offscreen(child, fulltick);
 			child = next;
 		}
 	}
@@ -5174,7 +5183,7 @@ f32 obj_get_hov_bob_offset_y(struct defaultobj *obj)
 	} else {
 		struct modelrodata_bbox *bbox = obj_find_bbox_rodata(obj);
 		f32 value = obj_get_rotated_local_y_min_by_mtx3(bbox, obj->realrot);
-		result = func0f06a620(obj) - value;
+		result = obj_get_ground_clearance(obj) - value;
 	}
 
 	return result;
@@ -5671,7 +5680,7 @@ void hovercar_start_next_path(struct hovercarobj *hovercar)
 	rooms[0] = pad.room;
 	rooms[1] = -1;
 
-	func0f06a730(&hovercar->base, &pad.pos, &matrix, rooms, &pad.pos);
+	obj_place_3d(&hovercar->base, &pad.pos, &matrix, rooms, &pad.pos);
 
 	hovercar->base.flags |= OBJFLAG_HOVERCAR_INIT;
 }
@@ -5970,11 +5979,11 @@ void platform_displace_props2(struct prop *platform, Mtxf *arg1)
 	struct prop *prop;
 	s16 *propnumptr;
 	s16 propnums[256];
-	u8 *sp9c;
-	u8 *sp98;
-	Mtxf sp58;
+	u8 *start;
+	u8 *end;
+	Mtxf mtx;
 
-	if (prop_get_geometry(platform, &sp9c, &sp98)) {
+	if (prop_get_geometry(platform, &start, &end)) {
 		room_get_props(platform->rooms, propnums, 256);
 
 		propnumptr = propnums;
@@ -5987,15 +5996,15 @@ void platform_displace_props2(struct prop *platform, Mtxf *arg1)
 
 				if (prop->pos.y > platform->pos.y
 						&& (obj->hidden & OBJHFLAG_00008000)
-						&& cd_000266a4(prop->pos.x, prop->pos.z, (struct geo *)sp9c)) {
-					mtx3_to_mtx4(obj->realrot, &sp58);
-					mtx4_set_translation(&prop->pos, &sp58);
-					mtx4_mult_mtx4_in_place(arg1, &sp58);
-					mtx4_to_mtx3(&sp58, obj->realrot);
+						&& cd_is_2d_point_in_geo(prop->pos.x, prop->pos.z, (struct geo *)start)) {
+					mtx3_to_mtx4(obj->realrot, &mtx);
+					mtx4_set_translation(&prop->pos, &mtx);
+					mtx4_mult_mtx4_in_place(arg1, &mtx);
+					mtx4_to_mtx3(&mtx, obj->realrot);
 
-					prop->pos.x = sp58.m[3][0];
-					prop->pos.y = sp58.m[3][1];
-					prop->pos.z = sp58.m[3][2];
+					prop->pos.x = mtx.m[3][0];
+					prop->pos.y = mtx.m[3][1];
+					prop->pos.z = mtx.m[3][2];
 
 					prop_deregister_rooms(prop);
 					los_find_final_room_exhaustive(&platform->pos, platform->rooms, &prop->pos, prop->rooms);
@@ -6981,7 +6990,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 											bgun_play_glass_hit_sound(&prop->pos, prop->rooms, -1);
 
 											if ((hitobj->flags2 & OBJFLAG2_IMMUNETOGUNFIRE) == 0) {
-												obj_take_gunfire(hitobj, 100, &prop->pos, weapon->weaponnum, g_Vars.currentplayernum);
+												obj_damage_by_gunfire(hitobj, 100, &prop->pos, weapon->weaponnum, g_Vars.currentplayernum);
 												obj_drop_recursively(hitprop, false);
 												stick = false;
 												handled = true;
@@ -7317,7 +7326,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 							prop->pos.y = sp5e8.y - sp37c;
 
 							if (sp354) {
-								prop->pos.y += func0f06a620(obj);
+								prop->pos.y += obj_get_ground_clearance(obj);
 							}
 						}
 
@@ -7552,7 +7561,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 					}
 
 					if (roomnum > 0) {
-						prop->pos.y = spa4 - sp98 + func0f06a620(obj);
+						prop->pos.y = spa4 - sp98 + obj_get_ground_clearance(obj);
 
 #if VERSION >= VERSION_NTSC_1_0
 						if (geoflags & GEOFLAG_DIE) {
@@ -9579,29 +9588,29 @@ void chopper_set_max_damage(struct chopperobj *chopper, u16 health)
 	chopper->base.maxdamage = health;
 }
 
-f32 func0f07b164(struct coord *pos1, struct coord *pos2, struct coord *pos3, struct coord *result)
+f32 chopper_choose_goalpos(struct coord *frompos, struct coord *topos, struct coord *playerpos, struct coord *result)
 {
-	struct coord sp34;
-	struct coord sp28;
+	struct coord dir;
+	struct coord playerdist;
 	f32 tmp;
 
-	sp34.x = pos2->x - pos1->x;
-	sp34.y = pos2->y - pos1->y;
-	sp34.z = pos2->z - pos1->z;
+	dir.x = topos->x - frompos->x;
+	dir.y = topos->y - frompos->y;
+	dir.z = topos->z - frompos->z;
 
-	sp28.x = pos3->x - pos1->x;
-	sp28.y = pos3->y - pos1->y;
-	sp28.z = pos3->z - pos1->z;
+	playerdist.x = playerpos->x - frompos->x;
+	playerdist.y = playerpos->y - frompos->y;
+	playerdist.z = playerpos->z - frompos->z;
 
-	guNormalize(&sp34.x, &sp34.y, &sp34.z);
+	guNormalize(&dir.x, &dir.y, &dir.z);
 
-	tmp = sp28.f[0] * sp34.f[0] + sp28.f[1] * sp34.f[1] + sp28.f[2] * sp34.f[2];
+	tmp = playerdist.f[0] * dir.f[0] + playerdist.f[1] * dir.f[1] + playerdist.f[2] * dir.f[2];
 
-	result->x = sp34.x * tmp + pos1->x;
-	result->y = sp34.y * tmp + pos1->y;
-	result->z = sp34.z * tmp + pos1->z;
+	result->x = dir.x * tmp + frompos->x;
+	result->y = dir.y * tmp + frompos->y;
+	result->z = dir.z * tmp + frompos->z;
 
-	return sp28.f[0] * sp28.f[0] + sp28.f[1] * sp28.f[1] + sp28.f[2] * sp28.f[2] - tmp * tmp;
+	return playerdist.f[0] * playerdist.f[0] + playerdist.f[1] * playerdist.f[1] + playerdist.f[2] * playerdist.f[2] - tmp * tmp;
 }
 
 void chopper_fire_rocket(struct chopperobj *chopper, bool side)
@@ -10279,7 +10288,7 @@ void chopper_tick_combat(struct prop *chopperprop)
 			pad.pos.y += -250.0f;
 			nextpad.pos.y += -250.0f;
 
-			f0 = func0f07b164(&pad.pos, &nextpad.pos, &targetprop->pos, &sp78);
+			f0 = chopper_choose_goalpos(&pad.pos, &nextpad.pos, &targetprop->pos, &sp78);
 
 			if (f0 < f20) {
 				f20 = f0;
@@ -10870,17 +10879,17 @@ u32 obj_tick(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 	bool silent = false;
-	bool regenning;
+	bool fadingin;
 	u32 cmdindex;
 	u32 padnum;
 	struct defaultobj *newparent;
 
 	if (prop->timetoregen > 0) {
 		// Prop is taken/unavailable
-		regenning = true;
+		fadingin = true;
 
 		if (prop->timetoregen >= TICKS(60)) {
-			regenning = false;
+			fadingin = false;
 		}
 
 		prop->timetoregen -= g_Vars.lvupdate60;
@@ -10888,7 +10897,7 @@ u32 obj_tick(struct prop *prop)
 		// If ready to start fading in but prop_can_regen returns false, wait
 		// another second and try again. In practice prop_can_regen will always
 		// return true so this condition will never pass.
-		if (prop->timetoregen < TICKS(60) && !regenning && !prop_can_regen(prop)) {
+		if (prop->timetoregen < TICKS(60) && !fadingin && !prop_can_regen(prop)) {
 			prop->timetoregen += TICKS(60);
 		}
 
@@ -10901,7 +10910,7 @@ u32 obj_tick(struct prop *prop)
 			} else {
 				obj->hidden &= ~OBJHFLAG_00001000;
 			}
-		} else if (prop->timetoregen < TICKS(60) && !regenning) {
+		} else if (prop->timetoregen < TICKS(60) && !fadingin) {
 			// 1 second left - time to start fading in
 			if (obj->damage == 0 && (obj->hidden2 & OBJH2FLAG_DESTROYED) == 0) {
 				// Object has no damage, so it's probably a pickup
@@ -11216,7 +11225,7 @@ s32 obj_tick_player(struct prop *prop)
 
 				if (sp148 <= sp144) {
 					prop->pos.y = cd_find_ground_at_cyl(&prop->pos, 5, prop->rooms, &obj->floorcol, NULL)
-						+ func0f06a620(obj) + sp112;
+						+ obj_get_ground_clearance(obj) + sp112;
 				}
 
 				obj_onmoved(obj, true, true);
@@ -11296,7 +11305,7 @@ s32 obj_tick_player(struct prop *prop)
 	} else if (obj->flags2 & OBJFLAG2_CANFILLVIEWPORT) {
 		pass2 = pos_is_in_draw_distance(&prop->pos);
 	} else if ((obj->hidden & OBJHFLAG_GONE) == 0 && (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
-		pass2 = func0f08e8ac(prop, &prop->pos, model_get_effective_scale(model), sp564);
+		pass2 = pos_is_onscreen(prop, &prop->pos, model_get_effective_scale(model), sp564);
 	} else {
 		pass2 = false;
 	}
@@ -11332,22 +11341,22 @@ s32 obj_tick_player(struct prop *prop)
 		}
 
 		prop->z = -model->matrices[0].m[3][2];
-		func0f07063c(prop, fulltick);
+		obj_child_tick_player(prop, fulltick);
 		child = prop->child;
 
 		while (child) {
 			next = child->next;
-			func0f07079c(child, fulltick);
+			obj_child_tick_player_onscreen(child, fulltick);
 			child = next;
 		}
 	} else {
 		prop->flags &= ~PROPFLAG_ONTHISSCREENTHISTICK;
-		func0f07063c(prop, fulltick);
+		obj_child_tick_player(prop, fulltick);
 		child = prop->child;
 
 		while (child) {
 			next = child->next;
-			func0f0706f8(child, fulltick);
+			obj_child_tick_player_offscreen(child, fulltick);
 			child = next;
 		}
 	}
@@ -12706,7 +12715,7 @@ Gfx *obj_render(struct prop *prop, Gfx *gdl, bool xlupass)
 		}
 	}
 
-	if ((obj->flags2 & OBJFLAG2_CANFILLVIEWPORT) == 0 && func0f08e5a8(prop->rooms, &screenbox) > 0) {
+	if ((obj->flags2 & OBJFLAG2_CANFILLVIEWPORT) == 0 && rooms_get_cumulative_screenbox(prop->rooms, &screenbox) > 0) {
 		gdl = bg_scissor_within_viewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 	} else {
 		gdl = bg_scissor_to_viewport(gdl);
@@ -12766,7 +12775,7 @@ Gfx *obj_render(struct prop *prop, Gfx *gdl, bool xlupass)
 		colour[g_Vars.currentplayer->epcol_2] = 0;
 		colour[3] = 0xff;
 	} else {
-		colour[3] -= func0f068fc8(obj->prop, true);
+		colour[3] -= obj_get_brightness(obj->prop, 1);
 		if (colour[3]);
 
 		if (colour[3] > 0xff) {
@@ -13362,7 +13371,7 @@ void piracy_restore(void)
 }
 #endif
 
-void func0f082e84(struct defaultobj *obj, struct coord *pos, struct coord *dir, struct coord *tween, bool addrotation)
+void obj_push(struct defaultobj *obj, struct coord *pos, struct coord *dir, struct coord *tween, bool addrotation)
 {
 	struct coord speed = {0, 0, 0};
 	f32 a = tween->f[0] * dir->f[0] + tween->f[2] * dir->f[2];
@@ -13651,7 +13660,7 @@ void obj_fall(struct defaultobj *obj, s32 playernum)
 #endif
 
 	if ((obj->flags2 & OBJFLAG2_NOFALL) == 0
-			&& (obj->flags3 & OBJFLAG3_10000000) == 0
+			&& (obj->flags3 & OBJFLAG3_KEEPGEOWHENDESTROYED) == 0
 			&& (obj->flags & (OBJFLAG_FALL | OBJFLAG_00000008))
 			&& (obj->hidden & (OBJHFLAG_EMBEDDED | OBJHFLAG_PROJECTILE)) == 0) {
 		struct coord rot = {0, 0, 0};
@@ -13721,7 +13730,7 @@ void obj_destroy_supported_objects(struct prop *tableprop, s32 playernum)
 				{
 					if (prop->pos.y > tableprop->pos.y
 							&& (obj->hidden & OBJHFLAG_00008000)
-							&& cd_000266a4(prop->pos.x, prop->pos.z, (struct geo *)start)) {
+							&& cd_is_2d_point_in_geo(prop->pos.x, prop->pos.z, (struct geo *)start)) {
 						obj_fall(obj, playernum);
 					}
 				}
@@ -13821,22 +13830,20 @@ void obj_check_destroyed(struct defaultobj *obj, struct coord *pos, s32 playernu
 				}
 			}
 
-			if (obj_get_destroyed_level(obj) > 0) {
-				if (obj->hidden2 & OBJH2FLAG_CANREGEN) {
-					if (obj->hidden & OBJHFLAG_00001000) {
-						obj->hidden2 |= OBJH2FLAG_10;
-					} else {
-						obj->hidden2 &= ~OBJH2FLAG_10;
-					}
-
-					prop->timetoregen = TICKS(1200);
+			if (obj_get_destroyed_level(obj) > 0 && (obj->hidden2 & OBJH2FLAG_CANREGEN)) {
+				if (obj->hidden & OBJHFLAG_00001000) {
+					obj->hidden2 |= OBJH2FLAG_10;
+				} else {
+					obj->hidden2 &= ~OBJH2FLAG_10;
 				}
+
+				prop->timetoregen = TICKS(1200);
 			}
 
 			if (shotstaken >= 12) {
 				obj->hidden |= OBJHFLAG_00001000;
 
-				if ((obj->flags3 & OBJFLAG3_10000000) == 0) {
+				if ((obj->flags3 & OBJFLAG3_KEEPGEOWHENDESTROYED) == 0) {
 					obj->flags &= ~OBJFLAG_CORE_GEO_INUSE;
 				}
 			}
@@ -13844,7 +13851,7 @@ void obj_check_destroyed(struct defaultobj *obj, struct coord *pos, s32 playernu
 	}
 }
 
-bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *mtxindexptr, struct modelnode **nodeptr)
+bool obj_find_hitthing_by_bboxrodata_mtx(struct model *model, struct modelnode *node, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *mtxindexptr, struct modelnode **nodeptr)
 {
 	s32 i;
 	s32 mtxindex;
@@ -13984,7 +13991,7 @@ bool func0f084594(struct model *model, struct modelnode *node, struct coord *arg
 	return ok;
 }
 
-bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *dstmtxindex, struct modelnode **dstnode)
+bool obj_find_hitthing_by_gfx_tris(struct model *model, struct modelnode *nodearg, struct coord *arg2, struct coord *arg3, struct hitthing *hitthing, s32 *dstmtxindex, struct modelnode **dstnode)
 {
 	struct coord spec;
 	struct coord spe0;
@@ -13996,8 +14003,8 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 
 	while (node && !done) {
 		u32 type = node->type & 0xff;
-		Gfx *s3 = NULL;
-		void *s5 = NULL;
+		Gfx *opagdl = NULL;
+		Gfx *xlugdl = NULL;
 
 		switch (type) {
 		case MODELNODETYPE_DL:
@@ -14007,13 +14014,13 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 
 				if (rwdata->gdl != NULL) {
 					if (rwdata->gdl == rodata->opagdl) {
-						s3 = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->opagdl & 0xffffff));
+						opagdl = (Gfx *)((uintptr_t)rodata->colours + ((u32)rodata->opagdl & 0xffffff));
 					} else {
-						s3 = rwdata->gdl;
+						opagdl = rwdata->gdl;
 					}
 
 					if (rodata->xlugdl != NULL) {
-						s5 = (void *)((uintptr_t)rodata->colours + ((u32)rodata->xlugdl & 0xffffff));
+						xlugdl = (void *)((uintptr_t)rodata->colours + ((u32)rodata->xlugdl & 0xffffff));
 					}
 
 					vertices = rwdata->vertices;
@@ -14025,10 +14032,10 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 				struct modelrodata_gundl *rodata = &node->rodata->gundl;
 
 				if (rodata->opagdl != NULL) {
-					s3 = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)rodata->opagdl & 0xffffff));
+					opagdl = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)rodata->opagdl & 0xffffff));
 
 					if (rodata->xlugdl != NULL) {
-						s5 = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)rodata->xlugdl & 0xffffff));
+						xlugdl = (Gfx *)((uintptr_t)rodata->baseaddr + ((u32)rodata->xlugdl & 0xffffff));
 					}
 
 					vertices = (void *)(uintptr_t)rodata->baseaddr;
@@ -14046,7 +14053,7 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 			break;
 		}
 
-		if (s3 != NULL) {
+		if (opagdl != NULL) {
 			s32 mtxindex = model_find_node_mtx_index(node, 0);
 			Mtxf *mtx = NULL;
 			Mtxf sp64;
@@ -14077,7 +14084,7 @@ bool func0f0849dc(struct model *model, struct modelnode *nodearg, struct coord *
 				spe0.z = spd4.z * 32767.0f + spec.z;
 			}
 
-			if (bg_test_hit_on_obj(&spec, &spe0, &spd4, s3, s5, vertices, hitthing)) {
+			if (bg_find_hitthing_by_gfx_tris(&spec, &spe0, &spd4, opagdl, xlugdl, vertices, hitthing)) {
 				*dstmtxindex = mtxindex;
 				*dstnode = node;
 				done = true;
@@ -14218,7 +14225,7 @@ void cctv_handle_lens_shot(struct defaultobj *obj)
 	rwdata->toggle.visible = false;
 }
 
-void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s32 playernum)
+void obj_damage_by_explosion(struct prop *prop, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum)
 {
 	struct defaultobj *obj = prop->obj;
 
@@ -14240,12 +14247,12 @@ void func0f085050(struct prop *prop, f32 damage, struct coord *pos, s32 arg3, s3
 		while (child) {
 			struct prop *next = child->next;
 
-			func0f085050(child, damage, pos, arg3, playernum);
+			obj_damage_by_explosion(child, damage, pos, weaponnum, playernum);
 
 			child = next;
 		}
 
-		obj_damage(prop->obj, damage, pos, arg3, playernum);
+		obj_damage(prop->obj, damage, pos, weaponnum, playernum);
 	}
 }
 
@@ -14278,7 +14285,7 @@ bool func0f085158(struct defaultobj *obj)
 	return false;
 }
 
-bool func0f085194(struct defaultobj *obj)
+bool obj_defaults_to_bounceable_invincible_pickupable(struct defaultobj *obj)
 {
 	switch (obj->type) {
 	case OBJTYPE_KEY:
@@ -14300,18 +14307,20 @@ bool obj_is_mortal(struct defaultobj *obj)
 		return false;
 	}
 
-	if (func0f085194(obj) && obj->type != OBJTYPE_SHIELD) {
+	if (obj_defaults_to_bounceable_invincible_pickupable(obj) && obj->type != OBJTYPE_SHIELD) {
 		if ((obj->flags & OBJFLAG_FORCEMORTAL) == 0) {
 			return false;
 		}
-	} else if (obj->flags & OBJFLAG_INVINCIBLE) {
-		return false;
+	} else {
+		if (obj->flags & OBJFLAG_INVINCIBLE) {
+			return false;
+		}
 	}
 
 	return true;
 }
 
-void obj_take_gunfire(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum)
+void obj_damage_by_gunfire(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weaponnum, s32 playernum)
 {
 	if ((obj->flags2 & OBJFLAG2_IMMUNETOGUNFIRE) == 0) {
 		obj_damage(obj, damage, pos, weaponnum, playernum);
@@ -14338,7 +14347,7 @@ void obj_damage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapo
 	}
 
 	if (weaponnum == WEAPON_NONE) {
-		if (func0f085194(obj)) {
+		if (obj_defaults_to_bounceable_invincible_pickupable(obj)) {
 			return;
 		}
 
@@ -14561,7 +14570,7 @@ void obj_damage(struct defaultobj *obj, f32 damage, struct coord *pos, s32 weapo
 	}
 }
 
-void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
+void obj_attachment_test_hit(struct prop *prop, struct shotdata *shotdata)
 {
 	struct defaultobj *obj = prop->obj;
 	struct model *model = obj->model;
@@ -14594,7 +14603,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 
 	while (child) {
 		next = child->next;
-		func0f0859a0(child, shotdata);
+		obj_attachment_test_hit(child, shotdata);
 		child = next;
 	}
 
@@ -14602,7 +14611,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 		hitpart = model_test_for_hit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node1);
 
 		while (hitpart > 0) {
-			if (func0f084594(model, node1, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing1, &spe4, &node2)) {
+			if (obj_find_hitthing_by_bboxrodata_mtx(model, node1, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing1, &spe4, &node2)) {
 				break;
 			}
 
@@ -14612,7 +14621,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 		do {
 			hitpart = model_test_for_hit(model, &shotdata->gunpos2d, &shotdata->gundir2d, &node1);
 
-			if (hitpart > 0 && func0f0849dc(model, node1, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing1, &spe4, &node2)) {
+			if (hitpart > 0 && obj_find_hitthing_by_gfx_tris(model, node1, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing1, &spe4, &node2)) {
 				break;
 			}
 		} while (hitpart > 0);
@@ -14621,7 +14630,7 @@ void func0f0859a0(struct prop *prop, struct shotdata *shotdata)
 	if (obj->flags3 & OBJFLAG3_HOVERBEDSHIELD) {
 		node3 = model_get_part(model->definition, MODELPART_0067);
 
-		if (node3 && func0f084594(model, node3, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing2, &sp90, &node4)) {
+		if (node3 && obj_find_hitthing_by_bboxrodata_mtx(model, node3, &shotdata->gunpos2d, &shotdata->gundir2d, &hitthing2, &sp90, &node4)) {
 			if (hitpart <= 0 ||
 					model->matrices[sp90].m[0][2] * hitthing2.pos.f[0] + model->matrices[sp90].m[1][2] * hitthing2.pos.f[1] + model->matrices[sp90].m[2][2] * hitthing2.pos.f[2] >
 					model->matrices[spe4].m[0][2] * hitthing1.pos.f[0] + model->matrices[spe4].m[1][2] * hitthing1.pos.f[1] + model->matrices[spe4].m[2][2] * hitthing1.pos.f[2]) {
@@ -14679,7 +14688,7 @@ void obj_test_hit(struct prop *prop, struct shotdata *shotdata)
 		tmp = -(model->matrices[0].m[3][2] + obj_get_rotated_local_z_max_by_mtx4(bbox, model->matrices));
 
 		if (tmp <= shotdata->distance) {
-			func0f0859a0(prop, shotdata);
+			obj_attachment_test_hit(prop, shotdata);
 		}
 	}
 }
@@ -14874,7 +14883,7 @@ void obj_hit(struct shotdata *shotdata, struct hit *hit)
 				}
 			}
 
-			obj_take_gunfire(obj, damage, &sp110, shotdata->gset.weaponnum, g_Vars.currentplayernum);
+			obj_damage_by_gunfire(obj, damage, &sp110, shotdata->gset.weaponnum, g_Vars.currentplayernum);
 
 			if (obj->model->definition->skel == &g_SkelWindowedDoor && !hit->slowsbullet) {
 				struct doorobj *door = (struct doorobj *)obj;
@@ -14907,16 +14916,18 @@ void obj_hit(struct shotdata *shotdata, struct hit *hit)
 				pushdir.y = shotdata->gundir3d.y;
 				pushdir.z = shotdata->gundir3d.z;
 
-				func0f082e84(obj, &spa4, &pushdir, &spb0, true);
+				obj_push(obj, &spa4, &pushdir, &spb0, true);
 			} else {
 				bool bounce = false;
 
-				if (func0f085194(obj)) {
+				if (obj_defaults_to_bounceable_invincible_pickupable(obj)) {
 					if ((obj->flags & OBJFLAG_FORCENOBOUNCE) == 0) {
 						bounce = true;
 					}
-				} else if (obj->flags & OBJFLAG_BOUNCEIFSHOT) {
-					bounce = true;
+				} else {
+					if (obj->flags & OBJFLAG_BOUNCEIFSHOT) {
+						bounce = true;
+					}
 				}
 
 				if (obj->flags2 & OBJFLAG2_BOUNCEIFSHOTWHENDEAD) {
@@ -15301,7 +15312,7 @@ struct nameinfo {
 	u8 flags[5];
 };
 
-struct nameinfo *func0f087888pf(s32 id, struct nameinfo *info)
+struct nameinfo *nameinfo_find(s32 id, struct nameinfo *info)
 {
 	if (info) {
 		while (info->id) {
@@ -15472,7 +15483,7 @@ void func0f0878c8pf(char *dst, s32 id, bool plural, bool full, bool dual, struct
 
 	*dst = '\0';
 
-	info = func0f087888pf(id, table);
+	info = nameinfo_find(id, table);
 
 	if (info != NULL) {
 		u8 determiner = info->flags[languageid] & 0x7f;
@@ -16438,7 +16449,7 @@ s32 obj_test_for_pickup(struct prop *prop)
 		return TICKOP_NONE;
 	}
 
-	if (func0f085194(obj) && obj->type != OBJTYPE_HAT) {
+	if (obj_defaults_to_bounceable_invincible_pickupable(obj) && obj->type != OBJTYPE_HAT) {
 		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
 			return TICKOP_NONE;
 		}
@@ -16452,8 +16463,8 @@ s32 obj_test_for_pickup(struct prop *prop)
 		return TICKOP_NONE;
 	}
 
-	// For disarmed weapons that are falling, picktimer timer is 1 second and
-	// pickupby is set to the chr who disarmed. This makes it so only the
+	// For disarmed weapons that are falling, pickuptimer is 1 second and
+	// pickupby is set to the chr who was disarmed. This makes it so only the
 	// disarmer can pick up the weapon within the first second.
 	// For thrown projectiles, the pickup timer is also 1 second but there is no
 	// pickupby. This prevents the thrower from picking up their own projectile
@@ -16671,7 +16682,7 @@ s32 obj_test_for_pickup(struct prop *prop)
 	return TICKOP_NONE;
 }
 
-bool func0f0899dc(struct prop *prop, struct coord *arg1, f32 *xrange, f32 *yrange)
+bool prop_get_screen_coords(struct prop *prop, struct coord *arg1, f32 xrange[2], f32 yrange[2])
 {
 	if (prop->flags & PROPFLAG_ONTHISSCREENTHISTICK) {
 		struct defaultobj *obj = prop->obj;
@@ -16866,31 +16877,28 @@ struct prop *hat_create_for_chr(struct chrdata *chr, s32 modelnum, u32 flags)
 struct weaponobj *weapon_create(bool musthaveprop, bool musthavemodel, struct modeldef *modeldef)
 {
 	s32 i;
-	struct weaponobj *tmp;
-	struct weaponobj *sp4c = NULL;
-	struct weaponobj *sp48 = NULL;
-	s32 sp44 = -1;
-	s32 sp40 = -1;
-	s32 sp3c = -1;
+	struct weaponobj *bestobj;
+	struct weaponobj *offscreenobj = NULL;
+	struct weaponobj *anyobj = NULL;
+	s32 emptyindex = -1;
+	s32 offscreenindex = -1;
+	s32 anyindex = -1;
 
 	for (i = g_NextWeaponSlot; true; ) {
 		bool usable = false;
 
 		if (g_WeaponSlots[i].base.prop == NULL) {
 			if (!musthaveprop && !musthavemodel) {
-				sp44 = i;
+				emptyindex = i;
 				break;
 			}
 		} else {
-#if VERSION >= VERSION_NTSC_1_0
 			if ((g_WeaponSlots[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
 					&& (g_WeaponSlots[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0
-					&& (g_WeaponSlots[i].base.flags & OBJFLAG_HELDROCKET) == 0)
-#else
-			if ((g_WeaponSlots[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
-					&& (g_WeaponSlots[i].base.hidden2 & OBJH2FLAG_CANREGEN) == 0)
+#if VERSION >= VERSION_NTSC_1_0
+					&& (g_WeaponSlots[i].base.flags & OBJFLAG_HELDROCKET) == 0
 #endif
-			{
+			) {
 				if (g_WeaponSlots[i].base.prop->parent) {
 					if (g_WeaponSlots[i].base.hidden & OBJHFLAG_EMBEDDED) {
 						usable = true;
@@ -16903,12 +16911,12 @@ struct weaponobj *weapon_create(bool musthaveprop, bool musthavemodel, struct mo
 
 		if (usable) {
 			if (!musthavemodel || modelmgr_can_slot_fit_rwdata(g_WeaponSlots[i].base.model, modeldef)) {
-				if ((g_WeaponSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
-					sp40 = i;
+				if ((g_WeaponSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && offscreenindex < 0) {
+					offscreenindex = i;
 				}
 
-				if (sp3c < 0) {
-					sp3c = i;
+				if (anyindex < 0) {
+					anyindex = i;
 				}
 			}
 		}
@@ -16920,55 +16928,55 @@ struct weaponobj *weapon_create(bool musthaveprop, bool musthavemodel, struct mo
 		}
 	}
 
-	if (sp44 >= 0) {
-		g_NextWeaponSlot = (sp44 + 1) % g_MaxWeaponSlots;
-		return &g_WeaponSlots[sp44];
+	if (emptyindex >= 0) {
+		g_NextWeaponSlot = (emptyindex + 1) % g_MaxWeaponSlots;
+		return &g_WeaponSlots[emptyindex];
 	}
 
-	tmp = (struct weaponobj *)setup_find_obj_for_reuse(OBJTYPE_WEAPON, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, modeldef);
+	bestobj = (struct weaponobj *)setup_find_obj_for_reuse(OBJTYPE_WEAPON, (struct defaultobj **)&offscreenobj, (struct defaultobj **)&anyobj, musthaveprop, musthavemodel, modeldef);
 
-	if (tmp) {
-		return tmp;
+	if (bestobj) {
+		return bestobj;
 	}
 
-	if (sp40 >= 0) {
-		if (g_WeaponSlots[sp40].base.prop) {
-			obj_free_permanently(&g_WeaponSlots[sp40].base, true);
+	if (offscreenindex >= 0) {
+		if (g_WeaponSlots[offscreenindex].base.prop) {
+			obj_free_permanently(&g_WeaponSlots[offscreenindex].base, true);
 		}
 
-		g_NextWeaponSlot = (sp40 + 1) % g_MaxWeaponSlots;
-		return &g_WeaponSlots[sp40];
+		g_NextWeaponSlot = (offscreenindex + 1) % g_MaxWeaponSlots;
+		return &g_WeaponSlots[offscreenindex];
 	}
 
-	if (sp4c) {
-		if (sp4c->base.prop) {
-			obj_free_permanently(&sp4c->base, true);
+	if (offscreenobj) {
+		if (offscreenobj->base.prop) {
+			obj_free_permanently(&offscreenobj->base, true);
 		}
 
-		return sp4c;
+		return offscreenobj;
 	}
 
-	if (sp3c >= 0) {
-		if (g_WeaponSlots[sp3c].base.prop) {
-			obj_free_permanently(&g_WeaponSlots[sp3c].base, true);
+	if (anyindex >= 0) {
+		if (g_WeaponSlots[anyindex].base.prop) {
+			obj_free_permanently(&g_WeaponSlots[anyindex].base, true);
 		}
 
-		g_NextWeaponSlot = (sp3c + 1) % g_MaxWeaponSlots;
-		return &g_WeaponSlots[sp3c];
+		g_NextWeaponSlot = (anyindex + 1) % g_MaxWeaponSlots;
+		return &g_WeaponSlots[anyindex];
 	}
 
-	if (sp48) {
-		if (sp48->base.prop) {
-			obj_free_permanently(&sp48->base, true);
+	if (anyobj) {
+		if (anyobj->base.prop) {
+			obj_free_permanently(&anyobj->base, true);
 		}
 
-		return sp48;
+		return anyobj;
 	}
 
 	return NULL;
 }
 
-struct weaponobj *func0f08a364(void)
+struct weaponobj *weapon_find_empty_slot(void)
 {
 	return weapon_create(false, false, NULL);
 }
@@ -16976,28 +16984,28 @@ struct weaponobj *func0f08a364(void)
 struct hatobj *hat_create(bool musthaveprop, bool musthavemodel, struct modeldef *modeldef)
 {
 	s32 i;
-	struct hatobj *tmp;
-	struct hatobj *sp4c = NULL;
-	struct hatobj *sp48 = NULL;
-	s32 sp44 = -1;
-	s32 sp40 = -1;
-	s32 sp3c = -1;
+	struct hatobj *bestobj;
+	struct hatobj *offscreenobj = NULL;
+	struct hatobj *anyobj = NULL;
+	s32 emptyindex = -1;
+	s32 offscreenindex = -1;
+	s32 anyindex = -1;
 
 	for (i = g_NextHatSlot; true; ) {
 		if (g_HatSlots[i].base.prop == NULL) {
 			if (!musthaveprop && !musthavemodel) {
-				sp44 = i;
+				emptyindex = i;
 				break;
 			}
 		} else if ((g_HatSlots[i].base.hidden & OBJHFLAG_PROJECTILE) == 0
 				&& g_HatSlots[i].base.prop->parent == NULL
 				&& (!musthavemodel || modelmgr_can_slot_fit_rwdata(g_HatSlots[i].base.model, modeldef))) {
-			if ((g_HatSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && sp40 < 0) {
-				sp40 = i;
+			if ((g_HatSlots[i].base.prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0 && offscreenindex < 0) {
+				offscreenindex = i;
 			}
 
-			if (sp3c < 0) {
-				sp3c = i;
+			if (anyindex < 0) {
+				anyindex = i;
 			}
 		}
 
@@ -17008,55 +17016,55 @@ struct hatobj *hat_create(bool musthaveprop, bool musthavemodel, struct modeldef
 		}
 	}
 
-	if (sp44 >= 0) {
-		g_NextHatSlot = (sp44 + 1) % g_MaxHatSlots;
-		return &g_HatSlots[sp44];
+	if (emptyindex >= 0) {
+		g_NextHatSlot = (emptyindex + 1) % g_MaxHatSlots;
+		return &g_HatSlots[emptyindex];
 	}
 
-	tmp = (struct hatobj *)setup_find_obj_for_reuse(OBJTYPE_HAT, (struct defaultobj **)&sp4c, (struct defaultobj **)&sp48, musthaveprop, musthavemodel, modeldef);
+	bestobj = (struct hatobj *)setup_find_obj_for_reuse(OBJTYPE_HAT, (struct defaultobj **)&offscreenobj, (struct defaultobj **)&anyobj, musthaveprop, musthavemodel, modeldef);
 
-	if (tmp) {
-		return tmp;
+	if (bestobj) {
+		return bestobj;
 	}
 
-	if (sp40 >= 0) {
-		if (g_HatSlots[sp40].base.prop) {
-			obj_free_permanently(&g_HatSlots[sp40].base, true);
+	if (offscreenindex >= 0) {
+		if (g_HatSlots[offscreenindex].base.prop) {
+			obj_free_permanently(&g_HatSlots[offscreenindex].base, true);
 		}
 
-		g_NextHatSlot = (sp40 + 1) % g_MaxHatSlots;
-		return &g_HatSlots[sp40];
+		g_NextHatSlot = (offscreenindex + 1) % g_MaxHatSlots;
+		return &g_HatSlots[offscreenindex];
 	}
 
-	if (sp4c) {
-		if (sp4c->base.prop) {
-			obj_free_permanently(&sp4c->base, true);
+	if (offscreenobj) {
+		if (offscreenobj->base.prop) {
+			obj_free_permanently(&offscreenobj->base, true);
 		}
 
-		return sp4c;
+		return offscreenobj;
 	}
 
-	if (sp3c >= 0) {
-		if (g_HatSlots[sp3c].base.prop) {
-			obj_free_permanently(&g_HatSlots[sp3c].base, true);
+	if (anyindex >= 0) {
+		if (g_HatSlots[anyindex].base.prop) {
+			obj_free_permanently(&g_HatSlots[anyindex].base, true);
 		}
 
-		g_NextHatSlot = (sp3c + 1) % g_MaxHatSlots;
-		return &g_HatSlots[sp3c];
+		g_NextHatSlot = (anyindex + 1) % g_MaxHatSlots;
+		return &g_HatSlots[anyindex];
 	}
 
-	if (sp48) {
-		if (sp48->base.prop) {
-			obj_free_permanently(&sp48->base, true);
+	if (anyobj) {
+		if (anyobj->base.prop) {
+			obj_free_permanently(&anyobj->base, true);
 		}
 
-		return sp48;
+		return anyobj;
 	}
 
 	return NULL;
 }
 
-struct hatobj *func0f08a6fc(void)
+struct hatobj *hat_find_empty_slot(void)
 {
 	return hat_create(false, false, NULL);
 }
@@ -17361,7 +17369,7 @@ bool chr_equip_weapon(struct weaponobj *weapon, struct chrdata *chr)
 	return true;
 }
 
-struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct modeldef *modeldef, struct prop *prop, struct model *model)
+struct prop *weapon_apply_to_chr(struct weaponobj *weapon, struct chrdata *chr, struct modeldef *modeldef, struct prop *prop, struct model *model)
 {
 	prop = weapon_init(weapon, modeldef, prop, model);
 
@@ -17394,18 +17402,18 @@ struct prop *func0f08b108(struct weaponobj *weapon, struct chrdata *chr, struct 
 	return prop;
 }
 
-void func0f08b208(struct weaponobj *weapon, struct chrdata *chr)
+void weapon_load_and_apply_to_chr(struct weaponobj *weapon, struct chrdata *chr)
 {
 	u32 stack;
 	s32 modelnum = weapon->base.modelnum;
 
 	setup_load_modeldef(modelnum);
-	func0f08b108(weapon, chr, g_ModelStates[modelnum].modeldef, 0, 0);
+	weapon_apply_to_chr(weapon, chr, g_ModelStates[modelnum].modeldef, 0, 0);
 }
 
-void func0f08b25c(struct weaponobj *weapon, struct chrdata *chr)
+void weapon_assign_to_chr(struct weaponobj *weapon, struct chrdata *chr)
 {
-	func0f08b208(weapon, chr);
+	weapon_load_and_apply_to_chr(weapon, chr);
 }
 
 struct autogunobj *laptop_deploy(s32 modelnum, struct gset *gset, struct chrdata *chr)
@@ -17752,7 +17760,7 @@ struct prop *weapon_create_for_chr(struct chrdata *chr, s32 modelnum, s32 weapon
 		weapon->base.flags = flags | OBJFLAG_ASSIGNEDTOCHR;
 		weapon->base.pad = chr->chrnum;
 
-		prop = func0f08b108(weapon, chr, modeldef, prop, model);
+		prop = weapon_apply_to_chr(weapon, chr, modeldef, prop, model);
 	} else {
 		if (model) {
 			modelmgr_free_model(model);
@@ -18825,17 +18833,17 @@ void doors_request_mode(struct doorobj *door, s32 newmode)
 	}
 }
 
-s32 door_is_closed(struct doorobj *door)
+bool door_is_closed(struct doorobj *door)
 {
 	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) && door->frac <= 0;
 }
 
-s32 door_is_open(struct doorobj *door)
+bool door_is_open(struct doorobj *door)
 {
 	return (door->mode == DOORMODE_IDLE || door->mode == DOORMODE_WAITING) && door->frac >= door->maxfrac;
 }
 
-s32 func0f08e5a8(RoomNum *rooms2, struct screenbox *box)
+s32 rooms_get_cumulative_screenbox(RoomNum *rooms2, struct screenbox *box)
 {
 	bool result = false;
 	RoomNum *rooms = rooms2;
@@ -18941,7 +18949,7 @@ bool pos_is_in_obj_fade_distance(struct coord *pos, f32 modelscale)
 	return result;
 }
 
-bool func0f08e8ac(struct prop *prop, struct coord *pos, f32 arg2, bool arg3)
+bool pos_is_onscreen(struct prop *prop, struct coord *pos, f32 modelscale, bool arg3)
 {
 	RoomNum *rooms;
 	RoomNum roomnum;
@@ -18953,8 +18961,8 @@ bool func0f08e8ac(struct prop *prop, struct coord *pos, f32 arg2, bool arg3)
 
 	while (roomnum != -1) {
 		if (g_Rooms[roomnum].flags & ROOMFLAG_ONSCREEN) {
-			if (env_is_pos_in_fog_max_distance(pos, arg2) && (!arg3 || pos_is_in_obj_fade_distance(pos, arg2))) {
-				result = cam_is_pos_in_fov_and_visible_room(prop->rooms, pos, arg2);
+			if (env_is_pos_in_fog_max_distance(pos, modelscale) && (!arg3 || pos_is_in_obj_fade_distance(pos, modelscale))) {
+				result = cam_is_pos_in_fov_and_visible_room(prop->rooms, pos, modelscale);
 
 				if (result) {
 					struct coord *campos = &g_Vars.currentplayer->cam_pos;
@@ -20296,7 +20304,7 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 				aimpos.y = targetprop->pos.y - 20.0f;
 				aimpos.z = targetprop->pos.z;
 
-				if (func0f06b39c(pos, dir, &aimpos, 30)) {
+				if (pos_is_facing_pos(pos, dir, &aimpos, 30)) {
 					f32 f0 = 0.16f * g_Vars.lvupdate60freal * arg1->unk0c;
 
 					if (dist > 200.0f) {
@@ -20358,7 +20366,7 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 
 						los_find_final_room_exhaustive(pos, fromprop->rooms, &endpos, sp1c8);
 						sparks_create(sp1c8[0], obstacle, &endpos, NULL, NULL, SPARKTYPE_DEFAULT);
-						obj_take_gunfire(obstacle->obj, gset_get_damage(&gset), &endpos, weaponnum, -1);
+						obj_damage_by_gunfire(obstacle->obj, gset_get_damage(&gset), &endpos, weaponnum, -1);
 
 						if (obj->type == OBJTYPE_WEAPON) {
 							struct weaponobj *weapon = (struct weaponobj *)obj;

@@ -1014,7 +1014,7 @@ void player_spawn(void)
 
 					if (g_Vars.lvframenum > 0
 							&& (g_ChrSlots[i].hidden & CHRHFLAG_ONBONDSSCREEN)
-							&& func0f06b39c(&sp78, &sp90, &g_ChrSlots[i].prop->pos, model_get_effective_scale(g_ChrSlots[i].model))
+							&& pos_is_facing_pos(&sp78, &sp90, &g_ChrSlots[i].prop->pos, model_get_effective_scale(g_ChrSlots[i].model))
 							&& (random() % 8)) {
 						sqdist += 1000 * 1000;
 					}

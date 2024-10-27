@@ -345,7 +345,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 		sp84.z += arg1->z / g_Vars.lvupdate60freal;
 	}
 
-	func0f082e84(obstacle, &sp9c, &sp90, &sp84, false);
+	obj_push(obstacle, &sp9c, &sp90, &sp84, false);
 
 	if (arg2) {
 		f32 xdiff = sp9c.x - bike->prop->pos.x;

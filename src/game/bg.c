@@ -3559,7 +3559,7 @@ bool bg_test_line_intersects_bbox(struct coord *arg0, struct coord *arg1, struct
 	return true;
 }
 
-bool bg_test_hit_on_obj(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *gdl,
+bool bg_find_hitthing_by_gfx_tris(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *gdl,
 		Gfx *gdl2, Vtx *vertices, struct hitthing *hitthing)
 {
 	s16 stack;

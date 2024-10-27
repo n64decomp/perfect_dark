@@ -10390,7 +10390,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 										&& (hitobj->flags2 & OBJFLAG2_IMMUNETOANTI)) {
 									// Co-op can't damage mission critical objects
 								} else {
-									obj_take_gunfire(hitobj, gset_get_damage(&gset), &hitpos, gset.weaponnum, playernum);
+									obj_damage_by_gunfire(hitobj, gset_get_damage(&gset), &hitpos, gset.weaponnum, playernum);
 								}
 							}
 						} else if (hitsomething) {
@@ -14459,16 +14459,16 @@ bool chr_is_target_aiming_at_me(struct chrdata *chr)
 									  CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
 									  GEOFLAG_BLOCK_SIGHT))) {
 				struct model *model = chr->model;
-				struct coord sp68;
-				struct coord sp56;
-				struct coord sp44;
-				f32 somefloat = model_get_effective_scale(model) * 0.8f;
+				struct coord playerpos;
+				struct coord playeraimdir;
+				struct coord mypos;
+				f32 myradius = model_get_effective_scale(model) * 0.8f;
 
-				bgun0f0a0c08(&sp68, &sp56);
-				model_get_root_position(model, &sp44);
-				mtx4_transform_vec_in_place(cam_get_world_to_screen_mtxf(), &sp44);
+				bgun0f0a0c08(&playerpos, &playeraimdir);
+				model_get_root_position(model, &mypos);
+				mtx4_transform_vec_in_place(cam_get_world_to_screen_mtxf(), &mypos);
 
-				if (func0f06b39c(&sp68, &sp56, &sp44, somefloat)) {
+				if (pos_is_facing_pos(&playerpos, &playeraimdir, &mypos, myradius)) {
 					return true;
 				}
 			}

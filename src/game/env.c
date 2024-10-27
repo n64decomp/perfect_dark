@@ -417,12 +417,11 @@ bool env_is_pos_in_fog_max_distance(struct coord *pos, f32 tolerance)
 		return true;
 	}
 
-	campos = &g_Vars.currentplayer->cam_pos;
-
 	if (g_Vars.currentplayer->visionmode == VISIONMODE_XRAY) {
 		return true;
 	}
 
+	campos = &g_Vars.currentplayer->cam_pos;
 	mtx = cam_get_world_to_screen_mtxf();
 
 	sp24.x = pos->x - campos->x;

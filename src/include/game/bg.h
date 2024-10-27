@@ -27,7 +27,7 @@ bool bg_room_is_on_player_standby(s32 room, u32 aibotindex);
 void bg_garbage_collect_rooms(s32 bytesneeded, bool desparate);
 bool bg_test_line_intersects_int_bbox(struct coord *arg0, struct coord *arg1, s32 *arg2, s32 *arg3);
 bool bg_test_line_intersects_bbox(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3);
-bool bg_test_hit_on_obj(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *gdl, Gfx *gdl2, Vtx *vertices, struct hitthing *hitthing);
+bool bg_find_hitthing_by_gfx_tris(struct coord *arg0, struct coord *arg1, struct coord *arg2, Gfx *gdl, Gfx *gdl2, Vtx *vertices, struct hitthing *hitthing);
 bool bg_test_hit_on_chr(struct model *model, struct coord *arg1, struct coord *arg2, struct coord *arg3, Gfx *arg4, Gfx *arg5, Vtx *vertices, f32 *arg7, struct hitthing *hitthing);
 bool bg_test_hit_in_room(struct coord *frompos, struct coord *topos, s32 roomnum, struct hitthing *hitthing);
 bool bg_room_is_loaded(s32 room);

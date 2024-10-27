@@ -646,7 +646,7 @@ Gfx *smoke_render(struct prop *prop, Gfx *gdl, bool xlupass)
 			}
 		}
 
-		if (func0f08e5a8(prop->rooms, &screenbox) > 0) {
+		if (rooms_get_cumulative_screenbox(prop->rooms, &screenbox) > 0) {
 			gdl = bg_scissor_within_viewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
 			gdl = bg_scissor_to_viewport(gdl);

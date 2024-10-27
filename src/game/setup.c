@@ -448,8 +448,10 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 							if (bbox->xmax == bbox->xmin) {
 								xscale = maxscale;
 							}
-						} else if (bbox->xmax == bbox->xmin) {
-							xscale = maxscale;
+						} else {
+							if (bbox->xmax == bbox->xmin) {
+								xscale = maxscale;
+							}
 						}
 					}
 
@@ -458,8 +460,10 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 							if (bbox->ymax == bbox->ymin) {
 								zscale = maxscale;
 							}
-						} else if (bbox->ymax == bbox->ymin) {
-							yscale = maxscale;
+						} else {
+							if (bbox->ymax == bbox->ymin) {
+								yscale = maxscale;
+							}
 						}
 					}
 
@@ -468,8 +472,10 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 							if (bbox->zmax == bbox->zmin) {
 								yscale = maxscale;
 							}
-						} else if (bbox->zmax == bbox->zmin) {
-							zscale = maxscale;
+						} else {
+							if (bbox->zmax == bbox->zmin) {
+								zscale = maxscale;
+							}
 						}
 					}
 
@@ -497,9 +503,9 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 			}
 
 			if (obj->flags & OBJFLAG_00000002) {
-				func0f06ab60(obj, &pos, &mtx, rooms, &centre);
+				obj_place_2d(obj, &pos, &mtx, rooms, &centre);
 			} else {
-				func0f06a730(obj, &pos, &mtx, rooms, &centre);
+				obj_place_3d(obj, &pos, &mtx, rooms, &centre);
 			}
 
 			if (obj->hidden & OBJHFLAG_00008000) {
@@ -534,18 +540,18 @@ void setup_place_weapon(struct weaponobj *weapon, s32 cmdindex)
 				weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
 				weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
 				modelmgr_load_projectile_modeldefs(weapon->weaponnum);
-				func0f08b25c(weapon, chr);
+				weapon_assign_to_chr(weapon, chr);
 #else
 				if (g_Vars.stagenum == STAGE_INVESTIGATION
 						&& lv_get_difficulty() == DIFF_PA
 						&& weapon->weaponnum == WEAPON_K7AVENGER) {
 					modelmgr_load_projectile_modeldefs(weapon->weaponnum);
-					func0f08b25c(weapon, chr);
+					weapon_assign_to_chr(weapon, chr);
 				} else if (g_Vars.stagenum == STAGE_ATTACKSHIP) {
 					weapon->base.flags &= ~OBJFLAG_DEACTIVATED;
 					weapon->base.flags |= OBJFLAG_WEAPON_AICANNOTUSE;
 					modelmgr_load_projectile_modeldefs(weapon->weaponnum);
-					func0f08b25c(weapon, chr);
+					weapon_assign_to_chr(weapon, chr);
 				} else {
 					weapon->weaponnum = WEAPON_NONE;
 				}
@@ -602,7 +608,7 @@ void setup_place_weapon(struct weaponobj *weapon, s32 cmdindex)
 				}
 
 				modelmgr_load_projectile_modeldefs(weapon->weaponnum);
-				func0f08b25c(weapon, chr);
+				weapon_assign_to_chr(weapon, chr);
 			}
 		}
 	} else {

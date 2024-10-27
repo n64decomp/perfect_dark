@@ -594,7 +594,7 @@ bool cam_is_pos_in_screen_box(struct coord *pos, f32 arg1, struct drawslot *draw
  * correct address to cam_is_pos_in_screen_box so it can interpret the pointer as a
  * drawslot.
  */
-bool cam_is_pos_in_fov_and_visible_room(RoomNum *rooms, struct coord *pos, f32 arg2)
+bool cam_is_pos_in_fov_and_visible_room(RoomNum *rooms, struct coord *pos, f32 modelscale)
 {
 	s32 i;
 	RoomNum room;
@@ -637,5 +637,5 @@ bool cam_is_pos_in_fov_and_visible_room(RoomNum *rooms, struct coord *pos, f32 a
 		return false;
 	}
 
-	return cam_is_pos_in_screen_box(pos, arg2, (struct drawslot *) &(((u8 *) &box)[-((uintptr_t) &(((struct drawslot *)0)->box))]));
+	return cam_is_pos_in_screen_box(pos, modelscale, (struct drawslot *) &(((u8 *) &box)[-((uintptr_t) &(((struct drawslot *)0)->box))]));
 }

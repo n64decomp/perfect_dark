@@ -2376,7 +2376,7 @@ bool ai_object_move_to_pad(void)
 
 		rooms[0] = pad.room;
 		rooms[1] = -1;
-		func0f06a730(obj, &pad.pos, &matrix, rooms, &pad.pos);
+		obj_place_3d(obj, &pad.pos, &matrix, rooms, &pad.pos);
 	}
 
 	g_Vars.aioffset += 5;

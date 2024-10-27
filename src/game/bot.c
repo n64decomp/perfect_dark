@@ -506,7 +506,7 @@ bool bot_test_prop_for_pickup(struct prop *prop, struct chrdata *chr)
 		return false;
 	}
 
-	if (func0f085194(obj) && obj->type != OBJTYPE_HAT) {
+	if (obj_defaults_to_bounceable_invincible_pickupable(obj) && obj->type != OBJTYPE_HAT) {
 		if (obj->flags & OBJFLAG_UNCOLLECTABLE) {
 			return false;
 		}

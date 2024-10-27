@@ -259,7 +259,7 @@ bool botact_shoot_farsight(struct chrdata *chr, s32 arg1, struct coord *vector, 
 				// chance of passing.
 				if (oppchr != chr
 						&& value > rand
-						&& func0f06b39c(arg3, vector, &oppprop->pos, chr_get_hit_radius(oppchr))) {
+						&& pos_is_facing_pos(arg3, vector, &oppprop->pos, chr_get_hit_radius(oppchr))) {
 					bgun_play_prop_hit_sound(&gset, oppprop, -1);
 
 					if (oppchr->model && chr_get_shield(oppchr) > 0) {

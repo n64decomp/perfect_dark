@@ -17,7 +17,7 @@ void cd_get_obstacle_normal(struct coord *normal);
 u32 cd_get_geo_flags(void);
 void cd_set_saved_pos(struct coord *pos1, struct coord *pos2);
 bool cd_get_saved_pos(struct coord *arg0, struct coord *arg1);
-bool cd_000266a4(f32 x, f32 z, struct geo *tile);
+bool cd_is_2d_point_in_geo(f32 x, f32 z, struct geo *tile);
 void cd_get_props_on_platform(struct prop *platform, s16 *propnums, s32 len);
 s32 cd_000274e0_block(struct geoblock *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collision *collision);
 bool cd_000276c8_cyl(struct geocyl *tile, f32 x, f32 z, f32 width, struct prop *prop, struct collision *collision);

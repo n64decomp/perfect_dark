@@ -738,7 +738,7 @@ bool cd_is2d_point_in_flt_tile(struct geotilef *tile, f32 x, f32 z)
 	return true;
 }
 
-bool cd_is2d_point_in_block(struct geoblock *tile, f32 x, f32 z)
+bool cd_is_2d_point_in_block(struct geoblock *tile, f32 x, f32 z)
 {
 	s32 result = -1;
 	s32 numvertices = tile->header.numvertices;
@@ -772,7 +772,7 @@ bool cd_is2d_point_in_block(struct geoblock *tile, f32 x, f32 z)
 	return true;
 }
 
-bool cd_is2d_point_in_cyl(struct geocyl *cyl, f32 x, f32 z)
+bool cd_is_2d_point_in_cyl(struct geocyl *cyl, f32 x, f32 z)
 {
 	f32 xdiff = x - cyl->x;
 	f32 zdiff = z - cyl->z;
@@ -780,18 +780,18 @@ bool cd_is2d_point_in_cyl(struct geocyl *cyl, f32 x, f32 z)
 	return xdiff * xdiff + zdiff * zdiff <= cyl->radius * cyl->radius;
 }
 
-bool cd_000266a4(f32 x, f32 z, struct geo *geo)
+bool cd_is_2d_point_in_geo(f32 x, f32 z, struct geo *geo)
 {
 	if (geo == NULL) {
 		return false;
 	}
 
 	if (geo->type == GEOTYPE_BLOCK) {
-		return cd_is2d_point_in_block((struct geoblock *) geo, x, z);
+		return cd_is_2d_point_in_block((struct geoblock *) geo, x, z);
 	}
 
 	if (geo->type == GEOTYPE_CYL) {
-		return cd_is2d_point_in_cyl((struct geocyl *) geo, x, z);
+		return cd_is_2d_point_in_cyl((struct geocyl *) geo, x, z);
 	}
 
 	return false;
@@ -1099,7 +1099,7 @@ s32 cd_000274e0_block(struct geoblock *tile, f32 x, f32 z, f32 radius, struct pr
 {
 	bool result = false;
 
-	if (cd_is2d_point_in_block(tile, x, z)) {
+	if (cd_is_2d_point_in_block(tile, x, z)) {
 		if (collision) {
 			collision->geo = &tile->header;
 			collision->vertexindex = 0;
@@ -3701,7 +3701,7 @@ bool cd_block_excludes_block_laterally(struct geoblock *block1, struct geoblock 
 		diff2 = block1->vertices[i][0] - (f64)block1->vertices[next][0];
 
 		if (diff1 == zero && diff2 == zero) {
-			if (cd_is2d_point_in_block(block2, block1->vertices[i][0], block1->vertices[i][1])) {
+			if (cd_is_2d_point_in_block(block2, block1->vertices[i][0], block1->vertices[i][1])) {
 				return false;
 			}
 		} else {
@@ -3766,13 +3766,13 @@ s32 cd_test_block_overlaps_geolist(u8 *start, u8 *end, struct geoblock *block, u
 				s32 i;
 
 				for (i = 0; i < block->header.numvertices; i++) {
-					if (cd_is2d_point_in_block(thisblock, block->vertices[i][0], block->vertices[i][1])) {
+					if (cd_is_2d_point_in_block(thisblock, block->vertices[i][0], block->vertices[i][1])) {
 						return CDRESULT_COLLISION;
 					}
 				}
 
 				for (i = 0; i < thisblock->header.numvertices; i++) {
-					if (cd_is2d_point_in_block(block, thisblock->vertices[i][0], thisblock->vertices[i][1])) {
+					if (cd_is_2d_point_in_block(block, thisblock->vertices[i][0], thisblock->vertices[i][1])) {
 						return CDRESULT_COLLISION;
 					}
 				}

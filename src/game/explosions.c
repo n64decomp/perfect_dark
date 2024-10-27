@@ -853,7 +853,7 @@ void explosion_inflict_damage(struct prop *expprop)
 							// Damage the object
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
 									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_IMMUNETOEXPLOSIONS)) == 0) {
-								func0f085050(prop, (RANDOMFRAC() * 0.5f + 1.0f) * minfrac, &prop->pos, 0x22, exp->owner);
+								obj_damage_by_explosion(prop, (RANDOMFRAC() * 0.5f + 1.0f) * minfrac, &prop->pos, WEAPON_REMOTEMINE, exp->owner);
 							}
 
 							// Give object momentum if it's a hover obj
@@ -884,8 +884,8 @@ void explosion_inflict_damage(struct prop *expprop)
 
 							if ((obj->hidden & OBJHFLAG_00001000) == 0
 									&& (obj->flags2 & (OBJFLAG2_LINKEDTOSAFE | OBJFLAG2_IMMUNETOEXPLOSIONS)) == 0) {
-								func0f085050(prop, (RANDOMFRAC() * 0.5f + 1.0f) * minfrac,
-										&prop->pos, 0x22, exp->owner);
+								obj_damage_by_explosion(prop, (RANDOMFRAC() * 0.5f + 1.0f) * minfrac,
+										&prop->pos, WEAPON_REMOTEMINE, exp->owner);
 							}
 						}
 					}
@@ -1294,7 +1294,7 @@ Gfx *explosion_render(struct prop *prop, Gfx *gdl, bool xlupass)
 		Col *colours;
 		s32 tmp;
 
-		if (func0f08e5a8(prop->rooms, &screenbox) > 0) {
+		if (rooms_get_cumulative_screenbox(prop->rooms, &screenbox) > 0) {
 			gdl = bg_scissor_within_viewport(gdl, screenbox.xmin, screenbox.ymin, screenbox.xmax, screenbox.ymax);
 		} else {
 			gdl = bg_scissor_to_viewport(gdl);
