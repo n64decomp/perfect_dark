@@ -340,6 +340,8 @@ bool invGiveSingleWeapon(s32 weaponnum)
 {
 	frSetWeaponFound(weaponnum);
 
+	g_ObjectivesDirty = true;
+
 	if (invHasSingleWeaponExcAllGuns(weaponnum) == 0) {
 		struct invitem *item;
 
@@ -366,6 +368,8 @@ bool invGiveSingleWeapon(s32 weaponnum)
 
 bool invGiveDoubleWeapon(s32 weapon1, s32 weapon2)
 {
+	g_ObjectivesDirty = true;
+
 	if (invHasDoubleWeaponExcAllGuns(weapon1, weapon2) == 0) {
 		if (weaponHasFlag(weapon1, WEAPONFLAG_DUALWIELD)) {
 			struct invitem *item = invFindUnusedSlot();
