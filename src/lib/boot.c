@@ -29,7 +29,7 @@ u32 var8008dbcc;
 OSSched g_Sched;
 OSScClient g_MainSchedClient;
 #if VERSION >= VERSION_NTSC_1_0
-u32 g_OsMemSize;
+u32 g_SavedOsMemSize;
 #else
 u16 *var800902e4;
 u16 var800902e8;
@@ -54,9 +54,9 @@ extern u8 *_inflateSegmentRomStart;
 extern u8 *_inflateSegmentRomEnd;
 
 #if VERSION >= VERSION_NTSC_1_0
-s32 boot_get_mem_size(void)
+s32 osGetMemSize(void)
 {
-	return g_OsMemSize;
+	return g_SavedOsMemSize;
 }
 #endif
 
@@ -89,10 +89,15 @@ void boot(void)
 	u32 flags;
 
 #if VERSION >= VERSION_NTSC_1_0
+	// In NTSC beta, libultra's osGetMemSize is used several times during boot.
+	// This function writes to the expansion area but this shouldn't be a problem...
+	// In NTSC 1.0 and later, libultra's osGetMemSize is not linked and is replaced
+	// with one which returns osMemSize. But it appears as though osMemSize is only
+	// reliable on a cold boot, because it's saved and reloaded here on a reset.
 	if (osResetType == RESETTYPE_WARM) {
-		g_OsMemSize = *(u32 *) STACK_START;
+		g_SavedOsMemSize = *(u32 *) STACK_START;
 	} else {
-		*(u32 *) STACK_START = g_OsMemSize = osMemSize;
+		*(u32 *) STACK_START = g_SavedOsMemSize = osMemSize;
 	}
 #endif
 

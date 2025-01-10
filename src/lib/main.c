@@ -404,7 +404,7 @@ void main_init(void)
 		// In 4MB mode, place it close to the end of memory,
 		// but before the thread stacks and VM system.
 		// In 8MB mode, put it at the end of the expansion pak.
-		if (boot_get_mem_size() <= 4 * 1024 * 1024) {
+		if (osGetMemSize() <= 4 * 1024 * 1024) {
 			addr = K0BASE + 4 * 1024 * 1024;
 			addr -= STACKSIZE_MAIN;
 			addr -= STACKSIZE_IDLE;

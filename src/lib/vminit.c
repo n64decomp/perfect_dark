@@ -199,12 +199,7 @@ void vm_init(void)
 
 	rzip_init();
 
-#if VERSION >= VERSION_NTSC_1_0
-	if (boot_get_mem_size() <= 0x400000)
-#else
-	if (osGetMemSize() <= 0x400000)
-#endif
-	{
+	if (osGetMemSize() <= 0x400000) {
 		g_Is4Mb = true;
 
 		g_VmNumPages = (s32)((&_gameSegmentEnd - &_gameSegmentStart) + (VM_PAGE_SIZE - 1)) / VM_PAGE_SIZE;
