@@ -865,7 +865,10 @@
 	chr, \
 	label,
 
-#define cmd0058(distance, label) \
+/**
+ * Not implemented in PD.
+ */
+#define set_chrpreset_to_any_chr_in_range(distance, label) \
 	mkshort(0x0058), \
 	mkshort(distance / 10), \
 	label,
@@ -1001,7 +1004,10 @@
 	mkshort(0x0066), \
 	object,
 
-#define cmd0067(object) \
+/**
+ * Not implemented in PD.
+ */
+#define drop_object(object) \
 	mkshort(0x0067), \
 	object,
 
@@ -1067,7 +1073,7 @@
  *
  * Most likely a debug command, as you'd know what IDs your doors use.
  */
-#define if_object_is_door(object, label) \
+#define if_door_ever_opened(object, label) \
 	mkshort(0x006f), \
 	object, \
 	label,
@@ -1127,14 +1133,21 @@
 	label,
 
 /**
- * This is only ever called in a sequence of 4, with u1 values 8, 2, 4, 8 in
- * that order. Believed to be a pad within specific distance of target chr,
- * where the higher the number the further the distance.
- * If u1 were 0x10 or 0x20, some other logic would be used.
+ * Attempts to find a waypoint within the given quadrant of the current chr
+ * then sets the chr's padpreset to the given waypoint's pad number.
+ *
+ * If no waypoint is found, the padpreset is left unchanged and the label is not
+ * followed.
+ *
+ * The exact formula for finding the waypoint is:
+ * 1. Find the closest waypoint to the target regardless of direction
+ * 2. Check if that waypoint or any of its direct neighbours are in the quadrant
+ *
+ * No further checks are done.
  */
-#define try_set_target_pad_to_something(u1, label) \
+#define try_set_padpreset_to_quadrant(quadrant, label) \
 	mkshort(0x0075), \
-	u1, \
+	quadrant, \
 	label,
 
 /**
@@ -1244,18 +1257,18 @@
 	label,
 
 /**
- * Checks if the chr's health is greater than the given value.
+ * Checks if the chr's health is less than the given value.
  */
-#define if_chr_health_gt(chr, health, label) \
+#define if_chr_health_lt(chr, health, label) \
 	mkshort(0x0081), \
 	chr, \
 	health, \
 	label,
 
 /**
- * Checks if the chr's health is less than the given value.
+ * Checks if the chr's health is greater than the given value.
  */
-#define if_chr_health_lt(chr, health, label) \
+#define if_chr_health_gt(chr, health, label) \
 	mkshort(0x0082), \
 	chr, \
 	health, \
@@ -1730,7 +1743,7 @@
  *
  * padpreset can be referenced via PAD_PRESET.
  */
-#define chr_set_target_pad(chr, pad) \
+#define chr_set_padpreset(chr, pad) \
 	mkshort(0x00b3), \
 	chr, \
 	mkshort(pad),
@@ -1738,7 +1751,7 @@
 /**
  * Copies the padpreset from the source chr to the destination chr.
  */
-#define chr_copy_target_pad(srcchr, dstchr) \
+#define chr_copy_padpreset(srcchr, dstchr) \
 	mkshort(0x00b4), \
 	srcchr, \
 	dstchr,
@@ -1793,19 +1806,19 @@
 	label,
 
 /**
- * Checks if the current chr's timer value is greater than the given value.
+ * Checks if the current chr's timer value is less than the given value.
  */
-#define if_timer_gt(value, label) \
-	mkshort(0x00bd), \
+#define if_timer_lt(value, label) \
+	mkshort(0x00bc), \
 	0x00, \
 	mkshort(value), \
 	label,
 
 /**
- * Checks if the current chr's timer value is less than the given value.
+ * Checks if the current chr's timer value is greater than the given value.
  */
-#define if_timer_lt(value, label) \
-	mkshort(0x00bc), \
+#define if_timer_gt(value, label) \
+	mkshort(0x00bd), \
 	0x00, \
 	mkshort(value), \
 	label,
@@ -2048,13 +2061,19 @@
 	mkshort(speed), \
 	mkshort(time),
 
-#define noop00d8(u1) \
+/**
+ * Removed in PD: Check if the camera is in the stage intro's first shot.
+ */
+#define if_camera_in_ge_intro(label) \
 	mkshort(0x00d8), \
-	u1,
+	label,
 
-#define noop00d9(u1) \
+/**
+ * Removed in PD: Check if the camera is in the stage intro's swirl shot.
+ */
+#define if_camera_in_ge_swirl(label) \
 	mkshort(0x00d9), \
-	u1,
+	label,
 
 /**
  * Sets the image for a monitor object.
@@ -2068,7 +2087,10 @@
 	slot, \
 	image,
 
-#define noop00db(u1) \
+/**
+ * Removed in PD.
+ */
+#define if_bond_in_tank(label) \
 	mkshort(0x00db), \
 	u1,
 
@@ -2131,11 +2153,11 @@
 	force, \
 	label,
 
-#define cmd00e3(chr) \
+#define screen_fade_out(chr) \
 	mkshort(0x00e3), \
 	chr,
 
-#define cmd00e4(u1) \
+#define screen_fade_in(u1) \
 	mkshort(0x00e4), \
 	u1,
 
@@ -2152,10 +2174,10 @@
 	mkshort(0x00e8), \
 	door,
 
-#define cmd00e9(chr, u1) \
+#define delete_chr_weapon(chr, handnum) \
 	mkshort(0x00e9), \
 	chr, \
-	u1,
+	handnum,
 
 /**
  * Checks if the number of players is less than the given value.
@@ -2193,7 +2215,11 @@
 	chr, \
 	weapon,
 
-#define cmd00ee(chr, x, z) \
+/**
+ * Set a forced move speed when control is revoked from the player.
+ * Used only in GE, on the Dam stage after bungee jumping off the platform.
+ */
+#define set_bondforcespeed(chr, x, z) \
 	mkshort(0x00ee), \
 	x, \
 	z,
@@ -2207,7 +2233,7 @@
 	mkshort(room), \
 	label,
 
-#define cmd00f0(label) \
+#define if_attacking_with_fixed_aim(label) \
 	mkshort(0x00f0), \
 	label,
 
@@ -2243,10 +2269,16 @@
 	mkshort(height2), \
 	mkshort(posangle),
 
-#define cmd00f5 \
+/**
+ * GE only.
+ */
+#define start_credits \
 	mkshort(0x00f5),
 
-#define cmd00f6(label) \
+/**
+ * GE only.
+ */
+#define if_credits_complete(label) \
 	mkshort(0x00f6), \
 	label,
 
@@ -2319,7 +2351,7 @@
 	value, \
 	label,
 
-#define cmd00fd(chr, label) \
+#define if_chr_shot(chr, label) \
 	mkshort(0x00fd), \
 	chr, \
 	label,
@@ -2342,11 +2374,17 @@
 #define be_surprised_surrender \
 	mkshort(0x00ff),
 
-#define cmd0100_noop(u1) \
+/**
+ * GE only.
+ */
+#define release_gas(u1) \
 	mkshort(0x0100), \
 	u1,
 
-#define cmd0101_noop(u1) \
+/**
+ * GE only.
+ */
+#define launch_rocket(u1) \
 	mkshort(0x0101), \
 	u1,
 

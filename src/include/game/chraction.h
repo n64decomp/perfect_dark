@@ -70,7 +70,7 @@ f32 chr_get_timer(struct chrdata *chr);
 bool chr_is_target_aiming_at_me(struct chrdata *chr);
 bool chr_saw_injury(struct chrdata *chr, u8 arg1);
 bool chr_saw_death(struct chrdata *chr, u8 arg1);
-bool func0f04a4ec(struct chrdata *chr, u8 quadrant);
+bool chr_set_pad_preset_to_waypoint_within_quadrant(struct chrdata *chr, u8 quadrant);
 bool chr_set_pad_preset_to_waypoint_within_target_quadrant(struct chrdata *chr, u8 arg1);
 bool chr_set_chr_preset_to_chr_near_pad(u32 checktype, struct chrdata *chr, f32 distance, s32 padnum);
 bool chr_set_pad_preset_to_pad_on_route_to_target(struct chrdata *chr);

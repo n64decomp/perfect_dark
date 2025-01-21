@@ -4928,16 +4928,16 @@ u8 func001d_search_for_player[] = {
 	if_rand_lt(64, /*goto*/ 0x28)
 	if_rand_lt(128, /*goto*/ 0x29)
 	if_rand_lt(196, /*goto*/ 0x2a)
-	try_set_target_pad_to_something(0x08, /*goto*/ 0x13)
+	try_set_padpreset_to_quadrant(QUADRANT_FRONT, /*goto*/ 0x13)
 
 	label(0x28)
-	try_set_target_pad_to_something(0x02, /*goto*/ 0x13)
+	try_set_padpreset_to_quadrant(QUADRANT_SIDE1, /*goto*/ 0x13)
 
 	label(0x29)
-	try_set_target_pad_to_something(0x04, /*goto*/ 0x13)
+	try_set_padpreset_to_quadrant(QUADRANT_SIDE2, /*goto*/ 0x13)
 
 	label(0x2a)
-	try_set_target_pad_to_something(0x08, /*goto*/ 0x13)
+	try_set_padpreset_to_quadrant(QUADRANT_FRONT, /*goto*/ 0x13)
 	goto_next(0x04)
 
 	label(0x13)

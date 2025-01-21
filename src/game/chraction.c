@@ -14639,7 +14639,7 @@ s32 chr_find_waypoint_within_pos_quadrant(struct coord *pos, RoomNum *rooms, f32
 	return -1;
 }
 
-bool func0f04a4ec(struct chrdata *chr, u8 quadrant)
+bool chr_set_pad_preset_to_waypoint_within_quadrant(struct chrdata *chr, u8 quadrant)
 {
 	if (quadrant == QUADRANT_TOWARDSTARGET || quadrant == QUADRANT_AWAYFROMTARGET) {
 		struct prop *prop = chr->prop;
@@ -14691,7 +14691,7 @@ bool chr_set_pad_preset_to_waypoint_within_target_quadrant(struct chrdata *chr, 
 	struct prop *prop;
 
 	if (quadrant == QUADRANT_TOWARDSTARGET || quadrant == QUADRANT_AWAYFROMTARGET) {
-		return func0f04a4ec(chr, quadrant);
+		return chr_set_pad_preset_to_waypoint_within_quadrant(chr, quadrant);
 	}
 
 	angle = 0;

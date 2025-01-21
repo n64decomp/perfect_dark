@@ -732,13 +732,13 @@ bool ai_try_attack_lie(void)
 /**
  * @cmd 00f0
  */
-bool ai00f0(void)
+bool ai_if_attacking_with_fixed_aim(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (g_Vars.chrdata->actiontype == ACT_ATTACK &&
-			!g_Vars.chrdata->act_attack.reaim &&
-			g_Vars.chrdata->act_attack.flags & ATTACKFLAG_DONTTURN) {
+	if (g_Vars.chrdata->actiontype == ACT_ATTACK
+			&& !g_Vars.chrdata->act_attack.reaim
+			&& g_Vars.chrdata->act_attack.flags & ATTACKFLAG_DONTTURN) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -921,7 +921,7 @@ bool ai_remove_chr(void)
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata, cmd[2]);
 
 	if (chr && chr->prop) {
-		chr->hidden |= 0x20;
+		chr->hidden |= CHRHFLAG_DELETING;
 	}
 
 	g_Vars.aioffset += 3;
@@ -2459,12 +2459,12 @@ bool ai_if_door_state(void)
 /**
  * @cmd 006f
  */
-bool ai_if_object_is_door(void)
+bool ai_if_door_ever_opened(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = obj_find_by_tag_id(cmd[2]);
 
-	if (obj && obj->prop && obj->type == OBJTYPE_DOOR && (obj->hidden & 0x200)) {
+	if (obj && obj->prop && obj->type == OBJTYPE_DOOR && (obj->hidden & OBJHFLAG_DOOREVEROPENED)) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2578,11 +2578,11 @@ bool ai_if_objective_failed(void)
 /**
  * @cmd 0075
  */
-bool ai0075(void)
+bool ai_set_pad_preset_to_quadrant(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (func0f04a4ec(g_Vars.chrdata, cmd[2])) {
+	if (chr_set_pad_preset_to_waypoint_within_quadrant(g_Vars.chrdata, cmd[2])) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2674,20 +2674,20 @@ bool ai_if_num_close_arghs_greater_than(void)
 /**
  * @cmd 0081
  */
-bool ai_if_chr_health_greater_than(void)
+bool ai_if_chr_health_lt(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	f32 value = cmd[3] * 0.1f;
+	f32 target = cmd[3] * 0.1f;
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata, cmd[2]);
-	u32 pass = false;
+	bool pass = false;
 
 	if (chr && chr->prop) {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
 			u32 playernum = playermgr_get_player_num_by_prop(chr->prop);
 
-			pass = (value > g_Vars.players[playernum]->bondhealth * 8.0f);
+			pass = (g_Vars.players[playernum]->bondhealth * 8.0f < target);
 		} else {
-			pass = (value > chr->maxdamage - chr->damage);
+			pass = (chr->maxdamage - chr->damage < target);
 		}
 	}
 
@@ -2703,20 +2703,20 @@ bool ai_if_chr_health_greater_than(void)
 /**
  * @cmd 0082
  */
-bool ai_if_chr_health_less_than(void)
+bool ai_if_chr_health_gt(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	f32 value = cmd[3] * 0.1f;
+	f32 target = cmd[3] * 0.1f;
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata, cmd[2]);
-	u32 pass = false;
+	bool pass = false;
 
 	if (chr && chr->prop) {
 		if (chr->prop->type == PROPTYPE_PLAYER) {
 			u32 playernum = playermgr_get_player_num_by_prop(chr->prop);
 
-			pass = (value < g_Vars.players[playernum]->bondhealth * 8.0f);
+			pass = (g_Vars.players[playernum]->bondhealth * 8.0f > target);
 		} else {
-			pass = (value < chr->maxdamage - chr->damage);
+			pass = (chr->maxdamage - chr->damage > target);
 		}
 	}
 
@@ -2735,10 +2735,10 @@ bool ai_if_chr_health_less_than(void)
 bool ai_if_chr_shield_less_than(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	f32 value = (cmd[4] | (cmd[3] << 8)) * 0.1f;
+	f32 target = (cmd[4] | (cmd[3] << 8)) * 0.1f;
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata,cmd[2]);
 
-	if (chr && chr_get_shield(chr) < value) {
+	if (chr && chr_get_shield(chr) < target) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[5]);
 	} else {
 		g_Vars.aioffset = g_Vars.aioffset + 6;
@@ -4756,7 +4756,7 @@ bool ai_set_rotor_speed(void)
 /**
  * @cmd 00d8
  */
-bool ai_noop_00d8(void)
+bool if_camera_in_ge_intro(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -4765,7 +4765,7 @@ bool ai_noop_00d8(void)
 /**
  * @cmd 00d9
  */
-bool ai_noop_00d9(void)
+bool if_camera_in_ge_swirl(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -4801,7 +4801,7 @@ bool ai_set_obj_image(void)
 /**
  * @cmd 00db
  */
-bool ai_noop_00db(void)
+bool ai_if_bond_in_tank(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -5234,7 +5234,7 @@ bool ai_chr_move_to_pad(void)
 /**
  * @cmd 00e3
  */
-bool ai00e3(void)
+bool ai_screen_fade_out(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata, cmd[2]);
@@ -5260,7 +5260,7 @@ bool ai00e3(void)
 /**
  * @cmd 00e4
  */
-bool ai00e4(void)
+bool ai_screen_fade_in(void)
 {
 	s32 playernum;
 	u32 prevplayernum = g_Vars.currentplayernum;
@@ -5333,7 +5333,7 @@ bool ai_set_door_open(void)
 /**
  * @cmd 00e9
  */
-bool ai00e9(void)
+bool ai_delete_chr_weapon(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata, cmd[2]);
@@ -5439,7 +5439,7 @@ bool ai_chr_draw_weapon_in_cutscene(void)
 /**
  * @cmd 00ee
  */
-bool ai00ee(void)
+bool ai_set_bondforcespeed(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata, cmd[2]);
@@ -5536,9 +5536,9 @@ bool ai_move_camera_to_pos(void)
 /**
  * @cmd 00f5
  */
-bool ai00f5(void)
+bool ai_start_credits(void)
 {
-	var8007073c = 1;
+	g_GeCreditsState = 1;
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -5547,11 +5547,11 @@ bool ai00f5(void)
 /**
  * @cmd 00f6
  */
-bool ai00f6(void)
+bool ai_if_credits_complete(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (var8007073c == 2) {
+	if (g_GeCreditsState == 2) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
 		g_Vars.aioffset += 3;
@@ -5761,7 +5761,7 @@ bool ai_if_num_knocked_out_chrs(void)
 /**
  * @cmd 00fd
  */
-bool ai00fd(void)
+bool ai_if_chr_shot(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata, cmd[2]);
@@ -5801,7 +5801,7 @@ bool ai_be_surprised_surrender(void)
 /**
  * @cmd 0100
  */
-bool ai_noop_0100(void)
+bool ai_release_gas(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
@@ -5810,7 +5810,7 @@ bool ai_noop_0100(void)
 /**
  * @cmd 0101
  */
-bool ai_noop_0101(void)
+bool ai_launch_rocket(void)
 {
 	g_Vars.aioffset += 3;
 	return false;
