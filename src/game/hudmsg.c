@@ -1608,8 +1608,8 @@ void hudmsgs_stop(void)
 	}
 
 #if VERSION < VERSION_NTSC_1_0
-	if (var800736b0nb && sndGetState(var800736b0nb) != AL_STOPPED) {
-		audioStop(var800736b0nb);
+	if (var800736b0nb && sndp_get_state(var800736b0nb) != AL_STOPPED) {
+		sndp_stop_sound(var800736b0nb);
 	}
 #endif
 }

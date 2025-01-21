@@ -16,8 +16,8 @@ void bgun_stop(void)
 		for (j = 0; j < 2; j++) {
 			struct hand *hand = &g_Vars.players[i]->hands[j];
 
-			if (hand->audiohandle2 && sndGetState(hand->audiohandle2) != AL_STOPPED) {
-				audioStop(hand->audiohandle2);
+			if (hand->audiohandle2 && sndp_get_state(hand->audiohandle2) != AL_STOPPED) {
+				sndp_stop_sound(hand->audiohandle2);
 			}
 		}
 	}

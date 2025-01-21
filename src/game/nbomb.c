@@ -607,32 +607,32 @@ void nbombs_tick(void)
 					volume = 0;
 				}
 
-				audioPostEvent(g_NbombAudioHandle, AL_SNDP_VOL_EVT, volume);
-				audioPostEvent(g_NbombAudioHandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+				sndp_post_event(g_NbombAudioHandle, AL_SNDP_VOL_EVT, volume);
+				sndp_post_event(g_NbombAudioHandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 		} else {
-			if (g_NbombAudioHandle && sndGetState(g_NbombAudioHandle) != AL_STOPPED) {
-				audioStop(g_NbombAudioHandle);
+			if (g_NbombAudioHandle && sndp_get_state(g_NbombAudioHandle) != AL_STOPPED) {
+				sndp_stop_sound(g_NbombAudioHandle);
 			}
 		}
 	} else {
-		if (g_NbombAudioHandle && sndGetState(g_NbombAudioHandle) != AL_STOPPED) {
-			audioStop(g_NbombAudioHandle);
+		if (g_NbombAudioHandle && sndp_get_state(g_NbombAudioHandle) != AL_STOPPED) {
+			sndp_stop_sound(g_NbombAudioHandle);
 		}
 	}
 
 	if (g_Vars.lvupdate240 == 0) {
 		for (i = 0; i < ARRAYCOUNT(g_Nbombs); i++) {
 			if (g_Nbombs[i].age240 >= 0) {
-				if (g_Nbombs[i].audiohandle20 && sndGetState(g_Nbombs[i].audiohandle20) != AL_STOPPED) {
-					audioStop(g_Nbombs[i].audiohandle20);
+				if (g_Nbombs[i].audiohandle20 && sndp_get_state(g_Nbombs[i].audiohandle20) != AL_STOPPED) {
+					sndp_stop_sound(g_Nbombs[i].audiohandle20);
 #if VERSION < VERSION_NTSC_1_0
 					g_Nbombs[i].audiohandle20 = NULL;
 #endif
 				}
 
-				if (g_Nbombs[i].audiohandle24 && sndGetState(g_Nbombs[i].audiohandle24) != AL_STOPPED) {
-					audioStop(g_Nbombs[i].audiohandle24);
+				if (g_Nbombs[i].audiohandle24 && sndp_get_state(g_Nbombs[i].audiohandle24) != AL_STOPPED) {
+					sndp_stop_sound(g_Nbombs[i].audiohandle24);
 #if VERSION < VERSION_NTSC_1_0
 					g_Nbombs[i].audiohandle24 = NULL;
 #endif
@@ -706,7 +706,7 @@ void nbomb_create_storm(struct coord *pos, struct prop *ownerprop)
 		if (g_Nbombs[index].audiohandle20) {
 			union audioparam param;
 			param.f32 = 0.4f;
-			audioPostEvent(g_Nbombs[index].audiohandle20, AL_SNDP_PITCH_EVT, param.s32);
+			sndp_post_event(g_Nbombs[index].audiohandle20, AL_SNDP_PITCH_EVT, param.s32);
 		}
 	}
 
@@ -716,7 +716,7 @@ void nbomb_create_storm(struct coord *pos, struct prop *ownerprop)
 		if (g_Nbombs[index].audiohandle24) {
 			union audioparam param;
 			param.f32 = 0.4f;
-			audioPostEvent(g_Nbombs[index].audiohandle24, AL_SNDP_PITCH_EVT, param.s32);
+			sndp_post_event(g_Nbombs[index].audiohandle24, AL_SNDP_PITCH_EVT, param.s32);
 		}
 	}
 #else
@@ -728,7 +728,7 @@ void nbomb_create_storm(struct coord *pos, struct prop *ownerprop)
 	if (g_Nbombs[index].audiohandle20) {
 		union audioparam param;
 		param.f32 = 0.4f;
-		audioPostEvent(g_Nbombs[index].audiohandle20, AL_SNDP_PITCH_EVT, param.s32);
+		sndp_post_event(g_Nbombs[index].audiohandle20, AL_SNDP_PITCH_EVT, param.s32);
 	}
 
 	snd_start(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
@@ -736,7 +736,7 @@ void nbomb_create_storm(struct coord *pos, struct prop *ownerprop)
 	if (g_Nbombs[index].audiohandle24) {
 		union audioparam param;
 		param.f32 = 0.4f;
-		audioPostEvent(g_Nbombs[index].audiohandle24, AL_SNDP_PITCH_EVT, param.s32);
+		sndp_post_event(g_Nbombs[index].audiohandle24, AL_SNDP_PITCH_EVT, param.s32);
 	}
 #endif
 }

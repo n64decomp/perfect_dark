@@ -9274,7 +9274,7 @@ bool ai_chr_begin_or_end_teleport(void)
 		handle = snd_start(var80095200, SFX_RELOAD_FARSIGHT, NULL, -1, -1, -1, -1, -1);
 
 		if (handle) {
-			audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(u32 *)&fvalue);
+			sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(u32 *)&fvalue);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -9325,7 +9325,7 @@ bool ai_if_chr_teleport_full_white(void)
 		handle = snd_start(var80095200, SFX_FIRE_SHOTGUN, NULL, -1, -1, -1, -1, -1);
 
 		if (handle) {
-			audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(u32 *)&fvalue);
+			sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(u32 *)&fvalue);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0

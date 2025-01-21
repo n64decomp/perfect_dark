@@ -1935,7 +1935,7 @@ void mp_calculate_awards(void)
 
 	duration60 = player_get_mission_time();
 
-	func00033dd8();
+	sndp_stop_all();
 
 	numchrs = mp_get_player_rankings(playerrankings);
 #if VERSION >= VERSION_NTSC_1_0

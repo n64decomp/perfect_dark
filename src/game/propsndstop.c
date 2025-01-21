@@ -15,8 +15,8 @@ void ps_stop(void)
 			snd_stop_mp3(g_PsChannels[i].soundnum26);
 			g_PsChannels[i].flags &= ~PSFLAG_ISMP3;
 			g_PsChannels[i].flags &= ~PSFLAG_REPEATING;
-		} else if (g_PsChannels[i].audiohandle && sndGetState(g_PsChannels[i].audiohandle) != AL_STOPPED) {
-			audioStop(g_PsChannels[i].audiohandle);
+		} else if (g_PsChannels[i].audiohandle && sndp_get_state(g_PsChannels[i].audiohandle) != AL_STOPPED) {
+			sndp_stop_sound(g_PsChannels[i].audiohandle);
 			g_PsChannels[i].flags &= ~PSFLAG_REPEATING;
 		}
 	}

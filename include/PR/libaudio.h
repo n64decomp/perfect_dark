@@ -931,7 +931,7 @@ typedef struct {
     s32         maxEvents;
 	s32         maxSounds;
     ALHeap      *heap;
-    u16         unk10;
+    u16         maxVolumes;
 } ALSndpConfig;
 
 typedef struct {

@@ -2122,22 +2122,22 @@ void lights_update_goggle_sounds(void)
 		} else {
 			// Room is dark enough for night vision - stop overload sound if active
 			if (g_Vars.currentplayer->nvoverload != NULL) {
-				if (sndGetState(g_Vars.currentplayer->nvoverload) != AL_STOPPED) {
-					audioStop(g_Vars.currentplayer->nvoverload);
+				if (sndp_get_state(g_Vars.currentplayer->nvoverload) != AL_STOPPED) {
+					sndp_stop_sound(g_Vars.currentplayer->nvoverload);
 				}
 			}
 		}
 	} else {
 		// Paused or not wearing night vision - stop both sounds
 		if (g_Vars.currentplayer->nvhum != NULL) {
-			if (sndGetState(g_Vars.currentplayer->nvhum) != NULL) {
-				audioStop(g_Vars.currentplayer->nvhum);
+			if (sndp_get_state(g_Vars.currentplayer->nvhum) != AL_STOPPED) {
+				sndp_stop_sound(g_Vars.currentplayer->nvhum);
 			}
 		}
 
 		if (g_Vars.currentplayer->nvoverload != NULL) {
-			if (sndGetState(g_Vars.currentplayer->nvoverload) != NULL) {
-				audioStop(g_Vars.currentplayer->nvoverload);
+			if (sndp_get_state(g_Vars.currentplayer->nvoverload) != AL_STOPPED) {
+				sndp_stop_sound(g_Vars.currentplayer->nvoverload);
 			}
 		}
 	}

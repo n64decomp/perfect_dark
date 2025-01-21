@@ -2156,8 +2156,8 @@ void player_stop_audio_for_pause(void)
 	for (i = 0; i < 2; i++) {
 		hand = &g_Vars.currentplayer->hands[i];
 
-		if (hand->audiohandle2 && sndGetState(hand->audiohandle2) != AL_STOPPED) {
-			audioStop(hand->audiohandle2);
+		if (hand->audiohandle2 && sndp_get_state(hand->audiohandle2) != AL_STOPPED) {
+			sndp_stop_sound(hand->audiohandle2);
 		}
 	}
 }

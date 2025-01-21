@@ -27,7 +27,7 @@
 #define MAX_SEQ_SIZE_8MB 1024 * 18
 
 #define NUM_CACHE_SLOTS 45
-#define NUM_KEYTHINGS 9
+#define NUM_VOLUMES 9
 
 struct sndcache {
 	/*0x0000*/ u16 *indexes; // indexed by sfxnum, value is cache index (0-44) or 0xffff
@@ -877,20 +877,20 @@ bool snd_is_playing_mp3(void)
 	return g_SndCurMp3.playing;
 }
 
-u16 snd0000e9dc(void)
+u16 snd_get_sfx_volume(void)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	s32 result;
 
-	if (func00033ec4(0) < 0x5000) {
-		result = func00033ec4(0);
+	if (sndp_get_volume_entry(0) < 0x5000) {
+		result = sndp_get_volume_entry(0);
 	} else {
 		result = 0x5000;
 	}
 
 	return result;
 #else
-	return func00033ec4(0);
+	return sndp_get_volume_entry(0);
 #endif
 }
 
@@ -904,14 +904,14 @@ void snd_set_sfx_volume(u16 volume)
 	}
 #endif
 
-	for (i = 0; i < NUM_KEYTHINGS; i++) {
-		func00033f44(i, volume);
+	for (i = 0; i < NUM_VOLUMES; i++) {
+		sndp_set_volume_entry(i, volume);
 	}
 
 	g_SfxVolume = volume;
 }
 
-void snd0000ea80(u16 volume)
+void snd_set_sfx_volume_untracked(u16 volume)
 {
 	u8 i;
 
@@ -921,8 +921,8 @@ void snd0000ea80(u16 volume)
 	}
 #endif
 
-	for (i = 0; i < NUM_KEYTHINGS; i++) {
-		func00033f44(i, volume);
+	for (i = 0; i < NUM_VOLUMES; i++) {
+		sndp_set_volume_entry(i, volume);
 	}
 }
 
@@ -1536,7 +1536,7 @@ void snd_init(void)
 		sndpconfig.maxEvents = 64;
 		sndpconfig.maxStates = 64;
 		sndpconfig.maxSounds = 20;
-		sndpconfig.unk10 = NUM_KEYTHINGS;
+		sndpconfig.maxVolumes = NUM_VOLUMES;
 		sndpconfig.heap = &g_SndHeap;
 
 #if VERSION >= VERSION_PAL_BETA
@@ -1569,8 +1569,8 @@ void snd_init(void)
 
 		osSyncPrintf("Set the sample callbacks\n");
 
-		sndpSetAddRefCallback(snd_add_ref);
-		sndpSetRemoveRefCallback(snd_remove_ref);
+		sndp_set_addref_callback(snd_add_ref);
+		sndp_set_removeref_callback(snd_remove_ref);
 
 		amgr_start_thread();
 
@@ -1736,7 +1736,7 @@ void snd_tick(void)
 	struct sndstate *state;
 #endif
 	OSPri prevpri;
-	s32 s0;
+	s32 volume;
 	union soundnumhack sp50;
 	s32 index;
 	s32 stack;
@@ -1749,8 +1749,8 @@ void snd_tick(void)
 	prevpri = osGetThreadPri(NULL);
 	osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 
-	curtime = sndpGetCurTime();
-	state = sndpGetHeadState();
+	curtime = sndp_get_curtime();
+	state = sndp_get_head_state();
 
 	g_SndNumPlaying = 0;
 	i = 0;
@@ -1761,12 +1761,12 @@ void snd_tick(void)
 
 		g_SndNumPlaying++;
 
-		if ((state->flags & SNDSTATEFLAG_02) == 0
+		if ((state->flags & SNDSTATEFLAG_NO_DECAY) == 0
 				&& stateptrs[i]->state == AL_PLAYING
-				&& stateptrs[i]->unk48 > 0
-				&& stateptrs[i]->unk48 < curtime) {
-			state->unk48 = 0;
-			func00033db0();
+				&& stateptrs[i]->cleanuptime > 0
+				&& stateptrs[i]->cleanuptime < curtime) {
+			state->cleanuptime = 0;
+			sndp_cleanup();
 			break;
 		}
 
@@ -1792,18 +1792,20 @@ void snd_tick(void)
 			snd_tick_ufo();
 		}
 
+		// In cutscenes, force sfx volume to at least the same as music
 		if (g_Vars.tickmode == TICKMODE_CUTSCENE) {
-			s0 = music_get_volume() > g_SfxVolume ? music_get_volume() : g_SfxVolume;
+			volume = music_get_volume() > g_SfxVolume ? music_get_volume() : g_SfxVolume;
 
-			if (s0 != snd0000e9dc()) {
-				snd0000ea80(s0);
+			if (volume != snd_get_sfx_volume()) {
+				snd_set_sfx_volume_untracked(volume);
 			}
 		} else {
-			if (g_SfxVolume != snd0000e9dc()) {
-				snd0000ea80(g_SfxVolume);
+			if (g_SfxVolume != snd_get_sfx_volume()) {
+				snd_set_sfx_volume_untracked(g_SfxVolume);
 			}
 		}
 
+		// Check for sound heap overflow
 		if (g_SndGuardStringPtr != NULL) {
 			if (strcmp(g_SndGuardStringPtr, g_SndGuardString) != 0) {
 #if VERSION < VERSION_NTSC_1_0
@@ -2004,7 +2006,7 @@ void snd_adjust(struct sndstate **handle, bool ismp3, s32 vol, s32 pan, s32 soun
 
 	if (ismp3) {
 		if (vol != -1) {
-			vol = vol * snd0000e9dc() / AL_VOL_FULL;
+			vol = vol * snd_get_sfx_volume() / AL_VOL_FULL;
 			func00037f08(vol, true);
 		}
 
@@ -2015,19 +2017,19 @@ void snd_adjust(struct sndstate **handle, bool ismp3, s32 vol, s32 pan, s32 soun
 
 	if (*handle != NULL) {
 		if (vol != -1) {
-			audioPostEvent(*handle, AL_SNDP_VOL_EVT, vol);
+			sndp_post_event(*handle, AL_SNDP_VOL_EVT, vol);
 		}
 
 		if (pan != -1) {
-			audioPostEvent(*handle, AL_SNDP_PAN_EVT, pan & 0x7f);
+			sndp_post_event(*handle, AL_SNDP_PAN_EVT, pan & 0x7f);
 		}
 
 		if (pitch != -1.0f) {
-			audioPostEvent(*handle, AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
+			sndp_post_event(*handle, AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
 		}
 
 		if (fxmix != -1) {
-			audioPostEvent(*handle, AL_SNDP_FX_EVT, fxmix);
+			sndp_post_event(*handle, AL_SNDP_FX_EVT, fxmix);
 		}
 	}
 }
@@ -2135,12 +2137,12 @@ struct sndstate *snd_start(s32 arg0, s16 sound, struct sndstate **handle, s32 vo
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (sp40.id < (u32)g_NumSounds) {
-		return func00033820(arg0, sp40.id, volume, pan & 0x7f, pitch, fxmix, IS4MB() ? 0 : fxbus, handle);
+		return sndp_play_sound(arg0, sp40.id, volume, pan & 0x7f, pitch, fxmix, IS4MB() ? 0 : fxbus, handle);
 	}
 
 	return NULL;
 #else
-	return func00033820(arg0, sp40.id, volume, pan & 0x7f, pitch, fxmix, IS4MB() ? 0 : fxbus, handle);
+	return sndp_play_sound(arg0, sp40.id, volume, pan & 0x7f, pitch, fxmix, IS4MB() ? 0 : fxbus, handle);
 #endif
 }
 
@@ -2191,7 +2193,7 @@ void snd_start_mp3(s16 soundnum, s32 volume, s32 pan, s32 responseflags)
 				}
 			}
 
-			volume = volume * snd0000e9dc() / AL_VOL_FULL;
+			volume = volume * snd_get_sfx_volume() / AL_VOL_FULL;
 
 			g_SndCurMp3.romaddr = file_get_rom_address(sp20.id);
 			g_SndCurMp3.romsize = file_get_rom_size(sp20.id);
@@ -2262,7 +2264,7 @@ void snd_tick_nosedive(void)
 				if (g_SndNosediveVolume) {
 					snd_adjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 				} else if (g_SndNosediveHandle != NULL) {
-					audioStop(g_SndNosediveHandle);
+					sndp_stop_sound(g_SndNosediveHandle);
 					g_SndNosediveHandle = NULL;
 				}
 			} else {
@@ -2295,7 +2297,7 @@ void snd_tick_nosedive(void)
 			if (g_SndNosediveVolume) {
 				snd_adjust(&g_SndNosediveHandle, 0, g_SndNosediveVolume, AL_PAN_CENTER, -1, -1, 0, -1, 1);
 			} else if (g_SndNosediveHandle != NULL) {
-				audioStop(g_SndNosediveHandle);
+				sndp_stop_sound(g_SndNosediveHandle);
 				g_SndNosediveHandle = NULL;
 			}
 		}
@@ -2346,7 +2348,7 @@ void snd_tick_ufo(void)
 				if (g_SndUfoVolume) {
 					snd_adjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, percentage, 0, -1, 1);
 				} else if (g_SndUfoHandle != NULL) {
-					audioStop(g_SndUfoHandle);
+					sndp_stop_sound(g_SndUfoHandle);
 					g_SndUfoHandle = NULL;
 				}
 			} else {
@@ -2379,7 +2381,7 @@ void snd_tick_ufo(void)
 			if (g_SndUfoVolume) {
 				snd_adjust(&g_SndUfoHandle, 0, g_SndUfoVolume, AL_PAN_CENTER, -1, -1, 0, -1, 1);
 			} else if (g_SndUfoHandle != NULL) {
-				audioStop(g_SndUfoHandle);
+				sndp_stop_sound(g_SndUfoHandle);
 				g_SndUfoHandle = NULL;
 			}
 		}

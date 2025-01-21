@@ -684,7 +684,7 @@ void bgun_tick_anim(struct hand *hand, struct modeldef *modeldef)
 
 								if (hasspeed && audiohandle) {
 									hasspeed = false;
-									audioPostEvent(audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+									sndp_post_event(audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 								}
 #endif
 								break;
@@ -1806,12 +1806,12 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 #endif
 
-			if (hand->audiohandle2 && sndGetState(hand->audiohandle2) != AL_STOPPED) {
-				audioStop(hand->audiohandle2);
+			if (hand->audiohandle2 && sndp_get_state(hand->audiohandle2) != AL_STOPPED) {
+				sndp_stop_sound(hand->audiohandle2);
 			}
 
-			if (hand->audiohandle3 && sndGetState(hand->audiohandle3) != AL_STOPPED) {
-				audioStop(hand->audiohandle3);
+			if (hand->audiohandle3 && sndp_get_state(hand->audiohandle3) != AL_STOPPED) {
+				sndp_stop_sound(hand->audiohandle3);
 			}
 
 			if (gset_get_single_shoot_sound(&hand->gset)) {
@@ -1836,7 +1836,7 @@ void bgun0f09a6f8(struct handweaponinfo *info, s32 handnum, struct hand *hand, s
 
 					tmp = 1.0f - frac * 0.4f;
 
-					audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *) &tmp);
+					sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *) &tmp);
 				}
 
 			}
@@ -2455,7 +2455,7 @@ s32 bgun_tick_inc_attackempty(struct handweaponinfo *info, s32 handnum, struct h
 				handle = snd_start(var80095200, SFX_HIT_WATER, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
-					audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+					sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2481,7 +2481,7 @@ s32 bgun_tick_inc_attackempty(struct handweaponinfo *info, s32 handnum, struct h
 				handle = snd_start(var80095200, SFX_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
-					audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+					sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 				}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2865,7 +2865,7 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 					handle1 = snd_start(var80095200, SFX_EQUIP_HORIZONSCANNER, 0, -1, -1, -1, -1, -1);
 
 					if (handle1) {
-						audioPostEvent(handle1, AL_SNDP_PITCH_EVT, *(s32 *)&speed1);
+						sndp_post_event(handle1, AL_SNDP_PITCH_EVT, *(s32 *)&speed1);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2908,7 +2908,7 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 					handle2 = snd_start(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
 					if (handle2) {
-						audioPostEvent(handle2, AL_SNDP_PITCH_EVT, *(s32 *)&speed2);
+						sndp_post_event(handle2, AL_SNDP_PITCH_EVT, *(s32 *)&speed2);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -2926,7 +2926,7 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 					handle3 = snd_start(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
 					if (handle3) {
-						audioPostEvent(handle3, AL_SNDP_PITCH_EVT, *(s32 *)&speed3);
+						sndp_post_event(handle3, AL_SNDP_PITCH_EVT, *(s32 *)&speed3);
 					}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -5372,8 +5372,8 @@ void bgun_tick_switch2(void)
 
 				anim_init(&player->hands[i].anim);
 
-				if (player->hands[i].audiohandle && sndGetState(player->hands[i].audiohandle) != AL_STOPPED) {
-					audioStop(player->hands[i].audiohandle);
+				if (player->hands[i].audiohandle && sndp_get_state(player->hands[i].audiohandle) != AL_STOPPED) {
+					sndp_stop_sound(player->hands[i].audiohandle);
 				}
 			}
 
@@ -6798,14 +6798,14 @@ void bgun_update_reaper(struct hand *hand, struct modeldef *modeldef)
 		s32 volume = AL_VOL_FULL;
 
 		if (hand->mm_reaperspeedcur < 0.1f) {
-			audioStop(hand->audiohandle);
+			sndp_stop_sound(hand->audiohandle);
 		} else {
 			if (hand->mm_reaperspeedcur < 0.6f) {
 				volume = (hand->mm_reaperspeedcur - 0.1f) * AL_VOL_FULL / 0.5f;
 			}
 
-			audioPostEvent(hand->audiohandle, AL_SNDP_VOL_EVT, volume);
-			audioPostEvent(hand->audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&sp34);
+			sndp_post_event(hand->audiohandle, AL_SNDP_VOL_EVT, volume);
+			sndp_post_event(hand->audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&sp34);
 		}
 	}
 
@@ -6955,8 +6955,8 @@ void bgun_update_laser(struct hand *hand)
 		hand->mm_lasertype = 1;
 	} else if (hand->mm_lasertype > 0) {
 		hand->mm_lasertype -= LVUPDATE60FREAL() / 10.0f;
-	} else if (hand->audiohandle != NULL && sndGetState(hand->audiohandle) != AL_STOPPED) {
-		audioStop(hand->audiohandle);
+	} else if (hand->audiohandle != NULL && sndp_get_state(hand->audiohandle) != AL_STOPPED) {
+		sndp_stop_sound(hand->audiohandle);
 	}
 }
 
@@ -7928,7 +7928,7 @@ void bgun_tick_mauler_charge(void)
 			 * its speed is adjusted, the game raises the priority of the main
 			 * thread (this thread) to above the audio thread's priority so that
 			 * the audio thread cannot execute and start playing the audio
-			 * between the calls to snd_start and audioPostEvent. But this pattern
+			 * between the calls to snd_start and sndp_post_event. But this pattern
 			 * is not done here.
 			 *
 			 * There is a known issue where the Mauler charge sound is played
@@ -7950,9 +7950,9 @@ void bgun_tick_mauler_charge(void)
 				f32 speed = 0.5f + hand->mm_maulercharge / 3.0f + sinf(g_20SecIntervalFrac * DTOR(180) * 32.0f) * 0.03f;
 
 				if (hand->mm_maulercharge < 0.1f || !charging) {
-					audioStop(hand->audiohandle);
+					sndp_stop_sound(hand->audiohandle);
 				} else {
-					audioPostEvent(hand->audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+					sndp_post_event(hand->audiohandle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 				}
 			}
 		}
@@ -8040,7 +8040,7 @@ void bgun_tick_gameplay2(void)
 			hand = &player->hands[i];
 
 			if (hand->audiohandle) {
-				audioStop(hand->audiohandle);
+				sndp_stop_sound(hand->audiohandle);
 			}
 		}
 	}
@@ -8124,12 +8124,12 @@ s8 bgun_free_fireslot_wrapper(s32 slotnum)
 {
 #if VERSION < VERSION_NTSC_1_0
 	if (slotnum >= 0) {
-		if (g_Fireslots[slotnum].unk04nb && sndGetState(g_Fireslots[slotnum].unk04nb) != AL_STOPPED) {
-			audioStop(g_Fireslots[slotnum].unk04nb);
+		if (g_Fireslots[slotnum].unk04nb && sndp_get_state(g_Fireslots[slotnum].unk04nb) != AL_STOPPED) {
+			sndp_stop_sound(g_Fireslots[slotnum].unk04nb);
 		}
 
-		if (g_Fireslots[slotnum].unk08nb && sndGetState(g_Fireslots[slotnum].unk08nb) != AL_STOPPED) {
-			audioStop(g_Fireslots[slotnum].unk08nb);
+		if (g_Fireslots[slotnum].unk08nb && sndp_get_state(g_Fireslots[slotnum].unk08nb) != AL_STOPPED) {
+			sndp_stop_sound(g_Fireslots[slotnum].unk08nb);
 		}
 	}
 #endif

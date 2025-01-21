@@ -479,7 +479,7 @@ void weapon_play_melee_miss_sound(s32 weaponnum, struct prop *prop)
 			handle = snd_start(var80095200, soundnum, NULL, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+				sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 
 			osSetThreadPri(0, prevpri);
@@ -487,7 +487,7 @@ void weapon_play_melee_miss_sound(s32 weaponnum, struct prop *prop)
 			handle = snd_start(var80095200, soundnum, NULL, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+				sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 #endif
 		} else {
@@ -542,7 +542,7 @@ void weapon_play_melee_hit_sound(s32 weaponnum, struct prop *prop)
 			handle = snd_start(var80095200, soundnum, 0, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+				sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 
 			osSetThreadPri(0, prevpri);
@@ -550,7 +550,7 @@ void weapon_play_melee_hit_sound(s32 weaponnum, struct prop *prop)
 			handle = snd_start(var80095200, soundnum, 0, -1, -1, -1, -1, -1);
 
 			if (handle) {
-				audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
+				sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
 			}
 #endif
 		} else {

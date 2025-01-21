@@ -175,8 +175,8 @@ void ps_stop_channel(s32 channelnum)
 
 	if (channel->flags & PSFLAG_ISMP3) {
 		snd_stop_mp3(channel->soundnum26);
-	} else if (channel->audiohandle && sndGetState(channel->audiohandle) != AL_STOPPED) {
-		audioStop(channel->audiohandle);
+	} else if (channel->audiohandle && sndp_get_state(channel->audiohandle) != AL_STOPPED) {
+		sndp_stop_sound(channel->audiohandle);
 	}
 
 #if VERSION < VERSION_NTSC_1_0
@@ -224,12 +224,12 @@ void ps_tick_channel(s32 channelnum)
 #if VERSION >= VERSION_NTSC_1_0
 	if ((channel->flags2 & PSFLAG2_STOPPED) == 0
 			&& channel->type != PSTYPE_MARKER
-			&& ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
+			&& ((channel->audiohandle != NULL && sndp_get_state(channel->audiohandle) != AL_STOPPED)
 				|| (channel->flags & PSFLAG_REPEATING)
 				|| (channel->flags & PSFLAG_FIRSTTICK)
 				|| ((channel->flags & PSFLAG_ISMP3) && snd_is_playing_mp3())))
 #else
-	if ((channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED)
+	if ((channel->audiohandle != NULL && sndp_get_state(channel->audiohandle) != AL_STOPPED)
 			|| (channel->flags & PSFLAG_REPEATING)
 			|| (channel->flags & PSFLAG_FIRSTTICK)
 			|| ((channel->flags & PSFLAG_ISMP3) && snd_is_playing_mp3()))
@@ -408,12 +408,12 @@ void ps_tick_channel(s32 channelnum)
 				}
 			} else {
 				if ((channel->flags & PSFLAG_OUTOFRANGE) == 0) {
-					if (channel->audiohandle != NULL && sndGetState(channel->audiohandle) != AL_STOPPED) {
+					if (channel->audiohandle != NULL && sndp_get_state(channel->audiohandle) != AL_STOPPED) {
 #if VERSION >= VERSION_NTSC_1_0
-						audioStop(channel->audiohandle);
+						sndp_stop_sound(channel->audiohandle);
 #else
 						osSyncPrintf("PS_AUTO : Pausing %d\n", channelnum);
-						audioStop(channel->audiohandle);
+						sndp_stop_sound(channel->audiohandle);
 						channel->audiohandle = NULL;
 #endif
 					}

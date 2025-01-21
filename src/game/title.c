@@ -1648,7 +1648,7 @@ void title_init_rare_presents(void)
 void title_exit_rare_presents(void)
 {
 	if (g_TitleAudioHandle) {
-		audioStop(g_TitleAudioHandle);
+		sndp_stop_sound(g_TitleAudioHandle);
 	}
 
 	g_TitleAudioHandle = NULL;
@@ -1743,7 +1743,7 @@ Gfx *title_render_rare_presents(Gfx *gdl)
 		}
 	} else {
 		if (g_TitleAudioHandle) {
-			audioStop(g_TitleAudioHandle);
+			sndp_stop_sound(g_TitleAudioHandle);
 		}
 
 		g_TitleAudioHandle = NULL;

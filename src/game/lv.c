@@ -194,7 +194,7 @@ void lv_set_misc_sfx_state(u32 type, bool play)
 		s32 index = lv_get_misc_sfx_index(type);
 
 		if (index != -1) {
-			audioStop(g_MiscSfxAudioHandles[index]);
+			sndp_stop_sound(g_MiscSfxAudioHandles[index]);
 #if VERSION < VERSION_NTSC_1_0
 			g_MiscSfxAudioHandles[index] = 0;
 #endif
@@ -231,8 +231,8 @@ void lv_update_misc_sfx(void)
 		lv_set_misc_sfx_state(MISCSFX_SLAYERROCKETBEEP, usingrocket);
 	}
 
-	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && sndGetState(g_MiscAudioHandle) != AL_STOPPED) {
-		audioStop(g_MiscAudioHandle);
+	if (g_Vars.lvupdate240 == 0 && g_MiscAudioHandle && sndp_get_state(g_MiscAudioHandle) != AL_STOPPED) {
+		sndp_stop_sound(g_MiscAudioHandle);
 	}
 }
 
@@ -1434,7 +1434,7 @@ Gfx *lv_render(Gfx *gdl)
 					}
 
 					if (g_CutsceneStaticAudioHandle && !cutscenehasstatic) {
-						audioStop(g_CutsceneStaticAudioHandle);
+						sndp_stop_sound(g_CutsceneStaticAudioHandle);
 					}
 
 					// Slayer rocket shows static when flying out of bounds
@@ -2376,8 +2376,8 @@ void lv_stop(void)
 {
 	paks_stop(true);
 
-	if (g_MiscAudioHandle && sndGetState(g_MiscAudioHandle)) {
-		audioStop(g_MiscAudioHandle);
+	if (g_MiscAudioHandle && sndp_get_state(g_MiscAudioHandle) != AL_STOPPED) {
+		sndp_stop_sound(g_MiscAudioHandle);
 	}
 
 	if (g_Vars.stagenum < STAGE_TITLE) {
@@ -2407,7 +2407,7 @@ void lv_stop(void)
 		bg_stop();
 	}
 
-	func00033dd8();
+	sndp_stop_all();
 
 	if (g_FileState == FILESTATE_CHANGINGAGENT) {
 		menu_play_sound(MENUSOUND_EXPLOSION);

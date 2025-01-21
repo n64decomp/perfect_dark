@@ -19751,8 +19751,8 @@ void alarm_activate(void)
 
 void alarm_stop_audio(void)
 {
-	if (g_AlarmAudioHandle && sndGetState(g_AlarmAudioHandle) != AL_STOPPED) {
-		audioStop(g_AlarmAudioHandle);
+	if (g_AlarmAudioHandle && sndp_get_state(g_AlarmAudioHandle) != AL_STOPPED) {
+		sndp_stop_sound(g_AlarmAudioHandle);
 	}
 }
 
@@ -19790,8 +19790,8 @@ void gas_release_from_pos(struct coord *pos)
 
 void gas_stop_audio(void)
 {
-	if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
-		audioStop(g_GasAudioHandle);
+	if (g_GasAudioHandle && sndp_get_state(g_GasAudioHandle) != AL_STOPPED) {
+		sndp_stop_sound(g_GasAudioHandle);
 	}
 }
 
@@ -19844,8 +19844,8 @@ void gas_tick(void)
 				if (g_GasAudioHandle) {
 					ps_apply_vol_pan(g_GasAudioHandle, &g_GasPos, 400, 2500, 3000, g_Vars.currentplayer->prop->rooms, soundnum, AL_VOL_FULL, 0);
 				}
-			} else if (g_GasAudioHandle && sndGetState(g_GasAudioHandle)) {
-				audioStop(g_GasAudioHandle);
+			} else if (g_GasAudioHandle && sndp_get_state(g_GasAudioHandle) != AL_STOPPED) {
+				sndp_stop_sound(g_GasAudioHandle);
 			}
 		}
 	}

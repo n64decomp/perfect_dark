@@ -320,14 +320,14 @@ void weather_tick_rain(struct weatherdata *weather)
 			}
 
 			if (weather->audiohandles[i] != 0) {
-				if (sndGetState(weather->audiohandles[i]) != AL_STOPPED) {
+				if (sndp_get_state(weather->audiohandles[i]) != AL_STOPPED) {
 					snd_adjust(&weather->audiohandles[i], 0, iVar10 * 3 / 4, -1,
 							weather->unkf8, 1, 1, -1, 1);
 				}
 			}
 		} else {
 			if (weather->audiohandles[i] != 0) {
-				audioStop(weather->audiohandles[i]);
+				sndp_stop_sound(weather->audiohandles[i]);
 			}
 		}
 	}
@@ -1039,7 +1039,7 @@ Gfx *weather_render_rain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 							}
 
 							snd_adjust(&weather->audiohandles[3], 0, volume, -1, weather->unkf8, 1.00f, 1, -1, 1);
-							audioPostEvent(weather->audiohandles[3], AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
+							sndp_post_event(weather->audiohandles[3], AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
 						}
 					}
 				}
@@ -1882,19 +1882,19 @@ void weather_stop(void)
 {
 	if (g_WeatherData) {
 		if (g_WeatherData->audiohandles[0]) {
-			audioStop(g_WeatherData->audiohandles[0]);
+			sndp_stop_sound(g_WeatherData->audiohandles[0]);
 		}
 
 		if (g_WeatherData->audiohandles[1]) {
-			audioStop(g_WeatherData->audiohandles[1]);
+			sndp_stop_sound(g_WeatherData->audiohandles[1]);
 		}
 
 		if (g_WeatherData->audiohandles[2]) {
-			audioStop(g_WeatherData->audiohandles[2]);
+			sndp_stop_sound(g_WeatherData->audiohandles[2]);
 		}
 
 		if (g_WeatherData->audiohandles[3]) {
-			audioStop(g_WeatherData->audiohandles[3]);
+			sndp_stop_sound(g_WeatherData->audiohandles[3]);
 		}
 
 		g_WeatherData = NULL;

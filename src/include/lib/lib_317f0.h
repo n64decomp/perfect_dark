@@ -4,17 +4,17 @@
 #include "data.h"
 #include "types.h"
 
-void sndpSetAddRefCallback(void *fn);
-void sndpSetRemoveRefCallback(void *fn);
-s32 sndGetState(struct sndstate *handle);
-struct sndstate *func00033820(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32 pitch, u8 fxmix, u8 fxbus, struct sndstate **handleptr);
-void audioStop(struct sndstate *handle);
-void func00033db0(void);
-void func00033dd8(void);
-void audioPostEvent(struct sndstate *handle, s16 type, s32 data);
-u16 func00033ec4(u8 index);
-struct sndstate *sndpGetHeadState(void);
-ALMicroTime sndpGetCurTime(void);
-void func00033f44(u8 index, u16 volume);
+void sndp_set_addref_callback(void *fn);
+void sndp_set_removeref_callback(void *fn);
+s32 sndp_get_state(struct sndstate *handle);
+struct sndstate *sndp_play_sound(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32 pitch, u8 fxmix, u8 fxbus, struct sndstate **handleptr);
+void sndp_stop_sound(struct sndstate *handle);
+void sndp_cleanup(void);
+void sndp_stop_all(void);
+void sndp_post_event(struct sndstate *handle, s16 type, s32 data);
+u16 sndp_get_volume_entry(u8 index);
+struct sndstate *sndp_get_head_state(void);
+ALMicroTime sndp_get_curtime(void);
+void sndp_set_volume_entry(u8 index, u16 volume);
 
 #endif

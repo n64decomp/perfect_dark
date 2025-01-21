@@ -195,11 +195,11 @@ void menu_play_sound(s32 menusound)
 		handle = snd_start(var80095200, sound, NULL, -1, -1, -1, -1, -1);
 
 		if (handle && setpitch) {
-			audioPostEvent(handle, AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
+			sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&pitch);
 		}
 
 		if (handle && setvol) {
-			audioPostEvent(handle, AL_SNDP_VOL_EVT, 0x4000);
+			sndp_post_event(handle, AL_SNDP_VOL_EVT, 0x4000);
 		}
 
 #if VERSION >= VERSION_NTSC_1_0

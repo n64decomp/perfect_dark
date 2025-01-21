@@ -1994,7 +1994,7 @@ struct sndstate {
 	/*0x45*/ u8 state;
 #if VERSION >= VERSION_NTSC_1_0
 	/*0x46*/ u16 soundnum;
-	/*0x48*/ ALMicroTime unk48;
+	/*0x48*/ ALMicroTime cleanuptime;
 #endif
 };
 

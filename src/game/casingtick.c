@@ -48,7 +48,7 @@ void casing_tick(struct casing *casing)
 			snd_start(var80095200, SFX_8051, &g_CasingAudioHandles[i], -1, -1, -1.0f, -1, -1);
 
 			if (g_CasingAudioHandles[i]) {
-				audioPostEvent(g_CasingAudioHandles[i], AL_SNDP_PITCH_EVT, *(s32 *)&sp58);
+				sndp_post_event(g_CasingAudioHandles[i], AL_SNDP_PITCH_EVT, *(s32 *)&sp58);
 			}
 		}
 
