@@ -2180,7 +2180,7 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 
 		if (modeltype < MENUMODELTYPE_3) {
 			if (modeltype != MENUMODELTYPE_DEFAULT) {
-				gdl = func0f0d49c8(gdl);
+				gdl = ortho_end(gdl);
 				gSPMatrix(gdl++, osVirtualToPhysical(cam_get_perspective_mtxl()), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_PROJECTION);
 			} else {
 				f32 aspect = (f32) (g_MenuScissorX2 - g_MenuScissorX1) / (f32) (g_MenuScissorY2 - g_MenuScissorY1);
@@ -2190,7 +2190,7 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 				main_override_variable("mzn", &znear);
 				main_override_variable("mzf", &zfar);
 
-				gdl = func0f0d49c8(gdl);
+				gdl = ortho_end(gdl);
 
 				vi_set_view_position(g_MenuScissorX1 * g_UiScaleX, g_MenuScissorY1);
 				vi_set_fov_aspect_and_size(g_Vars.currentplayer->fovy, aspect, (g_MenuScissorX2 - g_MenuScissorX1) * g_UiScaleX, g_MenuScissorY2 - g_MenuScissorY1);
@@ -2304,8 +2304,8 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 
 					cam0f0b4d04(&pos, screenpos);
 
-					g_MenuProjectFromX = ((s32)screenpos[0] - vi_get_width() / 2) / g_UiScaleX;
-					g_MenuProjectFromY = (s32)screenpos[1] - vi_get_height() / 2;
+					g_HolorayProjectFromX = ((s32)screenpos[0] - vi_get_width() / 2) / g_UiScaleX;
+					g_HolorayProjectFromY = (s32)screenpos[1] - vi_get_height() / 2;
 				}
 			}
 		}
@@ -2337,7 +2337,7 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 		mtx00016784();
 
 		if (modeltype < MENUMODELTYPE_3) {
-			gdl = func0f0d479c(gdl);
+			gdl = ortho_begin(gdl);
 		}
 
 		gDPPipeSync(gdl++);
@@ -2547,8 +2547,8 @@ Gfx *dialog_render(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool 
 		colour5 = (colour5 & 0xffffff00) | 0x3f;
 	}
 
-	var8009de90 = -1000;
-	var8009de94 = 1000;
+	g_HolorayMinY = -1000;
+	g_HolorayMaxY = 1000;
 
 	if (dialog->definition->flags & MENUDIALOGFLAG_DISABLETITLEBAR) {
 		bgy1 += LINEHEIGHT;
@@ -2558,14 +2558,14 @@ Gfx *dialog_render(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool 
 	// Each surface is rendered a second time with the colours swapped.
 	// The order is top, right, bottom, left.
 	if (g_MenuData.root != MENUROOT_MPSETUP && (g_MenuData.root != MENUROOT_MPPAUSE || g_Vars.normmplayerisrunning)) {
-		g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl, bgx1, bgy1, bgx2, bgy1, colour4, colour5, MENUPLANE_00);
-		g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl, bgx2, bgy1, bgx2, bgy2, colour5, colour4, MENUPLANE_00);
-		g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl, bgx2, bgy2, bgx1, bgy2, colour4, colour5, MENUPLANE_00);
-		g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl, bgx1, bgy2, bgx1, bgy1, colour5, colour4, MENUPLANE_00);
-		g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl, bgx1, bgy1, bgx2, bgy1, colour5, colour4, MENUPLANE_01);
-		g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl, bgx2, bgy1, bgx2, bgy2, colour4, colour5, MENUPLANE_01);
-		g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl, bgx2, bgy2, bgx1, bgy2, colour5, colour4, MENUPLANE_01);
-		g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl, bgx1, bgy2, bgx1, bgy1, colour4, colour5, MENUPLANE_01);
+		g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl, bgx1, bgy1, bgx2, bgy1, colour4, colour5, MENUPLANE_00);
+		g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl, bgx2, bgy1, bgx2, bgy2, colour5, colour4, MENUPLANE_00);
+		g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl, bgx2, bgy2, bgx1, bgy2, colour4, colour5, MENUPLANE_00);
+		g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl, bgx1, bgy2, bgx1, bgy1, colour5, colour4, MENUPLANE_00);
+		g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl, bgx1, bgy1, bgx2, bgy1, colour5, colour4, MENUPLANE_01);
+		g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl, bgx2, bgy1, bgx2, bgy2, colour4, colour5, MENUPLANE_01);
+		g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl, bgx2, bgy2, bgx1, bgy2, colour5, colour4, MENUPLANE_01);
+		g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl, bgx1, bgy2, bgx1, bgy1, colour4, colour5, MENUPLANE_01);
 	}
 
 	// Render the title bar
@@ -2723,8 +2723,8 @@ Gfx *dialog_render(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool 
 			g_MenuScissorX2 = viewtop;
 		}
 
-		var8009de90 = g_MenuScissorY1;
-		var8009de94 = g_MenuScissorY2;
+		g_HolorayMinY = g_MenuScissorY1;
+		g_HolorayMaxY = g_MenuScissorY2;
 
 		gdl = menu_apply_scissor(gdl);
 
@@ -3602,8 +3602,8 @@ Gfx *menu_render_dialogs(Gfx *gdl)
 		if (g_MenuData.root == MENUROOT_MPPAUSE
 				|| g_MenuData.root == MENUROOT_PICKTARGET
 				|| g_MenuData.root == MENUROOT_MPENDSCREEN) {
-			g_MenuProjectFromX = g_Menus[g_MpPlayerNum].curdialog->x + g_Menus[g_MpPlayerNum].curdialog->width / 2 - vi_get_width() / (g_UiScaleX * 2);
-			g_MenuProjectFromY = g_Menus[g_MpPlayerNum].curdialog->y + g_Menus[g_MpPlayerNum].curdialog->height / 2 - vi_get_height() / 2;
+			g_HolorayProjectFromX = g_Menus[g_MpPlayerNum].curdialog->x + g_Menus[g_MpPlayerNum].curdialog->width / 2 - vi_get_width() / (g_UiScaleX * 2);
+			g_HolorayProjectFromY = g_Menus[g_MpPlayerNum].curdialog->y + g_Menus[g_MpPlayerNum].curdialog->height / 2 - vi_get_height() / 2;
 
 			gdl = menu_render_dialog(gdl, g_Menus[g_MpPlayerNum].curdialog, &g_Menus[g_MpPlayerNum], 0);
 		} else {
@@ -5167,7 +5167,7 @@ Gfx *menu_render(Gfx *gdl)
 	g_UiScaleX = g_ViRes == VIRES_HI ? 2 : 1;
 #endif
 
-	gdl = func0f0d479c(gdl);
+	gdl = ortho_begin(gdl);
 
 	gSPDisplayList(gdl++, var800613a0);
 
@@ -5205,7 +5205,7 @@ Gfx *menu_render(Gfx *gdl)
 			g_MenuData.hudpiece.newposy = RANDOMFRAC() * 80.0f + 244.7f - 40.0f;
 		}
 
-		g_MenuProjectFromX = g_MenuProjectFromY = 0;
+		g_HolorayProjectFromX = g_HolorayProjectFromY = 0;
 
 		if (g_MenuData.root == MENUROOT_MPSETUP) {
 			if (g_MenuData.count <= 0) {
@@ -5255,12 +5255,12 @@ Gfx *menu_render(Gfx *gdl)
 			g_MenuData.usezbuf = true;
 		}
 	} else {
-		g_MenuProjectFromX = g_MenuProjectFromY = 0;
+		g_HolorayProjectFromX = g_HolorayProjectFromY = 0;
 	}
 
 	if (g_MenuData.unk5d5_04) {
-		g_MenuProjectFromX = g_MenuData.unk670;
-		g_MenuProjectFromY = g_MenuData.unk674;
+		g_HolorayProjectFromX = g_MenuData.unk670;
+		g_HolorayProjectFromY = g_MenuData.unk674;
 	}
 
 	// Render the second layer of the background (for the combat simulator cone,
@@ -5279,9 +5279,9 @@ Gfx *menu_render(Gfx *gdl)
 	// Render the health bar (player_render_health_bar may choose not to render)
 	if ((g_MenuData.bg || g_MenuData.nextbg != 255)
 			&& (!g_Vars.currentplayer->eyespy || !g_Vars.currentplayer->eyespy->active)) {
-		gdl = func0f0d49c8(gdl);
+		gdl = ortho_end(gdl);
 		gdl = player_render_health_bar(gdl);
-		gdl = func0f0d479c(gdl);
+		gdl = ortho_begin(gdl);
 	}
 
 	if (g_MenuData.count > 0) {
@@ -5492,7 +5492,7 @@ Gfx *menu_render(Gfx *gdl)
 #endif
 	}
 
-	gdl = func0f0d49c8(gdl);
+	gdl = ortho_end(gdl);
 
 	g_UiScaleX = 1;
 

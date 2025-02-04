@@ -331,7 +331,7 @@ Gfx *title_render_legal(Gfx *gdl)
 	if (g_LegalEnabled) {
 		gdl = title_clear(gdl);
 #if VERSION == VERSION_JPN_FINAL
-		gdl = func0f0d479c(gdl);
+		gdl = ortho_begin(gdl);
 #endif
 		gdl = text_begin(gdl);
 

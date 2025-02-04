@@ -2026,7 +2026,7 @@ MenuItemHandlerResult mp_load_settings_menu_handler(s32 operation, struct menuit
 			return (s32)mp_get_preset_name_by_slot(data->list.value);
 		}
 		if (g_FileLists[1] != NULL) {
-			func0f0d564c(g_FileLists[1]->files[data->list.value - mp_get_num_unlocked_presets()].name, g_StringPointer, false);
+			savebuffer_bitstring_to_cstring(g_FileLists[1]->files[data->list.value - mp_get_num_unlocked_presets()].name, g_StringPointer, false);
 			return (s32)g_StringPointer;
 		}
 		break;

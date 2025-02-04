@@ -30,6 +30,7 @@
 #define MAX_SHIELDHITS         20
 #define MAX_SQUADRONS          16
 #define MAX_TEAMS              8
+#define MAX_USERSTRING_LEN     10
 
 #define NUM_BOTDIFFS          6
 #define NUM_CYCLEABLE_WEAPONS 45

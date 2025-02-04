@@ -281,7 +281,7 @@ s32 gamefile_load(s32 device)
 	p2index = g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0 ? 1 : 5;
 
 	if (device >= 0) {
-		savebuffer_clear(&buffer);
+		savebuffer_reset(&buffer);
 		ret = pak_read_body_at_guid(device, g_GameFileGuid.fileid, buffer.bytes, 0);
 		g_FilemgrLastPakError = ret;
 
@@ -360,7 +360,7 @@ s32 gamefile_load(s32 device)
 			}
 #endif
 
-			func0f0d54c4(&buffer);
+			savebuffer_print(&buffer);
 			gamefile_apply_options(&g_GameFile);
 
 			return 0;
@@ -462,57 +462,57 @@ s32 gamefile_save(s32 device, s32 fileid, u16 deviceserial)
 #endif
 
 	if (device >= 0) {
-		savebuffer_clear(&buffer);
-		func0f0d55a4(&buffer, g_GameFile.name);
+		savebuffer_reset(&buffer);
+		savebuffer_write_string(&buffer, g_GameFile.name);
 
-		savebuffer_or(&buffer, g_GameFile.thumbnail, 5);
-		savebuffer_or(&buffer, g_GameFile.totaltime, 32);
-		savebuffer_or(&buffer, g_GameFile.autodifficulty, 2);
-		savebuffer_or(&buffer, g_GameFile.autostageindex, 5);
+		savebuffer_write_bits(&buffer, g_GameFile.thumbnail, 5);
+		savebuffer_write_bits(&buffer, g_GameFile.totaltime, 32);
+		savebuffer_write_bits(&buffer, g_GameFile.autodifficulty, 2);
+		savebuffer_write_bits(&buffer, g_GameFile.autostageindex, 5);
 
 		value = VOLUME(g_SfxVolume) >> 7;
-		savebuffer_or(&buffer, value >> 2, 6);
+		savebuffer_write_bits(&buffer, value >> 2, 6);
 
 		value = options_get_music_volume() >> 7;
-		savebuffer_or(&buffer, value >> 2, 6);
+		savebuffer_write_bits(&buffer, value >> 2, 6);
 
 		value = g_SoundMode;
-		savebuffer_or(&buffer, value, 2);
+		savebuffer_write_bits(&buffer, value, 2);
 
-		savebuffer_or(&buffer, options_get_control_mode(p1index), 3);
-		savebuffer_or(&buffer, options_get_control_mode(p2index), 3);
+		savebuffer_write_bits(&buffer, options_get_control_mode(p1index), 3);
+		savebuffer_write_bits(&buffer, options_get_control_mode(p2index), 3);
 
 		for (i = 0; i < ARRAYCOUNT(g_GameFile.flags); i++) {
-			savebuffer_or(&buffer, g_GameFile.flags[i], 8);
+			savebuffer_write_bits(&buffer, g_GameFile.flags[i], 8);
 		}
 
-		savebuffer_or(&buffer, g_GameFile.unk1e, 16);
+		savebuffer_write_bits(&buffer, g_GameFile.unk1e, 16);
 
 		for (i = 0; i < ARRAYCOUNT(g_GameFile.besttimes); i++) {
 			for (j = 0; j < ARRAYCOUNT(g_GameFile.besttimes[i]); j++) {
-				savebuffer_or(&buffer, g_GameFile.besttimes[i][j], 12);
+				savebuffer_write_bits(&buffer, g_GameFile.besttimes[i][j], 12);
 			}
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 			for (j = 1; j < MAX_PLAYERS + 1; j++) {
-				savebuffer_or(&buffer, challenge_is_completed_by_any_player_with_num_players(i, j), 1);
+				savebuffer_write_bits(&buffer, challenge_is_completed_by_any_player_with_num_players(i, j), 1);
 			}
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_GameFile.coopcompletions); i++) {
-			savebuffer_or(&buffer, g_GameFile.coopcompletions[i], NUM_SOLOSTAGES);
+			savebuffer_write_bits(&buffer, g_GameFile.coopcompletions[i], NUM_SOLOSTAGES);
 		}
 
 		for (i = 0; i < ARRAYCOUNT(g_GameFile.firingrangescores); i++) {
-			savebuffer_or(&buffer, g_GameFile.firingrangescores[i], i == 8 ? 2 : 8);
+			savebuffer_write_bits(&buffer, g_GameFile.firingrangescores[i], i == 8 ? 2 : 8);
 		}
 
 		for (i = 0; i < 4; i++) {
-			savebuffer_or(&buffer, g_GameFile.weaponsfound[i], 8);
+			savebuffer_write_bits(&buffer, g_GameFile.weaponsfound[i], 8);
 		}
 
-		func0f0d54c4(&buffer);
+		savebuffer_print(&buffer);
 
 		ret = pak_save_at_guid(device, fileid, PAKFILETYPE_GAME, buffer.bytes, &newfileid, 0);
 		g_FilemgrLastPakError = ret;
@@ -534,7 +534,7 @@ void gamefile_get_overview(char *arg0, char *name, u8 *stage, u8 *difficulty, u3
 {
 	struct savebuffer buffer;
 
-	func0f0d5484(&buffer, arg0, 15);
+	savebuffer_prepare_string(&buffer, arg0, 15);
 	savebuffer_read_string(&buffer, name, false);
 
 	*stage = savebuffer_read_bits(&buffer, 5);

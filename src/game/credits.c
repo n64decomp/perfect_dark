@@ -1845,7 +1845,7 @@ Gfx *credits_draw(Gfx *gdl)
 		gdl = credits_draw_particles(gdl);
 
 		if (g_CreditsData->slidesenabled) {
-			gdl = credits_draw_slide(func0f0d479c(gdl));
+			gdl = credits_draw_slide(ortho_begin(gdl));
 		}
 
 		if (!g_CreditsData->slidesenabled) {

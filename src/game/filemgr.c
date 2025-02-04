@@ -198,7 +198,7 @@ void filemgr_get_select_name(char *buffer, struct filelistfile *file, u32 filety
 	switch (filetype) {
 	case FILETYPE_GAME:
 	case FILETYPE_MPSETUP:
-		func0f0d564c(file->name, tmpbuffer1, false);
+		savebuffer_bitstring_to_cstring(file->name, tmpbuffer1, false);
 		break;
 	case FILETYPE_MPPLAYER:
 		// MP Player filenames have the play duration appended to the name
@@ -831,7 +831,7 @@ bool filemgr_attempt_operation(s32 device, bool closeonsuccess)
 	case FILEOP_WRITE_MPPLAYER:
 		newfileid = 0;
 #if VERSION >= VERSION_NTSC_1_0
-		func0f0d5690(g_Menus[g_MpPlayerNum].fm.unke44, g_Menus[g_MpPlayerNum].fm.filename);
+		savebuffer_cstring_to_bitstring(g_Menus[g_MpPlayerNum].fm.unke44, g_Menus[g_MpPlayerNum].fm.filename);
 #endif
 		errno = pak_save_at_guid(device,
 				g_Menus[g_MpPlayerNum].fm.fileid,
@@ -1293,7 +1293,7 @@ void filemgr_get_file_name(char *dst, struct filelistfile *file)
 	switch (g_FileLists[g_Menus[g_MpPlayerNum].fm.listnum]->filetype) {
 	case FILETYPE_GAME:
 	case FILETYPE_MPSETUP:
-		func0f0d564c(file->name, localbuffer, false);
+		savebuffer_bitstring_to_cstring(file->name, localbuffer, false);
 		break;
 	case FILETYPE_MPPLAYER:
 		mpplayerfile_get_overview(file->name, localbuffer, &playtime);

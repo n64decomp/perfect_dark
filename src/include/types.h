@@ -3936,7 +3936,7 @@ struct menu {
 };
 
 struct gamefile {
-	/*0x00*/ char name[11];
+	/*0x00*/ char name[MAX_USERSTRING_LEN + 1];
 	/*0x0b*/ u8 thumbnail : 5; // stage index of the image to show on file select screen
 	/*0x0b*/ u8 autodifficulty : 3;
 	/*0x0c*/ u8 autostageindex;
@@ -3950,7 +3950,7 @@ struct gamefile {
 };
 
 struct mpchrconfig {
-	/*0x00*/ char name[15];
+	/*0x00*/ char name[MAX_USERSTRING_LEN + 5];
 	/*0x0f*/ u8 mpheadnum;
 	/*0x10*/ u8 mpbodynum;
 	/*0x11*/ u8 team;
@@ -4024,7 +4024,7 @@ struct missionconfig {
 };
 
 struct mpsetup {
-	/*0x800acb88*/ char name[12];
+	/*0x800acb88*/ char name[MAX_USERSTRING_LEN + 2];
 	/*0x800acb94*/ u32 options;
 	/*0x800acb98*/ u8 scenario;
 	/*0x800acb99*/ u8 stagenum;
@@ -4046,7 +4046,7 @@ struct mpsetup {
 };
 
 struct bossfile {
-	/*0x00*/ char teamnames[MAX_TEAMS][12];
+	/*0x00*/ char teamnames[MAX_TEAMS][MAX_USERSTRING_LEN + 2];
 	/*0x60*/ u8 locktype;
 	/*0x61*/ u8 unk89;
 	/*0x62*/ u8 usingmultipletunes;

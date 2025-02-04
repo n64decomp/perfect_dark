@@ -982,7 +982,7 @@ Gfx *sight_draw_skedar(Gfx *gdl, bool sighton)
 		g_Vars.currentplayer->sighttimer240 = 0;
 	}
 
-	gdl = func0f0d479c(gdl);
+	gdl = ortho_begin(gdl);
 
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gSPSetGeometryMode(gdl++, G_SHADE | G_SHADING_SMOOTH);
@@ -1132,7 +1132,7 @@ Gfx *sight_draw_skedar(Gfx *gdl, bool sighton)
 		gdl = sight_draw_skedar_triangle(gdl, x + 2, y + 0, DIR_LEFT, colour);
 	}
 
-	gdl = func0f0d49c8(gdl);
+	gdl = ortho_end(gdl);
 
 	return gdl;
 }
@@ -1301,7 +1301,7 @@ Gfx *sight_draw_maian(Gfx *gdl, bool sighton)
 
 	vertices = gfx_allocate_vertices(8);
 	colours = gfx_allocate_colours(2);
-	gdl = func0f0d479c(gdl);
+	gdl = ortho_begin(gdl);
 
 	gSPClearGeometryMode(gdl++, G_CULL_BOTH);
 	gSPSetGeometryMode(gdl++, G_SHADE | G_SHADING_SMOOTH);
@@ -1358,7 +1358,7 @@ Gfx *sight_draw_maian(Gfx *gdl, bool sighton)
 	gSPVertex(gdl++, vertices, 8, 0);
 	gSPTri4(gdl++, 0, 4, 5, 5, 3, 6, 7, 6, 1, 4, 7, 2);
 
-	gdl = func0f0d49c8(gdl);
+	gdl = ortho_end(gdl);
 	gdl = text_begin_boxmode(gdl, 0x00ff0028);
 
 	// Draw border over inner points

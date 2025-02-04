@@ -437,7 +437,7 @@ void scenario_write_save(struct savebuffer *buffer)
 	if (g_MpScenarios[g_MpSetup.scenario].writesavefunc) {
 		g_MpScenarios[g_MpSetup.scenario].writesavefunc(buffer);
 	} else {
-		savebuffer_or(buffer, 0, 8);
+		savebuffer_write_bits(buffer, 0, 8);
 	}
 }
 

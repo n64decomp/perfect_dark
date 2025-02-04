@@ -1513,7 +1513,7 @@ bool menuitem_keyboard_tick(struct menuitem *item, struct menuinputs *inputs, u3
 		// Handle deleting
 		if (delete && kb->string[0] != '\0') {
 			s32 deleted = false;
-			s32 i = 10;
+			s32 i = MAX_USERSTRING_LEN;
 
 			menu_play_sound(MENUSOUND_FOCUS);
 

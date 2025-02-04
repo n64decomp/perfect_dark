@@ -103,7 +103,7 @@ void bossfile_load(void)
 	if (fileid == 0) {
 		failed = true;
 	} else {
-		savebuffer_clear(&buffer);
+		savebuffer_reset(&buffer);
 
 		if (pak_read_body_at_guid(SAVEDEVICE_GAMEPAK, fileid, buffer.bytes, 0) != 0) {
 			failed = true;
@@ -142,7 +142,7 @@ void bossfile_load(void)
 		g_AltTitleUnlocked = savebuffer_read_bits(&buffer, 1);
 		g_AltTitleEnabled = savebuffer_read_bits(&buffer, 1);
 
-		func0f0d54c4(&buffer);
+		savebuffer_print(&buffer);
 	}
 
 	if (failed) {
@@ -160,35 +160,35 @@ void bossfile_save(void)
 	s32 i;
 	s32 fileid;
 
-	savebuffer_clear(&buffer);
+	savebuffer_reset(&buffer);
 
 	guid.fileid = g_Vars.bossfileid;
 	guid.deviceserial = g_Vars.bossdeviceserial;
 
 	savebuffer_write_guid(&buffer, &guid);
 
-	savebuffer_or(&buffer, g_BossFile.unk89, 1);
-	savebuffer_or(&buffer, g_Vars.language, 4);
+	savebuffer_write_bits(&buffer, g_BossFile.unk89, 1);
+	savebuffer_write_bits(&buffer, g_Vars.language, 4);
 
 	for (i = 0; i < ARRAYCOUNT(g_BossFile.teamnames); i++) {
-		func0f0d55a4(&buffer, g_BossFile.teamnames[i]);
+		savebuffer_write_string(&buffer, g_BossFile.teamnames[i]);
 	}
 
 	if (g_BossFile.tracknum == -1) {
-		savebuffer_or(&buffer, 0xff, 8);
+		savebuffer_write_bits(&buffer, 0xff, 8);
 	} else {
-		savebuffer_or(&buffer, g_BossFile.tracknum, 8);
+		savebuffer_write_bits(&buffer, g_BossFile.tracknum, 8);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_BossFile.multipletracknums); i++) {
-		savebuffer_or(&buffer, g_BossFile.multipletracknums[i], 8);
+		savebuffer_write_bits(&buffer, g_BossFile.multipletracknums[i], 8);
 	}
 
-	savebuffer_or(&buffer, g_BossFile.usingmultipletunes, 1);
-	savebuffer_or(&buffer, g_AltTitleUnlocked, 1);
-	savebuffer_or(&buffer, g_AltTitleEnabled, 1);
+	savebuffer_write_bits(&buffer, g_BossFile.usingmultipletunes, 1);
+	savebuffer_write_bits(&buffer, g_AltTitleUnlocked, 1);
+	savebuffer_write_bits(&buffer, g_AltTitleEnabled, 1);
 
-	func0f0d54c4(&buffer);
+	savebuffer_print(&buffer);
 
 	fileid = bossfile_find_file_id();
 

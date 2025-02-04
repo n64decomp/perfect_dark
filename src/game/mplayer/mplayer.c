@@ -3286,7 +3286,7 @@ void mpplayerfile_save_gun_funcs(struct savebuffer *buffer, s32 playernum)
 			numbits = 8;
 		}
 
-		savebuffer_or(buffer, g_PlayerConfigsArray[playernum].gunfuncs[i], numbits);
+		savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].gunfuncs[i], numbits);
 
 		bitsremaining -= 8;
 		i++;
@@ -3364,15 +3364,15 @@ void mpplayerfile_save_wad(s32 playernum, struct savebuffer *buffer)
 	s32 j;
 	u32 stack;
 
-	func0f0d55a4(buffer, g_PlayerConfigsArray[playernum].base.name);
+	savebuffer_write_string(buffer, g_PlayerConfigsArray[playernum].base.name);
 
 	if (g_PlayerConfigsArray[playernum].time > 0x0fffffff) { // over 3106 days
 		g_PlayerConfigsArray[playernum].time = 0x0fffffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].time, 28);
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].base.mpheadnum, 7);
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].base.mpbodynum, 7);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].time, 28);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].base.mpheadnum, 7);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].base.mpbodynum, 7);
 
 	if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mp_get_num_heads2()) {
 		struct fileguid guid;
@@ -3385,104 +3385,104 @@ void mpplayerfile_save_wad(s32 playernum, struct savebuffer *buffer)
 		savebuffer_write_guid(buffer, &guid);
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].base.displayoptions, 8);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].base.displayoptions, 8);
 
 	if (g_PlayerConfigsArray[playernum].kills > 0xfffff) { // 1,048,575
 		g_PlayerConfigsArray[playernum].kills = 0xfffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].kills, 20);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].kills, 20);
 
 	if (g_PlayerConfigsArray[playernum].deaths > 0xfffff) { // 1,048,575
 		g_PlayerConfigsArray[playernum].deaths = 0xfffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].deaths, 20);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].deaths, 20);
 
 	if (g_PlayerConfigsArray[playernum].gamesplayed > 0x7ffff) { // 524,287
 		g_PlayerConfigsArray[playernum].gamesplayed = 0x7ffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].gamesplayed, 19);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].gamesplayed, 19);
 
 	if (g_PlayerConfigsArray[playernum].gameswon > 0x7ffff) { // 524,287
 		g_PlayerConfigsArray[playernum].gameswon = 0x7ffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].gameswon, 19);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].gameswon, 19);
 
 	if (g_PlayerConfigsArray[playernum].gameslost > 0x7ffff) { // 524,287
 		g_PlayerConfigsArray[playernum].gameslost = 0x7ffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].gameslost, 19);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].gameslost, 19);
 
 	if (g_PlayerConfigsArray[playernum].distance > 0x1ffffff) { // 33,554,431
 		g_PlayerConfigsArray[playernum].distance = 0x1ffffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].distance, 25);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].distance, 25);
 
 	if (g_PlayerConfigsArray[playernum].accuracy > 0x3ff) { // 1023
 		g_PlayerConfigsArray[playernum].accuracy = 0x3ff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].accuracy, 10);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].accuracy, 10);
 
 	if (g_PlayerConfigsArray[playernum].damagedealt > 0x3ffffff) { // 67,108,863
 		g_PlayerConfigsArray[playernum].damagedealt = 0x3ffffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].damagedealt, 26);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].damagedealt, 26);
 
 	if (g_PlayerConfigsArray[playernum].painreceived > 0x3ffffff) { // 67,108,863
 		g_PlayerConfigsArray[playernum].painreceived = 0x3ffffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].painreceived, 26);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].painreceived, 26);
 
 	if (g_PlayerConfigsArray[playernum].headshots > 0xfffff) { // 1,048,575
 		g_PlayerConfigsArray[playernum].headshots = 0xfffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].headshots, 20);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].headshots, 20);
 
 	if (g_PlayerConfigsArray[playernum].ammoused > 0x3fffffff) { // 1,073,741,823
 		g_PlayerConfigsArray[playernum].ammoused = 0x3fffffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].ammoused, 30);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].ammoused, 30);
 
 	if (g_PlayerConfigsArray[playernum].accuracymedals > 0x3ffff) { // 262,143
 		g_PlayerConfigsArray[playernum].accuracymedals = 0x3ffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].accuracymedals, 18);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].accuracymedals, 18);
 
 	if (g_PlayerConfigsArray[playernum].headshotmedals > 0x3ffff) { // 262,143
 		g_PlayerConfigsArray[playernum].headshotmedals = 0x3ffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].headshotmedals, 18);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].headshotmedals, 18);
 
 	if (g_PlayerConfigsArray[playernum].killmastermedals > 0x3ffff) { // 262,143
 		g_PlayerConfigsArray[playernum].killmastermedals = 0x3ffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].killmastermedals, 18);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].killmastermedals, 18);
 
 	if (g_PlayerConfigsArray[playernum].survivormedals > 0xffff) { // 65,535
 		g_PlayerConfigsArray[playernum].survivormedals = 0xffff;
 	}
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].survivormedals, 16);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].survivormedals, 16);
 
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].controlmode, 2);
-	savebuffer_or(buffer, g_PlayerConfigsArray[playernum].options, 12);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].controlmode, 2);
+	savebuffer_write_bits(buffer, g_PlayerConfigsArray[playernum].options, 12);
 
 	for (i = 0; i < ARRAYCOUNT(g_MpChallenges); i++) {
 		for (j = 1; j < MAX_PLAYERS + 1; j++) {
-			savebuffer_or(buffer, challenge_is_completed_by_player_with_num_players(playernum, i, j), 1);
+			savebuffer_write_bits(buffer, challenge_is_completed_by_player_with_num_players(playernum, i, j), 1);
 		}
 	}
 
@@ -3493,7 +3493,7 @@ void mpplayerfile_get_overview(char *arg0, char *name, u32 *playtime)
 {
 	struct savebuffer buffer;
 
-	func0f0d5484(&buffer, arg0, 15);
+	savebuffer_prepare_string(&buffer, arg0, 15);
 
 	savebuffer_read_string(&buffer, name, 0);
 	*playtime = savebuffer_read_bits(&buffer, 28);
@@ -3506,9 +3506,9 @@ s32 mpplayerfile_save(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 	struct savebuffer buffer;
 
 	if (device >= 0) {
-		savebuffer_clear(&buffer);
+		savebuffer_reset(&buffer);
 		mpplayerfile_save_wad(playernum, &buffer);
-		func0f0d54c4(&buffer);
+		savebuffer_print(&buffer);
 
 		var80075bd0[2] = true;
 
@@ -3533,7 +3533,7 @@ s32 mpplayerfile_load(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 	struct savebuffer buffer;
 
 	if (device >= 0) {
-		savebuffer_clear(&buffer);
+		savebuffer_reset(&buffer);
 
 		ret = pak_read_body_at_guid(device, fileid, buffer.bytes, 0);
 
@@ -3542,7 +3542,7 @@ s32 mpplayerfile_load(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 			g_PlayerConfigsArray[playernum].fileguid.deviceserial = deviceserial;
 
 			mpplayerfile_load_wad(playernum, &buffer, 1);
-			func0f0d54c4(&buffer);
+			savebuffer_print(&buffer);
 
 			g_PlayerConfigsArray[playernum].handicap = 0x80;
 			return 0;
@@ -3796,7 +3796,7 @@ void mpsetupfile_save_wad(struct savebuffer *buffer)
 	s32 mpbodynum;
 	s32 i;
 
-	func0f0d55a4(buffer, g_MpSetup.name);
+	savebuffer_write_string(buffer, g_MpSetup.name);
 
 	for (i = 0; i < MAX_BOTS; i++) {
 		if (g_MpSetup.chrslots & (1 << (i + 4))) {
@@ -3804,24 +3804,24 @@ void mpsetupfile_save_wad(struct savebuffer *buffer)
 		}
 	}
 
-	savebuffer_or(buffer, numsims, 4);
-	savebuffer_or(buffer, g_MpSetup.stagenum, 7);
-	savebuffer_or(buffer, g_MpSetup.scenario, 3);
+	savebuffer_write_bits(buffer, numsims, 4);
+	savebuffer_write_bits(buffer, g_MpSetup.stagenum, 7);
+	savebuffer_write_bits(buffer, g_MpSetup.scenario, 3);
 
 	scenario_write_save(buffer);
 
-	savebuffer_or(buffer, g_MpSetup.options, 21);
+	savebuffer_write_bits(buffer, g_MpSetup.options, 21);
 
 	for (i = 0; i < MAX_BOTS; i++) {
-		savebuffer_or(buffer, g_BotConfigsArray[i].type, 5);
+		savebuffer_write_bits(buffer, g_BotConfigsArray[i].type, 5);
 
 		if (g_MpSetup.chrslots & (1 << (i + 4))) {
-			savebuffer_or(buffer, g_BotConfigsArray[i].difficulty, 3);
+			savebuffer_write_bits(buffer, g_BotConfigsArray[i].difficulty, 3);
 		} else {
-			savebuffer_or(buffer, BOTDIFF_DISABLED, 3);
+			savebuffer_write_bits(buffer, BOTDIFF_DISABLED, 3);
 		}
 
-		savebuffer_or(buffer, g_BotConfigsArray[i].base.mpheadnum, 7);
+		savebuffer_write_bits(buffer, g_BotConfigsArray[i].base.mpheadnum, 7);
 
 		if (g_BotConfigsArray[i].base.mpbodynum == 0xff) {
 			s32 profilenum = mp_find_bot_profile(g_BotConfigsArray[i].type, g_BotConfigsArray[i].difficulty);
@@ -3835,20 +3835,20 @@ void mpsetupfile_save_wad(struct savebuffer *buffer)
 			mpbodynum = g_BotConfigsArray[i].base.mpbodynum;
 		}
 
-		savebuffer_or(buffer, mpbodynum, 7);
-		savebuffer_or(buffer, g_BotConfigsArray[i].base.team, 3);
+		savebuffer_write_bits(buffer, mpbodynum, 7);
+		savebuffer_write_bits(buffer, g_BotConfigsArray[i].base.team, 3);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
-		savebuffer_or(buffer, g_MpSetup.weapons[i], 7);
+		savebuffer_write_bits(buffer, g_MpSetup.weapons[i], 7);
 	}
 
-	savebuffer_or(buffer, g_MpSetup.timelimit, 6);
-	savebuffer_or(buffer, g_MpSetup.scorelimit, 7);
-	savebuffer_or(buffer, g_MpSetup.teamscorelimit, 9);
+	savebuffer_write_bits(buffer, g_MpSetup.timelimit, 6);
+	savebuffer_write_bits(buffer, g_MpSetup.scorelimit, 7);
+	savebuffer_write_bits(buffer, g_MpSetup.teamscorelimit, 9);
 
 	for (i = 0; i < MAX_PLAYERS; i++) {
-		savebuffer_or(buffer, g_PlayerConfigsArray[i].base.team, 3);
+		savebuffer_write_bits(buffer, g_PlayerConfigsArray[i].base.team, 3);
 	}
 }
 
@@ -3856,7 +3856,7 @@ void mpsetupfile_get_overview(char *arg0, char *filename, u16 *numsims, u16 *sta
 {
 	struct savebuffer buffer;
 
-	func0f0d5484(&buffer, arg0, 15);
+	savebuffer_prepare_string(&buffer, arg0, 15);
 
 	savebuffer_read_string(&buffer, filename, 0);
 
@@ -3872,9 +3872,9 @@ s32 mpsetupfile_save(s32 device, s32 fileid, u16 deviceserial)
 	struct savebuffer buffer;
 
 	if (device >= 0) {
-		savebuffer_clear(&buffer);
+		savebuffer_reset(&buffer);
 		mpsetupfile_save_wad(&buffer);
-		func0f0d54c4(&buffer);
+		savebuffer_print(&buffer);
 
 		ret = pak_save_at_guid(device, fileid, PAKFILETYPE_MPSETUP, buffer.bytes, &newfileid, 0);
 		var80075bd0[1] = true;
@@ -3898,7 +3898,7 @@ s32 mpsetupfile_load(s32 device, s32 fileid, u16 deviceserial)
 	struct savebuffer buffer;
 
 	if (device >= 0) {
-		savebuffer_clear(&buffer);
+		savebuffer_reset(&buffer);
 		ret = pak_read_body_at_guid(device, fileid, buffer.bytes, 0);
 
 		if (ret == 0) {
@@ -3906,7 +3906,7 @@ s32 mpsetupfile_load(s32 device, s32 fileid, u16 deviceserial)
 			g_MpSetup.fileguid.deviceserial = deviceserial;
 
 			mpsetupfile_load_wad(&buffer);
-			func0f0d54c4(&buffer);
+			savebuffer_print(&buffer);
 
 			return 0;
 		}

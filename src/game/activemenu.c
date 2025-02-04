@@ -1289,7 +1289,7 @@ Gfx *am_render(Gfx *gdl)
 					&g_AmMenus[g_AmIndex].dsty);
 		}
 
-		gdl = func0f0d479c(gdl);
+		gdl = ortho_begin(gdl);
 
 		colours = gfx_allocate_colours(2);
 		vertices = gfx_allocate_vertices(8);
@@ -1369,7 +1369,7 @@ Gfx *am_render(Gfx *gdl)
 		gSPTri4(gdl++, 0, 4, 7, 7, 3, 0, 0, 1, 5, 5, 4, 0);
 		gSPTri4(gdl++, 1, 2, 6, 6, 5, 1, 6, 2, 3, 3, 7, 6);
 
-		gdl = func0f0d49c8(gdl);
+		gdl = ortho_end(gdl);
 
 		// Draw slots
 		for (column = 0; column < 3; column++) {

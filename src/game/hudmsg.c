@@ -323,14 +323,14 @@ Gfx *hudmsg_render_box(Gfx *gdl, s32 x1, s32 y1, s32 x2, s32 y2, f32 bgopacity, 
 		f20 *= (f0 - 0.5f) + (f0 - 0.5f);
 	}
 
-	gdl = func0f0d479c(gdl);
+	gdl = ortho_begin(gdl);
 
 	gdl = menugfx_draw_filled_rect(gdl, x1, y1, x2, y1 + 1, bordercolour, bordercolour);
 	gdl = menugfx_draw_filled_rect(gdl, x1, y2, x2, y2 + 1, bordercolour, bordercolour);
 	gdl = menugfx_draw_filled_rect(gdl, x1, y1 + 1, x1 + 1, y2, bordercolour, bordercolour);
 	gdl = menugfx_draw_filled_rect(gdl, x2, y1, x2 + 1, y2 + 1, bordercolour, bordercolour);
 
-	gdl = func0f0d49c8(gdl);
+	gdl = ortho_end(gdl);
 
 	if (textopacity > 0.0f) {
 		f32 width = (x1 + x2) * 0.5f;

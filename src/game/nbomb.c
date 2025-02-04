@@ -839,7 +839,7 @@ Gfx *nbomb_render_overlay(Gfx *gdl)
 		if (1);
 		if (1);
 
-		gdl = func0f0d479c(gdl);
+		gdl = ortho_begin(gdl);
 
 		if (1);
 
@@ -894,7 +894,7 @@ Gfx *nbomb_render_overlay(Gfx *gdl)
 	}
 
 	if (drawn) {
-		gdl = func0f0d49c8(gdl);
+		gdl = ortho_end(gdl);
 	}
 
 	return gdl;
@@ -1009,7 +1009,7 @@ Gfx *gas_render(Gfx *gdl)
 
 			drawn = true;
 
-			gdl = func0f0d479c(gdl);
+			gdl = ortho_begin(gdl);
 
 			if (1);
 
@@ -1097,7 +1097,7 @@ Gfx *gas_render(Gfx *gdl)
 	}
 
 	if (drawn) {
-		gdl = func0f0d49c8(gdl);
+		gdl = ortho_end(gdl);
 	}
 
 	return gdl;

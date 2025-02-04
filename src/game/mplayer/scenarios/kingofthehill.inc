@@ -154,7 +154,7 @@ void koh_read_save(struct savebuffer *buffer)
 
 void koh_write_save(struct savebuffer *buffer)
 {
-	savebuffer_or(buffer, g_Vars.mphilltime, 8);
+	savebuffer_write_bits(buffer, g_Vars.mphilltime, 8);
 }
 
 void koh_init(void)

@@ -990,7 +990,7 @@ Gfx *lv_render(Gfx *gdl)
 	gSPSegment(gdl++, SPSEGMENT_PHYSICAL, 0x00000000);
 
 #if VERSION >= VERSION_NTSC_1_0
-	func0f0d5a7c();
+	ortho_reset();
 #endif
 
 	if (g_Vars.stagenum == STAGE_TITLE

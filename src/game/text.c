@@ -492,9 +492,9 @@ Gfx *text_enable_holo_ray(Gfx *gdl)
 
 	gSPDisplayList(gdl++, g_TextHoloRayGdl);
 
-	gdl = func0f0d4c80(gdl);
+	gdl = ortho_holoray_end(gdl);
 
-	g_TextHoloRayGdl = func0f0d4a3c(g_TextHoloRayGdl, 0);
+	g_TextHoloRayGdl = ortho_holoray_begin(g_TextHoloRayGdl, 0);
 
 	g_TextLastBlendY = -1;
 
@@ -1541,7 +1541,7 @@ Gfx *text_render_char_v2(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, str
 								text_calculate_blend_distance(*y + shadowoffset);
 
 								if (g_TextBlendDistance >= *x / g_UiScaleX && *x / g_UiScaleX + curchar->width * g_TextScaleX >= g_TextBlendDistance) {
-									g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl,
+									g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl,
 											g_TextBlendDistance,
 											curchar->baseline * var80080108jf + sp90,
 											g_TextBlendDistance,
@@ -1552,7 +1552,7 @@ Gfx *text_render_char_v2(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, str
 								}
 
 								if (g_TextBlendDistance - 3 >= *x / g_UiScaleX && *x / g_UiScaleX + curchar->width * g_TextScaleX >= g_TextBlendDistance - 3) {
-									g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl,
+									g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl,
 											g_TextBlendDistance,
 											curchar->baseline * var80080108jf + sp90,
 											g_TextBlendDistance,
@@ -1656,7 +1656,7 @@ Gfx *text_render_char_v2(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, str
 								text_calculate_blend_distance(*y + shadowoffset);
 
 								if (g_TextBlendDistance >= *x / g_UiScaleX && *x / g_UiScaleX + curchar->width * g_TextScaleX >= g_TextBlendDistance) {
-									g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl,
+									g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl,
 											g_TextBlendDistance,
 											curchar->baseline + sp90,
 											g_TextBlendDistance,
@@ -1667,7 +1667,7 @@ Gfx *text_render_char_v2(Gfx *gdl, s32 *x, s32 *y, struct fontchar *curchar, str
 								}
 
 								if (g_TextBlendDistance - 3 >= *x / g_UiScaleX && *x / g_UiScaleX + curchar->width * g_TextScaleX >= g_TextBlendDistance - 3) {
-									g_TextHoloRayGdl = menugfx_draw_plane(g_TextHoloRayGdl,
+									g_TextHoloRayGdl = ortho_draw_holoray(g_TextHoloRayGdl,
 											g_TextBlendDistance,
 											curchar->baseline + sp90,
 											g_TextBlendDistance,
