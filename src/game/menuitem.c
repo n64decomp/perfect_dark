@@ -1866,7 +1866,7 @@ Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 	char *text;
 	s32 x;
 	s32 y;
-	struct menudfc *menudfc;
+	struct menuitemredrawinfo *redrawinfo;
 	u8 savedvalue = g_TextHoloRayEnabled;
 	struct fontchar *font1 = g_CharsHandelGothicSm;
 	struct font *font2 = g_FontHandelGothicSm;
@@ -1955,15 +1955,15 @@ Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 				g_MenuWave1Colours[context->dialog->type].item_disabled);
 	}
 
-	menudfc = func0f0f1338(context->item);
+	redrawinfo = menu_find_item_redraw_info(context->item);
 
-	if (menudfc) {
-		if (menudfc->unk04 < 0) {
+	if (redrawinfo) {
+		if (redrawinfo->timer60 < 0) {
 			return gdl;
 		}
 
 		text_backup_diagonal_blend_settings();
-		text_set_diagonal_blend(x, y, menudfc->unk04 * 300, 0);
+		text_set_diagonal_blend(x, y, redrawinfo->timer60 * 300, 0);
 		g_TextHoloRayEnabled = true;
 	}
 
@@ -2020,9 +2020,9 @@ Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 
 	gdl = text_end(gdl);
 
-	if (menudfc) {
-		if (context->width + 200 < menudfc->unk04 * 300 && context->dialog->redrawtimer < 0) {
-			func0f0f13ec(context->item);
+	if (redrawinfo) {
+		if (context->width + 200 < redrawinfo->timer60 * 300 && context->dialog->redrawtimer < 0) {
+			menu_remove_item_redraw_info(context->item);
 		}
 
 		g_TextHoloRayEnabled = savedvalue;

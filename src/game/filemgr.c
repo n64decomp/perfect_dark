@@ -563,9 +563,9 @@ void filemgr_handle_success(void)
 		bossfile_save();
 
 		if (IS4MB()) {
-			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
+			menu_save_and_push_root_dialog(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		} else {
-			func0f0f820c(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
+			menu_save_and_push_root_dialog(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
 		}
 		break;
 	case FILEOP_READ_GAME:
@@ -709,7 +709,7 @@ MenuItemHandlerResult filemgr_reinserted_cancel_menu_handler(s32 operation, stru
 {
 	if (operation == MENUOP_SET) {
 		if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop) && g_Menus[g_MpPlayerNum].fm.fileop != FILEOP_SAVE_GAME_001) {
-			func0f0f3704(&g_FilemgrSaveElsewhereMenuDialog);
+			menu_replace_current_dialog(&g_FilemgrSaveElsewhereMenuDialog);
 		} else {
 			menu_pop_dialog();
 		}
@@ -763,7 +763,7 @@ void filemgr_retry_save(s32 context)
 		}
 
 		if (context == 2) {
-			func0f0f3704(&g_PakNotOriginalMenuDialog);
+			menu_replace_current_dialog(&g_PakNotOriginalMenuDialog);
 		}
 	} else if (filemgr_attempt_operation(device, true)) {
 		if (context == 2) {
@@ -778,12 +778,12 @@ void filemgr_retry_save(s32 context)
 			filemgr_set_device1_by_serial(g_Menus[g_MpPlayerNum].fm.deviceserial);
 
 			if (FILEOP_IS_SAVE(g_Menus[g_MpPlayerNum].fm.fileop)) {
-				func0f0f3704(&g_FilemgrSaveErrorMenuDialog);
+				menu_replace_current_dialog(&g_FilemgrSaveErrorMenuDialog);
 			} else {
 #if VERSION >= VERSION_NTSC_1_0
 				filemgr_erase_corrupt_file();
 #else
-				func0f0f3704(&g_FilemgrFileLostMenuDialog);
+				menu_replace_current_dialog(&g_FilemgrFileLostMenuDialog);
 #endif
 			}
 		}

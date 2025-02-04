@@ -19,7 +19,7 @@ MenuItemHandlerResult fmb_handle_drop_out(s32 operation, struct menuitem *item, 
 		menu_pop_dialog();
 
 		if (mp_get_num_chrs() == 1) {
-			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
+			menu_save_and_push_root_dialog(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		}
 	}
 
@@ -30,9 +30,9 @@ MenuItemHandlerResult fmd_handle_abort_game(s32 operation, struct menuitem *item
 {
 	if (operation == MENUOP_SET) {
 		if (g_Vars.stagenum == STAGE_4MBMENU) {
-			func0f0f820c(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
+			menu_save_and_push_root_dialog(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		} else {
-			func0f0f820c(&g_SoloMissionPauseMenuDialog, MENUROOT_MAINMENU);
+			menu_save_and_push_root_dialog(&g_SoloMissionPauseMenuDialog, MENUROOT_MAINMENU);
 		}
 	}
 
@@ -42,7 +42,7 @@ MenuItemHandlerResult fmd_handle_abort_game(s32 operation, struct menuitem *item
 MenuItemHandlerResult fmb_handle_advanced_setup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f820c(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
+		menu_save_and_push_root_dialog(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;
@@ -52,7 +52,7 @@ MenuItemHandlerResult fmb_handle_accept_challenge(s32 operation, struct menuitem
 {
 	if (operation == MENUOP_SET) {
 		challenge_set_current_by_slot(g_Menus[g_MpPlayerNum].main4mb.slotindex);
-		func0f0f820c(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
+		menu_save_and_push_root_dialog(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
 	return 0;

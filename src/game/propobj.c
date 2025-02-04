@@ -15114,26 +15114,26 @@ bool propobj_interact(struct prop *prop)
 				handled = true;
 
 				if (data->intraining) {
-					func0f0f85e0(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
+					menu_push_root_dialog_and_pause(&g_DtDetailsMenuDialog, MENUROOT_TRAINING);
 				} else {
-					func0f0f85e0(&g_DtListMenuDialog, MENUROOT_TRAINING);
+					menu_push_root_dialog_and_pause(&g_DtListMenuDialog, MENUROOT_TRAINING);
 				}
 			} else if (tag_id == 0x45) {
 				struct trainingdata *data = get_holo_training_data();
 				handled = true;
 
 				if (data->intraining) {
-					func0f0f85e0(&g_HtDetailsMenuDialog, MENUROOT_TRAINING);
+					menu_push_root_dialog_and_pause(&g_HtDetailsMenuDialog, MENUROOT_TRAINING);
 				} else {
-					func0f0f85e0(&g_HtListMenuDialog, MENUROOT_TRAINING);
+					menu_push_root_dialog_and_pause(&g_HtListMenuDialog, MENUROOT_TRAINING);
 				}
 			} else if (tag_id == 0x7f) {
 				handled = true;
 
 				if (fr_is_in_training()) {
-					func0f0f85e0(&g_FrTrainingInfoInGameMenuDialog, MENUROOT_TRAINING);
+					menu_push_root_dialog_and_pause(&g_FrTrainingInfoInGameMenuDialog, MENUROOT_TRAINING);
 				} else {
-					func0f0f85e0(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);
+					menu_push_root_dialog_and_pause(&g_FrWeaponListMenuDialog, MENUROOT_TRAINING);
 				}
 			}
 		}
@@ -15141,19 +15141,19 @@ bool propobj_interact(struct prop *prop)
 		if (!handled) {
 			if (tag_id == 0x0e) {
 				handled = true;
-				func0f0f85e0(&g_BioListMenuDialog, MENUROOT_TRAINING);
+				menu_push_root_dialog_and_pause(&g_BioListMenuDialog, MENUROOT_TRAINING);
 			} else if (tag_id == 0x0f) {
 				handled = true;
-				func0f0f85e0(&g_CheatsMenuDialog, MENUROOT_TRAINING);
+				menu_push_root_dialog_and_pause(&g_CheatsMenuDialog, MENUROOT_TRAINING);
 			} else if (tag_id == 0x1b) {
 				handled = true;
-				func0f0f85e0(&g_FrWeaponsAvailableMenuDialog, MENUROOT_TRAINING);
+				menu_push_root_dialog_and_pause(&g_FrWeaponsAvailableMenuDialog, MENUROOT_TRAINING);
 			} else if (tag_id == 0x47) {
 				handled = true;
-				func0f0f85e0(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
+				menu_push_root_dialog_and_pause(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
 			} else if (tag_id == 0x46) {
 				handled = true;
-				func0f0f85e0(&g_HangarListMenuDialog, MENUROOT_TRAINING);
+				menu_push_root_dialog_and_pause(&g_HangarListMenuDialog, MENUROOT_TRAINING);
 			}
 		}
 
@@ -15162,7 +15162,7 @@ bool propobj_interact(struct prop *prop)
 			snd_start(var80095200, SFX_TYPING_8118, NULL, -1, -1, -1, -1, -1);
 		}
 
-		func0f0fd494(&prop->pos);
+		menu_set_source_pos(&prop->pos);
 	} else if (obj->type == OBJTYPE_ALARM) {
 		// Button press sound
 		snd_start(var80095200, SFX_PRESS_SWITCH, NULL, -1, -1, -1, -1, -1);

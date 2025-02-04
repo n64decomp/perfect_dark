@@ -4535,7 +4535,7 @@ Gfx *player_render_hud(Gfx *gdl)
 
 	if (g_Vars.currentplayer->cameramode != CAMERAMODE_EYESPY
 			&& player_is_health_visible()
-			&& func0f0f0c68()) {
+			&& menu_has_no_background()) {
 		gdl = player_render_health_bar(gdl);
 	}
 
@@ -4814,7 +4814,7 @@ void player_die_by_shooter(u32 shooter, bool force)
 	{
 		u32 prevplayernum = g_MpPlayerNum;
 		g_MpPlayerNum = g_Vars.currentplayerstats->mpindex;
-		func0f0f8120();
+		menu_save_and_close_all();
 		g_MpPlayerNum = prevplayernum;
 
 		hudmsgs_remove_for_dead_player(g_Vars.currentplayernum);

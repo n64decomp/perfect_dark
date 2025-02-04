@@ -327,9 +327,9 @@ MenuItemHandlerResult menuhandler_screen_split(s32 operation, struct menuitem *i
 			if (PLAYERCOUNT() > 1) {
 				u32 prevplayernum = g_MpPlayerNum;
 				g_MpPlayerNum = 0;
-				func0f0f8120();
+				menu_save_and_close_all();
 				g_MpPlayerNum = 1;
-				func0f0f8120();
+				menu_save_and_close_all();
 				g_MpPlayerNum = prevplayernum;
 			}
 		}
@@ -2232,7 +2232,7 @@ MenuItemHandlerResult menuhandler001057ec(s32 operation, struct menuitem *item, 
 MenuItemHandlerResult menuhandler_change_agent(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f820c(NULL, -7);
+		menu_save_and_push_root_dialog(NULL, MENUROOT_CHANGE_AGENT);
 	}
 
 	return 0;
@@ -4151,10 +4151,10 @@ MenuItemHandlerResult menuhandler_fr_inventory_list(s32 operation, struct menuit
 		g_FrFocusedSlotIndex = data->list.value;
 
 		// These items are labels
-		func0f0f139c(&g_SoloMissionInventoryMenuItems[1], -1.0f); // manufacturer
-		func0f0f139c(&g_SoloMissionInventoryMenuItems[2], -1.0f); // weapon name
-		func0f0f139c(&g_SoloMissionInventoryMenuItems[4], -1.0f); // primary function
-		func0f0f139c(&g_SoloMissionInventoryMenuItems[5], -1.0f); // secondary function
+		menu_set_item_redraw_timer(&g_SoloMissionInventoryMenuItems[1], -1.0f); // manufacturer
+		menu_set_item_redraw_timer(&g_SoloMissionInventoryMenuItems[2], -1.0f); // weapon name
+		menu_set_item_redraw_timer(&g_SoloMissionInventoryMenuItems[4], -1.0f); // primary function
+		menu_set_item_redraw_timer(&g_SoloMissionInventoryMenuItems[5], -1.0f); // secondary function
 		break;
 	}
 
@@ -4225,10 +4225,10 @@ MenuItemHandlerResult menuhandler_inventory_list(s32 operation, struct menuitem 
 		g_InventoryWeapon = inv_get_weapon_num_by_index(data->list.value);
 		g_Menus[g_MpPlayerNum].training.weaponnum = g_InventoryWeapon;
 
-		func0f0f139c(&g_SoloMissionInventoryMenuItems[1], -1);
-		func0f0f139c(&g_SoloMissionInventoryMenuItems[2], -1);
-		func0f0f139c(&g_SoloMissionInventoryMenuItems[4], -1);
-		func0f0f139c(&g_SoloMissionInventoryMenuItems[5], -1);
+		menu_set_item_redraw_timer(&g_SoloMissionInventoryMenuItems[1], -1);
+		menu_set_item_redraw_timer(&g_SoloMissionInventoryMenuItems[2], -1);
+		menu_set_item_redraw_timer(&g_SoloMissionInventoryMenuItems[4], -1);
+		menu_set_item_redraw_timer(&g_SoloMissionInventoryMenuItems[5], -1);
 		break;
 	}
 
@@ -4702,8 +4702,8 @@ MenuItemHandlerResult menuhandler_main_menu_combat_simulator(s32 operation, stru
 		g_Vars.antiplayernum = -1;
 		challenge_determine_unlocked_features();
 		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
-		func0f0f820c(&g_CombatSimulatorMenuDialog, MENUROOT_MPSETUP);
-		func0f0f8300();
+		menu_save_and_push_root_dialog(&g_CombatSimulatorMenuDialog, MENUROOT_MPSETUP);
+		menu_hide_pressstart_labels();
 	}
 
 	return 0;

@@ -2397,7 +2397,7 @@ void mp_end_match(void)
 		challenge_consider_marking_complete();
 	}
 
-	func0f0f820c(NULL, -6);
+	menu_save_and_push_root_dialog(NULL, MENUROOT_END_MP_MATCH);
 }
 
 s32 mp_get_num_heads2(void)
@@ -3311,12 +3311,12 @@ void mpplayerfile_load_wad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 
 		if (g_PlayerConfigsArray[playernum].base.mpheadnum >= mp_get_num_heads2()) {
 			if (guid.fileid != 0 && guid.deviceserial != 0) {
-				if (g_MenuData.unk668 < 11) {
-					g_MenuData.unk668++;
-					g_MenuData.unk5d8[g_MenuData.unk668].fileguid.fileid = guid.fileid;
-					g_MenuData.unk5d8[g_MenuData.unk668].fileguid.deviceserial = guid.deviceserial;
-					g_MenuData.unk5d8[g_MenuData.unk668].unk08 = g_MpPlayerNum;
-					g_MenuData.unk5d8[g_MenuData.unk668].unk09 = g_MpPlayerNum;
+				if (g_MenuData.lastperfectheadfile < 11) {
+					g_MenuData.lastperfectheadfile++;
+					g_MenuData.perfectheadfiles[g_MenuData.lastperfectheadfile].fileguid.fileid = guid.fileid;
+					g_MenuData.perfectheadfiles[g_MenuData.lastperfectheadfile].fileguid.deviceserial = guid.deviceserial;
+					g_MenuData.perfectheadfiles[g_MenuData.lastperfectheadfile].playernum1 = g_MpPlayerNum;
+					g_MenuData.perfectheadfiles[g_MenuData.lastperfectheadfile].playernum2 = g_MpPlayerNum;
 				}
 			} else {
 				g_PlayerConfigsArray[playernum].base.mpheadnum = MPHEAD_DARK_COMBAT;

@@ -1726,18 +1726,18 @@ void fr_tick(void)
 
 			switch (g_FrData.menutype) {
 			case FRMENUTYPE_WEAPONLIST:
-				func0f0f85e0(ci_get_fr_weapon_list_menu_dialog(), MENUROOT_TRAINING);
+				menu_push_root_dialog_and_pause(ci_get_fr_weapon_list_menu_dialog(), MENUROOT_TRAINING);
 				break;
 			case FRMENUTYPE_DETAILS:
-				func0f0f85e0(&g_FrTrainingInfoPreGameMenuDialog, MENUROOT_TRAINING);
+				menu_push_root_dialog_and_pause(&g_FrTrainingInfoPreGameMenuDialog, MENUROOT_TRAINING);
 				break;
 			case FRMENUTYPE_FAILED:
 				snd_start(var80095200, SFX_TRAINING_FAIL, NULL, -1, -1, -1, -1, -1);
-				func0f0f85e0(&g_FrFailedMenuDialog, MENUROOT_TRAINING);
+				menu_push_root_dialog_and_pause(&g_FrFailedMenuDialog, MENUROOT_TRAINING);
 				break;
 			case FRMENUTYPE_COMPLETED:
 				snd_start(var80095200, SFX_TRAINING_COMPLETE, NULL, -1, -1, -1, -1, -1);
-				func0f0f85e0(&g_FrCompletedMenuDialog, MENUROOT_TRAINING);
+				menu_push_root_dialog_and_pause(&g_FrCompletedMenuDialog, MENUROOT_TRAINING);
 				filemgr_save_or_load(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 				break;
 			}
@@ -2778,9 +2778,9 @@ void dt_restore_player(void)
 void dt_push_endscreen(void)
 {
 	if (g_DtData.completed) {
-		func0f0f85e0(&g_DtCompletedMenuDialog, MENUROOT_TRAINING);
+		menu_push_root_dialog_and_pause(&g_DtCompletedMenuDialog, MENUROOT_TRAINING);
 	} else if (g_DtData.failed) {
-		func0f0f85e0(&g_DtFailedMenuDialog, MENUROOT_TRAINING);
+		menu_push_root_dialog_and_pause(&g_DtFailedMenuDialog, MENUROOT_TRAINING);
 	}
 
 	g_DtData.timeleft = 0;
@@ -3063,9 +3063,9 @@ struct trainingdata *get_holo_training_data(void)
 void ht_push_endscreen(void)
 {
 	if (g_HtData.completed) {
-		func0f0f85e0(&g_HtCompletedMenuDialog, MENUROOT_TRAINING);
+		menu_push_root_dialog_and_pause(&g_HtCompletedMenuDialog, MENUROOT_TRAINING);
 	} else if (g_HtData.failed) {
-		func0f0f85e0(&g_HtFailedMenuDialog, MENUROOT_TRAINING);
+		menu_push_root_dialog_and_pause(&g_HtFailedMenuDialog, MENUROOT_TRAINING);
 	}
 
 	g_HtData.timeleft = 0;

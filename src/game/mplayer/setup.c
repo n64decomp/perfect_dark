@@ -1966,7 +1966,7 @@ char *mp_menu_text_body_name(struct menuitem *item)
 
 void func0f17b8f0(void)
 {
-	func0f0f139c(g_MpCharacterMenuItems, -0.4f);
+	menu_set_item_redraw_timer(g_MpCharacterMenuItems, -0.4f);
 }
 
 MenuItemHandlerResult mp_player_name_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -2047,9 +2047,9 @@ MenuItemHandlerResult mp_load_settings_menu_handler(s32 operation, struct menuit
 
 		if (item->param == 1) {
 			if (IS4MB()) {
-				func0f0f820c(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
+				menu_save_and_push_root_dialog(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
 			} else {
-				func0f0f820c(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
+				menu_save_and_push_root_dialog(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
 			}
 		}
 		break;
@@ -4662,7 +4662,7 @@ MenuItemHandlerResult menuhandler0017ec64(s32 operation, struct menuitem *item, 
 {
 	if (operation == MENUOP_SET) {
 		challenge_set_current_by_slot(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
-		func0f0f820c(&g_MpQuickGoMenuDialog, 3);
+		menu_save_and_push_root_dialog(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
 	}
 
 	return 0;
@@ -4754,12 +4754,12 @@ MenuItemHandlerResult menuhandler0017ef30(s32 operation, struct menuitem *item, 
 	if (operation == MENUOP_SET) {
 		if (g_Vars.stagenum == STAGE_CITRAINING) {
 			if (IS4MB()) {
-				func0f0f820c(&g_CiMenuViaPauseMenuDialog, 2);
+				menu_save_and_push_root_dialog(&g_CiMenuViaPauseMenuDialog, MENUROOT_MAINMENU);
 			} else {
-				func0f0f820c(&g_CiMenuViaPcMenuDialog, 2);
+				menu_save_and_push_root_dialog(&g_CiMenuViaPcMenuDialog, MENUROOT_MAINMENU);
 			}
 		} else {
-			func0f0f820c(&g_SoloMissionPauseMenuDialog, 2);
+			menu_save_and_push_root_dialog(&g_SoloMissionPauseMenuDialog, MENUROOT_MAINMENU);
 		}
 	}
 
@@ -4929,9 +4929,9 @@ void func0f17f428(void)
 	mp_configure_quick_team_players();
 
 	if (IS4MB()) {
-		func0f0f820c(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
+		menu_save_and_push_root_dialog(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	} else {
-		func0f0f820c(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
+		menu_save_and_push_root_dialog(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
 	}
 }
 
@@ -5136,7 +5136,7 @@ MenuDialogHandlerResult menudialog_combat_simulator(s32 operation, struct menudi
 MenuItemHandlerResult menuhandler_mp_advanced_setup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
-		func0f0f820c(&g_MpAdvancedSetupMenuDialog, 3);
+		menu_save_and_push_root_dialog(&g_MpAdvancedSetupMenuDialog, MENUROOT_MPSETUP);
 	}
 
 	return 0;
@@ -5853,7 +5853,7 @@ void func0f17fcb0(s32 silent)
 
 	if (IS4MB()) {
 		menu_push_root_dialog(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
-		func0f0f8300();
+		menu_hide_pressstart_labels();
 	} else {
 		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 			menu_push_root_dialog(&g_MpChallengeListOrDetailsViaAdvChallengeMenuDialog, MENUROOT_MPSETUP);
@@ -5861,7 +5861,7 @@ void func0f17fcb0(s32 silent)
 			menu_push_root_dialog(&g_MpAdvancedSetupMenuDialog, MENUROOT_MPSETUP);
 		}
 
-		func0f0f8300();
+		menu_hide_pressstart_labels();
 	}
 
 	if (!silent) {

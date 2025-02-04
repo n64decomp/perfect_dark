@@ -3689,9 +3689,9 @@ struct menudialog {
 	/*0x6e*/ u8 unk6e;
 };
 
-struct menudfc {
+struct menuitemredrawinfo {
 	struct menuitem *item;
-	f32 unk04;
+	f32 timer60;
 };
 
 struct menudata_endscreen {
@@ -3921,7 +3921,7 @@ struct menu {
 	/*0x83f*/ u8 unk83f;
 	/*0x840*/ struct menumodel menumodel;
 	/*0xdf8*/ s8 bannernum;
-	/*0xdfc*/ struct menudfc unkdfc[4];
+	/*0xdfc*/ struct menuitemredrawinfo itemredrawinfo[4];
 
 	union {
 		struct menudata_endscreen endscreen;
@@ -4700,42 +4700,38 @@ struct frdata {
 	/*0x47c*/ u32 unk47c;
 };
 
-struct menudata_5d8 {
+struct perfectheadfile {
 	struct fileguid fileguid;
-	u8 unk08;
-	u8 unk09;
-	u8 unk0a;
-	u8 unk0b;
+	u8 playernum1;
+	u8 playernum2;
 };
 
 struct menudata {
 	/*0x000*/ s32 count;
 	/*0x004*/ s32 root;
-	/*0x008*/ s32 unk008; // also a menuroot constant
-	/*0x00c*/ struct menudialogdef *unk00c;
-	/*0x010*/ f32 unk010;
+	/*0x008*/ s32 nextroot;
+	/*0x00c*/ struct menudialogdef *nextdialog;
+	/*0x010*/ f32 bgopacityfrac;
 	/*0x014*/ u8 bg;
 	/*0x015*/ u8 nextbg;
 	/*0x016*/ u8 screenshottimer;
 	/*0x017*/ u8 playerjoinalpha[MAX_PLAYERS];
 	/*0x01b*/ s8 bannernum;
 	/*0x01c*/ struct menumodel hudpiece;
-	/*0x5d4*/ u8 unk5d4;
-	/*0x5d5*/ u8 unk5d5_01 : 1;
-	/*0x5d5*/ u8 unk5d5_02 : 1;
+	/*0x5d4*/ u8 hudpieceactive;
+	/*0x5d5*/ u8 ininventorymenu : 1;
+	/*0x5d5*/ u8 unk5d5_unused : 1;
 	/*0x5d5*/ u8 usezbuf : 1;
-	/*0x5d5*/ u8 unk5d5_04 : 1;
-	/*0x5d5*/ u8 unk5d5_05 : 1;
-	/*0x5d5*/ u8 unk5d5_06 : 1;
-	/*0x5d5*/ u8 unk5d5_07 : 1;
-	/*0x5d5*/ u8 unk5d5_08 : 1;
-	/*0x5d8*/ struct menudata_5d8 unk5d8[12];
-	/*0x668*/ s8 unk668;
-	/*0x669*/ u8 unk669[5];
-	/*0x66e*/ s8 unk66e; // index into 669
-	/*0x66f*/ u8 unk66f;
-	/*0x670*/ s32 unk670;
-	/*0x674*/ s32 unk674;
+	/*0x5d5*/ u8 openedfrompc : 1;
+	/*0x5d5*/ u8 triggerhudpiece : 1;
+	/*0x5d5*/ u8 checkroots : 1;
+	/*0x5d8*/ struct perfectheadfile perfectheadfiles[12];
+	/*0x668*/ s8 lastperfectheadfile;
+	/*0x669*/ u8 pendingsaves[5];
+	/*0x66e*/ s8 numpendingsaves;
+	/*0x66f*/ u8 savetimer;
+	/*0x670*/ s32 projectfromx;
+	/*0x674*/ s32 projectfromy;
 };
 
 struct ammotype {
