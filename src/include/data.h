@@ -503,7 +503,7 @@ extern s32 g_FrWeaponNum;
 extern u8 g_ChrBioSlot;
 extern u8 g_HangarBioSlot;
 extern u8 g_DtSlot;
-extern u8 var80088bb4;
+extern u8 g_HtSlot;
 extern struct vtxstoretype g_VtxstoreTypes[4];
 extern struct menudialogdef g_FrWeaponListMenuDialog;
 extern struct menudialogdef g_FrTrainingInfoInGameMenuDialog;

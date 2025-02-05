@@ -919,7 +919,7 @@ u8 func1002_devicetraining_camspy[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	set_savefile_flag(GAMEFILEFLAG_CI_CAMSPY_DONE)
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 #if VERSION >= VERSION_NTSC_1_0
 	set_stage_flag(STAGEFLAG_CONSIDER_WARP)
@@ -1058,7 +1058,7 @@ u8 func1003_devicetraining_nightvision[] = {
 	set_lights_state(0x0022, LIGHTOP_SET, 255, 0, 0)
 	yield
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1230,7 +1230,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	unset_object_flag2(0x88, OBJFLAG2_INVISIBLE)
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	mute_channel(CHANNEL_1)
 	unlock_door(0x31, 0x40)
@@ -1442,7 +1442,7 @@ u8 func1005_devicetraining_xray[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1581,7 +1581,7 @@ u8 func1006_devicetraining_disguise[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1730,7 +1730,7 @@ u8 func1007_devicetrainign_ir[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -1857,7 +1857,7 @@ u8 func1008_devicetraining_rtracker[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -2008,7 +2008,7 @@ u8 func1009_devicetraining_cloak[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -2161,7 +2161,7 @@ u8 func100a_devicetraining_ecmmine[] = {
 	yield
 	set_stage_flag(STAGEFLAG_TRIGGER_DEVICE_SUCCESS)
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -2371,7 +2371,7 @@ u8 func100b_devicetraining_uplink[] = {
 	goto_next(0x84)
 
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 	unlock_door(0x31, 0x40)
 	unlock_door(0x8a, 0x40)
@@ -2417,7 +2417,7 @@ u8 func101a_move_jo_to_training_room[] = {
 		label(0x06)
 #endif
 		unset_stage_flag(STAGEFLAG_CONSIDER_WARP)
-		if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x2f)
+		if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x2f)
 		goto_next(0x30)
 
 		// In room
@@ -2436,11 +2436,11 @@ u8 func101a_move_jo_to_training_room[] = {
 	endloop(0x08)
 
 	label(0x2f)
-	if_chr_in_room(CHR_BOND, 0x00, 0x0016, /*goto*/ 0x2f)
-	if_chr_in_room(CHR_BOND, 0x00, 0x0017, /*goto*/ 0x2f)
-	if_chr_in_room(CHR_BOND, 0x00, 0x0018, /*goto*/ 0x2f)
-	if_chr_in_room(CHR_BOND, 0x00, 0x0019, /*goto*/ 0x2f)
-	if_chr_in_room(CHR_BOND, 0x00, 0x0014, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_HOLO1, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_HOLO2, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_HOLO3, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_HOLO4, /*goto*/ 0x2f)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_0014, /*goto*/ 0x2f)
 	move_camera_to_pad(PAD_DISH_0151)
 	set_ailist(CHR_P1P2, AILIST_MOVE_TO_DEVICEROOM)
 	goto_next(0x06)
@@ -3687,7 +3687,7 @@ u8 func101c_holo1_main[] = {
 	goto_next(0x84)
 
 	label(0x84)
-	if_chr_in_room(CHR_BOND, 0x00, 0x001e, /*goto*/ 0x90)
+	if_chr_in_room(CHR_BOND, 0x00, ROOM_DISH_DEVICELAB, /*goto*/ 0x90)
 	label(0x90)
 #if VERSION >= VERSION_NTSC_1_0
 	set_stage_flag(STAGEFLAG_CONSIDER_WARP)

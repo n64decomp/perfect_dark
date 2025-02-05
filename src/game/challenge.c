@@ -216,7 +216,7 @@ void challenge_determine_unlocked_features(void)
 	for (j = 0; j < func0f188bcc(); j++) {
 		struct mpweapon *weapon = &g_MpWeapons[j];
 
-		if (weapon->unlockfeature > 0 && func0f19cbcc(weapon->weaponnum)) {
+		if (weapon->unlockfeature > 0 && fr_is_weapon_available_for_mp(weapon->weaponnum)) {
 			g_MpFeaturesUnlocked[weapon->unlockfeature] |= 1;
 		}
 	}

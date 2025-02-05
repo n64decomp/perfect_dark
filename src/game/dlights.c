@@ -432,7 +432,7 @@ void room_init_lights(s32 roomnum)
 			switch (g_Vars.stagenum) {
 			case STAGE_CITRAINING:
 			case STAGE_DEFENSE:
-				if (roomnum == 0x000a) { // firing range
+				if (roomnum == ROOM_DISH_FIRINGRANGE) {
 					light->vulnerable = false;
 				}
 				break;

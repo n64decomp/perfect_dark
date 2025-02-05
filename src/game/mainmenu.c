@@ -1779,7 +1779,7 @@ s32 get_num_unlocked_special_stages(void)
 		offsetforduel = 0;
 	} else {
 		for (i = 0; i < (VERSION >= VERSION_NTSC_1_0 ? 32 : 33); i++) {
-			if (ci_get_firing_range_score(i) <= 0) {
+			if (fr_get_score(i) <= FRSCORE_INCOMPLETE) {
 				offsetforduel = 0;
 			}
 		}

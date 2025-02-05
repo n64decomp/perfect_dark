@@ -41,6 +41,41 @@
 #define FRSCRIPTINDEX_TARGETS 0x22
 #define FRSCRIPTINDEX_HELP    0x71
 
+#define FRWEAPON_FALCON2          0
+#define FRWEAPON_FALCON2_SCOPE    1
+#define FRWEAPON_FALCON2_SILENCER 2
+#define FRWEAPON_MAGSEC4          3
+#define FRWEAPON_MAULER           4
+#define FRWEAPON_PHOENIX          5
+#define FRWEAPON_DY357MAGNUM      6
+#define FRWEAPON_DY357LX          7
+#define FRWEAPON_CMP150           8
+#define FRWEAPON_CYCLONE          9
+#define FRWEAPON_CALLISTO         10
+#define FRWEAPON_RCP120           11
+#define FRWEAPON_LAPTOPGUN        12
+#define FRWEAPON_DRAGON           13
+#define FRWEAPON_K7AVENGER        14
+#define FRWEAPON_AR34             15
+#define FRWEAPON_SUPERDRAGON      16
+#define FRWEAPON_SHOTGUN          17
+#define FRWEAPON_SNIPERRIFLE      18
+#define FRWEAPON_FARSIGHT         19
+#define FRWEAPON_CROSSBOW         20
+#define FRWEAPON_TRANQUILIZER     21
+#define FRWEAPON_REAPER           22
+#define FRWEAPON_DEVASTATOR       23
+#define FRWEAPON_ROCKETLAUNCHER   24
+#define FRWEAPON_SLAYER           25
+#define FRWEAPON_COMBATKNIFE      26
+#define FRWEAPON_LASER            27
+#define FRWEAPON_GRENADE          28
+#define FRWEAPON_TIMEDMINE        29
+#define FRWEAPON_PROXIMITYMINE    30
+#define FRWEAPON_REMOTEMINE       31
+
+#define FR_DIFFICULTY_TO_SCORE(diff) ((diff) + 1)
+
 extern u8 *_firingrangeSegmentRomStart;
 extern u8 *_firingrangeSegmentRomEnd;
 
@@ -61,7 +96,7 @@ u16 g_FrPads[] = {
 	0x00f2, 0x00f1, 0x00f0, 0x00ef, 0x00ee, 0x00ed, 0x00ec,
 };
 
-u32 func0f1a25c0(s32 index);
+u32 ht_get_stageflag(s32 index);
 u32 ci_get_stage_flag_by_device_index(u32 deviceindex);
 
 bool ci_is_tour_done(void)
@@ -69,37 +104,36 @@ bool ci_is_tour_done(void)
 	return gamefile_has_flag(GAMEFILEFLAG_CI_TOUR_DONE);
 }
 
-u8 ci_get_firing_range_score(s32 weaponindex)
+u8 fr_get_score(s32 frweaponnum)
 {
-	// Data at firingrangescores is a u8 array where each score uses 2 bits
-
 #if VERSION == VERSION_JPN_FINAL
-	if (weaponindex == fr_get_weapon_index_by_weapon(WEAPON_COMBATKNIFE)) {
+	if (frweaponnum == fr_weaponnum_to_frweaponnum(WEAPON_COMBATKNIFE)) {
 		// The knife doesn't exist in the JPN version.
 		// Treat it as completed so unlockables still work.
-		return 3;
+		return FRSCORE_GOLD;
 	}
 #endif
 
-	return (g_GameFile.firingrangescores[weaponindex >> 2] >> (weaponindex % 4) * 2) & 3;
+	// Data at firingrangescores is a u8 array where each score uses 2 bits
+	return (g_GameFile.firingrangescores[frweaponnum >> 2] >> (frweaponnum % 4) * 2) & 3;
 }
 
-void fr_save_score_if_best(s32 weaponindex, s32 difficulty)
+void fr_save_score_if_best(s32 frweaponnum, s32 score)
 {
-	if (ci_get_firing_range_score(weaponindex) < difficulty) {
-		u32 byteindex = weaponindex >> 2;
-		u32 shiftamount = (weaponindex % 4) * 2;
+	if (score > fr_get_score(frweaponnum)) {
+		u32 byteindex = frweaponnum >> 2;
+		u32 shiftamount = (frweaponnum % 4) * 2;
 		u32 value = g_GameFile.firingrangescores[byteindex];
 		u32 mask = (1 << shiftamount) + (1 << (shiftamount + 1));
 
 		value &= 255 - mask;
-		value += (difficulty << shiftamount) & mask;
+		value += (score << shiftamount) & mask;
 
 		g_GameFile.firingrangescores[byteindex] = value;
 	}
 }
 
-s32 func0f19ca78(u32 weaponnum)
+s32 fr_weaponnum_to_slotnum(u32 weaponnum)
 {
 	s32 slot = -1;
 	s32 i;
@@ -189,7 +223,7 @@ s32 ci_is_stage_complete(s32 stageindex)
 		|| g_GameFile.besttimes[stageindex][2];
 }
 
-bool func0f19cbcc(s32 weapon)
+bool fr_is_weapon_available_for_mp(s32 weapon)
 {
 	if (weapon <= 0 || weapon == WEAPON_PSYCHOSISGUN) {
 		return false;
@@ -206,7 +240,7 @@ bool func0f19cbcc(s32 weapon)
 	return fr_is_weapon_found(weapon);
 }
 
-bool fr_is_weapon_available(s32 weapon)
+bool fr_is_weapon_available_for_fr(s32 weapon)
 {
 #if VERSION == VERSION_JPN_FINAL
 	if (weapon == WEAPON_COMBATKNIFE) {
@@ -236,41 +270,41 @@ bool fr_is_weapon_available(s32 weapon)
 	return fr_is_weapon_found(weapon);
 }
 
-u32 fr_get_weapon_index_by_weapon(u32 weaponnum)
+u32 fr_weaponnum_to_frweaponnum(u32 weaponnum)
 {
 	switch (weaponnum) {
-	case WEAPON_FALCON2:          return 0;
-	case WEAPON_FALCON2_SCOPE:    return 1;
-	case WEAPON_FALCON2_SILENCER: return 2;
-	case WEAPON_MAGSEC4:          return 3;
-	case WEAPON_MAULER:           return 4;
-	case WEAPON_PHOENIX:          return 5;
-	case WEAPON_DY357MAGNUM:      return 6;
-	case WEAPON_DY357LX:          return 7;
-	case WEAPON_CMP150:           return 8;
-	case WEAPON_CYCLONE:          return 9;
-	case WEAPON_CALLISTO:         return 10;
-	case WEAPON_RCP120:           return 11;
-	case WEAPON_LAPTOPGUN:        return 12;
-	case WEAPON_DRAGON:           return 13;
-	case WEAPON_K7AVENGER:        return 14;
-	case WEAPON_AR34:             return 15;
-	case WEAPON_SUPERDRAGON:      return 16;
-	case WEAPON_SHOTGUN:          return 17;
-	case WEAPON_SNIPERRIFLE:      return 18;
-	case WEAPON_FARSIGHT:         return 19;
-	case WEAPON_CROSSBOW:         return 20;
-	case WEAPON_TRANQUILIZER:     return 21;
-	case WEAPON_REAPER:           return 22;
-	case WEAPON_DEVASTATOR:       return 23;
-	case WEAPON_ROCKETLAUNCHER:   return 24;
-	case WEAPON_SLAYER:           return 25;
-	case WEAPON_COMBATKNIFE:      return 26;
-	case WEAPON_LASER:            return 27;
-	case WEAPON_GRENADE:          return 28;
-	case WEAPON_TIMEDMINE:        return 29;
-	case WEAPON_PROXIMITYMINE:    return 30;
-	case WEAPON_REMOTEMINE:       return 31;
+	case WEAPON_FALCON2:          return FRWEAPON_FALCON2;
+	case WEAPON_FALCON2_SCOPE:    return FRWEAPON_FALCON2_SCOPE;
+	case WEAPON_FALCON2_SILENCER: return FRWEAPON_FALCON2_SILENCER;
+	case WEAPON_MAGSEC4:          return FRWEAPON_MAGSEC4;
+	case WEAPON_MAULER:           return FRWEAPON_MAULER;
+	case WEAPON_PHOENIX:          return FRWEAPON_PHOENIX;
+	case WEAPON_DY357MAGNUM:      return FRWEAPON_DY357MAGNUM;
+	case WEAPON_DY357LX:          return FRWEAPON_DY357LX;
+	case WEAPON_CMP150:           return FRWEAPON_CMP150;
+	case WEAPON_CYCLONE:          return FRWEAPON_CYCLONE;
+	case WEAPON_CALLISTO:         return FRWEAPON_CALLISTO;
+	case WEAPON_RCP120:           return FRWEAPON_RCP120;
+	case WEAPON_LAPTOPGUN:        return FRWEAPON_LAPTOPGUN;
+	case WEAPON_DRAGON:           return FRWEAPON_DRAGON;
+	case WEAPON_K7AVENGER:        return FRWEAPON_K7AVENGER;
+	case WEAPON_AR34:             return FRWEAPON_AR34;
+	case WEAPON_SUPERDRAGON:      return FRWEAPON_SUPERDRAGON;
+	case WEAPON_SHOTGUN:          return FRWEAPON_SHOTGUN;
+	case WEAPON_SNIPERRIFLE:      return FRWEAPON_SNIPERRIFLE;
+	case WEAPON_FARSIGHT:         return FRWEAPON_FARSIGHT;
+	case WEAPON_CROSSBOW:         return FRWEAPON_CROSSBOW;
+	case WEAPON_TRANQUILIZER:     return FRWEAPON_TRANQUILIZER;
+	case WEAPON_REAPER:           return FRWEAPON_REAPER;
+	case WEAPON_DEVASTATOR:       return FRWEAPON_DEVASTATOR;
+	case WEAPON_ROCKETLAUNCHER:   return FRWEAPON_ROCKETLAUNCHER;
+	case WEAPON_SLAYER:           return FRWEAPON_SLAYER;
+	case WEAPON_COMBATKNIFE:      return FRWEAPON_COMBATKNIFE;
+	case WEAPON_LASER:            return FRWEAPON_LASER;
+	case WEAPON_GRENADE:          return FRWEAPON_GRENADE;
+	case WEAPON_TIMEDMINE:        return FRWEAPON_TIMEDMINE;
+	case WEAPON_PROXIMITYMINE:    return FRWEAPON_PROXIMITYMINE;
+	case WEAPON_REMOTEMINE:       return FRWEAPON_REMOTEMINE;
 	}
 
 	return 0;
@@ -320,52 +354,52 @@ s32 fr_is_classic_weapon_unlocked(u32 weapon)
 {
 	switch (weapon) {
 	case WEAPON_PP9I:
-		return ci_get_firing_range_score(0) == 3
-			&& ci_get_firing_range_score(1) == 3
-			&& ci_get_firing_range_score(2) == 3;
+		return fr_get_score(FRWEAPON_FALCON2) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_FALCON2_SCOPE) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_FALCON2_SILENCER) == FRSCORE_GOLD;
 	case WEAPON_CC13:
-		return ci_get_firing_range_score(3) == 3
-			&& ci_get_firing_range_score(4) == 3
-			&& ci_get_firing_range_score(5) == 3
-			&& ci_get_firing_range_score(6) == 3
-			&& ci_get_firing_range_score(7) == 3;
+		return fr_get_score(FRWEAPON_MAGSEC4) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_MAULER) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_PHOENIX) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_DY357MAGNUM) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_DY357LX) == FRSCORE_GOLD;
 	case WEAPON_KL01313:
-		return ci_get_firing_range_score(8) == 3
-			&& ci_get_firing_range_score(9) == 3
-			&& ci_get_firing_range_score(10) == 3
-			&& ci_get_firing_range_score(11) == 3;
+		return fr_get_score(FRWEAPON_CMP150) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_CYCLONE) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_CALLISTO) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_RCP120) == FRSCORE_GOLD;
 	case WEAPON_KF7SPECIAL:
-		return ci_get_firing_range_score(12) == 3
-			&& ci_get_firing_range_score(13) == 3
-			&& ci_get_firing_range_score(14) == 3
-			&& ci_get_firing_range_score(15) == 3
-			&& ci_get_firing_range_score(16) == 3;
+		return fr_get_score(FRWEAPON_LAPTOPGUN) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_DRAGON) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_K7AVENGER) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_AR34) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_SUPERDRAGON) == FRSCORE_GOLD;
 	case WEAPON_ZZT:
-		return ci_get_firing_range_score(17) == 3
-			&& ci_get_firing_range_score(18) == 3
-			&& ci_get_firing_range_score(24) == 3
-			&& ci_get_firing_range_score(25) == 3;
+		return fr_get_score(FRWEAPON_SHOTGUN) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_SNIPERRIFLE) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_ROCKETLAUNCHER) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_SLAYER) == FRSCORE_GOLD;
 	case WEAPON_DMC:
 #if VERSION >= VERSION_NTSC_1_0
-		return ci_get_firing_range_score(29) == 3
-			&& ci_get_firing_range_score(30) == 3
-			&& ci_get_firing_range_score(31) == 3;
+		return fr_get_score(FRWEAPON_TIMEDMINE) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_PROXIMITYMINE) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_REMOTEMINE) == FRSCORE_GOLD;
 #else
-		return ci_get_firing_range_score(29) == 3
-			&& ci_get_firing_range_score(30) == 3
-			&& ci_get_firing_range_score(32) == 3
-			&& ci_get_firing_range_score(33) == 3
-			&& ci_get_firing_range_score(34) == 3;
+		return fr_get_score(FRWEAPON_TIMEDMINE) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_PROXIMITYMINE) == FRSCORE_GOLD
+			&& fr_get_score(32) == FRSCORE_GOLD
+			&& fr_get_score(33) == FRSCORE_GOLD
+			&& fr_get_score(34) == FRSCORE_GOLD;
 #endif
 	case WEAPON_AR53:
-		return ci_get_firing_range_score(19) == 3
-			&& ci_get_firing_range_score(20) == 3
-			&& ci_get_firing_range_score(26) == 3
-			&& ci_get_firing_range_score(28) == 3;
+		return fr_get_score(FRWEAPON_FARSIGHT) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_CROSSBOW) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_COMBATKNIFE) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_GRENADE) == FRSCORE_GOLD;
 	case WEAPON_RCP45:
-		return ci_get_firing_range_score(21) == 3
-			&& ci_get_firing_range_score(22) == 3
-			&& ci_get_firing_range_score(23) == 3;
+		return fr_get_score(FRWEAPON_TRANQUILIZER) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_REAPER) == FRSCORE_GOLD
+			&& fr_get_score(FRWEAPON_DEVASTATOR) == FRSCORE_GOLD;
 	}
 
 	return false;
@@ -387,7 +421,7 @@ u32 fr_get_weapon_by_slot(s32 slot)
 	s32 weapon;
 
 	for (weapon = WEAPON_NONE; weapon <= WEAPON_HORIZONSCANNER; weapon++) {
-		if (fr_is_weapon_available(weapon)) {
+		if (fr_is_weapon_available_for_fr(weapon)) {
 			index++;
 		}
 
@@ -405,7 +439,7 @@ s32 fr_get_num_weapons_available(void)
 	s32 i;
 
 	for (i = WEAPON_UNARMED; i <= WEAPON_HORIZONSCANNER; i++) {
-		if (fr_is_weapon_available(i)) {
+		if (fr_is_weapon_available_for_fr(i)) {
 			count++;
 		}
 	}
@@ -1390,8 +1424,8 @@ void fr_set_completed(void)
 		g_FrData.failreason = FRFAILREASON_INACCURATE;
 		g_FrData.menutype = FRMENUTYPE_FAILED;
 	} else {
-		u32 frweaponindex = fr_get_weapon_index_by_weapon(fr_get_weapon_by_slot(g_FrData.slot));
-		fr_save_score_if_best(frweaponindex, g_FrData.difficulty + 1);
+		u32 frweaponindex = fr_weaponnum_to_frweaponnum(fr_get_weapon_by_slot(g_FrData.slot));
+		fr_save_score_if_best(frweaponindex, FR_DIFFICULTY_TO_SCORE(g_FrData.difficulty));
 		g_FrData.menutype = FRMENUTYPE_COMPLETED;
 	}
 
@@ -2170,7 +2204,7 @@ void fr_tick(void)
 	}
 }
 
-void func0f1a0924(struct prop *prop)
+void fr_track_target(struct prop *prop)
 {
 	struct defaultobj *obj = prop->obj;
 	s32 i;
@@ -2619,9 +2653,6 @@ struct hangarbio *ci_get_hangar_bio(s32 index)
 	return NULL;
 }
 
-u8 g_DtSlot = 0;
-u8 var80088adc = 0;
-
 bool ci_is_hangar_bio_unlocked(u32 bioindex)
 {
 	u32 stage;
@@ -2742,6 +2773,9 @@ char *ci_get_hangar_bio_description(void)
 	return lang_get(bio->description);
 }
 
+u8 g_DtSlot = 0;
+u8 g_DtInitialised = 0;
+
 struct trainingdata *dt_get_data(void)
 {
 	return &g_DtData;
@@ -2792,7 +2826,7 @@ void dt_push_endscreen(void)
 
 void dt_tick(void)
 {
-	if (var80088adc) {
+	if (g_DtInitialised) {
 		if (g_DtData.intraining) {
 			g_DtData.timetaken += g_Vars.lvupdate60;
 
@@ -2821,10 +2855,10 @@ void dt_tick(void)
 	}
 }
 
-void func0f1a1ac0(void)
+void dt_reset(void)
 {
-	if (var80088adc == false) {
-		var80088adc = true;
+	if (g_DtInitialised == false) {
+		g_DtInitialised = true;
 		g_DtData.intraining = false;
 		g_DtData.failed = false;
 		g_DtData.completed = false;
@@ -3055,6 +3089,9 @@ char *dt_get_tip2(void)
 	return lang_get(texts[dt_get_index_by_slot(g_DtSlot)]);
 }
 
+u8 g_HtSlot = 0;
+u8 g_HtInitialised = 0;
+
 struct trainingdata *get_holo_training_data(void)
 {
 	return &g_HtData;
@@ -3074,12 +3111,9 @@ void ht_push_endscreen(void)
 	g_HtData.finished = false;
 }
 
-u8 var80088bb4 = 0;
-u8 var80088bb8 = 0;
-
 void ht_tick(void)
 {
-	if (var80088bb8) {
+	if (g_HtInitialised) {
 		if (g_HtData.intraining) {
 			g_HtData.timetaken += g_Vars.lvupdate60;
 
@@ -3108,10 +3142,10 @@ void ht_tick(void)
 	}
 }
 
-void func0f1a2198(void)
+void ht_reset(void)
 {
-	if (var80088bb8 == false) {
-		var80088bb8 = true;
+	if (g_HtInitialised == false) {
+		g_HtInitialised = true;
 		g_HtData.intraining = false;
 		g_HtData.failed = false;
 		g_HtData.completed = false;
@@ -3133,7 +3167,7 @@ void ht_begin(void)
 	chr_unset_stage_flag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
 	chr_unset_stage_flag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_SUCCESS);
 	chr_unset_stage_flag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
-	chr_set_stage_flag(NULL, func0f1a25c0(ht_get_index_by_slot(var80088bb4)));
+	chr_set_stage_flag(NULL, ht_get_stageflag(ht_get_index_by_slot(g_HtSlot)));
 
 	// Disable segment leading out of the door
 	nav_disable_segment(&waypoints[0x20], &waypoints[0x31]);
@@ -3148,13 +3182,19 @@ void ht_end(void)
 	struct prop *prop;
 	s16 *propnum;
 	s16 propnums[256];
-	RoomNum rooms[5] = { 0x0016, 0x0017, 0x0018, 0x0019, -1 };
+	RoomNum rooms[] = {
+		ROOM_DISH_HOLO1,
+		ROOM_DISH_HOLO2,
+		ROOM_DISH_HOLO3,
+		ROOM_DISH_HOLO4,
+		-1,
+	};
 	struct waypoint *waypoints = g_StageSetup.waypoints;
 
 	g_HtData.intraining = false;
 	chr_set_stage_flag(NULL, STAGEFLAG_CI_HOLO_ABORTING);
 	chr_unset_stage_flag(NULL, STAGEFLAG_CI_TRIGGER_HOLO_FAILURE);
-	chr_unset_stage_flag(NULL, func0f1a25c0(ht_get_index_by_slot(var80088bb4)));
+	chr_unset_stage_flag(NULL, ht_get_stageflag(ht_get_index_by_slot(g_HtSlot)));
 
 	// Enable segment leading out of the door
 	nav_enable_segment(&waypoints[0x20], &waypoints[0x31]);
@@ -3257,7 +3297,7 @@ char *ht_get_name(s32 index)
 	return lang_get(texts[index]);
 }
 
-u32 func0f1a25c0(s32 index)
+u32 ht_get_stageflag(s32 index)
 {
 	u32 flags[] = {
 		STAGEFLAG_CI_IN_HOLO1,
@@ -3295,7 +3335,7 @@ char *ht_get_description(void)
 #endif
 	};
 
-	return lang_get(texts[ht_get_index_by_slot(var80088bb4)]);
+	return lang_get(texts[ht_get_index_by_slot(g_HtSlot)]);
 }
 
 char *ht_get_tip1(void)
@@ -3320,7 +3360,7 @@ char *ht_get_tip1(void)
 #endif
 	};
 
-	return lang_get(texts[ht_get_index_by_slot(var80088bb4)]);
+	return lang_get(texts[ht_get_index_by_slot(g_HtSlot)]);
 }
 
 char *ht_get_tip2(void)
@@ -3345,7 +3385,7 @@ char *ht_get_tip2(void)
 #endif
 	};
 
-	return lang_get(texts[ht_get_index_by_slot(var80088bb4)]);
+	return lang_get(texts[ht_get_index_by_slot(g_HtSlot)]);
 }
 
 #if VERSION >= VERSION_JPN_FINAL

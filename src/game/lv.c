@@ -1242,7 +1242,7 @@ Gfx *lv_render(Gfx *gdl)
 					if (fr_is_in_training()
 							&& g_Vars.currentplayer->lookingatprop.prop
 							&& bmove_is_in_sight_aim_mode()) {
-						func0f1a0924(g_Vars.currentplayer->lookingatprop.prop);
+						fr_track_target(g_Vars.currentplayer->lookingatprop.prop);
 					} else if (lv_update_tracked_prop(&g_Vars.currentplayer->lookingatprop, -1) == 0) {
 						g_Vars.currentplayer->lookingatprop.prop = NULL;
 					}

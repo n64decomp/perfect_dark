@@ -4,19 +4,24 @@
 #include "data.h"
 #include "types.h"
 
+#define FRSCORE_INCOMPLETE 0
+#define FRSCORE_BRONZE     1
+#define FRSCORE_SILVER     2
+#define FRSCORE_GOLD       3
+
 extern u8 g_FrIsValidWeapon;
 extern s32 g_FrWeaponNum;
 extern u8 g_ChrBioSlot;
-extern u8 var80088bb4;
+extern u8 g_HtSlot;
 extern u8 g_HangarBioSlot;
 extern u8 g_DtSlot;
 
 bool ci_is_tour_done(void);
-u8 ci_get_firing_range_score(s32 weaponindex);
+u8 fr_get_score(s32 weaponindex);
 u8 fr_is_weapon_found(s32 weapon);
 void fr_set_weapon_found(s32 weaponnum);
-bool func0f19cbcc(s32 weapon);
-u32 fr_get_weapon_index_by_weapon(u32 weaponnum);
+bool fr_is_weapon_available_for_mp(s32 weapon);
+u32 fr_weaponnum_to_frweaponnum(u32 weaponnum);
 s32 fr_is_classic_weapon_unlocked(u32 weapon);
 s32 fr_get_slot(void);
 void fr_set_slot(s32 slot);
@@ -35,7 +40,7 @@ bool fr_is_target_one_hit_explodable(struct prop *prop);
 bool fr_is_target_facing_pos(struct prop *prop, struct coord *pos);
 struct prop *fr_choose_autogun_target(struct coord *autogunpos);
 void fr_tick(void);
-void func0f1a0924(struct prop *prop);
+void fr_track_target(struct prop *prop);
 bool fr_choose_farsight_target(void);
 s32 fr_is_in_training(void);
 void fr_calculate_hit(struct defaultobj *obj, struct coord *hitpos, f32 maulercharge);
@@ -56,7 +61,7 @@ char *ci_get_hangar_bio_description(void);
 struct trainingdata *dt_get_data(void);
 void dt_push_endscreen(void);
 void dt_tick(void);
-void func0f1a1ac0(void);
+void dt_reset(void);
 void dt_begin(void);
 void dt_end(void);
 s32 dt_get_num_available(void);
@@ -68,7 +73,7 @@ char *dt_get_tip2(void);
 struct trainingdata *get_holo_training_data(void);
 void ht_push_endscreen(void);
 void ht_tick(void);
-void func0f1a2198(void);
+void ht_reset(void);
 void ht_begin(void);
 void ht_end(void);
 s32 ht_get_num_unlocked(void);

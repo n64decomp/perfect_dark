@@ -117,7 +117,7 @@ MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem
 		return 0;
 	case MENUOP_SET:
 		weaponnum = fr_get_weapon_by_slot(data->list.value);
-		score = ci_get_firing_range_score(fr_get_weapon_index_by_weapon(weaponnum));
+		score = fr_get_score(fr_weaponnum_to_frweaponnum(weaponnum));
 
 #if VERSION < VERSION_NTSC_1_0
 		if (g_Menus[g_MpPlayerNum].layers[g_Menus[g_MpPlayerNum].depth - 1].numsiblings > 1) {
@@ -130,7 +130,7 @@ MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem
 		fr_set_slot(data->list.value);
 
 		if (score) {
-			fr_set_difficulty(ci_get_firing_range_score(fr_get_weapon_index_by_weapon(weaponnum)));
+			fr_set_difficulty(fr_get_score(fr_weaponnum_to_frweaponnum(weaponnum)));
 			menu_push_dialog(&g_FrDifficultyMenuDialog);
 		} else {
 			fr_set_difficulty(FRDIFFICULTY_BRONZE);
@@ -144,7 +144,7 @@ MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem
 		gdl = data->type19.gdl;
 		renderdata = data->type19.renderdata2;
 		weaponnum2 = fr_get_weapon_by_slot(data->type19.unk04);
-		score2 = ci_get_firing_range_score(fr_get_weapon_index_by_weapon(weaponnum2));
+		score2 = fr_get_score(fr_weaponnum_to_frweaponnum(weaponnum2));
 
 		// Render weapon name
 		x = renderdata->x + 10;
@@ -269,7 +269,7 @@ MenuItemHandlerResult fr_difficulty_dropdown_menu_handler(s32 operation, struct 
 
 	switch (operation) {
 	case MENUOP_GETOPTIONCOUNT:
-		data->dropdown.value = ci_get_firing_range_score(fr_get_slot()) + 1;
+		data->dropdown.value = fr_get_score(fr_get_slot()) + 1;
 
 		if (data->dropdown.value > 3) {
 			data->dropdown.value = 3;
@@ -293,7 +293,7 @@ MenuItemHandlerResult fr_difficulty_menu_handler(s32 operation, struct menuitem 
 {
 	switch (operation) {
 	case MENUOP_CHECKHIDDEN:
-		if (ci_get_firing_range_score(fr_get_weapon_index_by_weapon(fr_get_weapon_by_slot(fr_get_slot()))) < item->param) {
+		if (fr_get_score(fr_weaponnum_to_frweaponnum(fr_get_weapon_by_slot(fr_get_slot()))) < item->param) {
 			return true;
 		}
 		break;
@@ -302,7 +302,7 @@ MenuItemHandlerResult fr_difficulty_menu_handler(s32 operation, struct menuitem 
 		menu_push_dialog(&g_FrTrainingInfoPreGameMenuDialog);
 		break;
 	case MENUOP_CHECKPREFOCUSED:
-		if (ci_get_firing_range_score(fr_get_weapon_index_by_weapon(fr_get_weapon_by_slot(fr_get_slot()))) >= item->param) {
+		if (fr_get_score(fr_weaponnum_to_frweaponnum(fr_get_weapon_by_slot(fr_get_slot()))) >= item->param) {
 			return true;
 		}
 		break;
@@ -1877,7 +1877,7 @@ MenuDialogHandlerResult dt_training_details_menu_dialog(s32 operation, struct me
 		{
 			s32 weaponnum = dt_get_weapon_by_device_index(dt_get_index_by_slot(g_DtSlot));
 			u16 unused[] = {64250, 38500, 25650, 25700, 12950};
-			func0f1a1ac0();
+			dt_reset();
 			g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
 			func0f105948(weaponnum);
 
@@ -2001,11 +2001,11 @@ MenuItemHandlerResult ht_holo_list_menu_handler(s32 operation, struct menuitem *
 	case MENUOP_GETOPTIONTEXT:
 		return (s32) ht_get_name(ht_get_index_by_slot(data->list.value));
 	case MENUOP_SET:
-		var80088bb4 = data->list.value;
+		g_HtSlot = data->list.value;
 		menu_push_dialog(&g_HtDetailsMenuDialog);
 		break;
 	case MENUOP_GETSELECTEDINDEX:
-		data->list.value = var80088bb4;
+		data->list.value = g_HtSlot;
 		break;
 	case MENUOP_GETOPTGROUPCOUNT:
 		data->list.value = 0;
@@ -2022,7 +2022,7 @@ MenuItemHandlerResult ht_holo_list_menu_handler(s32 operation, struct menuitem *
 
 char *ht_menu_text_name(struct menuitem *item)
 {
-	return ht_get_name(ht_get_index_by_slot(var80088bb4));
+	return ht_get_name(ht_get_index_by_slot(g_HtSlot));
 }
 
 MenuItemHandlerResult menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -2048,7 +2048,7 @@ MenuDialogHandlerResult menudialog001a6aa4(s32 operation, struct menudialogdef *
 {
 	switch (operation) {
 	case MENUOP_OPEN:
-		func0f1a2198();
+		ht_reset();
 		break;
 	case MENUOP_CLOSE:
 		break;
