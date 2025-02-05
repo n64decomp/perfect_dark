@@ -221,7 +221,7 @@ MenuDialogHandlerResult fr_training_info_menu_dialog(s32 operation, struct menud
 	case MENUOP_OPEN:
 		weaponnum = fr_get_weapon_by_slot(fr_get_slot());
 		g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
-		func0f105948(weaponnum);
+		mainmenu_prepare_weapon_menumodel(weaponnum);
 
 		if (!fr_is_in_training()) {
 			fr_init_ammo(weaponnum);
@@ -1879,7 +1879,7 @@ MenuDialogHandlerResult dt_training_details_menu_dialog(s32 operation, struct me
 			u16 unused[] = {64250, 38500, 25650, 25700, 12950};
 			dt_reset();
 			g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
-			func0f105948(weaponnum);
+			mainmenu_prepare_weapon_menumodel(weaponnum);
 
 #if VERSION == VERSION_PAL_FINAL
 			if (g_ViRes == VIRES_HI) {

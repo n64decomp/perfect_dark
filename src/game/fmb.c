@@ -339,7 +339,7 @@ struct menudialogdef g_AudioVideo4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_307, // "Audio/Visual"
 	g_AudioVideo4MbMenuItems,
-	menudialog0010559c,
+	menudialog_mainmenu_options,
 	0,
 	NULL,
 };

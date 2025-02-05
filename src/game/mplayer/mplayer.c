@@ -104,25 +104,25 @@ s32 mp_choose_random_lock_player(void);
 s32 mp_get_chr_index_by_slot_num(s32 slot);
 
 /**
- * Converts the given value into a float on a curved scale from 0.1 to 10.
+ * Converts the given handicap into a float on a curved scale from 0.1 to 10.
  *
- * value 0 will return 0.1
- * value 127 will return 1
- * value 255 will return 10
+ * handicap 0 will return 0.1
+ * handicap 127 will return 1
+ * handicap 255 will return 10
  */
-f32 mp_handicap_to_damage_scale(u8 value)
+f32 mp_handicap_to_value(u8 handicap)
 {
 	f32 tmp;
 
-	if (value < 127) {
-		return (value / 127.0f) * (value / 127.0f) * 0.9f + 0.1f;
+	if (handicap < 127) {
+		return (handicap / 127.0f) * (handicap / 127.0f) * 0.9f + 0.1f;
 	}
 
-	if (value == 127) {
+	if (handicap == 127) {
 		return 1;
 	}
 
-	tmp = (value - 128) / 127.0f + 1;
+	tmp = (handicap - 128) / 127.0f + 1;
 
 	return tmp * tmp * 3 - 2;
 }

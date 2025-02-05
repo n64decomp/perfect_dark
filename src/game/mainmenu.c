@@ -120,12 +120,12 @@ MenuItemHandlerResult menuhandler_control_style_impl(s32 operation, struct menui
 	return 0;
 }
 
-MenuItemHandlerResult menuhandler001024dc(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_control_style_p1(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	return menuhandler_control_style_impl(operation, item, data, 4);
 }
 
-MenuItemHandlerResult menuhandler001024fc(s32 operation, struct menuitem *item, union handlerdata *data)
+MenuItemHandlerResult menuhandler_control_style_p2(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	return menuhandler_control_style_impl(operation, item, data, 5);
 }
@@ -770,7 +770,7 @@ char *solo_menu_title_stage_overview(struct menudialogdef *dialogdef)
 	return g_StringPointer;
 }
 
-MenuDialogHandlerResult menudialog00103608(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult menudialog_accept_mission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -820,18 +820,18 @@ struct menudialogdef g_AcceptMissionMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	(uintptr_t)&solo_menu_title_stage_overview,
 	g_AcceptMissionMenuItems,
-	menudialog00103608,
+	menudialog_accept_mission,
 	MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLEITEMSCROLL,
 	&g_PreAndPostMissionBriefingMenuDialog,
 };
 
-f32 func0f1036ac(u8 value, s32 prop)
+f32 mainmenu_pdmode_handicap_to_value(u8 handicap, s32 prop)
 {
 	if (prop == PDMODEPROP_REACTION) {
-		return value / 255.0f;
+		return handicap / 255.0f;
 	}
 
-	return mp_handicap_to_damage_scale(value);
+	return mp_handicap_to_value(handicap);
 }
 
 MenuItemHandlerResult menuhandler_pd_mode_setting(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -855,7 +855,7 @@ MenuItemHandlerResult menuhandler_pd_mode_setting(s32 operation, struct menuitem
 		*property = (u16)data->slider.value;
 		break;
 	case MENUOP_GETSLIDERLABEL:
-		fvalue = func0f1036ac(*property, item->param);
+		fvalue = mainmenu_pdmode_handicap_to_value(*property, item->param);
 		if (item->param == 0) {
 			fvalue = fvalue * 4 + 1.0f;
 		}
@@ -870,9 +870,9 @@ MenuItemHandlerResult menuhandler_accept_pd_mode_settings(s32 operation, struct 
 {
 	if (operation == MENUOP_SET) {
 		g_MissionConfig.pdmode = true;
-		g_MissionConfig.pdmodehealthf = func0f1036ac(g_MissionConfig.pdmodehealth, PDMODEPROP_HEALTH);
-		g_MissionConfig.pdmodedamagef = func0f1036ac(g_MissionConfig.pdmodedamage, PDMODEPROP_DAMAGE);
-		g_MissionConfig.pdmodeaccuracyf = func0f1036ac(g_MissionConfig.pdmodeaccuracy, PDMODEPROP_ACCURACY);
+		g_MissionConfig.pdmodehealthf = mainmenu_pdmode_handicap_to_value(g_MissionConfig.pdmodehealth, PDMODEPROP_HEALTH);
+		g_MissionConfig.pdmodedamagef = mainmenu_pdmode_handicap_to_value(g_MissionConfig.pdmodedamage, PDMODEPROP_DAMAGE);
+		g_MissionConfig.pdmodeaccuracyf = mainmenu_pdmode_handicap_to_value(g_MissionConfig.pdmodeaccuracy, PDMODEPROP_ACCURACY);
 		g_MissionConfig.difficulty = DIFF_PA;
 		lv_set_difficulty(g_MissionConfig.difficulty);
 		menu_pop_dialog();
@@ -1788,19 +1788,25 @@ s32 get_num_unlocked_special_stages(void)
 	return count + offsetforduel;
 }
 
-s32 func0f104720(s32 value)
+/**
+ * Convert a special stage index (0 = MBR, 3 = Duel) to a regular stage index (17-20).
+ *
+ * If the special stage index isn't unlocked then the stage index for Duel will be returned.
+ * This never happens though, so this function is needlessly complicated.
+ */
+s32 mainmenu_specialindex_to_stageindex(s32 specialindex)
 {
-	s32 next = 0;
+	s32 completed = 0;
 	s32 d;
 
 	for (d = 0; d < ARRAYCOUNT(g_GameFile.besttimes[0]); d++) {
 		if (g_GameFile.besttimes[SOLOSTAGEINDEX_SKEDARRUINS][d]) {
-			next = d + 1;
+			completed = d + 1;
 		}
 	}
 
-	if (next > value) {
-		return 17 + value;
+	if (completed > specialindex) {
+		return 17 + specialindex;
 	}
 
 	return 20;
@@ -1825,7 +1831,7 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 	s32 j;
 	bool stageiscomplete;
 	union handlerdata sp18c;
-	u32 sp188;
+	u32 stageindex2;
 	union handlerdata sp178;
 	union handlerdata sp168;
 	s32 sp164;
@@ -1879,24 +1885,24 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 		if (data->list.value < data->list.unk04u32) {
 			// Regular stage such as "dataDyne Central - Defection"
 			// Return the name before the dash, such as "dataDyne Central"
-			return (s32) lang_get(g_SoloStages[data->list.value].name1);
+			return (intptr_t) lang_get(g_SoloStages[data->list.value].name1);
 		}
 
 		// Special stages have no dash and suffix, so just return the name
-		return (s32) lang_get(g_SoloStages[func0f104720(data->list.value - data->list.unk04u32)].name1);
+		return (intptr_t) lang_get(g_SoloStages[mainmenu_specialindex_to_stageindex(data->list.value - data->list.unk04u32)].name1);
 	case MENUOP_SET:
-		sp188 = data->list.value;
+		stageindex2 = data->list.value;
 		menuhandler_mission_list(MENUOP_GETOPTIONCOUNT, item, &sp178);
 		sp178.list.value -= get_num_unlocked_special_stages();
 
 		if (data->list.value >= sp178.list.value) {
-			sp188 = func0f104720(data->list.value - sp178.list.value);
+			stageindex2 = mainmenu_specialindex_to_stageindex(data->list.value - sp178.list.value);
 		}
 
 		g_Vars.mplayerisrunning = false;
 		g_Vars.normmplayerisrunning = false;
-		g_MissionConfig.stagenum = g_SoloStages[sp188].stagenum;
-		g_MissionConfig.stageindex = sp188;
+		g_MissionConfig.stagenum = g_SoloStages[stageindex2].stagenum;
+		g_MissionConfig.stageindex = stageindex2;
 
 		if (g_MissionConfig.iscoop) {
 			menu_push_dialog(&g_CoopMissionDifficultyMenuDialog);
@@ -1923,7 +1929,7 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 				data->list.value = sp168.list.value - 1;
 
 				for (sp160 = 0; sp160 < sp164; sp160++) {
-					if (func0f104720(sp160) == g_GameFile.autostageindex) {
+					if (mainmenu_specialindex_to_stageindex(sp160) == g_GameFile.autostageindex) {
 						data->list.value = sp168.list.values32 + sp160;
 					}
 				}
@@ -1969,7 +1975,7 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 		}
 
 		if (data->type19.unk04u32 >= data->type19.unk0c) {
-			stageindex = func0f104720(data->type19.unk04u32 - data->type19.unk0c);
+			stageindex = mainmenu_specialindex_to_stageindex(data->type19.unk04u32 - data->type19.unk0c);
 		}
 
 		// Draw the thumbnail
@@ -2101,7 +2107,7 @@ MenuItemHandlerResult menuhandler_mission_list(s32 operation, struct menuitem *i
 	return 0;
 }
 
-MenuDialogHandlerResult menudialog0010559c(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
+MenuDialogHandlerResult menudialog_mainmenu_options(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
 	case MENUOP_OPEN:
@@ -2176,22 +2182,22 @@ struct menudialogdef g_2PMissionBriefingVMenuDialog = {
 	NULL,
 };
 
-char *func0f105664(struct menuitem *item)
+char *menutext_control_style_p1(struct menuitem *item)
 {
 	union handlerdata data;
 
-	menuhandler001024dc(MENUOP_GETSELECTEDINDEX, item, &data);
+	menuhandler_control_style_p1(MENUOP_GETSELECTEDINDEX, item, &data);
 
-	return (char *)menuhandler001024dc(MENUOP_GETOPTIONTEXT, item, &data);
+	return (char *)menuhandler_control_style_p1(MENUOP_GETOPTIONTEXT, item, &data);
 }
 
-char *func0f1056a0(struct menuitem *item)
+char *menutext_control_style_p2(struct menuitem *item)
 {
 	union handlerdata data;
 
-	menuhandler001024fc(MENUOP_GETSELECTEDINDEX, item, &data);
+	menuhandler_control_style_p2(MENUOP_GETSELECTEDINDEX, item, &data);
 
-	return (char *)menuhandler001024fc(MENUOP_GETOPTIONTEXT, item, &data);
+	return (char *)menuhandler_control_style_p2(MENUOP_GETOPTIONTEXT, item, &data);
 }
 
 MenuItemHandlerResult menuhandler_lang_filter(s32 operation, struct menuitem *item, union handlerdata *data)
@@ -2220,7 +2226,13 @@ MenuItemHandlerResult menuhandler_control_style(s32 operation, struct menuitem *
 	return 0;
 }
 
-MenuItemHandlerResult menuhandler001057ec(s32 operation, struct menuitem *item, union handlerdata *data)
+/**
+ * This function is not used.
+ *
+ * The filemgr will show a "file saved" dialog when using FILEOP_SAVE_GAME_002,
+ * so this is likely the handler for a manual Save Game option which was removed.
+ */
+MenuItemHandlerResult menuhandler_save_game(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	if (operation == MENUOP_SET) {
 		filemgr_save_or_load(&g_GameFileGuid, FILEOP_SAVE_GAME_002, 0);
@@ -2245,7 +2257,7 @@ struct menuitem g_2PMissionControlStyleMenuItems[] = {
 		MENUITEMFLAG_LIST_AUTOWIDTH,
 		0x00000050,
 		0,
-		menuhandler001024dc,
+		menuhandler_control_style_p1,
 	},
 	{ MENUITEMTYPE_END },
 };
@@ -2272,7 +2284,7 @@ struct menuitem g_SoloMissionControlStyleMenuItems[] = {
 #else
 		0x96,
 #endif
-		menuhandler001024dc,
+		menuhandler_control_style_p1,
 	},
 	{
 		MENUITEMTYPE_CONTROLLER,
@@ -2307,7 +2319,7 @@ struct menuitem g_CiControlStyleMenuItems[] = {
 #else
 		0x96,
 #endif
-		menuhandler001024dc,
+		menuhandler_control_style_p1,
 	},
 	{
 		MENUITEMTYPE_CONTROLLER,
@@ -2342,7 +2354,7 @@ struct menuitem g_CiControlStylePlayer2MenuItems[] = {
 #else
 		0x96,
 #endif
-		menuhandler001024fc,
+		menuhandler_control_style_p2,
 	},
 	{
 		MENUITEMTYPE_CONTROLLER,
@@ -3068,7 +3080,7 @@ struct menuitem g_MissionControlOptionsMenuItems[] = {
 		0,
 		0,
 		L_OPTIONS_194, // "Control Style"
-		(uintptr_t)&func0f105664,
+		(uintptr_t)&menutext_control_style_p1,
 		menuhandler_control_style,
 	},
 	{
@@ -3146,7 +3158,7 @@ struct menuitem g_CiControlOptionsMenuItems2[] = {
 		0,
 		0,
 		L_MPWEAPONS_270, // ""
-		(uintptr_t)&func0f105664,
+		(uintptr_t)&menutext_control_style_p1,
 		menuhandler_control_style,
 	},
 	{
@@ -3224,7 +3236,7 @@ struct menuitem g_CiControlOptionsMenuItems[] = {
 		0,
 		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
 		L_OPTIONS_194, // "Control Style"
-		(uintptr_t)&func0f105664,
+		(uintptr_t)&menutext_control_style_p1,
 		(void *)&g_CiControlStyleMenuDialog,
 	},
 	{
@@ -3301,7 +3313,7 @@ struct menuitem g_CiControlPlayer2MenuItems[] = {
 		0,
 		MENUITEMFLAG_SELECTABLE_OPENSDIALOG,
 		L_OPTIONS_194, // "Control Style"
-		(uintptr_t)&func0f1056a0,
+		(uintptr_t)&menutext_control_style_p2,
 		(void *)&g_CiControlStylePlayer2MenuDialog,
 	},
 	{
@@ -3609,7 +3621,7 @@ struct menudialogdef g_SoloMissionOptionsMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_SoloMissionOptionsMenuItems,
-	menudialog0010559c,
+	menudialog_mainmenu_options,
 	0,
 	&g_SoloMissionBriefingMenuDialog,
 };
@@ -3618,7 +3630,7 @@ struct menudialogdef g_CiOptionsViaPcMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_CiOptionsMenuItems,
-	menudialog0010559c,
+	menudialog_mainmenu_options,
 	0,
 	NULL,
 };
@@ -3627,7 +3639,7 @@ struct menudialogdef g_CiOptionsViaPauseMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_CiOptionsMenuItems,
-	menudialog0010559c,
+	menudialog_mainmenu_options,
 	0,
 	NULL,
 };
@@ -3636,7 +3648,7 @@ struct menudialogdef g_2PMissionOptionsHMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_2PMissionOptionsHMenuItems,
-	menudialog0010559c,
+	menudialog_mainmenu_options,
 	0,
 	&g_2PMissionBriefingHMenuDialog,
 };
@@ -3645,17 +3657,17 @@ struct menudialogdef g_2PMissionOptionsVMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
 	L_OPTIONS_180, // "Options"
 	g_2PMissionOptionsVMenuItems,
-	menudialog0010559c,
+	menudialog_mainmenu_options,
 	0,
 	&g_2PMissionBriefingVMenuDialog,
 };
 
-u8 var80072d88 = 255;
+u8 g_PrevInventoryWeapon = 255;
 
 char *inv_menu_text_primary_function(struct menuitem *item)
 {
-	struct funcdef *primaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 0);
-	struct funcdef *secondaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 1);
+	struct funcdef *primaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, FUNC_PRIMARY);
+	struct funcdef *secondaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, FUNC_SECONDARY);
 
 	if (primaryfunc && secondaryfunc) {
 		return lang_get(primaryfunc->name);
@@ -3666,8 +3678,8 @@ char *inv_menu_text_primary_function(struct menuitem *item)
 
 char *inv_menu_text_secondary_function(struct menuitem *item)
 {
-	struct funcdef *primaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 0);
-	struct funcdef *secondaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, 1);
+	struct funcdef *primaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, FUNC_PRIMARY);
+	struct funcdef *secondaryfunc = gset_get_funcdef_by_weaponnum_funcnum(g_InventoryWeapon, FUNC_SECONDARY);
 
 	if (secondaryfunc) {
 		return lang_get(secondaryfunc->name);
@@ -3680,7 +3692,7 @@ char *inv_menu_text_secondary_function(struct menuitem *item)
 	return lang_get(L_OPTIONS_003); // "\n"
 }
 
-void func0f105948(s32 weaponnum)
+void mainmenu_prepare_weapon_menumodel(s32 weaponnum)
 {
 	f32 gunconfig[][5] = {
 		{ 23.299999237061f,   -16.799999237061f,  -153.39999389648f,  6.4140100479126f, 0.48769000172615f },
@@ -3838,9 +3850,9 @@ MenuDialogHandlerResult inventory_menu_dialog(s32 operation, struct menudialogde
 			g_Menus[g_MpPlayerNum].menumodel.currotz = 0;
 			g_Menus[g_MpPlayerNum].menumodel.newrotz = 0;
 
-			if (var80072d88 != g_InventoryWeapon) {
-				func0f105948(g_InventoryWeapon);
-				var80072d88 = g_InventoryWeapon;
+			if (g_PrevInventoryWeapon != g_InventoryWeapon) {
+				mainmenu_prepare_weapon_menumodel(g_InventoryWeapon);
+				g_PrevInventoryWeapon = g_InventoryWeapon;
 			}
 
 			if (g_InventoryWeapon == WEAPON_DISGUISE40 || g_InventoryWeapon == WEAPON_DISGUISE41) {
@@ -3849,7 +3861,7 @@ MenuDialogHandlerResult inventory_menu_dialog(s32 operation, struct menudialogde
 				g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 = TICKS(120);
 			}
 		} else {
-			var80072d88 = 255;
+			g_PrevInventoryWeapon = 255;
 		}
 	}
 

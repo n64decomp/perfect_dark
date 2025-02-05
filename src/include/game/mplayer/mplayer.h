@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-f32 mp_handicap_to_damage_scale(u8 value);
+f32 mp_handicap_to_value(u8 handicap);
 void mp_start_match(void);
 void mp_reset(void);
 void mp_calculate_team_is_only_ai(void);

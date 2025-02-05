@@ -4539,9 +4539,9 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 			if (g_Vars.normmplayerisrunning) {
 #if VERSION >= VERSION_PAL_FINAL
 				// Fixing a @bug
-				damage = damage * mp_handicap_to_damage_scale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
+				damage = damage * mp_handicap_to_value(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
 #else
-				damage = damage / mp_handicap_to_damage_scale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
+				damage = damage / mp_handicap_to_value(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
 #endif
 			}
 
@@ -4746,7 +4746,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 			set_current_player_num(playermgr_get_player_num_by_prop(vprop));
 
 			if (g_Vars.normmplayerisrunning) {
-				damage /= mp_handicap_to_damage_scale(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
+				damage /= mp_handicap_to_value(g_PlayerConfigsArray[g_Vars.currentplayerstats->mpindex].handicap);
 			}
 
 			if (g_Vars.currentplayer->isdead == false && !g_PlayerInvincible) {

@@ -108,7 +108,7 @@ MenuDialogHandlerResult endscreen_handle_retry_mission(s32 operation, struct men
 		}
 	}
 
-	return menudialog00103608(operation, dialogdef, data);
+	return menudialog_accept_mission(operation, dialogdef, data);
 }
 
 char *endscreen_menu_title_retry_mission(struct menudialogdef *dialogdef)
