@@ -16,13 +16,13 @@
 MenuItemHandlerResult menuhandler_mp_hill_time(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETSLIDER:
+	case MENUOP_GET_SLIDER_VALUE:
 		data->slider.value = g_Vars.mphilltime;
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_Vars.mphilltime = (u8)data->slider.value;
 		break;
-	case MENUOP_GETSLIDERLABEL:
+	case MENUOP_GET_SLIDER_LABEL:
 		sprintf(data->slider.label, lang_get(L_MPWEAPONS_023), data->slider.value + 10); // "%ds/Point"
 		break;
 	}

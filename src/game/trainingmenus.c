@@ -35,9 +35,9 @@ MenuItemHandlerResult fr_details_ok_menu_handler(s32 operation, struct menuitem 
 	s32 i;
 
 	switch (operation) {
-	case MENUOP_CHECKPREFOCUSED:
+	case MENUOP_IS_PREFOCUSED:
 		return true;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		if (fr_is_in_training() == false) {
 			s32 weapon = fr_get_weapon_by_slot(fr_get_slot());
 
@@ -74,7 +74,7 @@ MenuItemHandlerResult fr_details_ok_menu_handler(s32 operation, struct menuitem 
 
 MenuItemHandlerResult fr_abort_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		if (fr_is_in_training()) {
 			fr_end_session(true);
 		}
@@ -99,23 +99,23 @@ MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem
 	s32 y;
 
 	switch (operation) {
-	case MENUOP_GETOPTIONHEIGHT:
+	case MENUOP_GET_OPTION_HEIGHT:
 		data->list.value = LINEHEIGHT;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 0;
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return 0;
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		data->list.groupstartindex = 0;
 		break;
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = fr_get_num_weapons_available();
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return 0;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		weaponnum = fr_get_weapon_by_slot(data->list.value);
 		score = fr_get_score(fr_weaponnum_to_frweaponnum(weaponnum));
 
@@ -137,7 +137,7 @@ MenuItemHandlerResult fr_weapon_list_menu_handler(s32 operation, struct menuitem
 			menu_push_dialog(&g_FrTrainingInfoPreGameMenuDialog);
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = fr_get_slot();
 		break;
 	case MENUOP_RENDER:
@@ -218,7 +218,7 @@ MenuDialogHandlerResult fr_training_info_menu_dialog(s32 operation, struct menud
 	s32 weaponnum;
 
 	switch (operation) {
-	case MENUOP_OPEN:
+	case MENUOP_ON_OPEN:
 		weaponnum = fr_get_weapon_by_slot(fr_get_slot());
 		g_Menus[g_MpPlayerNum].training.weaponnum = weaponnum;
 		mainmenu_prepare_weapon_menumodel(weaponnum);
@@ -227,14 +227,14 @@ MenuDialogHandlerResult fr_training_info_menu_dialog(s32 operation, struct menud
 			fr_init_ammo(weaponnum);
 		}
 		break;
-	case MENUOP_TICK:
+	case MENUOP_ON_TICK:
 		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
 			g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 -= g_Vars.diffframe60;
 			g_Menus[g_MpPlayerNum].menumodel.curroty = g_Menus[g_MpPlayerNum].menumodel.newroty = 18.849555969238f * g_20SecIntervalFrac;
 			g_Menus[g_MpPlayerNum].menumodel.currotz = g_Menus[g_MpPlayerNum].menumodel.newrotz = 0;
 		}
 		break;
-	case MENUOP_CLOSE:
+	case MENUOP_ON_CLOSE:
 		if (!fr_is_in_training()) {
 			fr_end_session(true);
 		}
@@ -246,7 +246,7 @@ MenuDialogHandlerResult fr_training_info_menu_dialog(s32 operation, struct menud
 
 MenuDialogHandlerResult fr_training_stats_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_CLOSE) {
+	if (operation == MENUOP_ON_CLOSE) {
 		if (fr_is_in_training() == false) {
 			fr_end_session(true);
 		}
@@ -268,20 +268,20 @@ MenuItemHandlerResult fr_difficulty_dropdown_menu_handler(s32 operation, struct 
 	};
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = fr_get_score(fr_get_slot()) + 1;
 
 		if (data->dropdown.value > 3) {
 			data->dropdown.value = 3;
 		}
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32) lang_get(names[data->dropdown.value]);
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		fr_set_difficulty(data->dropdown.value);
 		menu_push_dialog(&g_FrTrainingInfoPreGameMenuDialog);
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = fr_get_difficulty();
 		break;
 	}
@@ -292,16 +292,16 @@ MenuItemHandlerResult fr_difficulty_dropdown_menu_handler(s32 operation, struct 
 MenuItemHandlerResult fr_difficulty_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_HIDDEN:
 		if (fr_get_score(fr_weaponnum_to_frweaponnum(fr_get_weapon_by_slot(fr_get_slot()))) < item->param) {
 			return true;
 		}
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		fr_set_difficulty(item->param);
 		menu_push_dialog(&g_FrTrainingInfoPreGameMenuDialog);
 		break;
-	case MENUOP_CHECKPREFOCUSED:
+	case MENUOP_IS_PREFOCUSED:
 		if (fr_get_score(fr_weaponnum_to_frweaponnum(fr_get_weapon_by_slot(fr_get_slot()))) >= item->param) {
 			return true;
 		}
@@ -882,7 +882,7 @@ MenuItemHandlerResult fr_scoring_menu_handler(s32 operation, struct menuitem *it
 #if VERSION >= VERSION_NTSC_1_0
 MenuItemHandlerResult menuhandler_fr_failed_continue(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		if (g_Vars.currentplayer->prop->rooms[0] == 0xa) {
 			menu_replace_current_dialog(&g_FrWeaponListMenuDialog);
 		} else {
@@ -1065,7 +1065,7 @@ struct menudialogdef g_FrTrainingInfoInGameMenuDialog = {
 	L_MPMENU_447, // "Training Info"
 	g_FrTrainingInfoInGameMenuItems,
 	fr_training_info_menu_dialog,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
+	MENUDIALOGFLAG_ALLOW_MODELS | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_NOVERTICALBORDERS,
 	NULL,
 };
 
@@ -1158,7 +1158,7 @@ struct menudialogdef g_FrTrainingInfoPreGameMenuDialog = {
 	L_MPMENU_447, // "Training Info"
 	g_FrTrainingInfoPreGameMenuItems,
 	fr_training_info_menu_dialog,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_0400,
+	MENUDIALOGFLAG_ALLOW_MODELS | MENUDIALOGFLAG_DISABLERESIZE | MENUDIALOGFLAG_NOVERTICALBORDERS,
 	NULL,
 };
 
@@ -1429,10 +1429,10 @@ MenuItemHandlerResult ci_office_information_menu_handler(s32 operation, struct m
 	groups[1].offset = numunlockedchrbios;
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = numunlockedchrbios + numunlockedmiscbios;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		if (data->list.value < numunlockedchrbios) {
 			chrbio = ci_get_chr_bio_by_bodynum(ci_get_chr_bio_bodynum_by_slot(data->list.value));
 			return (s32) lang_get(chrbio->name);
@@ -1441,7 +1441,7 @@ MenuItemHandlerResult ci_office_information_menu_handler(s32 operation, struct m
 			return (s32) lang_get(miscbio->name);
 		}
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_ChrBioSlot = data->list.value;
 		if (g_ChrBioSlot < numunlockedchrbios) {
 			menu_push_dialog(&g_BioProfileMenuDialog);
@@ -1449,15 +1449,15 @@ MenuItemHandlerResult ci_office_information_menu_handler(s32 operation, struct m
 			menu_push_dialog(&g_BioTextMenuDialog);
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = g_ChrBioSlot;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 2;
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return (s32) lang_get(groups[data->list.value].name);
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		data->list.groupstartindex = data->list.value == 0 ? 0 : numunlockedchrbios;
 		break;
 	}
@@ -1533,7 +1533,7 @@ MenuDialogHandlerResult ci_character_profile_menu_dialog(s32 operation, struct m
 	f32 scale;
 
 	switch (operation) {
-	case MENUOP_OPEN:
+	case MENUOP_ON_OPEN:
 		if (bodynum == BODY_DRCAROLL) {
 			scale = 0.7f;
 			g_Menus[g_MpPlayerNum].menumodel.zoom = -1;
@@ -1593,9 +1593,9 @@ MenuDialogHandlerResult ci_character_profile_menu_dialog(s32 operation, struct m
 		g_Menus[g_MpPlayerNum].menumodel.newroty = 0;
 		g_Menus[g_MpPlayerNum].menumodel.rottimer60 = TICKS(60);
 		break;
-	case MENUOP_CLOSE:
+	case MENUOP_ON_CLOSE:
 		break;
-	case MENUOP_TICK:
+	case MENUOP_ON_TICK:
 		if (bodynum == BODY_DRCAROLL) {
 			static struct modelpartvisibility vis[] = {
 				{ MODELPART_DRCAROLL_0001, false },
@@ -1682,24 +1682,24 @@ char *ci_menu_text_misc_bio_name(struct menuitem *item)
 MenuItemHandlerResult dt_device_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = dt_get_num_available();
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32) bgun_get_name(dt_get_weapon_by_device_index(dt_get_index_by_slot(data->list.value)));
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_DtSlot = data->list.value;
 		menu_push_dialog(&g_DtDetailsMenuDialog);
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = g_DtSlot;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 0;
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return 0;
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		data->list.groupstartindex = 0;
 		break;
 	}
@@ -1716,7 +1716,7 @@ char *dt_menu_text_name(struct menuitem *item)
 
 MenuItemHandlerResult menuhandler_dt_ok_or_resume(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		// @bug: dt_begin() should not be called if training is already in
 		// progress. Doing this resets the training timer.
 		dt_begin();
@@ -1728,7 +1728,7 @@ MenuItemHandlerResult menuhandler_dt_ok_or_resume(s32 operation, struct menuitem
 
 MenuItemHandlerResult menuhandler001a6514(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		dt_end();
 	}
 
@@ -1808,7 +1808,7 @@ struct menudialogdef g_BioProfileMenuDialog = {
 	L_MPMENU_431, // "Character Profile"
 	g_BioProfileMenuItems,
 	ci_character_profile_menu_dialog,
-	MENUDIALOGFLAG_0002,
+	MENUDIALOGFLAG_ALLOW_MODELS,
 	NULL,
 };
 
@@ -1873,7 +1873,7 @@ struct menudialogdef g_DtListMenuDialog = {
 MenuDialogHandlerResult dt_training_details_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_OPEN:
+	case MENUOP_ON_OPEN:
 		{
 			s32 weaponnum = dt_get_weapon_by_device_index(dt_get_index_by_slot(g_DtSlot));
 			u16 unused[] = {64250, 38500, 25650, 25700, 12950};
@@ -1920,9 +1920,9 @@ MenuDialogHandlerResult dt_training_details_menu_dialog(s32 operation, struct me
 			g_Menus[g_MpPlayerNum].menumodel.newscale /= 2.5f;
 		}
 		break;
-	case MENUOP_CLOSE:
+	case MENUOP_ON_CLOSE:
 		break;
-	case MENUOP_TICK:
+	case MENUOP_ON_TICK:
 		if (g_Menus[g_MpPlayerNum].curdialog && g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
 			if (dt_get_weapon_by_device_index(dt_get_index_by_slot(g_DtSlot)) == WEAPON_DISGUISE41) {
 				g_Menus[g_MpPlayerNum].menumodel.newanimnum = ANIM_006A;
@@ -1985,7 +1985,7 @@ char *dt_menu_text_time_taken_value(struct menuitem *item)
 
 MenuDialogHandlerResult menudialog_device_training_results(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_CLOSE) {
+	if (operation == MENUOP_ON_CLOSE) {
 		chr_set_stage_flag(NULL, 0x08000000);
 	}
 
@@ -1995,24 +1995,24 @@ MenuDialogHandlerResult menudialog_device_training_results(s32 operation, struct
 MenuItemHandlerResult ht_holo_list_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = ht_get_num_unlocked();
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32) ht_get_name(ht_get_index_by_slot(data->list.value));
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_HtSlot = data->list.value;
 		menu_push_dialog(&g_HtDetailsMenuDialog);
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = g_HtSlot;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 0;
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return 0;
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		data->list.groupstartindex = 0;
 		break;
 	}
@@ -2027,7 +2027,7 @@ char *ht_menu_text_name(struct menuitem *item)
 
 MenuItemHandlerResult menuhandler001a6a34(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		ht_begin();
 		menu_save_and_close_all();
 	}
@@ -2037,7 +2037,7 @@ MenuItemHandlerResult menuhandler001a6a34(s32 operation, struct menuitem *item, 
 
 MenuItemHandlerResult menuhandler001a6a70(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		ht_end();
 	}
 
@@ -2047,10 +2047,10 @@ MenuItemHandlerResult menuhandler001a6a70(s32 operation, struct menuitem *item, 
 MenuDialogHandlerResult menudialog001a6aa4(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_OPEN:
+	case MENUOP_ON_OPEN:
 		ht_reset();
 		break;
-	case MENUOP_CLOSE:
+	case MENUOP_ON_CLOSE:
 		break;
 	}
 
@@ -2103,7 +2103,7 @@ char *ht_menu_text_time_taken_value(struct menuitem *item)
 
 MenuDialogHandlerResult menudialog_firing_range_results(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_CLOSE) {
+	if (operation == MENUOP_ON_CLOSE) {
 		chr_set_stage_flag(NULL, 0x08000000);
 	}
 
@@ -2185,7 +2185,7 @@ struct menudialogdef g_DtDetailsMenuDialog = {
 	(uintptr_t)&dt_menu_text_name,
 	g_DtDetailsMenuItems,
 	dt_training_details_menu_dialog,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
+	MENUDIALOGFLAG_ALLOW_MODELS | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -2365,7 +2365,7 @@ struct menudialogdef g_HtDetailsMenuDialog = {
 	(uintptr_t)&ht_menu_text_name,
 	g_HtDetailsMenuItems,
 	menudialog001a6aa4,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
+	MENUDIALOGFLAG_ALLOW_MODELS | MENUDIALOGFLAG_STARTSELECTS | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -2500,13 +2500,13 @@ MenuItemHandlerResult ci_hangar_information_menu_handler(s32 operation, struct m
 	groups[1].offset = ci_get_num_unlocked_location_bios();
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = ci_get_num_unlocked_hangar_bios();
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		bio = ci_get_hangar_bio(ci_get_hangar_bio_index_by_slot(data->list.value));
 		return (s32) lang_get(bio->name);
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_HangarBioSlot = data->list.value;
 		bioindex = ci_get_hangar_bio_index_by_slot(g_HangarBioSlot);
 
@@ -2516,15 +2516,15 @@ MenuItemHandlerResult ci_hangar_information_menu_handler(s32 operation, struct m
 			menu_push_dialog(&g_HangarVehicleDetailsMenuDialog);
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = g_HangarBioSlot;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 2;
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return (s32) lang_get(groups[data->list.value].name);
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		data->list.groupstartindex = data->list.value == 0 ? 0 : groups[1].offset;
 		break;
 	}
@@ -2658,16 +2658,16 @@ MenuDialogHandlerResult ci_hangar_holograph_menu_dialog(s32 operation, struct me
 		};
 
 		switch (operation) {
-		case MENUOP_OPEN:
+		case MENUOP_ON_OPEN:
 			g_Menus[g_MpPlayerNum].menumodel.currotx = g_Menus[g_MpPlayerNum].menumodel.newrotx = 0;
 			g_Menus[g_MpPlayerNum].menumodel.curroty = g_Menus[g_MpPlayerNum].menumodel.newroty = 0;
 			g_Menus[g_MpPlayerNum].menumodel.curposx = g_Menus[g_MpPlayerNum].menumodel.newposx = 0;
 			g_Menus[g_MpPlayerNum].menumodel.curposy = g_Menus[g_MpPlayerNum].menumodel.newposy = 0;
 			g_Menus[g_MpPlayerNum].menumodel.curscale = 0;
 			break;
-		case MENUOP_CLOSE:
+		case MENUOP_ON_CLOSE:
 			break;
-		case MENUOP_TICK:
+		case MENUOP_ON_TICK:
 			if (g_Menus[g_MpPlayerNum].curdialog) {
 #if VERSION >= VERSION_JPN_FINAL
 				if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef) {
@@ -2812,7 +2812,7 @@ struct menudialogdef g_HangarVehicleHolographMenuDialog = {
 	L_MISC_471, // "Holograph"
 	g_HangarVehicleHolographMenuItems,
 	ci_hangar_holograph_menu_dialog,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
+	MENUDIALOGFLAG_ALLOW_MODELS | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 
@@ -2821,7 +2821,7 @@ struct menudialogdef g_HangarVehicleDetailsMenuDialog = {
 	(uintptr_t)&bio_menu_text_name,
 	g_HangarDetailsMenuItems,
 	NULL,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
+	MENUDIALOGFLAG_ALLOW_MODELS | MENUDIALOGFLAG_DISABLERESIZE,
 	&g_HangarVehicleHolographMenuDialog,
 };
 
@@ -2830,7 +2830,7 @@ struct menudialogdef g_HangarLocationDetailsMenuDialog = {
 	(uintptr_t)&bio_menu_text_name,
 	g_HangarDetailsMenuItems,
 	NULL,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_DISABLERESIZE,
+	MENUDIALOGFLAG_ALLOW_MODELS | MENUDIALOGFLAG_DISABLERESIZE,
 	NULL,
 };
 

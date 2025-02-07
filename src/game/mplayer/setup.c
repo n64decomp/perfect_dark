@@ -40,7 +40,7 @@ void mp_close_dialogs_for_new_setup(void);
 
 MenuItemHandlerResult menuhandler_mp_drop_out(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_pop_dialog();
 		menu_pop_dialog();
 	}
@@ -55,7 +55,7 @@ char *mp_get_current_player_name(struct menuitem *item)
 
 MenuItemHandlerResult menuhandler_mp_teams_label(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKDISABLED) {
+	if (operation == MENUOP_IS_DISABLED) {
 		if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0) {
 			return true;
 		}
@@ -167,7 +167,7 @@ MenuItemHandlerResult mp_arena_menu_handler(s32 operation, struct menuitem *item
 	s32 groupindex;
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
 			if (challenge_is_feature_unlocked(g_MpArenas[i].requirefeature)) {
 				count++;
@@ -176,7 +176,7 @@ MenuItemHandlerResult mp_arena_menu_handler(s32 operation, struct menuitem *item
 
 		data->list.value = count;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
 			if (challenge_is_feature_unlocked(g_MpArenas[i].requirefeature)) {
 				if (count == data->list.value) {
@@ -187,7 +187,7 @@ MenuItemHandlerResult mp_arena_menu_handler(s32 operation, struct menuitem *item
 			}
 		}
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
 			if (challenge_is_feature_unlocked(g_MpArenas[i].requirefeature)) {
 				if (count == data->list.value) {
@@ -200,7 +200,7 @@ MenuItemHandlerResult mp_arena_menu_handler(s32 operation, struct menuitem *item
 
 		g_MpSetup.stagenum = g_MpArenas[i].stagenum;
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		for (i = 0; i < ARRAYCOUNT(g_MpArenas); i++) {
 			if (g_MpSetup.stagenum == g_MpArenas[i].stagenum) {
 				data->list.value = count;
@@ -211,7 +211,7 @@ MenuItemHandlerResult mp_arena_menu_handler(s32 operation, struct menuitem *item
 			}
 		}
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 3;
 
 		if (!challenge_is_feature_unlocked(MPFEATURE_STAGE_COMPLEX)
@@ -220,7 +220,7 @@ MenuItemHandlerResult mp_arena_menu_handler(s32 operation, struct menuitem *item
 			data->list.value--;
 		}
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		count = data->list.value;
 
 		if (!challenge_is_feature_unlocked(MPFEATURE_STAGE_COMPLEX)
@@ -230,7 +230,7 @@ MenuItemHandlerResult mp_arena_menu_handler(s32 operation, struct menuitem *item
 			count++;
 		}
 		return (s32)lang_get(groups[count].name);
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		groupindex = data->list.value;
 
 		if (!challenge_is_feature_unlocked(MPFEATURE_STAGE_COMPLEX)
@@ -262,15 +262,15 @@ MenuItemHandlerResult menuhandler_mp_control_style(s32 operation, struct menuite
 	};
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = 4;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32) lang_get(labels[data->dropdown.value]);
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		options_set_control_mode(g_MpPlayerNum, data->dropdown.value);
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = options_get_control_mode(g_MpPlayerNum);
 		break;
 	}
@@ -281,15 +281,15 @@ MenuItemHandlerResult menuhandler_mp_control_style(s32 operation, struct menuite
 MenuItemHandlerResult menuhandler_mp_weapon_slot(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = mp_get_num_weapon_options();
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32) mp_get_weapon_label(data->dropdown.value);
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		mp_set_weapon_slot(item->param3, data->dropdown.value);
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = mp_get_weapon_slot(item->param3);
 	}
 
@@ -304,15 +304,15 @@ char *mp_menu_text_weapon_name_for_slot(struct menuitem *item)
 MenuItemHandlerResult menuhandler_mp_weapon_set_dropdown(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = mp_get_num_weaponset_slots(item->param);
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32) mp_get_weaponset_name_by_slotnum(data->dropdown.value);
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		mp_set_weaponset_slotnum(data->dropdown.value);
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = mp_get_weaponset_slotnum();
 		break;
 	}
@@ -325,7 +325,7 @@ MenuItemHandlerResult menuhandler_mp_control_checkbox(s32 operation, struct menu
 	s32 val;
 
 	switch (operation) {
-	case MENUOP_GET:
+	case MENUOP_IS_CHECKED:
 		if (item->param3 == OPTION_FORWARDPITCH) {
 			if ((g_PlayerConfigsArray[g_MpPlayerNum].options & item->param3) == 0) {
 				return true;
@@ -336,7 +336,7 @@ MenuItemHandlerResult menuhandler_mp_control_checkbox(s32 operation, struct menu
 			return false;
 		}
 		return true;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		val = OPTION_FORWARDPITCH;
 
 		if (item->param3 == val) {
@@ -370,15 +370,15 @@ MenuItemHandlerResult menuhandler_mp_aim_control(s32 operation, struct menuitem 
 	};
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = 2;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32) lang_get(labels[data->dropdown.value]);
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		options_set_aim_control(g_MpPlayerNum, data->dropdown.value);
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = options_get_aim_control(g_MpPlayerNum);
 		break;
 	}
@@ -389,12 +389,12 @@ MenuItemHandlerResult menuhandler_mp_aim_control(s32 operation, struct menuitem 
 MenuItemHandlerResult menuhandler_mp_checkbox_option(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GET:
+	case MENUOP_IS_CHECKED:
 		if ((g_MpSetup.options & item->param3) == 0) {
 			return false;
 		}
 		return true;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_MpSetup.options = g_MpSetup.options & ~item->param3;
 		if (data->checkbox.value) {
 			g_MpSetup.options = g_MpSetup.options | item->param3;
@@ -406,7 +406,7 @@ MenuItemHandlerResult menuhandler_mp_checkbox_option(s32 operation, struct menui
 
 MenuItemHandlerResult menuhandler_mp_teams_enabled(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKDISABLED) {
+	if (operation == MENUOP_IS_DISABLED) {
 		if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE ||
 				g_MpSetup.scenario == MPSCENARIO_KINGOFTHEHILL) {
 			return true;
@@ -421,12 +421,12 @@ MenuItemHandlerResult menuhandler_mp_teams_enabled(s32 operation, struct menuite
 MenuItemHandlerResult menuhandler_mp_display_option_checkbox(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GET:
+	case MENUOP_IS_CHECKED:
 		if ((g_PlayerConfigsArray[g_MpPlayerNum].base.displayoptions & item->param3) == 0) {
 			return false;
 		}
 		return true;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_PlayerConfigsArray[g_MpPlayerNum].base.displayoptions &= ~(u8)item->param3;
 
 		if (data->checkbox.value) {
@@ -440,7 +440,7 @@ MenuItemHandlerResult menuhandler_mp_display_option_checkbox(s32 operation, stru
 
 MenuItemHandlerResult menuhandler_mp_confirm_save_chr(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_pop_dialog();
 		filemgr_push_select_location_dialog(6, FILETYPE_MPPLAYER);
 	}
@@ -453,13 +453,13 @@ MenuItemHandlerResult menuhandler_mp_setup_name(s32 operation, struct menuitem *
 	char *name = data->keyboard.string;
 
 	switch (operation) {
-	case MENUOP_GETTEXT:
+	case MENUOP_GET_KEYBOARD_STRING:
 		strcpy(name, g_MpSetup.name);
 		break;
-	case MENUOP_SETTEXT:
+	case MENUOP_SET_KEYBOARD_STRING:
 		strcpy(g_MpSetup.name, name);
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		filemgr_push_select_location_dialog(7, FILETYPE_MPSETUP);
 		break;
 	}
@@ -469,7 +469,7 @@ MenuItemHandlerResult menuhandler_mp_setup_name(s32 operation, struct menuitem *
 
 MenuItemHandlerResult menuhandler_mp_save_setup_overwrite(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_pop_dialog();
 		filemgr_save_or_load(&g_MpSetup.fileguid, FILEOP_SAVE_MPSETUP, 0);
 	}
@@ -479,7 +479,7 @@ MenuItemHandlerResult menuhandler_mp_save_setup_overwrite(s32 operation, struct 
 
 MenuItemHandlerResult menuhandler_mp_save_setup_copy(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_pop_dialog();
 		menu_push_dialog(&g_MpSaveSetupNameMenuDialog);
 	}
@@ -505,13 +505,13 @@ char *mp_menu_text_setup_name(struct menuitem *item)
 MenuItemHandlerResult menuhandler_mp_handicap1(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETSLIDER:
+	case MENUOP_GET_SLIDER_VALUE:
 		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk18;
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_PlayerConfigsArray[g_MpPlayerNum].base.unk18 = (u8) data->slider.value;
 		break;
-	case MENUOP_GETSLIDERLABEL:
+	case MENUOP_GET_SLIDER_LABEL:
 		sprintf(data->slider.label, "%d%%\n", data->slider.value + 20);
 		break;
 	}
@@ -522,13 +522,13 @@ MenuItemHandlerResult menuhandler_mp_handicap1(s32 operation, struct menuitem *i
 MenuItemHandlerResult menuhandler_mp_handicap2(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETSLIDER:
+	case MENUOP_GET_SLIDER_VALUE:
 		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk1a;
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_PlayerConfigsArray[g_MpPlayerNum].base.unk1a = (u8) data->slider.value;
 		break;
-	case MENUOP_GETSLIDERLABEL:
+	case MENUOP_GET_SLIDER_LABEL:
 		sprintf(data->slider.label, "%d%%\n", data->slider.value + 20);
 		break;
 	}
@@ -539,13 +539,13 @@ MenuItemHandlerResult menuhandler_mp_handicap2(s32 operation, struct menuitem *i
 MenuItemHandlerResult menuhandler_mp_handicap3(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETSLIDER:
+	case MENUOP_GET_SLIDER_VALUE:
 		data->slider.value = g_PlayerConfigsArray[g_MpPlayerNum].base.unk1c;
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_PlayerConfigsArray[g_MpPlayerNum].base.unk1c = data->slider.value;
 		break;
-	case MENUOP_GETSLIDERLABEL:
+	case MENUOP_GET_SLIDER_LABEL:
 		sprintf(data->slider.label, "%d%%\n", data->slider.value + 25);
 		break;
 	}
@@ -555,7 +555,7 @@ MenuItemHandlerResult menuhandler_mp_handicap3(s32 operation, struct menuitem *i
 
 MenuItemHandlerResult menuhandler_mp_reset_handicaps(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		mp_init_handicaps(g_MpPlayerNum);
 	}
 
@@ -568,10 +568,10 @@ MenuItemHandlerResult menuhandler_mp_reset_handicaps(s32 operation, struct menui
 MenuItemHandlerResult mp_character_body_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data, s32 mpbodynum, s32 mpheadnum, bool isplayer)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->carousel.value = mp_get_num_bodies();
 		break;
-	case MENUOP_11:
+	case MENUOP_ON_CAROUSEL_TICK:
 		g_Menus[g_MpPlayerNum].menumodel.newanimnum = ANIM_01FC;
 		g_Menus[g_MpPlayerNum].menumodel.newparams = MENUMODELPARAMS_SET_MP_HEADBODY(mpheadnum, mpbodynum);
 		g_Menus[g_MpPlayerNum].menumodel.zoomtimer60 += g_Vars.diffframe60;
@@ -595,21 +595,21 @@ MenuItemHandlerResult mp_character_body_menu_handler(s32 operation, struct menui
 		g_Menus[g_MpPlayerNum].menumodel.partvisibility = NULL;
 		g_Menus[g_MpPlayerNum].menumodel.zoom = 30;
 		break;
-	case MENUOP_21:
+	case MENUOP_IS_CAROUSEL_OPTION_HIDDEN:
 		if (!challenge_is_feature_unlocked(mp_get_body_required_feature(data->carousel.value))) {
 			return 1;
 		}
 		break;
 #if VERSION >= VERSION_NTSC_1_0
-	case MENUOP_FOCUS:
+	case MENUOP_ON_FOCUS:
 		g_Menus[g_MpPlayerNum].menumodel.loaddelay = 3;
 		break;
 #endif
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->carousel.value = mpbodynum;
 		break;
-	case MENUOP_SET:
-	case MENUOP_CHECKPREFOCUSED:
+	case MENUOP_CONFIRM:
+	case MENUOP_IS_PREFOCUSED:
 		g_Menus[g_MpPlayerNum].menumodel.removingpiece = false;
 
 		menu_configure_model(&g_Menus[g_MpPlayerNum].menumodel, 0, 0, 0, 0, 0, 0, 1, MENUMODELFLAG_HASSCALE);
@@ -630,7 +630,7 @@ MenuItemHandlerResult mp_character_body_menu_handler(s32 operation, struct menui
 		g_Menus[g_MpPlayerNum].menumodel.loaddelay = 8;
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (operation == MENUOP_CHECKPREFOCUSED) {
+		if (operation == MENUOP_IS_PREFOCUSED) {
 			g_Menus[g_MpPlayerNum].menumodel.loaddelay = 16;
 		}
 #endif
@@ -644,7 +644,7 @@ MenuItemHandlerResult mp_character_body_menu_handler(s32 operation, struct menui
 MenuItemHandlerResult menuhandler_mp_character_body(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		if (g_PlayerConfigsArray[g_MpPlayerNum].base.mpheadnum < mp_get_num_heads()) {
 #if VERSION >= VERSION_NTSC_1_0
 			if (!data->carousel.unk04)
@@ -656,7 +656,7 @@ MenuItemHandlerResult menuhandler_mp_character_body(s32 operation, struct menuit
 		g_PlayerConfigsArray[g_MpPlayerNum].base.mpbodynum = data->carousel.value;
 		mp_restart_character_body_label_timer();
 		break;
-	case MENUOP_CHECKPREFOCUSED:
+	case MENUOP_IS_PREFOCUSED:
 #if VERSION >= VERSION_NTSC_1_0
 		mp_character_body_menu_handler(operation, item, data,
 				g_PlayerConfigsArray[g_MpPlayerNum].base.mpbodynum,
@@ -673,16 +673,16 @@ MenuItemHandlerResult menuhandler_mp_character_body(s32 operation, struct menuit
 MenuDialogHandlerResult menudialog_mp_human_character(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_OPEN:
+	case MENUOP_ON_OPEN:
 		break;
-	case MENUOP_CLOSE:
+	case MENUOP_ON_CLOSE:
 		break;
-	case MENUOP_TICK:
+	case MENUOP_ON_TICK:
 		if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
 				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem != &dialogdef->items[1]
 				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem != &dialogdef->items[2]) {
 			union handlerdata data;
-			menuhandler_mp_character_body(MENUOP_11, &dialogdef->items[2], &data);
+			menuhandler_mp_character_body(MENUOP_ON_CAROUSEL_TICK, &dialogdef->items[2], &data);
 		}
 	}
 
@@ -703,7 +703,7 @@ MenuItemHandlerResult mp_challenges_list_handler(s32 operation, struct menuitem 
 	s32 size = 11;
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = challenge_get_auto_focused_index(g_MpPlayerNum);
 		break;
 	case MENUOP_RENDER:
@@ -773,7 +773,7 @@ MenuItemHandlerResult mp_challenges_list_handler(s32 operation, struct menuitem 
 		}
 
 		return (s32) gdl;
-	case MENUOP_GETOPTIONHEIGHT:
+	case MENUOP_GET_OPTION_HEIGHT:
 		data->list.value = 26;
 		break;
 	}
@@ -1021,7 +1021,7 @@ char *mp_menu_title_stats_for_player_name(struct menudialogdef *dialogdef)
 
 MenuItemHandlerResult menuhandler_mp_username_password(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].title != MPPLAYERTITLE_PERFECT) {
 			return true;
 		}
@@ -1891,10 +1891,10 @@ MenuItemHandlerResult mp_character_head_menu_handler(s32 operation, struct menui
 	};
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->carousel.value = mp_get_num_heads2();
 		break;
-	case MENUOP_11:
+	case MENUOP_ON_CAROUSEL_TICK:
 #if VERSION >= VERSION_PAL_BETA
 		diffframe = g_Menus[g_MpPlayerNum].menumodel.curroty + 0.01f * g_Vars.diffframe60freal;
 #else
@@ -1921,16 +1921,16 @@ MenuItemHandlerResult mp_character_head_menu_handler(s32 operation, struct menui
 		g_Menus[g_MpPlayerNum].menumodel.partvisibility = visibility;
 		g_Menus[g_MpPlayerNum].menumodel.zoom = 30;
 		break;
-	case MENUOP_21:
+	case MENUOP_IS_CAROUSEL_OPTION_HIDDEN:
 		if (!challenge_is_feature_unlocked(mp_get_head_required_feature(data->carousel.value))) {
 			return 1;
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->carousel.value = mpheadnum;
 		break;
-	case MENUOP_SET:
-	case MENUOP_FOCUS:
+	case MENUOP_CONFIRM:
+	case MENUOP_ON_FOCUS:
 #if VERSION >= VERSION_NTSC_1_0
 		g_Menus[g_MpPlayerNum].menumodel.loaddelay = 3;
 #endif
@@ -1960,7 +1960,7 @@ MenuItemHandlerResult mp_character_head_menu_handler(s32 operation, struct menui
 
 MenuItemHandlerResult menuhandler_mp_character_head(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		g_PlayerConfigsArray[g_MpPlayerNum].base.mpheadnum = data->carousel.value;
 	}
 
@@ -1983,7 +1983,7 @@ MenuItemHandlerResult mp_player_name_menu_handler(s32 operation, struct menuitem
 	s32 i;
 
 	switch (operation) {
-	case MENUOP_GETTEXT:
+	case MENUOP_GET_KEYBOARD_STRING:
 		i = 0;
 
 		while (g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] != '\n'
@@ -1998,7 +1998,7 @@ MenuItemHandlerResult mp_player_name_menu_handler(s32 operation, struct menuitem
 			i++;
 		}
 		break;
-	case MENUOP_SETTEXT:
+	case MENUOP_SET_KEYBOARD_STRING:
 		i = 0;
 
 		while (i < 11 && name[i] != '\0') {
@@ -2022,14 +2022,14 @@ MenuItemHandlerResult mp_player_name_menu_handler(s32 operation, struct menuitem
 MenuItemHandlerResult mp_load_settings_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = mp_get_num_unlocked_presets();
 
 		if (g_FileLists[1] != NULL) {
 			data->list.value += g_FileLists[1]->numfiles;
 		}
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		if (data->list.value < mp_get_num_unlocked_presets()) {
 			return (s32)mp_get_preset_name_by_slot(data->list.value);
 		}
@@ -2038,7 +2038,7 @@ MenuItemHandlerResult mp_load_settings_menu_handler(s32 operation, struct menuit
 			return (s32)g_StringPointer;
 		}
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		mp_close_dialogs_for_new_setup();
 
 		if (data->list.value < mp_get_num_unlocked_presets()) {
@@ -2061,17 +2061,17 @@ MenuItemHandlerResult mp_load_settings_menu_handler(s32 operation, struct menuit
 			}
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = 0xfffff;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 1;
 
 		if (g_FileLists[1] != NULL) {
 			data->list.value += g_FileLists[1]->numdevices;
 		}
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		if (data->list.value == 0) {
 			return (s32)lang_get(L_MPMENU_141); // "Presets"
 		}
@@ -2079,7 +2079,7 @@ MenuItemHandlerResult mp_load_settings_menu_handler(s32 operation, struct menuit
 			return (s32)filemgr_get_device_name_or_start_index(1, operation, data->list.value - 1);
 		}
 		break;
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		if (data->list.value == 0) {
 			data->list.groupstartindex = 0;
 		} else {
@@ -2090,7 +2090,7 @@ MenuItemHandlerResult mp_load_settings_menu_handler(s32 operation, struct menuit
 			}
 		}
 		break;
-	case MENUOP_LISTITEMFOCUS:
+	case MENUOP_ON_OPTION_FOCUS:
 		if (data->list.value < mp_get_num_unlocked_presets()) {
 			g_Menus[g_MpPlayerNum].mpsetup.slotindex = 0xffff;
 		} else {
@@ -2165,13 +2165,13 @@ MenuItemHandlerResult mp_load_player_menu_handler(s32 operation, struct menuitem
 	}
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = g_FileLists[0]->numfiles;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		filemgr_get_select_name(g_StringPointer, &g_FileLists[0]->files[data->list.value], FILETYPE_MPPLAYER);
 		return (s32)g_StringPointer;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		file = &g_FileLists[0]->files[data->list.value];
 		available = true;
 
@@ -2197,15 +2197,15 @@ MenuItemHandlerResult mp_load_player_menu_handler(s32 operation, struct menuitem
 			filemgr_push_error_dialog(FILEERROR_ALREADYLOADED);
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = 0xfffff;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = g_FileLists[0]->numdevices;
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return filemgr_get_device_name_or_start_index(0, operation, data->list.value);
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		data->list.groupstartindex = filemgr_get_device_name_or_start_index(0, operation, data->list.value);
 		return 0;
 	}
@@ -2216,13 +2216,13 @@ MenuItemHandlerResult mp_load_player_menu_handler(s32 operation, struct menuitem
 MenuItemHandlerResult menuhandler_mp_time_limit_slider(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETSLIDER:
+	case MENUOP_GET_SLIDER_VALUE:
 		data->slider.value = g_MpSetup.timelimit;
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_MpSetup.timelimit = data->slider.value;
 		break;
-	case MENUOP_GETSLIDERLABEL:
+	case MENUOP_GET_SLIDER_LABEL:
 		if (data->slider.value == 60) {
 			sprintf(data->slider.label, lang_get(L_MPMENU_112)); // "No Limit"
 		} else {
@@ -2235,13 +2235,13 @@ MenuItemHandlerResult menuhandler_mp_time_limit_slider(s32 operation, struct men
 MenuItemHandlerResult menuhandler_mp_score_limit_slider(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETSLIDER:
+	case MENUOP_GET_SLIDER_VALUE:
 		data->slider.value = g_MpSetup.scorelimit;
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_MpSetup.scorelimit = data->slider.value;
 		break;
-	case MENUOP_GETSLIDERLABEL:
+	case MENUOP_GET_SLIDER_LABEL:
 		if (data->slider.value == 100) {
 			sprintf(data->slider.label, lang_get(L_MPMENU_112)); // "No Limit"
 		} else {
@@ -2255,13 +2255,13 @@ MenuItemHandlerResult menuhandler_mp_score_limit_slider(s32 operation, struct me
 MenuItemHandlerResult menuhandler_mp_team_score_limit_slider(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETSLIDER:
+	case MENUOP_GET_SLIDER_VALUE:
 		data->slider.value = mp_calculate_team_score_limit();
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_MpSetup.teamscorelimit = data->slider.value;
 		break;
-	case MENUOP_GETSLIDERLABEL:
+	case MENUOP_GET_SLIDER_LABEL:
 		if (data->slider.value == 400) {
 			sprintf(data->slider.label, lang_get(L_MPMENU_112)); // "No Limit"
 		} else {
@@ -2274,7 +2274,7 @@ MenuItemHandlerResult menuhandler_mp_team_score_limit_slider(s32 operation, stru
 
 MenuItemHandlerResult menuhandler_mp_restore_score_defaults(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		mp_init_limits();
 	}
 
@@ -2284,18 +2284,18 @@ MenuItemHandlerResult menuhandler_mp_restore_score_defaults(s32 operation, struc
 MenuItemHandlerResult menuhandler_mp_handicap_player(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_HIDDEN:
 		if ((g_MpSetup.chrslots & (1 << item->param)) == 0) {
 			return 1;
 		}
 		break;
-	case MENUOP_GETSLIDER:
+	case MENUOP_GET_SLIDER_VALUE:
 		data->slider.value = g_PlayerConfigsArray[item->param].handicap;
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_PlayerConfigsArray[item->param].handicap = (u16)data->slider.value;
 		break;
-	case MENUOP_GETSLIDERLABEL:
+	case MENUOP_GET_SLIDER_LABEL:
 		sprintf(data->slider.label, "%s%s%.00f%%\n", "", "", mp_handicap_to_value(g_PlayerConfigsArray[item->param].handicap) * 100);
 		break;
 	}
@@ -2314,7 +2314,7 @@ char *mp_menu_text_handicap_player_name(struct menuitem *item)
 
 MenuItemHandlerResult menuhandler_mp_restore_handicap_defaults(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		s32 i;
 
 		for (i = 0; i < MAX_PLAYERS; i++) {
@@ -2327,7 +2327,7 @@ MenuItemHandlerResult menuhandler_mp_restore_handicap_defaults(s32 operation, st
 
 MenuDialogHandlerResult menudialog_mp_ready(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].fileguid.fileid && g_PlayerConfigsArray[g_MpPlayerNum].fileguid.deviceserial) {
 			filemgr_save_or_load(&g_PlayerConfigsArray[g_MpPlayerNum].fileguid, FILEOP_SAVE_MPPLAYER, g_MpPlayerNum);
 		}
@@ -2338,7 +2338,7 @@ MenuDialogHandlerResult menudialog_mp_ready(s32 operation, struct menudialogdef 
 
 MenuDialogHandlerResult menudialog_mp_simulant(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_TICK) {
+	if (operation == MENUOP_ON_TICK) {
 		if ((u8)g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].base.name[0] == '\0') {
 			menu_pop_dialog();
 		}
@@ -2380,7 +2380,7 @@ struct menudialogdef g_MpCharacterMenuDialog = {
 	L_MPMENU_143, // "Character"
 	g_MpCharacterMenuItems,
 	menudialog_mp_human_character,
-	MENUDIALOGFLAG_0002,
+	MENUDIALOGFLAG_ALLOW_MODELS,
 	NULL,
 };
 
@@ -2678,7 +2678,7 @@ MenuItemHandlerResult mp_add_change_simulant_menu_handler(s32 operation, struct 
 	bool creating;
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
 			if (challenge_is_feature_unlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
@@ -2687,7 +2687,7 @@ MenuItemHandlerResult mp_add_change_simulant_menu_handler(s32 operation, struct 
 
 		data->list.value = count;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
 			if (challenge_is_feature_unlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->list.value) {
@@ -2698,7 +2698,7 @@ MenuItemHandlerResult mp_add_change_simulant_menu_handler(s32 operation, struct 
 			}
 		}
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		botnum = g_Menus[g_MpPlayerNum].mpsetup.slotindex;
 		creating = false;
 
@@ -2732,7 +2732,7 @@ MenuItemHandlerResult mp_add_change_simulant_menu_handler(s32 operation, struct 
 		mp_generate_bot_names();
 		g_Menus[g_MpPlayerNum].mpsetup.slotcount = data->list.value;
 		break;
-	case MENUOP_LISTITEMFOCUS:
+	case MENUOP_ON_OPTION_FOCUS:
 		for (i = 0; i < ARRAYCOUNT(g_BotProfiles); i++) {
 			if (challenge_is_feature_unlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->list.value) {
@@ -2745,15 +2745,15 @@ MenuItemHandlerResult mp_add_change_simulant_menu_handler(s32 operation, struct 
 
 		g_Menus[g_MpPlayerNum].mpsetup.botprofileindex = i;
 		// fall-through
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = g_Menus[g_MpPlayerNum].mpsetup.slotcount;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 2;
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return (s32)lang_get(groups[data->list.value].name);
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		for (i = 0; i < groups[data->list.value].offset; i++) {
 			if (challenge_is_feature_unlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
@@ -2784,13 +2784,13 @@ MenuItemHandlerResult menuhandler_mp_simulant_head(s32 operation, struct menuite
 	/**
 	 * Rare developers forgot to add a break statement to the first case,
 	 * and when they noticed a problem their fix was to add an additional
-	 * MENUOP_FOCUS check in the next case.
+	 * MENUOP_ON_FOCUS check in the next case.
 	 */
 	switch (operation) {
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].base.mpheadnum = start + data->carousel.value;
-	case MENUOP_FOCUS:
-		if (operation == MENUOP_FOCUS
+	case MENUOP_ON_FOCUS:
+		if (operation == MENUOP_ON_FOCUS
 				&& item->param2 == 1
 				&& g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].base.mpheadnum < start) {
 			g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].base.mpheadnum = start;
@@ -2803,7 +2803,7 @@ MenuItemHandlerResult menuhandler_mp_simulant_head(s32 operation, struct menuite
 
 MenuItemHandlerResult menuhandler_mp_simulant_body(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].base.mpbodynum = data->carousel.value;
 	}
 
@@ -2816,12 +2816,12 @@ MenuItemHandlerResult menuhandler_mp_simulant_body(s32 operation, struct menuite
 MenuDialogHandlerResult menudialog_mp_bot_character(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_TICK:
+	case MENUOP_ON_TICK:
 		if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
 				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem != &dialogdef->items[0]
 				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem != &dialogdef->items[1]) {
 			union handlerdata data;
-			menuhandler_mp_character_body(MENUOP_11, &dialogdef->items[1], &data);
+			menuhandler_mp_character_body(MENUOP_ON_CAROUSEL_TICK, &dialogdef->items[1], &data);
 		}
 	}
 
@@ -2834,11 +2834,11 @@ MenuItemHandlerResult mp_bot_difficulty_menu_handler(s32 operation, struct menui
 	s32 i;
 
 	switch (operation) {
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		mp_set_bot_difficulty(g_Menus[g_MpPlayerNum].mpsetup.slotindex, data->dropdown.value);
 		mp_generate_bot_names();
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		if (g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].difficulty >= 0
 				&& g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].difficulty < BOTDIFF_DISABLED) {
 			data->dropdown.value = g_BotConfigsArray[g_Menus[g_MpPlayerNum].mpsetup.slotindex].difficulty;
@@ -2846,7 +2846,7 @@ MenuItemHandlerResult mp_bot_difficulty_menu_handler(s32 operation, struct menui
 			data->dropdown.value = 0;
 		}
 		break;
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		for (i = 0; i < BOTDIFF_DISABLED; i++) {
 			if (challenge_is_feature_unlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
@@ -2855,7 +2855,7 @@ MenuItemHandlerResult mp_bot_difficulty_menu_handler(s32 operation, struct menui
 
 		data->dropdown.value = count;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		for (i = 0; i < BOTDIFF_DISABLED; i++) {
 			if (challenge_is_feature_unlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->dropdown.value) {
@@ -2875,7 +2875,7 @@ MenuItemHandlerResult mp_bot_difficulty_menu_handler(s32 operation, struct menui
 
 MenuItemHandlerResult menuhandler_mp_delete_simulant(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		mp_remove_simulant(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
 		menu_pop_dialog();
 	}
@@ -2891,7 +2891,7 @@ char *mp_menu_title_edit_simulant(struct menudialogdef *dialogdef)
 
 MenuItemHandlerResult menuhandler_mp_change_simulant_type(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		s32 i;
 		s32 count = 0;
 		s32 profilenum = mp_find_bot_profile(
@@ -2914,7 +2914,7 @@ MenuItemHandlerResult menuhandler_mp_change_simulant_type(s32 operation, struct 
 
 MenuItemHandlerResult menuhandler_mp_clear_all_simulants(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		s32 i;
 		for (i = 0; i < MAX_BOTS; i++) {
 			mp_remove_simulant(i);
@@ -2927,11 +2927,11 @@ MenuItemHandlerResult menuhandler_mp_clear_all_simulants(s32 operation, struct m
 MenuItemHandlerResult menuhandler_mp_add_simulant(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_Menus[g_MpPlayerNum].mpsetup.slotindex = -1;
 		menu_push_dialog(&g_MpAddSimulantMenuDialog);
 		break;
-	case MENUOP_CHECKDISABLED:
+	case MENUOP_IS_DISABLED:
 		if (mp_has_unused_bot_slots() == 0) {
 			return true;
 		}
@@ -2943,7 +2943,7 @@ MenuItemHandlerResult menuhandler_mp_add_simulant(s32 operation, struct menuitem
 MenuItemHandlerResult menuhandler_mp_simulant_slot(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_Menus[g_MpPlayerNum].mpsetup.slotindex = item->param;
 
 		if ((g_MpSetup.chrslots & (1 << (item->param + 4))) == 0) {
@@ -2954,12 +2954,12 @@ MenuItemHandlerResult menuhandler_mp_simulant_slot(s32 operation, struct menuite
 			menu_push_dialog(&g_MpEditSimulantMenuDialog);
 		}
 		break;
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_HIDDEN:
 		if (item->param >= 4 && !challenge_is_feature_unlocked(MPFEATURE_8BOTS)) {
 			return true;
 		}
 		break;
-	case MENUOP_CHECKDISABLED:
+	case MENUOP_IS_DISABLED:
 		if (!mp_is_sim_slot_enabled(item->param)) {
 			return true;
 		}
@@ -2993,7 +2993,7 @@ char *mp_menu_text_simulant_num(struct menuitem *item)
 
 MenuDialogHandlerResult menudialog_mp_simulants(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		g_Menus[g_MpPlayerNum].mpsetup.slotcount = 0;
 	}
 
@@ -3063,7 +3063,7 @@ struct menudialogdef g_MpSimulantCharacterMenuDialog = {
 	L_MPMENU_100, // "Simulant Character"
 	g_MpSimulantCharacterMenuItems,
 	menudialog_mp_bot_character,
-	MENUDIALOGFLAG_0002 | MENUDIALOGFLAG_MPLOCKABLE,
+	MENUDIALOGFLAG_ALLOW_MODELS | MENUDIALOGFLAG_MPLOCKABLE,
 	NULL,
 };
 
@@ -3247,7 +3247,7 @@ struct menudialogdef g_MpSimulantsMenuDialog = {
 
 MenuItemHandlerResult menuhandler_mp_n_teams(s32 operation, struct menuitem *item, union handlerdata *data, s32 numteams)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		s32 numchrs = mp_get_num_chrs();
 		s32 array[] = {0, 0, 0, 0};
 		s32 somevalue = (numchrs + numteams - 1) / numteams;
@@ -3340,7 +3340,7 @@ MenuItemHandlerResult menuhandler_mp_four_teams(s32 operation, struct menuitem *
 
 MenuItemHandlerResult menuhandler_mp_maximum_teams(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		s32 i;
 		u8 team = 0;
 
@@ -3364,7 +3364,7 @@ MenuItemHandlerResult menuhandler_mp_maximum_teams(s32 operation, struct menuite
 
 MenuItemHandlerResult menuhandler_mp_humans_vs_simulants(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		s32 i;
 
 		for (i = 0; i != MAX_MPCHRS; i++) {
@@ -3383,7 +3383,7 @@ MenuItemHandlerResult menuhandler_mp_humans_vs_simulants(s32 operation, struct m
 
 MenuItemHandlerResult menuhandler_mp_human_simulant_pairs(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		u8 team_ids[4] = {0, 1, 2, 3};
 		s32 i;
 		s32 playerindex = 0;
@@ -3425,10 +3425,10 @@ char *mp_menu_text_chr_name_for_team_setup(struct menuitem *item)
 MenuItemHandlerResult menuhandler_mp_team_slot2(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = scenario_get_max_teams();
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) == 0) {
 			return (s32) "\n";
 		}
@@ -3444,11 +3444,11 @@ MenuItemHandlerResult menuhandler_mp_team_slot(s32 operation, struct menuitem *i
 	struct mpchrconfig *mpchr;
 
 	switch (operation) {
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		mpchr = mp_get_chr_config_by_slot_num(item->param);
 		mpchr->team = data->dropdown.value;
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		mpchr = mp_get_chr_config_by_slot_num(item->param);
 
 		if (!mpchr) {
@@ -3458,7 +3458,7 @@ MenuItemHandlerResult menuhandler_mp_team_slot(s32 operation, struct menuitem *i
 		}
 
 		break;
-	case MENUOP_CHECKDISABLED:
+	case MENUOP_IS_DISABLED:
 		mpchr = mp_get_chr_config_by_slot_num(item->param);
 
 		if (!mpchr) {
@@ -3848,7 +3848,7 @@ u32 var80085ce8[] = {
 MenuItemHandlerResult mp_select_tune_list_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = mp_get_num_unlocked_tracks();
 
 		if (mp_get_using_multiple_tunes()) {
@@ -3857,7 +3857,7 @@ MenuItemHandlerResult mp_select_tune_list_handler(s32 operation, struct menuitem
 			data->list.value++;
 		}
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		{
 			s32 numtracks = mp_get_num_unlocked_tracks();
 
@@ -3871,7 +3871,7 @@ MenuItemHandlerResult mp_select_tune_list_handler(s32 operation, struct menuitem
 
 			return (s32) lang_get(var80085ce8[data->list.value - numtracks]);
 		}
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		{
 			s32 numtracks = mp_get_num_unlocked_tracks();
 
@@ -3903,7 +3903,7 @@ MenuItemHandlerResult mp_select_tune_list_handler(s32 operation, struct menuitem
 			}
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		if (mp_get_using_multiple_tunes()) {
 			data->list.value = 0x000fffff;
 		} else {
@@ -3916,12 +3916,12 @@ MenuItemHandlerResult mp_select_tune_list_handler(s32 operation, struct menuitem
 			}
 		}
 		break;
-	case MENUOP_LISTITEMFOCUS:
+	case MENUOP_ON_OPTION_FOCUS:
 		if (data->list.value < mp_get_num_unlocked_tracks()) {
 			music_start_track_as_menu(mp_get_track_music_num(data->list.value));
 		}
 		break;
-	case MENUOP_GETLISTITEMCHECKBOX:
+	case MENUOP_IS_OPTION_CHECKED:
 		{
 			s32 numtracks = mp_get_num_unlocked_tracks();
 
@@ -3937,11 +3937,11 @@ MenuItemHandlerResult mp_select_tune_list_handler(s32 operation, struct menuitem
 
 MenuDialogHandlerResult menudialog_mp_select_tune(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		g_MusicInterval240 = 80;
 	}
 
-	if (operation == MENUOP_CLOSE) {
+	if (operation == MENUOP_ON_CLOSE) {
 		g_MusicInterval240 = 15;
 	}
 
@@ -3968,9 +3968,9 @@ char *mp_menu_text_current_track(struct menuitem *item)
 MenuItemHandlerResult menuhandler_mp_multiple_tunes(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GET:
+	case MENUOP_IS_CHECKED:
 		return mp_get_using_multiple_tunes();
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		mp_set_using_multiple_tunes(data->checkbox.value);
 		g_Vars.modifiedfiles |= MODFILE_MPSETUP;
 	}
@@ -3984,7 +3984,7 @@ MenuItemHandlerResult mp_team_name_menu_handler(s32 operation, struct menuitem *
 	s32 i;
 
 	switch (operation) {
-	case MENUOP_GETTEXT:
+	case MENUOP_GET_KEYBOARD_STRING:
 		i = 0;
 
 		while (g_BossFile.teamnames[g_Menus[g_MpPlayerNum].mpsetup.slotindex][i] != '\n'
@@ -3999,7 +3999,7 @@ MenuItemHandlerResult mp_team_name_menu_handler(s32 operation, struct menuitem *
 			i++;
 		}
 		break;
-	case MENUOP_SETTEXT:
+	case MENUOP_SET_KEYBOARD_STRING:
 		i = 0;
 
 		while (i < 11 && name[i] != '\0') {
@@ -4037,7 +4037,7 @@ char *mp_menu_text_team_name(struct menuitem *item)
 
 MenuItemHandlerResult menuhandler_mp_team_name_slot(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		g_Menus[g_MpPlayerNum].mpsetup.slotindex = item->param2 - 0x5608;
 		menu_push_dialog(&g_MpChangeTeamNameMenuDialog);
 	}
@@ -4056,7 +4056,7 @@ char *menutext_mp_challenge_name(struct menudialogdef *dialogdef)
  */
 MenuItemHandlerResult menuhandler_mp_accept_challenge(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 #if VERSION >= VERSION_NTSC_1_0
 		challenge_unset_current();
 #endif
@@ -4071,7 +4071,7 @@ MenuItemHandlerResult menuhandler_mp_accept_challenge(s32 operation, struct menu
 MenuDialogHandlerResult menudialog_mp_confirm_challenge(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_OPEN:
+	case MENUOP_ON_OPEN:
 		g_Menus[g_MpPlayerNum].menumodel.curparams = 0;
 
 		g_Menus[g_MpPlayerNum].training.mpconfig = challenge_load_by_slot(
@@ -4079,9 +4079,9 @@ MenuDialogHandlerResult menudialog_mp_confirm_challenge(s32 operation, struct me
 				g_Menus[g_MpPlayerNum].menumodel.allocstart,
 				g_Menus[g_MpPlayerNum].menumodel.alloclen);
 		break;
-	case MENUOP_CLOSE:
+	case MENUOP_ON_CLOSE:
 		break;
-	case MENUOP_TICK:
+	case MENUOP_ON_TICK:
 		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 			menu_pop_dialog();
 		}
@@ -4487,15 +4487,15 @@ MenuItemHandlerResult mp_challenges_list_menu_handler(s32 operation, struct menu
 	s32 i;
 
 	switch (operation) {
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_HIDDEN:
 		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE) {
 			return 1;
 		}
 		break;
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = challenge_get_num_available();
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		if (data->list.unk04 != 0) {
 			data->list.unk04 = 2;
 		}
@@ -4510,15 +4510,15 @@ MenuItemHandlerResult mp_challenges_list_menu_handler(s32 operation, struct menu
 			menu_push_dialog(&g_MpConfirmChallengeMenuDialog);
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = 0xfffff;
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 0;
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return 0;
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		data->list.groupstartindex = 0;
 		break;
 	case MENUOP_RENDER:
@@ -4578,7 +4578,7 @@ MenuItemHandlerResult mp_challenges_list_menu_handler(s32 operation, struct menu
 			marginleft += 13;
 		}
 		return (s32)gdl;
-	case MENUOP_GETOPTIONHEIGHT:
+	case MENUOP_GET_OPTION_HEIGHT:
 		data->list.value = 26;
 		break;
 	}
@@ -4592,7 +4592,7 @@ MenuItemHandlerResult mp_challenges_list_menu_handler(s32 operation, struct menu
  */
 MenuItemHandlerResult menuhandler_mp_challenge_description_and_separator(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
@@ -4603,13 +4603,13 @@ MenuItemHandlerResult menuhandler_mp_challenge_description_and_separator(s32 ope
 
 MenuItemHandlerResult menuhandler_mp_abort_challenge(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
 
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		challenge_remove_player_lock();
 	}
 
@@ -4618,12 +4618,12 @@ MenuItemHandlerResult menuhandler_mp_abort_challenge(s32 operation, struct menui
 
 MenuItemHandlerResult menuhandler_mp_start_challenge(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
 	}
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_push_dialog(&g_MpReadyMenuDialog);
 	}
 
@@ -4644,7 +4644,7 @@ char *mp_menu_text_challenge_name(struct menuitem *item)
 
 MenuDialogHandlerResult mp_combat_challenges_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_TICK) {
+	if (operation == MENUOP_ON_TICK) {
 		if (g_BossFile.locktype == MPLOCKTYPE_CHALLENGE
 				&& g_Menus[g_MpPlayerNum].curdialog
 				&& g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
@@ -4657,7 +4657,7 @@ MenuDialogHandlerResult mp_combat_challenges_menu_dialog(s32 operation, struct m
 		}
 	}
 
-	if (operation == MENUOP_CLOSE) {
+	if (operation == MENUOP_ON_CLOSE) {
 		if (g_Menus[g_MpPlayerNum].menumodel.curparams == 0x4fac5ace) {
 			challenge_unset_current();
 		}
@@ -4668,7 +4668,7 @@ MenuDialogHandlerResult mp_combat_challenges_menu_dialog(s32 operation, struct m
 
 MenuItemHandlerResult menuhandler_mp_accept_challenge2(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		challenge_set_current_by_slot(g_Menus[g_MpPlayerNum].mpsetup.slotindex);
 		menu_save_and_push_root_dialog(&g_MpQuickGoMenuDialog, MENUROOT_MPSETUP);
 	}
@@ -4707,10 +4707,10 @@ MenuItemHandlerResult menuhandler_mp_lock(s32 operation, struct menuitem *item, 
 	};
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = mp_get_lock_type() == MPLOCKTYPE_CHALLENGE ? 1 : 5;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		if (mp_get_lock_type() == MPLOCKTYPE_CHALLENGE) {
 			return (s32) lang_get(L_MPMENU_049); // "Challenge"
 		}
@@ -4721,13 +4721,13 @@ MenuItemHandlerResult menuhandler_mp_lock(s32 operation, struct menuitem *item, 
 			return (s32) g_PlayerConfigsArray[mp_get_lock_player_num()].base.name;
 		}
 		return (s32) mp_get_current_player_name(item);
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		if (mp_get_lock_type() != MPLOCKTYPE_CHALLENGE) {
 			mp_set_lock(data->dropdown.value, g_MpPlayerNum);
 		}
 		g_Vars.modifiedfiles |= MODFILE_MPSETUP;
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = mp_get_lock_type() == MPLOCKTYPE_CHALLENGE ? 0 : mp_get_lock_type();
 		break;
 	}
@@ -4737,7 +4737,7 @@ MenuItemHandlerResult menuhandler_mp_lock(s32 operation, struct menuitem *item, 
 
 MenuItemHandlerResult menuhandler_mp_save_player(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].fileguid.fileid == 0) {
 			filemgr_push_select_location_dialog(6, FILETYPE_MPPLAYER);
 		} else {
@@ -4759,7 +4759,7 @@ char *mp_menu_text_save_player_or_copy(struct menuitem *item)
 
 MenuItemHandlerResult menuhandler_mp_abort_setup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		if (g_Vars.stagenum == STAGE_CITRAINING) {
 			if (IS4MB()) {
 				menu_save_and_push_root_dialog(&g_CiMenuViaPauseMenuDialog, MENUROOT_MAINMENU);
@@ -4776,7 +4776,7 @@ MenuItemHandlerResult menuhandler_mp_abort_setup(s32 operation, struct menuitem 
 
 MenuItemHandlerResult menuhandler_mp_save_settings(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		if (g_MpSetup.fileguid.fileid == 0) {
 			menu_push_dialog(&g_MpSaveSetupNameMenuDialog);
 		} else {
@@ -4811,7 +4811,7 @@ char *mp_menu_text_weapon_set_name(struct menuitem *item)
 
 MenuDialogHandlerResult menudialog_mp_game_setup(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		g_Vars.mpsetupmenu = MPSETUPMENU_ADVSETUP;
 		g_Vars.usingadvsetup = true;
 	}
@@ -4821,7 +4821,7 @@ MenuDialogHandlerResult menudialog_mp_game_setup(s32 operation, struct menudialo
 
 MenuDialogHandlerResult menudialog_mp_quick_go(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		g_Vars.mpsetupmenu = MPSETUPMENU_QUICKGO;
 	}
 
@@ -4946,12 +4946,12 @@ void mp_apply_quickstart(void)
 MenuItemHandlerResult menuhandler_mp_finished_setup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 #if VERSION >= VERSION_NTSC_1_0
-	if (operation == MENUOP_CHECKPREFOCUSED) {
+	if (operation == MENUOP_IS_PREFOCUSED) {
 		return true;
 	}
 #endif
 
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		mp_apply_quickstart();
 	}
 
@@ -4960,7 +4960,7 @@ MenuItemHandlerResult menuhandler_mp_finished_setup(s32 operation, struct menuit
 
 MenuItemHandlerResult menuhandler_quick_team_separator(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		if (g_Vars.mpquickteam == MPQUICKTEAM_PLAYERSONLY) {
 			return true;
 		}
@@ -4972,19 +4972,19 @@ MenuItemHandlerResult menuhandler_quick_team_separator(s32 operation, struct men
 MenuItemHandlerResult menuhandler_player_team(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 #if VERSION >= VERSION_JPN_FINAL
 		data->dropdown.value = scenario_get_max_teams();
 #else
 		data->dropdown.value = MAX_TEAMS;
 #endif
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32) &g_BossFile.teamnames[data->dropdown.value];
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_Vars.mpplayerteams[item->param] = data->dropdown.value;
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 #if VERSION >= VERSION_JPN_FINAL
 		if (g_Vars.mpplayerteams[item->param] >= scenario_get_max_teams()) {
 			g_Vars.mpplayerteams[item->param] %= scenario_get_max_teams();
@@ -4992,7 +4992,7 @@ MenuItemHandlerResult menuhandler_player_team(s32 operation, struct menuitem *it
 #endif
 		data->dropdown.value = g_Vars.mpplayerteams[item->param];
 		break;
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_HIDDEN:
 		if (g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSTEAMS) {
 			return true;
 		}
@@ -5005,19 +5005,19 @@ MenuItemHandlerResult menuhandler_player_team(s32 operation, struct menuitem *it
 MenuItemHandlerResult menuhandler_mp_number_of_simulants(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = !challenge_is_feature_unlocked(MPFEATURE_8BOTS) ? 4 : MAX_BOTS;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		sprintf(g_StringPointer, "%d\n", data->dropdown.value + 1);
 		return (s32) g_StringPointer;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_Vars.mpquickteamnumsims = data->dropdown.value + 1;
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = g_Vars.mpquickteamnumsims - 1;
 		break;
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_HIDDEN:
 		if (g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSANDSIMS
 				&& g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSVSSIMS) {
 			return true;
@@ -5031,19 +5031,19 @@ MenuItemHandlerResult menuhandler_mp_number_of_simulants(s32 operation, struct m
 MenuItemHandlerResult menuhandler_mp_simulants_per_team(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = 2;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		sprintf(g_StringPointer, "%d\n", data->dropdown.value + 1);
 		return (s32) g_StringPointer;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_Vars.unk0004a0 = data->dropdown.value + 1;
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = g_Vars.unk0004a0 - 1;
 		break;
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_HIDDEN:
 		if (g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSIMTEAMS) {
 			return true;
 		}
@@ -5059,7 +5059,7 @@ MenuItemHandlerResult mp_quick_team_simulant_difficulty_handler(s32 operation, s
 	s32 i;
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		for (i = 0; i < NUM_BOTDIFFS; i++) {
 			if (challenge_is_feature_unlocked(g_BotProfiles[i].requirefeature)) {
 				count++;
@@ -5068,7 +5068,7 @@ MenuItemHandlerResult mp_quick_team_simulant_difficulty_handler(s32 operation, s
 
 		data->dropdown.value = count;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		for (i = 0; i < NUM_BOTDIFFS; i++) {
 			if (challenge_is_feature_unlocked(g_BotProfiles[i].requirefeature)) {
 				if (count == data->dropdown.value) {
@@ -5079,13 +5079,13 @@ MenuItemHandlerResult mp_quick_team_simulant_difficulty_handler(s32 operation, s
 			}
 		}
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_Vars.mpsimdifficulty = data->dropdown.value;
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->dropdown.value = g_Vars.mpsimdifficulty;
 		break;
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_HIDDEN:
 		if (g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSANDSIMS
 				&& g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSVSSIMS
 				&& g_Vars.mpquickteam != MPQUICKTEAM_PLAYERSIMTEAMS) {
@@ -5098,7 +5098,7 @@ MenuItemHandlerResult mp_quick_team_simulant_difficulty_handler(s32 operation, s
 
 MenuItemHandlerResult menuhandler_mp_quick_team_option(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		g_Vars.mpquickteam = item->param;
 
 		if (mp_get_weaponset_slotnum() >= mp_get_num_weaponset_slots(false)) {
@@ -5121,7 +5121,7 @@ MenuItemHandlerResult menuhandler_mp_quick_team_option(s32 operation, struct men
 
 MenuDialogHandlerResult menudialog_combat_simulator(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		g_Vars.waitingtojoin[0] = false;
 		g_Vars.waitingtojoin[1] = false;
 		g_Vars.waitingtojoin[2] = false;
@@ -5130,7 +5130,7 @@ MenuDialogHandlerResult menudialog_combat_simulator(s32 operation, struct menudi
 
 	if (g_Menus[g_MpPlayerNum].curdialog
 			&& g_Menus[g_MpPlayerNum].curdialog->definition == &g_CombatSimulatorMenuDialog
-			&& operation == MENUOP_TICK) {
+			&& operation == MENUOP_ON_TICK) {
 		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
 		g_Vars.usingadvsetup = false;
@@ -5143,7 +5143,7 @@ MenuDialogHandlerResult menudialog_combat_simulator(s32 operation, struct menudi
 
 MenuItemHandlerResult menuhandler_mp_advanced_setup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_save_and_push_root_dialog(&g_MpAdvancedSetupMenuDialog, MENUROOT_MPSETUP);
 	}
 

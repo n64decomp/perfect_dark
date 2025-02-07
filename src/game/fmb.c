@@ -14,7 +14,7 @@
 
 MenuItemHandlerResult fmb_handle_drop_out(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_pop_dialog();
 		menu_pop_dialog();
 
@@ -28,7 +28,7 @@ MenuItemHandlerResult fmb_handle_drop_out(s32 operation, struct menuitem *item, 
 
 MenuItemHandlerResult fmd_handle_abort_game(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		if (g_Vars.stagenum == STAGE_4MBMENU) {
 			menu_save_and_push_root_dialog(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		} else {
@@ -41,7 +41,7 @@ MenuItemHandlerResult fmd_handle_abort_game(s32 operation, struct menuitem *item
 
 MenuItemHandlerResult fmb_handle_advanced_setup(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_save_and_push_root_dialog(&g_AdvancedSetup4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	}
 
@@ -50,7 +50,7 @@ MenuItemHandlerResult fmb_handle_advanced_setup(s32 operation, struct menuitem *
 
 MenuItemHandlerResult fmb_handle_accept_challenge(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		challenge_set_current_by_slot(g_Menus[g_MpPlayerNum].main4mb.slotindex);
 		menu_save_and_push_root_dialog(&g_MpQuickGo4MbMenuDialog, MENUROOT_4MBMAINMENU);
 	}
@@ -96,7 +96,7 @@ void fmb_reset(void)
 
 MenuDialogHandlerResult fmb_handle_main_menu(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		g_Vars.waitingtojoin[0] = false;
 		g_Vars.waitingtojoin[1] = false;
 		g_Vars.waitingtojoin[2] = false;
@@ -105,7 +105,7 @@ MenuDialogHandlerResult fmb_handle_main_menu(s32 operation, struct menudialogdef
 
 	if (g_Menus[g_MpPlayerNum].curdialog
 			&& g_Menus[g_MpPlayerNum].curdialog->definition == &g_MainMenu4MbMenuDialog
-			&& operation == MENUOP_TICK) {
+			&& operation == MENUOP_ON_TICK) {
 		g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 		g_Vars.mpquickteam = MPQUICKTEAM_NONE;
 		g_Vars.usingadvsetup = false;

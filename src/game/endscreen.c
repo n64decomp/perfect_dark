@@ -49,7 +49,7 @@ char *endscreen_menu_text_completion_cheat_name(struct menuitem *item);
 
 MenuItemHandlerResult endscreen_handle_decline_mission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_pop_dialog();
 		menu_pop_dialog();
 	}
@@ -60,7 +60,7 @@ MenuItemHandlerResult endscreen_handle_decline_mission(s32 operation, struct men
 MenuDialogHandlerResult endscreen_handle_retry_mission(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_TICK:
+	case MENUOP_ON_TICK:
 		{
 			/**
 			 * NTSC Final adds this check to make sure the given dialog is
@@ -99,7 +99,7 @@ MenuDialogHandlerResult endscreen_handle_retry_mission(s32 operation, struct men
 
 					if (accept) {
 						union handlerdata data2;
-						menuhandler_accept_mission(MENUOP_SET, &dialogdef->items[1], &data2);
+						menuhandler_accept_mission(MENUOP_CONFIRM, &dialogdef->items[1], &data2);
 					}
 #if VERSION >= VERSION_NTSC_FINAL
 				}
@@ -147,7 +147,7 @@ char *endscreen_menu_title_next_mission(struct menudialogdef *dialogdef)
 
 MenuItemHandlerResult endscreen_handle_replay_previous_mission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		g_MissionConfig.stageindex--;
 		g_MissionConfig.stagenum = g_SoloStages[g_MissionConfig.stageindex].stagenum;
 	}
@@ -466,7 +466,7 @@ void endscreen_reset_models(void)
 #if VERSION >= VERSION_NTSC_1_0
 MenuItemHandlerResult endscreen_handle_replay_last_level(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		g_MissionConfig.stagenum = g_SoloStages[g_MissionConfig.stageindex].stagenum;
 		return menuhandler_accept_mission(operation, NULL, data);
 	}
@@ -573,7 +573,7 @@ struct menudialogdef g_2PMissionEndscreenObjectivesCompletedVMenuDialog = {
  */
 MenuItemHandlerResult endscreen_handle_continue_mission(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		endscreen_continue(2);
 	}
 
@@ -718,11 +718,11 @@ void endscreen_continue(s32 context)
 
 MenuDialogHandlerResult endscreen_handle_2p_completed(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		g_Menus[g_MpPlayerNum].endscreen.unke1c = 0;
 	}
 
-	if (operation == MENUOP_TICK) {
+	if (operation == MENUOP_ON_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog) {
 			if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
 					|| (dialogdef->nextsibling && dialogdef->nextsibling == g_Menus[g_MpPlayerNum].curdialog->definition)) {
@@ -779,11 +779,11 @@ MenuDialogHandlerResult endscreen_handle_2p_completed(s32 operation, struct menu
 
 MenuDialogHandlerResult endscreen_handle_2p_failed(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		g_Menus[g_MpPlayerNum].endscreen.unke1c = 0;
 	}
 
-	if (operation == MENUOP_TICK) {
+	if (operation == MENUOP_ON_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog) {
 			if (g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
 					|| (dialogdef->nextsibling && dialogdef->nextsibling == g_Menus[g_MpPlayerNum].curdialog->definition)) {
@@ -1016,7 +1016,7 @@ MenuItemHandlerResult endscreen_handle_cheat_info(s32 operation, struct menuitem
 {
 	static u32 cheatcolour = 0xff7f7fff;
 
-	if (operation == MENUOP_GETCOLOUR
+	if (operation == MENUOP_GET_LABEL_COLOURS
 			&& ((g_Menus[g_MpPlayerNum].endscreen.cheatinfo & CHEATINFO_TIMED_UNLOCKING) || item->param == 5)) {
 		// Timed cheat just got unlocked, or this item is the timed cheat name
 		u32 weight = menu_get_sin_osc_frac(40) * 255;
@@ -1039,7 +1039,7 @@ MenuItemHandlerResult endscreen_handle_cheat_info(s32 operation, struct menuitem
 		}
 	}
 
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		if (item->param == 1) { // target time
 			u32 info = g_Menus[g_MpPlayerNum].endscreen.cheatinfo;
 

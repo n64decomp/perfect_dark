@@ -545,9 +545,9 @@ void menu_calculate_item_size(struct menuitem *item, s16 *width, s16 *height, st
 	char *text2;
 	s32 numobjectives;
 
-	// Check if item's handler handles MENUOP_CHECKHIDDEN
+	// Check if item's handler handles MENUOP_IS_HIDDEN
 	if (item->handler && (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0) {
-		if (item->handler(MENUOP_CHECKHIDDEN, item, &handlerdata)) {
+		if (item->handler(MENUOP_IS_HIDDEN, item, &handlerdata)) {
 			*width = 0;
 			*height = 0;
 			return;
@@ -625,9 +625,9 @@ void menu_calculate_item_size(struct menuitem *item, s16 *width, s16 *height, st
 
 			if (item->handler) {
 				handlerdata2.dropdown.value = 0;
-				item->handler(MENUOP_GETSELECTEDINDEX, item, &handlerdata2);
+				item->handler(MENUOP_GET_SELECTED_INDEX, item, &handlerdata2);
 				handlerdata2.dropdown.unk04 = 0;
-				text2 = (char *)item->handler(MENUOP_GETOPTIONTEXT, item, &handlerdata2);
+				text2 = (char *)item->handler(MENUOP_GET_OPTION_TEXT, item, &handlerdata2);
 				text_measure(&textheight, &textwidth, text2, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
 #if VERSION >= VERSION_PAL_FINAL
@@ -1029,7 +1029,7 @@ void dialog_calculate_content_size(struct menudialogdef *dialogdef, struct menud
 #if VERSION == VERSION_JPN_FINAL
 	contentheight += 15;
 
-	if ((dialog->definition->flags & MENUDIALOGFLAG_1000) == 0) {
+	if ((dialog->definition->flags & MENUDIALOGFLAG_LESSHEIGHT) == 0) {
 		contentheight += 2;
 	}
 #else
@@ -1128,7 +1128,7 @@ bool menu_is_item_disabled(struct menuitem *item, struct menudialog *dialog)
 
 	if (item->handler
 			&& (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0
-			&& item->handler(MENUOP_CHECKDISABLED, item, &sp30)) {
+			&& item->handler(MENUOP_IS_DISABLED, item, &sp30)) {
 		return true;
 	}
 
@@ -1342,7 +1342,7 @@ s32 dialog_change_item_focus(struct menudialog *dialog, s32 leftright, s32 updow
 		if (dialog->focuseditem->handler != NULL) {
 			if ((dialog->focuseditem->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0) {
 				union handlerdata data;
-				dialog->focuseditem->handler(MENUOP_FOCUS, dialog->focuseditem, &data);
+				dialog->focuseditem->handler(MENUOP_ON_FOCUS, dialog->focuseditem, &data);
 			}
 		}
 	}
@@ -1394,7 +1394,7 @@ void menu_open_dialog(struct menudialogdef *dialogdef, struct menudialog *dialog
 	while (item->type != MENUITEMTYPE_END) {
 		if (item->handler
 				&& (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0
-				&& item->handler(MENUOP_CHECKPREFOCUSED, item, &data1)) {
+				&& item->handler(MENUOP_IS_PREFOCUSED, item, &data1)) {
 			dialog->focuseditem = item;
 		}
 
@@ -1405,7 +1405,7 @@ void menu_open_dialog(struct menudialogdef *dialogdef, struct menudialog *dialog
 	if (dialog->focuseditem
 			&& dialog->focuseditem->handler
 			&& (dialog->focuseditem->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0) {
-		dialog->focuseditem->handler(MENUOP_FOCUS, dialog->focuseditem, &data2);
+		dialog->focuseditem->handler(MENUOP_ON_FOCUS, dialog->focuseditem, &data2);
 	}
 
 	dialog->dimmed = false;
@@ -1413,7 +1413,7 @@ void menu_open_dialog(struct menudialogdef *dialogdef, struct menudialog *dialog
 	dialog->dstscroll = 0;
 
 	if (dialogdef->handler) {
-		dialogdef->handler(MENUOP_OPEN, dialogdef, &data3);
+		dialogdef->handler(MENUOP_ON_OPEN, dialogdef, &data3);
 	}
 
 	dialog_calculate_content_size(dialogdef, dialog, menu);
@@ -1580,7 +1580,7 @@ void menu_close_dialog(void)
 			data.dialog1.preventclose = false;
 
 			if (layer->siblings[i]->definition->handler) {
-				layer->siblings[i]->definition->handler(MENUOP_CLOSE, layer->siblings[i]->definition, &data);
+				layer->siblings[i]->definition->handler(MENUOP_ON_CLOSE, layer->siblings[i]->definition, &data);
 			}
 
 			if (value_prevent == data.dialog1.preventclose) {
@@ -2492,7 +2492,7 @@ Gfx *dialog_render(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool 
 	g_TextHoloRayEnabled = false;
 
 	if (g_Menus[g_MpPlayerNum].curdialog == dialog
-			&& (dialog->definition->flags & MENUDIALOGFLAG_0002)
+			&& (dialog->definition->flags & MENUDIALOGFLAG_ALLOW_MODELS)
 			&& !lightweight
 			&& g_Menus[g_MpPlayerNum].menumodel.drawbehinddialog == true) {
 		gSPSetGeometryMode(gdl++, G_ZBUFFER);
@@ -2730,9 +2730,9 @@ Gfx *dialog_render(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool 
 
 		// Render models (inventory, chr/vehicle bios)
 		if (g_Menus[g_MpPlayerNum].curdialog == dialog
-				&& (dialog->definition->flags & MENUDIALOGFLAG_0002)
+				&& (dialog->definition->flags & MENUDIALOGFLAG_ALLOW_MODELS)
 				&& !lightweight
-				&& !g_Menus[g_MpPlayerNum].menumodel.drawbehinddialog) {
+				&& g_Menus[g_MpPlayerNum].menumodel.drawbehinddialog == false) {
 			gSPSetGeometryMode(gdl++, G_ZBUFFER);
 
 			gdl = menu_render_model(gdl, &g_Menus[g_MpPlayerNum].menumodel, MENUMODELTYPE_DEFAULT);
@@ -2770,7 +2770,7 @@ Gfx *dialog_render(Gfx *gdl, struct menudialog *dialog, struct menu *menu, bool 
 
 				colindex = dialog->colstart + i;
 
-				if (i != 0 && (dialog->definition->flags & MENUDIALOGFLAG_0400) == 0) {
+				if (i != 0 && (dialog->definition->flags & MENUDIALOGFLAG_NOVERTICALBORDERS) == 0) {
 					gdl = menugfx_draw_filled_rect(gdl, curx - 1, dialogtop + LINEHEIGHT + 1, curx, dialogbottom, sp120, sp120);
 				}
 
@@ -3880,7 +3880,7 @@ void menu_swipe(s32 direction)
 		while (item->type != MENUITEMTYPE_END) {
 			if (item->handler
 					&& (item->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0
-					&& item->handler(MENUOP_CHECKPREFOCUSED, item, &sp50)) {
+					&& item->handler(MENUOP_IS_PREFOCUSED, item, &sp50)) {
 				g_Menus[g_MpPlayerNum].curdialog->focuseditem = item;
 			}
 
@@ -3890,7 +3890,7 @@ void menu_swipe(s32 direction)
 		if (g_Menus[g_MpPlayerNum].curdialog->focuseditem != 0
 				&& g_Menus[g_MpPlayerNum].curdialog->focuseditem->handler
 				&& ((g_Menus[g_MpPlayerNum].curdialog->focuseditem->flags & MENUITEMFLAG_SELECTABLE_OPENSDIALOG) == 0)) {
-			g_Menus[g_MpPlayerNum].curdialog->focuseditem->handler(MENUOP_FOCUS, g_Menus[g_MpPlayerNum].curdialog->focuseditem, &sp40);
+			g_Menus[g_MpPlayerNum].curdialog->focuseditem->handler(MENUOP_ON_FOCUS, g_Menus[g_MpPlayerNum].curdialog->focuseditem, &sp40);
 		}
 
 		g_Menus[g_MpPlayerNum].curdialog->swipedir = direction;
@@ -4278,7 +4278,7 @@ void dialog_tick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickf
 	data.dialog2.inputs = inputs;
 
 	if (definition->handler != NULL) {
-		definition->handler(MENUOP_TICK, definition, &data);
+		definition->handler(MENUOP_ON_TICK, definition, &data);
 	}
 
 	if (dialog->dimmed) {
@@ -4398,7 +4398,7 @@ void dialog_tick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickf
 
 		s32 y = dialog_find_item(dialog, dialog->focuseditem, &rowindex, &colindex);
 
-		if ((dialog->focuseditem->flags & MENUITEMFLAG_00010000) == 0) {
+		if ((dialog->focuseditem->flags & MENUITEMFLAG_DISABLESCROLL) == 0) {
 			itemy = y + menu->rows[rowindex].height / 2;
 			dstscroll = (dialog->height - LINEHEIGHT - 1) / 2 - itemy;
 
@@ -5608,7 +5608,7 @@ MenuItemHandlerResult menuhandler_pak_acknowledge(s32 operation, struct menuitem
 {
 	bool done = false;
 
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		// Close all pak success/error dialogs
 		while (!done) {
 			done = true;
@@ -5637,7 +5637,7 @@ MenuItemHandlerResult menuhandler_pak_acknowledge(s32 operation, struct menuitem
  */
 MenuDialogHandlerResult menudialog_pak(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_TICK) {
+	if (operation == MENUOP_ON_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog
 				&& g_Menus[g_MpPlayerNum].curdialog->definition == dialogdef
 				&& joy_get_pak_state(g_Menus[g_MpPlayerNum].fm.device3) == PAKSTATE_NOPAK) {
@@ -5657,7 +5657,7 @@ MenuDialogHandlerResult menudialog_pak(s32 operation, struct menudialogdef *dial
  */
 MenuItemHandlerResult menuhandler_pak_setdamaged(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_replace_current_dialog(&g_PakDamagedMenuDialog);
 	}
 
@@ -5667,7 +5667,7 @@ MenuItemHandlerResult menuhandler_pak_setdamaged(s32 operation, struct menuitem 
 
 MenuItemHandlerResult menuhandler_repair_pak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		if (pak_repair(g_Menus[g_MpPlayerNum].fm.device3)) {
 			menu_replace_current_dialog(&g_PakRepairSuccessMenuDialog);
 		} else {
@@ -5899,7 +5899,7 @@ char *menu_text_save_device_name(struct menuitem *item)
 
 MenuItemHandlerResult menuhandler_retry_save_pak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_pop_dialog();
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -5916,7 +5916,7 @@ MenuItemHandlerResult menuhandler_retry_save_pak(s32 operation, struct menuitem 
 
 MenuItemHandlerResult menuhandler_warn_repair_pak(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 #if VERSION >= VERSION_NTSC_1_0
 		menu_push_dialog(&g_PakAttemptRepairMenuDialog);
 #else

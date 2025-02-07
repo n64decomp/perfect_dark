@@ -75,7 +75,7 @@ s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
 	data.list.value = 0;
 	data.list.unk0c = 0;
 
-	item->handler(MENUOP_GETOPTGROUPCOUNT, item, &data);
+	item->handler(MENUOP_GET_OPTGROUP_COUNT, item, &data);
 
 	if (data.list.value == 0) {
 		s1 = arg0 / g_LineHeight;
@@ -89,7 +89,7 @@ s32 menuitem0f0e5d2c(s32 arg0, struct menuitem *item)
 
 		while (!done) {
 			if (data.list.values32 < numgroups) {
-				item->handler(MENUOP_GETGROUPSTARTINDEX, item, &data);
+				item->handler(MENUOP_GET_OPTGROUP_START_INDEX, item, &data);
 				a0 = data.list.groupstartindex;
 			} else {
 				a0 = 9999;
@@ -131,7 +131,7 @@ s16 menuitem_list_get_offset_y(s16 optionindex, struct menuitem *item)
 
 	data.list.value = 0;
 	data.list.unk0c = 0;
-	item->handler(MENUOP_GETOPTGROUPCOUNT, item, &data);
+	item->handler(MENUOP_GET_OPTGROUP_COUNT, item, &data);
 
 	if (data.list.value == 0) {
 		return optionindex * g_LineHeight;
@@ -144,7 +144,7 @@ s16 menuitem_list_get_offset_y(s16 optionindex, struct menuitem *item)
 	data.list.unk04 = 0;
 
 	for (data.list.value = 0; !done && data.list.values32 < numgroups; data.list.value++) {
-		item->handler(MENUOP_GETGROUPSTARTINDEX, item, &data);
+		item->handler(MENUOP_GET_OPTGROUP_START_INDEX, item, &data);
 
 		if (optionindex >= data.list.groupstartindex) {
 			numlines++;
@@ -232,7 +232,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 	char *title;
 
 	if (context->item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
-		context->item->handler(MENUOP_GETOPTIONHEIGHT, context->item, &spd4);
+		context->item->handler(MENUOP_GET_OPTION_HEIGHT, context->item, &spd4);
 		g_LineHeight = spd4.list.value;
 	} else {
 		g_LineHeight = LINEHEIGHT;
@@ -317,7 +317,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 	}
 
 	sp15c.list.value = 0;
-	context->item->handler(MENUOP_GETSELECTEDINDEX, context->item, &sp15c);
+	context->item->handler(MENUOP_GET_SELECTED_INDEX, context->item, &sp15c);
 	selectedindex = sp15c.list.value;
 
 	if (selectedindex >= 0x10000) {
@@ -326,7 +326,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 
 	sp104 = context->y + 1;
 
-	context->item->handler(MENUOP_GETOPTIONCOUNT, context->item, &sp15c);
+	context->item->handler(MENUOP_GET_OPTION_COUNT, context->item, &sp15c);
 	numoptions = sp15c.list.value;
 
 	tmp = itemdata->curoffsety - halfheight;
@@ -343,12 +343,12 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 
 	sp14c.list.value = 0;
 	sp14c.list.unk0c = 0;
-	context->item->handler(MENUOP_GETOPTGROUPCOUNT, context->item, &sp14c);
+	context->item->handler(MENUOP_GET_OPTGROUP_COUNT, context->item, &sp14c);
 	numgroups = sp14c.list.values32 & 0xffffffff;
 
 	if (numoptions > 0) {
 		// If this list uses option groups, draw a sticky group header
-		// if the player has scroll down far enough
+		// if the player has scrolled down far enough
 		if (numgroups != 0) {
 			s32 spc8;
 			done = false;
@@ -360,7 +360,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 			// Iterate all groups ascending until we find the first one that's
 			// on-screen, then take the one before it
 			while (!done && sp14c.list.values32 < numgroups) {
-				context->item->handler(MENUOP_GETGROUPSTARTINDEX, context->item, &sp14c);
+				context->item->handler(MENUOP_GET_OPTGROUP_START_INDEX, context->item, &sp14c);
 				tmp = sp14c.list.groupstartindex & 0xffffffff;
 
 				if (tmp <= firstonscreenoptionindex) {
@@ -377,7 +377,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 			sp13c.list.unk0c = sp14c.list.unk0c;
 
 			if (nextgroupstartindex < firstonscreenoptionindex || s4 < LINEHEIGHT) {
-				text = (char *) context->item->handler(MENUOP_GETOPTGROUPTEXT, context->item, &sp13c);
+				text = (char *) context->item->handler(MENUOP_GET_OPTGROUP_TEXT, context->item, &sp13c);
 
 				if (s4 + g_LineHeight > 0) {
 					gdl = menuitem_list_render_header(gdl, context->x, context->y, context->width, width, LINEHEIGHT, text, context->dialog);
@@ -389,7 +389,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 				sp13c.list.value++;
 
 				if (sp14c.list.values32 < numgroups) {
-					context->item->handler(MENUOP_GETGROUPSTARTINDEX, context->item, &sp14c);
+					context->item->handler(MENUOP_GET_OPTGROUP_START_INDEX, context->item, &sp14c);
 					tmp = sp14c.list.groupstartindex & 0xffffffff;
 					nextgroupstartindex = tmp;
 					sp14c.list.values32++;
@@ -421,7 +421,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 					gdl = menu_apply_scissor(gdl);
 				}
 
-				title = (char *) context->item->handler(MENUOP_GETOPTGROUPTEXT, context->item, &sp13c);
+				title = (char *) context->item->handler(MENUOP_GET_OPTGROUP_TEXT, context->item, &sp13c);
 				sp13c.list.value++;
 
 				height = context->height - s4;
@@ -433,7 +433,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 				gdl = menuitem_list_render_header(gdl, context->x, context->y + s4, context->width, width, height, title, context->dialog);
 
 				if (sp14c.list.values32 < numgroups) {
-					context->item->handler(MENUOP_GETGROUPSTARTINDEX, context->item, &sp14c);
+					context->item->handler(MENUOP_GET_OPTGROUP_START_INDEX, context->item, &sp14c);
 					tmp = sp14c.list.groupstartindex & 0xffffffff;
 					nextgroupstartindex = tmp;
 					sp14c.list.value++;
@@ -585,7 +585,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 					} else {
 						// Default/simple option (label and optional checkbox)
 						sp15c.list.value = optionindex;
-						text2 = (char *) context->item->handler(MENUOP_GETOPTIONTEXT, context->item, &sp15c);
+						text2 = (char *) context->item->handler(MENUOP_GET_OPTION_TEXT, context->item, &sp15c);
 						sp128 = 0;
 						y = context->y + s4 + 1;
 
@@ -612,7 +612,7 @@ Gfx *menuitem_list_render(Gfx *gdl, struct menurendercontext *context)
 						spb8.list.value = optionindex;
 						spb8.list.unk04 = 255;
 
-						context->item->handler(MENUOP_GETLISTITEMCHECKBOX, context->item, &spb8);
+						context->item->handler(MENUOP_IS_OPTION_CHECKED, context->item, &spb8);
 
 						if (spb8.list.unk04 != 255) {
 							gdl = menugfx_draw_checkbox(gdl, left, context->y + s4 + 1, 6, spb8.list.unk04, colour, 0xff00007f);
@@ -676,7 +676,7 @@ bool menuitem_list_tick(struct menuitem *item, struct menuinputs *inputs, u32 ti
 	}
 
 	if (item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
-		item->handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
+		item->handler(MENUOP_GET_OPTION_HEIGHT, item, &handlerdata2);
 		g_LineHeight = handlerdata2.list.value;
 	} else {
 		g_LineHeight = LINEHEIGHT;
@@ -693,7 +693,7 @@ bool menuitem_list_tick(struct menuitem *item, struct menuinputs *inputs, u32 ti
 			data->list.targetoffsety = min;
 		}
 
-		item->handler(MENUOP_GETOPTIONCOUNT, item, &handlerdata);
+		item->handler(MENUOP_GET_OPTION_COUNT, item, &handlerdata);
 
 		max = (s16) handlerdata.list.value * g_LineHeight - data->list.viewheight + min;
 
@@ -722,7 +722,7 @@ bool menuitem_list_tick(struct menuitem *item, struct menuinputs *inputs, u32 ti
 	}
 
 	if (tickflags & MENUTICKFLAG_ITEMISFOCUSED) {
-		item->handler(MENUOP_GETOPTIONCOUNT, item, &handlerdata);
+		item->handler(MENUOP_GET_OPTION_COUNT, item, &handlerdata);
 
 		if (handlerdata.list.value) {
 			last = handlerdata.list.value - 1;
@@ -748,7 +748,7 @@ bool menuitem_list_tick(struct menuitem *item, struct menuinputs *inputs, u32 ti
 
 				if (prev2 != data->list.index) {
 					handlerdata.list.value = data->list.index;
-					item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
+					item->handler(MENUOP_ON_OPTION_FOCUS, item, &handlerdata);
 
 					menu_play_sound(MENUSOUND_SUBFOCUS);
 				}
@@ -762,7 +762,7 @@ bool menuitem_list_tick(struct menuitem *item, struct menuinputs *inputs, u32 ti
 					handlerdata.list.unk04 = 1;
 				}
 
-				item->handler(MENUOP_SET, item, &handlerdata);
+				item->handler(MENUOP_CONFIRM, item, &handlerdata);
 
 				menu_play_sound(MENUSOUND_SELECT);
 
@@ -781,7 +781,7 @@ bool menuitem_list_tick(struct menuitem *item, struct menuinputs *inputs, u32 ti
 	handlerdata.list.unk0c = tmp;
 	handlerdata.list.groupstartindex = (tickflags & MENUTICKFLAG_ITEMISFOCUSED) ? 1 : 0;
 
-	item->handler(MENUOP_25, item, &handlerdata);
+	item->handler(MENUOP_GET_OPTION_INDEX2, item, &handlerdata);
 
 	if (handlerdata.list.unk0c != handlerdata.list.value) {
 		data->list.index = handlerdata.list.value;
@@ -807,30 +807,27 @@ void menuitem_dropdown_init(struct menuitem *item, union menuitemdata *data)
 	handler = item->handler;
 
 	if (item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
-		handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2);
+		handler(MENUOP_GET_OPTION_HEIGHT, item, &handlerdata2);
 		g_LineHeight = handlerdata2.dropdown.value;
 	} else {
 		g_LineHeight = LINEHEIGHT;
 	}
 
-	item->handler(MENUOP_GETSELECTEDINDEX, item, &handlerdata);
+	item->handler(MENUOP_GET_SELECTED_INDEX, item, &handlerdata);
 
 	if (handlerdata.dropdown.value < 0xffff) {
 		data->dropdown.list.index = (u16) handlerdata.dropdown.value;
 	} else {
-		// The value won't fit in unk02.
-		// Maybe MENUOP_25 is getting a scaled-down value?
-		// But then how does it know the value is scaled?
 		handlerdata.dropdown.value = 0;
 		handlerdata.dropdown.unk04 = 0;
 
-		item->handler(MENUOP_25, item, &handlerdata);
+		item->handler(MENUOP_GET_OPTION_INDEX2, item, &handlerdata);
 		data->dropdown.list.index = handlerdata.dropdown.value;
 	}
 
 	data->dropdown.list.targetoffsety = menuitem_list_get_offset_y(data->dropdown.list.index, item);
 
-	item->handler(MENUOP_LISTITEMFOCUS, item, &handlerdata);
+	item->handler(MENUOP_ON_OPTION_FOCUS, item, &handlerdata);
 }
 
 Gfx *menuitem_dropdown_render(Gfx *gdl, struct menurendercontext *context)
@@ -906,10 +903,10 @@ Gfx *menuitem_dropdown_render(Gfx *gdl, struct menurendercontext *context)
 		s32 textwidth;
 
 		data.list.value = 0;
-		context->item->handler(MENUOP_GETSELECTEDINDEX, context->item, &data);
+		context->item->handler(MENUOP_GET_SELECTED_INDEX, context->item, &data);
 
 		data.list.unk04 = 0;
-		text = (char *)context->item->handler(MENUOP_GETOPTIONTEXT, context->item, &data);
+		text = (char *)context->item->handler(MENUOP_GET_OPTION_TEXT, context->item, &data);
 
 		text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 
@@ -953,7 +950,7 @@ bool menuitem_dropdown_tick(struct menuitem *item, struct menudialog *dialog, st
 				menuitem_dropdown_init(item, data);
 
 				handlerdata.dropdown.value = 0;
-				item->handler(MENUOP_GETSELECTEDINDEX, item, &handlerdata);
+				item->handler(MENUOP_GET_SELECTED_INDEX, item, &handlerdata);
 				data->dropdown.unk0e = (u32)handlerdata.dropdown.value * g_LineHeight;
 				menu_play_sound(MENUSOUND_TOGGLEOFF);
 			}
@@ -1005,13 +1002,13 @@ Gfx *menuitem_dropdown_overlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct me
 
 		if (item->flags & MENUITEMFLAG_LIST_CUSTOMRENDER) {
 			union handlerdata handlerdata2;
-			item->handler(MENUOP_GETOPTIONHEIGHT, item, &handlerdata2); \
+			item->handler(MENUOP_GET_OPTION_HEIGHT, item, &handlerdata2); \
 			g_LineHeight = handlerdata2.dropdown.value; \
 		} else { \
 			g_LineHeight = LINEHEIGHT;
 		}
 
-		item->handler(MENUOP_GETOPTIONCOUNT, item, &handlerdata);
+		item->handler(MENUOP_GET_OPTION_COUNT, item, &handlerdata);
 		numoptions = handlerdata.dropdown.value;
 
 		context.width = 0;
@@ -1019,7 +1016,7 @@ Gfx *menuitem_dropdown_overlay(Gfx *gdl, s16 x, s16 y, s16 x2, s16 y2, struct me
 
 		for (i = 0; i != numoptions; i++) {
 			handlerdata.dropdown.value = i;
-			text = (char *)item->handler(MENUOP_GETOPTIONTEXT, item, &handlerdata);
+			text = (char *)item->handler(MENUOP_GET_OPTION_TEXT, item, &handlerdata);
 			text_measure(&textheight, &textwidth, text, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
 			textwidth += 6;
 
@@ -1423,11 +1420,11 @@ bool menuitem_keyboard_tick(struct menuitem *item, struct menuinputs *inputs, u3
 				menu_play_sound(MENUSOUND_SELECT);
 
 				handlerdata.keyboard.string = kb->string;
-				item->handler(MENUOP_SETTEXT, item, &handlerdata);
+				item->handler(MENUOP_SET_KEYBOARD_STRING, item, &handlerdata);
 
 				menu_pop_dialog();
 
-				item->handler(MENUOP_SET, item, &handlerdata);
+				item->handler(MENUOP_CONFIRM, item, &handlerdata);
 			}
 
 			inputs->start = false;
@@ -1449,7 +1446,7 @@ bool menuitem_keyboard_tick(struct menuitem *item, struct menuinputs *inputs, u3
 				if (kb->col == 8) {
 					if (item->handler && !menuitem_keyboard_is_string_empty_or_spaces(kb->string)) {
 						handlerdata.keyboard.string = kb->string;
-						item->handler(MENUOP_SETTEXT, item, &handlerdata);
+						item->handler(MENUOP_SET_KEYBOARD_STRING, item, &handlerdata);
 					}
 				}
 
@@ -1461,7 +1458,7 @@ bool menuitem_keyboard_tick(struct menuitem *item, struct menuinputs *inputs, u3
 						menu_pop_dialog();
 
 						if (ok) {
-							item->handler(MENUOP_SET, item, &handlerdata);
+							item->handler(MENUOP_CONFIRM, item, &handlerdata);
 							menu_play_sound(MENUSOUND_SELECT);
 						} else {
 							menu_play_sound(MENUSOUND_KEYBOARDCANCEL);
@@ -1562,7 +1559,7 @@ void menuitem_keyboard_init(struct menuitem *item, union menuitemdata *data)
 	if (item->handler) {
 		union handlerdata handlerdata;
 		handlerdata.keyboard.string = data->keyboard.string;
-		item->handler(MENUOP_GETTEXT, item, &handlerdata);
+		item->handler(MENUOP_GET_KEYBOARD_STRING, item, &handlerdata);
 	}
 
 	data->keyboard.col = 0;
@@ -1975,11 +1972,10 @@ Gfx *menuitem_label_render(Gfx *gdl, struct menurendercontext *context)
 		data.label.colour1 = colour1;
 
 		if (context->item->handlervoid) {
-			context->item->handlervoid(MENUOP_GETCOLOUR, context->item, &data);
+			context->item->handlervoid(MENUOP_GET_LABEL_COLOURS, context->item, &data);
 		}
 
-		if (context->item->handlervoid) {
-		}
+		if (context->item->handlervoid);
 
 		colour2 = data.label.colour2;
 		colour1 = data.label.colour1;
@@ -2244,7 +2240,7 @@ bool menuitem_selectable_tick(struct menuitem *item, struct menuinputs *inputs, 
 			menu_push_dialog((struct menudialogdef *)item->handler);
 		} else if (item->handler) {
 			union handlerdata data;
-			item->handler(MENUOP_SET, item, &data);
+			item->handler(MENUOP_CONFIRM, item, &data);
 		}
 	}
 
@@ -2268,7 +2264,7 @@ Gfx *menuitem_slider_render(Gfx *gdl, struct menurendercontext *context)
 	extray = 0;
 
 	if (context->item->handler != NULL) {
-		context->item->handler(MENUOP_GETSLIDER, context->item, &data);
+		context->item->handler(MENUOP_GET_SLIDER_VALUE, context->item, &data);
 		slidervalue = (s16) data.slider.value;
 	} else {
 		slidervalue = 0;
@@ -2355,7 +2351,7 @@ Gfx *menuitem_slider_render(Gfx *gdl, struct menurendercontext *context)
 			data.slider.value = slidervalue;
 			data.slider.label = buffer;
 
-			context->item->handler(MENUOP_GETSLIDERLABEL, context->item, &data);
+			context->item->handler(MENUOP_GET_SLIDER_LABEL, context->item, &data);
 		}
 
 		text_measure(&textheight, &textwidth, buffer, g_CharsHandelGothicSm, g_FontHandelGothicSm, 0);
@@ -2392,7 +2388,7 @@ bool menuitem_slider_tick(struct menuitem *item, struct menudialog *dialog, stru
 	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED)) {
 		if (tickflags & MENUTICKFLAG_DIALOGISDIMMED) {
 			if (item->handler) {
-				item->handler(MENUOP_GETSLIDER, item, &handlerdata);
+				item->handler(MENUOP_GET_SLIDER_VALUE, item, &handlerdata);
 				index = (s16) handlerdata.slider.value;
 			} else {
 				index = 0;
@@ -2474,7 +2470,7 @@ bool menuitem_slider_tick(struct menuitem *item, struct menudialog *dialog, stru
 			handlerdata.slider.value = index;
 
 			if (item->handler) {
-				item->handler(MENUOP_SET, item, &handlerdata);
+				item->handler(MENUOP_CONFIRM, item, &handlerdata);
 			}
 
 			if (inputs->select) {
@@ -2529,7 +2525,7 @@ Gfx *menuitem_carousel_render(Gfx *gdl, struct menurendercontext *context)
 		union handlerdata data;
 		s32 headorbodynum = 0;
 
-		context->item->handler(MENUOP_GETSELECTEDINDEX, context->item, &data);
+		context->item->handler(MENUOP_GET_SELECTED_INDEX, context->item, &data);
 		headorbodynum += data.carousel.value;
 
 		gdl = func0f14f07c(gdl, headorbodynum,
@@ -2537,7 +2533,7 @@ Gfx *menuitem_carousel_render(Gfx *gdl, struct menurendercontext *context)
 				context->x + context->width / 2 + 32, context->y + 64);
 	} else if ((context->item->param2 == 124 || context->item->param2 == 125) && context->item->handler) {
 		union handlerdata data;
-		context->item->handler(MENUOP_GETSELECTEDINDEX, context->item, &data);
+		context->item->handler(MENUOP_GET_SELECTED_INDEX, context->item, &data);
 	}
 
 	return gdl;
@@ -2551,16 +2547,15 @@ bool menuitem_carousel_tick(struct menuitem *item, struct menuinputs *inputs, u3
 	bool done;
 	u32 stack;
 
-	if (((tickflags & MENUTICKFLAG_ITEMISFOCUSED) || (item->flags & MENUITEMFLAG_CAROUSEL_04000000)) && item->handler) {
+	if (((tickflags & MENUTICKFLAG_ITEMISFOCUSED) || (item->flags & MENUITEMFLAG_CAROUSEL_SCROLLWITHOUTFOCUS)) && item->handler) {
 		if (inputs->leftright != 0) {
-			if (mp_is_player_locked_out(g_MpPlayerNum) == 0 || (item->flags & MENUITEMFLAG_LOCKABLEMINOR) == 0) {
+			if (!mp_is_player_locked_out(g_MpPlayerNum) || (item->flags & MENUITEMFLAG_LOCKABLEMINOR) == 0) {
 				done = false;
 
-				item->handler(MENUOP_GETOPTIONCOUNT, item, &data);
-
+				item->handler(MENUOP_GET_OPTION_COUNT, item, &data);
 				numoptions = data.carousel.value;
-				item->handler(MENUOP_GETSELECTEDINDEX, item, &data);
 
+				item->handler(MENUOP_GET_SELECTED_INDEX, item, &data);
 				index = data.carousel.value;
 
 				while (!done) {
@@ -2574,10 +2569,10 @@ bool menuitem_carousel_tick(struct menuitem *item, struct menuinputs *inputs, u3
 						index = numoptions - 1;
 					}
 
-					// Some kind of option-is-locked check?
 					data.carousel.value = index;
 
-					if (!item->handler(MENUOP_21, item, &data)) {
+					// If this option is visible, break from the loop
+					if (!item->handler(MENUOP_IS_CAROUSEL_OPTION_HIDDEN, item, &data)) {
 						done = true;
 					}
 				}
@@ -2587,12 +2582,12 @@ bool menuitem_carousel_tick(struct menuitem *item, struct menuinputs *inputs, u3
 				data.carousel.unk04 = inputs->shoulder;
 #endif
 
-				item->handler(MENUOP_SET, item, &data);
+				item->handler(MENUOP_CONFIRM, item, &data);
 			}
 		}
 
 		if (item->handler) {
-			item->handler(MENUOP_11, item, &data);
+			item->handler(MENUOP_ON_CAROUSEL_TICK, item, &data);
 		}
 	}
 
@@ -2605,7 +2600,7 @@ Gfx *menuitem_checkbox_render(Gfx *gdl, struct menurendercontext *context)
 	char *text;
 	s32 x;
 	s32 y;
-	u8 data[3];
+	u8 data[1];
 	bool checked = false;
 	u32 fillcolour = 0xff002faf;
 	struct font *font2 = g_FontHandelGothicSm;
@@ -2621,8 +2616,7 @@ Gfx *menuitem_checkbox_render(Gfx *gdl, struct menurendercontext *context)
 	text = menu_resolve_param2_text(context->item);
 	data[0] = 0;
 
-	if (context->item->handler
-			&& context->item->handler(MENUOP_GET, context->item, (union handlerdata *)data) == true) {
+	if (context->item->handler && context->item->handler(MENUOP_IS_CHECKED, context->item, (union handlerdata *)data) == true) {
 		checked = true;
 
 		if (context->dialog->transitionfrac < 0) {
@@ -2725,7 +2719,7 @@ bool menuitem_checkbox_tick(struct menuitem *item, struct menuinputs *inputs, u3
 	union handlerdata data;
 
 	if ((tickflags & MENUTICKFLAG_ITEMISFOCUSED) && inputs->select) {
-		if (item->handler && item->handler(MENUOP_GET, item, &data) == 1) {
+		if (item->handler && item->handler(MENUOP_IS_CHECKED, item, &data) == true) {
 			data.checkbox.value = 0;
 			menu_play_sound(MENUSOUND_TOGGLEOFF);
 		} else {
@@ -2734,7 +2728,7 @@ bool menuitem_checkbox_tick(struct menuitem *item, struct menuinputs *inputs, u3
 		}
 
 		if (item->handler) {
-			item->handler(MENUOP_SET, item, &data);
+			item->handler(MENUOP_CONFIRM, item, &data);
 		}
 	}
 

@@ -297,7 +297,7 @@ void cheats_reset(void)
 MenuItemHandlerResult cheat_checkbox_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GET:
+	case MENUOP_IS_CHECKED:
 		if (item->param < 32) {
 			if (g_CheatsEnabledBank0 & (1 << item->param)) {
 				return true;
@@ -311,7 +311,7 @@ MenuItemHandlerResult cheat_checkbox_menu_handler(s32 operation, struct menuitem
 		}
 
 		return false;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		if (cheat_is_unlocked(item->param)) {
 			if (item->param < 32) {
 				// Bank 0
@@ -348,7 +348,7 @@ MenuItemHandlerResult cheat_checkbox_menu_handler(s32 operation, struct menuitem
 MenuItemHandlerResult cheat_menu_handle_buddy_checkbox(s32 operation, struct menuitem *item, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_GET:
+	case MENUOP_IS_CHECKED:
 		if (item->param == 0) {
 			if (g_CheatsEnabledBank0 & (1 << CHEAT_PUGILIST | 1 << CHEAT_HOTSHOT | 1 << CHEAT_HITANDRUN | 1 << CHEAT_ALIEN)) {
 				return false;
@@ -362,7 +362,7 @@ MenuItemHandlerResult cheat_menu_handle_buddy_checkbox(s32 operation, struct men
 		}
 
 		return false;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		if (item->param == 0) {
 			// Velvet
 			g_CheatsEnabledBank0 &= ~(
@@ -397,7 +397,7 @@ char *cheat_get_name_if_unlocked(struct menuitem *item)
 
 MenuDialogHandlerResult cheat_menu_handle_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_OPEN) {
+	if (operation == MENUOP_ON_OPEN) {
 		camdraw_start_gbpaks();
 
 		if (gbpak_is_any_perfect_dark()) {
@@ -429,7 +429,7 @@ MenuDialogHandlerResult cheat_menu_handle_dialog(s32 operation, struct menudialo
 #endif
 	}
 
-	if (operation == MENUOP_CLOSE) {
+	if (operation == MENUOP_ON_CLOSE) {
 		if (gbpak_is_any_perfect_dark()) {
 			gamefile_set_flag(GAMEFILEFLAG_USED_TRANSFERPAK);
 		}
@@ -804,7 +804,7 @@ char *cheat_get_marquee(struct menuitem *arg0)
 
 MenuItemHandlerResult cheat_menu_handle_turn_off_all_cheats(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		g_CheatsEnabledBank0 = 0;
 		g_CheatsEnabledBank1 = 0;
 	}

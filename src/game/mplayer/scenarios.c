@@ -97,7 +97,7 @@ struct scenariodata g_ScenarioData;
 
 MenuItemHandlerResult menuhandler_mp_display_team(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKDISABLED) {
+	if (operation == MENUOP_IS_DISABLED) {
 		if (g_MpSetup.options & MPOPTION_TEAMSENABLED) {
 			return false;
 		}
@@ -110,7 +110,7 @@ MenuItemHandlerResult menuhandler_mp_display_team(s32 operation, struct menuitem
 
 MenuItemHandlerResult menuhandler_mp_one_hit_kills(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKDISABLED || operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_DISABLED || operation == MENUOP_IS_HIDDEN) {
 		if (challenge_is_feature_unlocked(MPFEATURE_ONEHITKILLS)) {
 			return false;
 		}
@@ -130,18 +130,18 @@ MenuItemHandlerResult menuhandler_mp_slow_motion(s32 operation, struct menuitem 
 	};
 
 	switch (operation) {
-	case MENUOP_CHECKDISABLED:
-	case MENUOP_CHECKHIDDEN:
+	case MENUOP_IS_DISABLED:
+	case MENUOP_IS_HIDDEN:
 		if (challenge_is_feature_unlocked(MPFEATURE_SLOWMOTION)) {
 			return false;
 		}
 		return true;
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->dropdown.value = 3;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		return (s32)lang_get(labels[data->dropdown.value]);
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		g_MpSetup.options &= ~(MPOPTION_SLOWMOTION_ON | MPOPTION_SLOWMOTION_SMART);
 
 		if (data->dropdown.value == SLOWMOTION_ON) {
@@ -150,7 +150,7 @@ MenuItemHandlerResult menuhandler_mp_slow_motion(s32 operation, struct menuitem 
 			g_MpSetup.options |= MPOPTION_SLOWMOTION_SMART;
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		if (g_MpSetup.options & MPOPTION_SLOWMOTION_SMART) {
 			data->dropdown.value = SLOWMOTION_SMART;
 		} else if (g_MpSetup.options & MPOPTION_SLOWMOTION_ON) {
@@ -266,7 +266,7 @@ struct mpscenariooverview g_MpScenarioOverviews[] = {
  */
 MenuDialogHandlerResult mp_options_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
-	if (operation == MENUOP_TICK) {
+	if (operation == MENUOP_ON_TICK) {
 		if (g_Menus[g_MpPlayerNum].curdialog->definition != g_MpScenarios[g_MpSetup.scenario].optionsdialog) {
 			s32 i;
 			s32 end = ARRAYCOUNT(g_MpScenarios);
@@ -322,7 +322,7 @@ MenuItemHandlerResult scenario_scenario_menu_handler(s32 operation, struct menui
 	}
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
 			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
@@ -332,7 +332,7 @@ MenuItemHandlerResult scenario_scenario_menu_handler(s32 operation, struct menui
 
 		data->list.value = count;
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
 			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
@@ -345,7 +345,7 @@ MenuItemHandlerResult scenario_scenario_menu_handler(s32 operation, struct menui
 		}
 
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
 			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
@@ -360,7 +360,7 @@ MenuItemHandlerResult scenario_scenario_menu_handler(s32 operation, struct menui
 
 		scenario_init();
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		for (i = 0; i < ARRAYCOUNT(g_MpScenarioOverviews); i++) {
 			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
@@ -374,16 +374,16 @@ MenuItemHandlerResult scenario_scenario_menu_handler(s32 operation, struct menui
 		}
 
 		break;
-	case MENUOP_GETOPTGROUPCOUNT:
+	case MENUOP_GET_OPTGROUP_COUNT:
 		data->list.value = 2;
 
 		if (!teamgame || (!challenge_is_feature_unlocked(MPFEATURE_SCENARIO_KOH) && !challenge_is_feature_unlocked(MPFEATURE_SCENARIO_CTC))) {
 			data->list.value--;
 		}
 		break;
-	case MENUOP_GETOPTGROUPTEXT:
+	case MENUOP_GET_OPTGROUP_TEXT:
 		return (s32)lang_get(groups[data->list.value].textid);
-	case MENUOP_GETGROUPSTARTINDEX:
+	case MENUOP_GET_OPTGROUP_START_INDEX:
 		for (i = 0; i < groups[data->list.value].startindex; i++) {
 			if (challenge_is_feature_unlocked(g_MpScenarioOverviews[i].requirefeature)
 					&& (teamgame || g_MpScenarioOverviews[i].teamonly == false)) {
@@ -400,7 +400,7 @@ MenuItemHandlerResult scenario_scenario_menu_handler(s32 operation, struct menui
 
 MenuItemHandlerResult menuhandler_mp_open_options(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		menu_push_dialog(g_MpScenarios[g_MpSetup.scenario].optionsdialog);
 	}
 

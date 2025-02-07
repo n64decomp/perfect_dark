@@ -88,7 +88,7 @@ MenuItemHandlerResult am_pick_target_menu_list(s32 operation, struct menuitem *i
 	};
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		if (g_AmMenus[g_AmIndex].prevallbots) {
 			// All bots: num bot opponents + all human players
 			s32 count = 0;
@@ -108,7 +108,7 @@ MenuItemHandlerResult am_pick_target_menu_list(s32 operation, struct menuitem *i
 			data->list.value = g_MpNumChrs - 1;
 		}
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		{
 			s32 numremaining;
 			s32 chrindex;
@@ -148,7 +148,7 @@ MenuItemHandlerResult am_pick_target_menu_list(s32 operation, struct menuitem *i
 			menu_pop_dialog();
 		}
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		data->list.value = 0xfffff;
 		break;
 	case MENUOP_RENDER:
@@ -192,7 +192,7 @@ MenuItemHandlerResult am_pick_target_menu_list(s32 operation, struct menuitem *i
 			gdl = text_end(gdl);
 			return (s32)gdl;
 		}
-	case MENUOP_GETOPTIONHEIGHT:
+	case MENUOP_GET_OPTION_HEIGHT:
 		data->list.value = LINEHEIGHT;
 		break;
 	}
@@ -203,13 +203,13 @@ MenuItemHandlerResult am_pick_target_menu_list(s32 operation, struct menuitem *i
 MenuDialogHandlerResult am_pick_target_menu_dialog(s32 operation, struct menudialogdef *dialogdef, union handlerdata *data)
 {
 	switch (operation) {
-	case MENUOP_OPEN:
+	case MENUOP_ON_OPEN:
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
 		break;
-	case MENUOP_TICK:
+	case MENUOP_ON_TICK:
 		g_PlayersWithControl[g_Vars.currentplayernum] = false;
 		break;
-	case MENUOP_CLOSE:
+	case MENUOP_ON_CLOSE:
 		g_PlayersWithControl[g_Vars.currentplayernum] = true;
 		break;
 	}

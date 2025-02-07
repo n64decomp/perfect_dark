@@ -36,7 +36,7 @@ MenuItemHandlerResult mp_stats_for_player_dropdown_handler(s32 operation, struct
 	s32 a1;
 
 	switch (operation) {
-	case MENUOP_GETOPTIONCOUNT:
+	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = 0;
 
 		for (v0 = 0; v0 < MAX_MPCHRS; v0++) {
@@ -45,7 +45,7 @@ MenuItemHandlerResult mp_stats_for_player_dropdown_handler(s32 operation, struct
 			}
 		}
 		break;
-	case MENUOP_GETOPTIONTEXT:
+	case MENUOP_GET_OPTION_TEXT:
 		v0 = 0;
 
 		for (a1 = 0; a1 < MAX_MPCHRS; a1++) {
@@ -61,7 +61,7 @@ MenuItemHandlerResult mp_stats_for_player_dropdown_handler(s32 operation, struct
 		}
 
 		return (s32) "";
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		v0 = 0;
 
 		for (a1 = 0; a1 < MAX_MPCHRS; a1++) {
@@ -77,7 +77,7 @@ MenuItemHandlerResult mp_stats_for_player_dropdown_handler(s32 operation, struct
 		}
 
 		break;
-	case MENUOP_GETSELECTEDINDEX:
+	case MENUOP_GET_SELECTED_INDEX:
 		v0 = 0;
 
 		for (v1 = 0; v1 < MAX_MPCHRS; v1++) {
@@ -100,7 +100,7 @@ MenuItemHandlerResult mp_stats_for_player_dropdown_handler(s32 operation, struct
 
 MenuItemHandlerResult menuhandler_mp_end_game(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		g_Vars.currentplayer->aborted = true;
 		main_end_stage();
 	}
@@ -113,7 +113,7 @@ MenuItemHandlerResult menuhandler_mp_end_game(s32 operation, struct menuitem *it
  */
 MenuItemHandlerResult menuhandler00178018(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		if (g_BossFile.locktype != MPLOCKTYPE_CHALLENGE) {
 			return true;
 		}
@@ -143,7 +143,7 @@ char *mp_menu_text_in_game_limit(struct menuitem *item)
 
 MenuItemHandlerResult menuhandler_mp_in_game_limit_label(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		switch (item->param) {
 		case 0: if (g_MpSetup.timelimit == 60) return true; break;
 		case 1: if (g_MpSetup.scorelimit == 100) return true; break;
@@ -156,7 +156,7 @@ MenuItemHandlerResult menuhandler_mp_in_game_limit_label(s32 operation, struct m
 
 MenuItemHandlerResult menuhandler_mp_pause(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_SET) {
+	if (operation == MENUOP_CONFIRM) {
 		if (mp_is_paused()) {
 			mp_set_paused(MPPAUSEMODE_UNPAUSED);
 		} else {
@@ -164,13 +164,13 @@ MenuItemHandlerResult menuhandler_mp_pause(s32 operation, struct menuitem *item,
 		}
 	}
 
-	if (operation == MENUOP_CHECKHIDDEN) {
+	if (operation == MENUOP_IS_HIDDEN) {
 		if (PLAYERCOUNT() == 1) {
 			return true;
 		}
 	}
 
-	if (operation == MENUOP_CHECKPREFOCUSED) {
+	if (operation == MENUOP_IS_PREFOCUSED) {
 		if (item->param == 1) {
 			return true;
 		}
@@ -530,7 +530,7 @@ struct menudialogdef g_MpPausePlayerStatsMenuDialog = {
 	(uintptr_t)&mp_menu_title_stats_for,
 	g_MpInGamePlayerStatsMenuItems,
 	NULL,
-	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_1000 : 0,
+	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_LESSHEIGHT : 0,
 	&g_MpPauseInventoryMenuDialog,
 };
 
@@ -539,7 +539,7 @@ struct menudialogdef g_MpEndscreenPlayerStatsMenuDialog = {
 	(uintptr_t)&mp_menu_title_stats_for,
 	g_MpInGamePlayerStatsMenuItems,
 	NULL,
-	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_1000 : 0,
+	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_LESSHEIGHT : 0,
 	NULL,
 };
 
@@ -560,7 +560,7 @@ struct menudialogdef g_MpPausePlayerRankingMenuDialog = {
 	L_MPMENU_276, // "Player Ranking"
 	g_MpPlayerRankingMenuItems,
 	NULL,
-	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_1000 : 0,
+	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_LESSHEIGHT : 0,
 	&g_MpPausePlayerStatsMenuDialog,
 };
 
@@ -569,7 +569,7 @@ struct menudialogdef g_MpEndscreenPlayerRankingMenuDialog = {
 	L_MPMENU_276, // "Player Ranking"
 	g_MpPlayerRankingMenuItems,
 	NULL,
-	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_1000 : 0,
+	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_LESSHEIGHT : 0,
 	&g_MpEndscreenPlayerStatsMenuDialog,
 };
 
@@ -590,7 +590,7 @@ struct menudialogdef g_MpPauseTeamRankingsMenuDialog = {
 	L_MPMENU_279, // "Team Ranking"
 	g_MpTeamRankingsMenuItems,
 	NULL,
-	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_1000 : 0,
+	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_LESSHEIGHT : 0,
 	&g_MpPausePlayerRankingMenuDialog,
 };
 
@@ -599,7 +599,7 @@ struct menudialogdef g_MpEndscreenTeamRankingMenuDialog = {
 	L_MPMENU_279, // "Team Ranking"
 	g_MpTeamRankingsMenuItems,
 	NULL,
-	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_1000 : 0,
+	VERSION >= VERSION_JPN_FINAL ? MENUDIALOGFLAG_LESSHEIGHT : 0,
 	&g_MpEndscreenPlayerRankingMenuDialog,
 };
 
@@ -625,7 +625,7 @@ char *mp_menu_text_placement_with_suffix(struct menuitem *item)
 
 MenuItemHandlerResult mp_placement_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_GETCOLOUR) {
+	if (operation == MENUOP_GET_LABEL_COLOURS) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].base.placement == 0) { // winner
 			data->label.colour2 = colour_blend(data->label.colour2, 0xffff00ff, menu_get_sin_osc_frac(40) * 255);
 		}
@@ -706,7 +706,7 @@ MenuItemHandlerResult mp_awards_menu_handler(s32 operation, struct menuitem *ite
 
 MenuItemHandlerResult mp_player_title_menu_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
-	if (operation == MENUOP_GETCOLOUR) {
+	if (operation == MENUOP_GET_LABEL_COLOURS) {
 		if (g_PlayerConfigsArray[g_MpPlayerNum].title != g_PlayerConfigsArray[g_MpPlayerNum].newtitle) {
 			data->label.colour2 = colour_blend(data->label.colour2, 0xffff00ff, menu_get_sin_osc_frac(40) * 255);
 		}
@@ -727,7 +727,7 @@ MenuItemHandlerResult mp_confirm_player_name_handler(s32 operation, struct menui
 	s32 i;
 
 	switch (operation) {
-	case MENUOP_GETTEXT:
+	case MENUOP_GET_KEYBOARD_STRING:
 		i = 0;
 
 		while (g_PlayerConfigsArray[g_MpPlayerNum].base.name[i] != '\n'
@@ -742,7 +742,7 @@ MenuItemHandlerResult mp_confirm_player_name_handler(s32 operation, struct menui
 			i++;
 		}
 		break;
-	case MENUOP_SETTEXT:
+	case MENUOP_SET_KEYBOARD_STRING:
 		i = 0;
 
 		while (i <= 10 && name[i] != '\0') {
@@ -758,7 +758,7 @@ MenuItemHandlerResult mp_confirm_player_name_handler(s32 operation, struct menui
 			i++;
 		}
 		break;
-	case MENUOP_SET:
+	case MENUOP_CONFIRM:
 		filemgr_push_select_location_dialog(6, FILETYPE_MPPLAYER);
 		break;
 	}
