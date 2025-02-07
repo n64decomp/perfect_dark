@@ -925,7 +925,7 @@ bool chr_update_position(struct model *model, struct coord *arg1, struct coord *
 								if (chr->lastshooter >= 0 && chr->timeshooter > 0) {
 									shooter = chr->lastshooter;
 								} else {
-									shooter = mp_player_get_index(chr);
+									shooter = mp_chr_to_chrindex(chr);
 								}
 
 								chr_die(chr, shooter);

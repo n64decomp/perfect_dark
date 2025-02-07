@@ -33,14 +33,12 @@
 struct chrdata *g_MpAllChrPtrs[MAX_MPCHRS];
 struct mpchrconfig *g_MpAllChrConfigPtrs[MAX_MPCHRS];
 s32 g_MpNumChrs;
-u32 var800ac534;
 struct mpbotconfig g_BotConfigsArray[MAX_BOTS];
 u8 g_MpSimulantDifficultiesPerNumPlayers[MAX_BOTS][MAX_PLAYERS];
 struct mpplayerconfig g_PlayerConfigsArray[MAX_MPPLAYERCONFIGS];
 u8 g_AmBotCommands[9];
 struct mpsetup g_MpSetup;
 struct bossfile g_BossFile;
-u32 var800acc1c;
 struct mplockinfo g_MpLockInfo;
 struct modeldef *g_PheadModeldefs[18];
 
@@ -52,7 +50,7 @@ s32 g_MpWeaponSetNum;
 const char var7f1b8a00[] = "||||||||||||| Starting game... players %d\n";
 #endif
 
-s32 var80087260 = 0x00000000;
+s32 g_MpReturningFromMatch = 0;
 bool g_MpEnableMusicSwitching = false;
 
 struct mpweapon g_MpWeapons[NUM_MPWEAPONS] = {
@@ -127,7 +125,7 @@ f32 mp_handicap_to_value(u8 handicap)
 	return tmp * tmp * 3 - 2;
 }
 
-void func0f187838(struct mpchrconfig *mpchr)
+void mp_reset_mpchrconfig_for_match(struct mpchrconfig *mpchr)
 {
 	s32 i = 0;
 
@@ -254,7 +252,7 @@ void mp_reset(void)
 	for (i = 0; i < MAX_MPCHRS; i++) {
 		struct mpchrconfig *mpchr = MPCHR(i);
 
-		func0f187838(mpchr);
+		mp_reset_mpchrconfig_for_match(mpchr);
 
 #if VERSION >= VERSION_NTSC_1_0
 		g_MpAllChrPtrs[i] = NULL;
@@ -355,14 +353,14 @@ void mp_calculate_team_is_only_ai(void)
 	}
 }
 
-void func0f187fbc(s32 playernum)
+void mp_init_handicaps(s32 playernum)
 {
 	g_PlayerConfigsArray[playernum].base.unk18 = 80;
 	g_PlayerConfigsArray[playernum].base.unk1a = 80;
 	g_PlayerConfigsArray[playernum].base.unk1c = 75;
 }
 
-void func0f187fec(void)
+void mp_init_limits(void)
 {
 	g_MpSetup.timelimit = 9;
 	g_MpSetup.scorelimit = 9;
@@ -374,7 +372,7 @@ void mp_player_set_defaults(s32 playernum, bool autonames)
 	s32 i;
 	s32 j;
 
-	func0f187fbc(playernum);
+	mp_init_handicaps(playernum);
 
 	g_PlayerConfigsArray[playernum].controlmode = CONTROLMODE_11;
 
@@ -451,7 +449,7 @@ void mp_player_set_defaults(s32 playernum, bool autonames)
 	}
 }
 
-void func0f1881d4(s32 index)
+void mp_init_botconfig(s32 index)
 {
 	g_BotConfigsArray[index].base.name[0] = '\0';
 	g_BotConfigsArray[index].base.mpheadnum = MPHEAD_DARK_COMBAT;
@@ -482,7 +480,7 @@ void mp_init(void)
 
 	g_Vars.mphilltime = 10;
 
-	func0f187fec();
+	mp_init_limits();
 
 	g_MpSetup.fileguid.fileid = 0;
 	g_MpSetup.fileguid.deviceserial = 0;
@@ -494,14 +492,14 @@ void mp_init(void)
 	}
 
 	for (i = 0; i < MAX_BOTS; i++) {
-		func0f1881d4(i);
+		mp_init_botconfig(i);
 	}
 
 	if (arg_find_by_prefix(1, "-mpwpnset")) {
 		char *value = arg_find_by_prefix(1, "-mpwpnset");
-		mp_set_weapon_set(*value - '0');
+		mp_set_weaponset_slotnum(*value - '0');
 	} else {
-		mp_set_weapon_set(0);
+		mp_set_weaponset_slotnum(0);
 	}
 
 	g_Vars.mplayerisrunning = false;
@@ -858,7 +856,7 @@ s32 mp_get_team_rankings(struct ranking *rankings)
 	return count;
 }
 
-s32 func0f188bcc(void)
+s32 mp_get_num_mpweapons(void)
 {
 	return NUM_MPWEAPONS;
 }
@@ -974,21 +972,28 @@ struct mpweapon *mp_get_mp_weapon_by_location(s32 locationindex)
 	return &g_MpWeapons[mpweaponnum];
 }
 
-s32 mp_count_weapon_set_thing(s32 weaponsetindex)
+#define MPWEAPONSET_IS_FULLY_UNLOCKED(mpweaponsetnum) \
+	(challenge_is_feature_unlocked(g_MpWeaponSets[mpweaponsetnum].requirefeatures[0]) \
+	&& challenge_is_feature_unlocked(g_MpWeaponSets[mpweaponsetnum].requirefeatures[1]) \
+	&& challenge_is_feature_unlocked(g_MpWeaponSets[mpweaponsetnum].requirefeatures[2]) \
+	&& challenge_is_feature_unlocked(g_MpWeaponSets[mpweaponsetnum].requirefeatures[3]))
+
+#define MPWEAPONSET_IS_AVAILABLE(mpweaponsetnum) \
+	(MPWEAPONSET_IS_FULLY_UNLOCKED(mpweaponsetnum) || g_MpWeaponSets[i].slotsiflocked[0] != WEAPON_DISABLED)
+
+s32 mp_mpweaponset_to_slotnum(s32 slotnum)
 {
 	s32 i;
 	s32 count = 0;
 
-	if (weaponsetindex >= ARRAYCOUNT(g_MpWeaponSets)) {
-		count = weaponsetindex - ARRAYCOUNT(g_MpWeaponSets);
-		weaponsetindex = ARRAYCOUNT(g_MpWeaponSets);
+	if (slotnum >= ARRAYCOUNT(g_MpWeaponSets)) {
+		// Custom, Random or Random Five
+		count = slotnum - ARRAYCOUNT(g_MpWeaponSets);
+		slotnum = ARRAYCOUNT(g_MpWeaponSets);
 	}
 
-	for (i = 0; i < weaponsetindex; i++) {
-		if ((challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[0])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[1])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[2])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[3])) || g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
+	for (i = 0; i < slotnum; i++) {
+		if (MPWEAPONSET_IS_AVAILABLE(i)) {
 			count++;
 		}
 	}
@@ -996,41 +1001,36 @@ s32 mp_count_weapon_set_thing(s32 weaponsetindex)
 	return count;
 }
 
-s32 func0f188f9c(s32 arg0)
+s32 mp_slotnum_to_mpweaponset(s32 mpweaponset)
 {
 	s32 i;
 
 	for (i = 0; i < ARRAYCOUNT(g_MpWeaponSets); i++) {
-		// @bug? Shouldn't the disabled check be == WEAPON_DISABLED?
-		if ((challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[0])
-					&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[1])
-					&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[2])
-					&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[3]))
-				|| g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
-			if (arg0 == 0) {
+		if (MPWEAPONSET_IS_AVAILABLE(i)) {
+			if (mpweaponset == 0) {
 				break;
 			}
 
-			arg0--;
+			mpweaponset--;
 		}
 	}
 
-	return i + arg0;
+	return i + mpweaponset;
 }
 
-s32 func0f189058(bool full)
+s32 mp_get_num_weaponset_slots(bool full)
 {
-	return mp_count_weapon_set_thing(full ? ARRAYCOUNT(g_MpWeaponSets) + 3 : ARRAYCOUNT(g_MpWeaponSets));
+	return mp_mpweaponset_to_slotnum(full ? ARRAYCOUNT(g_MpWeaponSets) + 3 : ARRAYCOUNT(g_MpWeaponSets));
 }
 
-s32 func0f189088(void)
+s32 mp_get_custom_weaponset_slot(void)
 {
-	return mp_count_weapon_set_thing(ARRAYCOUNT(g_MpWeaponSets) + 2);
+	return mp_mpweaponset_to_slotnum(ARRAYCOUNT(g_MpWeaponSets) + 2);
 }
 
-char *mp_get_weapon_set_name(s32 index)
+char *mp_get_weaponset_name_by_slotnum(s32 index)
 {
-	index = func0f188f9c(index);
+	index = mp_slotnum_to_mpweaponset(index);
 
 	if (index < 0 || index >= ARRAYCOUNT(g_MpWeaponSets) + 2) {
 		return lang_get(L_MPWEAPONS_041); // "Custom"
@@ -1047,30 +1047,27 @@ char *mp_get_weapon_set_name(s32 index)
 	return lang_get(g_MpWeaponSets[index].name);
 }
 
-void func0f18913c(void)
+void mp_find_weaponsetnum_by_weapons(void)
 {
 	s32 i;
 	bool done = false;
-	u8 *ptr;
+	u8 *slots;
 	s32 j;
 
 	for (i = 0; !done && i < ARRAYCOUNT(g_MpWeaponSets); i++) {
-		if (challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[0])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[1])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[2])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[i].requirefeatures[3])) {
-			ptr = &g_MpWeaponSets[i].slots[0];
-		} else if (g_MpWeaponSets[i].unk0c != WEAPON_DISABLED) {
-			ptr = &g_MpWeaponSets[i].unk0c;
+		if (MPWEAPONSET_IS_FULLY_UNLOCKED(i)) {
+			slots = g_MpWeaponSets[i].slots;
+		} else if (g_MpWeaponSets[i].slotsiflocked[0] != WEAPON_DISABLED) {
+			slots = g_MpWeaponSets[i].slotsiflocked;
 		} else {
-			ptr = NULL;
+			slots = NULL;
 		}
 
-		if (ptr != NULL) {
+		if (slots != NULL) {
 			bool ok = true;
 
 			for (j = 0; j < ARRAYCOUNT(g_MpWeaponSets[j].slots); j++) {
-				s32 weaponnum = ptr[j];
+				s32 weaponnum = slots[j];
 
 				if (weaponnum == WEAPON_MPSHIELD) {
 					if (!challenge_is_feature_unlocked(MPFEATURE_WEAPON_SHIELD)) {
@@ -1095,29 +1092,26 @@ void func0f18913c(void)
 	}
 }
 
-void mp_apply_weapon_set(void)
+void mp_apply_weaponset(void)
 {
 	s32 i;
-	u8 *ptr;
+	u8 *slots;
 
 	if (g_MpWeaponSetNum >= 0 && g_MpWeaponSetNum < ARRAYCOUNT(g_MpWeaponSets)) {
-		if (challenge_is_feature_unlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[0])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[1])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[2])
-				&& challenge_is_feature_unlocked(g_MpWeaponSets[g_MpWeaponSetNum].requirefeatures[3])) {
-			ptr = &g_MpWeaponSets[g_MpWeaponSetNum].slots[0];
-		} else if (g_MpWeaponSets[g_MpWeaponSetNum].unk0c != WEAPON_DISABLED) {
-			ptr = &g_MpWeaponSets[g_MpWeaponSetNum].unk0c;
+		if (MPWEAPONSET_IS_FULLY_UNLOCKED(g_MpWeaponSetNum)) {
+			slots = g_MpWeaponSets[g_MpWeaponSetNum].slots;
+		} else if (g_MpWeaponSets[g_MpWeaponSetNum].slotsiflocked[0] != WEAPON_DISABLED) {
+			slots = g_MpWeaponSets[g_MpWeaponSetNum].slotsiflocked;
 		} else {
-			ptr = NULL;
+			slots = NULL;
 		}
 
-		if (ptr != NULL) {
+		if (slots != NULL) {
 			for (i = 0; i < ARRAYCOUNT(g_MpSetup.weapons); i++) {
 				u32 j;
 				bool done = false;
 				s32 mpweaponnum = MPWEAPON_NONE;
-				s32 weaponnum = ptr[i];
+				s32 weaponnum = slots[i];
 
 				if (weaponnum == WEAPON_MPSHIELD && !challenge_is_feature_unlocked(MPFEATURE_WEAPON_SHIELD)) {
 					weaponnum = 0;
@@ -1152,22 +1146,22 @@ void mp_apply_weapon_set(void)
 	}
 }
 
-void mp_set_weapon_set(s32 weaponsetnum)
+void mp_set_weaponset_slotnum(s32 slotnum)
 {
-	g_MpWeaponSetNum = func0f188f9c(weaponsetnum);
-	mp_apply_weapon_set();
+	g_MpWeaponSetNum = mp_slotnum_to_mpweaponset(slotnum);
+	mp_apply_weaponset();
 }
 
-void func0f1895e8(void)
+void mp_apply_weaponset_if_standard(void)
 {
 	if (g_MpWeaponSetNum < ARRAYCOUNT(g_MpWeaponSets)) {
-		mp_apply_weapon_set();
+		mp_apply_weaponset();
 	}
 }
 
-s32 mp_get_weapon_set(void)
+s32 mp_get_weaponset_slotnum(void)
 {
-	return mp_count_weapon_set_thing(g_MpWeaponSetNum);
+	return mp_mpweaponset_to_slotnum(g_MpWeaponSetNum);
 }
 
 bool mp_is_paused(void)
@@ -1438,25 +1432,87 @@ s32 mp_find_min_float(s32 numplayers, f32 val0, f32 val1, f32 val2, f32 val3)
 }
 
 struct mpweaponset g_MpWeaponSets[12] = {
-	{ /*0x00*/ L_MPWEAPONS_055, { WEAPON_FALCON2,          WEAPON_MAGSEC4,     WEAPON_PHOENIX,     WEAPON_MAULER,         WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_PHOENIX,         MPFEATURE_WEAPON_MAULER,     0,                              0                       }, WEAPON_FALCON2,     WEAPON_MAGSEC4,     WEAPON_FALCON2,   WEAPON_DY357MAGNUM,    WEAPON_MPSHIELD, WEAPON_DISABLED }, // Pistols
-	{ /*0x01*/ L_MPWEAPONS_054, { WEAPON_FALCON2,          WEAPON_CMP150,      WEAPON_LAPTOPGUN,   WEAPON_AR34,           WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_LAPTOPGUN,       0,                           0,                              0                       }, WEAPON_FALCON2,     WEAPON_CMP150,      WEAPON_DRAGON,    WEAPON_AR34,           WEAPON_MPSHIELD, WEAPON_DISABLED }, // Automatics
-	{ /*0x02*/ L_MPWEAPONS_053, { WEAPON_MAGSEC4,          WEAPON_DY357MAGNUM, WEAPON_SHOTGUN,     WEAPON_RCP120,         WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_SHOTGUN,         MPFEATURE_WEAPON_RCP120,     0,                              0                       }, WEAPON_MAGSEC4,     WEAPON_DY357MAGNUM, WEAPON_DRAGON,    WEAPON_AR34,           WEAPON_MPSHIELD, WEAPON_DISABLED }, // Power
-	{ /*0x03*/ L_MPWEAPONS_052, { WEAPON_PHOENIX,          WEAPON_CYCLONE,     WEAPON_CALLISTO,    WEAPON_FARSIGHT,       WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_FARSIGHT,        MPFEATURE_WEAPON_CALLISTO,   0,                              0                       }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // FarSight
-	{ /*0x04*/ L_MPWEAPONS_051, { WEAPON_FALCON2,          WEAPON_CMP150,      WEAPON_DRAGON,      WEAPON_TRANQUILIZER,   WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_TRANQUILIZER,    0,                           0,                              0                       }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // Tranquilizer
-	{ /*0x05*/ L_MPWEAPONS_050, { WEAPON_MAULER,           WEAPON_K7AVENGER,   WEAPON_REAPER,      WEAPON_SUPERDRAGON,    WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_SUPERDRAGON,     MPFEATURE_WEAPON_MAULER,     MPFEATURE_WEAPON_K7AVENGER,     MPFEATURE_WEAPON_REAPER }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // Heavy
-	{ /*0x06*/ L_MPWEAPONS_049, { WEAPON_FALCON2_SILENCER, WEAPON_GRENADE,     WEAPON_CMP150,      WEAPON_DY357LX,        WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_FALCON2SILENCED, MPFEATURE_WEAPON_DY357LX,    0,                              0                       }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // Golden Magnum
-	{ /*0x07*/ L_MPWEAPONS_048, { WEAPON_DEVASTATOR,       WEAPON_DEVASTATOR,  WEAPON_SUPERDRAGON, WEAPON_SUPERDRAGON,    WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_SUPERDRAGON,     MPFEATURE_WEAPON_DEVASTATOR, 0,                              0                       }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // Explosive
-	{ /*0x08*/ L_MPWEAPONS_047, { WEAPON_MAGSEC4,          WEAPON_CMP150,      WEAPON_AR34,        WEAPON_DEVASTATOR,     WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_DEVASTATOR,      0,                           0,                              0                       }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // Grenade Launcher
-	{ /*0x09*/ L_MPWEAPONS_046, { WEAPON_MAULER,           WEAPON_CYCLONE,     WEAPON_DRAGON,      WEAPON_ROCKETLAUNCHER, WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_MAULER,          0,                           0,                              0                       }, WEAPON_FALCON2,     WEAPON_CYCLONE,     WEAPON_DRAGON,    WEAPON_ROCKETLAUNCHER, WEAPON_MPSHIELD, WEAPON_DISABLED }, // Rocket Launcher
-	{ /*0x0a*/ L_MPWEAPONS_045, { WEAPON_MAGSEC4,          WEAPON_LAPTOPGUN,   WEAPON_K7AVENGER,   WEAPON_PROXIMITYMINE,  WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_LAPTOPGUN,       MPFEATURE_WEAPON_K7AVENGER,  MPFEATURE_WEAPON_PROXIMITYMINE, 0                       }, WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED,  WEAPON_DISABLED,       WEAPON_DISABLED, WEAPON_DISABLED }, // Proximity Mine
+	{ /*0x00*/
+		L_MPWEAPONS_055, // Pistols
+		{ WEAPON_FALCON2,           WEAPON_MAGSEC4,          WEAPON_PHOENIX, WEAPON_MAULER,      WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_PHOENIX, MPFEATURE_WEAPON_MAULER, 0,              0                   },
+		{ WEAPON_FALCON2,           WEAPON_MAGSEC4,          WEAPON_FALCON2, WEAPON_DY357MAGNUM, WEAPON_MPSHIELD, WEAPON_DISABLED },
+	},
+	{ /*0x01*/
+		L_MPWEAPONS_054, // Automatics
+		{ WEAPON_FALCON2,             WEAPON_CMP150, WEAPON_LAPTOPGUN, WEAPON_AR34, WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_LAPTOPGUN, 0,             0,                0            },
+		{ WEAPON_FALCON2,             WEAPON_CMP150, WEAPON_DRAGON,    WEAPON_AR34, WEAPON_MPSHIELD, WEAPON_DISABLED },
+	},
+	{ /*0x02*/
+		L_MPWEAPONS_053, // Power
+		{ WEAPON_MAGSEC4,           WEAPON_DY357MAGNUM,      WEAPON_SHOTGUN, WEAPON_RCP120, WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_SHOTGUN, MPFEATURE_WEAPON_RCP120, 0,              0              },
+		{ WEAPON_MAGSEC4,           WEAPON_DY357MAGNUM,      WEAPON_DRAGON,  WEAPON_AR34,   WEAPON_MPSHIELD, WEAPON_DISABLED },
+	},
+	{ /*0x03*/
+		L_MPWEAPONS_052, // FarSight
+		{ WEAPON_PHOENIX,            WEAPON_CYCLONE,            WEAPON_CALLISTO, WEAPON_FARSIGHT, WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_FARSIGHT, MPFEATURE_WEAPON_CALLISTO, 0,               0                },
+		{ WEAPON_DISABLED,           WEAPON_DISABLED,           WEAPON_DISABLED, WEAPON_DISABLED, WEAPON_DISABLED, WEAPON_DISABLED },
+	},
+	{ /*0x04*/
+		L_MPWEAPONS_051, // Tranquilizer
+		{ WEAPON_FALCON2,                WEAPON_CMP150,   WEAPON_DRAGON,   WEAPON_TRANQUILIZER, WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_TRANQUILIZER, 0,               0,               0                    },
+		{ WEAPON_DISABLED,               WEAPON_DISABLED, WEAPON_DISABLED, WEAPON_DISABLED,     WEAPON_DISABLED, WEAPON_DISABLED },
+	},
+	{ /*0x05*/
+		L_MPWEAPONS_050, // Heavy
+		{ WEAPON_MAULER,                WEAPON_K7AVENGER,        WEAPON_REAPER,              WEAPON_SUPERDRAGON,     WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_SUPERDRAGON, MPFEATURE_WEAPON_MAULER, MPFEATURE_WEAPON_K7AVENGER, MPFEATURE_WEAPON_REAPER },
+		{ WEAPON_DISABLED,              WEAPON_DISABLED,         WEAPON_DISABLED,            WEAPON_DISABLED,        WEAPON_DISABLED, WEAPON_DISABLED },
+	},
+	{ /*0x06*/
+		L_MPWEAPONS_049, // Golden Magnum
+		{ WEAPON_FALCON2_SILENCER,          WEAPON_GRENADE,           WEAPON_CMP150,   WEAPON_DY357LX,  WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_FALCON2SILENCED, MPFEATURE_WEAPON_DY357LX, 0,               0                },
+		{ WEAPON_DISABLED,                  WEAPON_DISABLED,          WEAPON_DISABLED, WEAPON_DISABLED, WEAPON_DISABLED, WEAPON_DISABLED },
+	},
+	{ /*0x07*/
+		L_MPWEAPONS_048, // Explosive
+		{ WEAPON_DEVASTATOR,            WEAPON_DEVASTATOR,           WEAPON_SUPERDRAGON, WEAPON_SUPERDRAGON, WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_SUPERDRAGON, MPFEATURE_WEAPON_DEVASTATOR, 0,                  0                   },
+		{ WEAPON_DISABLED,              WEAPON_DISABLED,             WEAPON_DISABLED,    WEAPON_DISABLED,    WEAPON_DISABLED, WEAPON_DISABLED },
+	},
+	{ /*0x08*/
+		L_MPWEAPONS_047, // Grenade Launcher
+		{ WEAPON_MAGSEC4,              WEAPON_CMP150,   WEAPON_AR34,     WEAPON_DEVASTATOR, WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_DEVASTATOR, 0,               0,               0                  },
+		{ WEAPON_DISABLED,             WEAPON_DISABLED, WEAPON_DISABLED, WEAPON_DISABLED,   WEAPON_DISABLED, WEAPON_DISABLED },
+	},
+	{ /*0x09*/
+		L_MPWEAPONS_046, // Rocket Launcher
+		{ WEAPON_MAULER,           WEAPON_CYCLONE, WEAPON_DRAGON, WEAPON_ROCKETLAUNCHER, WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_MAULER, 0,              0,             0                      },
+		{ WEAPON_FALCON2,          WEAPON_CYCLONE, WEAPON_DRAGON, WEAPON_ROCKETLAUNCHER, WEAPON_MPSHIELD, WEAPON_DISABLED },
+	},
+	{ /*0x0a*/
+		L_MPWEAPONS_045, // Proximity Mine
+		{ WEAPON_MAGSEC4,             WEAPON_LAPTOPGUN,           WEAPON_K7AVENGER,               WEAPON_PROXIMITYMINE, WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_LAPTOPGUN, MPFEATURE_WEAPON_K7AVENGER, MPFEATURE_WEAPON_PROXIMITYMINE, 0                     },
+		{ WEAPON_DISABLED,            WEAPON_DISABLED,            WEAPON_DISABLED,                WEAPON_DISABLED,      WEAPON_DISABLED, WEAPON_DISABLED },
+	},
+	{ /*0x0b*/
+		L_MPWEAPONS_044, // Close Combat
 #if VERSION == VERSION_JPN_FINAL
-	{ /*0x0b*/ L_MPWEAPONS_044, { WEAPON_TIMEDMINE,        WEAPON_CROSSBOW,    WEAPON_TIMEDMINE,   WEAPON_CROSSBOW,       WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_CROSSBOW,        0,                           0,                              0                       }, WEAPON_TIMEDMINE,   WEAPON_TIMEDMINE,   WEAPON_TIMEDMINE, WEAPON_TIMEDMINE,      WEAPON_MPSHIELD, WEAPON_DISABLED }, // Close Combat
+		{ WEAPON_TIMEDMINE,          WEAPON_CROSSBOW,  WEAPON_TIMEDMINE, WEAPON_CROSSBOW,  WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_CROSSBOW, 0,                0,                0                 },
+		{ WEAPON_TIMEDMINE,          WEAPON_TIMEDMINE, WEAPON_TIMEDMINE, WEAPON_TIMEDMINE, WEAPON_MPSHIELD, WEAPON_DISABLED },
 #else
-	{ /*0x0b*/ L_MPWEAPONS_044, { WEAPON_COMBATKNIFE,      WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE,   WEAPON_CROSSBOW,       WEAPON_MPSHIELD, WEAPON_DISABLED }, { MPFEATURE_WEAPON_CROSSBOW,        0,                           0,                              0                       }, WEAPON_COMBATKNIFE, WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE, WEAPON_TIMEDMINE,      WEAPON_MPSHIELD, WEAPON_DISABLED }, // Close Combat
+		{ WEAPON_COMBATKNIFE,        WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE, WEAPON_CROSSBOW,  WEAPON_MPSHIELD, WEAPON_DISABLED },
+		{ MPFEATURE_WEAPON_CROSSBOW, 0,                  0,                0                 },
+		{ WEAPON_COMBATKNIFE,        WEAPON_COMBATKNIFE, WEAPON_TIMEDMINE, WEAPON_TIMEDMINE, WEAPON_MPSHIELD, WEAPON_DISABLED },
 #endif
+	},
 };
 
-s32 g_MpWeaponSetNum = 0x00000000;
+s32 g_MpWeaponSetNum = 0;
 
 u16 g_AwardNames[] = {
 	L_MPMENU_000, // "Most Suicidal"
@@ -3054,7 +3110,7 @@ void mp_remove_simulant(s32 index)
 {
 	g_MpSetup.chrslots &= ~(1 << (index + 4));
 	g_BotConfigsArray[index].base.name[0] = '\0';
-	func0f1881d4(index);
+	mp_init_botconfig(index);
 	mp_generate_bot_names();
 }
 
@@ -3193,7 +3249,7 @@ const char var7f1b8c04[] = "PakId for player %d: %d\n";
 const char var7f1b8c20[] = "Load Player - Result: %d\n";
 #endif
 
-s32 mp_player_get_index(struct chrdata *chr)
+s32 mp_chr_to_chrindex(struct chrdata *chr)
 {
 	s32 i;
 
@@ -3206,7 +3262,7 @@ s32 mp_player_get_index(struct chrdata *chr)
 	return -1;
 }
 
-struct chrdata *mp_get_chr_from_player_index(s32 index)
+struct chrdata *mp_chrindex_to_chr(s32 index)
 {
 	if (index >= 0 && index < g_MpNumChrs) {
 		return g_MpAllChrPtrs[index];
@@ -3215,38 +3271,49 @@ struct chrdata *mp_get_chr_from_player_index(s32 index)
 	return NULL;
 }
 
-s32 func0f18d074(s32 index)
+/**
+ * chrslots 0-3 are human players
+ * chrslots 4-11 are bot players
+ *
+ * So for a match with 2 humans and a bot, the chrslots are:
+ * HH..B.......
+ *
+ * player 1 = chrindex 0, chrslot 0
+ * player 2 = chrindex 1, chrslot 1
+ * bot      = chrindex 2, chrslot 4
+ */
+s32 mp_chrindex_to_chrslot(s32 chrnum)
 {
 	s32 i;
 
 	for (i = 0; i < MAX_PLAYERS; i++) {
-		if (&g_PlayerConfigsArray[i].base == g_MpAllChrConfigPtrs[index]) {
+		if (&g_PlayerConfigsArray[i].base == g_MpAllChrConfigPtrs[chrnum]) {
 			return i;
 		}
 	}
 
 	for (i = 0; i < MAX_BOTS; i++) {
-		if (&g_BotConfigsArray[i].base == g_MpAllChrConfigPtrs[index]) {
-			return i + 4;
+		if (&g_BotConfigsArray[i].base == g_MpAllChrConfigPtrs[chrnum]) {
+			return MAX_PLAYERS + i;
 		}
 	}
 
 	return -1;
 }
 
-s32 func0f18d0e8(s32 arg0)
+s32 mp_chrslot_to_chrindex(s32 chrslot)
 {
 	s32 i;
 
-	if (arg0 < 4) {
+	if (chrslot < MAX_PLAYERS) {
 		for (i = 0; i < g_MpNumChrs; i++) {
-			if (g_MpAllChrConfigPtrs[i] == &g_PlayerConfigsArray[arg0].base) {
+			if (g_MpAllChrConfigPtrs[i] == &g_PlayerConfigsArray[chrslot].base) {
 				return i;
 			}
 		}
 	} else {
 		for (i = 0; i < g_MpNumChrs; i++) {
-			if (g_MpAllChrConfigPtrs[i] == &g_BotConfigsArray[arg0 - 4].base) {
+			if (g_MpAllChrConfigPtrs[i] == &g_BotConfigsArray[chrslot - MAX_PLAYERS].base) {
 				return i;
 			}
 		}
@@ -3293,7 +3360,7 @@ void mpplayerfile_save_gun_funcs(struct savebuffer *buffer, s32 playernum)
 	}
 }
 
-void mpplayerfile_load_wad(s32 playernum, struct savebuffer *buffer, s32 arg2)
+void mpplayerfile_load_wad(s32 playernum, struct savebuffer *buffer, bool arg2)
 {
 	struct fileguid guid;
 	u32 stack;
@@ -3303,7 +3370,7 @@ void mpplayerfile_load_wad(s32 playernum, struct savebuffer *buffer, s32 arg2)
 	savebuffer_read_string(buffer, g_PlayerConfigsArray[playernum].base.name, 1);
 	g_PlayerConfigsArray[playernum].time = savebuffer_read_bits(buffer, 28);
 
-	if (arg2 != 0) {
+	if (arg2) {
 		g_PlayerConfigsArray[playernum].base.mpheadnum = savebuffer_read_bits(buffer, 7);
 		g_PlayerConfigsArray[playernum].base.mpbodynum = savebuffer_read_bits(buffer, 7);
 
@@ -3541,7 +3608,7 @@ s32 mpplayerfile_load(s32 playernum, s32 device, s32 fileid, u16 deviceserial)
 			g_PlayerConfigsArray[playernum].fileguid.fileid = fileid;
 			g_PlayerConfigsArray[playernum].fileguid.deviceserial = deviceserial;
 
-			mpplayerfile_load_wad(playernum, &buffer, 1);
+			mpplayerfile_load_wad(playernum, &buffer, true);
 			savebuffer_print(&buffer);
 
 			g_PlayerConfigsArray[playernum].handicap = 0x80;
@@ -3699,11 +3766,11 @@ void mp_apply_config(struct mpconfigfull *config)
 		}
 	}
 
-	func0f18913c();
+	mp_find_weaponsetnum_by_weapons();
 	challenge_remove_force_unlocks();
 }
 
-void mp0f18dec4(s32 slot)
+void mp_load_preset_by_slotnum(s32 slot)
 {
 	struct mpconfigfull *config;
 	u8 buffer[0x1ca];
@@ -3777,7 +3844,7 @@ void mpsetupfile_load_wad(struct savebuffer *buffer)
 		g_MpSetup.weapons[i] = savebuffer_read_bits(buffer, 7);
 	}
 
-	func0f18913c();
+	mp_find_weaponsetnum_by_weapons();
 
 	g_MpSetup.timelimit = savebuffer_read_bits(buffer, 6);
 	g_MpSetup.scorelimit = savebuffer_read_bits(buffer, 7);

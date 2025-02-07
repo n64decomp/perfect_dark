@@ -213,7 +213,7 @@ void challenge_determine_unlocked_features(void)
 		g_MpFeaturesUnlocked[j] = flag;
 	}
 
-	for (j = 0; j < func0f188bcc(); j++) {
+	for (j = 0; j < mp_get_num_mpweapons(); j++) {
 		struct mpweapon *weapon = &g_MpWeapons[j];
 
 		if (weapon->unlockfeature > 0 && fr_is_weapon_available_for_mp(weapon->weaponnum)) {
@@ -221,7 +221,7 @@ void challenge_determine_unlocked_features(void)
 		}
 	}
 
-	func0f1895e8();
+	mp_apply_weaponset_if_standard();
 
 	// If the ability to have 8 simulants hasn't been unlocked, limit them to 4
 	if (!challenge_is_feature_unlocked(MPFEATURE_8BOTS)) {

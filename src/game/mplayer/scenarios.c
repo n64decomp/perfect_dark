@@ -1061,8 +1061,8 @@ bool scenario_chrs_are_same_team(s32 playernum1, s32 playernum2)
 	struct mpchrconfig *bchr;
 
 	if ((g_MpSetup.options & MPOPTION_TEAMSENABLED) && playernum1 >= 0 && playernum2 >= 0) {
-		s32 a = func0f18d074(playernum1);
-		s32 b = func0f18d074(playernum2);
+		s32 a = mp_chrindex_to_chrslot(playernum1);
+		s32 b = mp_chrindex_to_chrslot(playernum2);
 
 		if (a >= 0 && b >= 0) {
 			achr = MPCHR(a);
@@ -1098,7 +1098,7 @@ s32 scenario_pick_up_briefcase(struct chrdata *chr, struct prop *prop)
 		g_ScenarioData.htb.token = chr->prop;
 
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mp_player_get_index(chr)];
+			mpchr = g_MpAllChrConfigPtrs[mp_chr_to_chrindex(chr)];
 			prop_play_pickup_sound(prop, weapon->weaponnum);
 			chr->aibot->hasbriefcase = true;
 			botinv_give_single_weapon(chr, WEAPON_BRIEFCASE2);
@@ -1149,7 +1149,7 @@ s32 scenario_pick_up_briefcase(struct chrdata *chr, struct prop *prop)
 #endif
 	} else if (g_MpSetup.scenario == MPSCENARIO_CAPTURETHECASE) {
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mp_player_get_index(chr)];
+			mpchr = g_MpAllChrConfigPtrs[mp_chr_to_chrindex(chr)];
 		} else {
 			mpchr = MPCHR(g_Vars.playerstats[g_Vars.currentplayernum].mpindex);
 		}
@@ -1400,7 +1400,7 @@ s32 scenario_pick_up_uplink(struct chrdata *chr, struct prop *prop)
 		g_ScenarioData.htm.uplink = chr->prop;
 
 		if (chr->aibot) {
-			mpchr = g_MpAllChrConfigPtrs[mp_player_get_index(chr)];
+			mpchr = g_MpAllChrConfigPtrs[mp_chr_to_chrindex(chr)];
 		} else {
 			mpchr = MPCHR(g_Vars.playerstats[g_Vars.currentplayernum].mpindex);
 		}
@@ -1472,7 +1472,7 @@ void scenario_handle_activated_prop(struct chrdata *chr, struct prop *prop)
 		struct defaultobj *obj = prop->obj;
 
 		if (obj->flags3 & OBJFLAG3_HTMTERMINAL) {
-			u32 mpindex = mp_player_get_index(chr);
+			u32 mpindex = mp_chr_to_chrindex(chr);
 
 			if ((obj->hidden & OBJHFLAG_ACTIVATED_BY_BOND) == 0) {
 				obj->hidden &= 0x0fffffff;

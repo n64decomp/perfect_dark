@@ -403,7 +403,7 @@ void htm_tick_chr(struct chrdata *chr)
 
 	if (chr) {
 		hasuplink = chr->aibot->hasuplink;
-		playernum = mp_player_get_index(chr);
+		playernum = mp_chr_to_chrindex(chr);
 	} else {
 		hasuplink = inv_has_data_uplink() && bgun_get_weapon_num(HAND_RIGHT) == WEAPON_DATAUPLINK;
 		playernum = g_Vars.currentplayernum;
@@ -623,7 +623,7 @@ void htm_calculate_player_score(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *sc
 	s32 index;
 
 	*score = 0;
-	index = func0f18d0e8(mpchrnum);
+	index = mp_chrslot_to_chrindex(mpchrnum);
 
 	if (index >= 0) {
 		*score += g_ScenarioData.htm.numpoints[index] * 2;

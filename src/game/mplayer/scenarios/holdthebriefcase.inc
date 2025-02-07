@@ -356,7 +356,7 @@ void htb_tick_chr(struct chrdata *chr)
 
 			if (chr->aibot->htbheldtimer60 >= TICKS(7200)) {
 				snd_start(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
-				g_MpAllChrConfigPtrs[mp_player_get_index(chr)]->numpoints++;
+				g_MpAllChrConfigPtrs[mp_chr_to_chrindex(chr)]->numpoints++;
 				chr->aibot->htbheldtimer60 = 0;
 			}
 		} else {

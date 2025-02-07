@@ -214,7 +214,7 @@ void menu_tick(void)
 	}
 
 	// Check if returning from a multiplayer match
-	if (var80087260 > 0) {
+	if (g_MpReturningFromMatch > 0) {
 		if (g_Vars.lvframenum >= 4) {
 			if (g_Vars.stagenum == STAGE_CITRAINING || g_Vars.stagenum == STAGE_4MBMENU) {
 				vi_black(false);
@@ -234,7 +234,7 @@ void menu_tick(void)
 
 						if (g_Vars.mpsetupmenu == MPSETUPMENU_ADVSETUP) {
 							g_MpNumJoined++;
-							func0f17fcb0(true);
+							mp_open_advanced_setup(true);
 						} else if (g_MpNumJoined == 0) {
 							g_MpNumJoined++;
 
@@ -258,7 +258,7 @@ void menu_tick(void)
 				}
 			}
 
-			var80087260 = 0;
+			g_MpReturningFromMatch = 0;
 		} else {
 			vi_black(true);
 			g_PlayersWithControl[0] = false;
@@ -390,7 +390,7 @@ void menu_tick(void)
 						} else {
 							// Joining from advanced setup
 							g_MpNumJoined++;
-							func0f17fcb0(false);
+							mp_open_advanced_setup(false);
 						}
 					}
 
@@ -418,7 +418,7 @@ void menu_tick(void)
 								// reached the adv setup layer - open the dialog
 								g_Vars.waitingtojoin[i] = false;
 								g_MpNumJoined++;
-								func0f17fcb0(false);
+								mp_open_advanced_setup(false);
 							}
 						}
 					}
@@ -614,7 +614,7 @@ void menu_tick(void)
 				break;
 			case MENUROOT_MPENDSCREEN:
 				if (g_Vars.normmplayerisrunning) {
-					var80087260 = 3;
+					g_MpReturningFromMatch = 3;
 				} else if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 					struct mpplayerconfig tmp;
 

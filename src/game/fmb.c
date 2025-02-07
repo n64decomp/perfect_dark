@@ -65,7 +65,7 @@ void fmb_reset(void)
 	g_MpPlayerNum = 0;
 
 	if (g_FileState != FILESTATE_UNSELECTED) {
-		if (var80087260 == 0) {
+		if (!g_MpReturningFromMatch) {
 			g_Vars.mpsetupmenu = MPSETUPMENU_GENERAL;
 			menu_push_root_dialog(&g_MainMenu4MbMenuDialog, MENUROOT_4MBMAINMENU);
 		}
@@ -500,9 +500,9 @@ struct menuitem g_MpConfirmChallenge4MbMenuItems[] = {
 
 struct menudialogdef g_MpConfirmChallenge4MbMenuDialog = {
 	MENUDIALOGTYPE_DEFAULT,
-	(uintptr_t)&func0f17e318,
+	(uintptr_t)&menutext_mp_challenge_name,
 	g_MpConfirmChallenge4MbMenuItems,
-	menudialog0017e3fc,
+	menudialog_mp_confirm_challenge,
 	0,
 	NULL,
 };

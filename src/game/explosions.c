@@ -984,7 +984,7 @@ void explosion_inflict_damage(struct prop *expprop)
 					}
 
 					if (g_Vars.normmplayerisrunning) {
-						struct chrdata *ownerchr = mp_get_chr_from_player_index(exp->owner);
+						struct chrdata *ownerchr = mp_chrindex_to_chr(exp->owner);
 
 						if (ownerchr) {
 							ownerprop = ownerchr->prop;
@@ -1207,7 +1207,7 @@ u32 explosion_tick(struct prop *prop)
 			scorchsize *= 0.8f + 0.2f * RANDOMFRAC();
 
 			if (g_Vars.normmplayerisrunning) {
-				chr = mp_get_chr_from_player_index(exp->owner);
+				chr = mp_chrindex_to_chr(exp->owner);
 			} else if (g_Vars.antiplayernum >= 0 && exp->owner == g_Vars.antiplayernum) {
 				chr = g_Vars.anti->prop->chr;
 			} else if (g_Vars.coopplayernum >= 0 && exp->owner == g_Vars.coopplayernum) {

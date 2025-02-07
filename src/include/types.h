@@ -3084,12 +3084,7 @@ struct mpweaponset {
 	/*0x00*/ u16 name;
 	/*0x02*/ u8 slots[NUM_MPWEAPONSLOTS];
 	/*0x08*/ u8 requirefeatures[4];
-	/*0x0c*/ u8 unk0c;
-	/*0x0d*/ u8 unk0d;
-	/*0x0e*/ u8 unk0e;
-	/*0x0f*/ u8 unk0f;
-	/*0x10*/ u8 unk10;
-	/*0x11*/ u8 unk11;
+	/*0x0c*/ u8 slotsiflocked[NUM_MPWEAPONSLOTS];
 };
 
 struct mphead {
@@ -3722,7 +3717,7 @@ struct menudata_main {
 struct menudata_mpsetup {
 	u32 slotindex;
 	u32 slotcount;
-	u32 unke24;
+	u32 botprofileindex;
 };
 
 struct menudata_mppause {

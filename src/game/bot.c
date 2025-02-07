@@ -829,7 +829,7 @@ bool bot_is_about_to_attack(struct chrdata *chr, bool arg1)
 
 	if (chr->target != -1) {
 		target = chr_get_target_prop(chr);
-		mpindex = mp_player_get_index(target->chr);
+		mpindex = mp_chr_to_chrindex(target->chr);
 		result = false;
 
 		if (chr->aibot->chrsinsight[mpindex]) {
@@ -1334,7 +1334,7 @@ void bot_set_target(struct chrdata *botchr, s32 propnum)
 	if (propnum >= 0) {
 		otherchr = (g_Vars.props + propnum)->chr;
 
-		index = mp_player_get_index(otherchr);
+		index = mp_chr_to_chrindex(otherchr);
 
 		botchr->aibot->targetinsight = botchr->aibot->chrsinsight[index];
 		botchr->aibot->targetlastseen60 = botchr->aibot->chrslastseen60[index];
@@ -1585,7 +1585,7 @@ void bot_choose_general_target(struct chrdata *botchr)
 	// and update stats about that chr
 	aibot->queryplayernum = (aibot->queryplayernum + 1) % g_MpNumChrs;
 
-	trychr = mp_get_chr_from_player_index(aibot->queryplayernum);
+	trychr = mp_chrindex_to_chr(aibot->queryplayernum);
 
 	if (trychr != botchr) {
 		// This condition passes on average once every 4 minutes per player.
@@ -1682,7 +1682,7 @@ void bot_choose_general_target(struct chrdata *botchr)
 
 		for (tmp = 0; tmp < g_MpNumChrs; tmp++) {
 			s32 i = aibot->chrnumsbydistanceasc[tmp];
-			trychr = mp_get_chr_from_player_index(i);
+			trychr = mp_chrindex_to_chr(i);
 
 			if (trychr != botchr
 					&& !chr_is_dead(trychr)
@@ -1713,7 +1713,7 @@ void bot_choose_general_target(struct chrdata *botchr)
 
 		// Use closest out of sight chr
 		if (closestavailablechrnum >= 0) {
-			trychr = mp_get_chr_from_player_index(closestavailablechrnum);
+			trychr = mp_chrindex_to_chr(closestavailablechrnum);
 			bot_set_target(botchr, trychr->prop - g_Vars.props);
 			return;
 		}
@@ -1725,7 +1725,7 @@ void bot_choose_general_target(struct chrdata *botchr)
 
 	// Bot has an existing target
 	// If they're still in sight, keep the target
-	playernum = mp_player_get_index((g_Vars.props + botchr->target)->chr);
+	playernum = mp_chr_to_chrindex((g_Vars.props + botchr->target)->chr);
 
 	if (aibot->chrsinsight[playernum]) {
 		bot_set_target(botchr, botchr->target);
@@ -1736,7 +1736,7 @@ void bot_choose_general_target(struct chrdata *botchr)
 	// Check for other chrs who are in sight, by distance
 	for (i = 0; i < g_MpNumChrs; i++) {
 		if (aibot->chrsinsight[aibot->chrnumsbydistanceasc[i]]) {
-			trychr = mp_get_chr_from_player_index(aibot->chrnumsbydistanceasc[i]);
+			trychr = mp_chrindex_to_chr(aibot->chrnumsbydistanceasc[i]);
 
 			if (trychr != botchr
 					&& !chr_is_dead(trychr)
@@ -2334,7 +2334,7 @@ s32 bot_get_count_in_team_doing_command(struct chrdata *self, u32 command, bool 
 
 s32 bot_is_chrs_ctc_token_held(struct chrdata *chr)
 {
-	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mp_player_get_index(chr)];
+	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mp_chr_to_chrindex(chr)];
 	struct prop *prop = g_ScenarioData.ctc.tokens[mpchr->team];
 
 	return prop && (prop->type == PROPTYPE_CHR || prop->type == PROPTYPE_PLAYER);
@@ -2383,7 +2383,7 @@ s32 bot_get_num_teammates_defending_hill(struct chrdata *bot)
  */
 s32 bot_get_num_opponents_in_hill(struct chrdata *chr)
 {
-	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mp_player_get_index(chr)];
+	struct mpchrconfig *mpchr = g_MpAllChrConfigPtrs[mp_chr_to_chrindex(chr)];
 	struct mpchrconfig *loopmpchr;
 	s32 countsperteam[MAX_TEAMS] = {0};
 	s32 max = 0;
@@ -2391,7 +2391,7 @@ s32 bot_get_num_opponents_in_hill(struct chrdata *chr)
 
 	for (i = 0; i < g_MpNumChrs; i++) {
 		if (g_MpAllChrPtrs[i]->prop->rooms[0] == g_ScenarioData.koh.hillrooms[0]) {
-			s32 mpindex = func0f18d074(i);
+			s32 mpindex = mp_chrindex_to_chrslot(i);
 
 			loopmpchr = MPCHR(mpindex);
 
@@ -2673,7 +2673,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 			// KazeSim will attack people on sight regardless of command
 			if (aibot->config->type == BOTTYPE_KAZE && chr->target != -1 && aibot->targetinsight) {
 				newaction = MA_AIBOTATTACK;
-				aibot->attackingplayernum = mp_player_get_index(chr_get_target_prop(chr)->chr);
+				aibot->attackingplayernum = mp_chr_to_chrindex(chr_get_target_prop(chr)->chr);
 				aibot->abortattacktimer60 = -1;
 			}
 
@@ -2697,7 +2697,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 							&& !bot_is_target_invisible(chr, targetchr)
 							&& bot_passes_coward_check(chr, targetchr)) {
 						newaction = MA_AIBOTATTACK;
-						aibot->attackingplayernum = mp_player_get_index(targetchr);
+						aibot->attackingplayernum = mp_chr_to_chrindex(targetchr);
 						aibot->abortattacktimer60 = -1;
 					}
 				} else if (aibot->command == AIBOTCMD_FOLLOW) {
@@ -2705,13 +2705,13 @@ void bot_tick_unpaused(struct chrdata *chr)
 					// This is a human command only
 					newaction = MA_AIBOTFOLLOW;
 					aibot->canbreakfollow = true;
-					aibot->followingplayernum = mp_player_get_index((g_Vars.props + aibot->followprotectpropnum)->chr);
+					aibot->followingplayernum = mp_chr_to_chrindex((g_Vars.props + aibot->followprotectpropnum)->chr);
 				} else if (aibot->command == AIBOTCMD_PROTECT) {
 					// Protect the prop (player) given in followprotectpropnum
 					// This is a human command only
 					newaction = MA_AIBOTFOLLOW;
 					aibot->canbreakfollow = false;
-					aibot->followingplayernum = mp_player_get_index((g_Vars.props + aibot->followprotectpropnum)->chr);
+					aibot->followingplayernum = mp_chr_to_chrindex((g_Vars.props + aibot->followprotectpropnum)->chr);
 				} else if (aibot->command == AIBOTCMD_DEFEND) {
 					// Defend the position given in defendholdpos
 					// This is a human command only
@@ -2785,7 +2785,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 							} else if (bot_can_follow(chr, tokens[index]->chr)) {
 								newaction = MA_AIBOTFOLLOW;
 								aibot->canbreakfollow = random() % 4 == 0;
-								aibot->followingplayernum = mp_player_get_index(tokens[index]->chr);
+								aibot->followingplayernum = mp_chr_to_chrindex(tokens[index]->chr);
 							}
 						}
 					}
@@ -2803,7 +2803,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 								if (bot_can_follow(chr, tokenchr)) {
 									newaction = MA_AIBOTFOLLOW;
 									aibot->canbreakfollow = random() % 4 == 0;
-									aibot->followingplayernum = mp_player_get_index(tokenchr);
+									aibot->followingplayernum = mp_chr_to_chrindex(tokenchr);
 								}
 							} else {
 								// Held by an opponent - attack them
@@ -2811,7 +2811,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 										&& !bot_is_target_invisible(chr, tokenchr)
 										&& bot_passes_coward_check(chr, tokenchr)) {
 									newaction = MA_AIBOTATTACK;
-									aibot->attackingplayernum = mp_player_get_index(tokenchr);
+									aibot->attackingplayernum = mp_chr_to_chrindex(tokenchr);
 									aibot->abortattacktimer60 = -1;
 								}
 							}
@@ -2834,7 +2834,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 								&& bot_passes_coward_check(chr, chr_get_target_prop(chr)->chr)) {
 							// Bot is in the hill and sees target - attack them
 							newaction = MA_AIBOTATTACK;
-							aibot->attackingplayernum = mp_player_get_index(chr_get_target_prop(chr)->chr);
+							aibot->attackingplayernum = mp_chr_to_chrindex(chr_get_target_prop(chr)->chr);
 							aibot->abortattacktimer60 = TICKS(300);
 						} else {
 							// Go to the hill if not there already
@@ -2893,13 +2893,13 @@ void bot_tick_unpaused(struct chrdata *chr)
 								if (bot_can_follow(chr, uplinkchr)) {
 									newaction = MA_AIBOTFOLLOW;
 									aibot->canbreakfollow = random() % 4 == 0;
-									aibot->followingplayernum = mp_player_get_index(uplinkchr);
+									aibot->followingplayernum = mp_chr_to_chrindex(uplinkchr);
 								}
 							} else {
 								// Uplink is held by opponent - attack them
 								if (!bot_is_target_invisible(chr, uplinkchr) && bot_passes_coward_check(chr, uplinkchr)) {
 									newaction = MA_AIBOTATTACK;
-									aibot->attackingplayernum = mp_player_get_index(uplinkchr);
+									aibot->attackingplayernum = mp_chr_to_chrindex(uplinkchr);
 									aibot->abortattacktimer60 = -1;
 								}
 							}
@@ -2924,12 +2924,12 @@ void bot_tick_unpaused(struct chrdata *chr)
 								if (bot_can_follow(chr, tokenchr)) {
 									newaction = MA_AIBOTFOLLOW;
 									aibot->canbreakfollow = random() % 4 == 0;
-									aibot->followingplayernum = mp_player_get_index(tokenchr);
+									aibot->followingplayernum = mp_chr_to_chrindex(tokenchr);
 								}
 							} else if (!bot_is_target_invisible(chr, tokenchr) && bot_passes_coward_check(chr, tokenchr)) {
 								// Briefcase is held by opponent - attack them
 								newaction = MA_AIBOTATTACK;
-								aibot->attackingplayernum = mp_player_get_index(tokenchr);
+								aibot->attackingplayernum = mp_chr_to_chrindex(tokenchr);
 								aibot->abortattacktimer60 = -1;
 							}
 						} else {
@@ -2952,13 +2952,13 @@ void bot_tick_unpaused(struct chrdata *chr)
 								if (bot_can_follow(chr, victimchr)) {
 									newaction = MA_AIBOTFOLLOW;
 									aibot->canbreakfollow = random() % 4 == 0;
-									aibot->followingplayernum = mp_player_get_index(victimchr);
+									aibot->followingplayernum = mp_chr_to_chrindex(victimchr);
 								}
 							} else {
 								// Victim is an opponent - attack them
 								if (!bot_is_target_invisible(chr, victimchr) && bot_passes_coward_check(chr, victimchr)) {
 									newaction = MA_AIBOTATTACK;
-									aibot->attackingplayernum = mp_player_get_index(victimchr);
+									aibot->attackingplayernum = mp_chr_to_chrindex(victimchr);
 									aibot->abortattacktimer60 = -1;
 								}
 							}
@@ -3022,7 +3022,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 				} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL) {
 					// If the bot has the uplink, go to the terminal
 					if (g_ScenarioData.htm.uplink == chr->prop) {
-						if (g_ScenarioData.htm.playernuminrange != mp_player_get_index(chr)) {
+						if (g_ScenarioData.htm.playernuminrange != mp_chr_to_chrindex(chr)) {
 							newaction = MA_AIBOTGOTOPROP;
 							aibot->gotoprop = g_ScenarioData.htm.terminals[0].prop;
 						} else {
@@ -3062,8 +3062,8 @@ void bot_tick_unpaused(struct chrdata *chr)
 					s32 i;
 
 					for (i = 0; i < count; i++) {
-						s32 playernum = func0f18d0e8(rankings[i].chrnum);
-						struct chrdata *otherchr = mp_get_chr_from_player_index(playernum);
+						s32 playernum = mp_chrslot_to_chrindex(rankings[i].chrnum);
+						struct chrdata *otherchr = mp_chrindex_to_chr(playernum);
 
 						if (otherchr != chr && !chr_is_dead(otherchr)) {
 #if PAL
@@ -3085,7 +3085,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 					s32 i;
 
 					for (i = 0; i < g_MpNumChrs; i++) {
-						struct chrdata *otherchr = mp_get_chr_from_player_index(i);
+						struct chrdata *otherchr = mp_chrindex_to_chr(i);
 
 						if (otherchr != chr
 								&& !chr_is_dead(otherchr)
@@ -3257,7 +3257,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 					// No y check?
 					if (xdist < 500 && zdist < 500) {
 						chr->myaction = MA_AIBOTATTACK;
-						aibot->attackingplayernum = mp_player_get_index(chr_get_target_prop(chr)->chr);
+						aibot->attackingplayernum = mp_chr_to_chrindex(chr_get_target_prop(chr)->chr);
 						aibot->abortattacktimer60 = TICKS(300);
 						aibot->distmode = -1;
 					}
@@ -3298,7 +3298,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 						&& aibot->targetinsight
 						&& bot_passes_coward_check(chr, chr_get_target_prop(chr)->chr)) {
 					chr->myaction = MA_AIBOTATTACK;
-					aibot->attackingplayernum = mp_player_get_index(chr_get_target_prop(chr)->chr);
+					aibot->attackingplayernum = mp_chr_to_chrindex(chr_get_target_prop(chr)->chr);
 					aibot->abortattacktimer60 = TICKS(300);
 					aibot->distmode = -1;
 				}
@@ -3339,13 +3339,13 @@ void bot_tick_unpaused(struct chrdata *chr)
 				// empty
 			} else if (g_MpSetup.scenario == MPSCENARIO_HACKERCENTRAL
 					&& g_ScenarioData.htm.uplink == chr->prop
-					&& g_ScenarioData.htm.playernuminrange == mp_player_get_index(chr)) {
+					&& g_ScenarioData.htm.playernuminrange == mp_chr_to_chrindex(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
 			}
 		} else if (chr->myaction == MA_AIBOTDOWNLOAD) {
 			if (bot_can_do_critical_pickup(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
-			} else if (g_ScenarioData.htm.playernuminrange != mp_player_get_index(chr)) {
+			} else if (g_ScenarioData.htm.playernuminrange != mp_chr_to_chrindex(chr)) {
 				chr->myaction = MA_AIBOTMAINLOOP;
 			}
 		}
@@ -3354,7 +3354,7 @@ void bot_tick_unpaused(struct chrdata *chr)
 		// route to them, even if it won't be followed
 		bot_choose_general_target(chr);
 
-		if (mp_player_get_index(chr) == (g_Vars.lvframenum % g_MpNumChrs) && chr->target != -1) {
+		if (mp_chr_to_chrindex(chr) == (g_Vars.lvframenum % g_MpNumChrs) && chr->target != -1) {
 			struct prop *targetprop = chr_get_target_prop(chr);
 			struct waypoint *first = waypoint_find_closest_to_pos(&chr->prop->pos, chr->prop->rooms);
 			struct waypoint *last = waypoint_find_closest_to_pos(&targetprop->pos, targetprop->rooms);

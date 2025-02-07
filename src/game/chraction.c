@@ -3368,7 +3368,7 @@ void chr_begin_death(struct chrdata *chr, struct coord *dir, f32 relangle, s32 h
 
 	// Handle multiplayer stats and kill count
 	if (g_Vars.mplayerisrunning) {
-		mpstats_record_death(aplayernum, mp_player_get_index(chr));
+		mpstats_record_death(aplayernum, mp_chr_to_chrindex(chr));
 	} else if (aplayernum >= 0) {
 		s32 prevplayernum = g_Vars.currentplayernum;
 		set_current_player_num(aplayernum);
@@ -4494,7 +4494,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 	// (includes MP aibots, not applicable for solo chrs)
 	if (g_Vars.mplayerisrunning) {
 		if (aprop && (aprop->type == PROPTYPE_PLAYER || aprop->type == PROPTYPE_CHR)) {
-			aplayernum = mp_player_get_index(aprop->chr);
+			aplayernum = mp_chr_to_chrindex(aprop->chr);
 		}
 	} else {
 		if (aprop && aprop->type == PROPTYPE_PLAYER) {
@@ -4991,7 +4991,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 						}
 
 						if (g_Vars.mplayerisrunning) {
-							mpstats_record_death(aplayernum, mp_player_get_index(chr));
+							mpstats_record_death(aplayernum, mp_chr_to_chrindex(chr));
 						} else if (aprop && aprop->type == PROPTYPE_PLAYER) {
 							s32 prevplayernum = g_Vars.currentplayernum;
 							set_current_player_num(playermgr_get_player_num_by_prop(aprop));
@@ -5106,7 +5106,7 @@ void chr_die(struct chrdata *chr, s32 aplayernum)
 		chr->ailist = ailist_find_by_id(GAILIST_AIBOT_DEAD);
 		chr->aioffset = 0;
 
-		mpstats_record_death(aplayernum, mp_player_get_index(chr));
+		mpstats_record_death(aplayernum, mp_chr_to_chrindex(chr));
 		botinv_drop_all(chr, chr->aibot->weaponnum);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -10373,7 +10373,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 								s32 playernum = -1;
 
 								if (g_Vars.mplayerisrunning) {
-									playernum = mp_player_get_index(chr);
+									playernum = mp_chr_to_chrindex(chr);
 								}
 
 								bgun_play_prop_hit_sound(&gset, hitprop, -1);
@@ -10408,7 +10408,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 
 						// Create explosion if using Phoenix
 						if (gset.weaponnum == WEAPON_PHOENIX && gset.weaponfunc == FUNC_SECONDARY) {
-							s32 playernum = chr->aibot ? mp_player_get_index(chr) : g_Vars.currentplayernum;
+							s32 playernum = chr->aibot ? mp_chr_to_chrindex(chr) : g_Vars.currentplayernum;
 
 							if (!queriedhitrooms) {
 								los_find_final_room_exhaustive(&gunpos, gunrooms, &hitpos, hitrooms);

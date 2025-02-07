@@ -4261,7 +4261,7 @@ struct defaultobj *bgun_create_thrown_projectile2(struct chrdata *chr, struct gs
 		obj->hidden &= 0x0fffffff;
 
 		if (g_Vars.normmplayerisrunning) {
-			playernum = mp_player_get_index(chr);
+			playernum = mp_chr_to_chrindex(chr);
 		} else {
 			playernum = playermgr_get_player_num_by_prop(chr->prop);
 		}

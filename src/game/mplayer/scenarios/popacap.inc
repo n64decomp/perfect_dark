@@ -338,7 +338,7 @@ void pac_calculate_player_score(struct mpchrconfig *mpchr, s32 mpchrnum, s32 *sc
 	s32 index;
 
 	*score = 0;
-	index = func0f18d0e8(mpchrnum);
+	index = mp_chrslot_to_chrindex(mpchrnum);
 
 	if (index >= 0) {
 		*score += g_ScenarioData.pac.killcounts[index] * 2;

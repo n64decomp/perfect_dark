@@ -4302,7 +4302,7 @@ void dialog_tick(struct menudialog *dialog, struct menuinputs *inputs, u32 tickf
 
 				if (mp_is_player_locked_out(g_MpPlayerNum) && (item->flags & MENUITEMFLAG_LOCKABLEMINOR)) {
 					inputsptr = &spd8;
-				} else if ((item->flags & MENUITEMFLAG_MPWEAPONSLOT) && mp_get_weapon_set() != func0f189088()) {
+				} else if ((item->flags & MENUITEMFLAG_MPWEAPONSLOT) && mp_get_weaponset_slotnum() != mp_get_custom_weaponset_slot()) {
 					inputsptr = &spd8;
 				} else if (g_MenuData.root == MENUROOT_12) {
 					inputsptr = &spd8;
@@ -5014,7 +5014,7 @@ void menu_process_input(void)
 						&& g_Menus[g_MpPlayerNum].curdialog->definition != &g_MpReadyMenuDialog) {
 					menu_push_dialog(&g_MpReadyMenuDialog);
 				} else if (g_Menus[g_MpPlayerNum].curdialog->definition == &g_MpQuickTeamGameSetupMenuDialog) {
-					func0f17f428();
+					mp_apply_quickstart();
 				}
 			}
 			break;

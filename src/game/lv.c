@@ -1155,7 +1155,7 @@ Gfx *lv_render(Gfx *gdl)
 			gdl = bg_scissor_to_viewport(gdl);
 			artifacts_clear();
 
-			if ((g_Vars.stagenum != STAGE_CITRAINING || (var80087260 <= 0 && g_MenuData.root != MENUROOT_MPSETUP))
+			if ((g_Vars.stagenum != STAGE_CITRAINING || (g_MpReturningFromMatch <= 0 && g_MenuData.root != MENUROOT_MPSETUP))
 					&& g_Vars.lvframenum <= 5
 					&& !g_Vars.normmplayerisrunning
 					&& g_Vars.tickmode != TICKMODE_CUTSCENE) {

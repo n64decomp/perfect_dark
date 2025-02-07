@@ -4391,7 +4391,7 @@ void weapon_tick(struct prop *prop)
 				s32 ownerplayernum = (obj->hidden & 0xf0000000) >> 28;
 
 				if (g_Vars.normmplayerisrunning) {
-					struct chrdata *chr = mp_get_chr_from_player_index(ownerplayernum);
+					struct chrdata *chr = mp_chrindex_to_chr(ownerplayernum);
 
 					if (chr) {
 						ownerprop = chr->prop;
@@ -4469,7 +4469,7 @@ void weapon_tick(struct prop *prop)
 
 			// If a player manages to throw a mine on themselves, it will not detonate.
 			// You can't throw a mine on yourself anyway, so this check always passes
-			if (prop->parent == NULL || parentchr == NULL || mp_player_get_index(parentchr) != ownerplayernum) {
+			if (prop->parent == NULL || parentchr == NULL || mp_chr_to_chrindex(parentchr) != ownerplayernum) {
 				if (g_Vars.coopplayernum >= 0 || g_Vars.antiplayernum >= 0) {
 					if (ownerplayernum == 2) {
 						u32 mask = 0;
@@ -4549,7 +4549,7 @@ void weapon_tick(struct prop *prop)
 				s32 ownerplayernum = (obj->hidden & 0xf0000000) >> 28;
 
 				if (g_Vars.normmplayerisrunning) {
-					struct chrdata *chr = mp_get_chr_from_player_index(ownerplayernum);
+					struct chrdata *chr = mp_chrindex_to_chr(ownerplayernum);
 
 					if (chr) {
 						ownerprop = chr->prop;
@@ -6151,7 +6151,7 @@ bool rocket_tick_fbw(struct weaponobj *rocket)
 	// Check if close to an enemy
 	if (ownerchr && rocket->timer240) {
 		for (i = 0; i < g_MpNumChrs; i++) {
-			struct chrdata *chr = mp_get_chr_from_player_index(i);
+			struct chrdata *chr = mp_chrindex_to_chr(i);
 
 			if (chr != ownerchr
 					&& !chr_is_dead(chr)
@@ -6169,7 +6169,7 @@ bool rocket_tick_fbw(struct weaponobj *rocket)
 
 				// Check if rocket can fly directly to target
 				if (chr_get_target_prop(ownerchr) == chr->prop
-						&& mp_player_get_index(ownerchr) == g_Vars.lvframenum % g_MpNumChrs
+						&& mp_chr_to_chrindex(ownerchr) == g_Vars.lvframenum % g_MpNumChrs
 						&& cd_test_los05(&rocketprop->pos, rocketprop->rooms, &chr->prop->pos, chr->prop->rooms,
 							CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
 							GEOFLAG_BLOCK_SIGHT)) {
@@ -7063,7 +7063,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 									struct prop *ownerprop2 = NULL;
 
 									if (g_Vars.normmplayerisrunning) {
-										struct chrdata *ownerchr = mp_get_chr_from_player_index(ownerplayernum);
+										struct chrdata *ownerchr = mp_chrindex_to_chr(ownerplayernum);
 
 										if (ownerchr != NULL) {
 											ownerprop2 = ownerchr->prop;
@@ -9059,7 +9059,7 @@ void autogun_tick_shoot(struct prop *autogunprop)
 
 				if (g_Vars.normmplayerisrunning) {
 					// Multiplayer - it must be a laptop gun
-					ownerchr = mp_get_chr_from_player_index(ownerplayernum);
+					ownerchr = mp_chrindex_to_chr(ownerplayernum);
 
 					if (ownerchr) {
 						ownerprop = ownerchr->prop;
@@ -15179,7 +15179,7 @@ bool propobj_interact(struct prop *prop)
 			s32 playernum;
 
 			if (g_Vars.normmplayerisrunning) {
-				playernum = mp_player_get_index(g_Vars.currentplayer->prop->chr);
+				playernum = mp_chr_to_chrindex(g_Vars.currentplayer->prop->chr);
 			} else {
 				playernum = g_Vars.currentplayernum;
 			}
@@ -17310,7 +17310,7 @@ bool chr_equip_weapon(struct weaponobj *weapon, struct chrdata *chr)
 
 	if (weapon->base.prop && weapon->base.model) {
 		if (g_Vars.mplayerisrunning) {
-			s32 playernum = mp_player_get_index(chr);
+			s32 playernum = mp_chr_to_chrindex(chr);
 
 			weapon->base.hidden &= 0x0fffffff;
 			weapon->base.hidden |= (playernum << 28) & 0xf0000000;
@@ -17425,7 +17425,7 @@ struct autogunobj *laptop_deploy(s32 modelnum, struct gset *gset, struct chrdata
 	s32 index;
 
 	if (g_Vars.normmplayerisrunning) {
-		index = mp_player_get_index(chr);
+		index = mp_chr_to_chrindex(chr);
 	} else {
 		index = playermgr_get_player_num_by_prop(chr->prop);
 	}
@@ -17644,7 +17644,7 @@ struct weaponobj *weapon_create_projectile_from_gset(s32 modelnum, struct gset *
 			prop = weapon_init(weapon, modeldef, prop, model);
 
 			if (g_Vars.mplayerisrunning) {
-				s32 index = mp_player_get_index(chr);
+				s32 index = mp_chr_to_chrindex(chr);
 
 				weapon->base.hidden &= 0x0fffffff;
 				weapon->base.hidden |= ((index << 28) & 0xf0000000);

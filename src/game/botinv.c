@@ -641,7 +641,7 @@ void botinv_score_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 if
 				if (chr->aibot->config->difficulty > BOTDIFF_MEAT) {
 					if (comparewithtarget) {
 						if (chr->target != -1
-								&& chr->aibot->chrsinsight[mp_player_get_index(chr_get_target_prop(chr)->chr)] == 0
+								&& chr->aibot->chrsinsight[mp_chr_to_chrindex(chr_get_target_prop(chr)->chr)] == 0
 								&& (chr->aibot->random1 % 2) == 0) {
 							score1 += 10;
 						} else {
@@ -658,7 +658,7 @@ void botinv_score_weapon(struct chrdata *chr, s32 weaponnum, s32 funcnum, s32 if
 				if (chr->aibot->config->difficulty >= BOTDIFF_NORMAL) {
 					if (comparewithtarget) {
 						if (chr->target != -1
-								&& chr->aibot->chrsinsight[mp_player_get_index(chr_get_target_prop(chr)->chr)] == 0
+								&& chr->aibot->chrsinsight[mp_chr_to_chrindex(chr_get_target_prop(chr)->chr)] == 0
 								&& (chr->aibot->random1 % 2) == 0) {
 							score1 = 178;
 							score2 = 188;
@@ -992,8 +992,8 @@ void botinv_tick(struct chrdata *chr)
 		if (newweaponnum == WEAPON_COMBATKNIFE
 				&& botact_get_ammo_quantity_by_weapon(aibot, WEAPON_COMBATKNIFE, FUNC_SECONDARY, true) >= 2
 				&& chr->target != -1
-				&& chr->aibot->chrdistances[mp_player_get_index(chr_get_target_prop(chr)->chr)] > 200
-				&& chr->aibot->chrdistances[mp_player_get_index(chr_get_target_prop(chr)->chr)] < 1500) {
+				&& chr->aibot->chrdistances[mp_chr_to_chrindex(chr_get_target_prop(chr)->chr)] > 200
+				&& chr->aibot->chrdistances[mp_chr_to_chrindex(chr_get_target_prop(chr)->chr)] < 1500) {
 			newfuncnum = FUNC_SECONDARY;
 		}
 

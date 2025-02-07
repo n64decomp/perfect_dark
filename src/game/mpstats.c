@@ -240,7 +240,7 @@ void mpstats_record_death(s32 aplayernum, s32 vplayernum)
 
 	// Find attacker and victim mpchrs
 	if (aplayernum >= 0) {
-		ampindex = func0f18d074(aplayernum);
+		ampindex = mp_chrindex_to_chrslot(aplayernum);
 
 		if (ampindex >= 0) {
 			ampchr = MPCHR(ampindex);
@@ -248,7 +248,7 @@ void mpstats_record_death(s32 aplayernum, s32 vplayernum)
 	}
 
 	if (vplayernum >= 0) {
-		vmpindex = func0f18d074(vplayernum);
+		vmpindex = mp_chrindex_to_chrslot(vplayernum);
 
 		if (vmpindex >= 0) {
 			vmpchr = MPCHR(vmpindex);
