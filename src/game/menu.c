@@ -1856,7 +1856,7 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 	}
 
 	if (menumodel->bodymodeldef != NULL) {
-		struct modelrenderdata renderdata = {NULL, true, 3};
+		struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 		Mtxf *matrices;
 		s32 i;
 		u32 stack[3];
@@ -2243,8 +2243,8 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 
 		mtx4_copy(&menumodel->mtx, matrices);
 
-		renderdata.unk00 = &menumodel->mtx;
-		renderdata.unk10 = menumodel->bodymodel.matrices;
+		renderdata.rendermtx = &menumodel->mtx;
+		renderdata.matrices = menumodel->bodymodel.matrices;
 
 		model_set_matrices_with_anim(&renderdata, &menumodel->bodymodel);
 
@@ -2313,7 +2313,7 @@ Gfx *menu_render_model(Gfx *gdl, struct menumodel *menumodel, s32 modeltype)
 		gSPSetLights1(gdl++, var80071468);
 		gSPLookAt(gdl++, cam_get_look_at());
 
-		renderdata.unk30 = 1;
+		renderdata.context = MODELRENDERCONTEXT_MENUMODEL_OPA;
 		renderdata.envcolour = 0xffffffff;
 		renderdata.fogcolour = 0xffffffff;
 

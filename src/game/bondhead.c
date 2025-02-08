@@ -139,8 +139,8 @@ void bhead_update(f32 speedforwards, f32 speedsideways)
 		}
 
 		{
-			struct modelrenderdata sp80 = {NULL, 1, 3};
-			Mtxf sp40;
+			struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
+			Mtxf rendermtx;
 			struct coord modelpos = {0, 0, 0};
 			bool mergeenabled = model_is_anim_merging_enabled();
 
@@ -150,11 +150,12 @@ void bhead_update(f32 speedforwards, f32 speedsideways)
 			model_tick_anim_quarter_speed(&g_Vars.currentplayer->model, g_Vars.lvupdate240, true);
 			model_set_anim_merging_enabled(mergeenabled);
 			model_update_info(&g_Vars.currentplayer->model);
-			mtx4_load_identity(&sp40);
+			mtx4_load_identity(&rendermtx);
 
-			sp80.unk00 = &sp40;
-			sp80.unk10 = g_Vars.currentplayer->bondheadmatrices;
-			model_set_matrices_with_anim(&sp80, &g_Vars.currentplayer->model);
+			renderdata.rendermtx = &rendermtx;
+			renderdata.matrices = g_Vars.currentplayer->bondheadmatrices;
+
+			model_set_matrices_with_anim(&renderdata, &g_Vars.currentplayer->model);
 
 			g_Vars.currentplayer->headbodyoffset.x = g_Vars.currentplayer->standbodyoffset.x;
 			g_Vars.currentplayer->headbodyoffset.y = g_Vars.currentplayer->standbodyoffset.y;

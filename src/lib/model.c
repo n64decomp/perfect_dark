@@ -723,7 +723,7 @@ void model_update_info(struct model *model)
 	}
 }
 
-void model_update_chr_node_mtx(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
+void model_update_chr_node_mtx(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	struct anim *anim = model->anim;
 	union modelrodata *rodata = node->rodata;
@@ -731,7 +731,7 @@ void model_update_chr_node_mtx(struct modelrenderdata *arg0, struct model *model
 	f32 scale = model->scale;
 	struct coord *sp254 = &rwdata->chrinfo.pos;
 	f32 sp250 = rwdata->chrinfo.yrot;
-	Mtxf *sp24c;
+	Mtxf *rendermtx;
 	u32 stack1;
 	Mtxf *mtx = &model->matrices[rodata->chrinfo.mtxindex];
 	s32 animpart = rodata->chrinfo.animpart;
@@ -761,9 +761,9 @@ void model_update_chr_node_mtx(struct modelrenderdata *arg0, struct model *model
 	if (rodata->chrinfo.mtxindex);
 
 	if (node->parent) {
-		sp24c = model_find_node_mtx(model, node->parent, 0);
+		rendermtx = model_find_node_mtx(model, node->parent, 0);
 	} else {
-		sp24c = arg0->unk00;
+		rendermtx = renderdata->rendermtx;
 	}
 
 	anim_get_rot_translate_scale(animpart, anim->flip, skel, anim->animnum, anim->frameslot1, &rot1, &translate1, &scale1);
@@ -824,8 +824,8 @@ void model_update_chr_node_mtx(struct modelrenderdata *arg0, struct model *model
 		mtx00015f4c(scale, &sp158);
 	}
 
-	if (sp24c) {
-		mtx00015be4(sp24c, &sp158, mtx);
+	if (rendermtx) {
+		mtx00015be4(rendermtx, &sp158, mtx);
 	} else {
 		mtx4_copy(&sp158, mtx);
 	}
@@ -846,7 +846,7 @@ void model_position_joint_using_vec_rot(struct modelrenderdata *renderdata, stru
 	if (node->parent != NULL) {
 		rendermtx = model_find_node_mtx(model, node->parent, 0);
 	} else {
-		rendermtx = renderdata->unk00;
+		rendermtx = renderdata->rendermtx;
 	}
 
 	if (rendermtx != NULL) {
@@ -960,7 +960,7 @@ void model_position_joint_using_quat_rot(struct modelrenderdata *renderdata, str
 	if (node->parent != NULL) {
 		rendermtx = model_find_node_mtx(model, node->parent, 0);
 	} else {
-		rendermtx = renderdata->unk00;
+		rendermtx = renderdata->rendermtx;
 	}
 
 	if (rendermtx != NULL) {
@@ -1060,7 +1060,7 @@ void model_update_position_node_mtx(struct modelrenderdata *renderdata, struct m
 	struct coord scale1;
 	bool sp128;
 	Mtxf spe8;
-	Mtxf *mtx;
+	Mtxf *rendermtx;
 	f32 spe0;
 	struct coord rot2;
 	struct coord translate2;
@@ -1174,37 +1174,37 @@ void model_update_position_node_mtx(struct modelrenderdata *renderdata, struct m
 		}
 	} else {
 		if (node->parent) {
-			mtx = model_find_node_mtx(model, node->parent, 0);
+			rendermtx = model_find_node_mtx(model, node->parent, 0);
 		} else {
-			mtx = renderdata->unk00;
+			rendermtx = renderdata->rendermtx;
 		}
 
-		if (mtx) {
+		if (rendermtx) {
 			mtx4_load_translation(&rodata->pos, &spe8);
-			mtx00015be4(mtx, &spe8, &model->matrices[rodata->mtxindex0]);
+			mtx00015be4(rendermtx, &spe8, &model->matrices[rodata->mtxindex0]);
 		} else {
 			mtx4_load_translation(&rodata->pos, &model->matrices[rodata->mtxindex0]);
 		}
 	}
 }
 
-void model_update_position_held_node_mtx(struct modelrenderdata *arg0, struct model *model, struct modelnode *node)
+void model_update_position_held_node_mtx(struct modelrenderdata *renderdata, struct model *model, struct modelnode *node)
 {
 	union modelrodata *rodata = node->rodata;
-	Mtxf *sp68;
+	Mtxf *rendermtx;
 	Mtxf sp28;
 	s32 mtxindex = rodata->positionheld.mtxindex;
 	Mtxf *matrices = model->matrices;
 
 	if (node->parent) {
-		sp68 = model_find_node_mtx(model, node->parent, 0);
+		rendermtx = model_find_node_mtx(model, node->parent, 0);
 	} else {
-		sp68 = arg0->unk00;
+		rendermtx = renderdata->rendermtx;
 	}
 
-	if (sp68) {
+	if (rendermtx) {
 		mtx4_load_translation(&rodata->positionheld.pos, &sp28);
-		mtx00015be4(sp68, &sp28, &matrices[mtxindex]);
+		mtx00015be4(rendermtx, &sp28, &matrices[mtxindex]);
 	} else {
 		mtx4_load_translation(&rodata->positionheld.pos, &matrices[mtxindex]);
 	}
@@ -1499,7 +1499,7 @@ void model_update_relations(struct model *model)
 	}
 }
 
-void model_update_matrices(struct modelrenderdata *arg0, struct model *model)
+void model_update_matrices(struct modelrenderdata *renderdata, struct model *model)
 {
 	struct modelnode *node = model->definition->rootnode;
 
@@ -1508,13 +1508,13 @@ void model_update_matrices(struct modelrenderdata *arg0, struct model *model)
 
 		switch (type) {
 		case MODELNODETYPE_CHRINFO:
-			model_update_chr_node_mtx(arg0, model, node);
+			model_update_chr_node_mtx(renderdata, model, node);
 			break;
 		case MODELNODETYPE_POSITION:
-			model_update_position_node_mtx(arg0, model, node);
+			model_update_position_node_mtx(renderdata, model, node);
 			break;
 		case MODELNODETYPE_POSITIONHELD:
-			model_update_position_held_node_mtx(arg0, model, node);
+			model_update_position_held_node_mtx(renderdata, model, node);
 			break;
 		case MODELNODETYPE_DISTANCE:
 			model_update_distance_relations(model, node);
@@ -1550,9 +1550,9 @@ void model_update_matrices(struct modelrenderdata *arg0, struct model *model)
 
 void model_set_matrices(struct modelrenderdata *renderdata, struct model *model)
 {
-	model->matrices = renderdata->unk10;
+	model->matrices = renderdata->matrices;
 
-	renderdata->unk10 += model->definition->nummatrices;
+	renderdata->matrices += model->definition->nummatrices;
 
 #if VERSION >= VERSION_PAL_BETA
 	if (var8005efb0_2 || !modelasm00018680(renderdata, model)) {
@@ -2797,7 +2797,7 @@ void model_tick_anim(struct model *model, s32 lvupdate240, bool arg2)
 }
 #endif
 
-void model_apply_render_mode_type1(struct modelrenderdata *renderdata)
+void model_apply_rendermode_simple(struct modelrenderdata *renderdata)
 {
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_1CYCLE);
@@ -2811,10 +2811,12 @@ void model_apply_render_mode_type1(struct modelrenderdata *renderdata)
 	gDPSetCombineMode(renderdata->gdl++, G_CC_MODULATEIA, G_CC_MODULATEIA);
 }
 
-void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1)
+void model_apply_rendermode_ctxaware_1pass(struct modelrenderdata *renderdata, bool isopa)
 {
-	if (renderdata->unk30 == 7) {
-		if (arg1) {
+	if (renderdata->context == MODELRENDERCONTEXT_CHR_OPA) {
+		// envcolour is blood colour
+		// fogcolour is shade colour
+		if (isopa) {
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
@@ -2833,8 +2835,10 @@ void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 8) {
-		if (arg1) {
+	} else if (renderdata->context == MODELRENDERCONTEXT_CHR_XLU) {
+		// envcolour is opacity
+		// fogcolour is shade colour
+		if (isopa) {
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
@@ -2847,9 +2851,11 @@ void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 9) {
+	} else if (renderdata->context == MODELRENDERCONTEXT_OBJ_OPA) {
+		// envcolour's blue channel is opacity
+		// fogcolour is shade colour
 		if ((renderdata->envcolour & 0xff) == 0) {
-			if (arg1) {
+			if (isopa) {
 				gDPPipeSync(renderdata->gdl++);
 				gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 				gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
@@ -2870,7 +2876,7 @@ void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1
 				}
 			}
 		} else {
-			if (arg1) {
+			if (isopa) {
 				gDPPipeSync(renderdata->gdl++);
 				gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 				gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
@@ -2893,8 +2899,9 @@ void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1
 				}
 			}
 		}
-	} else if (renderdata->unk30 == 4) {
-		if (arg1) {
+	} else if (renderdata->context == MODELRENDERCONTEXT_BONDGUN_OPA) {
+		// envcolour is shade colour
+		if (isopa) {
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->envcolour);
@@ -2912,10 +2919,12 @@ void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 5) {
+	} else if (renderdata->context == MODELRENDERCONTEXT_BONDGUN_OBJ_XLU) {
+		// envcolour is opacity
+		// fogcolour is shade colour
 		u8 alpha;
 
-		if (arg1) {
+		if (isopa) {
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
@@ -2948,8 +2957,8 @@ void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1
 				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 			}
 		}
-	} else {
-		if (arg1) {
+	} else { // MODELRENDERCONTEXT_MENUMODEL_OPA
+		if (isopa) {
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 			gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
@@ -2969,16 +2978,18 @@ void model_apply_render_mode_type3(struct modelrenderdata *renderdata, bool arg1
 	}
 }
 
-void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1)
+void model_apply_rendermode_ctxaware_2pass(struct modelrenderdata *renderdata, bool isopa)
 {
-	if (renderdata->unk30 == 7) {
+	if (renderdata->context == MODELRENDERCONTEXT_CHR_OPA) {
+		// envcolour is blood colour
+		// fogcolour is shade colour
 		gDPPipeSync(renderdata->gdl++);
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 		gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour | 0x000000ff);
 		gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_17, G_CC_CUSTOM_18);
 
-		if (arg1) {
+		if (isopa) {
 			if (renderdata->zbufferenabled) {
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
 			} else {
@@ -2991,7 +3002,9 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 8) {
+	} else if (renderdata->context == MODELRENDERCONTEXT_CHR_XLU) {
+		// envcolour is opacity
+		// fogcolour is shade colour
 		gDPPipeSync(renderdata->gdl++);
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
@@ -3003,7 +3016,9 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 		} else {
 			gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 		}
-	} else if (renderdata->unk30 == 9) {
+	} else if (renderdata->context == MODELRENDERCONTEXT_OBJ_OPA) {
+		// envcolour's blue channel is opacity
+		// fogcolour is shade colour
 		if ((renderdata->envcolour & 0xff) == 0) {
 			gDPPipeSync(renderdata->gdl++);
 			gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
@@ -3011,7 +3026,7 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 			gDPSetEnvColorViaWord(renderdata->gdl++, 0xffffffff);
 			gDPSetPrimColor(renderdata->gdl++, 0, 0, 0, 0, 0, (renderdata->envcolour >> 8) & 0xff);
 
-			if (arg1) {
+			if (isopa) {
 				gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_CUSTOM_20);
 
 				if (renderdata->zbufferenabled) {
@@ -3034,7 +3049,7 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 			gDPSetFogColorViaWord(renderdata->gdl++, renderdata->fogcolour);
 			gDPSetEnvColorViaWord(renderdata->gdl++, renderdata->envcolour & 0xff);
 
-			if (arg1) {
+			if (isopa) {
 				gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_21, G_CC_CUSTOM_18);
 
 				if (renderdata->zbufferenabled) {
@@ -3053,13 +3068,14 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 				}
 			}
 		}
-	} else if (renderdata->unk30 == 4) {
+	} else if (renderdata->context == MODELRENDERCONTEXT_BONDGUN_OPA) {
+		// envcolour is shade colour
 		gDPPipeSync(renderdata->gdl++);
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, renderdata->envcolour);
 		gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 
-		if (arg1) {
+		if (isopa) {
 			if (renderdata->zbufferenabled) {
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
 			} else {
@@ -3072,7 +3088,9 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 			}
 		}
-	} else if (renderdata->unk30 == 5) {
+	} else if (renderdata->context == MODELRENDERCONTEXT_BONDGUN_OBJ_XLU) {
+		// envcolour is opacity
+		// fogcolour is shade colour
 		u8 alpha;
 
 		gDPPipeSync(renderdata->gdl++);
@@ -3084,7 +3102,7 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 		if (alpha < 255) {
 			gDPSetEnvColor(renderdata->gdl++, 0xff, 0xff, 0xff, alpha);
 
-			if (arg1) {
+			if (isopa) {
 				if (renderdata->envcolour & 0xff00) {
 					gDPSetCombineMode(renderdata->gdl++, G_CC_CUSTOM_24, G_CC_MODULATEIA2);
 				} else {
@@ -3102,13 +3120,13 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 		} else {
 			gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_XLU_SURF2);
 		}
-	} else {
+	} else { // MODELRENDERCONTEXT_MENUMODEL_OPA
 		gDPPipeSync(renderdata->gdl++);
 		gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
 		gDPSetFogColorViaWord(renderdata->gdl++, 0xffffff00);
 		gDPSetCombineMode(renderdata->gdl++, G_CC_TRILERP, G_CC_MODULATEIA2);
 
-		if (arg1) {
+		if (isopa) {
 			if (renderdata->zbufferenabled) {
 				gDPSetRenderMode(renderdata->gdl++, G_RM_FOG_PRIM_A, G_RM_AA_ZB_OPA_SURF2);
 			} else {
@@ -3124,7 +3142,7 @@ void model_apply_render_mode_type4(struct modelrenderdata *renderdata, bool arg1
 	}
 }
 
-void model_apply_render_mode_type2(struct modelrenderdata *renderdata)
+void model_apply_rendermode_trilerp(struct modelrenderdata *renderdata)
 {
 	gDPPipeSync(renderdata->gdl++);
 	gDPSetCycleType(renderdata->gdl++, G_CYC_2CYCLE);
@@ -3164,38 +3182,38 @@ void model_render_node_gundl(struct modelrenderdata *renderdata, struct model *m
 			model_apply_cull_mode(renderdata);
 		}
 
-		switch (rodata->unk12) {
-		case 1:
-			model_apply_render_mode_type1(renderdata);
+		switch (rodata->rendermode) {
+		case MODELRENDERMODE_SIMPLE:
+			model_apply_rendermode_simple(renderdata);
 			break;
-		case 3:
-			model_apply_render_mode_type3(renderdata, true);
+		case MODELRENDERMODE_CTXAWARE_1PASS:
+			model_apply_rendermode_ctxaware_1pass(renderdata, true);
 			break;
-		case 4:
-			model_apply_render_mode_type4(renderdata, true);
+		case MODELRENDERMODE_CTXAWARE_2PASS:
+			model_apply_rendermode_ctxaware_2pass(renderdata, true);
 			break;
-		case 2:
-			model_apply_render_mode_type2(renderdata);
+		case MODELRENDERMODE_TRILERP:
+			model_apply_rendermode_trilerp(renderdata);
 			break;
 		}
 
 		gSPDisplayList(renderdata->gdl++, rodata->opagdl);
 
-		if (rodata->unk12 == 3 && rodata->xlugdl) {
-			model_apply_render_mode_type3(renderdata, false);
+		if (rodata->rendermode == MODELRENDERMODE_CTXAWARE_1PASS && rodata->xlugdl) {
+			model_apply_rendermode_ctxaware_1pass(renderdata, false);
 
 			gSPDisplayList(renderdata->gdl++, rodata->xlugdl);
 		}
 	}
 
-	if ((renderdata->flags & MODELRENDERFLAG_XLU) && rodata->opagdl && rodata->unk12 == 4 && rodata->xlugdl) {
+	if ((renderdata->flags & MODELRENDERFLAG_XLU) && rodata->opagdl && rodata->rendermode == MODELRENDERMODE_CTXAWARE_2PASS && rodata->xlugdl) {
 		gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->baseaddr));
 
 		if (renderdata->cullmode) {
 			model_apply_cull_mode(renderdata);
 		}
 
-		model_apply_render_mode_type4(renderdata, false);
+		model_apply_rendermode_ctxaware_2pass(renderdata, false);
 
 		gSPDisplayList(renderdata->gdl++, rodata->xlugdl);
 	}
@@ -3219,18 +3237,18 @@ void model_render_node_dl(struct modelrenderdata *renderdata, struct model *mode
 				model_apply_cull_mode(renderdata);
 			}
 
-			switch (rodata->dl.mcount) {
-			case 1:
-				model_apply_render_mode_type1(renderdata);
+			switch (rodata->dl.rendermode) {
+			case MODELRENDERMODE_SIMPLE:
+				model_apply_rendermode_simple(renderdata);
 				break;
-			case 3:
-				model_apply_render_mode_type3(renderdata, true);
+			case MODELRENDERMODE_CTXAWARE_1PASS:
+				model_apply_rendermode_ctxaware_1pass(renderdata, true);
 				break;
-			case 4:
-				model_apply_render_mode_type4(renderdata, true);
+			case MODELRENDERMODE_CTXAWARE_2PASS:
+				model_apply_rendermode_ctxaware_2pass(renderdata, true);
 				break;
-			case 2:
-				model_apply_render_mode_type2(renderdata);
+			case MODELRENDERMODE_TRILERP:
+				model_apply_rendermode_trilerp(renderdata);
 				break;
 			}
 
@@ -3239,8 +3257,8 @@ void model_render_node_dl(struct modelrenderdata *renderdata, struct model *mode
 
 			gSPDisplayList(renderdata->gdl++, rwdata->dl.gdl);
 
-			if (rodata->dl.mcount == 3 && rodata->dl.xlugdl) {
-				model_apply_render_mode_type3(renderdata, false);
+			if (rodata->dl.rendermode == MODELRENDERMODE_CTXAWARE_1PASS && rodata->dl.xlugdl) {
+				model_apply_rendermode_ctxaware_1pass(renderdata, false);
 
 				gSPDisplayList(renderdata->gdl++, rodata->dl.xlugdl);
 			}
@@ -3250,7 +3268,7 @@ void model_render_node_dl(struct modelrenderdata *renderdata, struct model *mode
 	if (renderdata->flags & MODELRENDERFLAG_XLU) {
 		union modelrwdata *rwdata = model_get_node_rw_data(model, node);
 
-		if (rwdata->dl.gdl && rodata->dl.mcount == 4 && rodata->dl.xlugdl) {
+		if (rwdata->dl.gdl && rodata->dl.rendermode == MODELRENDERMODE_CTXAWARE_2PASS && rodata->dl.xlugdl) {
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL1, osVirtualToPhysical(rodata->dl.colours));
 
 			if (renderdata->cullmode) {
@@ -3260,7 +3278,7 @@ void model_render_node_dl(struct modelrenderdata *renderdata, struct model *mode
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_VTX, osVirtualToPhysical(rwdata->dl.vertices));
 			gSPSegment(renderdata->gdl++, SPSEGMENT_MODEL_COL2, osVirtualToPhysical(rwdata->dl.colours));
 
-			model_apply_render_mode_type4(renderdata, false);
+			model_apply_rendermode_ctxaware_2pass(renderdata, false);
 
 			gSPDisplayList(renderdata->gdl++, rodata->dl.xlugdl);
 		}

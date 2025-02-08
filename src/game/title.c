@@ -322,7 +322,7 @@ Gfx *title_render_legal(Gfx *gdl)
 #endif
 	struct legalelement *elem;
 	struct legalelement *end;
-	struct modelrenderdata renderdata = { NULL, true, 3 };
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	s32 x;
 	s32 y;
 	struct fontchar *font1;
@@ -712,9 +712,9 @@ void title_tick_pd_logo(void)
 	}
 }
 
-Gfx *title_render_pd_logo_model(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *arg6, Vtx *vertices, Col *colours)
+Gfx *title_render_pd_logo_model(Gfx *gdl, struct model *model, bool arg2, f32 arg3, s32 arg4, f32 arg5, Mtxf *rendermtx, Vtx *vertices, Col *colours)
 {
-	struct modelrenderdata renderdata = {NULL, true, 3};
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	s32 tmp2;
 	s32 i;
 	s32 j;
@@ -857,16 +857,16 @@ Gfx *title_render_pd_logo_model(Gfx *gdl, struct model *model, bool arg2, f32 ar
 
 	gDPSetPrimColor(gdl++, 0, 0, 0x00, 0x00, 0x00, alpha1);
 
-	renderdata.unk00 = arg6;
-	renderdata.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
+	renderdata.rendermtx = rendermtx;
+	renderdata.matrices = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
 
-	mtx4_copy(arg6, renderdata.unk10);
+	mtx4_copy(rendermtx, renderdata.matrices);
 
-	model->matrices = renderdata.unk10;
+	model->matrices = renderdata.matrices;
 
 	model_update_relations(model);
 
-	renderdata.flags = 3;
+	renderdata.flags = MODELRENDERFLAG_DEFAULT;
 	renderdata.zbufferenabled = false;
 	renderdata.gdl = gdl;
 
@@ -956,10 +956,10 @@ void title_skip_to_pd_title(void)
 
 Gfx *title_render_pd_logo(Gfx *gdl)
 {
-	struct modelrenderdata renderdata = {NULL, true, 3};
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	Mtxf sp2b0;
-	Mtxf sp270;
-	Mtxf sp230;
+	Mtxf rendermtx1;
+	Mtxf rendermtx2;
 	struct model *model;
 	struct modelnode *node;
 	Mtxf sp1e8;
@@ -1368,8 +1368,8 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 	mtx4_load_y_rotation(g_PdLogoYRotCur, &sp1e8);
 	mtx4_load_x_rotation(g_PdLogoXRotCur, &sp1a8);
 	mtx4_mult_mtx4_in_place(&sp1a8, &sp1e8);
-	mtx4_mult_mtx4(&sp2b0, &sp1e8, &sp270);
-	mtx00015f04(g_PdLogoScale, &sp270);
+	mtx4_mult_mtx4(&sp2b0, &sp1e8, &rendermtx1);
+	mtx00015f04(g_PdLogoScale, &rendermtx1);
 
 #if VERSION != VERSION_JPN_FINAL
 	g_TitleLightPdLogoNotFront.a.l.col[0] = g_TitleLightPdLogoNotFront.a.l.col[1] = g_TitleLightPdLogoNotFront.a.l.col[2] = g_TitleLightPdLogoNotFront.a.l.colc[0] = g_TitleLightPdLogoNotFront.a.l.colc[1] = g_TitleLightPdLogoNotFront.a.l.colc[2] = 255.0f * g_PdLogoAmbientLightFrac;
@@ -1448,7 +1448,7 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 			}
 		}
 
-		gdl = title_render_pd_logo_model(gdl, model, var80062804, g_PdLogoFrac, 240, 1.0f, &sp270, gfx_allocate_vertices(numvertices), gfx_allocate_colours(numcolours));
+		gdl = title_render_pd_logo_model(gdl, model, var80062804, g_PdLogoFrac, 240, 1.0f, &rendermtx1, gfx_allocate_vertices(numvertices), gfx_allocate_colours(numcolours));
 	}
 
 	gSPSetLights1(gdl++, g_TitleLightPdLogoMain);
@@ -1461,9 +1461,9 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 
 #if VERSION == VERSION_JPN_FINAL
 	mtx00015ea8(0.01f, &sp1e8);
-	mtx4_mult_mtx4(&sp2b0, &sp1e8, &sp230);
-	mtx00015f04(0.308f, &sp230);
-	mtx00015f04(3.5f, &sp230);
+	mtx4_mult_mtx4(&sp2b0, &sp1e8, &rendermtx2);
+	mtx00015f04(0.308f, &rendermtx2);
+	mtx00015f04(3.5f, &rendermtx2);
 
 	if (g_PdLogoTitleStep >= 0) {
 		// Background flashing logo
@@ -1482,16 +1482,16 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 			mtx4_mult_mtx4_in_place(&sp2b0, &sp1b0);
 			mtx4_copy(&sp1b0, &sp2b0);
 
-			renderdata.unk00 = &sp2b0;
-			renderdata.unk10 = gfx_allocate(g_TitleModelJpnLogo2->definition->nummatrices * sizeof(Mtxf));
+			renderdata.rendermtx = &sp2b0;
+			renderdata.matrices = gfx_allocate(g_TitleModelJpnLogo2->definition->nummatrices * sizeof(Mtxf));
 
-			mtx4_copy(&sp2b0, renderdata.unk10);
+			mtx4_copy(&sp2b0, renderdata.matrices);
 
-			g_TitleModelJpnLogo2->matrices = renderdata.unk10;
+			g_TitleModelJpnLogo2->matrices = renderdata.matrices;
 
 			model_update_relations(g_TitleModelJpnLogo2);
 
-			renderdata.unk30 = 5;
+			renderdata.context = MODELRENDERCONTEXT_BONDGUN_OBJ_XLU;
 			renderdata.zbufferenabled = false;
 			renderdata.fogcolour = 0xff0000ff;
 			renderdata.envcolour = 0xff000000 | envalpha;
@@ -1537,19 +1537,18 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 			gSPSetLights1(gdl++, g_TitleLightPdLogoJpn);
 			gSPSetLights1(gdl++, g_TitleLightPdLogoMain);
 
-			renderdata.unk00 = &sp230;
+			renderdata.rendermtx = &rendermtx2;
+			renderdata.matrices = gfx_allocate(g_TitleModelJpnPd->definition->nummatrices * sizeof(Mtxf));
 
-			renderdata.unk10 = gfx_allocate(g_TitleModelJpnPd->definition->nummatrices * sizeof(Mtxf));
+			mtx4_copy(&rendermtx2, renderdata.matrices);
 
-			mtx4_copy(&sp230, renderdata.unk10);
-
-			g_TitleModelJpnPd->matrices = renderdata.unk10;
+			g_TitleModelJpnPd->matrices = renderdata.matrices;
 
 			model_update_relations(g_TitleModelJpnPd);
 
 			// @bug: || should be | in fogcolour expression
 			renderdata.zbufferenabled = false;
-			renderdata.unk30 = 5;
+			renderdata.context = MODELRENDERCONTEXT_BONDGUN_OBJ_XLU;
 			renderdata.fogcolour = fogcolour << 24 || fogcolour << 16 || (fogcolour << 8 | 0xff);
 			renderdata.envcolour = envcolour;
 			renderdata.gdl = gdl;
@@ -1578,17 +1577,17 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 			mtx4_mult_mtx4_in_place(&sp2b0, &spb0);
 			mtx4_copy(&spb0, &sp2b0);
 
-			renderdata.unk00 = &sp2b0;
-			renderdata.unk10 = gfx_allocate(g_TitleModelJpnLogo1->definition->nummatrices * sizeof(Mtxf));
+			renderdata.rendermtx = &sp2b0;
+			renderdata.matrices = gfx_allocate(g_TitleModelJpnLogo1->definition->nummatrices * sizeof(Mtxf));
 
-			mtx4_copy(&sp2b0, renderdata.unk10);
+			mtx4_copy(&sp2b0, renderdata.matrices);
 
-			g_TitleModelJpnLogo1->matrices = renderdata.unk10;
+			g_TitleModelJpnLogo1->matrices = renderdata.matrices;
 
 			model_update_relations(g_TitleModelJpnLogo1);
 
 			renderdata.zbufferenabled = false;
-			renderdata.unk30 = 5;
+			renderdata.context = MODELRENDERCONTEXT_BONDGUN_OBJ_XLU;
 			renderdata.fogcolour = 0x000000ff;
 			renderdata.envcolour = 0x000000ff;
 			renderdata.gdl = gdl;
@@ -1606,8 +1605,8 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 	}
 #else
 	mtx00015f88(1.0f + sp13c, &sp1e8);
-	mtx4_mult_mtx4(&sp2b0, &sp1e8, &sp230);
-	mtx00015f04(0.308f, &sp230);
+	mtx4_mult_mtx4(&sp2b0, &sp1e8, &rendermtx2);
+	mtx00015f04(0.308f, &rendermtx2);
 
 	// Render the "PERFECT DARK" model
 	if (g_PdLogoTitleStep >= 0) {
@@ -1616,18 +1615,18 @@ Gfx *title_render_pd_logo(Gfx *gdl)
 		} else if (g_PdLogoTitleStep == 1) {
 			bool visible = g_PdLogoTitleStepFrac < 0.5f;
 			model = g_TitleModelPdThree;
-			gdl = title_render_pd_logo_model(gdl, model, visible, g_PdLogoTitleStepFrac, 255, g_PdLogoTitleStepFrac, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
+			gdl = title_render_pd_logo_model(gdl, model, visible, g_PdLogoTitleStepFrac, 255, g_PdLogoTitleStepFrac, &rendermtx2, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
 		} else if (g_PdLogoTitleStep == 2) {
 			bool visible = g_PdLogoTitleStepFrac < 0.5f;
 			model = g_TitleModelPdTwo;
-			gdl = title_render_pd_logo_model(gdl, model, visible, 1.0f - g_PdLogoTitleStepFrac, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
+			gdl = title_render_pd_logo_model(gdl, model, visible, 1.0f - g_PdLogoTitleStepFrac, 255, 1.0f, &rendermtx2, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
 		} else if (g_PdLogoTitleStep == 3) {
 			bool visible = g_PdLogoTitleStepFrac < 0.5f;
 			model = g_TitleModelPdTwo;
-			gdl = title_render_pd_logo_model(gdl, model, visible, g_PdLogoTitleStepFrac, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
+			gdl = title_render_pd_logo_model(gdl, model, visible, g_PdLogoTitleStepFrac, 255, 1.0f, &rendermtx2, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
 		} else {
 			model = g_TitleModelPdTwo;
-			gdl = title_render_pd_logo_model(gdl, model, false, 1.0f, 255, 1.0f, &sp230, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
+			gdl = title_render_pd_logo_model(gdl, model, false, 1.0f, 255, 1.0f, &rendermtx2, g_PdLogoVertices[g_PdLogoVtxColIndex], g_PdLogoColours[g_PdLogoVtxColIndex]);
 		}
 	}
 #endif
@@ -1847,10 +1846,10 @@ void title_tick_nintendo_logo(void)
 
 Gfx *title_render_nintendo_logo(Gfx *gdl)
 {
-	struct modelrenderdata renderdata = { NULL, true, 3 };
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	s32 i;
 	s32 j;
-	Mtxf sp108;
+	Mtxf rendermtx;
 	f32 fracdone = g_TitleTimer / (VERSION == VERSION_PAL_FINAL ? 183.0f : TICKS(240.0f));
 	struct coord lightdir = {0, 0, 0};
 	s32 v0;
@@ -1902,22 +1901,23 @@ Gfx *title_render_nintendo_logo(Gfx *gdl)
 		mtx4_load_rotation(&sp9c, &spa8);
 		mtx00015f88(fracdone * 0.2f + 1.0f, &spa8);
 
-		mtx00016ae4(&sp108,
+		mtx00016ae4(&rendermtx,
 				/* pos  */ 0.0f, 0.0f, 4000,
 				/* look */ 0.0f, 0.0f, 0.0f,
 				/* up   */ 0.0f, 1.0f, 0.0f);
 
-		mtx4_mult_mtx4_in_place(&sp108, &spa8);
-		mtx4_copy(&spa8, &sp108);
-		renderdata.unk00 = &sp108;
+		mtx4_mult_mtx4_in_place(&rendermtx, &spa8);
+		mtx4_copy(&spa8, &rendermtx);
 
-		renderdata.unk10 = gfx_allocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
-		mtx4_copy(&sp108, renderdata.unk10);
-		g_TitleModel->matrices = renderdata.unk10;
+		renderdata.rendermtx = &rendermtx;
+		renderdata.matrices = gfx_allocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
+
+		mtx4_copy(&rendermtx, renderdata.matrices);
+		g_TitleModel->matrices = renderdata.matrices;
 
 		model_update_relations(g_TitleModel);
 
-		renderdata.flags = 3;
+		renderdata.flags = MODELRENDERFLAG_DEFAULT;
 		renderdata.zbufferenabled = false;
 		renderdata.gdl = gdl;
 
@@ -2026,10 +2026,10 @@ f32 func0f019d0c(f32 arg0)
 
 Gfx *title_render_rare_logo(Gfx *gdl)
 {
-	struct modelrenderdata renderdata = { NULL, true, 3 };
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	s32 i;
 	f32 fracdone = g_TitleTimer / TICKS(240.0f);
-	Mtxf sp118;
+	Mtxf rendermtx;
 	s32 j;
 	s32 s0;
 
@@ -2099,19 +2099,20 @@ Gfx *title_render_rare_logo(Gfx *gdl)
 		mtx4_load_rotation(&spb4, &spc0);
 		mtx00015f88(1 + fracdone * 0.25f, &spc0);
 
-		mtx00016ae4(&sp118,
+		mtx00016ae4(&rendermtx,
 				/* pos  */ 0, 0, 4000,
 				/* look */ 0, 0, 0,
 				/* up   */ 0, 1, 0);
 
-		mtx4_mult_mtx4_in_place(&sp118, &spc0);
-		mtx4_copy(&spc0, &sp118);
+		mtx4_mult_mtx4_in_place(&rendermtx, &spc0);
+		mtx4_copy(&spc0, &rendermtx);
 
-		renderdata.unk00 = &sp118;
-		renderdata.unk10 = gfx_allocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
-		mtx4_copy(&sp118, renderdata.unk10);
+		renderdata.rendermtx = &rendermtx;
+		renderdata.matrices = gfx_allocate(g_TitleModel->definition->nummatrices * sizeof(Mtxf));
 
-		g_TitleModel->matrices = renderdata.unk10;
+		mtx4_copy(&rendermtx, renderdata.matrices);
+
+		g_TitleModel->matrices = renderdata.matrices;
 
 		model_update_relations(g_TitleModel);
 
@@ -2135,8 +2136,8 @@ Gfx *title_render_rare_logo(Gfx *gdl)
 
 		gSPSetLights1(gdl++, g_TitleLightNintendoRare);
 
-		renderdata.flags = 3;
-		renderdata.zbufferenabled = 0;
+		renderdata.flags = MODELRENDERFLAG_DEFAULT;
+		renderdata.zbufferenabled = false;
 		renderdata.gdl = gdl;
 
 		model_render(&renderdata, g_TitleModel);
@@ -2163,8 +2164,8 @@ Gfx *title_render_rare_logo(Gfx *gdl)
 
 		gSPSetLights1(gdl++, g_TitleLightNintendoRare);
 
-		renderdata.flags = 3;
-		renderdata.zbufferenabled = 0;
+		renderdata.flags = MODELRENDERFLAG_DEFAULT;
+		renderdata.zbufferenabled = false;
 		renderdata.gdl = gdl;
 
 		model_render(&renderdata, g_TitleModel);

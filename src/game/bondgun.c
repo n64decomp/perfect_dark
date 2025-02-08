@@ -7334,7 +7334,7 @@ void bgun_create_fx(struct hand *hand, s32 handnum, struct funcdef *funcdef, s32
 void bgun0f0a5550(s32 handnum)
 {
 	u8 *mtxallocation;
-	Mtxf sp2c4;
+	Mtxf rendermtx;
 	Mtxf sp284;
 	struct modeldef *modeldef = NULL;
 	struct coord sp274 = {0, 0, 0};
@@ -7526,10 +7526,10 @@ void bgun0f0a5550(s32 handnum)
 	mtx4_load_rotation(&sp1a4, &sp124);
 	mtx4_mult_mtx4(&sp124, &sp164, &sp284);
 	mtx4_mult_mtx4_in_place(&sp284, &sp234);
-	mtx4_copy(&sp234, &sp2c4);
-	mtx4_set_translation(&sp274, &sp2c4);
+	mtx4_copy(&sp234, &rendermtx);
+	mtx4_set_translation(&sp274, &rendermtx);
 
-	mtx4_copy(&sp2c4, &hand->cammtx);
+	mtx4_copy(&rendermtx, &hand->cammtx);
 	mtx4_copy(&hand->posmtx, &hand->prevmtx);
 
 	mtx00015be4(cam_get_projection_mtxf(), &hand->cammtx, &hand->posmtx);
@@ -7549,12 +7549,12 @@ void bgun0f0a5550(s32 handnum)
 		hand->handmodel.matrices = (Mtxf *)mtxallocation;
 
 		if (gset_has_weapon_flag(weaponnum, WEAPONFLAG_DUALFLIP) && handnum == HAND_LEFT) {
-			mtx00015e24(-1, &sp2c4);
+			mtx00015e24(-1, &rendermtx);
 		}
 
-		mtx00015f04(0.10000001f, &sp2c4);
+		mtx00015f04(0.10000001f, &rendermtx);
 
-		mtx4_copy(&sp2c4, (Mtxf *)mtxallocation);
+		mtx4_copy(&rendermtx, (Mtxf *)mtxallocation);
 
 		if (hand->ejectcount > 0) {
 			switch (weaponnum) {
@@ -7590,7 +7590,7 @@ void bgun0f0a5550(s32 handnum)
 
 		{
 			bool a0 = true;
-			struct modelrenderdata renderdata = {NULL, true, 3};
+			struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 #if VERSION >= VERSION_PAL_BETA
 			bool a3 = false;
 #endif
@@ -7603,8 +7603,8 @@ void bgun0f0a5550(s32 handnum)
 			s32 stack;
 			s32 sp6c;
 
-			renderdata.unk00 = &sp2c4;
-			renderdata.unk10 = hand->gunmodel.matrices;
+			renderdata.rendermtx = &rendermtx;
+			renderdata.matrices = hand->gunmodel.matrices;
 
 			if (hand->animmode != HANDANIMMODE_IDLE) {
 				a0 = false;
@@ -7677,8 +7677,8 @@ void bgun0f0a5550(s32 handnum)
 
 					spc4 = hand->gunmodel.matrices;
 
-					renderdata.unk00 = &sp84;
-					renderdata.unk10 = player->hands[HAND_RIGHT].unk0dd8;
+					renderdata.rendermtx = &sp84;
+					renderdata.matrices = player->hands[HAND_RIGHT].unk0dd8;
 
 #if VERSION >= VERSION_PAL_BETA
 					var8005efd8_2 = true;
@@ -7707,7 +7707,7 @@ void bgun0f0a5550(s32 handnum)
 				spc4 = hand->gunmodel.matrices;
 
 				for (spcc = 0; spcc < hand->gunmodel.definition->nummatrices; spcc++) {
-					mtx00015be4(&sp2c4, spc8, spc4);
+					mtx00015be4(&rendermtx, spc8, spc4);
 					spc8++;
 					spc4++;
 				}
@@ -8178,7 +8178,7 @@ s32 bgun_allocate_fireslot(void)
 void bgun_render(Gfx **gdlptr)
 {
 	Gfx *gdl = *gdlptr;
-	struct modelrenderdata renderdata = {NULL, true, 3};
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	struct player *player;
 	s32 handnum;
 
@@ -8257,7 +8257,7 @@ void bgun_render(Gfx **gdlptr)
 			}
 
 			renderdata.gdl = gdl;
-			renderdata.unk30 = 4;
+			renderdata.context = MODELRENDERCONTEXT_BONDGUN_OPA;
 
 			if (USINGDEVICE(DEVICE_NIGHTVISION) || USINGDEVICE(DEVICE_IRSCANNER)) {
 				u8 *col = player->gunshadecol;
@@ -8307,7 +8307,7 @@ void bgun_render(Gfx **gdlptr)
 				alpha *= 0.74509805f;
 				renderdata.fogcolour = renderdata.envcolour;
 				renderdata.envcolour = 65 + alpha;
-				renderdata.unk30 = 5;
+				renderdata.context = MODELRENDERCONTEXT_BONDGUN_OBJ_XLU;
 				colour = renderdata.envcolour;
 			}
 

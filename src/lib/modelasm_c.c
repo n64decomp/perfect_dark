@@ -363,7 +363,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 					}
 				}
 
-				t0mtx = node->parent ? modelasm_find_node_mtx(model, node->parent) : renderdata->unk00;
+				t0mtx = node->parent ? modelasm_find_node_mtx(model, node->parent) : renderdata->rendermtx;
 				t1mtx = &model->matrices[node->rodata->position.mtxindex0];
 
 				modelasm_mtx_multiply(t0mtx, t1mtx);
@@ -650,7 +650,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 					f20 *= model->scale;
 				}
 
-				t0mtx = renderdata->unk00;
+				t0mtx = renderdata->rendermtx;
 				t1mtx = &model->matrices[node->rodata->chrinfo.mtxindex];
 
 				modelasm_mtx_multiply(t0mtx, t1mtx);
@@ -671,7 +671,7 @@ bool modelasm00018680(struct modelrenderdata *renderdata, struct model *model)
 			}
 			break;
 		case MODELNODETYPE_POSITIONHELD:
-			t0mtx = node->parent ? modelasm_find_node_mtx(model, node->parent) : renderdata->unk00;
+			t0mtx = node->parent ? modelasm_find_node_mtx(model, node->parent) : renderdata->rendermtx;
 
 			f12 = 1;
 			f13 = 0;

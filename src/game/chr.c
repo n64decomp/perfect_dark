@@ -1979,35 +1979,35 @@ void chr_tick_child(struct chrdata *chr, struct prop *prop, bool fulltick)
 	if (model->attachedtomodel && model->attachedtonode
 			&& (obj->hidden & OBJHFLAG_GONE) == 0
 			&& (obj->flags2 & OBJFLAG2_INVISIBLE) == 0) {
-		Mtxf *sp104 = model_find_node_mtx(model->attachedtomodel, model->attachedtonode, 0);
-		struct modelrenderdata thing = {NULL, 1, 3};
+		Mtxf *mtx0 = model_find_node_mtx(model->attachedtomodel, model->attachedtonode, 0);
+		struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 		u32 stack;
-		Mtxf sp80;
+		Mtxf rendermtx;
 		Mtxf sp40;
 
 		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
 
 		if (obj->hidden & OBJHFLAG_EMBEDDED) {
-			mtx00015be4(sp104, &obj->embedment->matrix, &sp80);
-			thing.unk00 = &sp80;
+			mtx00015be4(mtx0, &obj->embedment->matrix, &rendermtx);
+			renderdata.rendermtx = &rendermtx;
 		} else if (CHRRACE(chr) == RACE_SKEDAR) {
 			// The skedar hand position is rotated weirdly, so compensate for it
-			mtx4_load_y_rotation(BADDTOR(75.6), &sp80);
+			mtx4_load_y_rotation(BADDTOR(75.6), &rendermtx);
 			mtx4_load_z_rotation(BADDTOR(90.0), &sp40);
-			mtx4_mult_mtx4_in_place(&sp40, &sp80);
-			mtx4_mult_mtx4_in_place(sp104, &sp80);
-			thing.unk00 = &sp80;
+			mtx4_mult_mtx4_in_place(&sp40, &rendermtx);
+			mtx4_mult_mtx4_in_place(mtx0, &rendermtx);
+			renderdata.rendermtx = &rendermtx;
 		} else if (prop == chr->weapons_held[HAND_LEFT]) {
 			// Flip the model
-			mtx4_load_z_rotation(BADDTOR(180), &sp80);
-			mtx4_mult_mtx4_in_place(sp104, &sp80);
-			thing.unk00 = &sp80;
+			mtx4_load_z_rotation(BADDTOR(180), &rendermtx);
+			mtx4_mult_mtx4_in_place(mtx0, &rendermtx);
+			renderdata.rendermtx = &rendermtx;
 		} else {
-			thing.unk00 = sp104;
+			renderdata.rendermtx = mtx0;
 		}
 
-		thing.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
-		model_set_matrices(&thing, model);
+		renderdata.matrices = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
+		model_set_matrices(&renderdata, model);
 
 		obj_child_tick_player(prop, fulltick);
 
@@ -2370,7 +2370,7 @@ bool chr_tick_beams(struct prop *prop)
  */
 s32 chr_tick(struct prop *prop)
 {
-	struct modelrenderdata sp210 = {0, 1, 3};
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	struct chrdata *chr = prop->chr;
 	struct model *model = chr->model;
 	bool needsupdate;
@@ -2381,7 +2381,7 @@ s32 chr_tick(struct prop *prop)
 	bool fulltick = false;
 	s32 race = CHRRACE(chr);
 	s32 sp1e8;
-	Mtxf sp1a8;
+	Mtxf rendermtx;
 	s32 sp1a4;
 	bool isrepeatframe;
 	bool isrepeatframe2;
@@ -2689,9 +2689,9 @@ s32 chr_tick(struct prop *prop)
 			sp190.y = 0.0f;
 			sp190.z = cosf(angle) * 19;
 
-			mtx4_load_translation(&sp190, &sp1a8);
-			mtx4_mult_mtx4_in_place(cam_get_world_to_screen_mtxf(), &sp1a8);
-			sp210.unk00 = &sp1a8;
+			mtx4_load_translation(&sp190, &rendermtx);
+			mtx4_mult_mtx4_in_place(cam_get_world_to_screen_mtxf(), &rendermtx);
+			renderdata.rendermtx = &rendermtx;
 		} else if (prop->type == PROPTYPE_PLAYER) {
 			u8 stack[0x14];
 			f32 sp130;
@@ -2706,17 +2706,17 @@ s32 chr_tick(struct prop *prop)
 				sp17c.y = ABS(bike->w) * 200 + 25;
 				sp17c.z = sinf(-sp178) * sp130;
 
-				mtx4_load_translation(&sp17c, &sp1a8);
-				mtx4_mult_mtx4_in_place(cam_get_world_to_screen_mtxf(), &sp1a8);
-				sp210.unk00 = &sp1a8;
+				mtx4_load_translation(&sp17c, &rendermtx);
+				mtx4_mult_mtx4_in_place(cam_get_world_to_screen_mtxf(), &rendermtx);
+				renderdata.rendermtx = &rendermtx;
 			} else {
-				sp210.unk00 = cam_get_world_to_screen_mtxf();
+				renderdata.rendermtx = cam_get_world_to_screen_mtxf();
 			}
 		} else {
-			sp210.unk00 = cam_get_world_to_screen_mtxf();
+			renderdata.rendermtx = cam_get_world_to_screen_mtxf();
 		}
 
-		sp210.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
+		renderdata.matrices = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
 
 		if (fulltick && g_CurModelChr->flinchcnt >= 0) {
 			g_CurModelChr->flinchcnt += g_Vars.lvupdate60;
@@ -2786,7 +2786,7 @@ s32 chr_tick(struct prop *prop)
 				}
 			}
 
-			model_set_matrices_with_anim(&sp210, model);
+			model_set_matrices_with_anim(&renderdata, model);
 
 			if (restore) {
 				anim->frac = prevfrac;
@@ -3357,7 +3357,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 	struct model *model = chr->model;
 	f32 shadecolourfracs[4];
 	s32 shademode;
-	s32 sp100;
+	s32 flags;
 	s32 alpha;
 	struct eyespy *eyespy;
 	struct prop *child;
@@ -3425,12 +3425,12 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 			return gdl;
 		}
 
-		sp100 = 3;
+		flags = MODELRENDERFLAG_OPA | MODELRENDERFLAG_XLU;
 	} else {
 		if (!xlupass) {
-			sp100 = 1;
+			flags = MODELRENDERFLAG_OPA;
 		} else {
-			sp100 = 2;
+			flags = MODELRENDERFLAG_XLU;
 		}
 	}
 
@@ -3442,7 +3442,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 	}
 
 	if (shademode != SHADEMODE_XLU && alpha > 0) {
-		struct modelrenderdata renderdata = {0, 1, 3};
+		struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 		struct screenbox screenbox;
 		s32 colour[4]; // rgba levels, but allowing > 256 temporarily
 		u32 stack;
@@ -3457,7 +3457,7 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 			gdl = bg_scissor_to_viewport(gdl);
 		}
 
-		renderdata.flags = sp100;
+		renderdata.flags = flags;
 		renderdata.zbufferenabled = true;
 		renderdata.gdl = gdl;
 
@@ -3512,10 +3512,10 @@ Gfx *chr_render(struct prop *prop, Gfx *gdl, bool xlupass)
 		renderdata.fogcolour = colour[0] << 24 | colour[1] << 16 | colour[2] << 8 | colour[3];
 
 		if (alpha < 0xff) {
-			renderdata.unk30 = 8;
+			renderdata.context = MODELRENDERCONTEXT_CHR_XLU;
 			renderdata.envcolour |= (u8)alpha;
 		} else {
-			renderdata.unk30 = 7;
+			renderdata.context = MODELRENDERCONTEXT_CHR_OPA;
 		}
 
 		// Set Skedar eyes open or closed

@@ -94,15 +94,17 @@ void bhead_reset(void)
 	}
 
 	{
-		struct modelrenderdata renderdata = {NULL, 1, 3};
-		Mtxf sp48;
+		struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
+		Mtxf rendermtx;
 
 		model_set_animation(&g_Vars.currentplayer->model, ANIM_TWO_GUN_HOLD, 0, 0, 0.5f, 0);
 
 		model_update_info(&g_Vars.currentplayer->model);
-		mtx4_load_identity(&sp48);
-		renderdata.unk00 = &sp48;
-		renderdata.unk10 = g_Vars.currentplayer->bondheadmatrices;
+		mtx4_load_identity(&rendermtx);
+
+		renderdata.rendermtx = &rendermtx;
+		renderdata.matrices = g_Vars.currentplayer->bondheadmatrices;
+
 		model_set_matrices_with_anim(&renderdata, &g_Vars.currentplayer->model);
 
 		g_Vars.currentplayer->standheight = g_Vars.currentplayer->bondheadmatrices[0].m[3][1];

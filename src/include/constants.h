@@ -2589,6 +2589,20 @@
 
 #define MODELRENDERFLAG_OPA 1
 #define MODELRENDERFLAG_XLU 2
+#define MODELRENDERFLAG_DEFAULT (MODELRENDERFLAG_OPA | MODELRENDERFLAG_XLU)
+
+#define MODELRENDERCONTEXT_MENUMODEL_OPA   1
+#define MODELRENDERCONTEXT_BONDGUN_OPA     4
+#define MODELRENDERCONTEXT_BONDGUN_OBJ_XLU 5
+#define MODELRENDERCONTEXT_CHR_OPA         7
+#define MODELRENDERCONTEXT_CHR_XLU         8
+#define MODELRENDERCONTEXT_OBJ_OPA         9
+
+#define MODELRENDERMODE_0              0 // Not referenced in code, but is referenced in model files
+#define MODELRENDERMODE_SIMPLE         1 // Texture * shade
+#define MODELRENDERMODE_TRILERP        2 // Use LOD level to modulate texels from two bilerp tiles
+#define MODELRENDERMODE_CTXAWARE_1PASS 3 // Different settings based on model type, xlu rendered on same pass as opa
+#define MODELRENDERMODE_CTXAWARE_2PASS 4 // Different settings based on model type, opa/xlu rendered on different passes
 
 #define MODFILE_GAME    1
 #define MODFILE_MPSETUP 2

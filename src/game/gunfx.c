@@ -821,7 +821,7 @@ void casing_render(struct casing *casing, Gfx **gdlptr)
 	struct modeldef *modeldef = casing->modeldef;
 	Mtxf *matrices = gfx_allocate(modeldef->nummatrices * sizeof(Mtxf));
 	struct model model;
-	struct modelrenderdata renderdata = { NULL, true, 3 };
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	Mtxf mtx;
 	s32 i;
 	s32 j;
@@ -861,10 +861,10 @@ void casing_render(struct casing *casing, Gfx **gdlptr)
 	}
 
 	if (render) {
-		renderdata.zbufferenabled = 1;
+		renderdata.zbufferenabled = true;
 		renderdata.gdl = gdl;
-		renderdata.unk10 = matrices;
-		renderdata.unk30 = 4;
+		renderdata.matrices = matrices;
+		renderdata.context = MODELRENDERCONTEXT_BONDGUN_OPA;
 		renderdata.envcolour = g_Vars.currentplayer->gunshadecol[0] << 24
 			| g_Vars.currentplayer->gunshadecol[1] << 16
 			| g_Vars.currentplayer->gunshadecol[2] << 8

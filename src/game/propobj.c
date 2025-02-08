@@ -4788,15 +4788,15 @@ void obj_child_tick_player_onscreen(struct prop *prop, bool fulltick)
 
 	if (model->attachedtonode && (obj->hidden & OBJHFLAG_EMBEDDED)) {
 		Mtxf *mtx = model_find_node_mtx(model->attachedtomodel, model->attachedtonode, 0);
-		struct modelrenderdata renderdata = {NULL, true, 3};
+		struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 		u32 stack;
-		Mtxf sp30;
+		Mtxf rendermtx;
 
 		prop->flags |= PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK;
-		mtx00015be4(mtx, &obj->embedment->matrix, &sp30);
+		mtx00015be4(mtx, &obj->embedment->matrix, &rendermtx);
 
-		renderdata.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
-		renderdata.unk00 = &sp30;
+		renderdata.matrices = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
+		renderdata.rendermtx = &rendermtx;
 
 		model_set_matrices(&renderdata, model);
 		obj_child_tick_player(prop, fulltick);
@@ -10855,16 +10855,16 @@ void obj_init_matrices(struct prop *prop)
 			hangingmonitor_init_matrices(prop);
 		} else {
 			if (obj->model->definition->nummatrices >= 2) {
-				struct modelrenderdata thing = {NULL, 1, 3};
+				struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 				u32 stack;
-				Mtxf sp28;
+				Mtxf rendermtx;
 
-				mtx4_copy(obj->model->matrices, &sp28);
+				mtx4_copy(obj->model->matrices, &rendermtx);
 
-				thing.unk10 = obj->model->matrices;
-				thing.unk00 = &sp28;
+				renderdata.matrices = obj->model->matrices;
+				renderdata.rendermtx = &rendermtx;
 
-				model_set_matrices(&thing, obj->model);
+				model_set_matrices(&renderdata, obj->model);
 			}
 		}
 	}
@@ -11059,7 +11059,7 @@ s32 obj_tick_player(struct prop *prop)
 				model->anim = NULL;
 			} else {
 				// In cutscene
-				struct modelrenderdata sp476 = {0, 1, 3};
+				struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 				Mtxf sp412;
 				struct coord sp400;
 				RoomNum sp384[8];
@@ -11086,9 +11086,11 @@ s32 obj_tick_player(struct prop *prop)
 					}
 
 					sp556 = true;
-					sp476.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
-					sp476.unk00 = cam_get_world_to_screen_mtxf();
-					model_set_matrices_with_anim(&sp476, model);
+
+					renderdata.matrices = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
+					renderdata.rendermtx = cam_get_world_to_screen_mtxf();
+
+					model_set_matrices_with_anim(&renderdata, model);
 
 					if (fulltick) {
 						mtx00015be4(cam_get_projection_mtxf(), model->matrices, &sp412);
@@ -11145,12 +11147,12 @@ s32 obj_tick_player(struct prop *prop)
 				}
 			}
 		} else {
-			struct modelrenderdata sp312 = {0, 1, 3};
+			struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 			Mtxf sp248;
 			struct coord sp236;
 			RoomNum sp220[8];
 			s32 numchrs;
-			Mtxf sp152;
+			Mtxf rendermtx;
 			s32 sp148;
 			s32 sp144;
 			s32 i;
@@ -11181,12 +11183,14 @@ s32 obj_tick_player(struct prop *prop)
 
 			mtx3_to_mtx4(obj->realrot, &sp248);
 			mtx4_set_translation(&prop->pos, &sp248);
-			mtx4_mult_mtx4(cam_get_world_to_screen_mtxf(), &sp248, &sp152);
+			mtx4_mult_mtx4(cam_get_world_to_screen_mtxf(), &sp248, &rendermtx);
 
 			sp556 = true;
-			sp312.unk10 = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
-			sp312.unk00 = &sp152;
-			model_set_matrices_with_anim(&sp312, model);
+
+			renderdata.matrices = gfx_allocate(model->definition->nummatrices * sizeof(Mtxf));
+			renderdata.rendermtx = &rendermtx;
+
+			model_set_matrices_with_anim(&renderdata, model);
 
 			if (fulltick) {
 				sp236.x = (f32)sp116.x + prop->pos.x;
@@ -11202,8 +11206,10 @@ s32 obj_tick_player(struct prop *prop)
 				if (model_get_cur_anim_frame(model) >= model_get_num_anim_frames(model) - 1) {
 					modelmgr_free_anim(model->anim);
 					model->anim = NULL;
+
 					mtx00015be4(cam_get_projection_mtxf(), model->matrices, &sp248);
 					mtx4_to_mtx3(&sp248, obj->realrot);
+
 					tagnum = obj_get_tag_num(obj);
 
 					if (tagnum >= 0) {
@@ -12375,7 +12381,7 @@ void obj_render_prop(struct prop *prop, struct modelrenderdata *renderdata, bool
 		gdl = renderdata->gdl;
 
 		if (obj->type == OBJTYPE_SINGLEMONITOR) {
-			if (renderdata->flags & 1) {
+			if (renderdata->flags & MODELRENDERFLAG_OPA) {
 				struct singlemonitorobj *monitor = (struct singlemonitorobj *) prop->obj;
 
 				if (obj->flags2 & OBJFLAG2_DRAWONTOP) {
@@ -12389,7 +12395,7 @@ void obj_render_prop(struct prop *prop, struct modelrenderdata *renderdata, bool
 				gdl = tvscreen_render(model, model_get_part(model->definition, MODELPART_0000), &monitor->screen, gdl, sp60, 1);
 			}
 		} else if (obj->type == OBJTYPE_MULTIMONITOR) {
-			if (renderdata->flags & 1) {
+			if (renderdata->flags & MODELRENDERFLAG_OPA) {
 				struct multimonitorobj *monitor = (struct multimonitorobj *) prop->obj;
 
 				if (obj->flags2 & OBJFLAG2_DRAWONTOP) {
@@ -12427,13 +12433,13 @@ void obj_render_prop(struct prop *prop, struct modelrenderdata *renderdata, bool
 				renderdata->cullmode = CULLMODE_BACK;
 			}
 
-			if (renderdata->unk30 == 9) {
+			if (renderdata->context == MODELRENDERCONTEXT_OBJ_OPA) {
 				renderdata->envcolour &= 0xffffff00;
 			}
 		} else if ((obj->hidden2 & OBJH2FLAG_DEFORMED) == 0) {
 			renderdata->cullmode = CULLMODE_BACK;
 
-			if (renderdata->unk30 == 9) {
+			if (renderdata->context == MODELRENDERCONTEXT_OBJ_OPA) {
 				renderdata->envcolour &= 0xffffff00;
 			}
 		} else {
@@ -12441,7 +12447,7 @@ void obj_render_prop(struct prop *prop, struct modelrenderdata *renderdata, bool
 
 			renderdata->cullmode = CULLMODE_NONE;
 
-			if (renderdata->unk30 == 9) {
+			if (renderdata->context == MODELRENDERCONTEXT_OBJ_OPA) {
 				s32 alpha = 100 + level * 50;
 
 				if (alpha > 255) {
@@ -12599,10 +12605,10 @@ Gfx *obj_render(struct prop *prop, Gfx *gdl, bool xlupass)
 	f32 shadecolourfracs[4];
 	s32 shademode;
 	struct defaultobj *obj = prop->obj;
-	struct modelrenderdata renderdata = {NULL, true, 3};
+	struct modelrenderdata renderdata = { NULL, true, MODELRENDERFLAG_DEFAULT };
 	struct screenbox screenbox;
 	s32 colour[4];
-	s32 sp84;
+	s32 flags;
 	s32 healththing;
 	s32 alpha = 0xff;
 	f32 xrayalphafrac;
@@ -12687,12 +12693,12 @@ Gfx *obj_render(struct prop *prop, Gfx *gdl, bool xlupass)
 			return gdl;
 		}
 
-		sp84 = 3;
+		flags = MODELRENDERFLAG_OPA | MODELRENDERFLAG_XLU;
 	} else {
 		if (!xlupass) {
-			sp84 = 1;
+			flags = MODELRENDERFLAG_OPA;
 		} else {
-			sp84 = 2;
+			flags = MODELRENDERFLAG_XLU;
 		}
 	}
 
@@ -12721,15 +12727,15 @@ Gfx *obj_render(struct prop *prop, Gfx *gdl, bool xlupass)
 		gdl = bg_scissor_to_viewport(gdl);
 	}
 
-	renderdata.flags = sp84;
+	renderdata.flags = flags;
 	renderdata.zbufferenabled = (obj->flags2 & OBJFLAG2_DRAWONTOP) == 0;
 	renderdata.gdl = gdl;
 
 	if (alpha < 0xff) {
-		renderdata.unk30 = 5;
+		renderdata.context = MODELRENDERCONTEXT_BONDGUN_OBJ_XLU;
 		renderdata.envcolour = alpha;
 	} else {
-		renderdata.unk30 = 9;
+		renderdata.context = MODELRENDERCONTEXT_OBJ_OPA;
 
 		if (obj->type == OBJTYPE_TINTEDGLASS) {
 			struct tintedglassobj *glass = (struct tintedglassobj *)obj;

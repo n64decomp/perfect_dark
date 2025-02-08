@@ -433,7 +433,7 @@ struct modelrodata_gundl { // type 0x04
 	void *baseaddr;
 	Vtx *vertices;
 	s16 numvertices;
-	s16 unk12;
+	s16 rendermode;
 };
 
 struct modelrodata_distance { // type 0x08
@@ -542,7 +542,7 @@ struct modelrodata_dl { // type 0x18
 	/*0x08*/ Col *colours;
 	/*0x0c*/ Vtx *vertices; // colours follow this array
 	/*0x10*/ s16 numvertices;
-	/*0x12*/ s16 mcount;
+	/*0x12*/ s16 rendermode;
 	/*0x14*/ u16 rwdataindex;
 	/*0x16*/ u16 numcolours;
 };
@@ -5006,19 +5006,13 @@ struct animtableentry {
 };
 
 struct modelrenderdata {
-	/*0x00*/ Mtxf *unk00;
+	/*0x00*/ Mtxf *rendermtx;
 	/*0x04*/ bool zbufferenabled;
 	/*0x08*/ u32 flags;
 	/*0x0c*/ Gfx *gdl;
-	/*0x10*/ Mtxf *unk10;
-	/*0x14*/ u32 unk14;
-	/*0x18*/ u32 unk18;
-	/*0x1c*/ u32 unk1c;
-	/*0x20*/ u32 unk20;
-	/*0x24*/ u32 unk24;
-	/*0x28*/ u32 unk28;
-	/*0x2c*/ u32 unk2c;
-	/*0x30*/ s32 unk30;
+	/*0x10*/ Mtxf *matrices;
+	/*0x14*/ u32 unk14[7];
+	/*0x30*/ s32 context;
 	/*0x34*/ u32 envcolour;
 	/*0x38*/ u32 fogcolour;
 	/*0x3c*/ u32 cullmode;
