@@ -430,7 +430,7 @@ bool ai_chr_do_animation(void)
 			chr->prop->propupdate240 = 0;
 		}
 
-		chr_try_start_anim(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], speed);
+		chr_try_anim(chr, anim_id, fstartframe, fendframe, cmd[8], cmd[9], speed);
 
 		if (startframe == 0xfffe) {
 			chr_update_anim(chr, 1, true);
@@ -474,7 +474,7 @@ bool func0f04e418(void)
  */
 bool ai_be_surprised_one_hand(void)
 {
-	chr_try_surprised_one_hand(g_Vars.chrdata);
+	chr_try_surprised_onehand(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -485,7 +485,7 @@ bool ai_be_surprised_one_hand(void)
  */
 bool ai_be_surprised_look_around(void)
 {
-	chr_try_surprised_look_around(g_Vars.chrdata);
+	chr_try_surprised_lookaround(g_Vars.chrdata);
 	g_Vars.aioffset += 2;
 
 	return false;
@@ -605,7 +605,7 @@ bool ai_try_sidestep(void)
  */
 bool ai_try_jump_out(void)
 {
-	if (chr_try_jump_out(g_Vars.chrdata)) {
+	if (chr_try_jumpout(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -620,7 +620,7 @@ bool ai_try_jump_out(void)
  */
 bool ai_try_run_sideways(void)
 {
-	if (chr_try_run_sideways(g_Vars.chrdata)) {
+	if (chr_try_runsideways(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -635,7 +635,7 @@ bool ai_try_run_sideways(void)
  */
 bool ai_try_attack_walk(void)
 {
-	if (chr_try_attack_walk(g_Vars.chrdata)) {
+	if (chr_try_attackwalk(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -650,7 +650,7 @@ bool ai_try_attack_walk(void)
  */
 bool ai_try_attack_run(void)
 {
-	if (chr_try_attack_run(g_Vars.chrdata)) {
+	if (chr_try_attackrun(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -665,7 +665,7 @@ bool ai_try_attack_run(void)
  */
 bool ai_try_attack_roll(void)
 {
-	if (chr_try_attack_roll(g_Vars.chrdata)) {
+	if (chr_try_attackroll(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -684,7 +684,7 @@ bool ai_try_attack_stand(void)
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if (chr_try_attack_stand(g_Vars.chrdata, thingtype, thingid)) {
+	if (chr_try_attackstand(g_Vars.chrdata, thingtype, thingid)) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -702,7 +702,7 @@ bool ai_try_attack_kneel(void)
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if (chr_try_attack_kneel(g_Vars.chrdata, thingtype, thingid)) {
+	if (chr_try_attackkneel(g_Vars.chrdata, thingtype, thingid)) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -720,7 +720,7 @@ bool ai_try_attack_lie(void)
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if (chr_try_attack_lie(g_Vars.chrdata, thingtype, thingid)) {
+	if (chr_try_attacklie(g_Vars.chrdata, thingtype, thingid)) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -772,7 +772,7 @@ bool ai_try_modify_attack(void)
 	u32 thingid = cmd[5] | (cmd[4] << 8);
 	u32 thingtype = cmd[3] | (cmd[2] << 8);
 
-	if ((g_Vars.chrdata && chr_try_modify_attack(g_Vars.chrdata, thingtype, thingid)) ||
+	if ((g_Vars.chrdata && chr_try_modifyattack(g_Vars.chrdata, thingtype, thingid)) ||
 			(g_Vars.hovercar && chopper_attack(g_Vars.hovercar))) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
@@ -937,7 +937,7 @@ bool ai_try_start_alarm(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 pad_id = cmd[3] | (cmd[2] << 8);
 
-	if (chr_try_start_alarm(g_Vars.chrdata, pad_id)) {
+	if (chr_try_startalarm(g_Vars.chrdata, pad_id)) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[4]);
 	} else {
 		g_Vars.aioffset += 5;
@@ -1561,7 +1561,7 @@ bool ai_if_target_aiming_at_me(void)
  */
 bool ai_if_near_miss(void)
 {
-	if (chr_reset_near_miss(g_Vars.chrdata)) {
+	if (chr_reset_nearmiss(g_Vars.chrdata)) {
 		u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[2]);
 	} else {
@@ -1629,7 +1629,7 @@ bool ai_if_check_fov_with_target(void)
 
 	if (cmd[4] == 0) {
 		if (cmd[3]) {
-			pass = chr_is_in_targets_fov_x(g_Vars.chrdata, cmd[2]);
+			pass = chr_is_in_targets_fovx(g_Vars.chrdata, cmd[2]);
 		} else {
 			pass = chr_is_vertical_angle_to_target_within(g_Vars.chrdata, cmd[2]);
 		}
@@ -2646,7 +2646,7 @@ bool ai_if_num_close_arghs_less_than(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chr_get_num_close_arghs(g_Vars.chrdata) < cmd[2]) {
+	if (chr_get_num_closearghs(g_Vars.chrdata) < cmd[2]) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -2662,7 +2662,7 @@ bool ai_if_num_close_arghs_greater_than(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 
-	if (chr_get_num_close_arghs(g_Vars.chrdata) > cmd[2]) {
+	if (chr_get_num_closearghs(g_Vars.chrdata) > cmd[2]) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[3]);
 	} else {
 		g_Vars.aioffset += 4;
@@ -7225,25 +7225,25 @@ bool ai_set_team_orders(void)
 
 			switch (chractions[0].myaction) {
 			case MA_COVERGOTO:
-				if (!chr_is_in_targets_fov_x(chr, 45)) {
+				if (!chr_is_in_targets_fovx(chr, 45)) {
 					chr->orders = MA_SHOOTING;
 				}
 				break;
 			case MA_COVERBREAK:
-				if (!chr_is_in_targets_fov_x(chr, 30)) {
+				if (!chr_is_in_targets_fovx(chr, 30)) {
 					chr->orders = MA_SHOOTING;
 				}
 				num++;
 				break;
 			case MA_COVERSEEN:
-				if (!chr_is_in_targets_fov_x(chr, 30)) {
+				if (!chr_is_in_targets_fovx(chr, 30)) {
 					chr->orders = MA_SHOOTING;
 					g_Vars.chrdata->orders = MA_COVERGOTO;
 				}
 				num++;
 				break;
 			case MA_FLANKLEFT:
-				if (chr_is_in_targets_fov_x(chr, 50)) {
+				if (chr_is_in_targets_fovx(chr, 50)) {
 					chr->orders = MA_FLANKRIGHT;
 				} else {
 					chr->orders = MA_SHOOTING;
@@ -7252,7 +7252,7 @@ bool ai_set_team_orders(void)
 				g_Vars.chrdata->orders = MA_FLANKLEFT;
 				break;
 			case MA_FLANKRIGHT:
-				if (chr_is_in_targets_fov_x(chr, 50)) {
+				if (chr_is_in_targets_fovx(chr, 50)) {
 					chr->orders = MA_FLANKLEFT;
 				} else {
 					chr->orders = MA_SHOOTING;
@@ -7261,7 +7261,7 @@ bool ai_set_team_orders(void)
 				g_Vars.chrdata->orders = MA_FLANKRIGHT;
 				break;
 			case MA_DODGE:
-				if (!chr_is_in_targets_fov_x(chr, 30) &&
+				if (!chr_is_in_targets_fovx(chr, 30) &&
 						chr_has_flag_by_id(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
 					chr->orders = MA_WITHDRAW;
 				} else {
@@ -7278,7 +7278,7 @@ bool ai_set_team_orders(void)
 				num++;
 				break;
 			case MA_WAITSEEN:
-				if (chr_is_in_targets_fov_x(chr, 30) &&
+				if (chr_is_in_targets_fovx(chr, 30) &&
 						chr_has_flag_by_id(chr, CHR_SELF, CHRFLAG0_CAN_BACKOFF, BANK_0)) {
 					chr->orders = MA_WITHDRAW;
 				} else {
@@ -7522,10 +7522,12 @@ bool ai_if_dangerous_object_nearby(void)
 /**
  * @cmd 013e
  */
-bool ai013e(void)
+bool ai_run_from_grenade(void)
 {
-	if (func0f03aca0(g_Vars.chrdata, 400, true) == 0 && chr_assign_cover_away_from_danger(g_Vars.chrdata, 1000, 12000) != -1) {
-		chr_go_to_cover(g_Vars.chrdata, GOPOSFLAG_RUN);
+	if (!chr_go_to_cover_opposite_runfrompos(g_Vars.chrdata, 400, true)) {
+		if (chr_assign_cover_away_from_danger(g_Vars.chrdata, 1000, 12000) != -1) {
+			chr_go_to_cover(g_Vars.chrdata, GOPOSFLAG_RUN);
+		}
 	}
 
 	g_Vars.aioffset += 2;
@@ -8308,7 +8310,7 @@ bool ai_if_target_is_player(void)
 bool ai0184(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
-	chr_try_attack_amount(g_Vars.chrdata, 512, 0, cmd[2], cmd[3]);
+	chr_try_attackamount(g_Vars.chrdata, 512, 0, cmd[2], cmd[3]);
 	g_Vars.aioffset += 4;
 
 	return false;
@@ -8494,7 +8496,7 @@ bool ai_mini_skedar_try_pounce(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 thing = cmd[4] | (cmd[3] << 8);
 
-	if (chr_try_sk_jump(g_Vars.chrdata, g_Vars.chrdata->pouncebits, cmd[2], thing, cmd[5])) {
+	if (chr_try_skjump(g_Vars.chrdata, g_Vars.chrdata->pouncebits, cmd[2], thing, cmd[5])) {
 		g_Vars.aioffset = chrai_go_to_label(g_Vars.ailist, g_Vars.aioffset, cmd[6]);
 	} else {
 		g_Vars.aioffset += 7;
@@ -8791,20 +8793,20 @@ bool ai_do_preset_animation(void)
 	};
 
 	if (cmd[2] == 255) {
-		chr_try_start_anim(g_Vars.chrdata, anims[7 + (random() % 8)], 0, -1, 0, 15, 0.5);
+		chr_try_anim(g_Vars.chrdata, anims[7 + (random() % 8)], 0, -1, 0, 15, 0.5);
 	} else if (cmd[2] == 254) {
 		struct prop *prop0 = chr_get_held_prop(g_Vars.chrdata, 1);
 		struct prop *prop1 = chr_get_held_prop(g_Vars.chrdata, 0);
 
-		if (weapon_is_one_handed(prop0) || weapon_is_one_handed(prop1)) {
-			chr_try_start_anim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_EASY, 0, -1, 0, 5, 0.5);
+		if (weapon_is_onehanded(prop0) || weapon_is_onehanded(prop1)) {
+			chr_try_anim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_EASY, 0, -1, 0, 5, 0.5);
 		} else {
-			chr_try_start_anim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_HARD, 0, -1, 0, 5, 0.5);
+			chr_try_anim(g_Vars.chrdata, ANIM_FIX_GUN_JAM_HARD, 0, -1, 0, 5, 0.5);
 		}
 	} else if (cmd[2] == 3) {
-		chr_try_start_anim(g_Vars.chrdata, anims[3 + (random() & 1)], 0, -1, 0, 15, 0.5);
+		chr_try_anim(g_Vars.chrdata, anims[3 + (random() & 1)], 0, -1, 0, 15, 0.5);
 	} else {
-		chr_try_start_anim(g_Vars.chrdata, anims[cmd[2]], 0, -1, 0, 15, 0.5);
+		chr_try_anim(g_Vars.chrdata, anims[cmd[2]], 0, -1, 0, 15, 0.5);
 	}
 
 	g_Vars.aioffset += 3;
@@ -9563,7 +9565,7 @@ bool ai_chr_emit_sparks(void)
 	struct chrdata *chr = chr_find_by_id(g_Vars.chrdata, cmd[2]);
 
 	if (chr) {
-		chr_dr_caroll_emit_sparks(chr);
+		chr_drcaroll_emit_sparks(chr);
 	}
 
 	g_Vars.aioffset += 3;

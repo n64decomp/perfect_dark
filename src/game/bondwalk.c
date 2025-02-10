@@ -144,8 +144,8 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	struct coord posunk;
 	struct coord vector;
 	struct coord tween;
-	struct coord globalthinga;
-	struct coord globalthingb;
+	struct coord edge1;
+	struct coord edge2;
 	struct coord abstarget;
 
 	abstarget.x = reltarget->x + g_Vars.currentplayer->prop->pos.x;
@@ -153,14 +153,14 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 	abstarget.z = reltarget->z + g_Vars.currentplayer->prop->pos.z;
 
 #if VERSION >= VERSION_NTSC_1_0
-	cd_get_edge(&globalthinga, &globalthingb, 223, "bondwalk.c");
+	cd_get_edge(&edge1, &edge2, 223, "bondwalk.c");
 #else
-	cd_get_edge(&globalthinga, &globalthingb, 221, "bondwalk.c");
+	cd_get_edge(&edge1, &edge2, 221, "bondwalk.c");
 #endif
 
-	vector.x = globalthingb.z - globalthinga.z;
+	vector.x = edge2.z - edge1.z;
 	vector.y = 0;
-	vector.z = globalthinga.x - globalthingb.x;
+	vector.z = edge1.x - edge2.x;
 
 	if (vector.f[0] != 0 || vector.f[2] != 0) {
 		guNormalize(&vector.x, &vector.y, &vector.z);
@@ -168,7 +168,7 @@ void bwalk0f0c3b38(struct coord *reltarget, struct defaultobj *obj)
 		vector.z = 1;
 	}
 
-	func0f02e3dc(&globalthinga, &globalthingb, &abstarget, &vector, &posunk);
+	chr_calculate_push_contact_pos(&edge1, &edge2, &abstarget, &vector, &posunk);
 
 	tween.x = (abstarget.x - g_Vars.currentplayer->prop->pos.x) / g_Vars.lvupdate60freal;
 	tween.y = 0;

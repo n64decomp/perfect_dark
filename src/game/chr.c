@@ -1502,7 +1502,10 @@ f32 chrs_get_anim_speed(void)
 	return g_ChrsAnimSpeed;
 }
 
-void chr_update_aim_properties(struct chrdata *chr)
+/**
+ * Tween the chr's aim properties towards their aimend properties.
+ */
+void chr_tween_aim(struct chrdata *chr)
 {
 	if (chr->aimendcount >= 2) {
 		f32 mult = g_Vars.lvupdate60f / chr->aimendcount;
@@ -1826,7 +1829,7 @@ void chr_handle_joint_positioned(s32 joint, Mtxf *mtx)
 				f32 aimangle;
 				Mtxf tmpmtx;
 
-				aimangle = chr_get_aim_angle(g_CurModelChr);
+				aimangle = chr_get_aimx_angle(g_CurModelChr);
 
 				if (xrot < 0.0f) {
 					xrot = -xrot;
@@ -2635,7 +2638,7 @@ s32 chr_tick(struct prop *prop)
 #endif
 		}
 
-		chr_update_aim_properties(chr);
+		chr_tween_aim(chr);
 	}
 
 	if (prop->pos.y < -65536) {
@@ -2894,7 +2897,7 @@ s32 chr_tick(struct prop *prop)
 			chr->hidden &= ~CHRHFLAG_DROPPINGITEM;
 		}
 
-		func0f041a74(chr);
+		chr_tick_shots(chr);
 	}
 
 	return TICKOP_NONE;

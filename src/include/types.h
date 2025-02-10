@@ -333,22 +333,35 @@ union filedataptr {
 struct attackanimconfig {
 	/*0x00*/ s16 animnum;
 	/*0x04*/ f32 unk04; // frame number
-	/*0x08*/ f32 unk08;
-	/*0x0c*/ f32 unk0c;
-	/*0x10*/ f32 unk10; // frame number
-	/*0x14*/ f32 unk14; // frame number
-	/*0x18*/ f32 unk18; // frame number
-	/*0x1c*/ f32 unk1c; // frame number
-	/*0x20*/ f32 unk20; // frame number
-	/*0x24*/ f32 unk24; // frame number
-	/*0x28*/ f32 unk28; // frame number
-	/*0x2c*/ f32 unk2c; // frame number
-	/*0x30*/ f32 unk30;
-	/*0x34*/ f32 unk34;
-	/*0x38*/ f32 unk38;
-	/*0x3c*/ f32 unk3c;
-	/*0x40*/ f32 unk40;
-	/*0x44*/ f32 unk44;
+	/*0x08*/ f32 turnangleperframe;
+	/*0x0c*/ f32 angleoffset; // how far the "zero" X angle is off the chr's facing angle
+
+	// start <= aimstart <= shootstart <= recoilstart <= recoilend <= shootend <= aimend <= end
+
+	// start/end: Allows starting on a later frame or finishing on an earlier
+	//     frame than what's in the animation. endframe may be -1.
+	// aimstart/aimend: When the chr can start swiveling their aim. They can do
+	//     this while still raising their arm, before they are ready to shoot.
+	// shootstart/shootend: Chr will shoot during these frames if they have line
+	//     of sight.
+	// recoilstart/recoilend: Recoil frames, for single shot pistols.
+	//     Can be -1 if the anim doesn't have recoil frames.
+
+	/*0x10*/ f32 startframe;
+	/*0x14*/ f32 endframe;
+	/*0x18*/ f32 shootstartframe;
+	/*0x1c*/ f32 shootendframe;
+	/*0x20*/ f32 recoilstartframe;
+	/*0x24*/ f32 recoilendframe;
+	/*0x28*/ f32 aimstartframe;
+	/*0x2c*/ f32 aimendframe;
+
+	/*0x30*/ f32 maxup;   // if aiming up more than this angle, chr will lean backwards
+	/*0x34*/ f32 maxdown; // if aiming down more than this angle, chr will lean forwards
+	/*0x38*/ f32 maxleft;  // positive
+	/*0x3c*/ f32 maxright; // negative
+	/*0x40*/ f32 freearmfracup;   // when aiming up, gunless arm will move by this fraction of the gun arm
+	/*0x44*/ f32 freearmfracdown; // when aiming down, gunless arm will move by this fraction of the gun arm
 };
 
 struct model;
@@ -2659,8 +2672,8 @@ struct player {
 	/*0x1960*/ u32 killsthislife;
 	/*0x1964*/ u32 healthdisplaytime60;
 	/*0x1968*/ f32 guncloseroffset;
-	/*0x196c*/ f32 shootrotx;
-	/*0x1970*/ f32 shootroty;
+	/*0x196c*/ f32 shootrotx; // up/down (rotation on X axis)
+	/*0x1970*/ f32 shootroty; // left/right (rotation on Y axis)
 	/*0x1974*/ char *award1;
 	/*0x1978*/ char *award2;
 	/*0x197c*/ struct coord chrmuzzlelastpos[2];

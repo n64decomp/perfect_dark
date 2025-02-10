@@ -1409,7 +1409,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 void chr_fade_corpse(struct chrdata *chr);
 s32 chr_turn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 toleranceangle);
 void robot_attack(struct chrdata *chr);
-s32  chr_start_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4);
+s32  chr_skjump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4);
 void chr_get_attack_entity_pos(struct chrdata *chr, u32 attackflags, s32 entityid, struct coord *pos, RoomNum *rooms);
 f32 prop_get_distance_to_prop(struct prop *a, struct prop *b);
 s32 chr_set_chr_preset_to_chr_near_pos(u8 checktype, struct chrdata *chr, f32 distance, struct coord *pos, RoomNum *rooms);
@@ -1435,7 +1435,7 @@ f32 chr_get_anim_movedist_per_frame(s16 animnum)
 	return 1.0f;
 }
 
-bool chr_go_pos_is_waiting(struct chrdata *chr)
+bool chr_gopos_is_waiting(struct chrdata *chr)
 {
 	static s16 list1[] = { ANIM_TWO_GUN_HOLD, ANIM_006A, -1 };
 	static s16 list2[] = { ANIM_00C0, -1 };
@@ -1468,7 +1468,7 @@ bool chr_go_pos_is_waiting(struct chrdata *chr)
 	return false;
 }
 
-bool weapon_is_one_handed(struct prop *prop)
+bool weapon_is_onehanded(struct prop *prop)
 {
 	if (prop) {
 		struct weaponobj *weapon = prop->weapon;
@@ -1571,64 +1571,68 @@ f32 chr_get_attack_entity_distance(struct chrdata *chr, u32 attackflags, s32 ent
 	return 0;
 }
 
-void func0f02e3dc(struct coord *a, struct coord *b,struct coord *c, struct coord *d, struct coord *dst)
+/**
+ * Given the two ends of an edge, and a push-from position and direction,
+ * calculate the position of contact on the edge.
+ */
+void chr_calculate_push_contact_pos(struct coord *edge1, struct coord *edge2, struct coord *pushfrompos, struct coord *dir, struct coord *dst)
 {
-	f32 value = d->z * (b->x - a->x) - (b->z - a->z) * d->x;
+	f32 value = dir->z * (edge2->x - edge1->x) - (edge2->z - edge1->z) * dir->x;
 
 	if (value != 0) {
-		f32 tmp = ((b->z - a->z) * (c->x - a->x) + (a->z - c->z) * (b->x - a->x)) / value;
-		dst->x = d->x * tmp + c->x;
-		dst->y = d->y * tmp + c->y;
-		dst->z = d->z * tmp + c->z;
-	} else if (d->x == 0 && d->z == 0) {
-		dst->x = c->x;
-		dst->y = c->y;
-		dst->z = c->z;
+		f32 tmp = ((edge2->z - edge1->z) * (pushfrompos->x - edge1->x) + (edge1->z - pushfrompos->z) * (edge2->x - edge1->x)) / value;
+		dst->x = dir->x * tmp + pushfrompos->x;
+		dst->y = dir->y * tmp + pushfrompos->y;
+		dst->z = dir->z * tmp + pushfrompos->z;
+	} else if (dir->x == 0 && dir->z == 0) {
+		dst->x = pushfrompos->x;
+		dst->y = pushfrompos->y;
+		dst->z = pushfrompos->z;
 	} else {
-		dst->x = a->x;
-		dst->y = a->y;
-		dst->z = a->z;
+		dst->x = edge1->x;
+		dst->y = edge1->y;
+		dst->z = edge1->z;
 	}
 }
 
-void func0f02e4f8(struct coord *arg0, struct coord *arg1, struct coord *dst)
+void chr_calculate_push_contact_pos_using_saved_edge(struct coord *pushfrompos, struct coord *dir, struct coord *dst)
 {
-	struct coord sp2c;
-	struct coord sp20;
+	struct coord edge1;
+	struct coord edge2;
 
 #if VERSION >= VERSION_PAL_FINAL
-	cd_get_edge(&sp2c, &sp20, 2298, "chr/chraction.c");
+	cd_get_edge(&edge1, &edge2, 2298, "chr/chraction.c");
 #elif VERSION >= VERSION_NTSC_1_0
-	cd_get_edge(&sp2c, &sp20, 2298, "chraction.c");
+	cd_get_edge(&edge1, &edge2, 2298, "chraction.c");
 #else
-	cd_get_edge(&sp2c, &sp20, 2338, "chraction.c");
+	cd_get_edge(&edge1, &edge2, 2338, "chraction.c");
 #endif
 
-	func0f02e3dc(&sp2c, &sp20, arg0, arg1, dst);
+	chr_calculate_push_contact_pos(&edge1, &edge2, pushfrompos, dir, dst);
 }
 
-f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 ymax, f32 ymin)
+f32 chr_prop_get_available_dist_at_angle(struct prop *prop, f32 angle, f32 scandist, u32 cdtypes, f32 ymax, f32 ymin)
 {
-	struct coord sp5c;
-	struct coord sp50;
+	struct coord dir;
+	struct coord farpos;
 	struct chrdata *chr = prop->chr;
 	f32 result;
 	struct coord sp3c;
 	f32 xdiff;
 	f32 zdiff;
 
-	sp5c.x = sinf(arg1);
-	sp5c.y = 0;
-	sp5c.z = cosf(arg1);
+	dir.x = sinf(angle);
+	dir.y = 0;
+	dir.z = cosf(angle);
 
-	sp50.x = prop->pos.x + sp5c.f[0] * arg2;
-	sp50.y = prop->pos.y;
-	sp50.z = prop->pos.z + sp5c.f[2] * arg2;
+	farpos.x = prop->pos.x + dir.f[0] * scandist;
+	farpos.y = prop->pos.y;
+	farpos.z = prop->pos.z + dir.f[2] * scandist;
 
 	chr_set_perim_enabled(chr, false);
 
-	if (cd_exam_cyl_move03(&prop->pos, prop->rooms, &sp50, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
-		result = arg2;
+	if (cd_exam_cyl_move03(&prop->pos, prop->rooms, &farpos, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+		result = scandist;
 	} else {
 #if VERSION >= VERSION_PAL_FINAL
 		cd_get_pos(&sp3c, 2377, "chr/chraction.c");
@@ -1649,7 +1653,7 @@ f32 func0f02e550(struct prop *prop, f32 arg1, f32 arg2, u32 cdtypes, f32 ymax, f
 	return result;
 }
 
-f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
+f32 chr_get_available_dist_at_angle(struct prop *prop, f32 angle, f32 scandist)
 {
 	f32 ymax;
 	f32 ymin;
@@ -1657,7 +1661,7 @@ f32 func0f02e684(struct prop *prop, f32 arg1, f32 arg2)
 
 	chr_get_bbox(prop, &radius, &ymax, &ymin);
 
-	return func0f02e550(prop, arg1, arg2, CDTYPE_ALL, ymax, ymin);
+	return chr_prop_get_available_dist_at_angle(prop, angle, scandist, CDTYPE_ALL, ymax, ymin);
 }
 
 void chr_choose_stand_animation(struct chrdata *chr, f32 mergetime)
@@ -1683,8 +1687,8 @@ void chr_choose_stand_animation(struct chrdata *chr, f32 mergetime)
 				|| prevanimnum == ANIM_SNIPING_ONGROUND) {
 			model_set_animation(chr->model, ANIM_SNIPING_GETUP, chr->model->anim->flip, -1, chr_get_ranged_speed(chr, 0.5, 0.8), 16);
 		} else if ((leftgun && rightgun) || (!leftgun && !rightgun)
-				|| weapon_is_one_handed(leftgun)
-				|| weapon_is_one_handed(rightgun)) {
+				|| weapon_is_onehanded(leftgun)
+				|| weapon_is_onehanded(rightgun)) {
 			model_set_animation(chr->model, ANIM_006A, random() % 2, 0, 0.25, mergetime);
 			model_set_anim_looping(chr->model, 0, 16);
 		} else if (rightgun || leftgun) {
@@ -1701,7 +1705,7 @@ void chr_choose_stand_animation(struct chrdata *chr, f32 mergetime)
 	}
 }
 
-void func0f02e9a0(struct chrdata *chr, f32 mergetime)
+void chr_stand_immediate(struct chrdata *chr, f32 mergetime)
 {
 	f32 limit = 127;
 	f32 fsleep;
@@ -1785,9 +1789,9 @@ void chr_stand(struct chrdata *chr)
 			chr->sleep = 0;
 			chr->act_stand.playwalkanim = false;
 
-			func0f02e9a0(chr, 16);
+			chr_stand_immediate(chr, 16);
 		} else {
-			func0f02e9a0(chr, 16);
+			chr_stand_immediate(chr, 16);
 		}
 	}
 }
@@ -1809,9 +1813,9 @@ bool chr_face_cover(struct chrdata *chr)
 	return true;
 }
 
-void func0f02ed28(struct chrdata *chr, f32 mergetime)
+void chr_stand_checkfacingwall(struct chrdata *chr, f32 mergetime)
 {
-	func0f02e9a0(chr, mergetime);
+	chr_stand_immediate(chr, mergetime);
 
 	chr->act_stand.checkfacingwall = true;
 }
@@ -1831,8 +1835,8 @@ void chr_kneel_choose_animation(struct chrdata *chr)
 	if (chr->aibot == NULL) {
 		if ((leftgun && rightgun)
 				|| (!leftgun && !rightgun)
-				|| weapon_is_one_handed(leftgun)
-				|| weapon_is_one_handed(rightgun)) {
+				|| weapon_is_onehanded(leftgun)
+				|| weapon_is_onehanded(rightgun)) {
 			bool flip = random() % 2;
 			model_set_animation(chr->model, ANIM_KNEEL_SHOOT_RIGHT_HAND, flip, 0, chr_get_ranged_speed(chr, 0.5, 0.8), 16);
 			model_set_anim_end_frame(chr->model, 28);
@@ -1857,7 +1861,7 @@ void chr_kneel(struct chrdata *chr)
 	}
 }
 
-void chr_start_alarm_choose_animation(struct chrdata *chr)
+void chr_startalarm_choose_animation(struct chrdata *chr)
 {
 	struct prop *leftgun = chr_get_held_prop(chr, HAND_LEFT);
 	struct prop *rightgun = chr_get_held_prop(chr, HAND_RIGHT);
@@ -1873,7 +1877,7 @@ void chr_start_alarm_choose_animation(struct chrdata *chr)
 	model_set_anim_end_frame(chr->model, 82);
 }
 
-void chr_start_alarm(struct chrdata *chr)
+void chr_startalarm(struct chrdata *chr)
 {
 	chr_stop_firing(chr);
 	chr->actiontype = ACT_STARTALARM;
@@ -1882,12 +1886,12 @@ void chr_start_alarm(struct chrdata *chr)
 	if (model_is_anim_merging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chr_start_alarm_choose_animation(chr);
+		chr_startalarm_choose_animation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
 
-void chr_throw_grenade_choose_animation(struct chrdata *chr)
+void chr_throwgrenade_choose_animation(struct chrdata *chr)
 {
 	u32 rand = random();
 
@@ -1912,7 +1916,7 @@ void chr_throw_grenade_choose_animation(struct chrdata *chr)
 	model_set_anim_end_frame(chr->model, -1);
 }
 
-void chr_throw_grenade(struct chrdata *chr, s32 hand, s32 needsequip)
+void chr_throwgrenade(struct chrdata *chr, s32 hand, s32 needsequip)
 {
 	chr_stop_firing(chr);
 	chr->actiontype = ACT_THROWGRENADE;
@@ -1923,7 +1927,7 @@ void chr_throw_grenade(struct chrdata *chr, s32 hand, s32 needsequip)
 	if (model_is_anim_merging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chr_throw_grenade_choose_animation(chr);
+		chr_throwgrenade_choose_animation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
@@ -1960,7 +1964,7 @@ void chr_surprised_choose_animation(struct chrdata *chr)
 	}
 }
 
-void chr_do_surprised_one_hand(struct chrdata *chr)
+void chr_do_surprised_onehand(struct chrdata *chr)
 {
 	struct prop *prop = chr_get_target_prop(chr);
 	f32 angle = chr_get_angle_to_pos(chr, &prop->pos);
@@ -1997,7 +2001,7 @@ void chr_do_surprised_surrender(struct chrdata *chr)
 	}
 }
 
-void chr_do_surprised_look_around(struct chrdata *chr)
+void chr_do_surprised_lookaround(struct chrdata *chr)
 {
 	chr_stop_firing(chr);
 	chr->actiontype = ACT_SURPRISED;
@@ -2068,8 +2072,8 @@ void chr_sidestep_choose_animation(struct chrdata *chr)
 		flip = random() % 2;
 		allowflip = random() % 2;
 	} else {
-		if (weapon_is_one_handed(leftgun) == false
-				&& weapon_is_one_handed(rightgun) == false
+		if (weapon_is_onehanded(leftgun) == false
+				&& weapon_is_onehanded(rightgun) == false
 				&& (leftgun || rightgun)) {
 			flip = (leftgun != 0);
 			allowflip = random() % 2;
@@ -2120,7 +2124,7 @@ void chr_sidestep(struct chrdata *chr, bool side)
 	}
 }
 
-void chr_jump_out_choose_animation(struct chrdata *chr)
+void chr_jumpout_choose_animation(struct chrdata *chr)
 {
 	struct prop *leftgun = chr_get_held_prop(chr, HAND_LEFT);
 	struct prop *rightgun = chr_get_held_prop(chr, HAND_RIGHT);
@@ -2129,7 +2133,7 @@ void chr_jump_out_choose_animation(struct chrdata *chr)
 	if (leftgun && !rightgun) {
 		flip = true;
 	} else if ((leftgun && rightgun) || (!leftgun && !rightgun)
-			|| weapon_is_one_handed(leftgun) || weapon_is_one_handed(rightgun)) {
+			|| weapon_is_onehanded(leftgun) || weapon_is_onehanded(rightgun)) {
 		flip = random() % 2;
 	}
 
@@ -2142,7 +2146,7 @@ void chr_jump_out_choose_animation(struct chrdata *chr)
 	}
 }
 
-void chr_jump_out(struct chrdata *chr, bool side)
+void chr_jumpout(struct chrdata *chr, bool side)
 {
 	chr_stop_firing(chr);
 	chr->actiontype = ACT_JUMPOUT;
@@ -2152,12 +2156,12 @@ void chr_jump_out(struct chrdata *chr, bool side)
 	if (model_is_anim_merging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chr_jump_out_choose_animation(chr);
+		chr_jumpout_choose_animation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
 
-void chr_run_pos_choose_animation(struct chrdata *chr)
+void chr_runpos_choose_animation(struct chrdata *chr)
 {
 	f32 xdiff = chr->prop->pos.x - chr->act_runpos.pos.x;
 	f32 ydiff = chr->prop->pos.y - chr->act_runpos.pos.y;
@@ -2172,7 +2176,7 @@ void chr_run_pos_choose_animation(struct chrdata *chr)
 	if ((leftgun && rightgun) || (!leftgun && !rightgun)) {
 		heavy = false;
 		flip = random() % 2;
-	} else if (weapon_is_one_handed(leftgun) || weapon_is_one_handed(rightgun)) {
+	} else if (weapon_is_onehanded(leftgun) || weapon_is_onehanded(rightgun)) {
 		heavy = false;
 		flip = (bool)leftgun != false;
 	} else {
@@ -2210,12 +2214,12 @@ void chr_run_to_pos(struct chrdata *chr, struct coord *pos)
 	if (model_is_anim_merging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chr_run_pos_choose_animation(chr);
+		chr_runpos_choose_animation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
 
-void chr_attack_stand(struct chrdata *chr, u32 attackflags, s32 entityid)
+void chr_attackstand(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	struct prop *leftgun = chr_get_held_prop(chr, HAND_LEFT);
 	struct prop *rightgun = chr_get_held_prop(chr, HAND_RIGHT);
@@ -2247,7 +2251,7 @@ void chr_attack_stand(struct chrdata *chr, u32 attackflags, s32 entityid)
 			firing[HAND_RIGHT] = !flip;
 		}
 	} else {
-		if (weapon_is_one_handed(leftgun) || weapon_is_one_handed(rightgun)) {
+		if (weapon_is_onehanded(leftgun) || weapon_is_onehanded(rightgun)) {
 			flip = (bool)leftgun != false;
 			animgroup = g_StandLightAttackAnims[race];
 			firing[HAND_LEFT] = (bool)leftgun != false;
@@ -2263,7 +2267,7 @@ void chr_attack_stand(struct chrdata *chr, u32 attackflags, s32 entityid)
 	chr_attack(chr, animgroup, flip, firing, attackflags, entityid, true);
 }
 
-void chr_attack_lie(struct chrdata *chr, u32 attackflags, s32 entityid)
+void chr_attacklie(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	u32 stack[2];
 	struct prop *gun = chr_get_held_prop(chr, HAND_RIGHT);
@@ -2283,7 +2287,7 @@ void chr_attack_lie(struct chrdata *chr, u32 attackflags, s32 entityid)
 	chr_attack(chr, &g_LieAttackAnims, gun == NULL, firing, attackflags, entityid, false);
 }
 
-void chr_attack_kneel(struct chrdata *chr, u32 attackflags, s32 entityid)
+void chr_attackkneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	struct prop *leftgun = chr_get_held_prop(chr, HAND_LEFT);
 	struct prop *rightgun = chr_get_held_prop(chr, HAND_RIGHT);
@@ -2317,7 +2321,7 @@ void chr_attack_kneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 			firing[HAND_RIGHT] = !flip;
 		}
 	} else {
-		if (weapon_is_one_handed(leftgun) || weapon_is_one_handed(rightgun)) {
+		if (weapon_is_onehanded(leftgun) || weapon_is_onehanded(rightgun)) {
 			flip = (bool)leftgun != false;
 			animgroup = g_KneelLightAttackAnims[race];
 			firing[HAND_LEFT] = (bool)leftgun != false;
@@ -2333,15 +2337,15 @@ void chr_attack_kneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 	chr_attack(chr, animgroup, flip, firing, attackflags, entityid, false);
 }
 
-void chr_attack_walk_choose_animation(struct chrdata *chr)
+void chr_attackwalk_choose_animation(struct chrdata *chr)
 {
 	if (chr->aibot == NULL) {
 		model_set_animation(chr->model, chr->act_attackwalk.animcfg->animnum,
-				chr->act_attackwalk.flip, chr->act_attackwalk.animcfg->unk10, 0.5, 16);
+				chr->act_attackwalk.flip, chr->act_attackwalk.animcfg->startframe, 0.5, 16);
 	}
 }
 
-void chr_attack_walk(struct chrdata *chr, bool run)
+void chr_attackwalk(struct chrdata *chr, bool run)
 {
 	struct attackanimconfig *animcfg;
 	struct prop *leftgun = chr_get_held_prop(chr, HAND_LEFT);
@@ -2396,7 +2400,7 @@ void chr_attack_walk(struct chrdata *chr, bool run)
 			firing[HAND_LEFT] = firing[HAND_RIGHT] = true;
 		}
 	} else {
-		if (weapon_is_one_handed(leftgun) || weapon_is_one_handed(rightgun)) {
+		if (weapon_is_onehanded(leftgun) || weapon_is_onehanded(rightgun)) {
 			flip = (bool)leftgun != false;
 
 			if (run) {
@@ -2484,35 +2488,35 @@ void chr_attack_walk(struct chrdata *chr, bool run)
 	if (model_is_anim_merging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chr_attack_walk_choose_animation(chr);
+		chr_attackwalk_choose_animation(chr);
 
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
 
-void chr_attack_roll_choose_animation(struct chrdata *chr)
+void chr_attackroll_choose_animation(struct chrdata *chr)
 {
 	model_set_animation(chr->model, chr->act_attack.animcfg->animnum, chr->act_attack.flip,
-			chr->act_attack.animcfg->unk10, chr_get_ranged_speed(chr, 0.5, 0.8), 16);
+			chr->act_attack.animcfg->startframe, chr_get_ranged_speed(chr, 0.5, 0.8), 16);
 
 	if (chr->act_attack.onehanded == false) {
 		if (chr->act_attack.dorecoil) {
-			if (chr->act_attack.animcfg->unk24 >= 0) {
-				model_set_anim_end_frame(chr->model, chr->act_attack.animcfg->unk24);
+			if (chr->act_attack.animcfg->recoilendframe >= 0) {
+				model_set_anim_end_frame(chr->model, chr->act_attack.animcfg->recoilendframe);
 			} else {
-				model_set_anim_end_frame(chr->model, chr->act_attack.animcfg->unk1c);
+				model_set_anim_end_frame(chr->model, chr->act_attack.animcfg->shootendframe);
 			}
 		} else {
-			if (chr->act_attack.animcfg->unk20 >= 0) {
-				model_set_anim_end_frame(chr->model, chr->act_attack.animcfg->unk20);
-			} else if (chr->act_attack.animcfg->unk14 >= 0) {
-				model_set_anim_end_frame(chr->model, chr->act_attack.animcfg->unk14);
+			if (chr->act_attack.animcfg->recoilstartframe >= 0) {
+				model_set_anim_end_frame(chr->model, chr->act_attack.animcfg->recoilstartframe);
+			} else if (chr->act_attack.animcfg->endframe >= 0) {
+				model_set_anim_end_frame(chr->model, chr->act_attack.animcfg->endframe);
 			}
 		}
 	}
 }
 
-void chr_attack_roll(struct chrdata *chr, bool toleft)
+void chr_attackroll(struct chrdata *chr, bool toleft)
 {
 	struct attackanimconfig *animcfg;
 	struct prop *leftgun = chr_get_held_prop(chr, HAND_LEFT);
@@ -2550,7 +2554,7 @@ void chr_attack_roll(struct chrdata *chr, bool toleft)
 			firing[HAND_RIGHT] = !flip;
 		}
 	} else {
-		if (weapon_is_one_handed(leftgun) || weapon_is_one_handed(rightgun)) {
+		if (weapon_is_onehanded(leftgun) || weapon_is_onehanded(rightgun)) {
 			flip = (bool)leftgun != false;
 			onehanded = true;
 			firing[HAND_LEFT] = flip;
@@ -2672,13 +2676,13 @@ void chr_attack_roll(struct chrdata *chr, bool toleft)
 	if (model_is_anim_merging(chr->model)) {
 		chr->hidden |= CHRHFLAG_NEEDANIM;
 	} else {
-		chr_attack_roll_choose_animation(chr);
+		chr_attackroll_choose_animation(chr);
 
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 }
 
-void chr_start_anim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed)
+void chr_anim(struct chrdata *chr, s32 animnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed)
 {
 	u32 stack;
 
@@ -2747,28 +2751,34 @@ void chr_begin_dead(struct chrdata *chr)
 	}
 }
 
-void func0f031254(struct chrdata *chr)
+void chr_attack_choose_endframe(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	struct attackanimconfig *animcfg = chr->act_attack.animcfg;
 
 	if (chr->act_attack.flags & ATTACKFLAG_AIMONLY) {
-		if (animcfg->unk20 >= 0 && animcfg->unk20 < animcfg->unk18) {
-			model_set_anim_end_frame(model, animcfg->unk20);
+		// When only aiming, stop at the recoil frame or shoot start frame
+		if (animcfg->recoilstartframe >= 0 && animcfg->recoilstartframe < animcfg->shootstartframe) {
+			model_set_anim_end_frame(model, animcfg->recoilstartframe);
 		} else {
-			model_set_anim_end_frame(model, animcfg->unk18);
+			model_set_anim_end_frame(model, animcfg->shootstartframe);
 		}
 	} else if (chr->act_attack.dorecoil) {
-		if (animcfg->unk20 >= 0) {
-			model_set_anim_end_frame(model, animcfg->unk20);
+		// If the chr will do a recoil, stop at the recoil frame if it exists, else shoot frame.
+		// It likely has to stop here so the recoil shot can be taken.
+		if (animcfg->recoilstartframe >= 0) {
+			model_set_anim_end_frame(model, animcfg->recoilstartframe);
 		} else {
-			model_set_anim_end_frame(model, animcfg->unk18);
+			model_set_anim_end_frame(model, animcfg->shootstartframe);
 		}
 	} else {
-		if (animcfg->unk20 >= 0) {
-			model_set_anim_end_frame(model, animcfg->unk20);
-		} else if (animcfg->unk14 >= 0) {
-			model_set_anim_end_frame(model, animcfg->unk14);
+		// Shooting without recoil.
+		// Stop at the recoil frame so it can be skipped over once reached,
+		// otherwise play out the animation.
+		if (animcfg->recoilstartframe >= 0) {
+			model_set_anim_end_frame(model, animcfg->recoilstartframe);
+		} else if (animcfg->endframe >= 0) {
+			model_set_anim_end_frame(model, animcfg->endframe);
 		} else {
 			model_set_anim_end_frame(model, -1);
 		}
@@ -2805,7 +2815,7 @@ void chr_attack(struct chrdata *chr, struct attackanimgroup **animgroups, bool f
 			if (model_get_anim_num(chr->model) != ANIM_SNIPING_ONGROUND) {
 				// Getting up or getting down
 				animcfg = g_SnipeAttackAnims;
-				model_set_animation(model, animcfg->animnum, flip, animcfg->unk10, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
+				model_set_animation(model, animcfg->animnum, flip, animcfg->startframe, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
 				model_set_anim_end_frame(model, 236);
 			} else {
 				animcfg = &g_SnipeAttackAnims[1];
@@ -2924,8 +2934,8 @@ void chr_attack(struct chrdata *chr, struct attackanimgroup **animgroups, bool f
 			if (model_is_anim_merging(chr->model)) {
 				chr->hidden |= CHRHFLAG_NEEDANIM;
 			} else {
-				model_set_animation(model, animcfg->animnum, flip, animcfg->unk10, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
-				func0f031254(chr);
+				model_set_animation(model, animcfg->animnum, flip, animcfg->startframe, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
+				chr_attack_choose_endframe(chr);
 
 				chr->hidden &= ~CHRHFLAG_NEEDANIM;
 			}
@@ -2933,7 +2943,7 @@ void chr_attack(struct chrdata *chr, struct attackanimgroup **animgroups, bool f
 	}
 }
 
-void chr_attack_amount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 maxshots)
+void chr_attackamount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 maxshots)
 {
 	u32 stack;
 	struct prop *prop = chr_get_held_prop(chr, HAND_RIGHT);
@@ -2942,7 +2952,7 @@ void chr_attack_amount(struct chrdata *chr, u32 attackflags, u32 entityid, u32 m
 	u32 race = CHRRACE(chr);
 
 	if (prop) {
-		things = weapon_is_one_handed(prop) ? g_StandLightAttackAnims[race] : g_StandHeavyAttackAnims[race];
+		things = weapon_is_onehanded(prop) ? g_StandLightAttackAnims[race] : g_StandHeavyAttackAnims[race];
 
 		firing[1] = false;
 		firing[0] = true;
@@ -3180,8 +3190,8 @@ void chr_begin_death(struct chrdata *chr, struct coord *dir, f32 relangle, s32 h
 					angle2 -= BADDTOR(360);
 				}
 
-				fval1 = func0f02e684(prop, angle1, 150);
-				fval2 = func0f02e684(prop, angle2, 150);
+				fval1 = chr_get_available_dist_at_angle(prop, angle1, 150);
+				fval2 = chr_get_available_dist_at_angle(prop, angle2, 150);
 
 				if (fval1 < 150 && fval2 < 150
 						&& fval1 - fval2 < 10 && fval1 - fval2 > -10
@@ -3706,7 +3716,7 @@ s32 gset_get_blur_amount(struct gset *gset)
 	return amount;
 }
 
-void chr_knock_out(struct chrdata *chr, f32 angle, s32 hitpart, struct gset *gset)
+void chr_knockout(struct chrdata *chr, f32 angle, s32 hitpart, struct gset *gset)
 {
 	if (chr->actiontype != ACT_DRUGGEDCOMINGUP
 			&& chr->actiontype != ACT_DRUGGEDDROP
@@ -3766,8 +3776,8 @@ bool chr_is_anim_preventing_argh(struct chrdata *chr, f32 *dst)
 						|| chr->act_attack.animcfg == &g_RollAttackAnims[7]) {
 					endframe = chr->act_attack.animcfg->unk04 - 8;
 
-					if (chr->act_attack.animcfg->unk14 < chr->act_attack.animcfg->unk04) {
-						endframe = chr->act_attack.animcfg->unk14;
+					if (chr->act_attack.animcfg->endframe < chr->act_attack.animcfg->unk04) {
+						endframe = chr->act_attack.animcfg->endframe;
 					}
 
 					if (endframe > model_get_cur_anim_frame(chr->model)) {
@@ -3793,13 +3803,13 @@ bool chr_is_anim_preventing_argh(struct chrdata *chr, f32 *dst)
 	return result;
 }
 
-void chr_choke(struct chrdata *chr, s32 choketype)
+void chr_grunt(struct chrdata *chr, s32 choketype)
 {
 	bool male = false;
 	s16 soundnum = -1;
 	s32 race = CHRRACE(chr);
 	s32 playernum;
-	s32 allowoverride = false;
+	bool human = false;
 
 	static s32 nextindexdrcaroll = 0;
 	static s32 nextindexmaian = 0;
@@ -3915,7 +3925,7 @@ void chr_choke(struct chrdata *chr, s32 choketype)
 			nextindexshock = 0;
 		}
 
-		allowoverride = true;
+		human = true;
 	} else if (male) {
 		s16 sounds[] = {
 			SFX_ARGH_MALE_0086,
@@ -3948,7 +3958,7 @@ void chr_choke(struct chrdata *chr, s32 choketype)
 		soundnum = sounds[nextindexmale];
 		nextindexmale++;
 
-		allowoverride = true;
+		human = true;
 
 		if (nextindexmale >= ARRAYCOUNT(sounds)) {
 			nextindexmale = 0;
@@ -3971,7 +3981,7 @@ void chr_choke(struct chrdata *chr, s32 choketype)
 		};
 
 		soundnum = sounds[random() % 10];
-		allowoverride = true;
+		human = true;
 	} else {
 		s16 sounds[] = {
 			SFX_ARGH_FEMALE_000D,
@@ -3986,10 +3996,10 @@ void chr_choke(struct chrdata *chr, s32 choketype)
 			nextindexfemale = 0;
 		}
 
-		allowoverride = true;
+		human = true;
 	}
 
-	if (allowoverride) {
+	if (human) {
 		if (choketype == CHOKETYPE_GURGLE) {
 			s32 sounds[] = {
 				SFX_M1_CHOKING,
@@ -4272,7 +4282,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 	bool forceapplydamage = false;
 	struct funcdef *func;
 	f32 amount;
-	bool canchoke = true;
+	bool grunt = true;
 	s32 aplayernum = -1;
 	s32 choketype = CHOKETYPE_NONE;
 
@@ -4283,7 +4293,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 	if (gset) {
 		if (gset->weaponnum == WEAPON_COMBATKNIFE) {
 			if (gset->weaponfunc == FUNC_2) {
-				canchoke = false;
+				grunt = false;
 			}
 
 			if (gset->weaponfunc == FUNC_POISON) {
@@ -4811,8 +4821,8 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 						chr->blurnumtimesdied++;
 					}
 
-					if (!lv_is_paused() && canchoke) {
-						chr_choke(chr, choketype);
+					if (!lv_is_paused() && grunt) {
+						chr_grunt(chr, choketype);
 					}
 
 					chr_flinch_body(chr);
@@ -4924,11 +4934,11 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 
 			// Handle one-hit knockouts
 			if (onehitko && chr->aibot == NULL && race == RACE_HUMAN) {
-				chr_knock_out(chr, angle, hitpart, gset);
+				chr_knockout(chr, angle, hitpart, gset);
 				ps_stop_sound(chr->prop, PSTYPE_CHRTALK, 0);
 
-				if (canchoke) {
-					chr_choke(chr, choketype);
+				if (grunt) {
+					chr_grunt(chr, choketype);
 				}
 
 				if (gset->weaponnum == WEAPON_UNARMED && chr->actiontype != ACT_DRUGGEDKO) {
@@ -4961,8 +4971,8 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 						chr->damage = chr->maxdamage;
 					}
 
-					if (canchoke) {
-						chr_choke(chr, choketype);
+					if (grunt) {
+						chr_grunt(chr, choketype);
 					}
 
 					chr_flinch_body(chr);
@@ -4986,8 +4996,8 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 							chr_yeet_from_pos(chr, explosionpos, explosionforce);
 						}
 
-						if (canchoke) {
-							chr_choke(chr, choketype);
+						if (grunt) {
+							chr_grunt(chr, choketype);
 						}
 
 						if (g_Vars.mplayerisrunning) {
@@ -5025,13 +5035,13 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 					}
 				} else {
 					// Non-explosion damage to solo mode chr
-					if (chr->actiontype != ACT_DRUGGEDKO && canchoke) {
-						chr_choke(chr, choketype);
+					if (chr->actiontype != ACT_DRUGGEDKO && grunt) {
+						chr_grunt(chr, choketype);
 					}
 
 					if (makedizzy && chr->damage >= chr->maxdamage) {
 						chr->damage = chr->maxdamage - 0.1f;
-						chr_knock_out(chr, angle, hitpart, gset);
+						chr_knockout(chr, angle, hitpart, gset);
 					}
 
 					// If chr has armour or the weapon doesn't stun
@@ -5119,7 +5129,14 @@ void chr_die(struct chrdata *chr, s32 aplayernum)
 	}
 }
 
-bool func0f03645c(struct chrdata *chr, struct coord *arg1, RoomNum *arg2, struct coord *arg3, struct coord *arg4, s32 arg5)
+/**
+ * Test if the chr can move directly to the given pos.
+ *
+ * Directly means that no consideration is made for turning circles.
+ */
+bool chr_can_move_directly_to_pos(struct chrdata *chr,
+		struct coord *frompos, RoomNum *fromrooms,
+		struct coord *topos, struct coord *torooms, s32 arg5)
 {
 	bool result = false;
 	f32 ymax;
@@ -5131,8 +5148,8 @@ bool func0f03645c(struct chrdata *chr, struct coord *arg1, RoomNum *arg2, struct
 	chr_get_bbox(prop, &radius, &ymax, &ymin);
 	chr_set_perim_enabled(chr, false);
 
-	if (cd_test_cyl_move04(arg1, arg2, arg3, rooms, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
-		if (cd_test_cyl_move01(arg3, rooms, arg4, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+	if (cd_test_cyl_move04(frompos, fromrooms, topos, rooms, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+		if (cd_test_cyl_move01(topos, rooms, torooms, arg5, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 			result = true;
 		}
 	}
@@ -5142,19 +5159,33 @@ bool func0f03645c(struct chrdata *chr, struct coord *arg1, RoomNum *arg2, struct
 	return result;
 }
 
-bool func0f03654c(struct chrdata *chr, struct coord *pos, RoomNum *rooms, struct coord *pos2, RoomNum *rooms2, struct coord *vector, f32 arg6, u32 types)
+/**
+ * Calculate if the chr can move from frompos to topos without using the nav system.
+ *
+ * The chr must have line of sight to topos.
+ *
+ * The function factors in space needed for the chr to turn to face the topos,
+ * as well as turning once topos is reached, so several line of sight checks are done.
+ *
+ * The caller may provide the dir argument (direction between the two positions)
+ * if already known, otherwise it will be calculated.
+ */
+bool chr_prop_can_move_to_pos_without_nav(struct chrdata *chr,
+		struct coord *frompos, RoomNum *fromrooms,
+		struct coord *topos, RoomNum *torooms,
+		struct coord *dir, f32 turndist, u32 cdtypes)
 {
-	struct coord tmp;
-	f32 a;
-	f32 b;
+	struct coord tmpdir;
+	f32 turndistx;
+	f32 turndistz;
 	struct prop *prop;
 	bool result = false;
 	f32 ymax;
 	f32 ymin;
 	f32 radius;
-	struct coord sp5c;
-	struct coord sp50;
-	RoomNum sp40[8];
+	struct coord nearfrompos;
+	struct coord neartopos;
+	RoomNum nearfromrooms[8];
 	f32 mult;
 
 	prop = chr->prop;
@@ -5162,49 +5193,54 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, RoomNum *rooms, struct
 	chr_set_perim_enabled(chr, false);
 	chr_get_bbox(prop, &radius, &ymax, &ymin);
 
-	if ((rooms2 && cd_test_cyl_move02(pos, rooms, pos2, rooms2, types, true, ymax - prop->pos.y, ymin - prop->pos.y))
-			|| (rooms2 == NULL && cd_test_cyl_move01(pos, rooms, pos2, types, 1, ymax - prop->pos.y, ymin - prop->pos.y))) {
-		if (vector == NULL) {
-			vector = &tmp;
+	// Test if the chr has cylindar gap to topos
+	if ((torooms != NULL && cd_test_cyl_move02(frompos, fromrooms, topos, torooms, cdtypes, true, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)
+			|| (torooms == NULL && cd_test_cyl_move01(frompos, fromrooms, topos, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION)) {
+		// If no dir was given to this function, calculate it
+		if (dir == NULL) {
+			dir = &tmpdir;
 
-			tmp.x = pos2->x - pos->x;
-			tmp.y = 0;
-			tmp.z = pos2->z - pos->z;
+			tmpdir.x = topos->x - frompos->x;
+			tmpdir.y = 0;
+			tmpdir.z = topos->z - frompos->z;
 
-			if (tmp.f[0] == 0 && tmp.f[2] == 0) {
-				// @bug: Needs to call chr_set_perim_enabled(chr, true)
-				// before returning
+			if (tmpdir.f[0] == 0 && tmpdir.f[2] == 0) {
+				// @bug: Needs to call chr_set_perim_enabled(chr, true) before returning.
+				// This likely never happens anyway because the frompos and topos would have to be the same.
 				return true;
 			}
 
-			mult = 1.0f / sqrtf(tmp.f[0] * tmp.f[0] + tmp.f[2] * tmp.f[2]);
-			tmp.x *= mult;
-			tmp.z *= mult;
+			mult = 1.0f / sqrtf(tmpdir.f[0] * tmpdir.f[0] + tmpdir.f[2] * tmpdir.f[2]);
+			tmpdir.x *= mult;
+			tmpdir.z *= mult;
 		}
 
-		a = vector->x * arg6;
-		b = vector->z * arg6;
+		// Calculate positions one turndist perpendicular to the direction
+		// and test those as well
+		turndistx = dir->x * turndist;
+		turndistz = dir->z * turndist;
 
-		sp5c.x = pos->x + b;
-		sp5c.y = pos->y;
-		sp5c.z = pos->z - a;
+		nearfrompos.x = frompos->x + turndistz;
+		nearfrompos.y = frompos->y;
+		nearfrompos.z = frompos->z - turndistx;
 
-		sp50.x = pos2->x + b;
-		sp50.y = pos2->y;
-		sp50.z = pos2->z - a;
+		neartopos.x = topos->x + turndistz;
+		neartopos.y = topos->y;
+		neartopos.z = topos->z - turndistx;
 
-		if (cd_test_cyl_move04(pos, rooms, &sp5c, sp40, types, 1, ymax - prop->pos.y, ymin - prop->pos.y)
-				&& cd_test_cyl_move01(&sp5c, sp40, &sp50, types, 1, ymax - prop->pos.y, ymin - prop->pos.y)) {
-			sp5c.x = pos->x - b;
-			sp5c.y = pos->y;
-			sp5c.z = pos->z + a;
+		if (cd_test_cyl_move04(frompos, fromrooms, &nearfrompos, nearfromrooms, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION
+				&& cd_test_cyl_move01(&nearfrompos, nearfromrooms, &neartopos, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
+			// And again, but perpendicular on the other side
+			nearfrompos.x = frompos->x - turndistz;
+			nearfrompos.y = frompos->y;
+			nearfrompos.z = frompos->z + turndistx;
 
-			sp50.x = pos2->x - b;
-			sp50.y = pos2->y;
-			sp50.z = pos2->z + a;
+			neartopos.x = topos->x - turndistz;
+			neartopos.y = topos->y;
+			neartopos.z = topos->z + turndistx;
 
-			if (cd_test_cyl_move04(pos, rooms, &sp5c, sp40, types, 1, ymax - prop->pos.y, ymin - prop->pos.y)
-					&& cd_test_cyl_move01(&sp5c, sp40, &sp50, types, 1, ymax - prop->pos.y, ymin - prop->pos.y)) {
+			if (cd_test_cyl_move04(frompos, fromrooms, &nearfrompos, nearfromrooms, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION
+					&& cd_test_cyl_move01(&nearfrompos, nearfromrooms, &neartopos, cdtypes, 1, ymax - prop->pos.y, ymin - prop->pos.y) != CDRESULT_COLLISION) {
 				result = true;
 			}
 		}
@@ -5215,25 +5251,25 @@ bool func0f03654c(struct chrdata *chr, struct coord *pos, RoomNum *rooms, struct
 	return result;
 }
 
-bool propchr_has_clear_line_to_pos(struct prop *prop, struct coord *dstpos, struct coord *vector)
+bool chr_prop_can_move_to_pos_without_nav_fast(struct prop *prop, struct coord *dstpos, struct coord *dir)
 {
-	return func0f03654c(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, vector, prop->chr->radius * 1.2f, CDTYPE_ALL);
+	return chr_prop_can_move_to_pos_without_nav(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, dir, prop->chr->radius * 1.2f, CDTYPE_ALL);
 }
 
-bool propchr_has_clear_line_in_vector(struct prop *prop, struct coord *vector, f32 mult)
+bool chr_prop_can_move_in_dir(struct prop *prop, struct coord *dir, f32 dist)
 {
 	struct coord dstpos;
 
-	dstpos.x = vector->x * mult + prop->pos.x;
+	dstpos.x = dir->x * dist + prop->pos.x;
 	dstpos.y = prop->pos.y;
-	dstpos.z = vector->z * mult + prop->pos.z;
+	dstpos.z = dir->z * dist + prop->pos.z;
 
-	return propchr_has_clear_line_to_pos(prop, &dstpos, vector);
+	return chr_prop_can_move_to_pos_without_nav_fast(prop, &dstpos, dir);
 }
 
-bool func0f036974(struct prop *prop, struct coord *pos)
+bool chr_prop_can_move_to_pos_without_nav_slow(struct prop *prop, struct coord *dstpos)
 {
-	return func0f03654c(prop->chr, &prop->pos, prop->rooms, pos, NULL, NULL, prop->chr->radius * 1.2f, CDTYPE_ALL);
+	return chr_prop_can_move_to_pos_without_nav(prop->chr, &prop->pos, prop->rooms, dstpos, NULL, NULL, prop->chr->radius * 1.2f, CDTYPE_ALL);
 }
 
 void chr_get_side_vector_to_target(struct chrdata *chr, bool side, struct coord *vector)
@@ -5270,16 +5306,16 @@ void chr_get_side_vector_to_target(struct chrdata *chr, bool side, struct coord 
 bool chr_can_roll_in_direction(struct chrdata *chr, bool side, f32 distance)
 {
 	struct prop *prop = chr->prop;
-	struct coord vector;
+	struct coord dir;
 	struct coord dstpos;
 
-	chr_get_side_vector_to_target(chr, side, &vector);
+	chr_get_side_vector_to_target(chr, side, &dir);
 
-	dstpos.x = vector.x * distance + prop->pos.x;
+	dstpos.x = dir.x * distance + prop->pos.x;
 	dstpos.y = prop->pos.y;
-	dstpos.z = vector.z * distance + prop->pos.z;
+	dstpos.z = dir.z * distance + prop->pos.z;
 
-	return propchr_has_clear_line_to_pos(prop, &dstpos, &vector);
+	return chr_prop_can_move_to_pos_without_nav_fast(prop, &dstpos, &dir);
 }
 
 void chr_get_side_vector(struct chrdata *chr, bool side, struct coord *vector)
@@ -5300,19 +5336,19 @@ void chr_get_side_vector(struct chrdata *chr, bool side, struct coord *vector)
 bool chr_can_jump_in_direction(struct chrdata *chr, bool side, f32 distance)
 {
 	struct prop *prop = chr->prop;
-	struct coord vector;
+	struct coord dir;
 	struct coord dstpos;
 
-	chr_get_side_vector(chr, side, &vector);
+	chr_get_side_vector(chr, side, &dir);
 
-	dstpos.x = vector.x * distance + prop->pos.x;
+	dstpos.x = dir.x * distance + prop->pos.x;
 	dstpos.y = prop->pos.y;
-	dstpos.z = vector.z * distance + prop->pos.z;
+	dstpos.z = dir.z * distance + prop->pos.z;
 
-	return propchr_has_clear_line_to_pos(prop, &dstpos, &vector);
+	return chr_prop_can_move_to_pos_without_nav_fast(prop, &dstpos, &dir);
 }
 
-bool chr_is_room_off_screen(struct chrdata *chr, struct coord *waypos, RoomNum *wayrooms)
+bool chr_is_room_offscreen(struct chrdata *chr, struct coord *waypos, RoomNum *wayrooms)
 {
 	struct prop *prop = chr->prop;
 	RoomNum sp7c[20];
@@ -5356,7 +5392,7 @@ bool chr_is_room_off_screen(struct chrdata *chr, struct coord *waypos, RoomNum *
 	return offscreen;
 }
 
-void chr_go_pos_init_magic(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
+void chr_gopos_init_magic(struct chrdata *chr, struct waydata *waydata, struct coord *padpos, struct coord *chrpos)
 {
 	f32 xdiff1 = padpos->x - chr->prop->pos.x;
 	f32 zdiff1 = padpos->z - chr->prop->pos.z;
@@ -5374,7 +5410,7 @@ void chr_go_pos_init_magic(struct chrdata *chr, struct waydata *waydata, struct 
 	chr_set_theta(chr, angle);
 }
 
-void chr_go_pos_get_cur_waypoint_info_with_flags(struct chrdata *chr, struct coord *pos, RoomNum *rooms, u32 *flags)
+void chr_gopos_get_cur_waypoint_info_with_flags(struct chrdata *chr, struct coord *pos, RoomNum *rooms, u32 *flags)
 {
 	struct waypoint *waypoint = chr->act_gopos.waypoints[chr->act_gopos.curindex];
 	struct pad pad;
@@ -5406,9 +5442,9 @@ void chr_go_pos_get_cur_waypoint_info_with_flags(struct chrdata *chr, struct coo
 	}
 }
 
-void chr_go_pos_get_cur_waypoint_info(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
+void chr_gopos_get_cur_waypoint_info(struct chrdata *chr, struct coord *pos, RoomNum *rooms)
 {
-	chr_go_pos_get_cur_waypoint_info_with_flags(chr, pos, rooms, NULL);
+	chr_gopos_get_cur_waypoint_info_with_flags(chr, pos, rooms, NULL);
 }
 
 f32 chr_get_run_speed(struct chrdata *chr)
@@ -5425,7 +5461,7 @@ f32 chr_get_run_speed(struct chrdata *chr)
 	return result;
 }
 
-s32 chr_go_pos_calculate_base_ttl(struct chrdata *chr)
+s32 chr_gopos_calculate_base_ttl(struct chrdata *chr)
 {
 	f32 xdiff;
 	f32 zdiff;
@@ -5434,7 +5470,7 @@ s32 chr_go_pos_calculate_base_ttl(struct chrdata *chr)
 	RoomNum rooms[8];
 	f32 speed;
 
-	chr_go_pos_get_cur_waypoint_info(chr, &pos, rooms);
+	chr_gopos_get_cur_waypoint_info(chr, &pos, rooms);
 
 	xdiff = pos.x - chr->prop->pos.x;
 	zdiff = pos.z - chr->prop->pos.z;
@@ -5460,21 +5496,21 @@ s32 chr_go_pos_calculate_base_ttl(struct chrdata *chr)
 	return (xdiff + zdiff) / speed;
 }
 
-void chr_go_pos_clear_restart_ttl(struct chrdata *chr)
+void chr_gopos_clear_restart_ttl(struct chrdata *chr)
 {
 	chr->act_gopos.restartttl = 0;
 }
 
-void chr_go_pos_consider_restart(struct chrdata *chr)
+void chr_gopos_consider_restart(struct chrdata *chr)
 {
 	if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
 			&& chr->liftaction != LIFTACTION_WAITINGONLIFT
 			&& chr->liftaction != LIFTACTION_WAITINGFORLIFT) {
 		if (chr->act_gopos.restartttl == 0) {
 #if PAL
-			s32 value = (chr_go_pos_calculate_base_ttl(chr) * 100 + 15000) / 60;
+			s32 value = (chr_gopos_calculate_base_ttl(chr) * 100 + 15000) / 60;
 #else
-			s32 value = chr_go_pos_calculate_base_ttl(chr) * 2 + 300;
+			s32 value = chr_gopos_calculate_base_ttl(chr) * 2 + 300;
 #endif
 
 			if (value > 0xffff) {
@@ -5494,12 +5530,12 @@ void chr_go_pos_consider_restart(struct chrdata *chr)
 	}
 }
 
-void chr_go_pos_init_expensive(struct chrdata *chr)
+void chr_gopos_init_expensive(struct chrdata *chr)
 {
 	struct coord pos;
 	RoomNum rooms[8];
 
-	chr_go_pos_get_cur_waypoint_info(chr, &pos, rooms);
+	chr_gopos_get_cur_waypoint_info(chr, &pos, rooms);
 
 	chr->act_gopos.waydata.mode = WAYMODE_INIT;
 	chr->act_gopos.waydata.iter = 0;
@@ -5508,7 +5544,7 @@ void chr_go_pos_init_expensive(struct chrdata *chr)
 	chr->act_gopos.waydata.aimpos.y = pos.y;
 	chr->act_gopos.waydata.aimpos.z = pos.z;
 
-	chr_go_pos_clear_restart_ttl(chr);
+	chr_gopos_clear_restart_ttl(chr);
 }
 
 /**
@@ -5519,7 +5555,7 @@ void chr_go_pos_init_expensive(struct chrdata *chr)
  * far into the array, new pathfinding will be done and the array and index will
  * be reset.
  */
-void chr_go_pos_advance_waypoint(struct chrdata *chr)
+void chr_gopos_advance_waypoint(struct chrdata *chr)
 {
 	if (chr->act_gopos.curindex < 3) {
 		chr->act_gopos.curindex++;
@@ -5532,7 +5568,7 @@ void chr_go_pos_advance_waypoint(struct chrdata *chr)
 		nav_set_seed(0, 0);
 	}
 
-	chr_go_pos_init_expensive(chr);
+	chr_gopos_init_expensive(chr);
 }
 
 /**
@@ -5634,7 +5670,7 @@ void chr_patrol_get_cur_waypoint_info(struct chrdata *chr, struct coord *pos, Ro
 	chr_patrol_get_cur_waypoint_info_with_flags(chr, pos, rooms, NULL);
 }
 
-void func0f037580(struct chrdata *chr)
+void chr_patrol_init_expensive(struct chrdata *chr)
 {
 	RoomNum rooms[8];
 
@@ -5645,14 +5681,14 @@ void func0f037580(struct chrdata *chr)
 	chr_patrol_get_cur_waypoint_info(chr, &chr->act_patrol.waydata.aimpos, rooms);
 }
 
-void func0f0375b0(struct chrdata *chr)
+void chr_patrol_advance_waypoint(struct chrdata *chr)
 {
 	s32 nextstep = chr_patrol_calculate_step(chr, &chr->act_patrol.forward, 1);
 
 	chr->act_patrol.nextstep = nextstep;
 	chr->patrolnextstep = nextstep;
 
-	func0f037580(chr);
+	chr_patrol_init_expensive(chr);
 }
 
 void chr_nav_tick_magic(struct chrdata *chr, struct waydata *waydata, f32 speed, struct coord *arg3, RoomNum *rooms)
@@ -5723,9 +5759,9 @@ void chr_nav_tick_magic(struct chrdata *chr, struct waydata *waydata, f32 speed,
 			chr->chrflags |= CHRCFLAG_FORCETOGROUND;
 
 			if (chr->actiontype == ACT_PATROL) {
-				func0f0375b0(chr);
+				chr_patrol_advance_waypoint(chr);
 				chr_patrol_get_cur_waypoint_info(chr, &spdc, spcc);
-				chr_go_pos_init_magic(chr, waydata, &spdc, &prop->pos);
+				chr_gopos_init_magic(chr, waydata, &spdc, &prop->pos);
 			} else if (chr->actiontype == ACT_GOPOS) {
 				if (chr->act_gopos.waypoints[chr->act_gopos.curindex] == NULL) {
 					// Reached the end of the route
@@ -5744,9 +5780,9 @@ void chr_nav_tick_magic(struct chrdata *chr, struct waydata *waydata, f32 speed,
 					}
 				} else {
 					// Advance to next segment, still using magic
-					chr_go_pos_advance_waypoint(chr);
-					chr_go_pos_get_cur_waypoint_info(chr, &sp5c, sp4c);
-					chr_go_pos_init_magic(chr, waydata, &sp5c, &prop->pos);
+					chr_gopos_advance_waypoint(chr);
+					chr_gopos_get_cur_waypoint_info(chr, &sp5c, sp4c);
+					chr_gopos_init_magic(chr, waydata, &sp5c, &prop->pos);
 				}
 			}
 		} else {
@@ -5755,10 +5791,10 @@ void chr_nav_tick_magic(struct chrdata *chr, struct waydata *waydata, f32 speed,
 
 			if (chr->actiontype == ACT_PATROL) {
 				chr->act_patrol.waydata.lastvisible60 = g_Vars.lvframe60;
-				func0f037580(chr);
+				chr_patrol_init_expensive(chr);
 			} else {
 				chr->act_gopos.waydata.lastvisible60 = g_Vars.lvframe60;
-				chr_go_pos_init_expensive(chr);
+				chr_gopos_init_expensive(chr);
 			}
 		}
 
@@ -5797,7 +5833,7 @@ void chr_calculate_position(struct chrdata *chr, struct coord *pos)
 			pos->z = (pos->z - chr->prop->pos.z) * frac + chr->prop->pos.z;
 		}
 	} else if (chr->actiontype == ACT_GOPOS && chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
-		chr_go_pos_get_cur_waypoint_info(chr, pos, rooms);
+		chr_gopos_get_cur_waypoint_info(chr, pos, rooms);
 
 		if (!(chr->act_gopos.waydata.magicdone >= chr->act_gopos.waydata.magictotal)
 				&& chr->act_gopos.waydata.magictotal > 0) {
@@ -5813,7 +5849,7 @@ void chr_calculate_position(struct chrdata *chr, struct coord *pos)
 	}
 }
 
-void chr_go_pos_choose_animation(struct chrdata *chr)
+void chr_gopos_choose_animation(struct chrdata *chr)
 {
 	s32 gospeed = chr->act_gopos.flags & GOPOSMASK_SPEED;
 	s32 male = g_HeadsAndBodies[chr->bodynum].ismale;
@@ -5842,7 +5878,7 @@ void chr_go_pos_choose_animation(struct chrdata *chr)
 			heavy = false;
 			flip = random() % 2;
 		} else {
-			if (weapon_is_one_handed(leftgun) || weapon_is_one_handed(rightgun)) {
+			if (weapon_is_onehanded(leftgun) || weapon_is_onehanded(rightgun)) {
 				heavy = false;
 				flip = (bool)leftgun != false;
 			} else {
@@ -6096,7 +6132,7 @@ bool chr_go_to_room_pos(struct chrdata *chr, struct coord *pos, RoomNum *room, u
 	RoomNum curwprooms[8];
 	s32 isgopos = chr->actiontype == ACT_GOPOS
 		&& (chr->act_gopos.flags & GOPOSMASK_SPEED) == (goposflags & 0xff & GOPOSMASK_SPEED)
-		&& !chr_go_pos_is_waiting(chr);
+		&& !chr_gopos_is_waiting(chr);
 	s32 ismagic = isgopos && chr->act_gopos.waydata.mode == WAYMODE_MAGIC;
 	struct coord prevpos;
 	s32 numwaypoints = 0;
@@ -6154,21 +6190,21 @@ bool chr_go_to_room_pos(struct chrdata *chr, struct coord *pos, RoomNum *room, u
 			chr->act_gopos.waypoints[i] = waypoints[i];
 		}
 
-		chr_go_pos_init_expensive(chr);
+		chr_gopos_init_expensive(chr);
 #if VERSION >= VERSION_NTSC_1_0
 		chr->goposforce = -1;
 #endif
 		chr->sleep = 0;
 		chr->liftaction = 0;
 		chr->act_gopos.flags &= ~(GOPOSFLAG_DUCK | GOPOSFLAG_CROUCH | GOPOSFLAG_WAITING);
-		chr_go_pos_get_cur_waypoint_info(chr, &curwppos, curwprooms);
+		chr_gopos_get_cur_waypoint_info(chr, &curwppos, curwprooms);
 
 		if ((!isgopos || ismagic)
 				&& g_Vars.normmplayerisrunning == false
 				&& (prop->flags & (PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK)) == 0
-				&& chr_is_room_off_screen(chr, &curwppos, curwprooms)
+				&& chr_is_room_offscreen(chr, &curwppos, curwprooms)
 				&& chr->inlift == false) {
-			chr_go_pos_init_magic(chr, &chr->act_gopos.waydata, &curwppos, &prevpos);
+			chr_gopos_init_magic(chr, &chr->act_gopos.waydata, &curwppos, &prevpos);
 		}
 
 		if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
@@ -6177,7 +6213,7 @@ bool chr_go_to_room_pos(struct chrdata *chr, struct coord *pos, RoomNum *room, u
 			return true;
 		} else {
 			if (!isgopos) {
-				chr_go_pos_choose_animation(chr);
+				chr_gopos_choose_animation(chr);
 			}
 
 			chr->hidden &= ~CHRHFLAG_NEEDANIM;
@@ -6220,7 +6256,7 @@ void chr_patrol_choose_animation(struct chrdata *chr)
 			flip = random() % 2;
 		} else {
 			// Single weapon
-			if (weapon_is_one_handed(leftprop) || weapon_is_one_handed(rightprop)) {
+			if (weapon_is_onehanded(leftprop) || weapon_is_onehanded(rightprop)) {
 				heavy = false;
 				flip = ((bool)leftprop != false);
 			} else {
@@ -6317,7 +6353,7 @@ void chr_start_patrol(struct chrdata *chr, struct path *path)
 
 		// If chr has line of sight to the pad then begin the patrol,
 		// otherwise use gopos to get to the starting pad
-		if (func0f03654c(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL,
+		if (chr_prop_can_move_to_pos_without_nav(chr, &prop->pos, prop->rooms, &pad.pos, rooms, NULL,
 					chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG) != CDRESULT_COLLISION) {
 			chr_stop_firing(chr);
 
@@ -6332,7 +6368,7 @@ void chr_start_patrol(struct chrdata *chr, struct path *path)
 
 			chr->act_patrol.turnspeed = 0;
 
-			func0f037580(chr);
+			chr_patrol_init_expensive(chr);
 
 			chr->sleep = 0;
 			chr->liftaction = LIFTACTION_NOTUSINGLIFT;
@@ -6342,9 +6378,9 @@ void chr_start_patrol(struct chrdata *chr, struct path *path)
 
 			if (!g_Vars.normmplayerisrunning
 					&& (chr->prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) == 0
-					&& chr_is_room_off_screen(chr, &nextpos, nextrooms)
+					&& chr_is_room_offscreen(chr, &nextpos, nextrooms)
 					&& !chr->inlift) {
-				chr_go_pos_init_magic(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
+				chr_gopos_init_magic(chr, &chr->act_patrol.waydata, &nextpos, &prop->pos);
 			}
 
 			// @bug: This should be act_patrol rather than act_gopos.
@@ -6801,7 +6837,7 @@ bool chr_try_sidestep(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_jump_out(struct chrdata *chr)
+bool chr_try_jumpout(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_HUMAN && chr_is_ready_for_orders(chr)) {
 		struct prop *prop = chr->prop;
@@ -6821,12 +6857,12 @@ bool chr_try_jump_out(struct chrdata *chr)
 			bool side = (random() % 2) == 0;
 
 			if (chr_can_jump_in_direction(chr, side, 200)) {
-				chr_jump_out(chr, side);
+				chr_jumpout(chr, side);
 				return true;
 			}
 
 			if (chr_can_jump_in_direction(chr, !side, 200)) {
-				chr_jump_out(chr, !side);
+				chr_jumpout(chr, !side);
 				return true;
 			}
 		}
@@ -6835,7 +6871,7 @@ bool chr_try_jump_out(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_run_sideways(struct chrdata *chr)
+bool chr_try_runsideways(struct chrdata *chr)
 {
 	u32 race = CHRRACE(chr);
 
@@ -6844,28 +6880,28 @@ bool chr_try_run_sideways(struct chrdata *chr)
 			&& g_Vars.lvframe60 - chr->lastwalk60 > TICKS(180)) {
 		struct prop *prop = chr->prop;
 		f32 distance = 200.0f + RANDOMFRAC() * 200.0f;
-		struct coord vector;
+		struct coord dir;
 		struct coord dstpos;
 
-		chr_get_side_vector_to_target(chr, random() % 2 == 0, &vector);
+		chr_get_side_vector_to_target(chr, random() % 2 == 0, &dir);
 
-		dstpos.x = vector.x * distance + prop->pos.x;
+		dstpos.x = dir.x * distance + prop->pos.x;
 		dstpos.y = prop->pos.y;
-		dstpos.z = vector.z * distance + prop->pos.z;
+		dstpos.z = dir.z * distance + prop->pos.z;
 
-		if (propchr_has_clear_line_to_pos(prop, &dstpos, &vector)) {
+		if (chr_prop_can_move_to_pos_without_nav_fast(prop, &dstpos, &dir)) {
 			chr_run_to_pos(chr, &dstpos);
 			return true;
 		}
 
-		vector.x = -vector.x;
-		vector.z = -vector.z;
+		dir.x = -dir.x;
+		dir.z = -dir.z;
 
-		dstpos.x = vector.x * distance + prop->pos.x;
+		dstpos.x = dir.x * distance + prop->pos.x;
 		dstpos.y = prop->pos.y;
-		dstpos.z = vector.z * distance + prop->pos.z;
+		dstpos.z = dir.z * distance + prop->pos.z;
 
-		if (propchr_has_clear_line_to_pos(prop, &dstpos, &vector)) {
+		if (chr_prop_can_move_to_pos_without_nav_fast(prop, &dstpos, &dir)) {
 			chr_run_to_pos(chr, &dstpos);
 			return true;
 		}
@@ -6874,7 +6910,7 @@ bool chr_try_run_sideways(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_attack_walk(struct chrdata *chr)
+bool chr_try_attackwalk(struct chrdata *chr)
 {
 	u32 race = CHRRACE(chr);
 
@@ -6894,7 +6930,7 @@ bool chr_try_attack_walk(struct chrdata *chr)
 			f32 z = target->pos.z - prop->pos.z;
 
 			if (race == RACE_HUMAN && x * x + y * y + z * z >= 1000 * 1000) {
-				chr_attack_walk(chr, false);
+				chr_attackwalk(chr, false);
 				return true;
 			}
 		}
@@ -6903,7 +6939,7 @@ bool chr_try_attack_walk(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_attack_run(struct chrdata *chr)
+bool chr_try_attackrun(struct chrdata *chr)
 {
 	u32 race = CHRRACE(chr);
 
@@ -6923,7 +6959,7 @@ bool chr_try_attack_run(struct chrdata *chr)
 			f32 z = target->pos.z - prop->pos.z;
 
 			if (race == RACE_HUMAN && x * x + y * y + z * z >= 1000 * 1000) {
-				chr_attack_walk(chr, true);
+				chr_attackwalk(chr, true);
 				return true;
 			}
 		}
@@ -6932,7 +6968,7 @@ bool chr_try_attack_run(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_attack_roll(struct chrdata *chr)
+bool chr_try_attackroll(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_HUMAN && chr_is_ready_for_orders(chr)) {
 		struct prop *prop = chr->prop;
@@ -6949,12 +6985,12 @@ bool chr_try_attack_roll(struct chrdata *chr)
 				bool toleft = (random() % 2) == 0;
 
 				if (chr_can_roll_in_direction(chr, toleft, 200)) {
-					chr_attack_roll(chr, toleft);
+					chr_attackroll(chr, toleft);
 					return true;
 				}
 
 				if (chr_can_roll_in_direction(chr, !toleft, 200)) {
-					chr_attack_roll(chr, !toleft);
+					chr_attackroll(chr, !toleft);
 					return true;
 				}
 			}
@@ -6964,7 +7000,7 @@ bool chr_try_attack_roll(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_attack_amount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8 upper)
+bool chr_try_attackamount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8 upper)
 {
 	u8 race = CHRRACE(chr);
 
@@ -7004,7 +7040,7 @@ bool chr_try_attack_amount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8
 		chr->aimendsideback = 0;
 		chr->aimendcount = 10;
 
-		chr_attack_amount(chr, arg1, arg2, quantity);
+		chr_attackamount(chr, arg1, arg2, quantity);
 
 		return true;
 	}
@@ -7012,7 +7048,7 @@ bool chr_try_attack_amount(struct chrdata *chr, u32 arg1, u32 arg2, u8 lower, u8
 	return false;
 }
 
-bool chr_try_attack_stand(struct chrdata *chr, u32 attackflags, s32 entityid)
+bool chr_try_attackstand(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
@@ -7029,7 +7065,7 @@ bool chr_try_attack_stand(struct chrdata *chr, u32 attackflags, s32 entityid)
 		if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 			if (chr_get_held_usable_prop(chr, 0) ||
 					(chr_get_held_usable_prop(chr, 1))) {
-				chr_attack_stand(chr, attackflags, entityid);
+				chr_attackstand(chr, attackflags, entityid);
 				return true;
 			}
 		}
@@ -7038,13 +7074,13 @@ bool chr_try_attack_stand(struct chrdata *chr, u32 attackflags, s32 entityid)
 	return false;
 }
 
-bool chr_try_attack_kneel(struct chrdata *chr, u32 attackflags, s32 entityid)
+bool chr_try_attackkneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if (chr_is_ready_for_orders(chr) && (chr_get_held_usable_prop(chr, 0) || chr_get_held_usable_prop(chr, 1))) {
-			chr_attack_kneel(chr, attackflags, entityid);
+			chr_attackkneel(chr, attackflags, entityid);
 			return true;
 		}
 	}
@@ -7052,13 +7088,13 @@ bool chr_try_attack_kneel(struct chrdata *chr, u32 attackflags, s32 entityid)
 	return false;
 }
 
-bool chr_try_attack_lie(struct chrdata *chr, u32 attackflags, s32 entityid)
+bool chr_try_attacklie(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
 	if (race == RACE_HUMAN || race == RACE_SKEDAR) {
 		if (chr_is_ready_for_orders(chr) && (chr_get_held_usable_prop(chr, 0) || chr_get_held_usable_prop(chr, 1))) {
-			chr_attack_lie(chr, attackflags, entityid);
+			chr_attacklie(chr, attackflags, entityid);
 			return true;
 		}
 	}
@@ -7066,7 +7102,7 @@ bool chr_try_attack_lie(struct chrdata *chr, u32 attackflags, s32 entityid)
 	return false;
 }
 
-bool chr_try_modify_attack(struct chrdata *chr, u32 attackflags, s32 entityid)
+bool chr_try_modifyattack(struct chrdata *chr, u32 attackflags, s32 entityid)
 {
 	s32 race = CHRRACE(chr);
 
@@ -7078,7 +7114,9 @@ bool chr_try_modify_attack(struct chrdata *chr, u32 attackflags, s32 entityid)
 			&& (chr->act_attack.flags & (ATTACKFLAG_AIMONLY | ATTACKFLAG_DONTTURN))) {
 		chr->act_attack.flags = attackflags;
 		chr->act_attack.entityid = entityid;
-		func0f031254(chr);
+
+		chr_attack_choose_endframe(chr);
+
 		return true;
 	}
 
@@ -7271,9 +7309,9 @@ bool chr_go_to_pos(struct chrdata *chr, struct coord *pos, u32 goposflags)
 	return false;
 }
 
-s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
+s32 chr_go_to_cover_opposite_runfrompos(struct chrdata *chr, f32 arg1, u8 arg2)
 {
-	f32 somefloat;
+	f32 mindist;
 
 	if (!arg2) {
 		arg1 -= chr_get_distance_to_coord(chr, &chr->runfrompos);
@@ -7288,13 +7326,13 @@ s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
 		return chr_go_to_cover(chr, GOPOSFLAG_RUN);
 	}
 
-	somefloat = arg1 - 2000;
+	mindist = arg1 - 2000;
 
-	if (somefloat < 2000) {
-		somefloat = 2000;
+	if (mindist < 2000) {
+		mindist = 2000;
 	}
 
-	if (!chr_assign_cover_away_from_danger(chr, somefloat, arg1 + 10000)) {
+	if (!chr_assign_cover_away_from_danger(chr, mindist, arg1 + 10000)) {
 		chr_assign_cover_by_criteria(g_Vars.chrdata,
 				COVERCRITERIA_FURTHEREST
 				| COVERCRITERIA_DISTTOTARGET
@@ -7308,7 +7346,7 @@ s32 func0f03aca0(struct chrdata *chr, f32 arg1, u8 arg2)
 bool chr_try_stop(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_EYESPY) {
-		func0f02e9a0(chr, 0);
+		chr_stand_immediate(chr, 0);
 		return true;
 	}
 
@@ -7320,10 +7358,10 @@ bool chr_try_stop(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_surprised_one_hand(struct chrdata *chr)
+bool chr_try_surprised_onehand(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_HUMAN && chr_is_ready_for_orders(chr)) {
-		chr_do_surprised_one_hand(chr);
+		chr_do_surprised_onehand(chr);
 		return true;
 	}
 
@@ -7340,10 +7378,10 @@ bool chr_try_surprised_surrender(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_surprised_look_around(struct chrdata *chr)
+bool chr_try_surprised_lookaround(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_HUMAN && chr_is_ready_for_orders(chr)) {
-		chr_do_surprised_look_around(chr);
+		chr_do_surprised_lookaround(chr);
 		return true;
 	}
 
@@ -7360,10 +7398,10 @@ bool chr_try_kneel(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_start_anim(struct chrdata *chr, s32 animfnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed)
+bool chr_try_anim(struct chrdata *chr, s32 animfnum, f32 startframe, f32 endframe, u8 chranimflags, s32 merge, f32 speed)
 {
 	if (chr_is_ready_for_orders(chr)) {
-		chr_start_anim(chr, animfnum, startframe, endframe, chranimflags, merge, speed);
+		chr_anim(chr, animfnum, startframe, endframe, chranimflags, merge, speed);
 		return true;
 	}
 
@@ -7423,23 +7461,23 @@ bool chr_try_run_from_target(struct chrdata *chr)
 		dst.x = dst.x + (diff.x * radius + diff.x * radius);
 		dst.z = dst.z + (diff.z * radius + diff.z * radius);
 
-		if (func0f036974(prop, &dst)) {
-			u32 speed = GOPOSFLAG_RUN;
+		if (chr_prop_can_move_to_pos_without_nav_slow(prop, &dst)) {
+			u32 flags = GOPOSFLAG_RUN;
 
 			if (CHRRACE(chr) == RACE_HUMAN) {
 				f32 dist = chr_get_distance_to_coord(chr, &dst);
 
 				if (dist > 100) {
-					speed = GOPOSFLAG_RUN;
+					flags = GOPOSFLAG_RUN;
 				} else if (dist < 50) {
-					speed = GOPOSFLAG_WALK;
+					flags = GOPOSFLAG_WALK;
 				} else {
-					speed = GOPOSFLAG_JOG;
+					flags = GOPOSFLAG_JOG;
 				}
 			}
 
 			los_find_final_room_exhaustive(&prop->pos, prop->rooms, &dst, rooms);
-			chr_go_to_room_pos(chr, &dst, rooms, speed);
+			chr_go_to_room_pos(chr, &dst, rooms, flags);
 
 			return true;
 		}
@@ -7516,19 +7554,19 @@ bool chr_go_to_cover_prop(struct chrdata *chr)
 							dstpos.z = prop->pos.z - (targetprop->pos.z - prop->pos.z) / targetdist * (propradius * 1.25f + chrradius);
 							dstpos.y = prop->pos.y;
 
-							if (func0f036974(chrprop, &dstpos)) {
-								u32 speed = GOPOSFLAG_JOG;
+							if (chr_prop_can_move_to_pos_without_nav_slow(chrprop, &dstpos)) {
+								u32 flags = GOPOSFLAG_JOG;
 
 								if (CHRRACE(chr) == RACE_HUMAN) {
 									if (chrdist > 1500) {
-										speed = GOPOSFLAG_RUN;
+										flags = GOPOSFLAG_RUN;
 									} else if (chrdist < 100) {
-										speed = GOPOSFLAG_WALK;
+										flags = GOPOSFLAG_WALK;
 									}
 								}
 
 								los_find_final_room_exhaustive(&chrprop->pos, chrprop->rooms, &dstpos, dstrooms);
-								chr_go_to_room_pos(chr, &dstpos, dstrooms, speed);
+								chr_go_to_room_pos(chr, &dstpos, dstrooms, flags);
 
 								chr->proppreset1 = prop - g_Vars.props;
 								obj->hidden |= OBJHFLAG_OCCUPIEDCHAIR;
@@ -7547,7 +7585,7 @@ bool chr_go_to_cover_prop(struct chrdata *chr)
 	return false;
 }
 
-bool chr_try_start_alarm(struct chrdata *chr, s32 pad_id)
+bool chr_try_startalarm(struct chrdata *chr, s32 pad_id)
 {
 	if (CHRRACE(chr) == RACE_HUMAN && chr_is_ready_for_orders(chr)) {
 		pad_id = chr_resolve_pad_id(chr, pad_id);
@@ -7559,7 +7597,7 @@ bool chr_try_start_alarm(struct chrdata *chr, s32 pad_id)
 			struct defaultobj *obj = obj_find_by_pad_num(pad_id);
 
 			if (obj && obj_is_healthy(obj)) {
-				chr_start_alarm(chr);
+				chr_startalarm(chr);
 				return true;
 			}
 		}
@@ -7618,7 +7656,7 @@ bool chr_consider_grenade_throw(struct chrdata *chr, u32 attackflags, u32 entity
 				weapon = rightprop->weapon;
 
 				if (weapon->weaponnum == WEAPON_GRENADE || weapon->weaponnum == WEAPON_NBOMB) {
-					chr_throw_grenade(chr, 0, false);
+					chr_throwgrenade(chr, 0, false);
 					chr->act_throwgrenade.flags = attackflags;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;
@@ -7629,7 +7667,7 @@ bool chr_consider_grenade_throw(struct chrdata *chr, u32 attackflags, u32 entity
 				weapon = leftprop->weapon;
 
 				if (weapon->weaponnum == WEAPON_GRENADE || weapon->weaponnum == WEAPON_NBOMB) {
-					chr_throw_grenade(chr, 1, false);
+					chr_throwgrenade(chr, 1, false);
 					chr->act_throwgrenade.flags = attackflags;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;
@@ -7655,7 +7693,7 @@ bool chr_consider_grenade_throw(struct chrdata *chr, u32 attackflags, u32 entity
 				if (prop) {
 					weapon = prop->weapon;
 					weapon->base.hidden |= OBJHFLAG_GONE;
-					chr_throw_grenade(chr, rightprop == NULL ? 0 : 1, true);
+					chr_throwgrenade(chr, rightprop == NULL ? 0 : 1, true);
 					chr->act_throwgrenade.flags = attackflags;
 					chr->act_throwgrenade.entityid = entityid;
 					done = true;
@@ -7815,16 +7853,16 @@ bool chr_try_punch(struct chrdata *chr, u8 reverse)
 	if (chr_has_flag(chr, CHRFLAG1_ADJUSTPUNCHSPEED, BANK_1)) {
 		if (chr_has_flag(chr, CHRFLAG0_CHUCKNORRIS, BANK_0)) {
 			// Fast punch
-			ok = chr_try_start_anim(chr, anims[animindex].animnum, startframe, anims[animindex].endframe, chranimflags, 16, 1.5f);
+			ok = chr_try_anim(chr, anims[animindex].animnum, startframe, anims[animindex].endframe, chranimflags, 16, 1.5f);
 		} else {
 			// Slow punch
-			ok = chr_try_start_anim(chr, anims[animindex].animnum, startframe, anims[animindex].endframe - 25, chranimflags, 16, 0.5f);
+			ok = chr_try_anim(chr, anims[animindex].animnum, startframe, anims[animindex].endframe - 25, chranimflags, 16, 0.5f);
 		}
 
 		chr->dodgerating = 0;
 	} else {
 		// Normal punch
-		ok = chr_try_start_anim(chr, anims[animindex].animnum, startframe, anims[animindex].endframe, chranimflags, 16, 0.85f);
+		ok = chr_try_anim(chr, anims[animindex].animnum, startframe, anims[animindex].endframe, chranimflags, 16, 0.85f);
 		chr->dodgerating = 0;
 	}
 
@@ -7859,7 +7897,7 @@ bool chr_try_punch(struct chrdata *chr, u8 reverse)
 	return false;
 }
 
-void func0f03c03c(void)
+void chr_0f03c03c(void)
 {
 	// empty
 }
@@ -7973,8 +8011,8 @@ void chr_tick_stand(struct chrdata *chr)
 				if (race == RACE_HUMAN) {
 					if ((leftgun && rightgun)
 							|| (!leftgun && !rightgun)
-							|| weapon_is_one_handed(leftgun)
-							|| weapon_is_one_handed(rightgun)) {
+							|| weapon_is_onehanded(leftgun)
+							|| weapon_is_onehanded(rightgun)) {
 						model_set_animation(chr->model, ANIM_006B, random() % 2, 0, 0.5f, 16);
 						model_set_anim_end_frame(chr->model, anim_get_num_frames(ANIM_006B) - 1);
 					} else {
@@ -8030,7 +8068,7 @@ void chr_tick_stand(struct chrdata *chr)
 			sp6c -= BADDTOR(360);
 		}
 
-		sp74[i] = func0f02e550(chr->prop, sp6c, 1000, CDTYPE_BG, 0, 1);
+		sp74[i] = chr_prop_get_available_dist_at_angle(chr->prop, sp6c, 1000, CDTYPE_BG, 0, 1);
 	}
 
 	for (i = 0; i < ARRAYCOUNT(sp44); i++) {
@@ -8157,13 +8195,15 @@ void chr_tick_surrender(struct chrdata *chr)
 			struct model *model = chr->model;
 			chr->sleep = 16;
 
+			// If chr is doing the surrender anim where they walk backwards slowly,
+			// check for obstacle and switch to stationary surrender anim if found.
 			if (model_get_anim_num(model) == ANIM_SURRENDER_002F && model_get_cur_anim_frame(model) >= 80.0f) {
-				struct coord coord = {0, 0, 0};
-				f32 value = chr_get_theta(chr);
-				coord.x = -sinf(value);
-				coord.z = -cosf(value);
+				struct coord dir = {0, 0, 0};
+				f32 angle = chr_get_theta(chr);
+				dir.x = -sinf(angle);
+				dir.z = -cosf(angle);
 
-				if (!propchr_has_clear_line_in_vector(chr->prop, &coord, 20)) {
+				if (!chr_prop_can_move_in_dir(chr->prop, &dir, 20)) {
 					model_set_animation(chr->model, ANIM_SURRENDER_002E, random() & 1, 30, 0.5, 16);
 					model_set_anim_looping(chr->model, 30, 16);
 				}
@@ -8179,7 +8219,7 @@ void chr_fade_corpse(struct chrdata *chr)
 	}
 }
 
-void chr_fade_corpse_when_off_screen(struct chrdata *chr)
+void chr_fade_corpse_when_offscreen(struct chrdata *chr)
 {
 	if (chr->actiontype == ACT_DEAD) {
 		chr->act_dead.fadewheninvis = true;
@@ -8452,7 +8492,7 @@ void chr_tick_die(struct chrdata *chr)
 	chr_alert_others_of_injury(chr, true);
 }
 
-void chr_tick_drugged_coming_up(struct chrdata *chr)
+void chr_tick_druggedcomingup(struct chrdata *chr)
 {
 	u16 thuds[] = {
 		SFX_THUD_808D,
@@ -8528,7 +8568,7 @@ void chr_tick_drugged_coming_up(struct chrdata *chr)
 	}
 }
 
-void chr_tick_drugged_drop(struct chrdata *chr)
+void chr_tick_druggeddrop(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -8590,7 +8630,7 @@ void chr_tick_drugged_drop(struct chrdata *chr)
 	chr_alert_others_of_injury(chr, true);
 }
 
-void chr_tick_drugged_ko(struct chrdata *chr)
+void chr_tick_druggedko(struct chrdata *chr)
 {
 	bool reap = false;
 
@@ -8634,7 +8674,7 @@ void chr_tick_argh(struct chrdata *chr)
 		chr_record_last_see_target_time(chr);
 
 		if (CHRRACE(chr) == RACE_HUMAN && model_get_anim_num(model) == ANIM_DEATH_STOMACH_LONG) {
-			func0f02ed28(chr, 26);
+			chr_stand_checkfacingwall(chr, 26);
 		} else {
 			if (chr->race == RACE_DRCAROLL) {
 				chr->drcarollimage_left = DRCAROLLIMAGE_EYESDEFAULT;
@@ -8648,7 +8688,7 @@ void chr_tick_argh(struct chrdata *chr)
 	chr_alert_others_of_injury(chr, false);
 }
 
-void chr_tick_pre_argh(struct chrdata *chr)
+void chr_tick_preargh(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -8681,11 +8721,11 @@ void chr_tick_sidestep(struct chrdata *chr)
 
 	if (model_get_cur_anim_frame(model) >= model_get_anim_end_frame(model)) {
 		chr_record_last_see_target_time(chr);
-		func0f02ed28(chr, 10);
+		chr_stand_checkfacingwall(chr, 10);
 	}
 }
 
-void chr_tick_jump_out(struct chrdata *chr)
+void chr_tick_jumpout(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -8694,7 +8734,7 @@ void chr_tick_jump_out(struct chrdata *chr)
 			return;
 		}
 
-		chr_jump_out_choose_animation(chr);
+		chr_jumpout_choose_animation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
@@ -8713,7 +8753,7 @@ void chr_tick_test(struct chrdata *chr)
 	}
 }
 
-void chr_tick_start_alarm(struct chrdata *chr)
+void chr_tick_startalarm(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
@@ -8722,7 +8762,7 @@ void chr_tick_start_alarm(struct chrdata *chr)
 			return;
 		}
 
-		chr_start_alarm_choose_animation(chr);
+		chr_startalarm_choose_animation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
@@ -8751,9 +8791,9 @@ void chr_tick_surprised(struct chrdata *chr)
 
 		if (model_get_cur_anim_frame(model) >= model_get_anim_end_frame(model)) {
 			if (model_get_anim_num(model) == ANIM_SURRENDER_002E) {
-				func0f02ed28(chr, 26);
+				chr_stand_checkfacingwall(chr, 26);
 			} else if (model_get_anim_num(model) == ANIM_003F) {
-				func0f02ed28(chr, 26);
+				chr_stand_checkfacingwall(chr, 26);
 			} else {
 				chr_stop(chr);
 			}
@@ -8889,7 +8929,7 @@ void chr_set_rot_y(struct chrdata *chr, f32 roty)
 	}
 }
 
-f32 chr_get_aim_angle(struct chrdata *chr)
+f32 chr_get_aimx_angle(struct chrdata *chr)
 {
 	f32 angle = chr_get_theta(chr) + chr->aimsideback;
 	f32 offset = 0;
@@ -8909,7 +8949,7 @@ f32 chr_get_aim_angle(struct chrdata *chr)
 			|| chr->actiontype == ACT_BOT_ATTACKSTAND
 			|| chr->actiontype == ACT_BOT_ATTACKKNEEL
 			|| chr->actiontype == ACT_BOT_ATTACKSTRAFE) {
-		offset = chr->act_attack.animcfg->unk0c;
+		offset = chr->act_attack.animcfg->angleoffset;
 	} else if (chr->prop->type == PROPTYPE_PLAYER) {
 		offset += g_Vars.players[playermgr_get_player_num_by_prop(chr->prop)]->angleoffset;
 	}
@@ -8931,7 +8971,7 @@ f32 chr_get_aim_angle(struct chrdata *chr)
 	return angle;
 }
 
-f32 chr_get_pitch_angle(struct chrdata *chr)
+f32 chr_get_aimy_angle(struct chrdata *chr)
 {
 	f32 sum = chr->aimuprshoulder + chr->aimupback;
 
@@ -9016,9 +9056,21 @@ s32 chr_turn(struct chrdata *chr, s32 turning, f32 endanimframe, f32 speed, f32 
 	return turning;
 }
 
-bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool firingleft, bool firingright, f32 arg4)
+/**
+ * When a chr does an aiming/firing animation, their body's turn angle is the
+ * same for the duration of the animation but they can move their firing arm
+ * horizontally or vertically. The aimend properties determine this finer arm
+ * movement.
+ *
+ * The aimend properties are updated on every frame while the animation is happening.
+ * They are "goal" properties. The aim properties (handled elsewhere) are tweened
+ * towards the aimend properties.
+ *
+ * Return true if the target is within the chr's firing field.
+ */
+bool chr_calculate_aimend(struct chrdata *chr, struct attackanimconfig *animcfg, bool hasleftgun, bool hasrightgun, f32 arg4)
 {
-	f32 shootrotx = 0.0f;
+	f32 shootroty = 0.0f;
 	f32 aimendsideback = 0.0f;
 	u32 flags = ATTACKFLAG_AIMATTARGET;
 	s32 entityid = 0;
@@ -9038,9 +9090,9 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 	}
 
 	if ((flags & ATTACKFLAG_AIMFORWARD) == 0) {
-		f32 sp178;
-		f32 sp174;
-		f32 sp170;
+		f32 relaimx;
+		f32 relaimy;
+		f32 relaimz;
 		struct prop *chrprop = chr->prop;
 		struct prop *targetprop = chr_get_target_prop(chr);
 		f32 sqdist;
@@ -9048,11 +9100,11 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 		struct coord targetpos;
 		RoomNum targetrooms[8];
 
-		sp178 = targetprop->pos.x - chrprop->pos.x;
-		sp174 = targetprop->pos.y - chrprop->pos.y;
-		sp170 = targetprop->pos.z - chrprop->pos.z;
+		relaimx = targetprop->pos.x - chrprop->pos.x;
+		relaimy = targetprop->pos.y - chrprop->pos.y;
+		relaimz = targetprop->pos.z - chrprop->pos.z;
 
-		sqdist = sp178 * sp178 + sp174 * sp174 + sp170 * sp170;
+		sqdist = relaimx * relaimx + relaimy * relaimy + relaimz * relaimz;
 
 		if (chr->aibot) {
 			holdturn = false;
@@ -9074,32 +9126,32 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 			targetpos.z = targetprop->pos.z;
 
 			if (chr->aibot) {
-				sp174 -= eyeheight * (0.4f + (0.05f * RANDOMFRAC() * arg4));
+				relaimy -= eyeheight * (0.4f + (0.05f * RANDOMFRAC() * arg4));
 			} else if (chr->chrflags & CHRCFLAG_LOSEXTRAHEIGHT) {
 				if (sqdist < 400.0f * 400.0f) {
 					if (chrprop->pos.y < targetpos.y - 2.0f * eyeheight) {
-						sp174 -= eyeheight * (0.55f + 0.1f * RANDOMFRAC() * arg4);
+						relaimy -= eyeheight * (0.55f + 0.1f * RANDOMFRAC() * arg4);
 					} else if (chrprop->pos.y > targetpos.y - eyeheight * 0.5f) {
-						sp174 -= eyeheight * (0.15f + 0.1f * RANDOMFRAC() * arg4);
+						relaimy -= eyeheight * (0.15f + 0.1f * RANDOMFRAC() * arg4);
 					} else {
-						sp174 = (RANDOMFRAC() * 0.1f * arg4 + 1.0f) * 40.0f;
+						relaimy = (RANDOMFRAC() * 0.1f * arg4 + 1.0f) * 40.0f;
 					}
 				} else {
-					sp174 += eyeheight * (0.025f - 0.05f * RANDOMFRAC() * arg4);
+					relaimy += eyeheight * (0.025f - 0.05f * RANDOMFRAC() * arg4);
 				}
 			} else if (sqdist > 1000.0f * 1000.0f) {
 				if ((random() % 3) == 0) {
-					sp174 += eyeheight * (0.05f + 0.1f * RANDOMFRAC() * arg4);
+					relaimy += eyeheight * (0.05f + 0.1f * RANDOMFRAC() * arg4);
 				} else {
-					sp174 -= eyeheight * (0.05f + 0.55f * RANDOMFRAC() * arg4);
+					relaimy -= eyeheight * (0.05f + 0.55f * RANDOMFRAC() * arg4);
 				}
 			} else {
 				if (chrprop->pos.y < targetpos.y - eyeheight) {
-					sp174 -= eyeheight * (0.55f + 0.1f * RANDOMFRAC() * arg4);
+					relaimy -= eyeheight * (0.55f + 0.1f * RANDOMFRAC() * arg4);
 				} else if (chrprop->pos.y > targetpos.y - eyeheight * 0.5f) {
-					sp174 -= eyeheight * (0.15f + 0.1f * RANDOMFRAC() * arg4);
+					relaimy -= eyeheight * (0.15f + 0.1f * RANDOMFRAC() * arg4);
 				} else {
-					sp174 = (RANDOMFRAC() * 0.1f * arg4 - 0.05f) * eyeheight;
+					relaimy = (RANDOMFRAC() * 0.1f * arg4 - 0.05f) * eyeheight;
 				}
 			}
 		} else {
@@ -9108,21 +9160,21 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 			model_get_root_position(chr->model, &chrpos);
 			chr_get_attack_entity_pos(chr, flags, entityid, &targetpos, targetrooms);
 
-			sp178 = targetpos.x - chrpos.x;
-			sp174 = targetpos.y - chrpos.y;
-			sp170 = targetpos.z - chrpos.z;
+			relaimx = targetpos.x - chrpos.x;
+			relaimy = targetpos.y - chrpos.y;
+			relaimz = targetpos.z - chrpos.z;
 		}
 
 		if ((flags & ATTACKFLAG_NOVERTICAL) == 0) {
-			shootrotx = atan2f(sp174, sqrtf(sp178 * sp178 + sp170 * sp170));
+			shootroty = atan2f(relaimy, sqrtf(relaimx * relaimx + relaimz * relaimz));
 
-			if (shootrotx >= DTOR(180)) {
-				shootrotx -= BADDTOR(360);
+			if (shootroty >= DTOR(180)) {
+				shootroty -= BADDTOR(360);
 			}
 		}
 
 		if (holdturn) {
-			f32 aimangle = chr_get_aim_angle(chr);
+			f32 aimangle = chr_get_aimx_angle(chr);
 			struct prop *gunprop;
 			struct modelnode *posnode;
 			struct model *gunmodel;
@@ -9144,7 +9196,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 			f32 anglev;
 
 			if (flags & ATTACKFLAG_AIMATTARGET) {
-				if (firingright) {
+				if (hasrightgun) {
 					gunprop = chr_get_held_prop(chr, HAND_RIGHT);
 				} else {
 					gunprop = chr_get_held_prop(chr, HAND_LEFT);
@@ -9203,19 +9255,19 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 						sp54.y = 0.0f;
 						sp54.z = cosf(aimangle);
 
-						sp48.x = chrprop->pos.x - sp170;
+						sp48.x = chrprop->pos.x - relaimz;
 						sp48.y = chrprop->pos.y;
-						sp48.z = chrprop->pos.z + sp178;
+						sp48.z = chrprop->pos.z + relaimx;
 
-						func0f02e3dc(&chrprop->pos, &sp48, &sp118, &sp54, &sp60);
+						chr_calculate_push_contact_pos(&chrprop->pos, &sp48, &sp118, &sp54, &sp60);
 
-						sp178 = targetpos.x - sp60.x;
-						sp170 = targetpos.z - sp60.z;
+						relaimx = targetpos.x - sp60.x;
+						relaimz = targetpos.z - sp60.z;
 					}
 				}
 			}
 
-			anglev = atan2f(sp178, sp170);
+			anglev = atan2f(relaimx, relaimz);
 			aimendsideback = anglev - aimangle;
 
 			if (aimendsideback < 0) {
@@ -9259,20 +9311,22 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 			aimendsideback += chr->aimsideback;
 
 			if (animcfg) {
+				// aimendsideback positive is aiming left
+				// aimendsideback negative is aiming right
 				if (chr->model->anim->flip) {
-					if (aimendsideback < -animcfg->unk38) {
-						aimendsideback = -animcfg->unk38;
+					if (aimendsideback < -animcfg->maxleft) {
+						aimendsideback = -animcfg->maxleft;
 						result = false;
-					} else if (aimendsideback > -animcfg->unk3c) {
-						aimendsideback = -animcfg->unk3c;
+					} else if (aimendsideback > -animcfg->maxright) {
+						aimendsideback = -animcfg->maxright;
 						result = false;
 					}
 				} else {
-					if (aimendsideback > animcfg->unk38) {
-						aimendsideback = animcfg->unk38;
+					if (aimendsideback > animcfg->maxleft) {
+						aimendsideback = animcfg->maxleft;
 						result = false;
-					} else if (aimendsideback < animcfg->unk3c) {
-						aimendsideback = animcfg->unk3c;
+					} else if (aimendsideback < animcfg->maxright) { // (maxright is negative)
+						aimendsideback = animcfg->maxright;
 						result = false;
 					}
 				}
@@ -9280,7 +9334,7 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 		}
 	}
 
-	chr_calculate_aim_end_properties(chr, animcfg, firingleft, firingright, shootrotx);
+	chr_calculate_aimend_vertical(chr, animcfg, hasleftgun, hasrightgun, shootroty);
 
 	chr->aimendsideback = aimendsideback;
 	chr->aimendcount = 10;
@@ -9288,45 +9342,45 @@ bool func0f03e9f4(struct chrdata *chr, struct attackanimconfig *animcfg, bool fi
 	return result;
 }
 
-void chr_calculate_aim_end_properties(struct chrdata *chr, struct attackanimconfig *animcfg, bool firingleft, bool firingright, f32 shootrotx)
+void chr_calculate_aimend_vertical(struct chrdata *chr, struct attackanimconfig *animcfg, bool hasleftgun, bool hasrightgun, f32 shootroty)
 {
-	f32 aimfreeshoulder = 0;
-	f32 aimendback = 0;
-	f32 aimgunshoulder = shootrotx;
+	f32 freearmangle = 0;
+	f32 backangle = 0;
+	f32 gunarmangle = shootroty;
 
 	if (animcfg != NULL) {
-		if (shootrotx > animcfg->unk30) {
-			aimendback = shootrotx - animcfg->unk30;
-			aimgunshoulder = animcfg->unk30;
-		} else if (shootrotx < animcfg->unk34) {
-			aimendback = shootrotx - animcfg->unk34;
-			aimgunshoulder = animcfg->unk34;
+		if (shootroty > animcfg->maxup) {
+			backangle = shootroty - animcfg->maxup;
+			gunarmangle = animcfg->maxup;
+		} else if (shootroty < animcfg->maxdown) {
+			backangle = shootroty - animcfg->maxdown;
+			gunarmangle = animcfg->maxdown;
 		}
 
-		if (aimgunshoulder > 0) {
-			aimfreeshoulder = animcfg->unk40 * aimgunshoulder;
+		if (gunarmangle > 0) {
+			freearmangle = animcfg->freearmfracup * gunarmangle;
 		} else {
-			aimfreeshoulder = animcfg->unk44 * aimgunshoulder;
+			freearmangle = animcfg->freearmfracdown * gunarmangle;
 		}
 	}
 
-	if (firingright) {
-		chr->aimendrshoulder = aimgunshoulder;
+	if (hasrightgun) {
+		chr->aimendrshoulder = gunarmangle;
 
-		if (firingleft) {
-			chr->aimendlshoulder = aimgunshoulder;
+		if (hasleftgun) {
+			chr->aimendlshoulder = gunarmangle;
 		} else {
-			chr->aimendlshoulder = aimfreeshoulder;
+			chr->aimendlshoulder = freearmangle;
 		}
 	} else {
-		chr->aimendrshoulder = aimfreeshoulder;
-		chr->aimendlshoulder = aimgunshoulder;
+		chr->aimendrshoulder = freearmangle;
+		chr->aimendlshoulder = gunarmangle;
 	}
 
-	chr->aimendback = aimendback;
+	chr->aimendback = backangle;
 }
 
-void chr_reset_aim_end_properties(struct chrdata *chr)
+void chr_reset_aimend(struct chrdata *chr)
 {
 	chr->aimendcount = 10;
 	chr->aimendrshoulder = 0;
@@ -9365,7 +9419,7 @@ void chr_stop_firing(struct chrdata *chr)
 		chr_set_firing(chr, HAND_RIGHT, false);
 		chr_set_firing(chr, HAND_LEFT, false);
 
-		chr_reset_aim_end_properties(chr);
+		chr_reset_aimend(chr);
 
 		chr->fireslots[0] = bgun_free_fireslot(chr->fireslots[0]);
 		chr->fireslots[1] = bgun_free_fireslot(chr->fireslots[1]);
@@ -9454,7 +9508,7 @@ void chr_calculate_hit(struct chrdata *chr, bool *angleokptr, bool *hit, struct 
 	zdist = target->pos.z - prop->pos.z;
 
 	angletotarget = atan2f(xdist, zdist);
-	angleaiming = chr_get_aim_angle(chr);
+	angleaiming = chr_get_aimx_angle(chr);
 	anglediff = angletotarget - angleaiming;
 
 	sqdist = xdist * xdist + ydist * ydist + zdist * zdist;
@@ -9859,7 +9913,7 @@ const char var7f1a8ae4[] = "aimadjust=%d";
  * This should be called on every frame while the chr is shooting.
  * The function takes care of the gun's fire rate.
  */
-void chr_tick_shoot(struct chrdata *chr, s32 handnum)
+void chr_shoot(struct chrdata *chr, s32 handnum)
 {
 	struct prop *chrprop = chr->prop;
 	struct prop *gunprop;
@@ -9941,8 +9995,8 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 		}
 
 		if (shotdue) {
-			f32 roty = chr_get_aim_angle(chr);
-			f32 rotx = chr_get_pitch_angle(chr);
+			f32 roty = chr_get_aimx_angle(chr);
+			f32 rotx = chr_get_aimy_angle(chr);
 			bool extracdtypes = isaibot ? CDTYPE_PLAYERS : 0;
 
 			firingthisframe = true;
@@ -10493,7 +10547,7 @@ void chr_tick_shoot(struct chrdata *chr, s32 handnum)
 	}
 }
 
-void func0f041a74(struct chrdata *chr)
+void chr_tick_shots(struct chrdata *chr)
 {
 #if VERSION >= VERSION_NTSC_1_0
 	chr->hidden2 &= ~CHRH2FLAG_FIRESOUNDDONE;
@@ -10524,24 +10578,23 @@ void func0f041a74(struct chrdata *chr)
 		beam_tick(chr->unk348[0]->beam);
 		beam_tick(chr->unk348[1]->beam);
 	} else if (chr->actiontype == ACT_ATTACKAMOUNT) {
-		if (chr->act_attack.numshots < chr->act_attack.maxshots
-				&& (chr->hidden & CHRHFLAG_FIRINGRIGHT)) {
-			chr_tick_shoot(chr, HAND_RIGHT);
+		if (chr->act_attack.numshots < chr->act_attack.maxshots && (chr->hidden & CHRHFLAG_FIRINGRIGHT)) {
+			chr_shoot(chr, HAND_RIGHT);
 		}
 	} else {
 		if (chr->hidden & CHRHFLAG_FIRINGRIGHT) {
-			chr_tick_shoot(chr, HAND_RIGHT);
+			chr_shoot(chr, HAND_RIGHT);
 			chr->hidden &= ~CHRHFLAG_FIRINGRIGHT;
 		}
 
 		if (chr->hidden & CHRHFLAG_FIRINGLEFT) {
-			chr_tick_shoot(chr, HAND_LEFT);
+			chr_shoot(chr, HAND_LEFT);
 			chr->hidden &= ~CHRHFLAG_FIRINGLEFT;
 		}
 	}
 }
 
-bool func0f041c44(struct chrdata *chr)
+bool chr_attack_handle_roll_end(struct chrdata *chr)
 {
 	if (CHRRACE(chr) == RACE_HUMAN) {
 		if (chr->act_attack.animcfg == &g_RollAttackAnims[2] || chr->act_attack.animcfg == &g_RollAttackAnims[3]) {
@@ -10553,10 +10606,10 @@ bool func0f041c44(struct chrdata *chr)
 			chr->act_attack.animcfg = animcfg;
 			chr->sleep = 0;
 
-			model_set_animation(model, animcfg->animnum, flip, animcfg->unk1c, chr_get_ranged_speed(chr, 0.7f, 1.12f), 22);
+			model_set_animation(model, animcfg->animnum, flip, animcfg->shootendframe, chr_get_ranged_speed(chr, 0.7f, 1.12f), 22);
 
-			if (animcfg->unk14 >= 0) {
-				model_set_anim_end_frame(model, animcfg->unk14);
+			if (animcfg->endframe >= 0) {
+				model_set_anim_end_frame(model, animcfg->endframe);
 			}
 
 			return true;
@@ -10566,32 +10619,32 @@ bool func0f041c44(struct chrdata *chr)
 	return false;
 }
 
-void chr_attack_amount_update_animation(struct chrdata *chr)
+void chr_attack_handle_recoil_end(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 
-	if (chr->act_attack.animcfg->unk24 > 0) {
+	if (chr->act_attack.animcfg->recoilendframe > 0) {
 		model_set_animation(model,
 				model_get_anim_num(model),
 				model->anim->flip,
-				chr->act_attack.animcfg->unk24,
+				chr->act_attack.animcfg->recoilendframe,
 				chr_get_ranged_speed(chr, 0.5f, 0.8f),
 				8);
 	} else {
 		model_set_animation(model,
 				model_get_anim_num(model),
 				model->anim->flip,
-				chr->act_attack.animcfg->unk1c,
+				chr->act_attack.animcfg->shootendframe,
 				chr_get_ranged_speed(chr, 0.5f, 0.8f),
 				8);
 	}
 
-	if (chr->act_attack.animcfg->unk14 >= 0) {
-		model_set_anim_end_frame(model, chr->act_attack.animcfg->unk14);
+	if (chr->act_attack.animcfg->endframe >= 0) {
+		model_set_anim_end_frame(model, chr->act_attack.animcfg->endframe);
 	}
 }
 
-void chr_tick_fire(struct chrdata *chr)
+void chr_attack_handle_shooting(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	f32 curframe = model_get_cur_anim_frame(model);
@@ -10601,22 +10654,23 @@ void chr_tick_fire(struct chrdata *chr)
 		return;
 	}
 
+	// If off-target for 0.5 seconds and have been shooting for 10 frames, stop
 	if (chr->act_attack.lastontarget60 < chr->act_attack.lastfire60 - TICKS(30)
 			&& model->anim->animnum2 == 0
-			&& curframe > chr->act_attack.animcfg->unk18 + 10
-			&& curframe < chr->act_attack.animcfg->unk1c
-			&& (chr->act_attack.animcfg->unk24 < 0 || curframe < chr->act_attack.animcfg->unk24)) {
+			&& curframe > chr->act_attack.animcfg->shootstartframe + 10
+			&& curframe < chr->act_attack.animcfg->shootendframe
+			&& (chr->act_attack.animcfg->recoilendframe < 0 || curframe < chr->act_attack.animcfg->recoilendframe)) {
 		if (!chr->act_attack.dorecoil) {
-			if (!func0f041c44(chr)) {
+			if (!chr_attack_handle_roll_end(chr)) {
 				model_set_animation(model, model_get_anim_num(model), model->anim->flip,
-						chr->act_attack.animcfg->unk1c, chr_get_ranged_speed(chr, 0.5f, 0.8f), 8);
+						chr->act_attack.animcfg->shootendframe, chr_get_ranged_speed(chr, 0.5f, 0.8f), 8);
 
-				if (chr->act_attack.animcfg->unk14 >= 0) {
-					model_set_anim_end_frame(model, chr->act_attack.animcfg->unk14);
+				if (chr->act_attack.animcfg->endframe >= 0) {
+					model_set_anim_end_frame(model, chr->act_attack.animcfg->endframe);
 				}
 			}
 		} else {
-			chr_attack_amount_update_animation(chr);
+			chr_attack_handle_recoil_end(chr);
 		}
 
 		chr->act_attack.numshots = chr->act_attack.maxshots + 1;
@@ -10624,10 +10678,11 @@ void chr_tick_fire(struct chrdata *chr)
 		curframe = model_get_cur_anim_frame(model);
 	}
 
+	// Handle recoil and/or restarting the shooting phase of the animation
 	if (curframe >= model_get_anim_end_frame(model)) {
 		if (model_get_anim_num(model) != ANIM_SNIPING_ONGROUND
 				&& (chr->act_attack.dooneburst || chr->act_attack.numshots > chr->act_attack.maxshots)) {
-			if (!func0f041c44(chr)) {
+			if (!chr_attack_handle_roll_end(chr)) {
 				if (chr->act_attack.flags & ATTACKFLAG_AIMATTARGET) {
 					chr_record_last_see_target_time(chr);
 				}
@@ -10637,7 +10692,7 @@ void chr_tick_fire(struct chrdata *chr)
 			}
 		} else if (chr->act_attack.numshots == chr->act_attack.maxshots) {
 			chr->act_attack.numshots++;
-			chr_attack_amount_update_animation(chr);
+			chr_attack_handle_recoil_end(chr);
 		} else if (chr->act_attack.fired) {
 			f32 f2 = 0.5f;
 			f32 startframe;
@@ -10645,24 +10700,24 @@ void chr_tick_fire(struct chrdata *chr)
 			f32 diff;
 
 			if (chr->act_attack.dorecoil) {
-				if (chr->act_attack.animcfg->unk20 > 0) {
-					startframe = chr->act_attack.animcfg->unk20;
+				if (chr->act_attack.animcfg->recoilstartframe > 0) {
+					startframe = chr->act_attack.animcfg->recoilstartframe;
 				} else {
-					startframe = chr->act_attack.animcfg->unk18;
+					startframe = chr->act_attack.animcfg->shootstartframe;
 				}
 
-				if (chr->act_attack.animcfg->unk24 > 0) {
-					endframe = chr->act_attack.animcfg->unk24;
+				if (chr->act_attack.animcfg->recoilendframe > 0) {
+					endframe = chr->act_attack.animcfg->recoilendframe;
 				} else {
-					endframe = chr->act_attack.animcfg->unk1c;
+					endframe = chr->act_attack.animcfg->shootendframe;
 				}
 			} else {
-				startframe = chr->act_attack.animcfg->unk18;
+				startframe = chr->act_attack.animcfg->shootstartframe;
 
-				if (chr->act_attack.animcfg->unk20 > 0) {
-					endframe = chr->act_attack.animcfg->unk20;
+				if (chr->act_attack.animcfg->recoilstartframe > 0) {
+					endframe = chr->act_attack.animcfg->recoilstartframe;
 				} else {
-					endframe = chr->act_attack.animcfg->unk1c;
+					endframe = chr->act_attack.animcfg->shootendframe;
 				}
 			}
 
@@ -10687,8 +10742,9 @@ void chr_tick_fire(struct chrdata *chr)
 		curframe = model_get_cur_anim_frame(model);
 	}
 
+	// Handle turning
 	if (model_get_anim_num(model) != ANIM_SNIPING_ONGROUND && (chr->act_attack.flags & ATTACKFLAG_DONTTURN) == 0) {
-		f32 f2 = chr->act_attack.animcfg->unk0c;
+		f32 angleoffset = chr->act_attack.animcfg->angleoffset;
 		f32 f12 = chr->act_attack.animcfg->unk04;
 
 		if ((chr->act_attack.flags & ATTACKFLAG_AIMONLY) && f12 > model_get_anim_end_frame(model)) {
@@ -10696,33 +10752,35 @@ void chr_tick_fire(struct chrdata *chr)
 		}
 
 		if (model->anim->flip) {
-			f2 = BADDTOR(360) - f2;
+			angleoffset = BADDTOR(360) - angleoffset;
 		}
 
-		chr->act_attack.turning = chr_turn(chr, chr->act_attack.turning, f12, chr_get_ranged_speed(chr, 1, 1.6f), f2);
+		chr->act_attack.turning = chr_turn(chr, chr->act_attack.turning, f12, chr_get_ranged_speed(chr, 1, 1.6f), angleoffset);
 	}
 
-	if ((curframe > chr->act_attack.animcfg->unk28 && curframe < chr->act_attack.animcfg->unk2c)
+	// Handle aiming (swiveling arm toward target, and leaning forward/back if needed)
+	if ((curframe > chr->act_attack.animcfg->aimstartframe && curframe < chr->act_attack.animcfg->aimendframe)
 			|| model_get_anim_num(model) == ANIM_SNIPING_ONGROUND) {
-		func0f03e9f4(chr, chr->act_attack.animcfg, chr->act_attack.firegun[HAND_LEFT], chr->act_attack.firegun[HAND_RIGHT], 1);
+		chr_calculate_aimend(chr, chr->act_attack.animcfg, chr->act_attack.firegun[HAND_LEFT], chr->act_attack.firegun[HAND_RIGHT], 1);
 	} else {
-		chr_reset_aim_end_properties(chr);
+		chr_reset_aimend(chr);
 	}
 
+	// Determine if firing is starting or stopping
 	for (i = 0; i < 2; i++) {
 		if (chr->act_attack.firegun[i]) {
 			if (chr->act_attack.everytick[i] == 0) {
 				if (model_get_anim_num(model) == ANIM_SNIPING_ONGROUND
-						|| (curframe >= chr->act_attack.animcfg->unk18 && curframe < chr->act_attack.animcfg->unk1c)) {
+						|| (curframe >= chr->act_attack.animcfg->shootstartframe && curframe < chr->act_attack.animcfg->shootendframe)) {
 					chr_set_hand_firing(chr, i, true);
 
 					chr->act_attack.lastfire60 = g_Vars.lvframe60;
 
 					if (chr->actiontype == ACT_ATTACKROLL) {
-						f32 f12 = chr->act_attack.animcfg->unk1c - chr->act_attack.animcfg->unk18;
+						f32 shootduration = chr->act_attack.animcfg->shootendframe - chr->act_attack.animcfg->shootstartframe;
 
-						if (f12 < 30) {
-							if (chr->act_attack.pausecount >= TICKS(60) - (s32)(PAL ? f12 * (50.0f / 60.0f) : f12) * 2) {
+						if (shootduration < 30) {
+							if (chr->act_attack.pausecount >= TICKS(60) - (s32)(PAL ? shootduration * (50.0f / 60.0f) : shootduration) * 2) {
 								model_set_anim_speed(model, 0.5f, 0);
 							} else {
 								model_set_anim_speed(model, 0.1f, 0);
@@ -10745,8 +10803,8 @@ void chr_tick_fire(struct chrdata *chr)
 				}
 			} else if (model_get_anim_num(model) == ANIM_SNIPING_ONGROUND
 					|| ((!chr->act_attack.fired && (i == chr->act_attack.nextgun || !chr->act_attack.everytick[chr->act_attack.nextgun]))
-						&& ((chr->act_attack.animcfg->unk20 >= 0 && curframe >= chr->act_attack.animcfg->unk20 && curframe <= chr->act_attack.animcfg->unk24)
-							|| (chr->act_attack.animcfg->unk20 < 0 && curframe >= chr->act_attack.animcfg->unk18)))) {
+						&& ((chr->act_attack.animcfg->recoilstartframe >= 0 && curframe >= chr->act_attack.animcfg->recoilstartframe && curframe <= chr->act_attack.animcfg->recoilendframe)
+							|| (chr->act_attack.animcfg->recoilstartframe < 0 && curframe >= chr->act_attack.animcfg->shootstartframe)))) {
 				chr->act_attack.fired = true;
 				chr->act_attack.nextgun = 1 - chr->act_attack.nextgun;
 				chr->act_attack.numshots++;
@@ -10762,23 +10820,22 @@ void chr_tick_fire(struct chrdata *chr)
 	}
 }
 
-void chr_tick_attack_amount(struct chrdata *chr)
+void chr_tick_attackamount(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	f32 frame = model_get_cur_anim_frame(model);
-	f32 unk0c = chr->act_attack.animcfg->unk0c;
+	f32 angleoffset = chr->act_attack.animcfg->angleoffset;
 	f32 unk04 = chr->act_attack.animcfg->unk04;
 
-	chr_turn(chr, 1, unk04, chr_get_ranged_speed(chr, 1, 1.6f), unk0c);
+	chr_turn(chr, 1, unk04, chr_get_ranged_speed(chr, 1, 1.6f), angleoffset);
 
-	if (frame > chr->act_attack.animcfg->unk28
-			&& frame < chr->act_attack.animcfg->unk2c) {
-		func0f03e9f4(chr, chr->act_attack.animcfg, false, true, 0.2f);
+	if (frame > chr->act_attack.animcfg->aimstartframe && frame < chr->act_attack.animcfg->aimendframe) {
+		chr_calculate_aimend(chr, chr->act_attack.animcfg, false, true, 0.2f);
 	} else {
-		chr_reset_aim_end_properties(chr);
+		chr_reset_aimend(chr);
 	}
 
-	if (frame >= chr->act_attack.animcfg->unk18 && chr->act_attack.dooneburst == false) {
+	if (frame >= chr->act_attack.animcfg->shootstartframe && chr->act_attack.dooneburst == false) {
 		chr->act_attack.dooneburst = true;
 	}
 
@@ -10786,7 +10843,7 @@ void chr_tick_attack_amount(struct chrdata *chr)
 		if (chr->act_attack.numshots++ < chr->act_attack.maxshots) {
 			chr_set_hand_firing(chr, HAND_RIGHT, true);
 		} else {
-			chr_attack_amount_update_animation(chr);
+			chr_attack_handle_recoil_end(chr);
 			chr_set_hand_firing(chr, HAND_RIGHT, false);
 		}
 	} else {
@@ -10877,15 +10934,16 @@ void robot_attack(struct chrdata *chr)
 	}
 }
 
-void func0f0429d8(struct chrdata *chr, f32 arg1, f32 arg2)
+void chr_robot_turn_toward_target(struct chrdata *chr, f32 frac, f32 yrot)
 {
-	struct prop *prop = chr_get_target_prop(chr);
-	f32 distance = atan2f(prop->pos.x - chr->prop->pos.x, prop->pos.z - chr->prop->pos.z);
-	f32 value = model_tween_rot_axis(arg2, distance, arg1);
+	struct prop *targetprop = chr_get_target_prop(chr);
+	f32 angle = atan2f(targetprop->pos.x - chr->prop->pos.x, targetprop->pos.z - chr->prop->pos.z);
+	f32 value = model_tween_rot_axis(yrot, angle, frac);
+
 	chr_set_theta(chr, value);
 }
 
-void chr_tick_robot_attack(struct chrdata *chr)
+void chr_tick_robotattack(struct chrdata *chr)
 {
 	s32 i;
 	f32 roty = 0.0f;
@@ -10896,7 +10954,7 @@ void chr_tick_robot_attack(struct chrdata *chr)
 	f32 invtheta = chr_get_theta(chr);
 	struct act_robotattack *act = &chr->act_robotattack;
 
-	func0f0429d8(chr, 0.085f, invtheta);
+	chr_robot_turn_toward_target(chr, 0.085f, invtheta);
 
 	if (chr->model->definition->skel != &g_SkelRobot) {
 		act->finished = true;
@@ -11037,8 +11095,8 @@ void chr_tick_attack(struct chrdata *chr)
 		}
 
 		model_set_animation(model, chr->act_attack.animcfg->animnum, chr->act_attack.flip,
-				chr->act_attack.animcfg->unk10, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
-		func0f031254(chr);
+				chr->act_attack.animcfg->startframe, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
+		chr_attack_choose_endframe(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
@@ -11047,7 +11105,7 @@ void chr_tick_attack(struct chrdata *chr)
 			chr->act_attack.animcfg = &g_SnipeAttackAnims[1];
 
 			model_set_animation(model, chr->act_attack.animcfg->animnum, chr->act_attack.flip,
-					chr->act_attack.animcfg->unk10, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
+					chr->act_attack.animcfg->startframe, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
 		}
 	}
 
@@ -11055,20 +11113,20 @@ void chr_tick_attack(struct chrdata *chr)
 		if (chr->act_attack.reaim == 1) {
 			f32 startframe;
 
-			if (chr->act_attack.animcfg->unk24 >= 0) {
-				startframe = chr->act_attack.animcfg->unk24;
+			if (chr->act_attack.animcfg->recoilendframe >= 0) {
+				startframe = chr->act_attack.animcfg->recoilendframe;
 			} else {
-				startframe = chr->act_attack.animcfg->unk1c;
+				startframe = chr->act_attack.animcfg->shootendframe;
 			}
 
 			model_set_animation(model, model_get_anim_num(model), model->anim->flip, startframe, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
 
-			if (chr->act_attack.animcfg->unk14 >= 0) {
-				model_set_anim_end_frame(model, chr->act_attack.animcfg->unk14);
+			if (chr->act_attack.animcfg->endframe >= 0) {
+				model_set_anim_end_frame(model, chr->act_attack.animcfg->endframe);
 			}
 
 			chr->act_attack.reaim = 2;
-			chr_reset_aim_end_properties(chr);
+			chr_reset_aimend(chr);
 			return;
 		}
 
@@ -11077,9 +11135,9 @@ void chr_tick_attack(struct chrdata *chr)
 				chr->act_attack.flags &= ~ATTACKFLAG_DONTTURN;
 
 				if (chr->act_attack.standing) {
-					chr_attack_stand(chr, chr->act_attack.flags, chr->act_attack.entityid);
+					chr_attackstand(chr, chr->act_attack.flags, chr->act_attack.entityid);
 				} else {
-					chr_attack_kneel(chr, chr->act_attack.flags, chr->act_attack.entityid);
+					chr_attackkneel(chr, chr->act_attack.flags, chr->act_attack.entityid);
 				}
 			}
 			return;
@@ -11088,7 +11146,7 @@ void chr_tick_attack(struct chrdata *chr)
 
 	if (!chr->aibot && (chr->act_attack.flags & ATTACKFLAG_AIMONLY)) {
 		if (chr->act_attack.flags & ATTACKFLAG_DONTTURN) {
-			if (!func0f03e9f4(chr, chr->act_attack.animcfg, chr->act_attack.firegun[HAND_LEFT], chr->act_attack.firegun[HAND_RIGHT], 0.2f)) {
+			if (!chr_calculate_aimend(chr, chr->act_attack.animcfg, chr->act_attack.firegun[HAND_LEFT], chr->act_attack.firegun[HAND_RIGHT], 0.2f)) {
 				chr->act_attack.reaim = 1;
 			}
 			return;
@@ -11102,33 +11160,33 @@ void chr_tick_attack(struct chrdata *chr)
 	}
 
 	if (!chr->aibot
-			&& chr->act_attack.dorecoil == 0
-			&& chr->act_attack.animcfg->unk24 > 0
-			&& curframe <= chr->act_attack.animcfg->unk24
+			&& chr->act_attack.dorecoil == false
+			&& chr->act_attack.animcfg->recoilendframe > 0
+			&& curframe <= chr->act_attack.animcfg->recoilendframe
 			&& curframe >= model_get_anim_end_frame(model)) {
 		model_set_animation(model, model_get_anim_num(model), model->anim->flip,
-				chr->act_attack.animcfg->unk24, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
+				chr->act_attack.animcfg->recoilendframe, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
 
 		if (chr->act_attack.dooneburst) {
-			if (chr->act_attack.animcfg->unk14 >= 0) {
-				model_set_anim_end_frame(model, chr->act_attack.animcfg->unk14);
+			if (chr->act_attack.animcfg->endframe >= 0) {
+				model_set_anim_end_frame(model, chr->act_attack.animcfg->endframe);
 			}
 		} else {
-			model_set_anim_end_frame(model, chr->act_attack.animcfg->unk1c);
+			model_set_anim_end_frame(model, chr->act_attack.animcfg->shootendframe);
 		}
 	}
 
-	chr_tick_fire(chr);
+	chr_attack_handle_shooting(chr);
 }
 
-void chr_tick_attack_roll(struct chrdata *chr)
+void chr_tick_attackroll(struct chrdata *chr)
 {
 	if (chr->hidden & CHRHFLAG_NEEDANIM) {
 		if (model_is_anim_merging(chr->model)) {
 			return;
 		}
 
-		chr_attack_roll_choose_animation(chr);
+		chr_attackroll_choose_animation(chr);
 
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
@@ -11141,10 +11199,10 @@ void chr_tick_attack_roll(struct chrdata *chr)
 				|| chr->act_attack.animcfg == &g_RollAttackAnims[5]
 				|| chr->act_attack.animcfg == &g_RollAttackAnims[6]
 				|| chr->act_attack.animcfg == &g_RollAttackAnims[7]) {
-			if (curframe >= chr->act_attack.animcfg->unk14) {
+			if (curframe >= chr->act_attack.animcfg->endframe) {
 				struct attackanimconfig *newanimcfg = chr->act_attack.animcfg + 4;
 				bool flip = model->anim->flip;
-				f32 sp34 = 16;
+				f32 mergetime = 16;
 
 				if (chr->act_attack.firegun[HAND_LEFT] && chr->act_attack.firegun[HAND_RIGHT]) {
 					if (random() % 2 == 0) {
@@ -11155,58 +11213,58 @@ void chr_tick_attack_roll(struct chrdata *chr)
 				}
 
 				if (newanimcfg == &g_RollAttackAnims[8]) {
-					sp34 = 24;
+					mergetime = 24;
 				} else if (newanimcfg == &g_RollAttackAnims[9]) {
-					sp34 = 24;
+					mergetime = 24;
 				} else if (newanimcfg == &g_RollAttackAnims[10]) {
-					sp34 = 32;
+					mergetime = 32;
 				} else if (newanimcfg == &g_RollAttackAnims[11]) {
-					sp34 = 44;
+					mergetime = 44;
 				} else if (newanimcfg == &g_RollAttackAnims[12]) {
-					sp34 = 24;
+					mergetime = 24;
 				} else if (newanimcfg == &g_RollAttackAnims[13]) {
-					sp34 = 34;
+					mergetime = 34;
 				} else if (newanimcfg == &g_RollAttackAnims[14]) {
-					sp34 = 32;
+					mergetime = 32;
 				} else if (newanimcfg == &g_RollAttackAnims[15]) {
-					sp34 = 44;
+					mergetime = 44;
 				} else if (newanimcfg == &g_RollAttackAnims[16]) {
-					sp34 = 24;
+					mergetime = 24;
 				} else if (newanimcfg == &g_RollAttackAnims[17]) {
-					sp34 = 34;
+					mergetime = 34;
 				} else if (newanimcfg == &g_RollAttackAnims[18]) {
-					sp34 = 32;
+					mergetime = 32;
 				} else if (newanimcfg == &g_RollAttackAnims[19]) {
-					sp34 = 44;
+					mergetime = 44;
 				}
 
 				chr->act_attack.turning = TURNSTATE_OFF;
 				chr->act_attack.animcfg = newanimcfg;
 				chr->sleep = 0;
 
-				model_set_animation(model, newanimcfg->animnum, flip, newanimcfg->unk10,
-						chr_get_ranged_speed(chr, 0.5f, 0.8f), sp34);
+				model_set_animation(model, newanimcfg->animnum, flip, newanimcfg->startframe,
+						chr_get_ranged_speed(chr, 0.5f, 0.8f), mergetime);
 
 				if (chr->act_attack.dorecoil) {
-					if (newanimcfg->unk24 >= 0.0f) {
-						model_set_anim_end_frame(model, newanimcfg->unk24);
+					if (newanimcfg->recoilendframe >= 0.0f) {
+						model_set_anim_end_frame(model, newanimcfg->recoilendframe);
 					} else {
-						model_set_anim_end_frame(model, newanimcfg->unk1c);
+						model_set_anim_end_frame(model, newanimcfg->shootendframe);
 					}
 				} else {
-					if (newanimcfg->unk20 >= 0.0f) {
-						model_set_anim_end_frame(model, newanimcfg->unk20);
+					if (newanimcfg->recoilstartframe >= 0.0f) {
+						model_set_anim_end_frame(model, newanimcfg->recoilstartframe);
 					} else {
-						if (newanimcfg->unk14 >= 0.0f) {
-							model_set_anim_end_frame(model, newanimcfg->unk14);
+						if (newanimcfg->endframe >= 0.0f) {
+							model_set_anim_end_frame(model, newanimcfg->endframe);
 						}
 					}
 				}
 
-				if (chr->act_attack.animcfg->unk0c != 0.0f) {
+				if (chr->act_attack.animcfg->angleoffset != 0.0f) {
 					union modelrwdata *rwdata = model_get_node_rw_data(model, model->definition->rootnode);
-					rwdata->chrinfo.unk5c = sp34;
-					rwdata->chrinfo.unk58 = -chr->act_attack.animcfg->unk0c / sp34;
+					rwdata->chrinfo.unk5c = mergetime;
+					rwdata->chrinfo.unk58 = -chr->act_attack.animcfg->angleoffset / mergetime;
 
 					if (flip) {
 						rwdata->chrinfo.unk58 = -rwdata->chrinfo.unk58;
@@ -11226,25 +11284,25 @@ void chr_tick_attack_roll(struct chrdata *chr)
 				|| chr->act_attack.animcfg == &g_RollAttackAnims[18]
 				|| chr->act_attack.animcfg == &g_RollAttackAnims[19]) {
 			if (!chr->act_attack.dorecoil
-					&& chr->act_attack.animcfg->unk24 > 0
-					&& curframe <= chr->act_attack.animcfg->unk24
+					&& chr->act_attack.animcfg->recoilendframe > 0
+					&& curframe <= chr->act_attack.animcfg->recoilendframe
 					&& curframe >= model_get_anim_end_frame(model)) {
 				model_set_animation(model, model_get_anim_num(model), model->anim->flip,
-						chr->act_attack.animcfg->unk24, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
+						chr->act_attack.animcfg->recoilendframe, chr_get_ranged_speed(chr, 0.5f, 0.8f), 16);
 
 				if (chr->act_attack.dooneburst) {
-					if (chr->act_attack.animcfg->unk14 >= 0) {
-						model_set_anim_end_frame(model, chr->act_attack.animcfg->unk14);
+					if (chr->act_attack.animcfg->endframe >= 0) {
+						model_set_anim_end_frame(model, chr->act_attack.animcfg->endframe);
 					}
 				} else {
 					u32 stack;
-					model_set_anim_end_frame(model, chr->act_attack.animcfg->unk1c);
+					model_set_anim_end_frame(model, chr->act_attack.animcfg->shootendframe);
 				}
 			}
 		}
 	}
 
-	chr_tick_fire(chr);
+	chr_attack_handle_shooting(chr);
 }
 
 void prop_print_dangerous(void)
@@ -11294,7 +11352,7 @@ void prop_set_dangerous(struct prop *prop)
 	}
 }
 
-void chr_tick_throw_grenade(struct chrdata *chr)
+void chr_tick_throwgrenade(struct chrdata *chr)
 {
 	struct model *model;
 	f32 frame;
@@ -11309,7 +11367,7 @@ void chr_tick_throw_grenade(struct chrdata *chr)
 			return;
 		}
 
-		chr_throw_grenade_choose_animation(chr);
+		chr_throwgrenade_choose_animation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
@@ -11392,12 +11450,12 @@ bool chr_detect_dangerous_object(struct chrdata *chr, u8 flags)
 	return false;
 }
 
-void chr_tick_bond_die(struct chrdata *chr)
+void chr_tick_bonddie(struct chrdata *chr)
 {
 	// empty
 }
 
-bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turnspeed)
+bool chr_turn_toward(struct chrdata *chr, struct coord *aimpos, u32 goposflags, f32 *turnspeed)
 {
 	struct prop *prop = chr->prop;
 	struct model *model = chr->model;
@@ -11407,8 +11465,8 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 	f32 finalangle;
 	f32 angle2;
 	f32 angle3;
-	f32 xdiff = runpos->f[0] - prop->pos.f[0];
-	f32 zdiff = runpos->f[2] - prop->pos.f[2];
+	f32 xdiff = aimpos->f[0] - prop->pos.f[0];
+	f32 zdiff = aimpos->f[2] - prop->pos.f[2];
 	bool result;
 
 	result = false;
@@ -11441,10 +11499,10 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 			angle3 = BADDTOR(360) - angle3;
 		}
 
-		if ((arg2 % 4) == 2) {
+		if ((goposflags & (GOPOSFLAG_JOG | GOPOSFLAG_RUN)) == GOPOSFLAG_RUN) {
 			maxspeed = 0.29915165901184f;
 			accel = 0.014957583509386f;
-		} else if ((arg2 % 4) == 1) {
+		} else if ((goposflags & (GOPOSFLAG_JOG | GOPOSFLAG_RUN)) == GOPOSFLAG_JOG) {
 			if (angle3 < BADDTOR(22.5f)) {
 				maxspeed = 0.019631829112768f;
 			} else if (angle3 < BADDTOR(72)) {
@@ -11482,7 +11540,7 @@ bool func0f043f2c(struct chrdata *chr, struct coord *runpos, u32 arg2, f32 *turn
 	return result;
 }
 
-void chr_tick_attack_walk(struct chrdata *chr)
+void chr_tick_attackwalk(struct chrdata *chr)
 {
 	struct model *model = chr->model;
 	struct prop *prop = chr->prop;
@@ -11496,7 +11554,7 @@ void chr_tick_attack_walk(struct chrdata *chr)
 			return;
 		}
 
-		chr_attack_walk_choose_animation(chr);
+		chr_attackwalk_choose_animation(chr);
 
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
@@ -11529,16 +11587,16 @@ void chr_tick_attack_walk(struct chrdata *chr)
 		return;
 	}
 
-	if (func0f043f2c(chr, &targetprop->pos, 0, &chr->act_attackwalk.turnspeed)) {
+	if (chr_turn_toward(chr, &targetprop->pos, GOPOSFLAG_WALK, &chr->act_attackwalk.turnspeed)) {
 		chr->act_attackwalk.facedtarget = true;
 	}
 
 	if (chr->act_attackwalk.frame60count > TICKS(20)) {
-		func0f03e9f4(chr, chr->act_attackwalk.animcfg,
+		chr_calculate_aimend(chr, chr->act_attackwalk.animcfg,
 				chr->act_attackwalk.firegun[HAND_LEFT],
 				chr->act_attackwalk.firegun[HAND_RIGHT], 1);
 	} else {
-		chr_reset_aim_end_properties(chr);
+		chr_reset_aimend(chr);
 	}
 
 	if (chr->act_attackwalk.facedtarget && chr->act_attackwalk.frame60count > TICKS(30)) {
@@ -11668,7 +11726,7 @@ bool pos_is_arriving_at_pos(struct coord *prevpos, struct coord *curpos, struct 
 	return pos_is_arriving_laterally_at_pos(prevpos, curpos, targetpos, range);
 }
 
-void chr_tick_run_pos(struct chrdata *chr)
+void chr_tick_runpos(struct chrdata *chr)
 {
 	struct prop *prop = chr->prop;
 	struct model *model = chr->model;
@@ -11682,7 +11740,7 @@ void chr_tick_run_pos(struct chrdata *chr)
 			return;
 		}
 
-		chr_run_pos_choose_animation(chr);
+		chr_runpos_choose_animation(chr);
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
 
@@ -11722,7 +11780,7 @@ void chr_tick_run_pos(struct chrdata *chr)
 		return;
 	}
 
-	func0f043f2c(chr, &chr->act_runpos.pos, 1, &chr->act_runpos.turnspeed);
+	chr_turn_toward(chr, &chr->act_runpos.pos, GOPOSFLAG_JOG, &chr->act_runpos.turnspeed);
 
 	if (chr->act_runpos.eta60 > 0) {
 		chr->act_runpos.eta60 -= g_Vars.lvupdate60;
@@ -11743,33 +11801,33 @@ void chr_tick_run_pos(struct chrdata *chr)
 	}
 }
 
-void func0f044b68(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+void chr_nav_consider_swap_edges(struct coord *edge1, struct coord *edge2, struct coord *arg2)
 {
-	struct coord sp0c;
+	struct coord tmp;
 	struct coord sp00;
 
-	sp0c.x = arg1->x - arg0->x;
-	sp0c.y = arg1->y - arg0->y;
-	sp0c.z = arg1->z - arg0->z;
+	tmp.x = edge2->x - edge1->x;
+	tmp.y = edge2->y - edge1->y;
+	tmp.z = edge2->z - edge1->z;
 
 	sp00.x = -arg2->z;
 	sp00.y = 0;
 	sp00.z = arg2->x;
 
-	if (sp00.f[0] * sp0c.f[0] + sp00.f[2] * sp0c.f[2] > 0) {
+	if (sp00.f[0] * tmp.f[0] + sp00.f[2] * tmp.f[2] > 0) {
 		// empty
 	} else {
-		sp0c.x = arg0->x;
-		sp0c.y = arg0->y;
-		sp0c.z = arg0->z;
+		tmp.x = edge1->x;
+		tmp.y = edge1->y;
+		tmp.z = edge1->z;
 
-		arg0->x = arg1->x;
-		arg0->y = arg1->y;
-		arg0->z = arg1->z;
+		edge1->x = edge2->x;
+		edge1->y = edge2->y;
+		edge1->z = edge2->z;
 
-		arg1->x = sp0c.x;
-		arg1->y = sp0c.y;
-		arg1->z = sp0c.z;
+		edge2->x = tmp.x;
+		edge2->y = tmp.y;
+		edge2->z = tmp.z;
 	}
 }
 
@@ -11833,6 +11891,7 @@ bool chr_nav_can_see_next_pos(struct chrdata *chr, struct coord *chrpos, RoomNum
 	sp6c.x = chrpos->x + spcc;
 	sp6c.y = chrpos->y;
 	sp6c.z = chrpos->z - spd0;
+
 	sp60.x = (spd4.x * negchrradius) + (aimpos->x + spc4);
 	sp60.y = aimpos->y;
 	sp60.z = (spd4.z * negchrradius) + (aimpos->z - spc8);
@@ -11851,7 +11910,7 @@ bool chr_nav_can_see_next_pos(struct chrdata *chr, struct coord *chrpos, RoomNum
 #else
 		cd_get_edge(&spac, &spa0, 14158, "chraction.c");
 #endif
-		func0f044b68(&spac, &spa0, &spd4);
+		chr_nav_consider_swap_edges(&spac, &spa0, &spd4);
 	}
 
 	sp6c.x = chrpos->x - spcc;
@@ -11876,12 +11935,12 @@ bool chr_nav_can_see_next_pos(struct chrdata *chr, struct coord *chrpos, RoomNum
 #else
 		cd_get_edge(&sp94, &sp88, 14173, "chraction.c");
 #endif
-		func0f044b68(&sp94, &sp88, &spd4);
+		chr_nav_consider_swap_edges(&sp94, &sp88, &spd4);
 	}
 
 	if (spbc && spb8) {
-		func0f044b68(&spac, &sp94, &spd4);
-		func0f044b68(&spa0, &sp88, &spd4);
+		chr_nav_consider_swap_edges(&spac, &sp94, &spd4);
+		chr_nav_consider_swap_edges(&spa0, &sp88, &spd4);
 
 		leftpos->x = spac.x;
 		leftpos->y = spac.y;
@@ -11921,7 +11980,7 @@ bool chr_nav_can_see_next_pos(struct chrdata *chr, struct coord *chrpos, RoomNum
 #else
 		cd_get_edge(leftpos, rightpos, 14243, "chraction.c");
 #endif
-		func0f044b68(leftpos, rightpos, &spd4);
+		chr_nav_consider_swap_edges(leftpos, rightpos, &spd4);
 	}
 
 	chr_set_perim_enabled(chr, true);
@@ -12010,7 +12069,7 @@ bool chr_nav_check_for_obstacle(struct chrdata *chr, struct coord *chrpos, RoomN
 #else
 		cd_get_edge(&spac, &spa0, 14323, "chraction.c");
 #endif
-		func0f044b68(&spac, &spa0, &spd4);
+		chr_nav_consider_swap_edges(&spac, &spa0, &spd4);
 		value1 = cd_00024e40();
 	}
 
@@ -12036,7 +12095,7 @@ bool chr_nav_check_for_obstacle(struct chrdata *chr, struct coord *chrpos, RoomN
 #else
 		cd_get_edge(&sp94, &sp88, 14338, "chraction.c");
 #endif
-		func0f044b68(&sp94, &sp88, &spd4);
+		chr_nav_consider_swap_edges(&sp94, &sp88, &spd4);
 		value2 = cd_00024e40();
 	}
 
@@ -12089,7 +12148,7 @@ bool chr_nav_check_for_obstacle(struct chrdata *chr, struct coord *chrpos, RoomN
 #else
 		cd_get_edge(leftpos, rightpos, 14408, "chraction.c");
 #endif
-		func0f044b68(leftpos, rightpos, &spd4);
+		chr_nav_consider_swap_edges(leftpos, rightpos, &spd4);
 	}
 
 	chr_set_perim_enabled(chr, true);
@@ -12101,7 +12160,7 @@ bool chr_nav_try_obstacle(struct chrdata *chr, struct coord *arg1, bool arg2, st
 {
 	struct prop *prop = chr->prop;
 	struct coord sp68;
-	struct coord sp5c;
+	struct coord aimpos;
 	f32 norm;
 	f32 angle;
 	struct coord sp48;
@@ -12150,22 +12209,22 @@ bool chr_nav_try_obstacle(struct chrdata *chr, struct coord *arg1, bool arg2, st
 	sp48.y = 0.0f;
 	sp48.z = -sinf(angle) * sp68.f[0] - cosf(angle) * sp68.f[2];
 
-	sp5c.x = arg1->x + sp48.f[0];
-	sp5c.y = arg1->y;
-	sp5c.z = arg1->z + sp48.f[2];
+	aimpos.x = arg1->x + sp48.f[0];
+	aimpos.y = arg1->y;
+	aimpos.z = arg1->z + sp48.f[2];
 
-	if (chr_nav_can_see_next_pos(chr, &prop->pos, prop->rooms, &sp5c, sp44, sp40, arg8, chr->radius, cdtypes, 1)) {
-		if (!arg5 || func0f03645c(chr, &prop->pos, prop->rooms, &sp5c, nextpos, cdtypes)) {
+	if (chr_nav_can_see_next_pos(chr, &prop->pos, prop->rooms, &aimpos, sp44, sp40, arg8, chr->radius, cdtypes, 1)) {
+		if (!arg5 || chr_can_move_directly_to_pos(chr, &prop->pos, prop->rooms, &aimpos, nextpos, cdtypes)) {
 			if (arg10) {
 				waydata->gotaimposobj = true;
-				waydata->aimposobj.x = sp5c.x;
-				waydata->aimposobj.y = sp5c.y;
-				waydata->aimposobj.z = sp5c.z;
+				waydata->aimposobj.x = aimpos.x;
+				waydata->aimposobj.y = aimpos.y;
+				waydata->aimposobj.z = aimpos.z;
 			} else {
 				waydata->gotaimpos = true;
-				waydata->aimpos.x = sp5c.x;
-				waydata->aimpos.y = sp5c.y;
-				waydata->aimpos.z = sp5c.z;
+				waydata->aimpos.x = aimpos.x;
+				waydata->aimpos.y = aimpos.y;
+				waydata->aimpos.z = aimpos.z;
 			}
 
 			return true;
@@ -12223,7 +12282,7 @@ struct prop *chr_open_door(struct chrdata *chr, struct coord *rangepos)
 			f32 zdiff = doorprop->pos.z - chr->prop->pos.z;
 
 			if (xdiff * xdiff + zdiff * zdiff < 200 * 200 || (door->doorflags & DOORFLAG_DAMAGEONCONTACT)) {
-				chr_go_pos_clear_restart_ttl(chr);
+				chr_gopos_clear_restart_ttl(chr);
 				doors_choose_swing_direction(chr->prop, doorprop->door);
 
 				if (!door_call_lift(doorprop, false)) {
@@ -12530,7 +12589,7 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 		if (doorprop
 				&& chr->aibot == NULL
 				&& (chr->hidden & CHRHFLAG_BLOCKINGDOOR) == 0
-				&& !chr_go_pos_is_waiting(chr)) {
+				&& !chr_gopos_is_waiting(chr)) {
 			chr_choose_stand_animation(chr, 16);
 			chr->lastmoveok60 = g_Vars.lvframe60;
 		}
@@ -12539,13 +12598,13 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 		// or if the chr is blocking the door
 		if (!doorprop || (chr->hidden & CHRHFLAG_BLOCKINGDOOR)) {
 			if (chr->aibot == NULL
-					&& chr_go_pos_is_waiting(chr)
+					&& chr_gopos_is_waiting(chr)
 					&& chr->liftaction != LIFTACTION_WAITINGFORLIFT
 					&& chr->liftaction != LIFTACTION_WAITINGONLIFT) {
 				if (chr->actiontype == ACT_PATROL) {
 					chr_patrol_choose_animation(chr);
 				} else {
-					chr_go_pos_choose_animation(chr);
+					chr_gopos_choose_animation(chr);
 				}
 			}
 
@@ -12557,13 +12616,13 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 
 	// Handle turning and anim speed
 	if (chr->actiontype == ACT_PATROL) {
-		func0f043f2c(chr, &waydata->aimposobj, 0, &chr->act_patrol.turnspeed);
+		chr_turn_toward(chr, &waydata->aimposobj, GOPOSFLAG_WALK, &chr->act_patrol.turnspeed);
 	} else {
 		chr->unk32c_21 = chr->act_gopos.turnspeed != 0;
 
-		func0f043f2c(chr, &waydata->aimposobj, chr->act_gopos.flags, &chr->act_gopos.turnspeed);
+		chr_turn_toward(chr, &waydata->aimposobj, chr->act_gopos.flags, &chr->act_gopos.turnspeed);
 
-		if (chr->aibot == NULL && !chr_go_pos_is_waiting(chr)) {
+		if (chr->aibot == NULL && !chr_gopos_is_waiting(chr)) {
 			if ((chr->act_gopos.flags & GOPOSMASK_SPEED) == GOPOSFLAG_RUN) {
 				if (chr->act_gopos.turnspeed) {
 					if (!chr->unk32c_21) {
@@ -12589,7 +12648,7 @@ void chr_nav_tick_main(struct chrdata *chr, struct coord *nextpos, struct waydat
 	}
 }
 
-bool chr_go_pos_update_lift_action(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
+bool chr_gopos_update_lift_action(struct chrdata *chr, u32 curpadflags, bool arg2, bool arrivingatlift, s16 curpadnum, s32 nextpadnum)
 {
 	bool advance = false;
 	struct pad nextpad;
@@ -12649,11 +12708,11 @@ bool chr_go_pos_update_lift_action(struct chrdata *chr, u32 curpadflags, bool ar
 				// Enter lift
 				chr->liftaction = LIFTACTION_NOTUSINGLIFT;
 
-				if (chr_go_pos_is_waiting(chr)) {
+				if (chr_gopos_is_waiting(chr)) {
 					if (chr->actiontype == ACT_PATROL) {
 						chr_patrol_choose_animation(chr);
 					} else {
-						chr_go_pos_choose_animation(chr);
+						chr_gopos_choose_animation(chr);
 					}
 				}
 			}
@@ -12701,11 +12760,11 @@ bool chr_go_pos_update_lift_action(struct chrdata *chr, u32 curpadflags, bool ar
 				// Start disembarking
 				chr->liftaction = LIFTACTION_ONLIFT;
 
-				if (chr_go_pos_is_waiting(chr)) {
+				if (chr_gopos_is_waiting(chr)) {
 					if (chr->actiontype == ACT_PATROL) {
 						chr_patrol_choose_animation(chr);
 					} else {
-						chr_go_pos_choose_animation(chr);
+						chr_gopos_choose_animation(chr);
 					}
 				}
 			}
@@ -12728,7 +12787,7 @@ s32 chr_is_using_lift(struct chrdata *chr)
 	return (chr->actiontype == ACT_GOPOS || chr->actiontype == ACT_PATROL) && chr->liftaction > 0;
 }
 
-s16 chr_go_pos_get_next_pad_num(struct chrdata *chr)
+s16 chr_gopos_get_next_pad_num(struct chrdata *chr)
 {
 	if (chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]) {
 		return chr->act_gopos.waypoints[chr->act_gopos.curindex + 1]->padnum;
@@ -12737,7 +12796,7 @@ s16 chr_go_pos_get_next_pad_num(struct chrdata *chr)
 	return -1;
 }
 
-void chr_tick_go_pos(struct chrdata *chr)
+void chr_tick_gopos(struct chrdata *chr)
 {
 	struct waypoint *waypoint;
 	struct coord nextpos;
@@ -12757,7 +12816,7 @@ void chr_tick_go_pos(struct chrdata *chr)
 			return;
 		}
 
-		chr_go_pos_choose_animation(chr);
+		chr_gopos_choose_animation(chr);
 
 		chr->hidden &= ~CHRHFLAG_NEEDANIM;
 	}
@@ -12782,8 +12841,8 @@ void chr_tick_go_pos(struct chrdata *chr)
 		chr_go_to_room_pos(chr, &chr->act_gopos.endpos, chr->act_gopos.endrooms, chr->act_gopos.flags);
 	}
 
-	chr_go_pos_consider_restart(chr);
-	chr_go_pos_get_cur_waypoint_info_with_flags(chr, &curwppos, curwprooms, &curwpflags);
+	chr_gopos_consider_restart(chr);
+	chr_gopos_get_cur_waypoint_info_with_flags(chr, &curwppos, curwprooms, &curwpflags);
 
 	// If magic mode ended over 3 seconds ago, not multiplayer, not in view of
 	// eyespy, pad is nothing special and not in lift, then enter the magic move
@@ -12791,11 +12850,11 @@ void chr_tick_go_pos(struct chrdata *chr)
 	if (chr->act_gopos.waydata.mode != WAYMODE_MAGIC
 			&& chr->act_gopos.waydata.lastvisible60 + TICKS(180) < g_Vars.lvframe60
 			&& g_Vars.normmplayerisrunning == false
-			&& chr_is_room_off_screen(chr, &curwppos, curwprooms) // related to eyespy
+			&& chr_is_room_offscreen(chr, &curwppos, curwprooms) // related to eyespy
 			&& (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
 			&& chr->inlift == false) {
 		enteringmagic = true;
-		chr_go_pos_init_magic(chr, &chr->act_gopos.waydata, &curwppos, &prop->pos);
+		chr_gopos_init_magic(chr, &chr->act_gopos.waydata, &curwppos, &prop->pos);
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -12828,11 +12887,11 @@ void chr_tick_go_pos(struct chrdata *chr)
 
 	// Check if chr needs to exit magic mode
 	if (chr->act_gopos.waydata.mode == WAYMODE_MAGIC) {
-		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK)) || !chr_is_room_off_screen(chr, &curwppos, curwprooms)))
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONANYSCREENPREVTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONTHISSCREENTHISTICK)) || !chr_is_room_offscreen(chr, &curwppos, curwprooms)))
 				|| (curwpflags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exiting magic mode
-			chr_go_pos_init_expensive(chr);
+			chr_gopos_init_expensive(chr);
 			chr->act_gopos.waydata.lastvisible60 = g_Vars.lvframe60;
 			return;
 		}
@@ -12867,7 +12926,7 @@ void chr_tick_go_pos(struct chrdata *chr)
 			}
 
 			if ((pad.flags & PADFLAG_AIWAITLIFT) || (pad.flags & PADFLAG_AIONLIFT)) {
-				advance = chr_go_pos_update_lift_action(chr, pad.flags, arrivingxz, arrivingxyz, waypoint->padnum, chr_go_pos_get_next_pad_num(chr));
+				advance = chr_gopos_update_lift_action(chr, pad.flags, arrivingxz, arrivingxyz, waypoint->padnum, chr_gopos_get_next_pad_num(chr));
 			} else {
 				if (arrivingxyz || (arrivingxz && (chr->inlift || (pad.flags & PADFLAG_AIIGNOREY)))) {
 					advance = true;
@@ -12888,7 +12947,7 @@ void chr_tick_go_pos(struct chrdata *chr)
 		}
 
 		if (advance) {
-			chr_go_pos_advance_waypoint(chr);
+			chr_gopos_advance_waypoint(chr);
 		}
 
 		// Every 10 ticks: Check something a couple of waypoints ahead
@@ -12935,9 +12994,9 @@ void chr_tick_go_pos(struct chrdata *chr)
 							}
 
 							// Some bbox related check
-							if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
-								chr_go_pos_advance_waypoint(chr);
-								chr_go_pos_advance_waypoint(chr);
+							if (chr_prop_can_move_to_pos_without_nav(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
+								chr_gopos_advance_waypoint(chr);
+								chr_gopos_advance_waypoint(chr);
 							}
 						}
 					}
@@ -12994,14 +13053,14 @@ void chr_tick_go_pos(struct chrdata *chr)
 							sp160 = acosf((sp180 * sp172 + sp176 * sp168) / sp156);
 
 							if (sp160 < BADDTOR(45) || sp160 > BADDTOR(315)) {
-								if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
-									chr_go_pos_advance_waypoint(chr);
+								if (chr_prop_can_move_to_pos_without_nav(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
+									chr_gopos_advance_waypoint(chr);
 								}
 							}
 						}
 					} else {
-						if (func0f03654c(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
-							chr_go_pos_advance_waypoint(chr);
+						if (chr_prop_can_move_to_pos_without_nav(chr, &prop->pos, prop->rooms, &nextpos, nextrooms, NULL, chr->radius * 1.2f, CDTYPE_PATHBLOCKER | CDTYPE_BG)) {
+							chr_gopos_advance_waypoint(chr);
 						}
 					}
 				}
@@ -13062,20 +13121,20 @@ void chr_tick_patrol(struct chrdata *chr)
 	if (chr->act_patrol.waydata.mode != WAYMODE_MAGIC
 			&& g_Vars.lvframe60 > chr->act_patrol.waydata.lastvisible60 + TICKS(180)
 			&& !g_Vars.normmplayerisrunning
-			&& chr_is_room_off_screen(chr, &sp58, sp48)
+			&& chr_is_room_offscreen(chr, &sp58, sp48)
 			&& (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT)) == 0
 			&& !chr->inlift) {
 		enteringmagic = true;
-		chr_go_pos_init_magic(chr, &chr->act_patrol.waydata, &sp58, &prop->pos);
+		chr_gopos_init_magic(chr, &chr->act_patrol.waydata, &sp58, &prop->pos);
 	}
 
 	if (chr->act_patrol.waydata.mode == WAYMODE_MAGIC) {
-		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) || !chr_is_room_off_screen(chr, &sp58, sp48)))
+		if ((!enteringmagic && ((prop->flags & (PROPFLAG_ONTHISSCREENTHISTICK | PROPFLAG_ONANYSCREENTHISTICK | PROPFLAG_ONANYSCREENPREVTICK)) || !chr_is_room_offscreen(chr, &sp58, sp48)))
 				|| (flags & (PADFLAG_AIWAITLIFT | PADFLAG_AIONLIFT))
 				|| chr->inlift) {
 			// Exit magic for lifts
 			chr->act_patrol.waydata.lastvisible60 = g_Vars.lvframe60;
-			func0f037580(chr);
+			chr_patrol_init_expensive(chr);
 		} else {
 			// Continue magic
 			chr_nav_tick_magic(chr, &chr->act_patrol.waydata, chr_get_run_speed(chr), &sp58, sp48);
@@ -13088,7 +13147,7 @@ void chr_tick_patrol(struct chrdata *chr)
 		advance = false;
 
 		if ((flags & PADFLAG_AIWAITLIFT) || (flags & PADFLAG_AIONLIFT)) {
-			advance = chr_go_pos_update_lift_action(chr, flags, arrivinglaterally, arriving,
+			advance = chr_gopos_update_lift_action(chr, flags, arrivinglaterally, arriving,
 					chr_patrol_calculate_pad_num(chr, 0),
 					chr_patrol_calculate_pad_num(chr, 1));
 		} else if (arriving) {
@@ -13096,7 +13155,7 @@ void chr_tick_patrol(struct chrdata *chr)
 		}
 
 		if (advance) {
-			func0f0375b0(chr);
+			chr_patrol_advance_waypoint(chr);
 			chr_patrol_get_cur_waypoint_info(chr, &sp58, sp48);
 		}
 
@@ -13105,18 +13164,18 @@ void chr_tick_patrol(struct chrdata *chr)
 	}
 }
 
-bool chr_try_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4)
+bool chr_try_skjump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4)
 {
 	if (chr && chr->actiontype != ACT_SKJUMP
 			&& chr_is_ready_for_orders(chr)
 			&& CHRRACE(chr) == RACE_SKEDAR) {
-		return chr_start_sk_jump(chr, pouncebits, arg2, arg3, arg4);
+		return chr_skjump(chr, pouncebits, arg2, arg3, arg4);
 	}
 
 	return false;
 }
 
-bool chr_start_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4)
+bool chr_skjump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8 arg4)
 {
 	f32 radius;
 	f32 ymax;
@@ -13170,7 +13229,7 @@ bool chr_start_sk_jump(struct chrdata *chr, u8 pouncebits, u8 arg2, s32 arg3, u8
 	return true;
 }
 
-void chr_tick_sk_jump(struct chrdata *chr)
+void chr_tick_skjump(struct chrdata *chr)
 {
 	if (g_Vars.lvupdate60 == 0) {
 		return;
@@ -13263,7 +13322,7 @@ void chra_tick(struct chrdata *chr)
 
 	if (chr->actiontype == ACT_INIT) {
 		chr->chrflags |= CHRCFLAG_FORCETOGROUND;
-		func0f02e9a0(chr, 0);
+		chr_stand_immediate(chr, 0);
 		chr->sleep = 0;
 	}
 
@@ -13362,28 +13421,28 @@ void chra_tick(struct chrdata *chr)
 				case ACT_ANIM:            chr_tick_anim(chr);            break;
 				case ACT_DIE:             chr_tick_die(chr);             break;
 				case ACT_ARGH:            chr_tick_argh(chr);            break;
-				case ACT_PREARGH:         chr_tick_pre_argh(chr);         break;
+				case ACT_PREARGH:         chr_tick_preargh(chr);         break;
 				case ACT_SIDESTEP:        chr_tick_sidestep(chr);        break;
-				case ACT_JUMPOUT:         chr_tick_jump_out(chr);         break;
+				case ACT_JUMPOUT:         chr_tick_jumpout(chr);         break;
 				case ACT_DEAD:            chr_tick_dead(chr);            break;
 				case ACT_ATTACK:          chr_tick_attack(chr);          break;
-				case ACT_ATTACKWALK:      chr_tick_attack_walk(chr);      break;
-				case ACT_ATTACKROLL:      chr_tick_attack_roll(chr);      break;
-				case ACT_RUNPOS:          chr_tick_run_pos(chr);          break;
+				case ACT_ATTACKWALK:      chr_tick_attackwalk(chr);      break;
+				case ACT_ATTACKROLL:      chr_tick_attackroll(chr);      break;
+				case ACT_RUNPOS:          chr_tick_runpos(chr);          break;
 				case ACT_PATROL:          chr_tick_patrol(chr);          pass = false; break;
-				case ACT_GOPOS:           chr_tick_go_pos(chr);           break;
+				case ACT_GOPOS:           chr_tick_gopos(chr);           break;
 				case ACT_SURRENDER:       chr_tick_surrender(chr);       break;
 				case ACT_TEST:            chr_tick_test(chr);            break;
 				case ACT_SURPRISED:       chr_tick_surprised(chr);       break;
-				case ACT_STARTALARM:      chr_tick_start_alarm(chr);      break;
-				case ACT_THROWGRENADE:    chr_tick_throw_grenade(chr);    break;
-				case ACT_BONDDIE:         chr_tick_bond_die(chr);         break;
-				case ACT_DRUGGEDCOMINGUP: chr_tick_drugged_coming_up(chr); break;
-				case ACT_DRUGGEDDROP:     chr_tick_drugged_drop(chr);     break;
-				case ACT_DRUGGEDKO:       chr_tick_drugged_ko(chr);       break;
-				case ACT_ATTACKAMOUNT:    chr_tick_attack_amount(chr);    break;
-				case ACT_ROBOTATTACK:     chr_tick_robot_attack(chr);     break;
-				case ACT_SKJUMP:          chr_tick_sk_jump(chr);          break;
+				case ACT_STARTALARM:      chr_tick_startalarm(chr);      break;
+				case ACT_THROWGRENADE:    chr_tick_throwgrenade(chr);    break;
+				case ACT_BONDDIE:         chr_tick_bonddie(chr);         break;
+				case ACT_DRUGGEDCOMINGUP: chr_tick_druggedcomingup(chr); break;
+				case ACT_DRUGGEDDROP:     chr_tick_druggeddrop(chr);     break;
+				case ACT_DRUGGEDKO:       chr_tick_druggedko(chr);       break;
+				case ACT_ATTACKAMOUNT:    chr_tick_attackamount(chr);    break;
+				case ACT_ROBOTATTACK:     chr_tick_robotattack(chr);     break;
+				case ACT_SKJUMP:          chr_tick_skjump(chr);          break;
 				}
 			}
 		}
@@ -13671,7 +13730,7 @@ void chra_tick_bg(void)
 
 								if (onscreenlen >= (VERSION >= VERSION_NTSC_1_0 ? 2 : 3)) {
 									writeindex = random() % onscreenlen;
-									chr_fade_corpse_when_off_screen(onscreen[writeindex]);
+									chr_fade_corpse_when_offscreen(onscreen[writeindex]);
 									onscreen[writeindex] = onscreen[onscreenlen - 1];
 									onscreenlen--;
 								}
@@ -13691,7 +13750,7 @@ void chra_tick_bg(void)
 									chr_begin_dead(offscreen[writeindex]);
 								}
 
-								chr_fade_corpse_when_off_screen(offscreen[writeindex]);
+								chr_fade_corpse_when_offscreen(offscreen[writeindex]);
 								offscreen[writeindex] = offscreen[offscreenlen - 1];
 								offscreenlen--;
 							}
@@ -13868,31 +13927,33 @@ f32 chr_get_vertical_angle_to_target(struct chrdata *chr)
 	return result;
 }
 
-bool chr_is_in_targets_fov_x(struct chrdata *chr, u8 fov360)
+#define D256TOR(degrees256) ((degrees256) * (360.0f * M_BADPI / 180.0f / 256.0f))
+
+bool chr_is_in_targets_fovx(struct chrdata *chr, u8 degrees256)
 {
 	f32 angle = chr_get_angle_from_targets_fov(chr);
 
-	if ((angle < fov360 * 0.024539785459638f && angle < DTOR(180))
-			|| (angle > BADDTOR(360) - fov360 * 0.024539785459638f && angle > DTOR(180))) {
+	if ((angle < D256TOR(degrees256) && angle < DTOR(180))
+			|| (angle > BADDTOR(360) - D256TOR(degrees256) && angle > DTOR(180))) {
 		return true;
 	}
 
 	return false;
 }
 
-bool chr_is_vertical_angle_to_target_within(struct chrdata *chr, u8 fov360)
+bool chr_is_vertical_angle_to_target_within(struct chrdata *chr, u8 degrees256)
 {
 	f32 val = chr_get_vertical_angle_to_target(chr);
 
-	if ((val < fov360 * 0.024539785459638f && val < DTOR(180))
-			|| (val > BADDTOR(360) - fov360 * 0.024539785459638f && val > DTOR(180))) {
+	if ((val < D256TOR(degrees256) && val < DTOR(180))
+			|| (val > BADDTOR(360) - D256TOR(degrees256) && val > DTOR(180))) {
 		return true;
 	}
 
 	return false;
 }
 
-f32 func0f048fcc(struct chrdata *chr, u8 reverse)
+f32 chr_get_angle_to_target2(struct chrdata *chr, u8 reverse)
 {
 	f32 result;
 
@@ -13914,24 +13975,24 @@ f32 func0f048fcc(struct chrdata *chr, u8 reverse)
 	return result;
 }
 
-bool chr_is_target_in_fov(struct chrdata *chr, u8 arg1, u8 reverse)
+bool chr_is_target_in_fov(struct chrdata *chr, u8 degrees256, u8 reverse)
 {
-	f32 angle = func0f048fcc(chr, reverse);
+	f32 angle = chr_get_angle_to_target2(chr, reverse);
 
-	if ((angle < arg1 * 0.024539785459638f && angle < DTOR(180))
-			|| (angle > BADDTOR(360) - arg1 * 0.024539785459638f && angle > DTOR(180))) {
+	if ((angle < D256TOR(degrees256) && angle < DTOR(180))
+			|| (angle > BADDTOR(360) - D256TOR(degrees256) && angle > DTOR(180))) {
 		return true;
 	}
 
 	return false;
 }
 
-bool chr_is_looking_at_pos(struct chrdata *chr, struct coord *pos, u8 arg2)
+bool chr_is_looking_at_pos(struct chrdata *chr, struct coord *pos, u8 degrees256)
 {
 	f32 angle = chr_get_angle_to_pos(chr, pos);
 
-	if ((angle < arg2 * 0.024539785459638f && angle < DTOR(180))
-			|| (angle > BADDTOR(360) - arg2 * 0.024539785459638f && angle > DTOR(180))) {
+	if ((angle < D256TOR(degrees256) && angle < DTOR(180))
+			|| (angle > BADDTOR(360) - D256TOR(degrees256) && angle > DTOR(180))) {
 		return true;
 	}
 
@@ -14450,7 +14511,7 @@ bool chr_is_target_aiming_at_me(struct chrdata *chr)
 				return false;
 			}
 
-			return chr_is_in_targets_fov_x(chr, 20);
+			return chr_is_in_targets_fovx(chr, 20);
 		}
 
 		if (target->type == PROPTYPE_PLAYER) {
@@ -14478,7 +14539,7 @@ bool chr_is_target_aiming_at_me(struct chrdata *chr)
 	return false;
 }
 
-bool chr_reset_near_miss(struct chrdata *chr)
+bool chr_reset_nearmiss(struct chrdata *chr)
 {
 	bool has_flag = (chr->chrflags & CHRCFLAG_NEAR_MISS) != 0;
 	chr->chrflags &= ~CHRCFLAG_NEAR_MISS;
@@ -14491,7 +14552,7 @@ s32 chr_get_num_arghs(struct chrdata *chr)
 	return chr->numarghs;
 }
 
-s32 chr_get_num_close_arghs(struct chrdata *chr)
+s32 chr_get_num_closearghs(struct chrdata *chr)
 {
 	return chr->numclosearghs;
 }
@@ -14922,7 +14983,7 @@ bool chr_set_pad_preset_to_pad_on_route_to_target(struct chrdata *chr)
 	return false;
 }
 
-bool chr_is_pos_off_screen(struct coord *pos, RoomNum *rooms)
+bool chr_is_pos_offscreen(struct coord *pos, RoomNum *rooms)
 {
 	bool offscreen = true;
 	s32 i;
@@ -14994,7 +15055,7 @@ bool chr_adjust_pos_for_spawn(f32 chrradius, struct coord *pos, RoomNum *rooms, 
 		}
 
 		if (cd_test_volume(pos, chrradius, rooms, types, CHECKVERTICAL_YES, ymax, ymin) != CDRESULT_COLLISION
-				&& (allowonscreen || chr_is_pos_off_screen(pos, rooms))) {
+				&& (allowonscreen || chr_is_pos_offscreen(pos, rooms))) {
 			return true;
 		}
 	}
@@ -15016,7 +15077,7 @@ bool chr_adjust_pos_for_spawn(f32 chrradius, struct coord *pos, RoomNum *rooms, 
 			}
 
 			if (cd_test_volume(&testpos, chrradius, testrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax, ymin) != CDRESULT_COLLISION
-					&& (allowonscreen || chr_is_pos_off_screen(&testpos, testrooms))
+					&& (allowonscreen || chr_is_pos_offscreen(&testpos, testrooms))
 					&& (!onlysurrounding || ground > -100000)) {
 				pos->x = testpos.x;
 				pos->y = testpos.y;
@@ -15056,7 +15117,7 @@ bool chr_adjust_pos_for_spawn(f32 chrradius, struct coord *pos, RoomNum *rooms, 
 	}
 
 	if (cd_test_volume(pos, chrradius, rooms, types, CHECKVERTICAL_YES, 200, -200) != CDRESULT_COLLISION
-			&& (allowonscreen || chr_is_pos_off_screen(pos, rooms))) {
+			&& (allowonscreen || chr_is_pos_offscreen(pos, rooms))) {
 		return true;
 	}
 
@@ -15067,7 +15128,7 @@ bool chr_adjust_pos_for_spawn(f32 chrradius, struct coord *pos, RoomNum *rooms, 
 
 		if (cd_test_los11(pos, rooms, &testpos, testrooms, CDTYPE_BG)
 				&& cd_test_volume(&testpos, chrradius, testrooms, CDTYPE_ALL, CHECKVERTICAL_YES, 200, -200.0f) != CDRESULT_COLLISION
-				&& (allowonscreen || chr_is_pos_off_screen(&testpos, testrooms))) {
+				&& (allowonscreen || chr_is_pos_offscreen(&testpos, testrooms))) {
 			pos->x = testpos.x;
 			pos->y = testpos.y;
 			pos->z = testpos.z;
@@ -15258,7 +15319,7 @@ bool chr_is_prop_preset_blocking_sight_to_target(struct chrdata *chr)
 	return result;
 }
 
-void func0f04b740(void)
+void chr_0f04b740(void)
 {
 	// empty
 }
@@ -16196,7 +16257,7 @@ void chr_avoid(struct chrdata *chr)
 			if (cdresult == CDRESULT_ERROR) {
 				chr->chrflags &= ~CHRCFLAG_AVOIDING;
 			} else if (cdresult == CDRESULT_NOCOLLISION) {
-				chr_start_anim(chr, anims[animindex], 0, anims[4 + animindex], chranimflags, 2, 0.6f);
+				chr_anim(chr, anims[animindex], 0, anims[4 + animindex], chranimflags, 2, 0.6f);
 			} else {
 				chr->chrflags &= ~CHRCFLAG_AVOIDING;
 			}
@@ -16231,7 +16292,7 @@ bool chr_is_avoiding(struct chrdata *chr)
 	return false;
 }
 
-void chr_dr_caroll_emit_sparks(struct chrdata *chr)
+void chr_drcaroll_emit_sparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
 		ps_create(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);

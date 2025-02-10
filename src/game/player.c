@@ -899,7 +899,7 @@ bool player_spawn_anti(struct chrdata *hostchr, bool force)
 
 		player_tick_chr_body();
 		model_copy_anim_data(hostchr->model, playerchr->model);
-		func0f02e9a0(playerchr, 12);
+		chr_stand_immediate(playerchr, 12);
 
 		chrrootrwdata = model_get_node_rw_data(hostchr->model, hostchr->model->definition->rootnode);
 		playerrootrwdata = model_get_node_rw_data(playerchr->model, playerchr->model->definition->rootnode);
@@ -1520,14 +1520,14 @@ void player_tick_chr_body(void)
 		}
 
 		chr->fireslots[0] = bgun_allocate_fireslot();
-		func0f02e9a0(chr, 0);
+		chr_stand_immediate(chr, 0);
 		bmove_update_rooms(g_Vars.currentplayer);
 	} else {
 		struct chrdata *chr = g_Vars.currentplayer->prop->chr;
 
 		if (chr->model->anim == NULL) {
 			chr->chrflags |= CHRCFLAG_FORCETOGROUND;
-			func0f02e9a0(chr, 0);
+			chr_stand_immediate(chr, 0);
 			model_set_root_position(g_Vars.currentplayer->model00d4, &g_Vars.currentplayer->prop->pos);
 			chr_set_theta(g_Vars.currentplayer->prop->chr, turnangle);
 			bmove_update_rooms(g_Vars.currentplayer);
@@ -5368,7 +5368,7 @@ s32 player_tick_third_person(struct prop *prop)
 			if (model_get_anim_num(chr->model) == animnum) {
 				if (chr->act_bondmulti.animcfg) {
 					chr->hidden2 &= ~CHRH2FLAG_AUTOANIM;
-					chr_calculate_aim_end_properties(chr, chr->act_bondmulti.animcfg, leftprop != NULL, rightprop != NULL, shootrotx);
+					chr_calculate_aimend_vertical(chr, chr->act_bondmulti.animcfg, leftprop != NULL, rightprop != NULL, shootrotx);
 				} else {
 					chr->hidden2 |= CHRH2FLAG_AUTOANIM;
 					chr->aimendback = shootrotx;

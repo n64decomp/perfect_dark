@@ -317,7 +317,7 @@
 /*0x013b*/ bool ai_set_squadron(void);
 /*0x013c*/ bool ai_face_cover(void);
 /*0x013d*/ bool ai_if_dangerous_object_nearby(void);
-/*0x013e*/ bool ai013e(void);
+/*0x013e*/ bool ai_run_from_grenade(void);
 /*0x013f*/ bool ai_if_heli_weapons_armed(void);
 /*0x0140*/ bool ai_if_hoverbot_next_step(void);
 /*0x0141*/ bool ai_shuffle_investigation_terminals(void);

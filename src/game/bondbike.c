@@ -325,7 +325,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	sp54.y = obstacle->prop->pos.y - bike->prop->pos.y;
 	sp54.z = obstacle->prop->pos.z - bike->prop->pos.z;
 
-	func0f02e3dc(&sp78, &sp6c, &sp60, &sp54, &sp9c);
+	chr_calculate_push_contact_pos(&sp78, &sp6c, &sp60, &sp54, &sp9c);
 
 	sp90.x = arg1->f[0];
 	sp90.y = 0;

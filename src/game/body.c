@@ -605,7 +605,7 @@ struct prop *body_instantiate_eyespy(struct pad *pad, RoomNum room)
 			chr->convtalk = 0;
 			chr->radius = 26;
 			chr->height = 200;
-			func0f02e9a0(chr, 0);
+			chr_stand_immediate(chr, 0);
 			chr->chrflags |= CHRCFLAG_HIDDEN;
 
 #if VERSION >= VERSION_NTSC_1_0

@@ -3465,7 +3465,7 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 					sp8c.y = sp80.y - prop->pos.y;
 					sp8c.z = sp80.z - prop->pos.z;
 
-					func0f02e4f8(&prop->pos, &sp8c, arg2);
+					chr_calculate_push_contact_pos_using_saved_edge(&prop->pos, &sp8c, arg2);
 
 					if (prop->pos.x < sp80.x) {
 						if (arg2->x > sp80.x) {
@@ -5761,7 +5761,7 @@ f32 obj_collide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotat
 					sp4c.z = obstacle->pos.z - movingobj->prop->pos.z;
 				}
 
-				func0f02e3dc(&sp70, &sp64, &sp58, &sp4c, &sp88);
+				chr_calculate_push_contact_pos(&sp70, &sp64, &sp58, &sp4c, &sp88);
 
 				force = 0.5f;
 
@@ -6494,7 +6494,7 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 							sp3d0.z = prop->pos.z;
 						}
 
-						func0f02e4f8(&sp3d0, &sp3c4, &sp3b8);
+						chr_calculate_push_contact_pos_using_saved_edge(&sp3d0, &sp3c4, &sp3b8);
 
 						sp3ac.x = prop->pos.x - sp5dc.x;
 						sp3ac.y = 0.0f;
@@ -13381,9 +13381,9 @@ void obj_push(struct defaultobj *obj, struct coord *pos, struct coord *dir, stru
 {
 	struct coord speed = {0, 0, 0};
 	f32 a = tween->f[0] * dir->f[0] + tween->f[2] * dir->f[2];
-	f32 b = pos->f[0] - obj->prop->pos.f[0];
-	f32 c = pos->f[2] - obj->prop->pos.f[2];
-	f32 d = -b * dir->f[2] + c * dir->f[0];
+	f32 xdiff = pos->f[0] - obj->prop->pos.f[0];
+	f32 zdiff = pos->f[2] - obj->prop->pos.f[2];
+	f32 d = -xdiff * dir->f[2] + zdiff * dir->f[0];
 
 	speed.f[0] += a * dir->f[0] * 0.2f;
 	speed.f[2] += a * dir->f[2] * 0.2f;
@@ -19237,7 +19237,7 @@ void doors_calc_frac(struct doorobj *door)
 							if (isliftdoor) {
 								if (chr->actiontype == ACT_STAND
 										|| (chr->actiontype == ACT_ATTACK && (chr->act_attack.flags & ATTACKFLAG_DONTTURN))
-										|| (chr->actiontype == ACT_GOPOS && chr_go_pos_is_waiting(chr))) {
+										|| (chr->actiontype == ACT_GOPOS && chr_gopos_is_waiting(chr))) {
 									struct prop *target = chr_get_target_prop(chr);
 
 									if (chr_go_to_room_pos(chr, &target->pos, target->rooms, 0)) {

@@ -343,7 +343,7 @@ void botact_throw(struct chrdata *chr)
 	struct coord sp152;
 	struct prop *prop = chr->prop;
 	Mtxf sp84;
-	f32 sp80 = chr_get_aim_angle(chr);
+	f32 sp80 = chr_get_aimx_angle(chr);
 	u32 stack;
 	struct gset gset = {0};
 	struct prop *target = chr_get_target_prop(chr);
@@ -504,8 +504,8 @@ void botact_create_slayer_rocket(struct chrdata *chr)
 		f32 xrot;
 		struct coord sp100;
 
-		yrot = chr_get_aim_angle(chr);
-		xrot = chr_get_pitch_angle(chr);
+		yrot = chr_get_aimx_angle(chr);
+		xrot = chr_get_aimy_angle(chr);
 
 		sp100.x = cosf(xrot) * sinf(yrot);
 		sp100.y = sinf(xrot);

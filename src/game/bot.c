@@ -288,13 +288,15 @@ void bot_spawn(struct chrdata *chr, u8 respawning)
 		thing = scenario_choose_spawn_location(chr->radius, &pos, rooms, chr->prop);
 		chr->hidden |= CHRHFLAG_WARPONSCREEN;
 		chr_move_to_pos(chr, &pos, rooms, thing, true);
+
 		chr->aibot->roty = model_get_chr_rot_y(chr->model);
 		chr->aibot->angleoffset = 0;
 		chr->aibot->speedtheta = 0;
 		chr->aibot->lookangle = model_get_chr_rot_y(chr->model);
 		chr->aibot->moveratex = 0;
 		chr->aibot->moveratey = 0;
-		func0f02e9a0(chr, 0);
+
+		chr_stand_immediate(chr, 0);
 	}
 }
 
@@ -864,7 +866,7 @@ bool bot_is_about_to_attack(struct chrdata *chr, bool arg1)
 
 		if (!arg1
 				&& (chr->aibot->config->difficulty == BOTDIFF_MEAT || chr->aibot->config->difficulty == BOTDIFF_EASY)
-				&& !chr_go_pos_is_waiting(chr)) {
+				&& !chr_gopos_is_waiting(chr)) {
 			f32 tmp = chr_get_rot_y(chr);
 			f32 angle = atan2f(target->pos.x - chr->prop->pos.x, target->pos.z - chr->prop->pos.z) - tmp;
 
@@ -1038,9 +1040,9 @@ s32 bot_tick(struct prop *prop)
 				bool left = chr->weapons_held[HAND_LEFT] ? true : false;
 				bool right = (0, chr->weapons_held[HAND_RIGHT] ? true : false);
 
-				func0f03e9f4(chr, aibot->attackanimconfig, left, right, 0);
+				chr_calculate_aimend(chr, aibot->attackanimconfig, left, right, 0);
 			} else {
-				chr_reset_aim_end_properties(chr);
+				chr_reset_aimend(chr);
 			}
 
 			if (chr->actiontype == ACT_DIE || chr->actiontype == ACT_DEAD) {

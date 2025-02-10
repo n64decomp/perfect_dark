@@ -329,7 +329,7 @@ bool (*g_CommandPointers[])(void) = {
 	/*0x013b*/ ai_set_squadron,
 	/*0x013c*/ ai_face_cover,
 	/*0x013d*/ ai_if_dangerous_object_nearby,
-	/*0x013e*/ ai013e,
+	/*0x013e*/ ai_run_from_grenade,
 	/*0x013f*/ ai_if_heli_weapons_armed,
 	/*0x0140*/ ai_if_hoverbot_next_step,
 	/*0x0141*/ ai_shuffle_investigation_terminals,

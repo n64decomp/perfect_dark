@@ -44,12 +44,12 @@ s32 race_init_anim_group(struct attackanimconfig *configs)
 
 		if (config->unk04 > 0) {
 			if (angle < 32768) {
-				config->unk08 = angle * (1.0f / (32768 / BADDTOR(180))) / config->unk04;
+				config->turnangleperframe = angle * (1.0f / (32768 / BADDTOR(180))) / config->unk04;
 			} else {
-				config->unk08 = (angle * (1.0f / (32768 / BADDTOR(180))) - BADDTOR(360)) / config->unk04;
+				config->turnangleperframe = (angle * (1.0f / (32768 / BADDTOR(180))) - BADDTOR(360)) / config->unk04;
 			}
 		} else {
-			config->unk08 = 0;
+			config->turnangleperframe = 0;
 		}
 
 		config++;

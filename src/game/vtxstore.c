@@ -227,7 +227,7 @@ void *vtxstore_allocate(s32 count, s32 type, struct modelnode *node, s32 level)
 			} else {
 				rand = random() % corpsecount;
 				osSyncPrintf("vtxstore: GROSS! CorspeCount > MAX_CORPSES corpses! Freeing corpse %x\n", &corpses[rand]);
-				chr_fade_corpse_when_off_screen(corpses[rand]);
+				chr_fade_corpse_when_offscreen(corpses[rand]);
 				corpses[rand] = chr;
 			}
 		}
@@ -245,7 +245,7 @@ void *vtxstore_allocate(s32 count, s32 type, struct modelnode *node, s32 level)
 
 		if (corpses[i]) {
 			osSyncPrintf("vtxstore: Freeing corpse %x\n", &corpses[i]);
-			chr_fade_corpse_when_off_screen(corpses[i]);
+			chr_fade_corpse_when_offscreen(corpses[i]);
 			corpses[i] = NULL;
 			rand--;
 		}
