@@ -1904,7 +1904,7 @@ u8 func0007_alerted[] = {
 #else
 		assign_sound(SFX_01D9, CHANNEL_7)
 #endif
-		play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_CAN_RELOAD, BANK_1)
 
 		label(0x16)
@@ -2325,7 +2325,7 @@ u8 func0007_alerted[] = {
 #else
 		assign_sound(SFX_01D9, CHANNEL_6)
 #endif
-		play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_CAN_RELOAD, BANK_1)
 
 		label(0x16)
@@ -2712,7 +2712,7 @@ u8 func0007_alerted[] = {
 #else
 		assign_sound(SFX_01D9, CHANNEL_6)
 #endif
-		play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_CAN_RELOAD, BANK_1)
 
 		label(0x16)

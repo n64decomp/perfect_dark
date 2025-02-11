@@ -1979,34 +1979,57 @@
 	channel,
 
 /**
- * Plays or stops a sound coming from the given object.
+ * This command makes the sound originate from the given object's position.
  *
- * The channel argument should be a CHANNEL constant.
- * The bool argument should be TRUE to play or FALSE to stop.
+ * If the channel was marked using assign_sound, the volchangetimer60 argument
+ * is ignored and the sound will be started immediately at the appropriate
+ * volume based on the player's distance from the object.
+ *
+ * If the channel is already playing, the volchangetimer60 argument will be used
+ * to determine how long the transition takes to the new object's position.
  */
-#define set_object_sound_playing(channel, object, bool) \
+#define bind_channel_to_object(channel, object, volchangetimer60) \
 	mkshort(0x00cf), \
 	channel, \
 	object, \
-	0x00, \
-	bool,
+	mkshort(volchangetimer60),
 
 /**
- * Plays a sound coming from the given pad.
+ * This command makes the sound originate from the given pad's position,
+ * and makes the sound repeat indefinitely.
+ *
+ * If the channel was marked using assign_sound, the sound will be started
+ * immediately at the appropriate volume based on the player's distance from
+ * the pad.
  */
-#define play_repeating_sound_from_pad(pad, sound) \
+#define bind_channel_to_pad_repeating(pad, sound) \
 	mkshort(0x00d0), \
-	0x00, \
+	0, \
 	mkshort(pad), \
 	mkshort(sound),
 
-#define set_object_sound_volume(channel, volume, volchangetimer60) \
+/**
+ * Sets the target volume of a channel which is already playing.
+ *
+ * The volume will be changed gradually over a period of time,
+ * specified by volchangetimer60.
+ */
+#define set_channel_volume(channel, volume, volchangetimer60) \
 	mkshort(0x00d1), \
 	channel, \
 	mkshort(volume), \
 	mkshort(volchangetimer60),
 
-#define set_object_sound_volume_by_distance(channel, distance, volchangetimer60) \
+/**
+ * Sets the target volume of a channel which is already playing.
+ *
+ * The target volume is automatically calculated based on the given distance,
+ * as if the player is that distance from the source.
+ *
+ * The volume will be changed gradually over a period of time,
+ * specified by volchangetimer60.
+ */
+#define set_channel_volume_by_distance(channel, distance, volchangetimer60) \
 	mkshort(0x00d2), \
 	channel, \
 	mkshort(distance), \
@@ -3336,11 +3359,25 @@
 	label,
 
 /**
- * Play a sound from the given object repeatedly.
+ * This command makes the sound originate from the given object's position,
+ * and makes the sound repeat indefinitely. It's typically used to make
+ * terminals hum.
  *
- * Typically used to make terminals hum.
+ * The dist2 parameter determines the distance at which the curved volume scale
+ * transitions to a linear scale. This is typically when you're almost out of
+ * earshot.
+ *
+ * The dist3 parameter determines the max distance that you can hear the object.
+ * This should be bigger than dist2.
+ *
+ * If the channel was marked using assign_sound, the volchangetimer60 argument
+ * is ignored and the sound will be started immediately at the appropriate
+ * volume based on the player's distance from the object.
+ *
+ * If the channel is already playing, the volchangetimer60 argument will be used
+ * to determine how long the transition takes to the new object's position.
  */
-#define play_repeating_sound_from_object(channel, object, volchangetimer60, dist2, dist3) \
+#define bind_channel_to_object_repeating(channel, object, volchangetimer60, dist2, dist3) \
 	mkshort(0x016b), \
 	channel, \
 	object, \
@@ -3477,15 +3514,35 @@
 	chr, \
 	label,
 
-#define play_sound_from_entity(channel, entity_id, u1, u2, attackflags) \
+/**
+ * This command makes the sound originate from the given entity's position,
+ * where the entity can be an object or a chr.
+ *
+ * The dist2 parameter determines the distance at which the curved volume scale
+ * transitions to a linear scale. This is typically when you're almost out of
+ * earshot.
+ *
+ * The dist3 parameter determines the max distance that you can hear the object.
+ * This should be bigger than dist2.
+ *
+ * The command supports a volchangetimer60 parameter, but as this command is
+ * always called with value 1, we omit it as a macro parameter for brevity.
+ *
+ * If the channel was marked using assign_sound, the volchangetimer60 argument
+ * is ignored and the sound will be started immediately at the appropriate
+ * volume based on the player's distance from the entity.
+ *
+ * If the channel is already playing, the volchangetimer60 argument will be used
+ * to determine how long the transition takes to the new object's position.
+ */
+#define bind_channel_to_entity(channel, entity_id, dist2, dist3, is_chr) \
 	mkshort(0x0179), \
 	channel, \
 	entity_id, \
-	0x00, \
-	0x01, \
-	mkshort(u1), \
-	mkshort(u2), \
-	attackflags,
+	mkshort(1), \
+	mkshort(dist2), \
+	mkshort(dist3), \
+	is_chr,
 
 /**
  * Checks if the chr can see their attack target, which should have been
@@ -3508,6 +3565,9 @@
 
 /**
  * Assigns a sound to the given channel. Does not play the sound.
+ *
+ * Doing this sets a marker on the channel, which affects the behaviour
+ * of further audio commands.
  */
 #define assign_sound(sound, channel) \
 	mkshort(0x017c), \
@@ -3782,7 +3842,7 @@
  * Each quip type + morale combination has up to three quips that may be said.
  * The quip used is random.
  */
-#define play_cistaff_quip(ciquip, channel) \
+#define say_ciquip(ciquip, channel) \
 	mkshort(0x01a2), \
 	ciquip, \
 	channel,
@@ -4335,13 +4395,20 @@
 	mkshort(distance / 10), \
 	label,
 
-#define play_sound_from_object2(channel, object, sound, type, flags) \
+/**
+ * This command assigns and plays a sound, originating from the given object's
+ * position.
+ *
+ * The type parameter should be a PSTYPE constant.
+ *
+ * The flags parameter should be a PSFLAG constant.
+ */
+#define play_sound_from_object(channel, object, sound, type, flags) \
 	mkshort(0x01d9), \
 	channel, \
 	object, \
 	mkshort(sound), \
-	0xff, \
-	0xff, \
+	mkshort(0xffff), /*volume*/ \
 	type, \
 	mkshort(flags),
 

@@ -38,16 +38,12 @@ u32 var8006ae40 = 0;
 bool g_PsPrintFlagged = false;
 u32 var8006ae48 = 1;
 u32 var8006ae4c = 0;
-s16 var8006ae50 = -1;
+s16 g_PsLastPositionalSoundnum = -1;
 u32 var8006ae54 = 999;
-
-#define CHANNELCOUNT()         (IS4MB() ? 30 : 40)
-#define CHANNEL_IS_AI(channel) (channel >= 0 && channel <= 7)
-#define CHANNEL_HEAP_FIRST     CHANNEL_8
 
 void ps_stop_channel(s32 channelnum);
 s32 ps_calculate_vol(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, RoomNum *rooms, s16 soundnum, s32 arg6, f32 *playerdistptr);
-s32 ps_calculate_pan(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, f32 playerdist, bool arg5, struct pschannel *channel);
+s32 ps_calculate_pan(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, f32 playerdist, bool specialpan, struct pschannel *channel);
 
 bool ps_prop_has_sound_with_context(struct prop *prop, s32 type)
 {
@@ -174,7 +170,7 @@ void ps_stop_channel(s32 channelnum)
 	}
 
 	if (channel->flags & PSFLAG_ISMP3) {
-		snd_stop_mp3(channel->soundnum26);
+		snd_stop_mp3(channel->requestedsoundnum);
 	} else if (channel->audiohandle && sndp_get_state(channel->audiohandle) != AL_STOPPED) {
 		sndp_stop_sound(channel->audiohandle);
 	}
@@ -257,9 +253,9 @@ void ps_tick_channel(s32 channelnum)
 
 		if (g_Vars.langfilteron && (channel->flags2 & PSFLAG2_OFFENSIVE)) {
 			channel->targetvol = 0;
-		} else if (channel->flags2 & PSFLAG2_0010) {
+		} else if (channel->flags2 & PSFLAG2_AMBIENT) {
 			if (channel->flags & PSFLAG_FIRSTTICK) {
-				channel->targetvol = channel->vol10;
+				channel->targetvol = channel->maxvol;
 			} else {
 				return;
 			}
@@ -273,15 +269,15 @@ void ps_tick_channel(s32 channelnum)
 					tmprooms = rooms;
 				}
 
-				var8006ae50 = channel->soundnum2c;
+				g_PsLastPositionalSoundnum = channel->resolvedsoundnum;
 
 				channel->targetvol = ps_calculate_vol(pos, channel->dist1, channel->dist2, channel->dist3,
-						tmprooms, channel->soundnum26, channel->vol10, &channel->distance);
+						tmprooms, channel->requestedsoundnum, channel->maxvol, &channel->distance);
 			}
 
 			if ((channel->flags & PSFLAG_HASCONFIGPAN) == 0) {
 				channel->targetpan = ps_calculate_pan(pos, channel->dist1, channel->dist2, channel->dist3,
-						channel->distance, channel->flags & PSFLAG_0800, channel);
+						channel->distance, channel->flags & PSFLAG_SPECIALPAN, channel);
 			}
 		}
 
@@ -437,30 +433,30 @@ void ps_tick_channel(s32 channelnum)
 
 
 				if (channel->flags & PSFLAG_ISMP3) {
-					snd_start_mp3(channel->soundnum26, newvol, newpan, (channel->flags2 & PSFLAG2_RESPONDHELLO) ? 1 : 0);
+					snd_start_mp3(channel->requestedsoundnum, newvol, newpan, (channel->flags2 & PSFLAG2_RESPONDHELLO) ? 1 : 0);
 				} else {
 #if VERSION >= VERSION_NTSC_1_0
-					if (channel->flags & PSFLAG_0400) {
+					if (channel->flags & PSFLAG_AMBIENT) {
 						if (newvol) {
 							snd00010718(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
-									channel->soundnum26, newpitch, channel->fxbus, newfx, 1);
+									channel->requestedsoundnum, newpitch, channel->fxbus, newfx, 1);
 						}
 					} else {
 						if (newvol) {
 							snd00010718(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
-									channel->soundnum26, newpitch, channel->fxbus, newfx, 1);
+									channel->requestedsoundnum, newpitch, channel->fxbus, newfx, 1);
 						}
 					}
 #else
 					snd00010718(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
-							channel->soundnum26, newpitch, channel->fxbus, newfx, 1);
+							channel->requestedsoundnum, newpitch, channel->fxbus, newfx, 1);
 #endif
 				}
 
 				channel->flags &= ~PSFLAG_FIRSTTICK;
 			} else {
 				snd_adjust(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
-						channel->soundnum26, newpitch, channel->fxbus, newfx, channel->flags & PSFLAG_CHANGINGPAN);
+						channel->requestedsoundnum, newpitch, channel->fxbus, newfx, channel->flags & PSFLAG_CHANGINGPAN);
 			}
 		}
 	} else {
@@ -603,12 +599,12 @@ void ps_set_volume(struct prop *prop, s32 volpercentage)
 			prevpri = osGetThreadPri(0);
 			osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 
-			g_PsChannels[i].vol10 = volpercentage * AL_VOL_FULL / 100;
+			g_PsChannels[i].maxvol = volpercentage * AL_VOL_FULL / 100;
 			ps_tick_channel(i);
 
 			osSetThreadPri(0, prevpri);
 #else
-			g_PsChannels[i].vol10 = volpercentage * AL_VOL_FULL / 100;
+			g_PsChannels[i].maxvol = volpercentage * AL_VOL_FULL / 100;
 			ps_tick_channel(i);
 #endif
 		}
@@ -754,7 +750,7 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 	channel->targetvol = (vol != -1) ? vol : -1;
 	channel->targetpan = AL_PAN_CENTER;
 	channel->targetfx = 0;
-	channel->vol10 = AL_VOL_FULL;
+	channel->maxvol = AL_VOL_FULL;
 	channel->fxbus = 1;
 	channel->targetpitch = (pitch > 0) ? pitch : -1;
 	channel->currentpitch = channel->targetpitch;
@@ -763,7 +759,7 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 	channel->padnum = padnum;
 	channel->prop = prop;
 	channel->type = type;
-	channel->vol12 = vol;
+	channel->requestedvol = vol;
 	channel->unk40 = -1;
 	channel->dist1 = (dist1 > 0) ? dist1 : 400;
 	channel->dist2 = (dist2 > 0) ? dist2 : 2500;
@@ -784,7 +780,7 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 		channel->volchangespeed = g_AudioConfigs[confignum].volchangespeed;
 
 		if (g_AudioConfigs[confignum].volpercentage != 100) {
-			channel->vol10 = g_AudioConfigs[confignum].volpercentage * (AL_VOL_FULL / 100);
+			channel->maxvol = g_AudioConfigs[confignum].volpercentage * (AL_VOL_FULL / 100);
 		}
 
 		if (g_AudioConfigs[confignum].pitch > 0) {
@@ -798,8 +794,8 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 			channel->flags |= PSFLAG_HASCONFIGPAN;
 		}
 
-		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_01) {
-			channel->flags |= PSFLAG_0800;
+		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_SPECIALPAN) {
+			channel->flags |= PSFLAG_SPECIALPAN;
 		}
 
 		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_RESPONDHELLO) {
@@ -808,7 +804,7 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 
 		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_08) {
 			if (channel->targetvol == -1) {
-				channel->targetvol = channel->vol10;
+				channel->targetvol = channel->maxvol;
 			}
 
 			channel->flags |= PSFLAG_IGNOREROOMS;
@@ -819,7 +815,7 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 		}
 
 		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_20) {
-			channel->flags2 |= PSFLAG2_0010;
+			channel->flags2 |= PSFLAG2_AMBIENT;
 		}
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -841,23 +837,23 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 	}
 #endif
 
-	channel->soundnum26 = spac.packed;
-	channel->soundnum2c = spac.id;
+	channel->requestedsoundnum = spac.packed;
+	channel->resolvedsoundnum = spac.id;
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (snd_is_filtered(channel->soundnum2c)) {
+	if (snd_is_filtered(channel->resolvedsoundnum)) {
 		channel->flags2 |= PSFLAG2_OFFENSIVE;
 	}
 #endif
 
 	if (spac.unk02) {
-		channel->flags2 |= PSFLAG2_0010;
+		channel->flags2 |= PSFLAG2_AMBIENT;
 	}
 
 #if VERSION < VERSION_NTSC_1_0
-	if (channel->flags2 & PSFLAG2_0010) {
+	if (channel->flags2 & PSFLAG2_AMBIENT) {
 		if (channel->targetvol == -1) {
-			channel->targetvol = channel->vol10;
+			channel->targetvol = channel->maxvol;
 		}
 	}
 #endif
@@ -887,11 +883,13 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (!pos && !channel->prop) {
-		channel->flags2 |= PSFLAG2_0010;
+		channel->flags2 |= PSFLAG2_AMBIENT;
 	}
 
-	if ((channel->flags2 & PSFLAG2_0010) && channel->targetvol == -1) {
-		channel->targetvol = channel->vol10;
+	if (channel->flags2 & PSFLAG2_AMBIENT) {
+		if (channel->targetvol == -1) {
+			channel->targetvol = channel->maxvol;
+		}
 	}
 #endif
 
@@ -916,14 +914,14 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 	}
 
 #if VERSION >= VERSION_NTSC_1_0
-	if (channel->flags & PSFLAG_0400) {
-		channel->flags &= ~PSFLAG_0400;
-		channel->flags2 |= PSFLAG2_0010;
+	if (channel->flags & PSFLAG_AMBIENT) {
+		channel->flags &= ~PSFLAG_AMBIENT;
+		channel->flags2 |= PSFLAG2_AMBIENT;
 	}
 
 	channel->flags &= ~PSFLAG_FIRSTTICK;
 #else
-	if (channel->flags & PSFLAG_0400) {
+	if (channel->flags & PSFLAG_AMBIENT) {
 		channel->flags = PSFLAG_FREE;
 	} else {
 		channel->flags &= ~PSFLAG_FIRSTTICK;
@@ -933,7 +931,7 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 	return channel->channelnum;
 }
 
-s32 ps_play_from_prop(s32 channelnum, s16 soundnum, s32 vol, struct prop *prop, s16 type, u16 flags)
+s32 ps_create_from_ai(s32 channelnum, s16 soundnum, s32 vol, struct prop *prop, s16 type, u16 flags)
 {
 	s32 retchannelnum = -1;
 
@@ -946,20 +944,20 @@ s32 ps_play_from_prop(s32 channelnum, s16 soundnum, s32 vol, struct prop *prop, 
 #if VERSION >= VERSION_NTSC_1_0
 			if (g_PsChannels[channelnum].flags & PSFLAG_FREE) {
 				osSyncPrintf("AISOUND: PSTYPE_MARKER - Channel %d -> Playing sound number id=%d(%x)\n", channelnum, soundnum, soundnum);
-				g_PsChannels[channelnum].soundnum26 = soundnum;
+				g_PsChannels[channelnum].requestedsoundnum = soundnum;
 				g_PsChannels[channelnum].type = PSTYPE_MARKER;
 				g_PsChannels[channelnum].flags &= ~PSFLAG_FREE;
 				retchannelnum = channelnum;
 			} else {
 				osSyncPrintf("AISOUND: PSTYPE_MARKER - Channel %d -> Playing sound number id=%d(%x)\n", channelnum, soundnum, soundnum);
-				g_PsChannels[channelnum].soundnum26 = soundnum;
+				g_PsChannels[channelnum].requestedsoundnum = soundnum;
 				g_PsChannels[channelnum].type = PSTYPE_MARKER;
 				g_PsChannels[channelnum].flags &= ~PSFLAG_FREE;
 				retchannelnum = channelnum;
 			}
 #else
 			osSyncPrintf("AISOUND: Channel %d -> Playing sound number id=%d(%x))\n", channelnum, soundnum, soundnum);
-			g_PsChannels[channelnum].soundnum26 = soundnum;
+			g_PsChannels[channelnum].requestedsoundnum = soundnum;
 			g_PsChannels[channelnum].type = PSTYPE_MARKER;
 			g_PsChannels[channelnum].flags &= ~PSFLAG_FREE;
 			retchannelnum = channelnum;
@@ -967,64 +965,66 @@ s32 ps_play_from_prop(s32 channelnum, s16 soundnum, s32 vol, struct prop *prop, 
 		} else {
 			// empty
 		}
-	} else if (channelnum == CHANNEL_CUTSCENE) {
-		/**
-		 * An AI script has requested the AI multi channel.
-		 * The multi channel is an abstraction for more channels.
-		 * Let ps_create choose the real channel number from the heap area.
-		 * The real channel number is returned but AI will ignore it.
-		 *
-		 * Flag PSFLAG_CUTSCENE is set so propsnd knows the channel
-		 * was allocated as part of AIMULTI instead of via the game engine.
-		 */
-		osSyncPrintf("AISOUND: CUTSCENE -> Playing sound number id=%d(%x))\n", soundnum, soundnum);
+	} else {
+		if (channelnum == CHANNEL_CUTSCENE) {
+			/**
+			 * The caller is indicating that this is a cutscene sound,
+			 * and doesn't care which channel is used.
+			 * Let ps_create choose the real channel number from the heap area.
+			 *
+			 * Flag PSFLAG_CUTSCENE is set so propsnd knows the channel is being
+			 * used by a cutscene, and can be stopped once the cutscene ends.
+			 */
+			osSyncPrintf("AISOUND: CUTSCENE -> Playing sound number id=%d(%x))\n", soundnum, soundnum);
 
-		retchannelnum = ps_create(NULL, prop, soundnum, -1,
-				(vol ? 0 : -1), flags | PSFLAG_CUTSCENE, 0, type, 0, -1, 0, -1, -1, -1, -1);
-	}
-#if VERSION >= VERSION_NTSC_1_0
-	else if (channelnum < 0 || channelnum >= 8 || channelnum == 9) {
-		/**
-		 * This is a game engine sound.
-		 * Allocate a channel automatically from the heap and return it.
-		 */
-		osSyncPrintf("AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x, Flags=%x, Type=%d, Zero=%d\n",
-				channelnum, soundnum, soundnum, prop, flags, type, 0);
-		osSyncPrintf("AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x, Flags=%x, Type=%d\n",
-				channelnum, soundnum, soundnum, prop, flags, type);
-
-		retchannelnum = ps_create(NULL, prop, soundnum, -1,
-			(vol ? 0 : -1), flags, 0, type, 0, -1, 0, -1, -1, -1, -1);
-	}
-#else
-	else if (channelnum == 9) {
-		osSyncPrintf("AISOUND: DONTCARE -> Playing sound number id=%d(%x))\n", soundnum, soundnum);
-		retchannelnum = ps_create(NULL, prop, soundnum, -1, (vol ? 0 : -1), flags, 0, type, 0, -1, 0, -1, -1, -1, -1);
-	} else if (channelnum < 0 || channelnum >= 8) {
-		osSyncPrintf("AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x\n", channelnum, soundnum, soundnum, prop);
-		retchannelnum = ps_create(NULL, prop, soundnum, -1, (vol ? 0 : -1), flags, 0, type, 0, -1, 0, -1, -1, -1, -1);
-	}
-#endif
-	else {
-		/**
-		 * An AI script has asked for a specific channel in range 0-9.
-		 * Replace the channel if necessary.
-		 */
-		if ((g_PsChannels[channelnum].flags & PSFLAG_FREE) == 0) {
-#if VERSION < VERSION_NTSC_1_0
-			osSyncPrintf("SERIOUS: Existing ai sound number %d (Sound id=%d(%x)) : KILLING\n",
-					channelnum, g_PsChannels[channelnum].soundnum26, g_PsChannels[channelnum].soundnum26);
-#endif
-
-			ps_stop_channel(channelnum);
+			retchannelnum = ps_create(NULL, prop, soundnum, -1,
+					(vol ? 0 : -1), flags | PSFLAG_CUTSCENE, 0, type, 0, -1, 0, -1, -1, -1, -1);
 		}
+#if VERSION >= VERSION_NTSC_1_0
+		else if (channelnum < 0 || channelnum >= CHANNEL_HEAP_FIRST || channelnum == CHANNEL_DONTCARE) {
+			/**
+			 * Requested channel is invalid, in the heap area, or caller doesn't
+			 * care what channel is used.
+			 * Allocate a channel automatically from the heap and return it.
+			 */
+			osSyncPrintf("AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x, Flags=%x, Type=%d, Zero=%d\n",
+					channelnum, soundnum, soundnum, prop, flags, type, 0);
+			osSyncPrintf("AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x, Flags=%x, Type=%d\n",
+					channelnum, soundnum, soundnum, prop, flags, type);
 
-		g_PsChannels[channelnum].channelnum = channelnum;
+			retchannelnum = ps_create(NULL, prop, soundnum, -1,
+				(vol ? 0 : -1), flags, 0, type, 0, -1, 0, -1, -1, -1, -1);
+		}
+#else
+		else if (channelnum == CHANNEL_DONTCARE) {
+			osSyncPrintf("AISOUND: DONTCARE -> Playing sound number id=%d(%x))\n", soundnum, soundnum);
+			retchannelnum = ps_create(NULL, prop, soundnum, -1, (vol ? 0 : -1), flags, 0, type, 0, -1, 0, -1, -1, -1, -1);
+		} else if (channelnum < 0 || channelnum >= CHANNEL_HEAP_FIRST) {
+			osSyncPrintf("AISOUND: Channel %d -> Playing sound number id=%d(%x), Prop=%x\n", channelnum, soundnum, soundnum, prop);
+			retchannelnum = ps_create(NULL, prop, soundnum, -1, (vol ? 0 : -1), flags, 0, type, 0, -1, 0, -1, -1, -1, -1);
+		}
+#endif
+		else {
+			/**
+			 * An AI script has asked for a specific channel in range 0-7.
+			 * Replace the channel if necessary.
+			 */
+			if ((g_PsChannels[channelnum].flags & PSFLAG_FREE) == 0) {
+#if VERSION < VERSION_NTSC_1_0
+				osSyncPrintf("SERIOUS: Existing ai sound number %d (Sound id=%d(%x)) : KILLING\n",
+						channelnum, g_PsChannels[channelnum].requestedsoundnum, g_PsChannels[channelnum].requestedsoundnum);
+#endif
 
-		ps_create(&g_PsChannels[channelnum], prop, soundnum, -1,
-			(vol ? 0 : -1), flags, 0, type, 0, -1, 0, -1, -1, -1, -1);
+				ps_stop_channel(channelnum);
+			}
 
-		retchannelnum = channelnum;
+			g_PsChannels[channelnum].channelnum = channelnum;
+
+			ps_create(&g_PsChannels[channelnum], prop, soundnum, -1,
+				(vol ? 0 : -1), flags, 0, type, 0, -1, 0, -1, -1, -1, -1);
+
+			retchannelnum = channelnum;
+		}
 	}
 
 	return retchannelnum;
@@ -1083,7 +1083,7 @@ void ps_modify(s32 channelnum, s32 volume, s16 padnum, struct prop *prop, s32 vo
 
 			g_PsChannels[channelnum].channelnum = (u16)channelnum;
 
-			ps_create(&g_PsChannels[channelnum], prop, channel->soundnum26, -1,
+			ps_create(&g_PsChannels[channelnum], prop, channel->requestedsoundnum, -1,
 					-1, flags, 0, PSTYPE_NONE, 0, -1, 0, -1, 400, dist2, dist3);
 		} else {
 			if ((channel->flags & PSFLAG_OUTOFRANGE) == 0 && volume >= 0) {
@@ -1328,7 +1328,7 @@ s32 ps_calculate_pan2(struct coord *pos, s32 arg1, f32 arg2, struct pschannel *c
 	return result;
 }
 
-s32 ps_calculate_pan(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, f32 playerdist, bool arg5, struct pschannel *channel)
+s32 ps_calculate_pan(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, f32 playerdist, bool specialpan, struct pschannel *channel)
 {
 	s32 result = AL_PAN_CENTER;
 
@@ -1354,7 +1354,7 @@ s32 ps_calculate_pan(struct coord *pos, f32 dist1, f32 dist2, f32 dist3, f32 pla
 				dist2 = 5801;
 			}
 
-			if (arg5) {
+			if (specialpan) {
 				if (playerdist < dist1) {
 					// empty
 				} else if (playerdist < dist2) {
@@ -1396,7 +1396,7 @@ void ps_get_theoretical_vol_pan(struct coord *pos, RoomNum *rooms, s16 soundnum,
 	union soundnumhack sp48;
 	union soundnumhack sp44;
 	f32 distance;
-	bool sp3c;
+	bool specialpan;
 	s32 index;
 	s32 confignum;
 	f32 *distanceptr = &distance;
@@ -1407,7 +1407,7 @@ void ps_get_theoretical_vol_pan(struct coord *pos, RoomNum *rooms, s16 soundnum,
 
 	sp44.packed = soundnum;
 	distance = 9999999;
-	sp3c = false;
+	specialpan = false;
 
 	if (sp44.hasconfig) {
 		confignum = sp44.confignum;
@@ -1421,8 +1421,8 @@ void ps_get_theoretical_vol_pan(struct coord *pos, RoomNum *rooms, s16 soundnum,
 
 		sp48.packed = russ->soundnum;
 
-		if (config->flags & AUDIOCONFIGFLAG_01) {
-			sp3c = true;
+		if (config->flags & AUDIOCONFIGFLAG_SPECIALPAN) {
+			specialpan = true;
 		}
 
 		if (dist3 < *distanceptr) {
@@ -1434,7 +1434,7 @@ void ps_get_theoretical_vol_pan(struct coord *pos, RoomNum *rooms, s16 soundnum,
 	}
 
 	*vol = ps_calculate_vol(pos, dist1, dist2, dist3, rooms, soundnum, AL_VOL_FULL, distanceptr);
-	*pan = ps_calculate_pan(pos, dist1, dist2, dist3, *distanceptr, sp3c, 0);
+	*pan = ps_calculate_pan(pos, dist1, dist2, dist3, *distanceptr, specialpan, 0);
 }
 #endif
 
@@ -1443,11 +1443,11 @@ void ps_apply_vol_pan(struct sndstate *handle, struct coord *pos, f32 dist1, f32
 	union soundnumhack sp5c;
 	union soundnumhack sp58;
 	f32 distance;
-	bool sp50;
+	bool specialpan;
 	s32 vol;
 	s32 pan;
 
-	sp50 = false;
+	specialpan = false;
 	distance = 9999999;
 	sp58.packed = soundnum;
 
@@ -1465,8 +1465,8 @@ void ps_apply_vol_pan(struct sndstate *handle, struct coord *pos, f32 dist1, f32
 
 		sp5c.packed = g_AudioRussMappings[confignum].soundnum;
 
-		if (g_AudioConfigs[index].flags & AUDIOCONFIGFLAG_01) {
-			sp50 = true;
+		if (g_AudioConfigs[index].flags & AUDIOCONFIGFLAG_SPECIALPAN) {
+			specialpan = true;
 		}
 
 		if (dist3 < *distanceptr) {
@@ -1478,7 +1478,7 @@ void ps_apply_vol_pan(struct sndstate *handle, struct coord *pos, f32 dist1, f32
 	}
 
 	vol = ps_calculate_vol(pos, dist1, dist2, dist3, rooms, soundnum, arg7, distanceptr);
-	pan = ps_calculate_pan(pos, dist1, dist2, dist3, *distanceptr, sp50, 0);
+	pan = ps_calculate_pan(pos, dist1, dist2, dist3, *distanceptr, specialpan, 0);
 
 	snd_adjust(&handle, snd_is_mp3(soundnum), vol, pan, soundnum, 1.0f, 1, -1, 1);
 }
@@ -1499,17 +1499,17 @@ s32 ps_get_random_spark_sound(void)
 	return sounds[index];
 }
 
-u32 ps0f095258(u32 arg0, u32 arg1)
+Gfx *ps_render1(Gfx *gdl, s32 arg1)
 {
-	return arg0;
+	return gdl;
 }
 
-u32 ps0f095264(u32 arg0, u32 arg1)
+Gfx *ps_render2(Gfx *gdl, s32 arg1)
 {
-	return arg0;
+	return gdl;
 }
 
-void ps0f095270(void)
+void ps_debug(void)
 {
 	// empty
 }
@@ -1528,7 +1528,7 @@ s32 ps_get_duration60(s32 channelnum)
 			&& (channel->flags & PSFLAG_FREE) == 0
 			&& (channel->flags & PSFLAG_ISMP3)) {
 		union soundnumhack soundnum;
-		soundnum.packed = channel->soundnum26;
+		soundnum.packed = channel->requestedsoundnum;
 
 		return file_get_rom_size(soundnum.id) * 60 / (1024 * 24 / 8);
 	}

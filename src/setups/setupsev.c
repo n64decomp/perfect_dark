@@ -1350,7 +1350,7 @@ u8 func1008_check_console[] = {
 
 	label(0x2c)
 	assign_sound(SFX_8111, CHANNEL_0)
-	play_repeating_sound_from_object(CHANNEL_0, OBJ_CONSOLE, 1, 300, 400)
+	bind_channel_to_object_repeating(CHANNEL_0, OBJ_CONSOLE, 1, 300, 400)
 	show_hudmsg(CHR_BOND, L_SEV_009) // "Distress signal has been sent."
 	set_stage_flag(STAGEFLAG_CONSOLE_ACTIVATED)
 	set_ailist(CHR_SELF, GAILIST_IDLE)

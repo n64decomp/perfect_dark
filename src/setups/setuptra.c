@@ -1971,7 +1971,7 @@ u8 func100c_medpack_activation[] = {
 #else
 	assign_sound(SFX_043C, CHANNEL_7)
 #endif
-	set_object_sound_playing(CHANNEL_7, OBJ_HOVERBED, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_HOVERBED, TRUE)
 	restart_timer
 
 	beginloop(0x12)
@@ -1984,7 +1984,7 @@ u8 func100c_medpack_activation[] = {
 #else
 	assign_sound(SFX_047C, CHANNEL_7)
 #endif
-	set_object_sound_playing(CHANNEL_7, OBJ_HOVERBED, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_HOVERBED, TRUE)
 	restart_timer
 
 	beginloop(0x08)
@@ -1999,7 +1999,7 @@ u8 func100c_medpack_activation[] = {
 #else
 	assign_sound(SFX_043D, CHANNEL_7)
 #endif
-	set_object_sound_playing(CHANNEL_7, 0x00, TRUE)
+	bind_channel_to_object(CHANNEL_7, 0x00, TRUE)
 	show_hudmsg(CHR_P1P2, L_TRA_035) // "Alien medpack has been administered."
 	yield
 
@@ -2118,7 +2118,7 @@ u8 func100f_terminals[] = {
 		// Terminal 1
 		label(0x08)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_TERMINAL1, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_TERMINAL1, TRUE)
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, TRUE, /*goto*/ 0x32)
 		show_hudmsg(CHR_P1P2, L_TRA_080) // "Console is not active."
 		goto_next(0x0f)
@@ -2139,7 +2139,7 @@ u8 func100f_terminals[] = {
 		// Terminal 2
 		label(0x0a)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_TERMINAL2, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_TERMINAL2, TRUE)
 		if_stage_flag_eq(STAGEFLAG_HANGAR_X_MUSIC_STARTED, TRUE, /*goto*/ 0x32)
 		show_hudmsg(CHR_P1P2, L_TRA_080) // "Console is not active."
 		goto_next(0x0f)
@@ -3085,7 +3085,7 @@ u8 func101b_gas_sound[] = {
 	label(0x04)
 	yield
 	assign_sound(SFX_816A, CHANNEL_0)
-	play_repeating_sound_from_object(CHANNEL_0, 0x2b, 1, 8000, 3000)
+	bind_channel_to_object_repeating(CHANNEL_0, 0x2b, 1, 8000, 3000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3399,7 +3399,7 @@ u8 func101a_medpack_switch[] = {
 
 	label(0x32)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_MEDPACK_SWITCH, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_MEDPACK_SWITCH, TRUE)
 	show_hudmsg(CHR_P1P2, L_TRA_054) // "Medical containment doors unlocked."
 	unlock_door(0x12, 0x40)
 	unlock_door(0x13, 0x40)

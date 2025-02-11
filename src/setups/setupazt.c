@@ -1150,7 +1150,7 @@ u8 func1008_escapepod[] = {
 
 		label(0x31)
 		assign_sound(SFX_8115, CHANNEL_0)
-		play_repeating_sound_from_object(CHANNEL_0, OBJ_ESCAPEPOD, 1, 800, 1600)
+		bind_channel_to_object_repeating(CHANNEL_0, OBJ_ESCAPEPOD, 1, 800, 1600)
 		show_hudmsg(CHR_P1P2, L_AZT_014) // "Distress beacon has been activated."
 		set_stage_flag(STAGEFLAG_BEACON_ACTIVATED)
 	endloop(0x06)
@@ -1368,15 +1368,15 @@ u8 func0418_robot[] = {
 		if_rand_lt(86, /*goto*/ 0x0b)
 		if_rand_lt(172, /*goto*/ 0x0c)
 		assign_sound(SFX_046A, CHANNEL_5)
-		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		goto_next(0x31)
 		label(0x0b)
 		assign_sound(SFX_046B, CHANNEL_5)
-		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		goto_next(0x31)
 		label(0x0c)
 		assign_sound(SFX_046C, CHANNEL_5)
-		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		label(0x31)
 	endloop(0x04)
 
@@ -1432,7 +1432,7 @@ u8 func0418_robot[] = {
 
 	label(0x11)
 	assign_sound(MP3_ROBOT_ALERT_UNDER_ATTACK, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -1596,7 +1596,7 @@ u8 func041d_president_running[] = {
 
 	label(0x08)
 	assign_sound(MP3_02BF, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1610,7 +1610,7 @@ u8 func041d_president_running[] = {
 	label(0x08)
 	restart_timer
 	assign_sound(MP3_02C2, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	beginloop(0x9e)
 		dprint 'I','N','J','U','R','E','D','\n',0,

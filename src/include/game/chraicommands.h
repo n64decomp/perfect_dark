@@ -210,10 +210,10 @@
 /*0x00cc*/ bool ai_show_hudmsg_top_middle(void);
 /*0x00cd*/ bool ai_speak(void);
 /*0x00ce*/ bool ai_play_sound(void);
-/*0x00cf*/ bool ai_set_object_sound_playing(void);
-/*0x00d0*/ bool ai_play_repeating_sound_from_pad(void);
-/*0x00d1*/ bool ai_set_object_sound_volume(void);
-/*0x00d2*/ bool ai_set_object_sound_volume_by_distance(void);
+/*0x00cf*/ bool ai_bind_channel_to_object(void);
+/*0x00d0*/ bool ai_bind_channel_to_pad_repeating(void);
+/*0x00d1*/ bool ai_set_channel_volume(void);
+/*0x00d2*/ bool ai_set_channel_volume_by_distance(void);
 /*0x00d3*/ bool ai_audio_mute_channel(void);
 /*0x00d4*/ bool ai_if_object_sound_volume_less_than(void);
 /*0x00d5*/ bool ai_hovercar_begin_path(void);
@@ -341,7 +341,7 @@
 /*0x0168*/ bool ai_if_shield_damaged(void);
 /*0x0169*/ bool ai_if_natural_anim(void);
 /*0x016a*/ bool ai_if_y(void);
-/*0x016b*/ bool ai_play_repeating_sound_from_object(void);
+/*0x016b*/ bool ai_bind_channel_to_object_repeating(void);
 /*0x016c*/ bool ai_noop_016c(void);
 /*0x016d*/ bool ai_chr_adjust_motion_blur(void);
 /*0x016e*/ bool ai_damage_chr_by_amount(void);
@@ -355,7 +355,7 @@
 /*0x0176*/ bool ai_if_bot_respawning(void);
 /*0x0177*/ bool ai_player_auto_walk(void);
 /*0x0178*/ bool ai_if_player_auto_walk_finished(void);
-/*0x0179*/ bool ai_play_sound_from_entity(void);
+/*0x0179*/ bool ai_bind_channel_to_entity(void);
 /*0x017a*/ bool ai_if_los_to_attack_target(void);
 /*0x017b*/ bool ai_if_chr_knocked_out(void);
 /*0x017c*/ bool ai_assign_sound(void);
@@ -386,7 +386,7 @@
 /*0x019f*/ bool ai_set_obj_health(void);
 /*0x01a0*/ bool ai_set_chr_special_death_animation(void);
 /*0x01a1*/ bool ai_set_room_to_search(void);
-/*0x01a2*/ bool ai_say_ci_staff_quip(void);
+/*0x01a2*/ bool ai_say_ciquip(void);
 /*0x01a3*/ bool ai_do_preset_animation(void);
 /*0x01a4*/ bool ai_show_hudmsg_middle(void);
 /*0x01a5*/ bool ai_if_using_lift(void);
@@ -437,7 +437,7 @@
 /*0x01d6*/ bool ai_configure_environment(void);
 /*0x01d7*/ bool ai_if_distance_to_target2_less_than(void);
 /*0x01d8*/ bool ai_if_distance_to_target2_greater_than(void);
-/*0x01d9*/ bool ai_play_sound_from_prop(void);
+/*0x01d9*/ bool ai_play_sound_from_object(void);
 /*0x01da*/ bool ai_play_temporary_primary_track(void);
 /*0x01db*/ bool ai_chr_kill(void);
 /*0x01dc*/ bool ai_remove_weapon_from_inventory(void);

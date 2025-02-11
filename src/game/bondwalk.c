@@ -1044,7 +1044,7 @@ void bwalk_update_vertical(void)
 			if (sound != -1) {
 				if (sound != -1) {
 					ps_create(NULL, g_Vars.currentplayer->prop, sound,
-							-1, -1, PSFLAG_0400 | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
+							-1, -1, PSFLAG_AMBIENT | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
 				}
 
 				chr->footstep = 2;
@@ -1052,7 +1052,7 @@ void bwalk_update_vertical(void)
 
 				if (sound != -1) {
 					ps_create(NULL, g_Vars.currentplayer->prop, sound,
-							-1, -1, PSFLAG_0400 | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
+							-1, -1, PSFLAG_AMBIENT | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
 				}
 			}
 
@@ -1067,7 +1067,7 @@ void bwalk_update_vertical(void)
 				};
 
 				ps_create(NULL, g_Vars.currentplayer->prop, sounds[random() % 3],
-						-1, -1, PSFLAG_0400 | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
+						-1, -1, PSFLAG_AMBIENT | PSFLAG_IGNOREROOMS, 0, PSTYPE_NONE, 0, -1, NULL, -1, -1, -1, -1);
 			}
 		}
 

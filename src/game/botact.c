@@ -65,10 +65,10 @@ void botact_reload(struct chrdata *chr, s32 handnum, bool withsound)
 				if (withsound) {
 					if (aibot->weaponnum == WEAPON_FARSIGHT) {
 						ps_create(NULL, chr->prop, SFX_RELOAD_FARSIGHT, -1,
-								-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+								-1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 					} else {
 						ps_create(NULL, chr->prop, SFX_RELOAD_DEFAULT, -1,
-								-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+								-1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 					}
 				}
 			}

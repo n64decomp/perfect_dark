@@ -2096,7 +2096,7 @@ void fr_tick(void)
 
 						ps_stop_sound(prop, PSTYPE_GENERAL, 0xffff);
 						ps_create(NULL, prop, SFX_FR_CONVEYER_STOP, -1,
-								-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+								-1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 						if (g_FrNumSounds);
 					}

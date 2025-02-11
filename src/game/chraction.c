@@ -8432,7 +8432,7 @@ void chr_tick_die(struct chrdata *chr)
 			chr->soundtimer = 0;
 			var80068080 -= 5;
 			ps_create(NULL, prop, SFX_SHIELD_DAMAGE, -1,
-					-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+					-1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			sparks_create(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
 		}
 
@@ -8849,12 +8849,12 @@ void chr_update_fireslot(struct chrdata *chr, s32 handnum, bool withsound, bool 
 			if (playsound) {
 #if VERSION >= VERSION_NTSC_1_0
 				ps_create(NULL, chr->prop, soundnum, -1, -1,
-						PSFLAG_0400, PSFLAG2_PRINTABLE, PSTYPE_CHRSHOOT, NULL, -1, NULL, -1, -1, -1, -1);
+						PSFLAG_AMBIENT, PSFLAG2_PRINTABLE, PSTYPE_CHRSHOOT, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
 				chr->hidden2 |= CHRH2FLAG_FIRESOUNDDONE;
 #else
 				ps_create(NULL, chr->prop, soundnum, -1, -1,
-						PSFLAG_0400, PSFLAG2_PRINTABLE, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
+						PSFLAG_AMBIENT, PSFLAG2_PRINTABLE, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 				fireslot->endlvframe = (u32)g_Vars.lvframe60 + duration;
 				chr->hidden |= CHRHFLAG_FIRESOUNDDONE;
 

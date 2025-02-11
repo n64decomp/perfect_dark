@@ -3312,7 +3312,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 						struct coord spa4 = {0, 0, 0};
 						s0 = false;
 						sparks_create(prop->rooms[0], prop, &hitthing.pos, &spa4, &hitthing.unk0c, SPARKTYPE_DEEPWATER);
-						ps_create(0, prop, SFX_HIT_WATER, -1, -1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						ps_create(0, prop, SFX_HIT_WATER, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 						obj->hidden |= OBJHFLAG_DELETING;
 					}
 				}
@@ -10469,7 +10469,7 @@ void hovercar_tick(struct prop *prop)
 			if (hovercar->sparkstimer60 < 0) {
 				hovercar->sparkstimer60 = TICKS(50);
 
-				ps_create(NULL, prop, SFX_SHIELD_DAMAGE, -1, -1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+				ps_create(NULL, prop, SFX_SHIELD_DAMAGE, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 				sparks_create(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_DEFAULT);
 			}
@@ -15847,7 +15847,7 @@ s32 prop_play_pickup_sound(struct prop *prop, s32 weapon)
 	}
 
 	return ps_create(NULL, prop, sound, -1,
-			-1, PSFLAG_0400, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+			-1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 }
 
 void weapon_play_pickup_sound(s32 weaponnum)
@@ -18475,7 +18475,7 @@ void door_play_opening_sound(s32 soundtype, struct prop *prop)
 	if (sound1) {
 #if VERSION >= VERSION_NTSC_1_0
 		ps_create(NULL, prop, sound1, -1,
-				-1, PSFLAG_0400, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
+				-1, PSFLAG_AMBIENT, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #else
 		ps_create(NULL, prop, sound1, -1,
 				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
@@ -18539,7 +18539,7 @@ void door_play_closing_sound(s32 soundtype, struct prop *prop)
 	if (sound1) {
 #if VERSION >= VERSION_NTSC_1_0
 		ps_create(NULL, prop, sound1, -1,
-				-1, PSFLAG_0400, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
+				-1, PSFLAG_AMBIENT, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #else
 		ps_create(NULL, prop, sound1, -1,
 				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
@@ -18602,7 +18602,7 @@ void door_play_opened_sound(s32 soundtype, struct prop *prop)
 	if (sound) {
 #if VERSION >= VERSION_NTSC_1_0
 		ps_create(NULL, prop, sound, -1,
-				-1, PSFLAG_0400, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
+				-1, PSFLAG_AMBIENT, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #else
 		ps_create(NULL, prop, sound, -1,
 				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
@@ -18652,7 +18652,7 @@ void door_play_closed_sound(s32 soundtype, struct prop *prop)
 	if (sound) {
 #if VERSION >= VERSION_NTSC_1_0
 		ps_create(NULL, prop, sound, -1,
-				-1, PSFLAG_0400, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
+				-1, PSFLAG_AMBIENT, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 #else
 		ps_create(NULL, prop, sound, -1,
 				-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);

@@ -888,7 +888,7 @@ u8 func0c01_outro[] = {
 
 	wait_until(160, 0x3d)
 	play_sound(SFX_0172, CHANNEL_CUTSCENE)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_042D, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_CUTSCENE, OBJ_OUTRO_SUBMARINE, SFX_042D, PSTYPE_NONE, 0)
 
 	wait_until(180, 0x3b)
 	speak(CHR_BOND, L_DAM_039, MP3_0465, CHANNEL_CUTSCENE, COLOR_06_WHITE) // "Right. The diving operation has been disrupted on ..."
@@ -984,13 +984,13 @@ u8 func0c01_outro[] = {
 	play_sound(SFX_80A3, CHANNEL_CUTSCENE)
 
 	wait_until(1480, 0x63)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_GRATE, SFX_00C1, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_CUTSCENE, OBJ_OUTRO_GRATE, SFX_00C1, PSTYPE_NONE, 0)
 
 	wait_until(1500, 0x67)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_042D, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_CUTSCENE, OBJ_OUTRO_SUBMARINE, SFX_042D, PSTYPE_NONE, 0)
 
 	wait_until(1590, 0x68)
-	play_sound_from_object2(0x0a, OBJ_OUTRO_SUBMARINE, SFX_0434, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_CUTSCENE, OBJ_OUTRO_SUBMARINE, SFX_0434, PSTYPE_NONE, 0)
 
 	beginloop(0x0b)
 		if_camera_animating(/*goto*/ 0x07)
@@ -1125,7 +1125,7 @@ u8 func100a_reactor_switch[] = {
 	mute_channel(CHANNEL_0)
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_8147, CHANNEL_0)
-	set_object_sound_playing(CHANNEL_0, OBJ_REACTOR_SWITCH, TRUE)
+	bind_channel_to_object(CHANNEL_0, OBJ_REACTOR_SWITCH, TRUE)
 	set_lights_state(0x007f, LIGHTOP_TRANSITION, 255, 6, 120)
 	set_object_image(OBJ_REACTOR_SWITCH, 0, TVPROGRAM_SOLID_RED)
 	set_object_image(OBJ_REACTOR_SWITCH, 1, TVPROGRAM_SOLID_RED)
@@ -1997,7 +1997,7 @@ u8 func0401_pilot[] = {
 	endloop(0x0e)
 
 	label(0x08)
-	speak(CHR_SELF, -1, SFX_TYPING_8118, CHANNEL_9, COLOR_00_GREEN)
+	speak(CHR_SELF, -1, SFX_TYPING_8118, CHANNEL_DONTCARE, COLOR_00_GREEN)
 
 	beginloop(0x10)
 		if_chr_stopped(/*goto*/ 0x07)
@@ -2326,7 +2326,7 @@ u8 func1015_shuffle_hatchswitches[] = {
  \
 	label(0x07) \
 	assign_sound(SFX_043A, CHANNEL_7) \
-	set_object_sound_playing(CHANNEL_7, switch, TRUE) \
+	bind_channel_to_object(CHANNEL_7, switch, TRUE) \
 	set_object_image(switch, 0, TVPROGRAM_SOLID_BLACK) \
 	set_stage_flag(flag) \
  \
@@ -2381,40 +2381,40 @@ u8 func101a_badhatchswitches[] = {
 	// 1
 	label(0x0b)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_BADHATCHSWITCH1, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_BADHATCHSWITCH1, TRUE)
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
-	set_object_sound_playing(CHANNEL_6, OBJ_BADHATCHSWITCH1, FALSE)
+	bind_channel_to_object(CHANNEL_6, OBJ_BADHATCHSWITCH1, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH1, 0, TVPROGRAM_PULSE_RED)
 	goto_next(0x04)
 
 	// 2
 	label(0x0c)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_BADHATCHSWITCH2, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_BADHATCHSWITCH2, TRUE)
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
-	set_object_sound_playing(CHANNEL_6, OBJ_BADHATCHSWITCH2, FALSE)
+	bind_channel_to_object(CHANNEL_6, OBJ_BADHATCHSWITCH2, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH2, 0, TVPROGRAM_PULSE_RED)
 	goto_next(0x04)
 
 	// 3
 	label(0x0d)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_BADHATCHSWITCH3, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_BADHATCHSWITCH3, TRUE)
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
-	set_object_sound_playing(CHANNEL_6, OBJ_BADHATCHSWITCH3, FALSE)
+	bind_channel_to_object(CHANNEL_6, OBJ_BADHATCHSWITCH3, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH3, 0, TVPROGRAM_PULSE_RED)
 	goto_next(0x04)
 
 	// 4
 	label(0x0e)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_BADHATCHSWITCH4, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_BADHATCHSWITCH4, TRUE)
 	yield
 	assign_sound(SFX_01C0, CHANNEL_6)
-	set_object_sound_playing(CHANNEL_6, OBJ_BADHATCHSWITCH4, FALSE)
+	bind_channel_to_object(CHANNEL_6, OBJ_BADHATCHSWITCH4, FALSE)
 	set_object_image(OBJ_BADHATCHSWITCH4, 0, TVPROGRAM_PULSE_RED)
 	goto_next(0x04)
 
@@ -2442,7 +2442,7 @@ u8 func101a_badhatchswitches[] = {
 u8 func101b_reactor_hum[] = {
 	yield
 	assign_sound(SFX_8146, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, OBJ_REACTOR_SWITCH, 1, 2000, 3000)
+	bind_channel_to_object_repeating(CHANNEL_1, OBJ_REACTOR_SWITCH, 1, 2000, 3000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

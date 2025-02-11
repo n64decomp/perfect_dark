@@ -1006,7 +1006,7 @@ u8 func100c_maingate_switch[] = {
 
 		label(0x2e)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
 		if_door_state(OBJ_MAINGATE1, (DOORSTATE_OPEN | DOORSTATE_OPENING), /*goto*/ 0x2e)
 		show_hudmsg(CHR_P1P2, L_LUE_043) // "Main gate has been opened."
@@ -1023,7 +1023,7 @@ u8 func100c_maingate_switch[] = {
 
 		label(0x2e)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_MAINGATE_SWITCH, 0x012c, 0x0190, 0x00)
 		set_object_image(OBJ_MAINGATE_SWITCH, 0, TVPROGRAM_SOLID_RED)
 		show_hudmsg(CHR_P1P2, L_LUE_044) // "Main gate has been closed."
 		close_door(OBJ_MAINGATE1)
@@ -1142,11 +1142,11 @@ u8 func1405_antenna_switch[] = {
 		label(0x2e)
 		if_stage_flag_eq(STAGEFLAG_ANTENNA_LOWERED, TRUE, /*goto*/ 0x06)
 #if VERSION >= VERSION_NTSC_1_0
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, PSTYPE_NONE, 0)
-		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, PSTYPE_NONE, PSFLAG_REPEATING)
+		play_sound_from_object(CHANNEL_DONTCARE, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, PSTYPE_NONE, 0)
+		play_sound_from_object(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, PSTYPE_NONE, PSFLAG_REPEATING)
 #else
 		assign_sound(SFX_00CD, CHANNEL_1)
-		set_object_sound_playing(CHANNEL_1, OBJ_ANTENNA_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_1, OBJ_ANTENNA_SWITCH, TRUE)
 #endif
 		set_object_image(OBJ_ANTENNA_SWITCH, 0, TVPROGRAM_SOLID_RED)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
@@ -1171,18 +1171,18 @@ u8 func1405_antenna_switch[] = {
 		label(0x2e)
 		mute_channel(CHANNEL_1)
 #if VERSION >= VERSION_NTSC_1_0
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, PSTYPE_NONE, 0)
+		play_sound_from_object(CHANNEL_DONTCARE, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, PSTYPE_NONE, 0)
 #endif
 		set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
 
 		label(0x06)
 #if VERSION >= VERSION_NTSC_1_0
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, PSTYPE_NONE, 0)
-		play_sound_from_object2(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, PSTYPE_NONE, PSFLAG_REPEATING)
+		play_sound_from_object(CHANNEL_DONTCARE, OBJ_ANTENNA_SWITCH, SFX_DOOR_801E, PSTYPE_NONE, 0)
+		play_sound_from_object(CHANNEL_1, OBJ_ANTENNA, SFX_00CD, PSTYPE_NONE, PSFLAG_REPEATING)
 #else
 		assign_sound(SFX_00CD, CHANNEL_1)
-		set_object_sound_playing(CHANNEL_1, OBJ_ANTENNA_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_1, OBJ_ANTENNA_SWITCH, TRUE)
 #endif
 		set_object_image(OBJ_ANTENNA_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
 		unset_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
@@ -1207,7 +1207,7 @@ u8 func1405_antenna_switch[] = {
 		label(0x2e)
 		mute_channel(CHANNEL_1)
 #if VERSION >= VERSION_NTSC_1_0
-		play_sound_from_object2(CHANNEL_9, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, PSTYPE_NONE, 0)
+		play_sound_from_object(CHANNEL_DONTCARE, OBJ_ANTENNA_SWITCH, SFX_DOOR_801F, PSTYPE_NONE, 0)
 #endif
 		set_object_flag(OBJ_ANTENNA, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
@@ -1224,7 +1224,7 @@ u8 func1006_lift_switches[] = {
 
 		label(0x09)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LIFT1_SWITCH, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LIFT1_SWITCH, 0x012c, 0x0190, 0x00)
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2e)
 		show_hudmsg(CHR_P1P2, L_LUE_036) // "Lift access denied - key card needed."
 		goto_next(0x0b)
@@ -1246,7 +1246,7 @@ u8 func1006_lift_switches[] = {
 
 		label(0x0a)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LIFT2_SWITCH, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LIFT2_SWITCH, 0x012c, 0x0190, 0x00)
 #if VERSION >= VERSION_PAL_BETA
 		if_chr_has_object(CHR_P1P2, OBJ_KEYCARD, /*goto*/ 0x2e)
 #else
@@ -2200,7 +2200,7 @@ u8 func1010_bunker_lighting[] = {
 	mute_channel(CHANNEL_0)
 	yield
 	assign_sound(SFX_ALARM_INFILTRATION, CHANNEL_0)
-	play_repeating_sound_from_object(CHANNEL_0, 0x10, 1, 800, 1100)
+	bind_channel_to_object_repeating(CHANNEL_0, 0x10, 1, 800, 1100)
 	set_lights_state(0x0009, LIGHTOP_TRANSITION, 255, 50, 120)
 	if_difficulty_lt(DIFF_SA, /*goto*/ 0x0e)
 	restart_timer
@@ -2478,7 +2478,7 @@ u8 func1011_bunker_explosives[] = {
 	destroy_object(OBJ_RADAR_TERMINAL)
 	mute_channel(CHANNEL_0)
 	assign_sound(SFX_0479, CHANNEL_0)
-	set_object_sound_playing(CHANNEL_0, OBJ_RADAR_TERMINAL, TRUE)
+	bind_channel_to_object(CHANNEL_0, OBJ_RADAR_TERMINAL, TRUE)
 	restart_timer
 
 	beginloop(0x0b)
@@ -2601,7 +2601,7 @@ u8 func1016_trigger_interceptor[] = {
 u8 func1017_radar_terminal_noise[] = {
 	yield
 	assign_sound(SFX_8146, CHANNEL_0)
-	play_repeating_sound_from_object(CHANNEL_0, OBJ_RADAR_TERMINAL, 1, 800, 1100)
+	bind_channel_to_object_repeating(CHANNEL_0, OBJ_RADAR_TERMINAL, 1, 800, 1100)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

@@ -4439,9 +4439,9 @@ bool ai_speak(void)
 	}
 
 	if (cmd[2] == CHR_P1P2) {
-		channelnum = ps_play_from_prop((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, PSTYPE_NONE, PSFLAG_FORHUDMSG);
+		channelnum = ps_create_from_ai((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, PSTYPE_NONE, PSFLAG_FORHUDMSG);
 	} else {
-		channelnum = ps_play_from_prop((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, PSFLAG_FORHUDMSG);
+		channelnum = ps_create_from_ai((s8)cmd[7], audio_id, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, PSFLAG_FORHUDMSG);
 	}
 
 	if (text && !snd_is_filtered(audio_id)) {
@@ -4463,7 +4463,7 @@ bool ai_play_sound(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
-	ps_play_from_prop((s8)cmd[4], audio_id, 0, NULL, PSTYPE_NONE, 0);
+	ps_create_from_ai((s8)cmd[4], audio_id, 0, NULL, PSTYPE_NONE, 0);
 
 	g_Vars.aioffset += 5;
 
@@ -4478,7 +4478,7 @@ bool ai_assign_sound(void)
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[3] | (cmd[2] << 8);
 
-	ps_play_from_prop((s8)cmd[4], audio_id, -1, NULL, PSTYPE_MARKER, 0);
+	ps_create_from_ai((s8)cmd[4], audio_id, -1, NULL, PSTYPE_MARKER, 0);
 
 	g_Vars.aioffset += 5;
 
@@ -4519,7 +4519,7 @@ bool ai_if_channel_free(void)
 /**
  * @cmd 00d1
  */
-bool ai_set_object_sound_volume(void)
+bool ai_set_channel_volume(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 volume = cmd[4] | (cmd[3] << 8);
@@ -4535,7 +4535,7 @@ bool ai_set_object_sound_volume(void)
 /**
  * @cmd 00d2
  */
-bool ai_set_object_sound_volume_by_distance(void)
+bool ai_set_channel_volume_by_distance(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	f32 playerdist = cmd[4] | (cmd[3] << 8);
@@ -4552,7 +4552,7 @@ bool ai_set_object_sound_volume_by_distance(void)
 /**
  * @cmd 00cf
  */
-bool ai_set_object_sound_playing(void)
+bool ai_bind_channel_to_object(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = obj_find_by_tag_id(cmd[3]);
@@ -4570,21 +4570,21 @@ bool ai_set_object_sound_playing(void)
 /**
  * @cmd 016b
  */
-bool ai_play_repeating_sound_from_object(void)
+bool ai_bind_channel_to_object_repeating(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	struct defaultobj *obj = obj_find_by_tag_id(cmd[3]);
-	u16 thing1 = cmd[5] | (cmd[4] << 8);
+	u16 reqvolchangetimer60 = cmd[5] | (cmd[4] << 8);
 	u16 dist2 = cmd[7] | (cmd[6] << 8);
 	u16 dist3 = cmd[9] | (cmd[8] << 8);
 
 	if (obj && obj->prop) {
 		s32 volchangetimer60;
 
-		if (thing1 == 0) {
+		if (reqvolchangetimer60 == 0) {
 			volchangetimer60 = -1;
 		} else {
-			volchangetimer60 = thing1;
+			volchangetimer60 = reqvolchangetimer60;
 		}
 
 		ps_modify((s8)cmd[2], -1, -1, obj->prop, volchangetimer60, dist2, dist3, PSFLAG_REPEATING);
@@ -4598,7 +4598,7 @@ bool ai_play_repeating_sound_from_object(void)
 /**
  * @cmd 0179
  */
-bool ai_play_sound_from_entity(void)
+bool ai_bind_channel_to_entity(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	u16 volchangetimer60 = cmd[5] | (cmd[4] << 8);
@@ -4627,7 +4627,7 @@ bool ai_play_sound_from_entity(void)
 /**
  * @cmd 00d0
  */
-bool ai_play_repeating_sound_from_pad(void)
+bool ai_bind_channel_to_pad_repeating(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 padnum = cmd[4] | (cmd[3] << 8);
@@ -8736,29 +8736,29 @@ s16 g_CiThanksQuips[] = {
 /**
  * @cmd 01a2
  */
-bool ai_say_ci_staff_quip(void)
+bool ai_say_ciquip(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 quip;
 
 	if (cmd[2] == CIQUIP_GREETING) {
 		quip = g_CiGreetingQuips[g_Vars.chrdata->morale][random() % 3];
-		ps_play_from_prop((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
+		ps_create_from_ai((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
 	}
 
 	if (cmd[2] == CIQUIP_MAIN) {
 		quip = g_CiMainQuips[g_Vars.chrdata->morale][random() % 3];
-		ps_play_from_prop((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
+		ps_create_from_ai((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
 	}
 
 	if (cmd[2] == CIQUIP_ANNOYED) {
 		quip = g_CiAnnoyedQuips[g_Vars.chrdata->morale][random() % 3];
-		ps_play_from_prop((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
+		ps_create_from_ai((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
 	}
 
 	if (cmd[2] == CIQUIP_THANKS) {
 		quip = g_CiThanksQuips[g_Vars.chrdata->morale];
-		ps_play_from_prop((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
+		ps_create_from_ai((s8)cmd[3], quip, 0, g_Vars.chrdata->prop, PSTYPE_CHRTALK, 0);
 	}
 
 	g_Vars.aioffset += 4;
@@ -9770,7 +9770,7 @@ bool ai_if_distance_to_target2_greater_than(void)
 /**
  * @cmd 01d9
  */
-bool ai_play_sound_from_prop(void)
+bool ai_play_sound_from_object(void)
 {
 	u8 *cmd = g_Vars.ailist + g_Vars.aioffset;
 	s16 audio_id = cmd[5] | (cmd[4] << 8);
@@ -9780,7 +9780,7 @@ bool ai_play_sound_from_prop(void)
 	s16 type = cmd[8];
 	struct defaultobj *obj = obj_find_by_tag_id(cmd[3]);
 
-	ps_play_from_prop(channel, audio_id, volume, obj->prop, type, flags);
+	ps_create_from_ai(channel, audio_id, volume, obj->prop, type, flags);
 
 	g_Vars.aioffset += 11;
 

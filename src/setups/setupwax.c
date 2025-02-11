@@ -1696,7 +1696,7 @@ u8 func1007_bomb_logic[] = {
 	disable_object(OBJ_BOND_BOMB)
 	disable_object(OBJ_COOP_BOMB)
 	assign_sound(SFX_8144, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, OBJ_PLANTED_BOMB, 1, 600, 1200)
+	bind_channel_to_object_repeating(CHANNEL_1, OBJ_PLANTED_BOMB, 1, 600, 1200)
 	unset_object_flag2(OBJ_PLANTED_BOMB, OBJFLAG2_INVISIBLE)
 	set_object_image(OBJ_PLANTED_BOMB, 0, TVPROGRAM_PULSE_RED)
 	unset_object_flag(OBJ_PLANTED_BOMB, OBJFLAG_INVINCIBLE)

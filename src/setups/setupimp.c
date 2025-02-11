@@ -1749,7 +1749,7 @@ u8 func041a_hostage_holo[] = {
 
 	label(0x2e)
 	assign_sound(MP3_030E, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	restart_timer
 
 	// Wait until player in sight, or 2 seconds
@@ -1763,7 +1763,7 @@ u8 func041a_hostage_holo[] = {
 
 	label(0x08)
 	assign_sound(MP3_030F, CHANNEL_7)
-	play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	label(0x08)
 	label(0x08)
 	try_spawn_chr_at_pad(BODY_CIFEMTECH, HEAD_SECRETARY, PAD_IMP_0104, AILIST_INIT_HOLOCLONE1, SPAWNFLAG_ALLOWONSCREEN | SPAWNFLAG_NOBLOOD, /*goto*/ 0x2e)
@@ -1824,7 +1824,7 @@ u8 func041c_init_holoclone1[] = {
 	set_chr_team(CHR_SELF, TEAM_ALLY)
 	rebuild_teams
 	rebuild_squadrons
-	play_sound(SFX_MENU_OPENDIALOG, CHANNEL_9)
+	play_sound(SFX_MENU_OPENDIALOG, CHANNEL_DONTCARE)
 	set_shotlist(AILIST_HOLOCLONE_ONSHOT)
 	set_chr_maxdamage(CHR_SELF, 1)
 	set_chr_id(CHR_HOLOCLONE1)
@@ -1928,9 +1928,9 @@ u8 func0421_taker_holo2[] = {
 	set_self_chrflag(CHRCFLAG_NEVERSLEEP)
 	assign_sound(SFX_M0_WHAT_THE, CHANNEL_6)
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 #else
-	play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 #endif
 	holo_taker_logic(CHR_HOLOCLONE2)
 	endlist
@@ -2007,7 +2007,7 @@ u8 func0425_hostage_thank_and_run[] = {
 	goto_first(0x0b)
 
 	label(0x08)
-	play_cistaff_quip(CIQUIP_THANKS, CHANNEL_6)
+	say_ciquip(CIQUIP_THANKS, CHANNEL_6)
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	label(0x2f)
 	restart_timer
@@ -2097,7 +2097,7 @@ u8 func0427_drop_devastator[] = {
 	give_object_to_chr(OBJ_DEVASTATOR, CHR_SELF)
 	yield
 	drop_concealed_items(CHR_SELF)
-	play_cistaff_quip(CIQUIP_THANKS, CHANNEL_6)
+	say_ciquip(CIQUIP_THANKS, CHANNEL_6)
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	restart_timer
 
@@ -2276,9 +2276,9 @@ u8 func042e_taker_device_m[] = {
 	increase_squadron_alertness(100)
 	assign_sound(SFX_M0_WHAT_THE, CHANNEL_6)
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 #else
-	play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 #endif
 	restart_timer
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, 0, 16, CHR_SELF, 2)
@@ -2334,7 +2334,7 @@ u8 func0430_taker_device_f[] = {
 		if_self_flag_bankx_eq(CHRFLAG1_CAN_RELOAD, FALSE, BANK_1, /*goto*/ 0x08)
 		if_timer_lt(120, /*goto*/ 0x08)
 		assign_sound(VERSION >= VERSION_NTSC_1_0 ? SFX_80F6 : SFX_01D9, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_CAN_RELOAD, BANK_1)
 		label(0x08)
 		if_chr_stopped(/*goto*/ 0x2e)
@@ -3301,7 +3301,7 @@ u8 func1022_skedar_shuttle[] = {
 	stop_countdown_timer
 	object_do_animation(ANIM_045B, OBJ_SKEDAR_SHUTTLE, 0x08, 0xffff)
 	assign_sound(SFX_810A, CHANNEL_3)
-	play_repeating_sound_from_object(CHANNEL_3, OBJ_SKEDAR_SHUTTLE, 1, 1800, 3000)
+	bind_channel_to_object_repeating(CHANNEL_3, OBJ_SKEDAR_SHUTTLE, 1, 1800, 3000)
 	restart_timer
 
 	beginloop(0x0b)
@@ -3311,7 +3311,7 @@ u8 func1022_skedar_shuttle[] = {
 
 	label(0x2e)
 	assign_sound(SFX_810B, CHANNEL_4)
-	play_repeating_sound_from_object(CHANNEL_4, OBJ_SKEDAR_SHUTTLE, 1, 1800, 3000)
+	bind_channel_to_object_repeating(CHANNEL_4, OBJ_SKEDAR_SHUTTLE, 1, 1800, 3000)
 
 	beginloop(0x0d)
 		dprint 'O','B','J','\n',0,
@@ -3784,7 +3784,7 @@ u8 func1027_uplink[] = {
 		show_hudmsg(CHR_TARGET, L_IMP_053) // "Bypassing security systems."
 		restart_timer
 		assign_sound(SFX_01BF, CHANNEL_5)
-		set_object_sound_playing(CHANNEL_5, OBJ_SKEDAR_SHUTTLE, TRUE)
+		bind_channel_to_object(CHANNEL_5, OBJ_SKEDAR_SHUTTLE, TRUE)
 
 		beginloop(0x13)
 			if_object_in_good_condition(OBJ_SKEDAR_SHUTTLE, /*goto*/ 0x2f)
@@ -3806,7 +3806,7 @@ u8 func1027_uplink[] = {
 		label(0x08)
 		mute_channel(CHANNEL_5)
 		assign_sound(SFX_01C1, CHANNEL_6)
-		set_object_sound_playing(CHANNEL_6, OBJ_SKEDAR_SHUTTLE, TRUE)
+		bind_channel_to_object(CHANNEL_6, OBJ_SKEDAR_SHUTTLE, TRUE)
 		show_hudmsg(CHR_TARGET, L_IMP_054) // "Virus has been downloaded successfully."
 		yield
 		show_hudmsg(CHR_TARGET, L_IMP_055) // "Ship's engines have been activated."
@@ -3825,7 +3825,7 @@ u8 func1027_uplink[] = {
 		show_hudmsg(CHR_TARGET, L_IMP_056) // "Connection to ship has been broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		set_object_sound_playing(CHANNEL_6, OBJ_SKEDAR_SHUTTLE, TRUE)
+		bind_channel_to_object(CHANNEL_6, OBJ_SKEDAR_SHUTTLE, TRUE)
 		restart_timer
 
 		beginloop(0x15)

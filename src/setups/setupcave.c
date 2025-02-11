@@ -1741,7 +1741,7 @@ u8 func1007_console_activation[] = {
 	show_hudmsg(CHR_P1P2, L_CAVE_035) // "System shutdown initiated..."
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_01B9, CHANNEL_1)
-	set_object_sound_playing(CHANNEL_1, OBJ_CONSOLE, TRUE)
+	bind_channel_to_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
 	restart_timer
 
 	beginloop(0x04)
@@ -1756,7 +1756,7 @@ u8 func1007_console_activation[] = {
 	set_object_image(OBJ_CONSOLE, 0, TVPROGRAM_SOLID_BLACK)
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_0479, CHANNEL_1)
-	set_object_sound_playing(CHANNEL_1, OBJ_CONSOLE, TRUE)
+	bind_channel_to_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
 	show_hudmsg(CHR_P1P2, L_CAVE_036) // "Security systems have been shut down."
 	set_stage_flag(STAGEFLAG_SECURITY_SHUT_DOWN)
 	unset_chr_hiddenflag(CHR_BOND, CHRHFLAG_DISGUISED)
@@ -2358,7 +2358,7 @@ u8 func100d_laser_panel[] = {
 
 		label(0x04)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_LASER_PANEL, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_LASER_PANEL, TRUE)
 		show_hudmsg(CHR_P1P2, L_CAVE_045) // "Laser grid access denied."
 	endloop(0x00)
 
@@ -2956,16 +2956,16 @@ u8 func0404_laser_guard[] = {
 u8 func1016_console_noises[] = {
 	yield
 	assign_sound(SFX_8141, CHANNEL_0)
-	play_repeating_sound_from_object(CHANNEL_0, 0x04, 1, 600, 800)
+	bind_channel_to_object_repeating(CHANNEL_0, 0x04, 1, 600, 800)
 	yield
 	assign_sound(SFX_8143, CHANNEL_2)
-	play_repeating_sound_from_object(CHANNEL_2, 0x05, 1, 500, 1000)
+	bind_channel_to_object_repeating(CHANNEL_2, 0x05, 1, 500, 1000)
 	yield
-	play_repeating_sound_from_pad(PAD_CAVE_0114, SFX_81A7)
+	bind_channel_to_pad_repeating(PAD_CAVE_0114, SFX_81A7)
 	yield
-	play_repeating_sound_from_pad(PAD_CAVE_0115, SFX_81A7)
+	bind_channel_to_pad_repeating(PAD_CAVE_0115, SFX_81A7)
 	yield
-	play_repeating_sound_from_pad(PAD_CAVE_01AC, SFX_811B)
+	bind_channel_to_pad_repeating(PAD_CAVE_01AC, SFX_811B)
 
 	label(0x42)
 	restart_timer
@@ -3004,7 +3004,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	assign_sound(SFX_8112, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
+	bind_channel_to_object_repeating(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
 	// Rand 2
@@ -3020,7 +3020,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	assign_sound(SFX_813F, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
+	bind_channel_to_object_repeating(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
 	// Rand 3
@@ -3036,7 +3036,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	assign_sound(SFX_8140, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
+	bind_channel_to_object_repeating(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
 	label(0x09)

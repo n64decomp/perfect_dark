@@ -818,7 +818,7 @@ u8 func1026_uplink[] = {
 		label(0x03)
 		show_hudmsg(CHR_P1P2, L_PETE_019) // "Accessing hovercab navigation systems."
 		assign_sound(SFX_0456, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_TAXI, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_TAXI, TRUE)
 		restart_timer
 
 		beginloop(0x05)
@@ -832,7 +832,7 @@ u8 func1026_uplink[] = {
 		show_hudmsg(CHR_P1P2, L_PETE_021) // "Hovercab navigation systems reprogrammed."
 		mute_channel(CHANNEL_7)
 		assign_sound(SFX_01C1, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_TAXI, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_TAXI, TRUE)
 		yield
 		set_stage_flag(STAGEFLAG_TAXI_REPROGRAMMED)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -845,7 +845,7 @@ u8 func1026_uplink[] = {
 		yield
 		yield
 		assign_sound(SFX_0457, CHANNEL_4)
-		play_repeating_sound_from_object(CHANNEL_4, OBJ_TAXI, 1, 300, 400)
+		bind_channel_to_object_repeating(CHANNEL_4, OBJ_TAXI, 1, 300, 400)
 		restart_timer
 
 		beginloop(0x1d)
@@ -902,7 +902,7 @@ u8 func040d_limo[] = {
 	object_do_animation(ANIM_02D6, OBJ_LIMO, 0x04, 0xffff)
 
 	assign_sound(SFX_BIKE_ENGINE, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, OBJ_LIMO, 1, 2400, 3200)
+	bind_channel_to_object_repeating(CHANNEL_1, OBJ_LIMO, 1, 2400, 3200)
 	if_stage_flag_eq(STAGEFLAG_TRACERBUG_PLACED, TRUE, /*goto*/ 0x03)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x03)
 	set_stage_flag(STAGEFLAG_LIMO_ESCAPED)
@@ -941,7 +941,7 @@ u8 func040c_taxi[] = {
 	// Take off
 	label(0x03)
 	assign_sound(SFX_8000, CHANNEL_0)
-	play_repeating_sound_from_object(CHANNEL_0, OBJ_TAXI, 1, 2400, 3200)
+	bind_channel_to_object_repeating(CHANNEL_0, OBJ_TAXI, 1, 2400, 3200)
 	object_do_animation(ANIM_0168, OBJ_TAXI, 0x04, 0xffff)
 	set_object_flag2(OBJ_TAXI, OBJFLAG2_CANFILLVIEWPORT)
 
@@ -1633,7 +1633,7 @@ u8 func0413_bugspotter[] = {
 	label(0x04)
 	chr_do_animation(ANIM_TALKING_00A3, 0, -1, 0, 16, CHR_SELF, 2)
 	assign_sound(SFX_044A, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_stage_flag(STAGEFLAG_TRACERBUG_SPOTTED)
 	show_hudmsg(CHR_BOND, L_PETE_067) // "Tracer Bug has been spotted."
 
@@ -1669,7 +1669,7 @@ u8 func0413_bugspotter[] = {
 	label(0x04)
 	increase_squadron_alertness(100)
 	assign_sound(SFX_0467, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	// No other guard to run to
 	label(0x0b)
@@ -1982,17 +1982,17 @@ u8 func041a_robot[] = {
 		if_rand_lt(86, /*goto*/ 0x06)
 		if_rand_lt(172, /*goto*/ 0x07)
 		assign_sound(SFX_046A, CHANNEL_5)
-		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		goto_next(0x03)
 
 		label(0x06)
 		assign_sound(SFX_046B, CHANNEL_5)
-		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		goto_next(0x03)
 
 		label(0x07)
 		assign_sound(SFX_046C, CHANNEL_5)
-		play_sound_from_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		label(0x03)
 
 		if_patrolling(/*goto*/ 0x03)
@@ -2052,7 +2052,7 @@ u8 func041a_robot[] = {
 
 	label(0x0c)
 	assign_sound(MP3_ROBOT_ALERT_UNDER_ATTACK, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
 	label(0x01)
@@ -2136,7 +2136,7 @@ u8 func041e_sealer1[] = {
 	// Conversation
 	label(0x04)
 	assign_sound(SFX_814B, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0098, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SELF, 2)
 	restart_timer
 
@@ -2147,7 +2147,7 @@ u8 func041e_sealer1[] = {
 
 	label(0x03)
 	assign_sound(SFX_044F, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0231, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER1, 2)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SELF, 2)
 
@@ -2158,7 +2158,7 @@ u8 func041e_sealer1[] = {
 
 	label(0x03)
 	assign_sound(SFX_0450, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0233, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER3, 2)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER1, 2)
 	restart_timer
@@ -2170,7 +2170,7 @@ u8 func041e_sealer1[] = {
 
 	label(0x03)
 	assign_sound(SFX_0451, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0232, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER1, 2)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER3, 2)
 	restart_timer
@@ -2182,7 +2182,7 @@ u8 func041e_sealer1[] = {
 
 	label(0x03)
 	assign_sound(SFX_0452, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0234, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER3, 2)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER1, 2)
 
@@ -2204,7 +2204,7 @@ u8 func041e_sealer1[] = {
 	lock_door(0x11, 0x02)
 	set_stage_flag(STAGEFLAG_ELEVATOR_SEALED)
 	assign_sound(SFX_0469, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	show_hudmsg(CHR_BOND, L_PETE_033) // "Elevator access sealed."
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -2399,10 +2399,10 @@ u8 func040a_intro_from_gameplay[] = {
 
 u8 func101f_setup_robot_noise[] = {
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object2(CHANNEL_2, CHR_ROBOT, SFX_80B9_THUNDER, PSTYPE_NONE, PSFLAG_REPEATING)
+	play_sound_from_object(CHANNEL_2, CHR_ROBOT, SFX_80B9_THUNDER, PSTYPE_NONE, PSFLAG_REPEATING)
 #else
 	play_sound(SFX_80B9_THUNDER, CHANNEL_2)
-	play_repeating_sound_from_object(CHANNEL_2, CHR_ROBOT, 0, 900, 1500)
+	bind_channel_to_object_repeating(CHANNEL_2, CHR_ROBOT, 0, 900, 1500)
 #endif
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

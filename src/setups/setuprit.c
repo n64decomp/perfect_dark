@@ -1161,7 +1161,7 @@ u8 func100a_autopilot_switch[] = {
 	// Switch pressed
 	label(0x06)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_AUTOPILOT_SWITCH, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_AUTOPILOT_SWITCH, TRUE)
 	set_object_image(OBJ_AUTOPILOT_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
 	set_stage_flag(STAGEFLAG_PLANE_STABILIZED)
 	yield
@@ -1468,7 +1468,7 @@ u8 func0404_president_running[] = {
 
 	label(0x06)
 	assign_sound(MP3_02BF, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_shotlist(GAILIST_IDLE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -1482,7 +1482,7 @@ u8 func0404_president_running[] = {
 	label(0x06)
 	restart_timer
 	assign_sound(MP3_02C2, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	if_stage_flag_eq(STAGEFLAG_PRESIDENT_INJURED, TRUE, /*goto*/ 0x56)
 	set_stage_flag(STAGEFLAG_PRESIDENT_INJURED)
 	show_hudmsg(CHR_BOND, L_RIT_072) // "The President is under attack."
@@ -2815,7 +2815,7 @@ u8 func041e_blonde[] = {
 		if_self_flag_bankx_eq(CHRFLAG1_CAN_RELOAD, FALSE, BANK_1, /*goto*/ 0x06)
 		if_timer_lt(120, /*goto*/ 0x06)
 		assign_sound(VERSION >= VERSION_NTSC_1_0 ? SFX_80F6 : SFX_01D9, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+		bind_channel_to_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_CAN_RELOAD, BANK_1)
 		label(0x06)
 		if_chr_stopped(/*goto*/ 0x2d)
@@ -3665,7 +3665,7 @@ u8 func101a_equipment_switch[] = {
 	open_door(0x1c)
 	show_hudmsg(CHR_P1P2, L_RIT_061) // "Cargo bay has been raised."
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_EQUIPMENT_SWITCH, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_EQUIPMENT_SWITCH, TRUE)
 	unset_object_flag(0x1b, OBJFLAG_DEACTIVATED)
 	yield
 	yield
@@ -3729,7 +3729,7 @@ u8 func101b_hoverbike_switch[] = {
 	show_hudmsg(CHR_P1P2, L_RIT_060) // "Cargo bay has been lowered."
 	set_savefile_flag(GAMEFILEFLAG_CRASHSITE_BIKE)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_HOVERBIKE_SWITCH, TRUE)
 	unset_object_flag(0x1f, OBJFLAG_DEACTIVATED)
 	restart_timer
 

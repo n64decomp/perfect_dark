@@ -1443,7 +1443,7 @@ u8 func1004_elevator_unlocking[] = {
 	label(0x20)
 	show_hudmsg(CHR_TARGET, L_ARK_014) // "Accessing elevator controls..."
 	assign_sound(SFX_8116, CHANNEL_6)
-	set_object_sound_playing(CHANNEL_6, 0x01, TRUE)
+	bind_channel_to_object(CHANNEL_6, 0x01, TRUE)
 	restart_timer
 
 	beginloop(0x22)

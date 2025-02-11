@@ -1156,7 +1156,7 @@ u8 func1003_uplink_doors[] = {
 		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
 		assign_sound(SFX_01BF, CHANNEL_5)
-		set_object_sound_playing(CHANNEL_5, 0x02, TRUE)
+		bind_channel_to_object(CHANNEL_5, 0x02, TRUE)
 
 		beginloop(0x11)
 			if_timer_gt(400, /*goto*/ 0x06)
@@ -1174,7 +1174,7 @@ u8 func1003_uplink_doors[] = {
 
 		label(LABEL_2D)
 		assign_sound(SFX_01C1, CHANNEL_5)
-		set_object_sound_playing(CHANNEL_5, 0x02, TRUE)
+		bind_channel_to_object(CHANNEL_5, 0x02, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
 		set_stage_flag(STAGEFLAG_DOOR_VIRUS_DOWNLOADED)
@@ -1184,7 +1184,7 @@ u8 func1003_uplink_doors[] = {
 		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		set_object_sound_playing(CHANNEL_6, 0x02, TRUE)
+		bind_channel_to_object(CHANNEL_6, 0x02, TRUE)
 		restart_timer
 
 		beginloop(0x13)
@@ -1233,7 +1233,7 @@ u8 func1004_uplink_lights[] = {
 		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
 		assign_sound(SFX_01BF, CHANNEL_5)
-		set_object_sound_playing(CHANNEL_5, 0x01, TRUE)
+		bind_channel_to_object(CHANNEL_5, 0x01, TRUE)
 
 		beginloop(0x11)
 			if_timer_gt(400, /*goto*/ 0x06)
@@ -1251,7 +1251,7 @@ u8 func1004_uplink_lights[] = {
 
 		label(LABEL_2D)
 		assign_sound(SFX_01C1, CHANNEL_5)
-		set_object_sound_playing(CHANNEL_5, 0x01, TRUE)
+		bind_channel_to_object(CHANNEL_5, 0x01, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
 		show_hudmsg(CHR_P1P2, L_LIP_088) // "Lighting systems overloaded."
@@ -1275,7 +1275,7 @@ u8 func1004_uplink_lights[] = {
 		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		set_object_sound_playing(CHANNEL_6, 0x01, TRUE)
+		bind_channel_to_object(CHANNEL_6, 0x01, TRUE)
 		restart_timer
 
 		beginloop(0x13)
@@ -1324,7 +1324,7 @@ u8 func1005_uplink_autoguns[] = {
 		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
 		assign_sound(SFX_01BF, CHANNEL_5)
-		set_object_sound_playing(CHANNEL_5, 0x03, TRUE)
+		bind_channel_to_object(CHANNEL_5, 0x03, TRUE)
 
 		beginloop(0x11)
 			if_timer_gt(400, /*goto*/ 0x06)
@@ -1341,7 +1341,7 @@ u8 func1005_uplink_autoguns[] = {
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(LABEL_2D)
 		assign_sound(SFX_01C1, CHANNEL_5)
-		set_object_sound_playing(CHANNEL_5, 0x00, TRUE)
+		bind_channel_to_object(CHANNEL_5, 0x00, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
 		show_hudmsg(CHR_P1P2, L_LIP_105) // "Automatic Defenses Disabled."
@@ -1352,7 +1352,7 @@ u8 func1005_uplink_autoguns[] = {
 		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		set_object_sound_playing(CHANNEL_6, 0x03, TRUE)
+		bind_channel_to_object(CHANNEL_6, 0x03, TRUE)
 		restart_timer
 
 		beginloop(0x13)
@@ -3196,12 +3196,12 @@ u8 func0420_labtech_doors[] = {
 		set_stage_flag(STAGEFLAG_AUTOGUN_ACTIVATED)
 		if_self_flag_bankx_eq(CHRFLAG0_GP1, TRUE, BANK_0, /*goto*/ LABEL_75)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, 0x3c, TRUE)
+		bind_channel_to_object(CHANNEL_7, 0x3c, TRUE)
 		goto_next(LABEL_2D)
 
 		label(LABEL_75)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, 0x3d, TRUE)
+		bind_channel_to_object(CHANNEL_7, 0x3d, TRUE)
 		label(LABEL_2D)
 	endloop(LABEL_71)
 
@@ -3425,9 +3425,9 @@ u8 func1018_disable_chambers[] = {
  \
 		/* Raising chamber */ \
 		assign_sound(SFX_DOOR_042B, CHANNEL_0) \
-		set_object_sound_playing(CHANNEL_0, chamber, TRUE) \
+		bind_channel_to_object(CHANNEL_0, chamber, TRUE) \
 		assign_sound(SFX_043A, CHANNEL_7) \
-		set_object_sound_playing(CHANNEL_7, switch, TRUE) \
+		bind_channel_to_object(CHANNEL_7, switch, TRUE) \
 		show_hudmsg(CHR_P1P2, 0x2a42) /* "Containment unit raised up." */ \
 		set_object_image(switch, 0, TVPROGRAM_SOLID_GREEN) \
 		unset_object_flag(chamber, OBJFLAG_DEACTIVATED) \
@@ -3441,7 +3441,7 @@ u8 func1018_disable_chambers[] = {
 		label(0x06) \
 		mute_channel(CHANNEL_0) \
 		assign_sound(SFX_DOOR_042C, CHANNEL_0) \
-		set_object_sound_playing(CHANNEL_0, chamber, TRUE) \
+		bind_channel_to_object(CHANNEL_0, chamber, TRUE) \
 		set_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		reloop(0x04) \
  \
@@ -3449,9 +3449,9 @@ u8 func1018_disable_chambers[] = {
 		label(LABEL_2D) \
 		mute_channel(CHANNEL_0) \
 		assign_sound(SFX_DOOR_042B, CHANNEL_0) \
-		set_object_sound_playing(CHANNEL_0, chamber, TRUE) \
+		bind_channel_to_object(CHANNEL_0, chamber, TRUE) \
 		assign_sound(SFX_043A, CHANNEL_7) \
-		set_object_sound_playing(CHANNEL_7, switch, TRUE) \
+		bind_channel_to_object(CHANNEL_7, switch, TRUE) \
 		show_hudmsg(CHR_P1P2, 0x2a43) /* "Containment unit lowered down." */ \
 		set_object_image(switch, 0, TVPROGRAM_SOLID_RED) \
 		unset_object_flag(chamber, OBJFLAG_DEACTIVATED) \
@@ -3465,7 +3465,7 @@ u8 func1018_disable_chambers[] = {
 		label(0x06) \
 		mute_channel(CHANNEL_0) \
 		assign_sound(SFX_DOOR_042C, CHANNEL_0) \
-		set_object_sound_playing(CHANNEL_0, chamber, TRUE) \
+		bind_channel_to_object(CHANNEL_0, chamber, TRUE) \
 		set_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 	endloop(0x04)
 
@@ -3485,9 +3485,9 @@ u8 func1019_chamber1[] = {
 
 		// Raising chamber
 		assign_sound(SFX_DOOR_042B, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER1, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
@@ -3501,7 +3501,7 @@ u8 func1019_chamber1[] = {
 		label(0x06)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042C, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER1, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		set_chr_hiddenflag(CHR_ALIEN, CHRHFLAG_WARPONSCREEN)
 
 		beginloop(LABEL_64)
@@ -3520,10 +3520,10 @@ u8 func1019_chamber1[] = {
 		label(LABEL_2D)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042B, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER1, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		set_chr_chrflag(CHR_ALIEN, CHRCFLAG_HIDDEN)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0, TVPROGRAM_SOLID_RED)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		unset_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
@@ -3537,7 +3537,7 @@ u8 func1019_chamber1[] = {
 		label(0x06)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042C, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER1, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		set_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 	endlist
@@ -3556,9 +3556,9 @@ u8 func101a_chamber2[] = {
 
 		// Raising chamber
 		assign_sound(SFX_DOOR_042B, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER2, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
@@ -3572,7 +3572,7 @@ u8 func101a_chamber2[] = {
 		label(0x06)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042C, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER2, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 
 		set_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
@@ -3581,9 +3581,9 @@ u8 func101a_chamber2[] = {
 		label(LABEL_2D)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042B, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER2, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0, TVPROGRAM_SOLID_RED)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		unset_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
@@ -3597,7 +3597,7 @@ u8 func101a_chamber2[] = {
 		label(0x06)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042C, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER2, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 		set_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 	endlist
@@ -3643,9 +3643,9 @@ u8 func1020_chamber8[] = {
 
 		// Raising chamber
 		assign_sound(SFX_DOOR_042B, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER8, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
 		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
@@ -3659,7 +3659,7 @@ u8 func1020_chamber8[] = {
 		label(0x06)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042C, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER8, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 
 		set_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 		reloop(0x04)
@@ -3668,10 +3668,10 @@ u8 func1020_chamber8[] = {
 		label(LABEL_2D)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042B, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER8, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0, TVPROGRAM_SOLID_RED)
 		unset_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
@@ -3685,7 +3685,7 @@ u8 func1020_chamber8[] = {
 		label(0x06)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_DOOR_042C, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_CHAMBER8, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 		set_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
 	endlist
@@ -4071,7 +4071,7 @@ u8 func1002_intro[] = {
 
 	wait_until(1346, LABEL_71)
 	assign_sound(SFX_8169, CHANNEL_1)
-	set_object_sound_playing(CHANNEL_1, OBJ_CRATE, TRUE)
+	bind_channel_to_object(CHANNEL_1, OBJ_CRATE, TRUE)
 
 	wait_until(1390, LABEL_72)
 	speak(CHR_BOND, L_LIP_093, MP3_042C, CHANNEL_5, COLOR_09_BLUE) // "Cute. Very cute."
@@ -4160,7 +4160,7 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_5)
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_8169, CHANNEL_1)
-	set_object_sound_playing(CHANNEL_1, OBJ_CRATE, TRUE)
+	bind_channel_to_object(CHANNEL_1, OBJ_CRATE, TRUE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
 	chr_do_animation(ANIM_CUT_LIP_INTRO_JO, -2, -1, CHRANIMFLAG_MOVEWHENINVIS | CHRANIMFLAG_PAUSEATEND, 0, CHR_BOND, 2)

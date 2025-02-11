@@ -187,7 +187,7 @@ void footstep_check_default(struct chrdata *chr)
 
 					if (soundnum != -1 && chr->footstep != 0) {
 #if VERSION >= VERSION_NTSC_1_0
-						ps_create(NULL, chr->prop, soundnum, -1, -1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
+						ps_create(NULL, chr->prop, soundnum, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
 #else
 						ps_create(NULL, chr->prop, soundnum, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 #endif
@@ -268,7 +268,7 @@ void footstep_check_magic(struct chrdata *chr)
 				if (soundnum != -1 && chr->footstep != 0) {
 #if VERSION >= VERSION_NTSC_1_0
 					ps_create(NULL, chr->prop, soundnum, -1,
-							-1, PSFLAG_0400, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
+							-1, PSFLAG_AMBIENT, 0, PSTYPE_FOOTSTEP, NULL, -1, NULL, -1, -1, -1, -1);
 #else
 					ps_create(NULL, chr->prop, soundnum, -1,
 							-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);

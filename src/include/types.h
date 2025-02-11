@@ -5325,8 +5325,8 @@ struct pschannel {
 	/*0x0a*/ s16 targetpan;
 	/*0x0c*/ s16 targetfx;
 	/*0x0e*/ s16 currentfx;
-	/*0x10*/ s16 vol10;
-	/*0x12*/ s16 vol12;
+	/*0x10*/ s16 maxvol;
+	/*0x12*/ s16 requestedvol;
 	/*0x14*/ s16 degrees;
 	/*0x16*/ s16 unk16;
 	/*0x18*/ s16 volchangespeed;
@@ -5334,10 +5334,10 @@ struct pschannel {
 	/*0x1c*/ s32 volchangetimer60;
 	/*0x20*/ s32 pitchchangespeed;
 	/*0x24*/ s16 padnum;
-	/*0x26*/ s16 soundnum26;
+	/*0x26*/ s16 requestedsoundnum;
 	/*0x28*/ s16 type;
 	/*0x2a*/ u16 unk2a; // unused
-	/*0x2c*/ s16 soundnum2c;
+	/*0x2c*/ s16 resolvedsoundnum;
 	/*0x2e*/ s16 channelnum;
 	/*0x30*/ u16 flags;
 	/*0x32*/ u16 flags2;

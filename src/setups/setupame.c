@@ -1614,7 +1614,7 @@ u8 func0414_programmer[] = {
 	// Phone ringing
 	label(0x06)
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object2(CHANNEL_4, OBJ_PCMONITOR, SFX_8109, PSTYPE_COMMHUB, 0x02)
+	play_sound_from_object(CHANNEL_4, OBJ_PCMONITOR, SFX_8109, PSTYPE_COMMHUB, PSFLAG_REPEATING)
 #else
 	speak(CHR_TARGET, -1, SFX_8109, CHANNEL_4, COLOR_00_GREEN)
 #endif
@@ -2043,7 +2043,7 @@ u8 func100e_check_ecm_mines[] = {
 		yield
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_8113, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
 		show_hudmsg(CHR_BOND, L_AME_076) // "Internal security system temporarily disabled."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_COMPLETE)
 		reloop(0x00)
@@ -2054,7 +2054,7 @@ u8 func100e_check_ecm_mines[] = {
 		yield
 		mute_channel(CHANNEL_1)
 		assign_sound(SFX_8113, CHANNEL_1)
-		set_object_sound_playing(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
+		bind_channel_to_object(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
 		show_hudmsg(CHR_BOND, L_AME_077) // "External communications hub disabled."
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
 		reloop(0x00)
@@ -2261,7 +2261,7 @@ u8 func1007_uplinking[] = {
 		restart_timer
 		show_hudmsg(CHR_TARGET, L_AME_046) // "ACCESS DENIED - password needed."
 		assign_sound(SFX_01C0, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_PC, FALSE)
+		bind_channel_to_object(CHANNEL_7, OBJ_PC, FALSE)
 
 		beginloop(0xaf)
 			if_timer_gt(120, /*goto*/ 0x06)
@@ -2274,7 +2274,7 @@ u8 func1007_uplinking[] = {
 		label(0xae)
 		show_hudmsg(CHR_TARGET, L_AME_044) // "File download initiated."
 		assign_sound(SFX_01BF, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_PC, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_PC, TRUE)
 		restart_timer
 
 		// @bug: Missing check for player still having uplink equipped
@@ -2287,7 +2287,7 @@ u8 func1007_uplinking[] = {
 		label(0xad)
 		mute_channel(CHANNEL_7)
 		assign_sound(SFX_01C1, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_PC, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_PC, TRUE)
 		show_hudmsg(CHR_TARGET, L_AME_045) // "File download completed."
 		yield
 		set_stage_flag(STAGEFLAG_DOWNLOAD_COMPLETE)
@@ -2297,7 +2297,7 @@ u8 func1007_uplinking[] = {
 		show_hudmsg(CHR_TARGET, L_AME_074) // "Datalink broken - connection terminated."
 		mute_channel(CHANNEL_7)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		play_repeating_sound_from_object(CHANNEL_6, OBJ_PC, 1, 300, 400)
+		bind_channel_to_object_repeating(CHANNEL_6, OBJ_PC, 1, 300, 400)
 		restart_timer
 
 		beginloop(0x11)
@@ -2312,7 +2312,7 @@ u8 func1007_uplinking[] = {
 		show_hudmsg(CHR_TARGET, L_AME_075) // "Datalink error - incomplete file download."
 		mute_channel(CHANNEL_7)
 		assign_sound(SFX_01C0, CHANNEL_6)
-		play_repeating_sound_from_object(CHANNEL_6, OBJ_PC, 1, 300, 400)
+		bind_channel_to_object_repeating(CHANNEL_6, OBJ_PC, 1, 300, 400)
 		restart_timer
 
 		beginloop(0x13)
@@ -2369,7 +2369,7 @@ u8 func1008_doorswitch[] = {
 
 	label(0x06)
 	assign_sound(SFX_043B, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, OBJ_OFFICEDOOR1, TRUE)
+	bind_channel_to_object(CHANNEL_7, OBJ_OFFICEDOOR1, TRUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3331,13 +3331,13 @@ u8 func1003_start_intro[] = {
 u8 func1010_start_hub_humms[] = {
 	yield
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object2(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, PSTYPE_COMMHUB, 0x02)
+	play_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, PSTYPE_COMMHUB, PSFLAG_REPEATING)
 	yield
-	play_sound_from_object2(CHANNEL_1, OBJ_EXTCOMMSHUB, SFX_8111, PSTYPE_COMMHUB, 0x02)
+	play_sound_from_object(CHANNEL_1, OBJ_EXTCOMMSHUB, SFX_8111, PSTYPE_COMMHUB, PSFLAG_REPEATING)
 #else
-	play_sound_from_object2(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, PSTYPE_COMMHUB, 0x00)
+	play_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, PSTYPE_COMMHUB, 0)
 	yield
-	play_sound_from_object2(CHANNEL_1, OBJ_SECURITYHUB, SFX_0004, PSTYPE_COMMHUB, 0x00)
+	play_sound_from_object(CHANNEL_1, OBJ_SECURITYHUB, SFX_0004, PSTYPE_COMMHUB, 0)
 #endif
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

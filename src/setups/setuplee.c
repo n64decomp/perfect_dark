@@ -3686,7 +3686,7 @@ u8 func101f_enable_bridge_skedar[] = {
 u8 func1020_engine_hum_noise[] = {
 	yield
 	assign_sound(SFX_81A5, CHANNEL_0)
-	play_repeating_sound_from_object(CHANNEL_0, 0x1b, 1, 2000, 4000)
+	bind_channel_to_object_repeating(CHANNEL_0, 0x1b, 1, 2000, 4000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

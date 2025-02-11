@@ -637,7 +637,7 @@ u8 func041e_colleague[] = {
 		label(0x7f)
 		chr_do_animation(ANIM_SITTING_0265, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 0, CHR_SELF, 2)
 		label(0x2f)
-		play_cistaff_quip(CIQUIP_GREETING, CHANNEL_6)
+		say_ciquip(CIQUIP_GREETING, CHANNEL_6)
 		restart_timer
 
 		beginloop(0x57)
@@ -668,7 +668,7 @@ u8 func041e_colleague[] = {
 		label(0x06)
 		do_preset_animation(PRESETANIM_TALKRANDOM)
 		label(0x06)
-		play_cistaff_quip(CIQUIP_MAIN, CHANNEL_6)
+		say_ciquip(CIQUIP_MAIN, CHANNEL_6)
 		restart_timer
 
 		beginloop(0x5b)
@@ -711,7 +711,7 @@ u8 func041e_colleague[] = {
 		label(0x7f)
 		chr_do_animation(ANIM_SITTING_0265, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 0, CHR_SELF, 2)
 		label(0x06)
-		play_cistaff_quip(CIQUIP_ANNOYED, CHANNEL_6)
+		say_ciquip(CIQUIP_ANNOYED, CHANNEL_6)
 		restart_timer
 
 		beginloop(0x5c)
@@ -1180,7 +1180,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	show_hudmsg(CHR_BOND, L_DISH_027) // "Decoder attached. Initiating cracking routines..."
 	unset_object_flag2(0x88, OBJFLAG2_INVISIBLE)
 	assign_sound(SFX_8144, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, 0x35, 1, 300, 400)
+	bind_channel_to_object_repeating(CHANNEL_1, 0x35, 1, 300, 400)
 	restart_timer
 
 	beginloop(0x0c)
@@ -1199,7 +1199,7 @@ u8 func1004_devicetraining_doordecoder[] = {
 	label(0x2f)
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_8145, CHANNEL_1)
-	set_object_sound_playing(CHANNEL_1, 0x35, TRUE)
+	bind_channel_to_object(CHANNEL_1, 0x35, TRUE)
 	remove_hudmsgs
 	show_hudmsg(CHR_BOND, L_DISH_028) // "Decoding complete. Door has been unlocked."
 	unlock_door(0x41, 0x40)
@@ -2289,7 +2289,7 @@ u8 func100b_devicetraining_uplink[] = {
 	set_stage_flag(STAGEFLAG_TRIGGER_CANNOTEXIT_MSG)
 	label(0x59)
 	assign_sound(SFX_01BF, CHANNEL_5)
-	set_object_sound_playing(CHANNEL_5, 0x30, TRUE)
+	bind_channel_to_object(CHANNEL_5, 0x30, TRUE)
 	label(0x14)
 	yield
 	if_stage_flag_eq(STAGEFLAG_DEVICE_ABORTING, TRUE, /*goto*/ 0x90)
@@ -2313,7 +2313,7 @@ u8 func100b_devicetraining_uplink[] = {
 	restart_timer
 	mute_channel(CHANNEL_5)
 	assign_sound(SFX_01C1, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, 0x30, TRUE)
+	bind_channel_to_object(CHANNEL_7, 0x30, TRUE)
 	remove_hudmsgs
 	show_hudmsg(CHR_TARGET, L_DISH_014) // "Terminal has been successfully hacked."
 
@@ -2338,7 +2338,7 @@ u8 func100b_devicetraining_uplink[] = {
 	show_hudmsg(CHR_BOND, L_DISH_015) // "Connection broken - too far from PC."
 	mute_channel(CHANNEL_5)
 	assign_sound(SFX_01C0, CHANNEL_6)
-	set_object_sound_playing(CHANNEL_6, 0x30, TRUE)
+	bind_channel_to_object(CHANNEL_6, 0x30, TRUE)
 	restart_timer
 
 	beginloop(0x16)
@@ -2531,7 +2531,7 @@ u8 func0429_grimshaw_disguise[] = {
 	label(0x06)
 	dprint 'I','n','i','t','i','a','l','i','s','e','c',0,
 	do_preset_animation(PRESETANIM_TALK3)
-	play_cistaff_quip(CIQUIP_GREETING, CHANNEL_6)
+	say_ciquip(CIQUIP_GREETING, CHANNEL_6)
 	restart_timer
 
 	beginloop(0x57)
@@ -3320,7 +3320,7 @@ u8 func042d_unused[] = {
 
 	label(0x06)
 	assign_sound(SFX_GRIMSHAW_HI_THERE, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	beginloop(0x61)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
@@ -3352,7 +3352,7 @@ u8 func042e_devicegirl_reply_to_carrington[] = {
 	yield
 	yield
 	assign_sound(MP3_CIFEM_PATIENCE, CHANNEL_6)
-	play_sound_from_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	beginloop(0x61)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x06)
@@ -3737,7 +3737,7 @@ u8 func101c_holo1_main[] = {
 	set_object_image(object, 0, TVPROGRAM_SOLID_GREEN) \
 	set_object_flag2(object, OBJFLAG2_INVHIDDEN) \
 	assign_sound(SFX_043A, CHANNEL_7) \
-	set_object_sound_playing(CHANNEL_7, object, TRUE) \
+	bind_channel_to_object(CHANNEL_7, object, TRUE) \
 	set_returnlist(CHR_SELF, function) \
 	set_ailist(CHR_SELF, AILIST_HOLO1_CHECK_DONE)
 
@@ -3777,7 +3777,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	set_object_image(0x4f, 0, TVPROGRAM_SOLID_GREEN)
 	set_object_flag2(0x4f, OBJFLAG2_INVHIDDEN)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, 0x4f, TRUE)
+	bind_channel_to_object(CHANNEL_7, 0x4f, TRUE)
 	set_returnlist(CHR_SELF, AILIST_HOLO1_MONITOR_SWITCHES)
 	set_ailist(CHR_SELF, AILIST_HOLO1_CHECK_DONE)
 	endlist
@@ -3816,7 +3816,7 @@ u8 func1020_holo1_monitor_switches[] = {
 	remove_hudmsgs \
 	show_hudmsg(CHR_BOND, msg) \
 	assign_sound(SFX_DOOR_81B0, CHANNEL_7) \
-	set_object_sound_playing(CHANNEL_7, object1, TRUE) \
+	bind_channel_to_object(CHANNEL_7, object1, TRUE) \
 	restart_timer \
  \
 	beginloop(0x57) \
@@ -4078,7 +4078,7 @@ u8 func1022_holo2_main[] = {
  \
 	label(0x2f) \
 	assign_sound(SFX_043A, CHANNEL_7) \
-	set_object_sound_playing(CHANNEL_7, object, TRUE) \
+	bind_channel_to_object(CHANNEL_7, object, TRUE) \
 	set_object_image(object, 0, TVPROGRAM_SOLID_GREEN) \
 	set_object_flag2(object, OBJFLAG2_IMMUNETOANTI) \
 	set_returnlist(CHR_SELF, function) \
@@ -4452,7 +4452,7 @@ u8 func102c_holo3_object1[] = {
 
 	label(0x2f)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, 0x65, TRUE)
+	bind_channel_to_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x65, 0, TVPROGRAM_SOLID_GREEN)
 	set_object_flag2(0x65, OBJFLAG2_IMMUNETOANTI)
 	set_returnlist(CHR_SELF, AILIST_HOLO3_OBJECT1)
@@ -4467,7 +4467,7 @@ u8 func102d_holo3_object2[] = {
 
 	label(0x2f)
 	assign_sound(SFX_043A, CHANNEL_7)
-	set_object_sound_playing(CHANNEL_7, 0x65, TRUE)
+	bind_channel_to_object(CHANNEL_7, 0x65, TRUE)
 	set_object_image(0x66, 0, TVPROGRAM_SOLID_GREEN)
 	set_object_flag2(0x66, OBJFLAG2_IMMUNETOANTI)
 	set_returnlist(CHR_SELF, AILIST_HOLO3_OBJECT2)

@@ -592,7 +592,7 @@ u8 func1008_check_generator[] = {
 		mute_channel(CHANNEL_4)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_8147, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_GENERATOR, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_GENERATOR, TRUE)
 		show_hudmsg(CHR_P1P2, L_DEPO_025) // "Damping field generator shut down."
 		set_stage_flag(STAGEFLAG_GENERATOR_SHUT_DOWN2)
 		set_stage_flag(STAGEFLAG_GENERATOR_SHUT_DOWN)
@@ -607,7 +607,7 @@ u8 func1008_check_generator[] = {
 
 u8 func1003_laser_switch_1[] = {
 	assign_sound(SFX_8119, CHANNEL_0)
-	play_repeating_sound_from_object(CHANNEL_0, OBJ_LASER_1A, 1, 300, 400)
+	bind_channel_to_object_repeating(CHANNEL_0, OBJ_LASER_1A, 1, 300, 400)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -638,10 +638,10 @@ u8 func1003_laser_switch_1[] = {
 		set_object_flag(OBJ_LASER_1C, OBJFLAG_DOOR_KEEPOPEN)
 		set_object_flag(OBJ_LASER_1D, OBJFLAG_DOOR_KEEPOPEN)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LASERSWITCH1, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LASERSWITCH1, 0x012c, 0x0190, 0x00)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_PICKUP_SHIELD, CHANNEL_0)
-		play_sound_from_entity(CHANNEL_0, OBJ_LASER_1A, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_0, OBJ_LASER_1A, 0x012c, 0x0190, 0x00)
 		goto_next(0x0a)
 
 		// Activated
@@ -654,9 +654,9 @@ u8 func1003_laser_switch_1[] = {
 		close_door(OBJ_LASER_1C)
 		close_door(OBJ_LASER_1D)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LASERSWITCH1, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LASERSWITCH1, 0x012c, 0x0190, 0x00)
 		assign_sound(SFX_8119, CHANNEL_0)
-		play_repeating_sound_from_object(CHANNEL_0, OBJ_LASER_1A, 1, 300, 400)
+		bind_channel_to_object_repeating(CHANNEL_0, OBJ_LASER_1A, 1, 300, 400)
 		goto_next(0x0a)
 		label(0x0a)
 		restart_timer
@@ -673,7 +673,7 @@ u8 func1003_laser_switch_1[] = {
 
 u8 func1004_laser_switch_2[] = {
 	assign_sound(SFX_8119, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, OBJ_LASER_2A, 1, 300, 400)
+	bind_channel_to_object_repeating(CHANNEL_1, OBJ_LASER_2A, 1, 300, 400)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -705,10 +705,10 @@ u8 func1004_laser_switch_2[] = {
 		set_object_flag(OBJ_LASER_2C, OBJFLAG_DOOR_KEEPOPEN)
 		set_object_flag(OBJ_LASER_2D, OBJFLAG_DOOR_KEEPOPEN)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LASERSWITCH2, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LASERSWITCH2, 0x012c, 0x0190, 0x00)
 		mute_channel(CHANNEL_1)
 		assign_sound(SFX_PICKUP_SHIELD, CHANNEL_1)
-		play_sound_from_entity(CHANNEL_1, OBJ_LASER_2A, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_1, OBJ_LASER_2A, 0x012c, 0x0190, 0x00)
 		goto_next(0x0a)
 
 		// Activated
@@ -721,9 +721,9 @@ u8 func1004_laser_switch_2[] = {
 		close_door(OBJ_LASER_2C)
 		close_door(OBJ_LASER_2D)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LASERSWITCH2, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LASERSWITCH2, 0x012c, 0x0190, 0x00)
 		assign_sound(SFX_8119, CHANNEL_1)
-		play_repeating_sound_from_object(CHANNEL_1, OBJ_LASER_2A, 1, 300, 400)
+		bind_channel_to_object_repeating(CHANNEL_1, OBJ_LASER_2A, 1, 300, 400)
 		goto_next(0x0a)
 		label(0x0a)
 		restart_timer
@@ -740,7 +740,7 @@ u8 func1004_laser_switch_2[] = {
 
 u8 func1005_laser_switch_3[] = {
 	assign_sound(SFX_8119, CHANNEL_2)
-	play_repeating_sound_from_object(CHANNEL_2, OBJ_LASER_3A, 1, 300, 400)
+	bind_channel_to_object_repeating(CHANNEL_2, OBJ_LASER_3A, 1, 300, 400)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -771,10 +771,10 @@ u8 func1005_laser_switch_3[] = {
 		set_object_flag(OBJ_LASER_3C, OBJFLAG_DOOR_KEEPOPEN)
 		set_object_flag(OBJ_LASER_3D, OBJFLAG_DOOR_KEEPOPEN)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LASERSWITCH3, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LASERSWITCH3, 0x012c, 0x0190, 0x00)
 		mute_channel(CHANNEL_2)
 		assign_sound(SFX_PICKUP_SHIELD, CHANNEL_2)
-		play_sound_from_entity(CHANNEL_2, OBJ_LASER_3A, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_2, OBJ_LASER_3A, 0x012c, 0x0190, 0x00)
 		goto_next(0x0a)
 
 		// Activated
@@ -787,9 +787,9 @@ u8 func1005_laser_switch_3[] = {
 		close_door(OBJ_LASER_3C)
 		close_door(OBJ_LASER_3D)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LASERSWITCH3, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LASERSWITCH3, 0x012c, 0x0190, 0x00)
 		assign_sound(SFX_8119, CHANNEL_2)
-		play_repeating_sound_from_object(CHANNEL_2, OBJ_LASER_3A, 1, 300, 400)
+		bind_channel_to_object_repeating(CHANNEL_2, OBJ_LASER_3A, 1, 300, 400)
 		goto_next(0x0a)
 		label(0x0a)
 		restart_timer
@@ -806,7 +806,7 @@ u8 func1005_laser_switch_3[] = {
 
 u8 func1006_laser_switch_4[] = {
 	assign_sound(SFX_811A, CHANNEL_3)
-	play_repeating_sound_from_object(CHANNEL_3, OBJ_LASER_4A, 1, 300, 400)
+	bind_channel_to_object_repeating(CHANNEL_3, OBJ_LASER_4A, 1, 300, 400)
 
 	beginloop(0x04)
 		chr_toggle_p1p2(CHR_SELF)
@@ -837,10 +837,10 @@ u8 func1006_laser_switch_4[] = {
 		set_object_flag(OBJ_LASER_4C, OBJFLAG_DOOR_KEEPOPEN)
 		set_object_flag(OBJ_LASER_4D, OBJFLAG_DOOR_KEEPOPEN)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LASERSWITCH4, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LASERSWITCH4, 0x012c, 0x0190, 0x00)
 		mute_channel(CHANNEL_3)
 		assign_sound(SFX_PICKUP_SHIELD, CHANNEL_3)
-		play_sound_from_entity(CHANNEL_3, OBJ_LASER_4A, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_3, OBJ_LASER_4A, 0x012c, 0x0190, 0x00)
 		goto_next(0x0a)
 
 		// Activated
@@ -853,9 +853,9 @@ u8 func1006_laser_switch_4[] = {
 		close_door(OBJ_LASER_4C)
 		close_door(OBJ_LASER_4D)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LASERSWITCH4, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LASERSWITCH4, 0x012c, 0x0190, 0x00)
 		assign_sound(SFX_811A, CHANNEL_3)
-		play_repeating_sound_from_object(CHANNEL_3, OBJ_LASER_4A, 1, 300, 400)
+		bind_channel_to_object_repeating(CHANNEL_3, OBJ_LASER_4A, 1, 300, 400)
 		goto_next(0x0a)
 		label(0x0a)
 		restart_timer
@@ -1367,7 +1367,7 @@ u8 func1010_safe_cracking[] = {
 	move_object_to_pad(OBJ_DECODER, PAD_DEPO_0075)
 	set_stage_flag(STAGEFLAG_DECODER_ATTACHED)
 	assign_sound(SFX_8144, CHANNEL_1)
-	play_repeating_sound_from_object(CHANNEL_1, OBJ_SAFEKEYPAD, 1, 300, 400)
+	bind_channel_to_object_repeating(CHANNEL_1, OBJ_SAFEKEYPAD, 1, 300, 400)
 	restart_timer
 
 	beginloop(0x09)
@@ -1406,7 +1406,7 @@ u8 func1010_safe_cracking[] = {
 	label(0x06)
 	mute_channel(CHANNEL_1)
 	assign_sound(SFX_8145, CHANNEL_1)
-	set_object_sound_playing(CHANNEL_1, OBJ_SAFEKEYPAD, TRUE)
+	bind_channel_to_object(CHANNEL_1, OBJ_SAFEKEYPAD, TRUE)
 	show_hudmsg(CHR_P1P2, L_DEPO_037) // "Door Decoder finished - door unlocked."
 	unlock_door(OBJ_SAFEDOOR, 0x40)
 	unset_object_flag2(OBJ_SAFEDOOR, OBJFLAG2_AICANNOTUSE)
@@ -1906,14 +1906,14 @@ u8 func040e_meeting_cutscene[] = {
 	speak(CHR_BOND, L_DEPO_074, MP3_040E, CHANNEL_5, COLOR_04_ORANGE) // "No one could have predicted that! And I resent bei..."
 
 	wait_until(1780, 0x5e)
-	play_sound_from_object2(CHANNEL_6, 0x3a, SFX_01D5, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_6, 0x3a, SFX_01D5, PSTYPE_NONE, 0)
 
 	wait_until(2050, 0x60)
-	play_sound_from_object2(CHANNEL_7, 0x3a, SFX_00EC, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_7, 0x3a, SFX_00EC, PSTYPE_NONE, 0)
 
 	wait_until(2070, 0x5f)
 	open_door(0x3a)
-	play_sound_from_object2(0x0a, 0x3a, SFX_DOOR_81B0, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_CUTSCENE, 0x3a, SFX_DOOR_81B0, PSTYPE_NONE, 0)
 
 	wait_until(2195, 0x61)
 	play_sound(SFX_0171, CHANNEL_6)
@@ -2239,7 +2239,7 @@ u8 func1018_intro_from_menu[] = {
 u8 func1019_generator_hum[] = {
 	yield
 	assign_sound(SFX_8146, CHANNEL_4)
-	play_repeating_sound_from_object(CHANNEL_4, OBJ_GENERATOR, 1, 1600, 2200)
+	bind_channel_to_object_repeating(CHANNEL_4, OBJ_GENERATOR, 1, 1600, 2200)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2740,7 +2740,7 @@ u8 func1022_light_switch[] = {
 		// Turning lights off
 		set_stage_flag(STAGEFLAG_LIGHTS_OFF)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LIGHTSWITCH, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LIGHTSWITCH, 0x012c, 0x0190, 0x00)
 		yield
 		set_object_image(OBJ_LIGHTSWITCH, 0, TVPROGRAM_SOLID_BLACK)
 		play_sound(SFX_8147, -1)
@@ -2802,7 +2802,7 @@ u8 func1022_light_switch[] = {
 		label(0x2c)
 		unset_stage_flag(STAGEFLAG_LIGHTS_OFF)
 		assign_sound(SFX_043F, CHANNEL_7)
-		play_sound_from_entity(CHANNEL_7, OBJ_LIGHTSWITCH, 0x012c, 0x0190, 0x00)
+		bind_channel_to_entity(CHANNEL_7, OBJ_LIGHTSWITCH, 0x012c, 0x0190, 0x00)
 		yield
 		play_sound(SFX_8148, -1)
 		set_object_image(0x3d, 0, TVPROGRAM_BARS_YELLOW)

@@ -1970,12 +1970,12 @@ u8 func1007_cooling_switch[] = {
 
 		label(0x06)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_COOLING_ACTIVE, TRUE, /*goto*/ 0x06)
 		show_hudmsg(CHR_P1P2, L_ELD_014) // "Cooling systems have been activated."
 		set_stage_flag(STAGEFLAG_COOLING_ACTIVE)
 		assign_sound(SFX_8148, CHANNEL_1)
-		set_object_sound_playing(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
 		restart_timer
 
 		beginloop(0x08)
@@ -1984,19 +1984,19 @@ u8 func1007_cooling_switch[] = {
 
 		label(0x2d)
 		assign_sound(SFX_811C, CHANNEL_1)
-		play_repeating_sound_from_object(CHANNEL_1, OBJ_COOLING_SWITCH, 1, 1200, 1600)
+		bind_channel_to_object_repeating(CHANNEL_1, OBJ_COOLING_SWITCH, 1, 1200, 1600)
 		reloop(0x04)
 
 		label(0x06)
 		mute_channel(CHANNEL_1)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_COOLING_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, FALSE, /*goto*/ 0x2d)
 		show_hudmsg(CHR_P1P2, L_ELD_048) // "Operation denied - windmill is active."
 		goto_next(0x67)
 		label(0x2d)
 		assign_sound(SFX_8149, CHANNEL_1)
-		set_object_sound_playing(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_1, OBJ_COOLING_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_ELD_015) // "Cooling systems have been deactivated."
 		unset_stage_flag(STAGEFLAG_COOLING_ACTIVE)
 		label(0x67)
@@ -2020,12 +2020,12 @@ u8 func1008_power_switch[] = {
 
 		label(0x06)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_POWER_ACTIVE, TRUE, /*goto*/ 0x06)
 		show_hudmsg(CHR_P1P2, L_ELD_016) // "Power systems have been activated."
 		set_stage_flag(STAGEFLAG_POWER_ACTIVE)
 		assign_sound(SFX_8148, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
 		restart_timer
 
 		beginloop(0x08)
@@ -2034,19 +2034,19 @@ u8 func1008_power_switch[] = {
 
 		label(0x2d)
 		assign_sound(SFX_8146, CHANNEL_0)
-		play_repeating_sound_from_object(CHANNEL_0, OBJ_POWER_SWITCH, 1, 1200, 1600)
+		bind_channel_to_object_repeating(CHANNEL_0, OBJ_POWER_SWITCH, 1, 1200, 1600)
 		reloop(0x04)
 
 		label(0x06)
 		mute_channel(CHANNEL_0)
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_POWER_SWITCH, TRUE)
 		if_stage_flag_eq(STAGEFLAG_WINDMILL_ACTIVATED, FALSE, /*goto*/ 0x2d)
 		show_hudmsg(CHR_P1P2, L_ELD_048) // "Operation denied - windmill is active."
 		goto_next(0x67)
 		label(0x2d)
 		assign_sound(SFX_8149, CHANNEL_0)
-		set_object_sound_playing(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_0, OBJ_POWER_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_ELD_017) // "Power systems have been deactivated."
 		unset_stage_flag(STAGEFLAG_POWER_ACTIVE)
 		label(0x67)
@@ -2074,9 +2074,9 @@ u8 func1009_windmill_switch[] = {
 
 		// Activating
 		assign_sound(SFX_043A, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_WINDMILL_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_WINDMILL_SWITCH, TRUE)
 		assign_sound(SFX_8148, CHANNEL_2)
-		set_object_sound_playing(CHANNEL_2, OBJ_WINDMILL_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_2, OBJ_WINDMILL_SWITCH, TRUE)
 		restart_timer
 
 		beginloop(0x08)
@@ -2085,7 +2085,7 @@ u8 func1009_windmill_switch[] = {
 
 		label(0x2d)
 		assign_sound(SFX_0438, CHANNEL_2)
-		play_repeating_sound_from_object(CHANNEL_2, OBJ_WINDMILL_SWITCH, 1, 1800, 2400)
+		bind_channel_to_object_repeating(CHANNEL_2, OBJ_WINDMILL_SWITCH, 1, 1800, 2400)
 		show_hudmsg(CHR_P1P2, L_ELD_018) // "Windmill has been reactivated."
 		yield
 		set_stage_flag(STAGEFLAG_WINDMILL_ACTIVATED)
@@ -2097,7 +2097,7 @@ u8 func1009_windmill_switch[] = {
 		// Cooling and power not active
 		label(0x06)
 		assign_sound(SFX_MENU_SUBFOCUS, CHANNEL_7)
-		set_object_sound_playing(CHANNEL_7, OBJ_WINDMILL_SWITCH, TRUE)
+		bind_channel_to_object(CHANNEL_7, OBJ_WINDMILL_SWITCH, TRUE)
 		restart_timer
 
 		beginloop(0x09)

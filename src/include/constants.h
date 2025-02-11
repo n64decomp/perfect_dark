@@ -316,7 +316,7 @@
 #define ATTACKFLAG_NOVERTICAL     0x0100 // don't aim up/down
 #define ATTACKFLAG_AIMATTARGET    0x0200 // aim/shoot at whatever is in the chr's `target` field
 
-#define AUDIOCONFIGFLAG_01           0x01
+#define AUDIOCONFIGFLAG_SPECIALPAN           0x01
 #define AUDIOCONFIGFLAG_RESPONDHELLO 0x04
 #define AUDIOCONFIGFLAG_08           0x08
 #define AUDIOCONFIGFLAG_OFFENSIVE    0x10
@@ -408,9 +408,12 @@
 #define CHANNEL_5        5
 #define CHANNEL_6        6
 #define CHANNEL_7        7
-#define CHANNEL_8        8
-#define CHANNEL_9        9
+#define CHANNEL_DONTCARE 9
 #define CHANNEL_CUTSCENE 10
+
+#define CHANNELCOUNT()         (IS4MB() ? 30 : 40)
+#define CHANNEL_IS_AI(channel) (channel >= 0 && channel <= 7)
+#define CHANNEL_HEAP_FIRST     8
 
 #define CHEAT_HURRICANEFISTS         0
 #define CHEAT_CLOAKINGDEVICE         1
@@ -3506,8 +3509,8 @@
 #define PSFLAG_HASCONFIG    0x0040
 #define PSFLAG_CUTSCENE     0x0080
 #define PSFLAG_FORHUDMSG    0x0200
-#define PSFLAG_0400         0x0400
-#define PSFLAG_0800         0x0800
+#define PSFLAG_AMBIENT      0x0400
+#define PSFLAG_SPECIALPAN   0x0800
 #define PSFLAG_FIRSTTICK    0x1000
 #define PSFLAG_OUTOFRANGE   0x2000
 #define PSFLAG_CHANGINGPAN  0x4000
@@ -3516,7 +3519,7 @@
 #define PSFLAG2_RESPONDHELLO 0x0001
 #define PSFLAG2_MPPAUSABLE   0x0002
 #define PSFLAG2_PRINTABLE    0x0004
-#define PSFLAG2_0010         0x0010
+#define PSFLAG2_AMBIENT      0x0010
 #define PSFLAG2_OFFENSIVE    0x0020
 #define PSFLAG2_0040         0x0040
 #define PSFLAG2_STOPPED      0x0080

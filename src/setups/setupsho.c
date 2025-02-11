@@ -1101,7 +1101,7 @@ u8 func1005_5e0c[] = {
 	if_stage_flag_eq(STAGEFLAG_TRIGGER_BRIDGE, TRUE, /*goto*/ 0x2d)
 	mute_channel(CHANNEL_5)
 	assign_sound(SFX_0436, CHANNEL_5)
-	set_object_sound_playing(CHANNEL_5, OBJ_PUZZLEROCK, TRUE)
+	bind_channel_to_object(CHANNEL_5, OBJ_PUZZLEROCK, TRUE)
 
 	// Wait for a condition that would cause the bridge to retract
 	label(0x2d)
@@ -1138,7 +1138,7 @@ u8 func1005_5e0c[] = {
 	// Switch no longer pressed
 	mute_channel(CHANNEL_5)
 	assign_sound(SFX_0437, CHANNEL_5)
-	set_object_sound_playing(CHANNEL_5, OBJ_PUZZLEROCK, TRUE)
+	bind_channel_to_object(CHANNEL_5, OBJ_PUZZLEROCK, TRUE)
 	goto_first(0x04)
 
 	// Switch still pressed
@@ -1159,7 +1159,7 @@ u8 func1006_bridge[] = {
 	unset_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
 	assign_sound(SFX_DOOR_8020, CHANNEL_4)
-	play_repeating_sound_from_object(CHANNEL_4, OBJ_BRIDGE, 1, 1200, 1600)
+	bind_channel_to_object_repeating(CHANNEL_4, OBJ_BRIDGE, 1, 1200, 1600)
 	yield
 
 	beginloop(0x08)
@@ -1169,7 +1169,7 @@ u8 func1006_bridge[] = {
 	label(0x06)
 	mute_channel(CHANNEL_4)
 	assign_sound(SFX_DOOR_8027, CHANNEL_4)
-	set_object_sound_playing(CHANNEL_4, OBJ_BRIDGE, TRUE)
+	bind_channel_to_object(CHANNEL_4, OBJ_BRIDGE, TRUE)
 	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	set_stage_flag(STAGEFLAG_BRIDGE_EXTENDED)
 
@@ -1187,7 +1187,7 @@ u8 func1006_bridge[] = {
 	unset_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
 	assign_sound(SFX_DOOR_8020, CHANNEL_4)
-	play_repeating_sound_from_object(CHANNEL_4, OBJ_BRIDGE, 1, 1200, 1600)
+	bind_channel_to_object_repeating(CHANNEL_4, OBJ_BRIDGE, 1, 1200, 1600)
 	yield
 
 	beginloop(0x0b)
@@ -1199,7 +1199,7 @@ u8 func1006_bridge[] = {
 	set_object_flag(OBJ_BRIDGE, OBJFLAG_DEACTIVATED)
 	mute_channel(CHANNEL_4)
 	assign_sound(SFX_DOOR_8027, CHANNEL_4)
-	set_object_sound_playing(CHANNEL_4, OBJ_BRIDGE, TRUE)
+	bind_channel_to_object(CHANNEL_4, OBJ_BRIDGE, TRUE)
 	goto_first(0x04)
 
 	endlist
@@ -3566,7 +3566,7 @@ u8 func0414_outro_sounds[] = {
 	yield
 	yield
 	set_chr_shooting_in_cutscene(CHR_TARGET, FALSE)
-	play_sound_from_object2(CHANNEL_6, 0x25, SFX_SKEDAR_ROAR_052D, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_6, 0x25, SFX_SKEDAR_ROAR_052D, PSTYPE_NONE, 0)
 
 	outro_wait_until_with_stageflag(3600, 0xd7)
 	play_sound(MP3_07C9, CHANNEL_CUTSCENE)

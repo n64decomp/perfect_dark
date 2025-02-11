@@ -1066,7 +1066,7 @@ u8 func0404_elvis_follow_and_do_agent_megaweapon[] = {
 	set_stage_flag(STAGEFLAG_MEGAWEAPON_DISABLED)
 	set_lights_state(0x006c, LIGHTOP_TRANSITION, 100, 255, 120)
 	assign_sound(SFX_8148, CHANNEL_7)
-	play_sound_from_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
+	bind_channel_to_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	unlock_door(0xb7, 0x02)
 	unlock_door(0xb8, 0x02)
 	goto_first(0x03)
@@ -2050,7 +2050,7 @@ u8 func1002_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SCOPE, WEAPON_NONE)
 
 	wait_until(0, 0x63)
-	play_sound_from_object2(CHANNEL_5, 0x07, SFX_DOOR_81AA, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_5, 0x07, SFX_DOOR_81AA, PSTYPE_NONE, 0)
 
 	wait_until(260, 0x8a)
 	play_sound(SFX_FOOTSTEP_80D5, CHANNEL_CUTSCENE)
@@ -2080,7 +2080,7 @@ u8 func1002_intro[] = {
 
 	wait_until(1430, 0x6b)
 	mute_channel(CHANNEL_5)
-	play_sound_from_object2(CHANNEL_5, 0x07, SFX_81A9, PSTYPE_NONE, 0)
+	play_sound_from_object(CHANNEL_5, 0x07, SFX_81A9, PSTYPE_NONE, 0)
 
 	wait_until(1522, 0x6c)
 	speak(CHR_BOND, L_PAM_032, MP3_046A, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "No signs of conflict. No spent ammo cases or bulle..."
@@ -3662,7 +3662,7 @@ u8 func041e_init_sa_megaweapon_miniskedar[] = {
  \
 	label(0x06) \
 	assign_sound(SFX_8147, CHANNEL_7) \
-	set_object_sound_playing(CHANNEL_7, mine, TRUE) \
+	bind_channel_to_object(CHANNEL_7, mine, TRUE) \
 	yield \
 	destroy_object(mine) \
 	destroy_object(glass1) \
