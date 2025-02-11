@@ -1512,7 +1512,7 @@ s32 bgun_tick_inc_reload(struct handweaponinfo *info, s32 handnum, struct hand *
 					// No reload sound
 					break;
 				default:
-					snd_start(var80095200, SFX_RELOAD_DEFAULT, 0, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXMAP_804F_RELOAD_DEFAULT, 0, -1, -1, -1, -1, -1);
 					break;
 				}
 			}
@@ -2452,7 +2452,7 @@ s32 bgun_tick_inc_attackempty(struct handweaponinfo *info, s32 handnum, struct h
 				struct sndstate *handle;
 #endif
 
-				handle = snd_start(var80095200, SFX_HIT_WATER, NULL, -1, -1, -1, -1, -1);
+				handle = snd_start(var80095200, SFXMAP_8080_HIT_WATER, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
 					sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
@@ -2478,7 +2478,7 @@ s32 bgun_tick_inc_attackempty(struct handweaponinfo *info, s32 handnum, struct h
 				struct sndstate *handle;
 #endif
 
-				handle = snd_start(var80095200, SFX_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
+				handle = snd_start(var80095200, SFXMAP_8052_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
 
 				if (handle) {
 					sndp_post_event(handle, AL_SNDP_PITCH_EVT, *(s32 *)&speed);
@@ -2501,7 +2501,7 @@ s32 bgun_tick_inc_attackempty(struct handweaponinfo *info, s32 handnum, struct h
 			break;
 		default:
 			// Default click sound effect
-			snd_start(var80095200, SFX_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXMAP_8052_FIREEMPTY, NULL, -1, -1, -1, -1, -1);
 			break;
 		}
 	}
@@ -2862,7 +2862,7 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 					prevpri1 = osGetThreadPri(0);
 					osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 #endif
-					handle1 = snd_start(var80095200, SFX_EQUIP_HORIZONSCANNER, 0, -1, -1, -1, -1, -1);
+					handle1 = snd_start(var80095200, SFXNUM_0002_EQUIP_HORIZONSCANNER, 0, -1, -1, -1, -1, -1);
 
 					if (handle1) {
 						sndp_post_event(handle1, AL_SNDP_PITCH_EVT, *(s32 *)&speed1);
@@ -2873,14 +2873,14 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 #endif
 					break;
 				case WEAPON_LASER:
-					snd_start(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXNUM_00F2_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
 					break;
 				case WEAPON_COMBATKNIFE:
-					snd_start(var80095200, SFX_PICKUP_KNIFE, 0, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXNUM_00E9_PICKUP_KNIFE, 0, -1, -1, -1, -1, -1);
 					break;
 				case WEAPON_REMOTEMINE:
 					if (handnum == HAND_RIGHT) {
-						snd_start(var80095200, SFX_PICKUP_MINE, 0, -1, -1, -1, -1, -1);
+						snd_start(var80095200, SFXNUM_00EB_PICKUP_MINE, 0, -1, -1, -1, -1, -1);
 					}
 					break;
 				case WEAPON_TIMEDMINE:
@@ -2894,7 +2894,7 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 				case WEAPON_COMMSRIDER:
 				case WEAPON_TRACERBUG:
 				case WEAPON_TARGETAMPLIFIER:
-					snd_start(var80095200, SFX_PICKUP_MINE, 0, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXNUM_00EB_PICKUP_MINE, 0, -1, -1, -1, -1, -1);
 					break;
 				case WEAPON_TRANQUILIZER:
 				case WEAPON_PSYCHOSISGUN:
@@ -2905,7 +2905,7 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 					osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 #endif
 
-					handle2 = snd_start(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
+					handle2 = snd_start(var80095200, SFXNUM_00E8_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
 					if (handle2) {
 						sndp_post_event(handle2, AL_SNDP_PITCH_EVT, *(s32 *)&speed2);
@@ -2923,7 +2923,7 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 					osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 #endif
 
-					handle3 = snd_start(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
+					handle3 = snd_start(var80095200, SFXNUM_00E8_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 
 					if (handle3) {
 						sndp_post_event(handle3, AL_SNDP_PITCH_EVT, *(s32 *)&speed3);
@@ -2963,7 +2963,7 @@ s32 bgun_tick_inc_changegun(struct handweaponinfo *info, s32 handnum, struct han
 					// No equip sound
 					break;
 				default:
-					snd_start(var80095200, SFX_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXNUM_00E8_PICKUP_GUN, 0, -1, -1, -1, -1, -1);
 					break;
 				}
 			}
@@ -4273,7 +4273,7 @@ struct defaultobj *bgun_create_thrown_projectile2(struct chrdata *chr, struct gs
 			obj->projectile->unk08c = 0.1f;
 			obj->projectile->pickuptimer240 = TICKS(240);
 
-			ps_create(NULL, obj->prop, SFX_THROW, -1,
+			ps_create(NULL, obj->prop, SFXMAP_80A9_THROW, -1,
 					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 	}
@@ -5385,7 +5385,7 @@ void bgun_tick_switch2(void)
 			if (ctrl->weaponnum == WEAPON_DISGUISE40 || ctrl->weaponnum == WEAPON_DISGUISE41) {
 				struct chrdata *chr = player->prop->chr;
 
-				snd_start(var80095200, SFX_DISGUISE_ON, 0, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_042E_DISGUISE_ON, 0, -1, -1, -1, -1, -1);
 
 				g_Vars.currentplayer->disguised = true;
 
@@ -6790,7 +6790,7 @@ void bgun_update_reaper(struct hand *hand, struct modeldef *modeldef)
 	var8009d140 = hand->mm_reaperrot;
 
 	if (hand->audiohandle == NULL && hand->mm_reaperspeedcur > 0.1f && g_Vars.lvupdate240 != 0) {
-		snd_start(var80095200, SFX_805E, &hand->audiohandle, -1, -1, -1.0f, -1, -1);
+		snd_start(var80095200, SFXMAP_805E, &hand->audiohandle, -1, -1, -1.0f, -1, -1);
 	}
 
 	if (hand->audiohandle != NULL) {
@@ -6949,7 +6949,7 @@ void bgun_update_laser(struct hand *hand)
 {
 	if (hand->firing && hand->gset.weaponfunc == FUNC_SECONDARY) {
 		if (hand->audiohandle == NULL && g_Vars.lvupdate240 != 0) {
-			snd_start(var80095200, SFX_LASER_STREAM, &hand->audiohandle, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXNUM_0065_LASER_STREAM, &hand->audiohandle, -1, -1, -1, -1, -1);
 		}
 
 		hand->mm_lasertype = 1;
@@ -7943,7 +7943,7 @@ void bgun_tick_mauler_charge(void)
 					&& hand->mm_maulercharge > 0.1f
 					&& charging
 					&& g_Vars.lvupdate240 != 0) {
-				snd_start(var80095200, SFX_MAULER_CHARGE, &hand->audiohandle, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXMAP_8065_MAULER_CHARGE, &hand->audiohandle, -1, -1, -1, -1, -1);
 			}
 
 			if (hand->audiohandle) {
@@ -8463,7 +8463,7 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 			|| gset->weaponnum == WEAPON_TRACERBUG
 			|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
 			|| gset->weaponnum == WEAPON_ECMMINE) {
-		ps_create(NULL, prop, SFX_80AA, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
+		ps_create(NULL, prop, SFXMAP_80AA, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		return;
 	}
 
@@ -8478,11 +8478,11 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 			s32 pan;
 
 			if (chr_get_shield(chr) > 0) {
-				soundnum = SFX_SHIELD_DAMAGE;
+				soundnum = SFXNUM_0064_SHIELD_DAMAGE;
 			} else if (gset->weaponnum == WEAPON_COMBATKNIFE
 					|| gset->weaponnum == WEAPON_COMBATKNIFE // duplicate
 					|| gset->weaponnum == WEAPON_BOLT) {
-				soundnum = SFX_05F6;
+				soundnum = SFXNUM_05F6;
 				overridden = true;
 			} else if (gset->weaponnum == WEAPON_UNARMED
 					|| (gset->weaponfunc == FUNC_SECONDARY
@@ -8491,10 +8491,10 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 							|| gset->weaponnum == WEAPON_FALCON2_SCOPE
 							|| gset->weaponnum == WEAPON_DY357MAGNUM
 							|| gset->weaponnum == WEAPON_DY357LX))) {
-				s16 sounds[] = { SFX_002F, SFX_0030, SFX_0031 };
+				s16 sounds[] = { SFXNUM_002F, SFXNUM_0030, SFXNUM_0031 };
 				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
 			} else {
-				s16 sounds[] = { SFX_HIT_CHR, SFX_HIT_CHR };
+				s16 sounds[] = { SFXMAP_8076_HIT_CHR, SFXMAP_8076_HIT_CHR };
 				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
 			}
 
@@ -8521,28 +8521,28 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 			u32 stack;
 
 			if (texturenum == 10000) {
-				soundnum = SFX_SHIELD_DAMAGE;
+				soundnum = SFXNUM_0064_SHIELD_DAMAGE;
 			} else if (gset->weaponnum == WEAPON_LASER) {
 				if (gset->weaponfunc == FUNC_PRIMARY || ((gset->lasershots % 4) == 0 && (random() % 2))) {
 					if ((random() % 2) == 0) {
-						soundnum = SFX_CLOAK_ON;
+						soundnum = SFXNUM_005B_CLOAK_ON;
 					} else {
-						soundnum = SFX_CLOAK_OFF;
+						soundnum = SFXNUM_005C_CLOAK_OFF;
 					}
 				}
 
 				overridden = true;
 			} else {
 				if (gset->weaponnum == WEAPON_COMBATKNIFE || gset->weaponnum == WEAPON_BOLT) {
-					soundnum = SFX_HIT_METAL_8079;
+					soundnum = SFXMAP_8079_HIT_METAL;
 					overridden = true;
 				} else {
 					s16 sounds[] = {
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_0023, SFX_0024, SFX_0025, SFX_0026,
-						SFX_0027, SFX_0028, SFX_0029, SFX_002A,
+						SFXNUM_001B, SFXNUM_001C, SFXNUM_001D, SFXNUM_001E,
+						SFXNUM_001B, SFXNUM_001C, SFXNUM_001D, SFXNUM_001E,
+						SFXNUM_001B, SFXNUM_001C, SFXNUM_001D, SFXNUM_001E,
+						SFXNUM_0023, SFXNUM_0024, SFXNUM_0025, SFXNUM_0026,
+						SFXNUM_0027, SFXNUM_0028, SFXNUM_0029, SFXNUM_002A,
 					};
 
 					soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
@@ -8608,7 +8608,7 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 			|| gset->weaponnum == WEAPON_TRACERBUG
 			|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
 			|| gset->weaponnum == WEAPON_ECMMINE) {
-		ps_create(NULL, prop, SFX_80AA, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
+		ps_create(NULL, prop, SFXMAP_80AA, -1, -1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		return;
 	}
 
@@ -8621,13 +8621,13 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 			bool overridden = false;
 
 			if (chr_get_shield(chr) > 0) {
-				snd_start(var80095200, SFX_SHIELD_DAMAGE, handle, -1, -1, -1, -1, -1);
-				soundnum = SFX_SHIELD_DAMAGE;
+				snd_start(var80095200, SFXNUM_0064_SHIELD_DAMAGE, handle, -1, -1, -1, -1, -1);
+				soundnum = SFXNUM_0064_SHIELD_DAMAGE;
 			} else if (gset->weaponnum == WEAPON_COMBATKNIFE
 					|| gset->weaponnum == WEAPON_COMBATKNIFE // duplicate
 					|| gset->weaponnum == WEAPON_BOLT) {
-				snd_start(var80095200, SFX_05F6, handle, -1, -1, -1, -1, -1);
-				soundnum = SFX_05F6;
+				snd_start(var80095200, SFXNUM_05F6, handle, -1, -1, -1, -1, -1);
+				soundnum = SFXNUM_05F6;
 				overridden = true;
 			} else if (gset->weaponnum == WEAPON_UNARMED
 					|| (gset->weaponfunc == FUNC_SECONDARY
@@ -8636,11 +8636,11 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 							|| gset->weaponnum == WEAPON_FALCON2_SCOPE
 							|| gset->weaponnum == WEAPON_DY357MAGNUM
 							|| gset->weaponnum == WEAPON_DY357LX))) {
-				s16 sounds[] = { SFX_002F, SFX_0030, SFX_0031 };
+				s16 sounds[] = { SFXNUM_002F, SFXNUM_0030, SFXNUM_0031 };
 				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
 				snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 			} else {
-				s16 sounds[] = { SFX_HIT_CHR, SFX_HIT_CHR };
+				s16 sounds[] = { SFXMAP_8076_HIT_CHR, SFXMAP_8076_HIT_CHR };
 				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
 				snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 			}
@@ -8658,14 +8658,14 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 			u32 stack;
 
 			if (texturenum == 10000) {
-				snd_start(var80095200, SFX_SHIELD_DAMAGE, handle, -1, -1, -1, -1, -1);
-				soundnum = SFX_SHIELD_DAMAGE;
+				snd_start(var80095200, SFXNUM_0064_SHIELD_DAMAGE, handle, -1, -1, -1, -1, -1);
+				soundnum = SFXNUM_0064_SHIELD_DAMAGE;
 			} else if (gset->weaponnum == WEAPON_LASER) {
 				if (gset->weaponfunc == FUNC_PRIMARY || (gset->lasershots % 8) == 0) {
 					if ((random() % 2) == 0) {
-						soundnum = SFX_CLOAK_ON;
+						soundnum = SFXNUM_005B_CLOAK_ON;
 					} else {
-						soundnum = SFX_CLOAK_OFF;
+						soundnum = SFXNUM_005C_CLOAK_OFF;
 					}
 
 					snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
@@ -8673,16 +8673,16 @@ void bgun_play_prop_hit_sound(struct gset *gset, struct prop *prop, s32 texturen
 				}
 			} else {
 				if (gset->weaponnum == WEAPON_COMBATKNIFE || gset->weaponnum == WEAPON_BOLT) {
-					soundnum = SFX_HIT_METAL_8079;
+					soundnum = SFXMAP_8079_HIT_METAL;
 					snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 					overridden = true;
 				} else {
 					s16 sounds[] = {
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_001B, SFX_001C, SFX_001D, SFX_001E,
-						SFX_0023, SFX_0024, SFX_0025, SFX_0026,
-						SFX_0027, SFX_0028, SFX_0029, SFX_002A,
+						SFXNUM_001B, SFXNUM_001C, SFXNUM_001D, SFXNUM_001E,
+						SFXNUM_001B, SFXNUM_001C, SFXNUM_001D, SFXNUM_001E,
+						SFXNUM_001B, SFXNUM_001C, SFXNUM_001D, SFXNUM_001E,
+						SFXNUM_0023, SFXNUM_0024, SFXNUM_0025, SFXNUM_0026,
+						SFXNUM_0027, SFXNUM_0028, SFXNUM_0029, SFXNUM_002A,
 					};
 
 					soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
@@ -8727,10 +8727,10 @@ void bgun_play_glass_hit_sound(struct coord *pos, RoomNum *rooms, s32 texturenum
 		struct sndstate **handle = bgun_allocate_audio_handle();
 
 		if (handle) {
-			snd_start(var80095200, SFX_HIT_GLASS, handle, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXMAP_8077_HIT_GLASS, handle, -1, -1, -1, -1, -1);
 
 			if (*handle) {
-				ps_apply_vol_pan(*handle, pos, 400, 2500, 3000, rooms, SFX_HIT_GLASS, AL_VOL_FULL, 0);
+				ps_apply_vol_pan(*handle, pos, 400, 2500, 3000, rooms, SFXMAP_8077_HIT_GLASS, AL_VOL_FULL, 0);
 			}
 		}
 	}
@@ -8766,14 +8766,14 @@ void bgun_play_bg_hit_sound(struct gset *gset, struct coord *hitpos, s32 texture
 
 			if (gset->weaponfunc == FUNC_PRIMARY || ((gset->lasershots % 4) == 0 && (random() % 2))) {
 				// Laser sounds
-				s16 sounds[] = {SFX_CLOAK_ON, SFX_CLOAK_OFF};
+				s16 sounds[] = {SFXNUM_005B_CLOAK_ON, SFXNUM_005C_CLOAK_OFF};
 				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
 				snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 				overridden = true;
 			}
 		} else if (gset->weaponnum == WEAPON_COMBATKNIFE || gset->weaponnum == WEAPON_BOLT) {
 			// Knives and bolts make a metal sound
-			soundnum = SFX_HIT_METAL_8079;
+			soundnum = SFXMAP_8079_HIT_METAL;
 			snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 			overridden = true;
 		} else if (gset->weaponnum == WEAPON_REMOTEMINE
@@ -8784,21 +8784,21 @@ void bgun_play_bg_hit_sound(struct gset *gset, struct coord *hitpos, s32 texture
 				|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
 				|| gset->weaponnum == WEAPON_ECMMINE) {
 			// Mine landing/activation sound
-			soundnum = SFX_80AA;
+			soundnum = SFXMAP_80AA;
 			snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 			overridden = true;
 		} else {
 			// Ricochet sounds
 			s16 sounds[] = {
-				SFX_0013, SFX_0014, SFX_0015, SFX_0016,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_0023, SFX_0024, SFX_0025, SFX_0026,
-				SFX_0027, SFX_0028, SFX_0029, SFX_002A,
+				SFXNUM_0013, SFXNUM_0014, SFXNUM_0015, SFXNUM_0016,
+				SFXNUM_0017, SFXNUM_0018, SFXNUM_0019, SFXNUM_001A,
+				SFXNUM_0017, SFXNUM_0018, SFXNUM_0019, SFXNUM_001A,
+				SFXNUM_0017, SFXNUM_0018, SFXNUM_0019, SFXNUM_001A,
+				SFXNUM_001F, SFXNUM_0020, SFXNUM_0020, SFXNUM_0021,
+				SFXNUM_001F, SFXNUM_0020, SFXNUM_0020, SFXNUM_0021,
+				SFXNUM_001F, SFXNUM_0020, SFXNUM_0020, SFXNUM_0021,
+				SFXNUM_0023, SFXNUM_0024, SFXNUM_0025, SFXNUM_0026,
+				SFXNUM_0027, SFXNUM_0028, SFXNUM_0029, SFXNUM_002A,
 			};
 
 			soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
@@ -8860,14 +8860,14 @@ void bgun_play_bg_hit_sound(struct gset *gset, struct coord *hitpos, s32 texture
 		if (gset->weaponnum == WEAPON_LASER) {
 			if (gset->weaponfunc == FUNC_PRIMARY || (gset->lasershots % 8) == 0) {
 				// Laser sounds
-				s16 sounds[] = {SFX_CLOAK_ON, SFX_CLOAK_OFF};
+				s16 sounds[] = {SFXNUM_005B_CLOAK_ON, SFXNUM_005C_CLOAK_OFF};
 				soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
 				snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 				overridden = true;
 			}
 		} else if (gset->weaponnum == WEAPON_COMBATKNIFE || gset->weaponnum == WEAPON_BOLT) {
 			// Knives and bolts make a metal sound
-			soundnum = SFX_HIT_METAL_8079;
+			soundnum = SFXMAP_8079_HIT_METAL;
 			snd_start(var80095200, soundnum, handle, -1, -1, -1, -1, -1);
 			overridden = true;
 		} else if (gset->weaponnum == WEAPON_REMOTEMINE
@@ -8878,20 +8878,20 @@ void bgun_play_bg_hit_sound(struct gset *gset, struct coord *hitpos, s32 texture
 				|| gset->weaponnum == WEAPON_TARGETAMPLIFIER
 				|| gset->weaponnum == WEAPON_ECMMINE) {
 			// Mine landing/activation sound
-			snd_start(var80095200, SFX_80AA, handle, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXMAP_80AA, handle, -1, -1, -1, -1, -1);
 			overridden = true;
 		} else {
 			// Ricochet sounds
 			s16 sounds[] = {
-				SFX_0013, SFX_0014, SFX_0015, SFX_0016,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_0017, SFX_0018, SFX_0019, SFX_001A,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_001F, SFX_0020, SFX_0020, SFX_0021,
-				SFX_0023, SFX_0024, SFX_0025, SFX_0026,
-				SFX_0027, SFX_0028, SFX_0029, SFX_002A,
+				SFXNUM_0013, SFXNUM_0014, SFXNUM_0015, SFXNUM_0016,
+				SFXNUM_0017, SFXNUM_0018, SFXNUM_0019, SFXNUM_001A,
+				SFXNUM_0017, SFXNUM_0018, SFXNUM_0019, SFXNUM_001A,
+				SFXNUM_0017, SFXNUM_0018, SFXNUM_0019, SFXNUM_001A,
+				SFXNUM_001F, SFXNUM_0020, SFXNUM_0020, SFXNUM_0021,
+				SFXNUM_001F, SFXNUM_0020, SFXNUM_0020, SFXNUM_0021,
+				SFXNUM_001F, SFXNUM_0020, SFXNUM_0020, SFXNUM_0021,
+				SFXNUM_0023, SFXNUM_0024, SFXNUM_0025, SFXNUM_0026,
+				SFXNUM_0027, SFXNUM_0028, SFXNUM_0029, SFXNUM_002A,
 			};
 
 			soundnum = sounds[rand1 % ARRAYCOUNT(sounds)];
@@ -10329,7 +10329,7 @@ void bgun_add_boost(s32 amount)
 	}
 
 	if (!g_Vars.speedpillwant) {
-		u32 sound = lv_get_slow_motion_type() ? SFX_ARGH_JO_02AD : SFX_JO_BOOST_ACTIVATE;
+		u32 sound = lv_get_slow_motion_type() ? SFXNUM_02AD_JO_ARGH : SFXNUM_05C9_JO_BOOST_ACTIVATE;
 
 		snd_start(var80095200, sound, 0, -1, -1, -1, -1, -1);
 	}

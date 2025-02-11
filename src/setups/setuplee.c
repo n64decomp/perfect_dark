@@ -696,7 +696,7 @@ u8 func1019_check_shields_lowered[] = {
 		endloop(0x08)
 
 		label(0x2c)
-		speak(CHR_BOND, L_LEE_017, SFX_81A1, CHANNEL_6, COLOR_04_ORANGE) // "You've got to open the hangar doors so we can dock..."
+		speak(CHR_BOND, L_LEE_017, SFXMAP_81A1, CHANNEL_6, COLOR_04_ORANGE) // "You've got to open the hangar doors so we can dock..."
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(0x06)
@@ -881,7 +881,7 @@ u8 func040e_elvis_give_ar34[] = {
 	rebuild_teams
 	rebuild_squadrons
 	set_stage_flag(STAGEFLAG_MET_ELVIS)
-	speak(CHR_P1P2, L_LEE_019, MP3_02E1, CHANNEL_6, COLOR_04_ORANGE) // "Good to see you, Joanna."
+	speak(CHR_P1P2, L_LEE_019, MP3(FILE_AASSAEL03M), CHANNEL_6, COLOR_04_ORANGE) // "Good to see you, Joanna."
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x0c)
@@ -889,7 +889,7 @@ u8 func040e_elvis_give_ar34[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	speak(CHR_P1P2, L_LEE_020, MP3_02E2, CHANNEL_6, COLOR_04_ORANGE) // "Take this - you should find it useful..."
+	speak(CHR_P1P2, L_LEE_020, MP3(FILE_AASSAEL04M), CHANNEL_6, COLOR_04_ORANGE) // "Take this - you should find it useful..."
 	give_object_to_chr(OBJ_AR34, CHR_PRESET)
 	show_hudmsg(CHR_PRESET, L_LEE_021) // "Received AR34 assault rifle."
 	restart_timer
@@ -1062,7 +1062,7 @@ u8 func0409_elvis_follow[] = {
 	label(0x06)
 	do_preset_animation(PRESETANIM_TALKRANDOM)
 	show_hudmsg(CHR_BOND, L_LEE_013) // "Navigational information has been retrieved."
-	speak(CHR_PRESET, L_LEE_031, MP3_02E4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards..."
+	speak(CHR_PRESET, L_LEE_031, MP3(FILE_AASSAEL06M), CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards..."
 	restart_timer
 	set_stage_flag(STAGEFLAG_NAVIGATION_ROOM_DONE)
 
@@ -1104,7 +1104,7 @@ u8 func041c_elvis_outside_prebridgelift[] = {
 	set_target_chr(CHR_PRESET)
 	set_stage_flag(STAGEFLAG_SAID_GO_ON_AHEAD)
 	if_stage_flag_eq(STAGEFLAG_ENTERED_BRIDGELIFT, TRUE, /*goto*/ 0x2c)
-	speak(CHR_PRESET, L_LEE_026, MP3_04DC, CHANNEL_6, COLOR_04_ORANGE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
+	speak(CHR_PRESET, L_LEE_026, MP3(FILE_APELELV01M), CHANNEL_6, COLOR_04_ORANGE) // "You go on ahead, Jo. I'll secure the perimeter. We..."
 	label(0x2c)
 	run_to_pad(PAD_LEE_0063)
 
@@ -1160,7 +1160,7 @@ u8 func040a_elvis_go_to_hangar_lift[] = {
 
 	// At player
 	label(0x06)
-	speak(CHR_BOND, L_LEE_022, MP3_02E4, CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards. I'll take this lift; you tak..."
+	speak(CHR_BOND, L_LEE_022, MP3(FILE_AASSAEL06M), CHANNEL_6, COLOR_04_ORANGE) // "Time to head upwards. I'll take this lift; you tak..."
 	chr_do_animation(ANIM_TALKING_0231, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	set_morale(50)
 
@@ -1222,7 +1222,7 @@ u8 func041b_elvis_at_bridge[] = {
 		reloop(0x09)
 
 		label(0x2c)
-		speak(CHR_TARGET, L_LEE_024, MP3_02E3, CHANNEL_6, COLOR_04_ORANGE) // "Look out, Joanna! I think we've made them angry..."
+		speak(CHR_TARGET, L_LEE_024, MP3(FILE_AASSAEL05M), CHANNEL_6, COLOR_04_ORANGE) // "Look out, Joanna! I think we've made them angry..."
 		set_stage_flag(STAGEFLAG_SAID_LOOKOUT)
 	endloop(0x09)
 
@@ -1578,7 +1578,7 @@ u8 func1008_hangar_lifts[] = {
 
 	// Bring Elvis's lift down
 	label(0x2c)
-	play_sound(SFX_81A6, -1)
+	play_sound(SFXMAP_81A6, -1)
 	unset_object_flag(OBJ_HANGARLIFT_ELVIS, OBJFLAG_DEACTIVATED)
 	yield
 	yield
@@ -2045,7 +2045,7 @@ u8 func100b_msg_getshieldsdown[] = {
 	endloop(LABEL_C2)
 
 	label(0x06)
-	speak(CHR_BOND, L_LEE_016, SFX_81A0, CHANNEL_6, COLOR_04_ORANGE) // "Outside, Joanna. Get the shields down and we can h..."
+	speak(CHR_BOND, L_LEE_016, SFXMAP_81A0, CHANNEL_6, COLOR_04_ORANGE) // "Outside, Joanna. Get the shields down and we can h..."
 	set_stage_flag(STAGEFLAG_SAID_GETSHIELDSDOWN)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2069,7 +2069,7 @@ u8 func100c_engineroom[] = {
 	if_chr_knockedout(CHR_ELVIS, /*goto*/ 0x2c)
 	set_ailist(CHR_ELVIS, AILIST_ELVIS_RUN_FROM_ENGINEROOM)
 	play_x_track(XREASON_DEFAULT, 10, 10)
-	speak(CHR_BOND, L_LEE_046, MP3_03D7, CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
+	speak(CHR_BOND, L_LEE_046, MP3_ZZ(FILE_AM6_L2_DM), CHANNEL_6, COLOR_04_ORANGE) // "We have to get out of here!"
 	label(0x2c)
 	set_countdown_timer(10)
 	show_countdown_timer
@@ -2148,7 +2148,7 @@ u8 func100d_prebridgelift[] = {
 
 	// Activate lift
 	label(0x2c)
-	play_sound(SFX_81A6, -1)
+	play_sound(SFXMAP_81A6, -1)
 	unset_object_flag(OBJ_PREBRIDGELIFT, OBJFLAG_DEACTIVATED)
 	yield
 	yield
@@ -2230,7 +2230,7 @@ u8 func100e_bridgelift[] = {
 
 	// Activate lift
 	label(0x2c)
-	play_sound(SFX_81A6, -1)
+	play_sound(SFXMAP_81A6, -1)
 	unset_object_flag(OBJ_BRIDGELIFT, OBJFLAG_DEACTIVATED)
 	yield
 	yield
@@ -2714,111 +2714,111 @@ u8 func1003_intro[] = {
 		label(0x06)
 
 	wait_until(60, LABEL_9A)
-	play_sound(SFX_0171, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0171, CHANNEL_CUTSCENE)
 
 	wait_until(120, LABEL_AC)
-	play_sound(MP3_075A, CHANNEL_CUTSCENE)
+	play_sound(MP3_ZZ(FILE_AP19_08_JOM), CHANNEL_CUTSCENE)
 
 	wait_until(136, LABEL_9B)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(186, LABEL_9C)
-	play_sound(SFX_0173, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0173, CHANNEL_CUTSCENE)
 
 	wait_until(226, LABEL_9D)
-	play_sound(SFX_0174, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0174, CHANNEL_CUTSCENE)
 
 	wait_until(320, LABEL_9E)
-	speak(CHR_BOND, L_LEE_032, MP3_047F, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Oohhh... I'd better not be where I think I am."
+	speak(CHR_BOND, L_LEE_032, MP3_ZZ(FILE_AP26_01_JOM), CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Oohhh... I'd better not be where I think I am."
 
 	wait_until(505, LABEL_9F)
-	play_sound(SFX_0427, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0427, CHANNEL_CUTSCENE)
 
 	wait_until(600, LABEL_A0)
-	speak(CHR_BOND, L_LEE_033, MP3_0480, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "And it's worse than that, my dear. Just look who y..."
+	speak(CHR_BOND, L_LEE_033, MP3_ZZ(FILE_AP26_02_DVM), CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "And it's worse than that, my dear. Just look who y..."
 
 	wait_until(1000, LABEL_A1)
-	speak(CHR_BOND, L_LEE_034, MP3_0481, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "You! I thought you'd managed to escape. We found n..."
+	speak(CHR_BOND, L_LEE_034, MP3_ZZ(FILE_AP26_03_JOM), CHANNEL_CUTSCENE, COLOR_09_BLUE) // "You! I thought you'd managed to escape. We found n..."
 
 	wait_until(1018, LABEL_A2)
-	play_sound(SFX_0175, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0175, CHANNEL_CUTSCENE)
 
 	wait_until(1142, LABEL_A3)
-	play_sound(SFX_0176, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0176, CHANNEL_CUTSCENE)
 
 	wait_until(1168, LABEL_A4)
-	play_sound(SFX_0177, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0177, CHANNEL_CUTSCENE)
 
 	wait_until(1210, LABEL_A5)
-	play_sound(SFX_0178, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0178, CHANNEL_CUTSCENE)
 
 	wait_until(1260, LABEL_A6)
-	play_sound(SFX_0171, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0171, CHANNEL_CUTSCENE)
 
 	wait_until(1298, LABEL_A7)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(1358, LABEL_65)
-	play_sound(SFX_0173, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0173, CHANNEL_CUTSCENE)
 
 	wait_until(1396, LABEL_66)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(1400, LABEL_A8)
-	speak(CHR_BOND, L_LEE_035, MP3_0482, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "You couldn't find me. But there was no hiding from..."
+	speak(CHR_BOND, L_LEE_035, MP3_ZZ(FILE_AP26_04_DVM), CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "You couldn't find me. But there was no hiding from..."
 
 	wait_until(1520, LABEL_67)
-	play_sound(SFX_0176, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0176, CHANNEL_CUTSCENE)
 
 	wait_until(1592, LABEL_68)
-	play_sound(SFX_0177, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0177, CHANNEL_CUTSCENE)
 
 	wait_until(1600, LABEL_69)
-	play_sound(SFX_0174, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0174, CHANNEL_CUTSCENE)
 
 	wait_until(1656, LABEL_6A)
-	play_sound(SFX_0175, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0175, CHANNEL_CUTSCENE)
 
 	wait_until(1728, LABEL_6B)
-	play_sound(SFX_0178, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0178, CHANNEL_CUTSCENE)
 
 	wait_until(1734, LABEL_6C)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(1770, LABEL_6E)
-	play_sound(SFX_0173, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0173, CHANNEL_CUTSCENE)
 
 	wait_until(1810, LABEL_61)
 	open_door(0x17)
-	play_sound(SFX_DOOR_801E, CHANNEL_CUTSCENE)
-	play_sound(SFX_SKEDAR_ROAR_0530, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_801E_DOOR, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0530_SKEDAR_ROAR, CHANNEL_CUTSCENE)
 
 	wait_until(1870, LABEL_6F)
-	speak(CHR_BOND, L_LEE_036, MP3_0483, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "This is it. Wait there! I'll make a distraction; i..."
+	speak(CHR_BOND, L_LEE_036, MP3_ZZ(FILE_AP26_05_DVM), CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "This is it. Wait there! I'll make a distraction; i..."
 
 	wait_until(1874, LABEL_70)
-	play_sound(SFX_0174, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0174, CHANNEL_CUTSCENE)
 
 	wait_until(1930, LABEL_71)
-	play_sound(SFX_0175, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0175, CHANNEL_CUTSCENE)
 
 	wait_until(1986, LABEL_72)
-	play_sound(SFX_05A2, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_05A2, CHANNEL_CUTSCENE)
 
 	wait_until(2040, LABEL_73)
-	play_sound(SFX_05A3, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_05A3, CHANNEL_CUTSCENE)
 
 	wait_until(2108, LABEL_74)
-	play_sound(SFX_05A2, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_05A2, CHANNEL_CUTSCENE)
 
 	wait_until(2168, LABEL_75)
-	play_sound(SFX_05A3, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_05A3, CHANNEL_CUTSCENE)
 
 	wait_until(2226, LABEL_76)
-	play_sound(SFX_SKEDAR_ROAR_0531, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0531_SKEDAR_ROAR, CHANNEL_CUTSCENE)
 
 	wait_until(2232, LABEL_77)
-	play_sound(SFX_05A2, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_05A2, CHANNEL_CUTSCENE)
 
 	wait_until(2300, LABEL_62)
 	close_door(0x17)
@@ -2826,73 +2826,73 @@ u8 func1003_intro[] = {
 	wait_until(2346, LABEL_78)
 
 	wait_until(2424, LABEL_79)
-	play_sound(SFX_05A3, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_05A3, CHANNEL_CUTSCENE)
 
 	wait_until(2468, LABEL_7A)
-	play_sound(SFX_SKEDAR_ROAR_0530, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0530_SKEDAR_ROAR, CHANNEL_CUTSCENE)
 
 	wait_until(2474, LABEL_7B)
-	play_sound(SFX_05A2, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_05A2, CHANNEL_CUTSCENE)
 
 	wait_until(2560, LABEL_7C)
-	play_sound(SFX_0176, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0176, CHANNEL_CUTSCENE)
 
 	wait_until(2580, LABEL_7D)
-	play_sound(SFX_0177, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0177, CHANNEL_CUTSCENE)
 
 	wait_until(2581, LABEL_7E)
-	speak(CHR_BOND, L_LEE_037, MP3_0484, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Why are you doing this, Cassandra?"
+	speak(CHR_BOND, L_LEE_037, MP3_ZZ(FILE_AP26_06_JOM), CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Why are you doing this, Cassandra?"
 
 	wait_until(2614, LABEL_7F)
-	play_sound(SFX_0171, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0171, CHANNEL_CUTSCENE)
 
 	wait_until(2648, LABEL_80)
-	play_sound(SFX_0178, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0178, CHANNEL_CUTSCENE)
 
 	wait_until(2670, LABEL_81)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(2708, LABEL_82)
-	play_sound(SFX_0173, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0173, CHANNEL_CUTSCENE)
 
 	wait_until(2736, LABEL_83)
-	play_sound(SFX_0174, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0174, CHANNEL_CUTSCENE)
 
 	wait_until(2780, LABEL_84)
-	play_sound(SFX_0175, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0175, CHANNEL_CUTSCENE)
 
 	wait_until(2790, LABEL_85)
-	speak(CHR_BOND, L_LEE_038, MP3_0485, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "The Skedar used me, Joanna. You are my best chance..."
+	speak(CHR_BOND, L_LEE_038, MP3_ZZ(FILE_AP26_07_DVM), CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "The Skedar used me, Joanna. You are my best chance..."
 
 	wait_until(2792, LABEL_86)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(2834, LABEL_87)
-	play_sound(SFX_0176, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0176, CHANNEL_CUTSCENE)
 
 	wait_until(3016, LABEL_88)
-	play_sound(SFX_01DC, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_01DC, CHANNEL_CUTSCENE)
 
 	wait_until(3068, LABEL_89)
-	play_sound(SFX_043A, CHANNEL_CUTSCENE)
-	play_sound(SFX_043D, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_043A, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_043D, CHANNEL_CUTSCENE)
 
 	wait_until(3186, LABEL_63)
 	open_door(0x24)
 
 	wait_until(3238, LABEL_8A)
-	play_sound(SFX_0177, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0177, CHANNEL_CUTSCENE)
 
 	wait_until(3258, LABEL_8B)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(3280, LABEL_8C)
-	play_sound(SFX_0173, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0173, CHANNEL_CUTSCENE)
 	close_door(0x24)
 
 	wait_until(3313, LABEL_8D)
-	play_sound(SFX_SKEDAR_ROAR_052A, CHANNEL_CUTSCENE)
-	speak(CHR_BOND, L_LEE_039, MP3_0486, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "Eeeeaaarrrrggghhh!!!"
+	play_sound(SFXNUM_052A_SKEDAR_ROAR, CHANNEL_CUTSCENE)
+	speak(CHR_BOND, L_LEE_039, MP3_LO_ZZ(FILE_AP26_08_DVM), CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "Eeeeaaarrrrggghhh!!!"
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
@@ -2980,75 +2980,75 @@ u8 func0c01_outro[] = {
 	set_cutscene_weapon(CHR_ELVIS, WEAPON_NONE, WEAPON_NONE)
 
 	wait_until(38, LABEL_65)
-	play_sound(SFX_00F9, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_00F9, CHANNEL_CUTSCENE)
 
 	wait_until(140, LABEL_66)
-	play_sound(SFX_00FD, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_00FD, CHANNEL_CUTSCENE)
 
 	wait_until(150, LABEL_A9)
-	speak(CHR_BOND, L_LEE_040, MP3_0487, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Wow. That's the first time I've seen another plane..."
+	speak(CHR_BOND, L_LEE_040, MP3_ZZ(FILE_AP27_01_JOM), CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Wow. That's the first time I've seen another plane..."
 
 	wait_until(368, LABEL_67)
-	play_sound(SFX_00FA, CHANNEL_CUTSCENE)
-	play_sound(SFX_00FB, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_00FA, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_00FB, CHANNEL_CUTSCENE)
 
 	wait_until(540, LABEL_69)
-	play_sound(SFX_00FE, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_00FE, CHANNEL_CUTSCENE)
 
 	wait_until(550, LABEL_6B)
-	play_sound(SFX_00FC, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_00FC, CHANNEL_CUTSCENE)
 
 	wait_until(580, LABEL_6C)
-	play_sound(SFX_00F9, CHANNEL_CUTSCENE)
-	play_sound(SFX_00FB, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_00F9, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_00FB, CHANNEL_CUTSCENE)
 
 	wait_until(690, LABEL_6E)
-	speak(CHR_BOND, L_LEE_041, MP3_0488, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "Hmmmm?"
+	speak(CHR_BOND, L_LEE_041, MP3_ZZ(FILE_AP27_02_ELM), CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "Hmmmm?"
 
 	wait_until(850, LABEL_6F)
-	speak(CHR_BOND, L_LEE_042, MP3_0489, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "I don't... I don't believe it!"
+	speak(CHR_BOND, L_LEE_042, MP3_ZZ(FILE_AP27_03_ELM), CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "I don't... I don't believe it!"
 
 	wait_until(963, LABEL_70)
-	play_sound(SFX_FOOTSTEP_80D4, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80D4_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(972, LABEL_71)
-	play_sound(SFX_FOOTSTEP_80D8, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80D8_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(988, LABEL_61)
-	play_sound(SFX_FOOTSTEP_80DB, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80DB_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1000, LABEL_72)
-	speak(CHR_BOND, L_LEE_043, MP3_048A, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Elvis? What is it?"
+	speak(CHR_BOND, L_LEE_043, MP3_ZZ(FILE_AP27_04_JOM), CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Elvis? What is it?"
 
 	wait_until(1030, LABEL_73)
-	play_sound(SFX_FOOTSTEP_80DA, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80DA_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1045, LABEL_74)
-	play_sound(SFX_FOOTSTEP_80D8, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80D8_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1065, LABEL_75)
-	play_sound(SFX_FOOTSTEP_80D9, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80D9_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1085, LABEL_76)
-	play_sound(SFX_FOOTSTEP_80DA, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80DA_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1200, LABEL_77)
-	speak(CHR_BOND, L_LEE_044, MP3_048B, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Where are you going?"
+	speak(CHR_BOND, L_LEE_044, MP3_ZZ(FILE_AP27_05_JOM), CHANNEL_CUTSCENE, COLOR_09_BLUE) // "Where are you going?"
 
 	wait_until(1237, LABEL_78)
-	play_sound(SFX_FOOTSTEP_80DB, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80DB_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1260, LABEL_79)
-	play_sound(SFX_FOOTSTEP_80D8, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80D8_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1280, LABEL_7A)
-	play_sound(SFX_FOOTSTEP_80D9, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80D9_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1300, LABEL_7B)
-	play_sound(SFX_FOOTSTEP_80DA, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80DA_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(1301, LABEL_62)
-	speak(CHR_BOND, L_LEE_045, MP3_048C, CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "We have to get down to the surface! Follow me!"
+	speak(CHR_BOND, L_LEE_045, MP3_ZZ(FILE_AP27_06_ELM), CHANNEL_CUTSCENE, COLOR_04_ORANGE) // "We have to get down to the surface! Follow me!"
 	open_door(OBJ_HANGARDOOR1)
 	open_door(OBJ_HANGARDOOR2)
 	open_door(OBJ_HANGARDOOR3)
@@ -3263,7 +3263,7 @@ u8 func1013_msg_gottogetshieldsdown[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	speak(CHR_BOND, L_LEE_027, MP3_03DC, CHANNEL_6, COLOR_09_BLUE) // "I've got to get those shields down to let Elvis in..."
+	speak(CHR_BOND, L_LEE_027, MP3_ZZ(FILE_AM8_L1_AM), CHANNEL_6, COLOR_09_BLUE) // "I've got to get those shields down to let Elvis in..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3284,7 +3284,7 @@ u8 func1014_msg_hangarbaydoors[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	speak(CHR_BOND, L_LEE_028, MP3_03DD, CHANNEL_6, COLOR_09_BLUE) // "Now only the hangar bay doors are in the way."
+	speak(CHR_BOND, L_LEE_028, MP3_ZZ(FILE_AM8_L1_BM), CHANNEL_6, COLOR_09_BLUE) // "Now only the hangar bay doors are in the way."
 
 	label(0x09)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3298,7 +3298,7 @@ u8 func1015_msg_starmaps[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_P1P2, L_LEE_029, MP3_03DE, CHANNEL_6, COLOR_09_BLUE) // "This machine contains the Skedar star maps."
+	speak(CHR_P1P2, L_LEE_029, MP3_ZZ(FILE_AM8_L1_CM), CHANNEL_6, COLOR_09_BLUE) // "This machine contains the Skedar star maps."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3314,7 +3314,7 @@ u8 func1016_msg_ifwecontrolthebridge[] = {
 	unset_chr_chrflag(CHR_BRIDGE1, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(CHR_BRIDGE2, CHRCFLAG_INVINCIBLE)
 	unset_chr_chrflag(CHR_BRIDGE3, CHRCFLAG_INVINCIBLE)
-	speak(CHR_P1P2, L_LEE_030, MP3_03DF, CHANNEL_6, COLOR_09_BLUE) // "If we control the bridge, then the ship is ours."
+	speak(CHR_P1P2, L_LEE_030, MP3_ZZ(FILE_AM8_L1_DM), CHANNEL_6, COLOR_09_BLUE) // "If we control the bridge, then the ship is ours."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3342,7 +3342,7 @@ u8 func0422_cass[] = {
 	if_stage_flag_eq(STAGEFLAG_SHY_SKEDAR_READY, TRUE, /*goto*/ 0x2c)
 
 	label(0x2c)
-	play_sound(MP3_0486, CHANNEL_CUTSCENE)
+	play_sound(MP3_LO_ZZ(FILE_AP26_08_DVM), CHANNEL_CUTSCENE)
 	set_stage_flag(STAGEFLAG_CASS_SCREAMING)
 
 	beginloop(LABEL_C2)
@@ -3580,7 +3580,7 @@ u8 func101c_lift_door_sounds[] = {
 
 	label(0x2c)
 	dprint 'S','O','U','N','D','\n',0,
-	play_sound(SFX_81A6, -1)
+	play_sound(SFXMAP_81A6, -1)
 	restart_timer
 
 	beginloop(0x08)
@@ -3685,7 +3685,7 @@ u8 func101f_enable_bridge_skedar[] = {
 
 u8 func1020_engine_hum_noise[] = {
 	yield
-	assign_sound(SFX_81A5, CHANNEL_0)
+	assign_sound(SFXMAP_81A5, CHANNEL_0)
 	bind_channel_to_object_repeating(CHANNEL_0, 0x1b, 1, 2000, 4000)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist

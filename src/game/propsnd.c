@@ -1488,12 +1488,12 @@ s32 ps_get_random_spark_sound(void)
 	s32 index = random() % 6;
 
 	s16 sounds[] = {
-		SFX_80B0,
-		SFX_80B1,
-		SFX_80B2,
-		SFX_80B3,
-		SFX_80B4,
-		SFX_80B5,
+		SFXMAP_80B0,
+		SFXMAP_80B1,
+		SFXMAP_80B2,
+		SFXMAP_80B3,
+		SFXMAP_80B4,
+		SFXMAP_80B5,
 	};
 
 	return sounds[index];

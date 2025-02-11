@@ -1264,7 +1264,11 @@ u8 func040f_cass[] = {
 	endloop(0x5b)
 
 	label(0x5c)
-	speak(CHR_TARGET, L_AME_021, MP3_02F4, CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
+#if VERSION >= VERSION_NTSC_1_0
+	speak(CHR_TARGET, L_AME_021, MP3_HI(FILE_ADEVR03M), CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
+#else
+	speak(CHR_TARGET, L_AME_021, MP3(FILE_ADEVR03M), CHANNEL_6, COLOR_04_ORANGE) // "Who are you and what are you doing here?"
+#endif
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0098, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -1310,7 +1314,11 @@ u8 func040f_cass[] = {
 	goto_next(0x66)
 
 	label(0x2c)
-	speak(CHR_TARGET, L_AME_023, MP3_02F5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
+#if VERSION >= VERSION_NTSC_1_0
+	speak(CHR_TARGET, L_AME_023, MP3_HI(FILE_ADEVR04M), CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
+#else
+	speak(CHR_TARGET, L_AME_023, MP3(FILE_ADEVR04M), CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me, foolish child!"
+#endif
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x66)
@@ -1332,7 +1340,11 @@ u8 func040f_cass[] = {
 
 	label(0x2c)
 	chr_do_animation(ANIM_TALKING_00A3, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
-	speak(CHR_TARGET, L_AME_024, MP3_02F6, CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
+#if VERSION >= VERSION_NTSC_1_0
+	speak(CHR_TARGET, L_AME_024, MP3_HI(FILE_ADEVR05M), CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
+#else
+	speak(CHR_TARGET, L_AME_024, MP3(FILE_ADEVR05M), CHANNEL_6, COLOR_04_ORANGE) // "Don't you know who I am?"
+#endif
 
 	beginloop(0x68)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x69)
@@ -1381,7 +1393,11 @@ u8 func040f_cass[] = {
 	goto_next(0x06)
 
 	label(0x2c)
-	speak(CHR_TARGET, L_AME_025, MP3_02F7, CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
+#if VERSION >= VERSION_NTSC_1_0
+	speak(CHR_TARGET, L_AME_025, MP3_HI(FILE_ADEVR06M), CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
+#else
+	speak(CHR_TARGET, L_AME_025, MP3(FILE_ADEVR06M), CHANNEL_6, COLOR_04_ORANGE) // "Let's see how you deal with security."
+#endif
 	label(0x06)
 	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -1489,7 +1505,7 @@ u8 func0411_secretary[] = {
 	restart_timer
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_NONE, /*goto*/ 0x2c)
 	if_chr_weapon_equipped(CHR_TARGET, WEAPON_UNARMED, /*goto*/ 0x2c)
-	speak(CHR_TARGET, L_AME_022, MP3_02ED, CHANNEL_5, COLOR_07_RED) // "Look out! She's got a gun."
+	speak(CHR_TARGET, L_AME_022, MP3_LO(FILE_ACSEC01M), CHANNEL_5, COLOR_07_RED) // "Look out! She's got a gun."
 	label(0x2c)
 	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -1583,7 +1599,7 @@ u8 func0414_programmer[] = {
 	goto_next(0x2c)
 
 	label(0x90)
-	speak(CHR_TARGET, L_AME_053, MP3_02FE, CHANNEL_3, COLOR_03_RED) // "Don't shoot, don't shoot!"
+	speak(CHR_TARGET, L_AME_053, MP3(FILE_AEXEC01M), CHANNEL_3, COLOR_03_RED) // "Don't shoot, don't shoot!"
 	label(0x2c)
 	restart_timer
 
@@ -1614,9 +1630,9 @@ u8 func0414_programmer[] = {
 	// Phone ringing
 	label(0x06)
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object(CHANNEL_4, OBJ_PCMONITOR, SFX_8109, PSTYPE_COMMHUB, PSFLAG_REPEATING)
+	play_sound_from_object(CHANNEL_4, OBJ_PCMONITOR, SFXMAP_8109, PSTYPE_COMMHUB, PSFLAG_REPEATING)
 #else
-	speak(CHR_TARGET, -1, SFX_8109, CHANNEL_4, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, SFXMAP_8109, CHANNEL_4, COLOR_00_GREEN)
 #endif
 
 	// Wait until Jo or Velvet is close to his door
@@ -1653,7 +1669,7 @@ u8 func0414_programmer[] = {
 	// speaks.
 	label(0x2c)
 	restart_timer
-	speak(CHR_TARGET, L_AME_068, SFX_8104, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
+	speak(CHR_TARGET, L_AME_068, SFXMAP_8104, CHANNEL_3, COLOR_03_RED) // "Yes, yes, I agree. Personality is expendable in th..."
 	restart_timer
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -1671,7 +1687,7 @@ u8 func0414_programmer[] = {
 	yield
 	yield
 	yield
-	speak(CHR_TARGET, L_AME_069, SFX_8105, CHANNEL_3, COLOR_03_RED) // "No, I can start the process from my office termina..."
+	speak(CHR_TARGET, L_AME_069, SFXMAP_8105, CHANNEL_3, COLOR_03_RED) // "No, I can start the process from my office termina..."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1685,7 +1701,7 @@ u8 func0414_programmer[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	speak(CHR_TARGET, L_AME_070, SFX_8106, CHANNEL_3, COLOR_03_RED) // "I'll begin at once. Goodbye."
+	speak(CHR_TARGET, L_AME_070, SFXMAP_8106, CHANNEL_3, COLOR_03_RED) // "I'll begin at once. Goodbye."
 
 	beginloop(0x0f)
 		if_sound_finished(CHANNEL_3, /*goto*/ 0x06)
@@ -1739,7 +1755,7 @@ u8 func0414_programmer[] = {
 
 		label(0x06)
 		if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x06)
-		speak(CHR_TARGET, L_AME_036, MP3_0300, CHANNEL_3, COLOR_03_RED) // "HELP - Intruder!"
+		speak(CHR_TARGET, L_AME_036, MP3(FILE_AEXEC04M), CHANNEL_3, COLOR_03_RED) // "HELP - Intruder!"
 		chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 		beginloop(0xa3)
@@ -1761,11 +1777,11 @@ u8 func0414_programmer[] = {
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD, TRUE, /*goto*/ 0x06)
 
 		label(0x2c)
-		speak(CHR_TARGET, L_AME_079, SFX_8107, CHANNEL_3, COLOR_03_RED) // "Security... Help me!"
+		speak(CHR_TARGET, L_AME_079, SFXMAP_8107, CHANNEL_3, COLOR_03_RED) // "Security... Help me!"
 		goto_next(0xa1)
 
 		label(0x06)
-		speak(CHR_TARGET, L_AME_038, SFX_8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
+		speak(CHR_TARGET, L_AME_038, SFXMAP_8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
 		label(0xa1)
 		restart_timer
 		set_stage_flag(STAGEFLAG_PROGRAMMER_RAN_TO_GUARD)
@@ -1816,17 +1832,17 @@ u8 func0414_programmer[] = {
 		endloop(0xa6)
 
 		label(0xa7)
-		speak(CHR_TARGET, L_AME_038, SFX_8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
+		speak(CHR_TARGET, L_AME_038, SFXMAP_8108, CHANNEL_3, COLOR_03_RED) // "HELP, HELP!"
 		increase_squadron_alertness(100)
 	endloop(0x99)
 
 	label(LABEL_JO_SPEAK)
 	restart_timer
 	if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x2c)
-	speak(CHR_TARGET, L_AME_072, MP3_0322, CHANNEL_3, COLOR_09_BLUE) // "I've got a password problem, and you're the man to..."
+	speak(CHR_TARGET, L_AME_072, MP3_ZZ(FILE_AJOEXEC01M), CHANNEL_3, COLOR_09_BLUE) // "I've got a password problem, and you're the man to..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(CHR_TARGET, L_AME_071, MP3_0323, CHANNEL_3, COLOR_09_BLUE) // "Move it!"
+	speak(CHR_TARGET, L_AME_071, MP3_ZZ(FILE_AJOEXEC02M), CHANNEL_3, COLOR_09_BLUE) // "Move it!"
 	label(0x06)
 	set_stage_flag(STAGEFLAG_TALKED_TO_PROGRAMMER)
 	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ 0x9b)
@@ -1846,11 +1862,11 @@ u8 func0414_programmer[] = {
 
 	label(0x06)
 	if_stage_flag_eq(STAGEFLAG_TALKED_TO_PROGRAMMER, TRUE, /*goto*/ 0x2c)
-	speak(CHR_TARGET, L_AME_035, MP3_02FF, CHANNEL_5, COLOR_03_RED) // "I'll do what you want!"
+	speak(CHR_TARGET, L_AME_035, MP3(FILE_AEXEC02M), CHANNEL_5, COLOR_03_RED) // "I'll do what you want!"
 	set_stage_flag(STAGEFLAG_TALKED_TO_PROGRAMMER)
 	goto_next(0x06)
 	label(0x2c)
-	speak(CHR_TARGET, L_AME_073, MP3_02FE, CHANNEL_5, COLOR_03_RED) // "Don't shoot, don't shoot!"
+	speak(CHR_TARGET, L_AME_073, MP3(FILE_AEXEC01M), CHANNEL_5, COLOR_03_RED) // "Don't shoot, don't shoot!"
 	label(0x06)
 	chr_do_animation(ANIM_DONT_SHOOT, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -1878,7 +1894,7 @@ u8 func0414_programmer[] = {
 
 	label(LABEL_NEAR_LAPTOPGUN_ROOM)
 	stop_chr
-	speak(CHR_TARGET, L_AME_039, MP3_02FF, CHANNEL_3, COLOR_03_RED) // "I'll do what you want..."
+	speak(CHR_TARGET, L_AME_039, MP3(FILE_AEXEC02M), CHANNEL_3, COLOR_03_RED) // "I'll do what you want..."
 	restart_timer
 	label(0x06)
 	walk_to_pad(PAD_AME_0062)
@@ -1891,13 +1907,13 @@ u8 func0414_programmer[] = {
 	restart_timer
 	if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
 	if_los_to_chr(CHR_TARGET, /*goto*/ 0x2c)
-	speak(CHR_TARGET, L_AME_040, MP3_0301, CHANNEL_3, COLOR_03_RED) // "Logging on now..."
+	speak(CHR_TARGET, L_AME_040, MP3(FILE_AEXEC05M), CHANNEL_3, COLOR_03_RED) // "Logging on now..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(CHR_TARGET, L_AME_109, MP3_0304, CHANNEL_3, COLOR_03_RED) // "I...I'm logging on now."
+	speak(CHR_TARGET, L_AME_109, MP3(FILE_AEXEC08M), CHANNEL_3, COLOR_03_RED) // "I...I'm logging on now."
 	label(0x06)
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
-	speak(CHR_TARGET, -1, SFX_8116, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, SFXMAP_8116, -1, COLOR_00_GREEN)
 
 	beginloop(0xae)
 		if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
@@ -1909,12 +1925,12 @@ u8 func0414_programmer[] = {
 	chr_do_animation(ANIM_PUSH_BUTTON, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	set_stage_flag(STAGEFLAG_PROGRAMMER_LOGGED_IN)
 	if_los_to_chr(CHR_TARGET, /*goto*/ 0x2c)
-	speak(CHR_TARGET, L_AME_041, MP3_0302, CHANNEL_3, COLOR_03_RED) // "Okay, I'm in..."
+	speak(CHR_TARGET, L_AME_041, MP3(FILE_AEXEC06M), CHANNEL_3, COLOR_03_RED) // "Okay, I'm in..."
 	goto_next(0x06)
 	label(0x2c)
-	speak(CHR_TARGET, L_AME_108, MP3_0305, CHANNEL_3, COLOR_03_RED) // "Right, I'm in..."
+	speak(CHR_TARGET, L_AME_108, MP3(FILE_AEXEC09M), CHANNEL_3, COLOR_03_RED) // "Right, I'm in..."
 	label(0x06)
-	speak(CHR_TARGET, -1, SFX_8117, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, SFXMAP_8117, -1, COLOR_00_GREEN)
 
 	beginloop(0xaf)
 		if_stage_flag_eq(STAGEFLAG_PC_DESTROYED, TRUE, /*goto*/ LABEL_PC_BROKEN)
@@ -1927,11 +1943,11 @@ u8 func0414_programmer[] = {
 	set_stage_flag(STAGEFLAG_PERSONALITY_DELETED)
 	set_chr_maxdamage(CHR_SELF, 1)
 	chr_do_animation(ANIM_TALKING_003D, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
-	speak(CHR_TARGET, L_AME_042, MP3_0303, CHANNEL_3, COLOR_03_RED) // "Goodbye, Dr. Caroll."
+	speak(CHR_TARGET, L_AME_042, MP3(FILE_AEXEC07M), CHANNEL_3, COLOR_03_RED) // "Goodbye, Dr. Caroll."
 	if_stage_flag_eq(STAGEFLAG_DOWNLOAD_COMPLETE, TRUE, /*goto*/ 0x2c)
 	set_stage_flag(STAGEFLAG_DELETED_WITHOUT_DOWNLOAD)
 	label(0x2c)
-	speak(CHR_TARGET, -1, SFX_TYPING_8118, -1, COLOR_00_GREEN)
+	speak(CHR_TARGET, -1, SFXMAP_8118_TYPING, -1, COLOR_00_GREEN)
 
 	beginloop(0xb0)
 	endloop(0xb0)
@@ -1941,7 +1957,7 @@ u8 func0414_programmer[] = {
 
 	label(LABEL_PC_BROKEN)
 	set_self_flag_bankx(CHRFLAG0_CANT_ALERT_GROUP, BANK_0)
-	speak(CHR_TARGET, L_AME_098, MP3_SCI_YOU_VANDAL, CHANNEL_3, COLOR_03_RED) // "You vandal, you've broken it!"
+	speak(CHR_TARGET, L_AME_098, MP3(FILE_ASCIE3EM), CHANNEL_3, COLOR_03_RED) // "You vandal, you've broken it!"
 	do_preset_animation(PRESETANIM_TALKRANDOM)
 
 	beginloop(0xc6)
@@ -2042,7 +2058,7 @@ u8 func100e_check_ecm_mines[] = {
 		show_hudmsg(CHR_BOND, L_AME_029) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_8113, CHANNEL_0)
+		assign_sound(SFXMAP_8113, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_SECURITYHUB, TRUE)
 		show_hudmsg(CHR_BOND, L_AME_076) // "Internal security system temporarily disabled."
 		set_stage_flag(STAGEFLAG_SECURITYHUB_COMPLETE)
@@ -2053,7 +2069,7 @@ u8 func100e_check_ecm_mines[] = {
 		show_hudmsg(CHR_BOND, L_AME_029) // "ECM Mine placed correctly."
 		yield
 		mute_channel(CHANNEL_1)
-		assign_sound(SFX_8113, CHANNEL_1)
+		assign_sound(SFXMAP_8113, CHANNEL_1)
 		bind_channel_to_object(CHANNEL_1, OBJ_EXTCOMMSHUB, TRUE)
 		show_hudmsg(CHR_BOND, L_AME_077) // "External communications hub disabled."
 		set_stage_flag(STAGEFLAG_EXTCOMMSHUB_COMPLETE)
@@ -2232,19 +2248,19 @@ u8 func1007_uplinking[] = {
 		if_rand_lt(180, /*goto*/ 0x0f)
 
 		label(0x0c)
-		speak(CHR_TARGET, -1, SFX_8116, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, SFXMAP_8116, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0d)
-		speak(CHR_TARGET, -1, SFX_8117, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, SFXMAP_8117, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0e)
-		speak(CHR_TARGET, -1, SFX_TYPING_8118, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, SFXMAP_8118_TYPING, -1, COLOR_00_GREEN)
 		goto_next(0x06)
 
 		label(0x0f)
-		speak(CHR_TARGET, -1, SFX_TYPING_8118, -1, COLOR_00_GREEN)
+		speak(CHR_TARGET, -1, SFXMAP_8118_TYPING, -1, COLOR_00_GREEN)
 
 		label(0x06)
 		restart_timer
@@ -2260,7 +2276,7 @@ u8 func1007_uplinking[] = {
 		if_stage_flag_eq(STAGEFLAG_PROGRAMMER_LOGGED_IN, TRUE, /*goto*/ 0xae)
 		restart_timer
 		show_hudmsg(CHR_TARGET, L_AME_046) // "ACCESS DENIED - password needed."
-		assign_sound(SFX_01C0, CHANNEL_7)
+		assign_sound(SFXNUM_01C0, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_PC, FALSE)
 
 		beginloop(0xaf)
@@ -2273,7 +2289,7 @@ u8 func1007_uplinking[] = {
 
 		label(0xae)
 		show_hudmsg(CHR_TARGET, L_AME_044) // "File download initiated."
-		assign_sound(SFX_01BF, CHANNEL_7)
+		assign_sound(SFXNUM_01BF, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_PC, TRUE)
 		restart_timer
 
@@ -2286,7 +2302,7 @@ u8 func1007_uplinking[] = {
 
 		label(0xad)
 		mute_channel(CHANNEL_7)
-		assign_sound(SFX_01C1, CHANNEL_7)
+		assign_sound(SFXNUM_01C1, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_PC, TRUE)
 		show_hudmsg(CHR_TARGET, L_AME_045) // "File download completed."
 		yield
@@ -2296,7 +2312,7 @@ u8 func1007_uplinking[] = {
 		label(0x2c)
 		show_hudmsg(CHR_TARGET, L_AME_074) // "Datalink broken - connection terminated."
 		mute_channel(CHANNEL_7)
-		assign_sound(SFX_01C0, CHANNEL_6)
+		assign_sound(SFXNUM_01C0, CHANNEL_6)
 		bind_channel_to_object_repeating(CHANNEL_6, OBJ_PC, 1, 300, 400)
 		restart_timer
 
@@ -2311,7 +2327,7 @@ u8 func1007_uplinking[] = {
 		label(0x12)
 		show_hudmsg(CHR_TARGET, L_AME_075) // "Datalink error - incomplete file download."
 		mute_channel(CHANNEL_7)
-		assign_sound(SFX_01C0, CHANNEL_6)
+		assign_sound(SFXNUM_01C0, CHANNEL_6)
 		bind_channel_to_object_repeating(CHANNEL_6, OBJ_PC, 1, 300, 400)
 		restart_timer
 
@@ -2349,7 +2365,7 @@ u8 func1008_doorswitch[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	play_sound(SFX_PRESS_SWITCH, -1)
+	play_sound(SFXNUM_00BA_PRESS_SWITCH, -1)
 #if VERSION >= VERSION_NTSC_1_0
 	show_hudmsg(CHR_P1P2, L_AME_047) // "Door unlocked."
 #else
@@ -2368,7 +2384,7 @@ u8 func1008_doorswitch[] = {
 	endloop(0x08)
 
 	label(0x06)
-	assign_sound(SFX_043B, CHANNEL_7)
+	assign_sound(SFXNUM_043B, CHANNEL_7)
 	bind_channel_to_object(CHANNEL_7, OBJ_OFFICEDOOR1, TRUE)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2425,7 +2441,7 @@ u8 func100b_lightswitch[] = {
 		reloop(0x04)
 
 		label(0x2c)
-		play_sound(SFX_PRESS_SWITCH, -1)
+		play_sound(SFXNUM_00BA_PRESS_SWITCH, -1)
 		if_stage_flag_eq(STAGEFLAG_LIGHTS_OFF, TRUE, /*goto*/ 0x06)
 
 		// Turning lights off
@@ -3227,7 +3243,7 @@ u8 func0416_outro[] = {
 	endloop(0xb6)
 
 	label(0x06)
-	play_sound(SFX_0165, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0165, CHANNEL_CUTSCENE)
 
 	beginloop(0xb7)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3235,7 +3251,7 @@ u8 func0416_outro[] = {
 	endloop(0xb7)
 
 	label(0x06)
-	play_sound(SFX_0167, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0167, CHANNEL_CUTSCENE)
 
 	beginloop(0xb8)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3243,7 +3259,7 @@ u8 func0416_outro[] = {
 	endloop(0xb8)
 
 	label(0x06)
-	play_sound(SFX_01DC, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_01DC, CHANNEL_CUTSCENE)
 
 	beginloop(0xb9)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3251,7 +3267,7 @@ u8 func0416_outro[] = {
 	endloop(0xb9)
 
 	label(0x06)
-	play_sound(SFX_01D8, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_01D8_RELOAD_REMOVE, CHANNEL_CUTSCENE)
 
 	beginloop(0xba)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3259,7 +3275,7 @@ u8 func0416_outro[] = {
 	endloop(0xba)
 
 	label(0x06)
-	play_sound(SFX_01DA, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_01DA_RELOAD_DROP, CHANNEL_CUTSCENE)
 
 	beginloop(0xbb)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3267,7 +3283,7 @@ u8 func0416_outro[] = {
 	endloop(0xbb)
 
 	label(0x06)
-	play_sound(VERSION >= VERSION_NTSC_1_0 ? SFX_80F6 : SFX_01D9, CHANNEL_CUTSCENE)
+	play_sound(VERSION >= VERSION_NTSC_1_0 ? SFXMAP_80F6 : SFXNUM_01D9_RELOAD_INSERT, CHANNEL_CUTSCENE)
 
 	beginloop(0xbc)
 		if_controller_button_pressed(/*goto*/ 0xbd)
@@ -3275,7 +3291,7 @@ u8 func0416_outro[] = {
 	endloop(0xbc)
 
 	label(0x06)
-	play_sound(SFX_01DB, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_01DB_RELOAD_RACK, CHANNEL_CUTSCENE)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ 0x2c)
@@ -3331,13 +3347,13 @@ u8 func1003_start_intro[] = {
 u8 func1010_start_hub_humms[] = {
 	yield
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, PSTYPE_COMMHUB, PSFLAG_REPEATING)
+	play_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, SFXMAP_8111, PSTYPE_COMMHUB, PSFLAG_REPEATING)
 	yield
-	play_sound_from_object(CHANNEL_1, OBJ_EXTCOMMSHUB, SFX_8111, PSTYPE_COMMHUB, PSFLAG_REPEATING)
+	play_sound_from_object(CHANNEL_1, OBJ_EXTCOMMSHUB, SFXMAP_8111, PSTYPE_COMMHUB, PSFLAG_REPEATING)
 #else
-	play_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, SFX_8111, PSTYPE_COMMHUB, 0)
+	play_sound_from_object(CHANNEL_0, OBJ_SECURITYHUB, SFXMAP_8111, PSTYPE_COMMHUB, 0)
 	yield
-	play_sound_from_object(CHANNEL_1, OBJ_SECURITYHUB, SFX_0004, PSTYPE_COMMHUB, 0)
+	play_sound_from_object(CHANNEL_1, OBJ_SECURITYHUB, SFXNUM_0004, PSTYPE_COMMHUB, 0)
 #endif
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3448,7 +3464,7 @@ u8 func1013_msg_commshubnearby[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_093, SFX_8170, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
+	speak(CHR_BOND, L_AME_093, SFXMAP_8170, CHANNEL_6, COLOR_09_BLUE) // "We're getting a positive reading - the internal co..."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3463,7 +3479,7 @@ u8 func1014_msg_officefloor[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_094, SFX_8171, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
+	speak(CHR_BOND, L_AME_094, SFXMAP_8171, CHANNEL_6, COLOR_09_BLUE) // "You're on the same floor as Cassandra's office."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3477,7 +3493,7 @@ u8 func1015_msg_securityroom[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_095, MP3_03A2, CHANNEL_6, COLOR_09_BLUE) // "The other hub has got to be in the Security Room."
+	speak(CHR_BOND, L_AME_095, MP3_ZZ(FILE_AM1_L1_CM), CHANNEL_6, COLOR_09_BLUE) // "The other hub has got to be in the Security Room."
 	label(0x0d)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3489,7 +3505,7 @@ u8 func1016_msg_basementelevator[] = {
 	endloop(0x04)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_096, SFX_8172, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
+	speak(CHR_BOND, L_AME_096, SFXMAP_8172, CHANNEL_6, COLOR_09_BLUE) // "The basement elevator must be around there somewhe..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3550,7 +3566,7 @@ u8 func1418_intro_speaking[] = {
 	endloop(0xb6)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_100, MP3_03E4, CHANNEL_6, COLOR_09_BLUE) // "Why the big hurry?"
+	speak(CHR_BOND, L_AME_100, MP3_ZZ(FILE_AP1_01_JOM), CHANNEL_6, COLOR_09_BLUE) // "Why the big hurry?"
 
 	beginloop(0x08)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3558,7 +3574,7 @@ u8 func1418_intro_speaking[] = {
 	endloop(0x08)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_101, MP3_03E5, CHANNEL_6, COLOR_06_WHITE) // "If Dr. Caroll is not extracted tonight, dataDyne w..."
+	speak(CHR_BOND, L_AME_101, MP3_ZZ(FILE_AP1_02_CAM), CHANNEL_6, COLOR_06_WHITE) // "If Dr. Caroll is not extracted tonight, dataDyne w..."
 
 	beginloop(0x09)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3566,7 +3582,7 @@ u8 func1418_intro_speaking[] = {
 	endloop(0x09)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_102, MP3_03E6, CHANNEL_6, COLOR_09_BLUE) // "Are they all expendable?"
+	speak(CHR_BOND, L_AME_102, MP3_ZZ(FILE_AP1_03_JOM), CHANNEL_6, COLOR_09_BLUE) // "Are they all expendable?"
 
 	beginloop(0x0a)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3574,7 +3590,7 @@ u8 func1418_intro_speaking[] = {
 	endloop(0x0a)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_103, MP3_03E7, CHANNEL_6, COLOR_06_WHITE) // "Don't joke! You have to be careful, Joanna. Code k..."
+	speak(CHR_BOND, L_AME_103, MP3_ZZ(FILE_AP1_04_CAM), CHANNEL_6, COLOR_06_WHITE) // "Don't joke! You have to be careful, Joanna. Code k..."
 
 	beginloop(0x0b)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3582,7 +3598,7 @@ u8 func1418_intro_speaking[] = {
 	endloop(0x0b)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_104, MP3_03E8, CHANNEL_6, COLOR_09_BLUE) // "What's the target location?"
+	speak(CHR_BOND, L_AME_104, MP3_ZZ(FILE_AP1_05_JOM), CHANNEL_6, COLOR_09_BLUE) // "What's the target location?"
 
 	beginloop(0x0c)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3590,7 +3606,7 @@ u8 func1418_intro_speaking[] = {
 	endloop(0x0c)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_105, MP3_03E9, CHANNEL_6, COLOR_06_WHITE) // "Work your way down the building to the ground leve..."
+	speak(CHR_BOND, L_AME_105, MP3_ZZ(FILE_AP1_06_CAM), CHANNEL_6, COLOR_06_WHITE) // "Work your way down the building to the ground leve..."
 
 	beginloop(0x0d)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3598,7 +3614,7 @@ u8 func1418_intro_speaking[] = {
 	endloop(0x0d)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_106, MP3_03EA, CHANNEL_6, COLOR_09_BLUE) // "How will I recognize him?"
+	speak(CHR_BOND, L_AME_106, MP3_ZZ(FILE_AP1_07_JOM), CHANNEL_6, COLOR_09_BLUE) // "How will I recognize him?"
 
 	beginloop(0x0e)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3606,7 +3622,7 @@ u8 func1418_intro_speaking[] = {
 	endloop(0x0e)
 
 	label(0x2c)
-	speak(CHR_BOND, L_AME_107, MP3_03EB, CHANNEL_6, COLOR_06_WHITE) // "We don't have an image record, and we can't find a..."
+	speak(CHR_BOND, L_AME_107, MP3_ZZ(FILE_AP1_08_CAM), CHANNEL_6, COLOR_06_WHITE) // "We don't have an image record, and we can't find a..."
 
 	beginloop(0x0f)
 		if_stage_flag_eq(STAGEFLAG_STOP_INTRO, TRUE, /*goto*/ 0x06)
@@ -3782,7 +3798,7 @@ u8 func101e_lift_door_sounds[] = {
 		reloop(0xc4)
 
 		label(0x2c)
-		play_sound(SFX_DOOR_81B0, -1)
+		play_sound(SFXMAP_81B0_DOOR, -1)
 		restart_timer
 
 		beginloop(0x08)

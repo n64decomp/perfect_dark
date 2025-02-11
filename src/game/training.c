@@ -460,7 +460,7 @@ void fr_init_lighting(void)
 
 		g_FrData.donelighting = true;
 
-		snd_start(var80095200, SFX_FR_LIGHTSON, NULL, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXNUM_05D5_FR_LIGHTSON, NULL, -1, -1, -1, -1, -1);
 	}
 
 	chr_set_stage_flag(NULL, STAGEFLAG_CI_IN_TRAINING);
@@ -479,7 +479,7 @@ void fr_restore_lighting(void)
 
 		g_FrData.donelighting = false;
 
-		snd_start(var80095200, SFX_FR_LIGHTSOFF, NULL, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXNUM_05D6_FR_LIGHTSOFF, NULL, -1, -1, -1, -1, -1);
 	}
 }
 
@@ -935,7 +935,7 @@ bool fr_execute_target_script(s32 targetnum)
 			} else {
 				if (g_FrNumSounds < 3) {
 					g_FrNumSounds++;
-					ps_create(NULL, g_FrData.targets[targetnum].prop, SFX_FR_CONVEYER, -1,
+					ps_create(NULL, g_FrData.targets[targetnum].prop, SFXNUM_05D9_FR_CONVEYER, -1,
 							-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 				}
 
@@ -1766,11 +1766,11 @@ void fr_tick(void)
 				menu_push_root_dialog_and_pause(&g_FrTrainingInfoPreGameMenuDialog, MENUROOT_TRAINING);
 				break;
 			case FRMENUTYPE_FAILED:
-				snd_start(var80095200, SFX_TRAINING_FAIL, NULL, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_05DB_TRAINING_FAIL, NULL, -1, -1, -1, -1, -1);
 				menu_push_root_dialog_and_pause(&g_FrFailedMenuDialog, MENUROOT_TRAINING);
 				break;
 			case FRMENUTYPE_COMPLETED:
-				snd_start(var80095200, SFX_TRAINING_COMPLETE, NULL, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_05DC_TRAINING_COMPLETE, NULL, -1, -1, -1, -1, -1);
 				menu_push_root_dialog_and_pause(&g_FrCompletedMenuDialog, MENUROOT_TRAINING);
 				filemgr_save_or_load(&g_GameFileGuid, FILEOP_SAVE_GAME_000, 0);
 				break;
@@ -1877,7 +1877,7 @@ void fr_tick(void)
 		if (g_FrData.numshots == 0) {
 			if (g_FrData.donealarm == false && g_FrData.timetaken > TICKS(-180)) {
 				g_FrData.donealarm = true;
-				snd_start(var80095200, SFX_FR_ALARM, NULL, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_05D4_FR_ALARM, NULL, -1, -1, -1, -1, -1);
 			}
 
 			if (!g_FrData.donelighting && g_FrData.timetaken > TICKS(-225)) {
@@ -1914,7 +1914,7 @@ void fr_tick(void)
 
 			if (g_FrData.targets[i].travelling && g_FrData.targets[i].silent && g_FrData.targets[i].travelspeed != -1) {
 				g_FrData.targets[i].silent = false;
-				ps_create(NULL, g_FrData.targets[i].prop, SFX_FR_CONVEYER, -1,
+				ps_create(NULL, g_FrData.targets[i].prop, SFXNUM_05D9_FR_CONVEYER, -1,
 						-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			}
 
@@ -2095,7 +2095,7 @@ void fr_tick(void)
 						}
 
 						ps_stop_sound(prop, PSTYPE_GENERAL, 0xffff);
-						ps_create(NULL, prop, SFX_FR_CONVEYER_STOP, -1,
+						ps_create(NULL, prop, SFXNUM_05DA_FR_CONVEYER_STOP, -1,
 								-1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 						if (g_FrNumSounds);

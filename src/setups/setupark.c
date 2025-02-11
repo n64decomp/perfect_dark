@@ -1271,7 +1271,11 @@ u8 func0408_hovercopter[] = {
 
 		label(0x47)
 		if_stage_flag_eq(STAGEFLAG_SAID_SURRENDER_OR_DIE, TRUE, /*goto*/ 0x20)
-		play_sound(MP3_030B, -1)
+#if VERSION >= VERSION_NTSC_1_0
+		play_sound(MP3_LO_ZZ(FILE_AHELIC01M), -1)
+#else
+		play_sound(MP3_ZZ(FILE_AHELIC01M), -1)
+#endif
 		set_stage_flag(STAGEFLAG_SAID_SURRENDER_OR_DIE)
 		label(0x20)
 	endloop(0x44)
@@ -1297,7 +1301,11 @@ u8 func0408_hovercopter[] = {
 
 		label(0x4c)
 		if_stage_flag_eq(STAGEFLAG_SAID_GIVE_UP, TRUE, /*goto*/ 0x20)
-		play_sound(MP3_030D, -1)
+#if VERSION >= VERSION_NTSC_1_0
+		play_sound(MP3_LO_ZZ(FILE_AHELIC03M), -1)
+#else
+		play_sound(MP3_ZZ(FILE_AHELIC03M), -1)
+#endif
 		set_stage_flag(STAGEFLAG_SAID_GIVE_UP)
 		label(0x20)
 	endloop(0x49)
@@ -1308,7 +1316,11 @@ u8 func0408_hovercopter[] = {
 	label(0x00)
 	set_stage_flag(STAGEFLAG_HOVERCOPTER_ON_ROOF)
 	if_stage_flag_eq(STAGEFLAG_SAID_FINAL_WARNING, TRUE, /*goto*/ 0x20)
-	play_sound(MP3_030C, -1)
+#if VERSION >= VERSION_NTSC_1_0
+	play_sound(MP3_LO_ZZ(FILE_AHELIC02M), -1)
+#else
+	play_sound(MP3_ZZ(FILE_AHELIC02M), -1)
+#endif
 	set_stage_flag(STAGEFLAG_SAID_FINAL_WARNING)
 	label(0x20)
 	stop_chr
@@ -1442,7 +1454,7 @@ u8 func1004_elevator_unlocking[] = {
 	// Computer activated
 	label(0x20)
 	show_hudmsg(CHR_TARGET, L_ARK_014) // "Accessing elevator controls..."
-	assign_sound(SFX_8116, CHANNEL_6)
+	assign_sound(SFXMAP_8116, CHANNEL_6)
 	bind_channel_to_object(CHANNEL_6, 0x01, TRUE)
 	restart_timer
 
@@ -1477,7 +1489,7 @@ u8 func1004_elevator_unlocking[] = {
 	endloop(0x21)
 
 	label(0x00)
-	play_sound(SFX_DOOR_81B0, -1)
+	play_sound(SFXMAP_81B0_DOOR, -1)
 	unlock_door(0x02, 0x01)
 	unlock_door(0x03, 0x01)
 	show_hudmsg(CHR_TARGET, L_ARK_034) // "Office elevator door has been unlocked."
@@ -1705,7 +1717,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x20)
 	dprint 'T','E','C','H',' ','2',' ','L','O','O','P','\n',0,
 	chr_do_animation(ANIM_TALKING_00A0, 0, -1, CHRANIMFLAG_SLOWUPDATE, 20, CHR_SELF, 2)
-	speak(CHR_PRESET, L_ARK_037, SFX_811D, CHANNEL_7, COLOR_06_WHITE) // "That's not how it goes."
+	speak(CHR_PRESET, L_ARK_037, SFXMAP_811D, CHANNEL_7, COLOR_06_WHITE) // "That's not how it goes."
 	restart_timer
 
 	beginloop(0x21)
@@ -1727,7 +1739,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x20)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, -1, CHRANIMFLAG_SLOWUPDATE, 20, CHR_SELF, 2)
 	chr_do_animation(ANIM_TALKING_00A0, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 20, 0x10, 2)
-	speak(CHR_PRESET, L_ARK_038, SFX_8120, CHANNEL_7, COLOR_08_RED) // "Yes, it is."
+	speak(CHR_PRESET, L_ARK_038, SFXMAP_8120, CHANNEL_7, COLOR_08_RED) // "Yes, it is."
 
 	beginloop(0x22)
 		if_saw_injury(0x00, /*goto*/ 0x33)
@@ -1748,7 +1760,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x20)
 	chr_do_animation(ANIM_TALKING_00A0, 0, -1, CHRANIMFLAG_SLOWUPDATE, 20, CHR_SELF, 2)
 	chr_do_animation(ANIM_OPERATE_0205, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 20, 0x10, 2)
-	speak(CHR_PRESET, L_ARK_039, SFX_811E, CHANNEL_7, COLOR_06_WHITE) // "Give it to me - you're doing it wrong."
+	speak(CHR_PRESET, L_ARK_039, SFXMAP_811E, CHANNEL_7, COLOR_06_WHITE) // "Give it to me - you're doing it wrong."
 
 	beginloop(0x23)
 		if_saw_injury(0x00, /*goto*/ 0x33)
@@ -1769,7 +1781,7 @@ u8 func0409_tech_conversation[] = {
 	label(0x20)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, -1, CHRANIMFLAG_SLOWUPDATE, 20, CHR_SELF, 2)
 	chr_do_animation(ANIM_TALKING_00A0, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 20, 0x10, 2)
-	speak(CHR_PRESET, L_ARK_040, SFX_8121, CHANNEL_7, COLOR_08_RED) // "Stop annoying me."
+	speak(CHR_PRESET, L_ARK_040, SFXMAP_8121, CHANNEL_7, COLOR_08_RED) // "Stop annoying me."
 
 	beginloop(0x24)
 		if_saw_injury(0x00, /*goto*/ 0x33)
@@ -1791,7 +1803,7 @@ u8 func0409_tech_conversation[] = {
 	chr_do_animation(ANIM_TWO_GUN_HOLD, 0, -1, CHRANIMFLAG_SLOWUPDATE, 20, CHR_SELF, 2)
 	chr_do_animation(ANIM_TALKING_00A0, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 20, CHR_RLSHOCK, 2)
 	chr_do_animation(ANIM_OPERATE_0206, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 20, 0x10, 2)
-	speak(CHR_PRESET, L_ARK_041, SFX_8123, CHANNEL_7, COLOR_09_BLUE) // "Will you just hurry up!"
+	speak(CHR_PRESET, L_ARK_041, SFXMAP_8123, CHANNEL_7, COLOR_09_BLUE) // "Will you just hurry up!"
 
 	beginloop(0x25)
 		if_saw_injury(0x00, /*goto*/ 0x33)
@@ -1831,7 +1843,7 @@ u8 func0409_tech_conversation[] = {
 	increase_squadron_alertness(100)
 	open_door(0x04)
 	restart_timer
-	speak(CHR_TARGET, L_ARK_042, SFX_811F, CHANNEL_7, COLOR_06_WHITE) // "Oh, no...too late."
+	speak(CHR_TARGET, L_ARK_042, SFXMAP_811F, CHANNEL_7, COLOR_06_WHITE) // "Oh, no...too late."
 	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x34)
@@ -1925,7 +1937,7 @@ u8 func040a_tech2[] = {
 
 	label(0x20)
 	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
-	speak(CHR_TARGET, L_ARK_043, SFX_8122, CHANNEL_7, COLOR_08_RED) // "She's here..."
+	speak(CHR_TARGET, L_ARK_043, SFXMAP_8122, CHANNEL_7, COLOR_08_RED) // "She's here..."
 
 	beginloop(0x22)
 		if_sound_finished(CHANNEL_7, /*goto*/ 0x35)
@@ -2025,7 +2037,7 @@ u8 func040d_cass[] = {
 
 	label(0x00)
 	restart_timer
-	speak(CHR_TARGET, L_ARK_032, SFX_80FF, CHANNEL_6, COLOR_04_ORANGE) // "We meet again, girl!"
+	speak(CHR_TARGET, L_ARK_032, SFXMAP_80FF, CHANNEL_6, COLOR_04_ORANGE) // "We meet again, girl!"
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x27)
@@ -2035,7 +2047,7 @@ u8 func040d_cass[] = {
 
 	label(0x00)
 	restart_timer
-	speak(CHR_TARGET, L_ARK_020, SFX_80FE, CHANNEL_6, COLOR_04_ORANGE) // "You've become quite an annoyance..."
+	speak(CHR_TARGET, L_ARK_020, SFXMAP_80FE, CHANNEL_6, COLOR_04_ORANGE) // "You've become quite an annoyance..."
 	chr_do_animation(ANIM_TALKING_00A3, 0, 193, CHRANIMFLAG_SLOWUPDATE, 20, CHR_SELF, 2)
 
 	beginloop(0x28)
@@ -2051,13 +2063,13 @@ u8 func040d_cass[] = {
 	endloop(0x29)
 
 	label(0x20)
-	speak(CHR_TARGET, L_ARK_044, SFX_8101, CHANNEL_6, COLOR_04_ORANGE) // "Get her!"
+	speak(CHR_TARGET, L_ARK_044, SFXMAP_8101, CHANNEL_6, COLOR_04_ORANGE) // "Get her!"
 	chr_do_animation(ANIM_TALKING_00A3, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	goto_next(0x20)
 
 	label(0x00)
 	restart_timer
-	speak(CHR_TARGET, L_ARK_021, SFX_8100, CHANNEL_6, COLOR_04_ORANGE) // "Good night, Ms. Dark."
+	speak(CHR_TARGET, L_ARK_021, SFXMAP_8100, CHANNEL_6, COLOR_04_ORANGE) // "Good night, Ms. Dark."
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
 	beginloop(0x2a)
@@ -2086,7 +2098,7 @@ u8 func040d_cass[] = {
 	endloop(0x2b)
 
 	label(0x00)
-	play_sound(SFX_8102, CHANNEL_7)
+	play_sound(SFXMAP_8102, CHANNEL_7)
 
 	beginloop(0x2c)
 		if_timer_gt(120, /*goto*/ 0x00)
@@ -2180,7 +2192,7 @@ u8 func100a_lightswitch[] = {
 		reloop(0x1f)
 
 		label(0x20)
-		play_sound(SFX_PRESS_SWITCH, -1)
+		play_sound(SFXNUM_00BA_PRESS_SWITCH, -1)
 		if_stage_flag_eq(STAGEFLAG_TOP_LIGHTS_OFF, TRUE, /*goto*/ 0x00)
 		set_lights_state(0x0044, LIGHTOP_TURNOFF, 0, 0, 0)
 		set_lights_state(0x0039, LIGHTOP_TURNOFF, 0, 0, 0)
@@ -2385,37 +2397,37 @@ u8 func100d_intro[] = {
 	open_door(0x0c)
 
 	wait_until(120, 0x60)
-	play_sound(SFX_0161, -1)
+	play_sound(SFXNUM_0161, -1)
 
 	wait_until(350, 0x62)
-	play_sound(SFX_042F, -1)
+	play_sound(SFXNUM_042F, -1)
 
 	wait_until(450, 0x63)
-	play_sound(SFX_0427, -1)
+	play_sound(SFXNUM_0427, -1)
 
 	wait_until(540, 0x64)
-	speak(CHR_BOND, L_ARK_060, MP3_03F3, CHANNEL_7, COLOR_06_WHITE) // "Sound the alarm - she's here!"
+	speak(CHR_BOND, L_ARK_060, MP3_LO_ZZ(FILE_AP3_01_GDM), CHANNEL_7, COLOR_06_WHITE) // "Sound the alarm - she's here!"
 
 	wait_until(640, 0x65)
-	speak(CHR_BOND, L_ARK_061, MP3_03F4, CHANNEL_7, COLOR_09_BLUE) // "Lights out!"
+	speak(CHR_BOND, L_ARK_061, MP3_ZZ(FILE_AP3_02_JOM), CHANNEL_7, COLOR_09_BLUE) // "Lights out!"
 
 	wait_until(690, 0x66)
-	play_sound(SFX_0428, -1)
+	play_sound(SFXNUM_0428, -1)
 
 	wait_until(720, 0x67)
-	play_sound(SFX_ARGH_DRCAROLL_0250, 10)
+	play_sound(SFXNUM_0250_DRC_ARGH, 10)
 
 	wait_until(850, 0x68)
-	play_sound(SFX_0430, -1)
+	play_sound(SFXNUM_0430, -1)
 
 	wait_until(880, 0x69)
-	play_sound(SFX_0429, -1)
+	play_sound(SFXNUM_0429, -1)
 
 	wait_until(890, 0x6a)
 	close_door(0x0c)
 
 	wait_until(1000, 0x6b)
-	speak(CHR_BOND, L_ARK_062, MP3_03F5, CHANNEL_7, COLOR_09_BLUE) // "What the...?"
+	speak(CHR_BOND, L_ARK_062, MP3_ZZ(FILE_AP3_03_JOM), CHANNEL_7, COLOR_09_BLUE) // "What the...?"
 
 	beginloop(0x21)
 		if_camera_animating(/*goto*/ 0x20)
@@ -2545,40 +2557,40 @@ u8 func0412_outro[] = {
 	outro_wait_until(90, 0x7f)
 
 	outro_wait_until(120, 0x60)
-	speak(CHR_P1P2, L_ARK_063, MP3_03F6, CHANNEL_7, COLOR_04_ORANGE) // "Going somewhere?"
+	speak(CHR_P1P2, L_ARK_063, MP3_ZZ(FILE_AP4_01_DVM), CHANNEL_7, COLOR_04_ORANGE) // "Going somewhere?"
 
 	outro_wait_until(188, 0x61)
-	play_sound(SFX_01D9, -1)
+	play_sound(SFXNUM_01D9_RELOAD_INSERT, -1)
 
 	outro_wait_until(350, 0x62)
-	speak(CHR_P1P2, L_ARK_064, MP3_03F7, CHANNEL_7, COLOR_09_BLUE) // "Something I can do for you, old woman?"
+	speak(CHR_P1P2, L_ARK_064, MP3_ZZ(FILE_AP4_02_JOM), CHANNEL_7, COLOR_09_BLUE) // "Something I can do for you, old woman?"
 
 	outro_wait_until(500, 0x63)
-	speak(CHR_P1P2, L_ARK_065, MP3_03F8, CHANNEL_7, COLOR_04_ORANGE) // "Return our sapient immediately! You don't know wha..."
+	speak(CHR_P1P2, L_ARK_065, MP3_ZZ(FILE_AP4_03_DVM), CHANNEL_7, COLOR_04_ORANGE) // "Return our sapient immediately! You don't know wha..."
 
 	outro_wait_until(720, 0x64)
-	play_sound(SFX_0424, -1)
+	play_sound(SFXNUM_0424, -1)
 
 	outro_wait_until(740, 0x65)
-	speak(CHR_P1P2, L_ARK_066, MP3_03F9, CHANNEL_7, COLOR_09_BLUE) // "Yes I do. I'm leaving."
+	speak(CHR_P1P2, L_ARK_066, MP3_ZZ(FILE_AP4_04_JOM), CHANNEL_7, COLOR_09_BLUE) // "Yes I do. I'm leaving."
 
 	outro_wait_until(858, 0x73)
 
 	outro_wait_until(980, 0x66)
-	speak(CHR_P1P2, L_ARK_067, MP3_03FA, CHANNEL_7, COLOR_04_ORANGE) // "One more chance! Give it back, and you could come ..."
+	speak(CHR_P1P2, L_ARK_067, MP3_ZZ(FILE_AP4_05_DVM), CHANNEL_7, COLOR_04_ORANGE) // "One more chance! Give it back, and you could come ..."
 
 	outro_wait_until(990, 0x68)
-	play_sound(SFX_RELOAD_DEFAULT, -1)
+	play_sound(SFXMAP_804F_RELOAD_DEFAULT, -1)
 
 	outro_wait_until(1220, 0x69)
 
 	outro_wait_until(1240, 0x6a)
 
 	outro_wait_until(1348, 0x6b)
-	play_sound(SFX_FOOTSTEP_80C8, -1)
+	play_sound(SFXMAP_80C8_FOOTSTEP, -1)
 
 	outro_wait_until(1380, 0x80)
-	play_sound(SFX_FOOTSTEP_80C9, -1)
+	play_sound(SFXMAP_80C9_FOOTSTEP, -1)
 
 	outro_wait_until(1400, 0x81)
 	set_chr_shooting_in_cutscene(CHR_OUTRO_GUARD1, TRUE)
@@ -2595,19 +2607,19 @@ u8 func0412_outro[] = {
 	set_chr_shooting_in_cutscene(CHR_OUTRO_GUARD2, FALSE)
 
 	outro_wait_until(1425, 0x6c)
-	speak(CHR_P1P2, L_ARK_068, MP3_03FB, CHANNEL_7, COLOR_09_BLUE) // "Sorry! Gotta shoot."
+	speak(CHR_P1P2, L_ARK_068, MP3_ZZ(FILE_AP4_06_JOM), CHANNEL_7, COLOR_09_BLUE) // "Sorry! Gotta shoot."
 
 	outro_wait_until(1447, 0x6d)
-	play_sound(SFX_FOOTSTEP_80CA, -1)
+	play_sound(SFXMAP_80CA_FOOTSTEP, -1)
 
 	outro_wait_until(1486, 0x83)
-	play_sound(SFX_FOOTSTEP_80CB, -1)
+	play_sound(SFXMAP_80CB_FOOTSTEP, -1)
 
 	outro_wait_until(1505, 0x6e)
-	play_sound(SFX_FIRE_SHOTGUN, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_8055_FIRE_SHOTGUN, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1520, 0x6f)
-	play_sound(SFX_FIRE_SHOTGUN, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_8055_FIRE_SHOTGUN, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1526, 0x70)
 	set_chr_shooting_in_cutscene(CHR_BOND, TRUE)
@@ -2624,48 +2636,48 @@ u8 func0412_outro[] = {
 	set_chr_shooting_in_cutscene(CHR_BOND, FALSE)
 
 	outro_wait_until(1554, 0x71)
-	play_sound(SFX_ARGH_FEMALE_000D, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_000D_F_ARGH, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1600, 0x74)
-	play_sound(SFX_ARGH_FEMALE_000E, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_000E_F_ARGH, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1734, 0x72)
-	play_sound(SFX_THUD_808D, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_808D_THUD, CHANNEL_CUTSCENE)
 
 	outro_wait_until(1890, 0x75)
-	play_sound(SFX_0425, -1)
+	play_sound(SFXNUM_0425, -1)
 
 	outro_wait_until(1940, 0x77)
-	speak(CHR_P1P2, L_ARK_069, MP3_03FC, CHANNEL_7, COLOR_03_RED) // "You must get the sapient back. We cannot proceed w..."
+	speak(CHR_P1P2, L_ARK_069, MP3_ZZ(FILE_AP4_07_BLM), CHANNEL_7, COLOR_03_RED) // "You must get the sapient back. We cannot proceed w..."
 
 	outro_wait_until(1944, 0x76)
-	play_sound(SFX_FOOTSTEP_80C4, -1)
+	play_sound(SFXMAP_80C4_FOOTSTEP, -1)
 
 	outro_wait_until(1970, 0x85)
-	play_sound(SFX_FOOTSTEP_80C5, -1)
+	play_sound(SFXMAP_80C5_FOOTSTEP, -1)
 
 	outro_wait_until(2008, 0x86)
-	play_sound(SFX_FOOTSTEP_80C6, -1)
+	play_sound(SFXMAP_80C6_FOOTSTEP, -1)
 
 	outro_wait_until(2190, 0x78)
-	speak(CHR_P1P2, L_ARK_070, MP3_03FD, CHANNEL_7, COLOR_04_ORANGE) // "I know that!"
+	speak(CHR_P1P2, L_ARK_070, MP3_ZZ(FILE_AP4_08_DVM), CHANNEL_7, COLOR_04_ORANGE) // "I know that!"
 
 	outro_wait_until(2300, 0x79)
-	play_sound(SFX_FOOTSTEP_80C7, -1)
+	play_sound(SFXMAP_80C7_FOOTSTEP, -1)
 
 	outro_wait_until(2317, 0x87)
-	play_sound(SFX_DISGUISE_ON, -1)
+	play_sound(SFXNUM_042E_DISGUISE_ON, -1)
 
 	outro_wait_until(2324, 0x88)
-	play_sound(SFX_FOOTSTEP_80C4, -1)
+	play_sound(SFXMAP_80C4_FOOTSTEP, -1)
 
 	outro_wait_until(2340, 0x7a)
-	play_sound(SFX_FOOTSTEP_80C7, -1)
+	play_sound(SFXMAP_80C7_FOOTSTEP, -1)
 
 	outro_wait_until(2344, 0x7b)
 
 	outro_wait_until(2393, 0x7c)
-	speak(CHR_P1P2, L_ARK_071, MP3_03FE, CHANNEL_7, COLOR_04_ORANGE) // "I also know who to talk to... Mr. Carrington."
+	speak(CHR_P1P2, L_ARK_071, MP3_ZZ(FILE_AP4_09_DVM), CHANNEL_7, COLOR_04_ORANGE) // "I also know who to talk to... Mr. Carrington."
 
 	outro_wait_until(2497, 0x7d)
 
@@ -2777,7 +2789,7 @@ u8 func1012_msg_lockeddown[] = {
 	endloop(0x1f)
 
 	label(0x20)
-	speak(CHR_BOND, L_ARK_051, SFX_8176, CHANNEL_6, COLOR_09_BLUE) // "They've locked down the ground floor - get to the ..."
+	speak(CHR_BOND, L_ARK_051, SFXMAP_8176, CHANNEL_6, COLOR_09_BLUE) // "They've locked down the ground floor - get to the ..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2797,7 +2809,7 @@ u8 func1013_msg_thatcopter[] = {
 	endloop(0x21)
 
 	label(0x20)
-	speak(CHR_BOND, L_ARK_052, SFX_8177, CHANNEL_6, COLOR_09_BLUE) // "That copter needs to be taken out, or the jumpship..."
+	speak(CHR_BOND, L_ARK_052, SFXMAP_8177, CHANNEL_6, COLOR_09_BLUE) // "That copter needs to be taken out, or the jumpship..."
 
 	label(0x26)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2823,7 +2835,7 @@ u8 func1014_msg_cantleaveany[] = {
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x26)
 	if_chr_dead(CHR_BOND, /*goto*/ 0x26)
 	if_chr_knockedout(CHR_BOND, /*goto*/ 0x26)
-	speak(CHR_BOND, L_ARK_053, MP3_03AA, CHANNEL_6, COLOR_09_BLUE) // "I can't leave any bodyguards standing."
+	speak(CHR_BOND, L_ARK_053, MP3_ZZ(FILE_AM1_L3_CM), CHANNEL_6, COLOR_09_BLUE) // "I can't leave any bodyguards standing."
 
 	label(0x26)
 	if_chr_death_animation_finished(CHR_BOND, /*goto*/ 0x27)
@@ -2857,7 +2869,7 @@ u8 func1015_msg_jumpshipwaiting[] = {
 	endloop(0x1f)
 
 	label(0x20)
-	speak(CHR_BOND, L_ARK_054, SFX_8178, CHANNEL_6, COLOR_09_BLUE) // "Don't keep the jumpship waiting - get back to the ..."
+	speak(CHR_BOND, L_ARK_054, SFXMAP_8178, CHANNEL_6, COLOR_09_BLUE) // "Don't keep the jumpship waiting - get back to the ..."
 
 	label(0x00)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3019,11 +3031,11 @@ u8 func101b_lift_door_sounds[] = {
 		goto_next(0x20)
 
 		label(0x20)
-		play_sound(SFX_DOOR_81B0, -1)
+		play_sound(SFXMAP_81B0_DOOR, -1)
 		goto_next(0x00)
 
 		label(0x5e)
-		play_sound(SFX_MENU_SELECT, -1)
+		play_sound(SFXNUM_05DD_MENU_SELECT, -1)
 		label(0x00)
 		restart_timer
 

@@ -1194,7 +1194,7 @@ u8 func1002_lightswitch[] = {
 		reloop(0x04)
 
 		label(0x2c)
-		play_sound(SFX_PRESS_SWITCH, -1)
+		play_sound(SFXNUM_00BA_PRESS_SWITCH, -1)
 		if_stage_flag_eq(STAGEFLAG_LIGHTS_OFF, TRUE, /*goto*/ 0x06)
 
 		// Turning lights off
@@ -1312,7 +1312,7 @@ u8 func0411_cass_in_office[] = {
 	set_shotlist(AILIST_CASS_RUNNING)
 	restart_timer
 #if VERSION >= VERSION_NTSC_1_0
-	speak(CHR_TARGET, L_WAX_008, MP3_0523, CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
+	speak(CHR_TARGET, L_WAX_008, MP3_HI(FILE_ABNBLDE01M), CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
 #else
 	speak(CHR_TARGET, L_WAX_008, 0x1523, CHANNEL_6, COLOR_06_WHITE) // "Go to the helipad if you want to live."
 #endif
@@ -1364,7 +1364,7 @@ u8 func0411_cass_in_office[] = {
 	chr_do_animation(ANIM_DRAW_PISTOL_0245, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	try_equip_weapon(MODEL_CHRFALCON2, WEAPON_FALCON2, 0x00000000, /*goto*/ 0x2c)
 	label(0x2c)
-	speak(CHR_TARGET, L_WAX_007, SFX_81A3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
+	speak(CHR_TARGET, L_WAX_007, SFXMAP_81A3, CHANNEL_6, COLOR_04_ORANGE) // "Get the hell out of my office..."
 
 	beginloop(0x58)
 		if_sound_finished(CHANNEL_6, /*goto*/ 0x2c)
@@ -1558,7 +1558,7 @@ u8 func1006_lift_disabling[] = {
 	// Disable player's lift
 	label(0x06)
 	set_lights_state(0x0082, LIGHTOP_SETRANDOM, 0, 120, 0)
-	play_sound(SFX_8147, -1)
+	play_sound(SFXMAP_8147, -1)
 	set_object_flag(OBJ_BLONDE_LIFT, OBJFLAG_DEACTIVATED)
 	unlock_door(0x50, 0x40)
 	unset_object_flag(OBJ_CHIEF_LIFT, OBJFLAG_DEACTIVATED)
@@ -1695,7 +1695,7 @@ u8 func1007_bomb_logic[] = {
 	set_stage_flag(STAGEFLAG_BOMB_PLANTED)
 	disable_object(OBJ_BOND_BOMB)
 	disable_object(OBJ_COOP_BOMB)
-	assign_sound(SFX_8144, CHANNEL_1)
+	assign_sound(SFXMAP_8144, CHANNEL_1)
 	bind_channel_to_object_repeating(CHANNEL_1, OBJ_PLANTED_BOMB, 1, 600, 1200)
 	unset_object_flag2(OBJ_PLANTED_BOMB, OBJFLAG2_INVISIBLE)
 	set_object_image(OBJ_PLANTED_BOMB, 0, TVPROGRAM_PULSE_RED)
@@ -1949,12 +1949,12 @@ u8 func100c_lift_doors[] = {
 		goto_next(0x2c)
 
 		label(0x2c)
-		play_sound(SFX_DOOR_81B0, -1)
+		play_sound(SFXMAP_81B0_DOOR, -1)
 		goto_next(0x06)
 
 		// Door locked
 		label(0x2d)
-		play_sound(SFX_MENU_SELECT, -1)
+		play_sound(SFXNUM_05DD_MENU_SELECT, -1)
 
 		// Wait 2 seconds
 		label(0x06)
@@ -2001,18 +2001,18 @@ u8 func0416_intro[] = {
 		label(0x06)
 
 	wait_until(106, 0xb1)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
-	play_sound(SFX_047A, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_047A, CHANNEL_CUTSCENE)
 
 	wait_until(107, 0xb3)
 	open_door(OBJ_LOBBYDOOR_LEFT)
 	open_door(OBJ_LOBBYDOOR_RIGHT)
 
 	wait_until(170, 0xb2)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(246, 0xb6)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(280, 0xb7)
 	close_door(OBJ_LOBBYDOOR_LEFT)
@@ -2104,9 +2104,9 @@ u8 func100e_cass_speech[] = {
 	label(0x2c)
 	restart_timer
 #if VERSION >= VERSION_NTSC_1_0
-	speak(CHR_CASS, L_WAX_013, MP3_02F5 | 0x4000 | 0x2000, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me!"
+	speak(CHR_CASS, L_WAX_013, MP3_HI_ZZ(FILE_ADEVR04M), CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me!"
 #else
-	speak(CHR_TARGET, L_WAX_013, MP3_02F5, CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me!"
+	speak(CHR_TARGET, L_WAX_013, MP3(FILE_ADEVR04M), CHANNEL_6, COLOR_04_ORANGE) // "You won't shoot me!"
 #endif
 	chr_do_animation(ANIM_TALKING_00A0, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 

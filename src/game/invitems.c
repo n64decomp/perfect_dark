@@ -165,7 +165,7 @@ struct funcdef_shootsingle invfunc_00011160 = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_8039, // shootsound
+	SFXMAP_8039, // shootsound
 	1, // penetration
 };
 
@@ -400,16 +400,16 @@ struct guncmd invanim_falcon2_reload_singlewield[] = {
 	gunscript_showpart(1, MODELPART_HAND_LEFT)
 	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE2)
 	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE1)
-	gunscript_playsound(10, SFX_01D8)
+	gunscript_playsound(10, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_hidepart(19, MODELPART_FALCON2_MAGAZINE1)
 	gunscript_allowfeature(24, GUNFEATURE_RELOAD)
 #if VERSION >= VERSION_NTSC_1_0
-	gunscript_playsound(24, SFX_80F6)
+	gunscript_playsound(24, SFXMAP_80F6)
 #else
-	gunscript_playsound(24, SFX_01D9)
+	gunscript_playsound(24, SFXNUM_01D9_RELOAD_INSERT)
 #endif
 	gunscript_hidepart(24, MODELPART_FALCON2_MAGAZINE2)
-	gunscript_playsound(53, SFX_01DB)
+	gunscript_playsound(53, SFXNUM_01DB_RELOAD_RACK)
 	gunscript_allowfeature(53, GUNFEATURE_ATTACKAGAIN)
 	gunscript_end
 };
@@ -419,16 +419,16 @@ struct guncmd invanim_falcon2scope_reload_singlewield[] = {
 	gunscript_showpart(1, MODELPART_HAND_LEFT)
 	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE2)
 	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE1)
-	gunscript_playsound(10, SFX_01D8)
+	gunscript_playsound(10, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_hidepart(19, MODELPART_FALCON2_MAGAZINE1)
 	gunscript_allowfeature(24, GUNFEATURE_RELOAD)
 #if VERSION >= VERSION_NTSC_1_0
-	gunscript_playsound(24, SFX_80F6)
+	gunscript_playsound(24, SFXMAP_80F6)
 #else
-	gunscript_playsound(24, SFX_01D9)
+	gunscript_playsound(24, SFXNUM_01D9_RELOAD_INSERT)
 #endif
 	gunscript_hidepart(24, MODELPART_FALCON2_MAGAZINE2)
-	gunscript_playsound(53, SFX_01DB)
+	gunscript_playsound(53, SFXNUM_01DB_RELOAD_RACK)
 	gunscript_allowfeature(53, GUNFEATURE_ATTACKAGAIN)
 	gunscript_end
 };
@@ -437,14 +437,14 @@ struct guncmd invanim_falcon2_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_FALCON2_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_hidepart(1, MODELPART_FALCON2_MAGAZINE2)
 	gunscript_showpart(1, MODELPART_FALCON2_MAGAZINE1)
-	gunscript_playsound(6, SFX_01D8)
+	gunscript_playsound(6, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_allowfeature(50, GUNFEATURE_RELOAD)
 #if VERSION >= VERSION_NTSC_1_0
-	gunscript_playsound(50, SFX_80F6)
+	gunscript_playsound(50, SFXMAP_80F6)
 #else
-	gunscript_playsound(50, SFX_01D9)
+	gunscript_playsound(50, SFXNUM_01D9_RELOAD_INSERT)
 #endif
-	gunscript_playsound(71, SFX_01DB)
+	gunscript_playsound(71, SFXNUM_01DB_RELOAD_RACK)
 	gunscript_end
 };
 
@@ -500,7 +500,7 @@ struct funcdef_shootsingle invfunc_falcon2_singleshot = {
 	59.999996185303, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_804D, // shootsound
+	SFXMAP_804D, // shootsound
 	1, // penetration
 };
 
@@ -522,7 +522,7 @@ struct funcdef_shootsingle invfunc_falcon2silenced_singleshot = {
 	59.999996185303, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_8054, // shootsound
+	SFXMAP_8054, // shootsound
 	1, // penetration
 };
 
@@ -664,21 +664,21 @@ struct guncmd invanim_magsec_reload_singlewield[] = {
 	gunscript_showpart(1, MODELPART_HAND_LEFT)
 	gunscript_showpart(1, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_setsoundspeed(3, 1300)
-	gunscript_playsound(3, SFX_01D8)
+	gunscript_playsound(3, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_showpart(10, MODELPART_PISTOL_MAGAZINE2)
 	gunscript_hidepart(14, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_hidepart(22, MODELPART_PISTOL_MAGAZINE2)
 	gunscript_showpart(22, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_setsoundspeed(27, 1300)
 #if VERSION >= VERSION_NTSC_1_0
-	gunscript_playsound(27, SFX_80F6)
+	gunscript_playsound(27, SFXMAP_80F6)
 #else
-	gunscript_playsound(27, SFX_01D9)
+	gunscript_playsound(27, SFXNUM_01D9_RELOAD_INSERT)
 #endif
 	gunscript_allowfeature(30, GUNFEATURE_RELOAD)
 	gunscript_allowfeature(56, GUNFEATURE_ATTACKAGAIN)
 	gunscript_setsoundspeed(58, 1300)
-	gunscript_playsound(58, SFX_01DB)
+	gunscript_playsound(58, SFXNUM_01DB_RELOAD_RACK)
 	gunscript_end
 };
 
@@ -686,17 +686,17 @@ struct guncmd invanim_magsec_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_MAGSEC4_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_showpart(1, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_setsoundspeed(5, 1300)
-	gunscript_playsound(5, SFX_01D8)
+	gunscript_playsound(5, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_hidepart(25, MODELPART_PISTOL_MAGAZINE1)
 	gunscript_setsoundspeed(47, 1300)
 #if VERSION >= VERSION_NTSC_1_0
-	gunscript_playsound(47, SFX_80F6)
+	gunscript_playsound(47, SFXMAP_80F6)
 #else
-	gunscript_playsound(47, SFX_01D9)
+	gunscript_playsound(47, SFXNUM_01D9_RELOAD_INSERT)
 #endif
 	gunscript_allowfeature(49, GUNFEATURE_RELOAD)
 	gunscript_setsoundspeed(69, 1300)
-	gunscript_playsound(69, SFX_01DB)
+	gunscript_playsound(69, SFXNUM_01DB_RELOAD_RACK)
 	gunscript_end
 };
 
@@ -742,7 +742,7 @@ struct funcdef_shootsingle invfunc_magsec_singleshot = {
 	59.999996185303, // slidemax
 	10, // impactforce
 	0, // duration60
-	SFX_804C, // shootsound
+	SFXMAP_804C, // shootsound
 	1, // penetration
 };
 
@@ -764,7 +764,7 @@ struct funcdef_shootsingle invfunc_magsec_burst = {
 	59.999996185303, // slidemax
 	10, // impactforce
 	0, // duration60
-	SFX_804C, // shootsound
+	SFXMAP_804C, // shootsound
 	1, // penetration
 };
 
@@ -832,9 +832,9 @@ struct guncmd invanim_dy357_shoot[] = {
 
 struct guncmd invanim_dy357_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_DY357_RELOAD, 0, 10000)
-	gunscript_playsound(50, SFX_05CF)
+	gunscript_playsound(50, SFXNUM_05CF)
 	gunscript_setsoundspeed(80, 1830)
-	gunscript_playsound(80, SFX_01D8)
+	gunscript_playsound(80, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_popoutsackofpills(80)
 	gunscript_popoutsackofpills(81)
 	gunscript_popoutsackofpills(82)
@@ -849,7 +849,7 @@ struct guncmd invanim_dy357_reload_singlewield[] = {
 	gunscript_showpart(92, MODELPART_MAGNUM_CART5)
 	gunscript_showpart(92, MODELPART_MAGNUM_CART6)
 	gunscript_setsoundspeed(114, 1210)
-	gunscript_playsound(114, SFX_01D8)
+	gunscript_playsound(114, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_hidepart(121, MODELPART_MAGNUM_CART1)
 	gunscript_hidepart(121, MODELPART_MAGNUM_CART2)
 	gunscript_hidepart(121, MODELPART_MAGNUM_CART3)
@@ -857,15 +857,15 @@ struct guncmd invanim_dy357_reload_singlewield[] = {
 	gunscript_hidepart(121, MODELPART_MAGNUM_CART5)
 	gunscript_hidepart(121, MODELPART_MAGNUM_CART6)
 	gunscript_allowfeature(123, GUNFEATURE_RELOAD)
-	gunscript_playsound(147, SFX_05CD)
+	gunscript_playsound(147, SFXNUM_05CD)
 	gunscript_end
 };
 
 struct guncmd invanim_dy357_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_DY357_RELOAD_DUALWIELD, 0, 10000)
-	gunscript_playsound(50, SFX_05CF)
+	gunscript_playsound(50, SFXNUM_05CF)
 	gunscript_setsoundspeed(80, 1830)
-	gunscript_playsound(80, SFX_01D8)
+	gunscript_playsound(80, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_popoutsackofpills(80)
 	gunscript_popoutsackofpills(81)
 	gunscript_popoutsackofpills(82)
@@ -873,9 +873,9 @@ struct guncmd invanim_dy357_reload_dualwield[] = {
 	gunscript_popoutsackofpills(84)
 	gunscript_popoutsackofpills(85)
 	gunscript_setsoundspeed(114, 1210)
-	gunscript_playsound(114, SFX_01D8)
+	gunscript_playsound(114, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_allowfeature(123, GUNFEATURE_RELOAD)
-	gunscript_playsound(147, SFX_05CD)
+	gunscript_playsound(147, SFXNUM_05CD)
 	gunscript_end
 };
 
@@ -909,7 +909,7 @@ struct funcdef_shootsingle invfunc_dy357_singleshot = {
 	0, // slidemax
 	6, // impactforce
 	0, // duration60
-	SFX_8066, // shootsound
+	SFXMAP_8066, // shootsound
 	5, // penetration
 };
 
@@ -931,7 +931,7 @@ struct funcdef_shootsingle invfunc_dy357lx_singleshot = {
 	0, // slidemax
 	6, // impactforce
 	0, // duration60
-	SFX_8066, // shootsound
+	SFXMAP_8066, // shootsound
 	5, // penetration
 };
 
@@ -1033,7 +1033,7 @@ struct guncmd invanim_phoenix_reload_singlewield[] = {
 	gunscript_showpart(1, MODELPART_HAND_LEFT)
 	gunscript_showpart(1, MODELPART_PHOENIX_ORB)
 	gunscript_setsoundspeed(44, 1510)
-	gunscript_playsound(44, SFX_RELOAD_FARSIGHT)
+	gunscript_playsound(44, SFXNUM_0433_RELOAD_FARSIGHT)
 	gunscript_hidepart(50, MODELPART_PHOENIX_ORB)
 	gunscript_end
 };
@@ -1043,7 +1043,7 @@ struct guncmd invanim_phoenix_reload_dualwield[] = {
 	gunscript_showpart(1, MODELPART_HAND_LEFT)
 	gunscript_showpart(1, MODELPART_PHOENIX_ORB)
 	gunscript_setsoundspeed(44, 1510)
-	gunscript_playsound(44, SFX_RELOAD_FARSIGHT)
+	gunscript_playsound(44, SFXNUM_0433_RELOAD_FARSIGHT)
 	gunscript_hidepart(50, MODELPART_PHOENIX_ORB)
 	gunscript_end
 };
@@ -1078,7 +1078,7 @@ struct funcdef_shootsingle invfunc_phoenix_singleshot = {
 	59.999996185303, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_8071, // shootsound
+	SFXMAP_8071, // shootsound
 	1, // penetration
 };
 
@@ -1100,7 +1100,7 @@ struct funcdef_shootsingle invfunc_phoenix_explosiveshells = {
 	59.999996185303, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_8072, // shootsound
+	SFXMAP_8072, // shootsound
 	1, // penetration
 };
 
@@ -1159,18 +1159,18 @@ struct guncmd invanim_mauler_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_MAULER_RELOAD, 0, 10000)
 	gunscript_showpart(0, MODELPART_HAND_LEFT)
 	gunscript_setsoundspeed(4, 1200)
-	gunscript_playsound(4, SFX_0053)
+	gunscript_playsound(4, SFXNUM_0053)
 	gunscript_showpart(4, MODELPART_MAULER_MAGAZINE2)
 	gunscript_hidepart(18, MODELPART_MAULER_MAGAZINE1)
 	gunscript_setsoundspeed(20, 2500)
-	gunscript_playsound(20, SFX_DOOR_8012)
+	gunscript_playsound(20, SFXMAP_8012_DOOR)
 	gunscript_allowfeature(25, GUNFEATURE_RELOAD)
 	gunscript_showpart(25, MODELPART_MAULER_MAGAZINE1)
 	gunscript_hidepart(25, MODELPART_MAULER_MAGAZINE2)
 	gunscript_setsoundspeed(27, 2000)
-	gunscript_playsound(27, SFX_05C5)
+	gunscript_playsound(27, SFXNUM_05C5)
 	gunscript_setsoundspeed(61, 1000)
-	gunscript_playsound(61, SFX_01DB)
+	gunscript_playsound(61, SFXNUM_01DB_RELOAD_RACK)
 	gunscript_allowfeature(61, GUNFEATURE_ATTACKAGAIN)
 	gunscript_end
 };
@@ -1178,14 +1178,14 @@ struct guncmd invanim_mauler_reload_singlewield[] = {
 struct guncmd invanim_mauler_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_MAULER_RELOAD_DUALWIELD, 0, 10000)
 	gunscript_setsoundspeed(14, 1200)
-	gunscript_playsound(14, SFX_0053)
+	gunscript_playsound(14, SFXNUM_0053)
 	gunscript_setsoundspeed(40, 2500)
-	gunscript_playsound(40, SFX_DOOR_8012)
+	gunscript_playsound(40, SFXMAP_8012_DOOR)
 	gunscript_setsoundspeed(47, 2000)
-	gunscript_playsound(47, SFX_05C5)
+	gunscript_playsound(47, SFXNUM_05C5)
 	gunscript_allowfeature(47, GUNFEATURE_RELOAD)
 	gunscript_setsoundspeed(68, 1000)
-	gunscript_playsound(68, SFX_01DB)
+	gunscript_playsound(68, SFXNUM_01DB_RELOAD_RACK)
 	gunscript_end
 };
 
@@ -1218,7 +1218,7 @@ struct funcdef_shootsingle invfunc_mauler_singleshot = {
 	59.999996185303, // slidemax
 	4, // impactforce
 	0, // duration60
-	SFX_805B, // shootsound
+	SFXMAP_805B, // shootsound
 	1, // penetration
 };
 
@@ -1240,7 +1240,7 @@ struct funcdef_shootsingle invfunc_mauler_chargeshot = {
 	59.999996185303, // slidemax
 	4, // impactforce
 	0, // duration60
-	SFX_805B, // shootsound
+	SFXMAP_805B, // shootsound
 	1, // penetration
 };
 
@@ -1296,17 +1296,17 @@ struct guncmd invanim_cmp150_reload_singlewield[] = {
 	gunscript_showpart(33, MODELPART_HAND_LEFT)
 	gunscript_showpart(33, MODELPART_CMP150_MAGAZINE2)
 	gunscript_setsoundspeed(9, 950)
-	gunscript_playsound(9, SFX_01D8)
+	gunscript_playsound(9, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_setsoundspeed(44, 950)
 #if VERSION >= VERSION_NTSC_1_0
-	gunscript_playsound(44, SFX_80F6)
+	gunscript_playsound(44, SFXMAP_80F6)
 #else
-	gunscript_playsound(44, SFX_01D9)
+	gunscript_playsound(44, SFXNUM_01D9_RELOAD_INSERT)
 #endif
 	gunscript_hidepart(45, MODELPART_CMP150_MAGAZINE2)
 	gunscript_showpart(45, MODELPART_CMP150_MAGAZINE1)
 	gunscript_allowfeature(45, GUNFEATURE_RELOAD)
-	gunscript_playsound(86, SFX_0431)
+	gunscript_playsound(86, SFXNUM_0431)
 	gunscript_end
 };
 
@@ -1316,17 +1316,17 @@ struct guncmd invanim_cmp150_reload_dualwield[] = {
 	gunscript_showpart(33, MODELPART_HAND_LEFT)
 	gunscript_showpart(33, MODELPART_CMP150_MAGAZINE2)
 	gunscript_setsoundspeed(20, 950)
-	gunscript_playsound(20, SFX_01D8)
+	gunscript_playsound(20, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_setsoundspeed(61, 950)
 #if VERSION >= VERSION_NTSC_1_0
-	gunscript_playsound(61, SFX_80F6)
+	gunscript_playsound(61, SFXMAP_80F6)
 #else
-	gunscript_playsound(61, SFX_01D9)
+	gunscript_playsound(61, SFXNUM_01D9_RELOAD_INSERT)
 #endif
 	gunscript_hidepart(61, MODELPART_CMP150_MAGAZINE2)
 	gunscript_showpart(61, MODELPART_CMP150_MAGAZINE1)
 	gunscript_allowfeature(61, GUNFEATURE_RELOAD)
-	gunscript_playsound(76, SFX_0431)
+	gunscript_playsound(76, SFXNUM_0431)
 	gunscript_end
 };
 
@@ -1373,7 +1373,7 @@ struct funcdef_shootauto invfunc_cmp150_rapidfire = {
 	0, // slidemax
 	0, // impactforce
 	3, // duration60
-	SFX_MENU_ERROR, // shootsound
+	SFXMAP_8040_MENU_ERROR, // shootsound
 	1, // penetration
 	900, // initialrpm
 	900, // maxrpm
@@ -1401,7 +1401,7 @@ struct funcdef_shootauto invfunc_cmp150_followlockon = {
 	0, // slidemax
 	0, // impactforce
 	3, // duration60
-	SFX_MENU_ERROR, // shootsound
+	SFXMAP_8040_MENU_ERROR, // shootsound
 	1, // penetration
 	900, // initialrpm
 	900, // maxrpm
@@ -1460,13 +1460,13 @@ struct guncmd invanim_cyclone_reload_singlewield[] = {
 	gunscript_playanimation(ANIM_GUN_CYCLONE_RELOAD, 0, 10000)
 	gunscript_showpart(1, MODELPART_HAND_LEFT)
 	gunscript_showpart(1, MODELPART_CYCLONE_MAGAZINE)
-	gunscript_playsound(60, SFX_05D3)
+	gunscript_playsound(60, SFXNUM_05D3)
 	gunscript_end
 };
 
 struct guncmd invanim_cyclone_reload_dualwield[] = {
 	gunscript_playanimation(ANIM_GUN_CYCLONE_RELOAD_DUALWIELD, 0, 10000)
-	gunscript_playsound(60, SFX_05D3)
+	gunscript_playsound(60, SFXNUM_05D3)
 	gunscript_end
 };
 
@@ -1501,7 +1501,7 @@ struct funcdef_shootauto invfunc_cyclone_rapidfire = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_805F, // shootsound
+	SFXMAP_805F, // shootsound
 	1, // penetration
 	900, // initialrpm
 	900, // maxrpm
@@ -1529,7 +1529,7 @@ struct funcdef_shootauto invfunc_cyclone_magazinedischarge = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_8075, // shootsound
+	SFXMAP_8075, // shootsound
 	1, // penetration
 	2000, // initialrpm
 	2000, // maxrpm
@@ -1575,13 +1575,13 @@ struct weapondef invitem_cyclone = {
 struct guncmd invanim_rcp120_reload[] = {
 	gunscript_playanimation(ANIM_GUN_RCP120_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(18, 1100)
-	gunscript_playsound(18, SFX_0053)
+	gunscript_playsound(18, SFXNUM_0053)
 	gunscript_showpart(25, MODELPART_RCP120_MAGAZINE1)
 	gunscript_showpart(50, MODELPART_RCP120_MAGAZINE2)
-	gunscript_playsound(74, SFX_05C5)
+	gunscript_playsound(74, SFXNUM_05C5)
 	gunscript_hidepart(75, MODELPART_RCP120_MAGAZINE2)
 	gunscript_showpart(75, MODELPART_RCP120_MAGAZINE1)
-	gunscript_playsound(112, SFX_0431)
+	gunscript_playsound(112, SFXNUM_0431)
 	gunscript_end
 };
 
@@ -1621,7 +1621,7 @@ struct funcdef_shootauto invfunc_rcp120_rapidfire = {
 	0, // slidemax
 	0, // impactforce
 	4, // duration60
-	SFX_806D, // shootsound
+	SFXMAP_806D, // shootsound
 	1, // penetration
 	1100, // initialrpm
 	1100, // maxrpm
@@ -1681,7 +1681,7 @@ struct guncmd invanim_callisto_reload[] = {
 	gunscript_playanimation(ANIM_GUN_CALLISTO_RELOAD, 0, 10000)
 	gunscript_showpart(30, MODELPART_CALLISTO_ORB)
 	gunscript_setsoundspeed(58, 933)
-	gunscript_playsound(58, SFX_RELOAD_FARSIGHT)
+	gunscript_playsound(58, SFXNUM_0433_RELOAD_FARSIGHT)
 	gunscript_hidepart(79, MODELPART_CALLISTO_ORB)
 	gunscript_end
 };
@@ -1721,7 +1721,7 @@ struct funcdef_shootauto invfunc_callisto_rapidfire = {
 	0, // slidemax
 	0, // impactforce
 	3, // duration60
-	SFX_8063, // shootsound
+	SFXMAP_8063, // shootsound
 	1, // penetration
 	900, // initialrpm
 	900, // maxrpm
@@ -1749,7 +1749,7 @@ struct funcdef_shootauto invfunc_callisto_highimpactshells = {
 	0, // slidemax
 	0, // impactforce
 	3, // duration60
-	SFX_8064, // shootsound
+	SFXMAP_8064, // shootsound
 	5, // penetration
 	300, // initialrpm
 	300, // maxrpm
@@ -1810,11 +1810,11 @@ struct guncmd invanim_dragon_shoot[] = {
 
 struct guncmd invanim_dragon_reload[] = {
 	gunscript_playanimation(ANIM_GUN_DRAGON_RELOAD, 0, 10000)
-	gunscript_playsound(8, SFX_0053)
+	gunscript_playsound(8, SFXNUM_0053)
 	gunscript_hidepart(17, MODELPART_DRAGON_MAGAZINE2)
 	gunscript_showpart(17, MODELPART_DRAGON_MAGAZINE1)
 	gunscript_allowfeature(41, GUNFEATURE_RELOAD)
-	gunscript_playsound(41, SFX_05C5)
+	gunscript_playsound(41, SFXNUM_05C5)
 	gunscript_showpart(41, MODELPART_DRAGON_MAGAZINE2)
 	gunscript_hidepart(41, MODELPART_DRAGON_MAGAZINE1)
 	gunscript_end
@@ -1838,7 +1838,7 @@ struct funcdef_shootauto invfunc_dragon_rapidfire = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_8049, // shootsound
+	SFXMAP_8049, // shootsound
 	1, // penetration
 	700, // initialrpm
 	700, // maxrpm
@@ -1910,10 +1910,10 @@ struct modelpartvisibility invpartvisibility_superdragon[] = {
 
 struct guncmd invanim_superdragon_reload[] = {
 	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_RELOAD_PRI, 0, 10000)
-	gunscript_playsound(8, SFX_0053)
+	gunscript_playsound(8, SFXNUM_0053)
 	gunscript_hidepart(16, MODELPART_SUPERDRAGON_MAGAZINE3)
 	gunscript_showpart(16, MODELPART_SUPERDRAGON_MAGAZINE1)
-	gunscript_playsound(41, SFX_05C5)
+	gunscript_playsound(41, SFXNUM_05C5)
 	gunscript_allowfeature(43, GUNFEATURE_RELOAD)
 	gunscript_showpart(43, MODELPART_SUPERDRAGON_MAGAZINE3)
 	gunscript_hidepart(43, MODELPART_SUPERDRAGON_MAGAZINE1)
@@ -1923,14 +1923,14 @@ struct guncmd invanim_superdragon_reload[] = {
 struct guncmd invanim_superdragon_grenadereload[] = {
 	gunscript_playanimation(ANIM_GUN_SUPERDRAGON_RELOAD_SEC, 0, 10000)
 	gunscript_setsoundspeed(6, 700)
-	gunscript_playsound(6, SFX_0053)
+	gunscript_playsound(6, SFXNUM_0053)
 	gunscript_showpart(30, MODELPART_SUPERDRAGON_MAGAZINE2)
 	gunscript_hidepart(30, MODELPART_SUPERDRAGON_MAGAZINE4)
 	gunscript_hidepart(64, MODELPART_SUPERDRAGON_MAGAZINE2)
 	gunscript_showpart(64, MODELPART_SUPERDRAGON_MAGAZINE4)
 	gunscript_allowfeature(64, GUNFEATURE_RELOAD)
 	gunscript_setsoundspeed(66, 850)
-	gunscript_playsound(66, SFX_05C5)
+	gunscript_playsound(66, SFXNUM_05C5)
 	gunscript_end
 };
 
@@ -1972,7 +1972,7 @@ struct funcdef_shootauto invfunc_superdragon_rapidfire = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_8049, // shootsound
+	SFXMAP_8049, // shootsound
 	1, // penetration
 	700, // initialrpm
 	700, // maxrpm
@@ -2000,7 +2000,7 @@ struct funcdef_shootprojectile invfunc_superdragon_grenadelauncher = {
 	0,
 	4,
 	4,
-	SFX_8073,
+	SFXMAP_8073,
 	1,
 	MODEL_CHRDRAGGRENADE, // projectilemodelnum
 	0, // unused
@@ -2010,7 +2010,7 @@ struct funcdef_shootprojectile invfunc_superdragon_grenadelauncher = {
 	30, // traveldist
 	1200, // timer60
 	0.1, // reflectangle
-	SFX_LAUNCH_ROCKET_8053, // soundnum
+	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
 struct ammodef invammo_superdragon = {
@@ -2068,16 +2068,16 @@ struct modelpartvisibility invpartvisibility_ar34[] = {
 struct guncmd invanim_ar34_reload[] = {
 	gunscript_playanimation(ANIM_GUN_AR34_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(16, 900)
-	gunscript_playsound(16, SFX_0053)
+	gunscript_playsound(16, SFXNUM_0053)
 	gunscript_hidepart(21, MODELPART_AR34_MAGAZINE1)
 	gunscript_showpart(50, MODELPART_AR34_MAGAZINE2)
 	gunscript_setsoundspeed(67, 1400)
-	gunscript_playsound(67, SFX_8025)
+	gunscript_playsound(67, SFXMAP_8025)
 	gunscript_hidepart(72, MODELPART_AR34_MAGAZINE2)
 	gunscript_showpart(72, MODELPART_AR34_MAGAZINE1)
 	gunscript_allowfeature(72, GUNFEATURE_RELOAD)
 	gunscript_setsoundspeed(95, 900)
-	gunscript_playsound(95, SFX_05C5)
+	gunscript_playsound(95, SFXNUM_05C5)
 	gunscript_end
 };
 
@@ -2111,7 +2111,7 @@ struct funcdef_shootauto invfunc_ar34_burstfire = {
 	0, // slidemax
 	4, // impactforce
 	5, // duration60
-	SFX_8059, // shootsound
+	SFXMAP_8059, // shootsound
 	1, // penetration
 	750, // initialrpm
 	750, // maxrpm
@@ -2139,7 +2139,7 @@ struct funcdef_shootauto invfunc_ar34_usescope = {
 	0, // slidemax
 	4, // impactforce
 	5, // duration60
-	SFX_8059, // shootsound
+	SFXMAP_8059, // shootsound
 	1, // penetration
 	750, // initialrpm
 	750, // maxrpm
@@ -2196,15 +2196,15 @@ struct modelpartvisibility invpartvisibility_k7avenger[] = {
 struct guncmd invanim_k7avenger_reload[] = {
 	gunscript_playanimation(ANIM_GUN_K7AVENGER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(15, 1200)
-	gunscript_playsound(15, SFX_0053)
+	gunscript_playsound(15, SFXNUM_0053)
 	gunscript_hidepart(22, MODELPART_K7AVENGER_MAGAZINE1)
 	gunscript_showpart(48, MODELPART_K7AVENGER_MAGAZINE2)
 	gunscript_allowfeature(68, GUNFEATURE_RELOAD)
 	gunscript_hidepart(69, MODELPART_K7AVENGER_MAGAZINE2)
 	gunscript_showpart(69, MODELPART_K7AVENGER_MAGAZINE1)
 	gunscript_setsoundspeed(69, 1400)
-	gunscript_playsound(69, SFX_8025)
-	gunscript_playsound(91, SFX_05C5)
+	gunscript_playsound(69, SFXMAP_8025)
+	gunscript_playsound(91, SFXNUM_05C5)
 	gunscript_end
 };
 
@@ -2253,7 +2253,7 @@ struct funcdef_shootauto invfunc_k7avenger_burstfire = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_805A, // shootsound
+	SFXMAP_805A, // shootsound
 	1, // penetration
 	950, // initialrpm
 	950, // maxrpm
@@ -2281,7 +2281,7 @@ struct funcdef_shootauto invfunc_k7avenger_threatdetector = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_805A, // shootsound
+	SFXMAP_805A, // shootsound
 	1, // penetration
 	950, // initialrpm
 	950, // maxrpm
@@ -2345,21 +2345,21 @@ struct modelpartvisibility invpartvisibility_laptopgun[] = {
 struct guncmd invanim_laptopgun_reload[] = {
 	gunscript_playanimation(ANIM_GUN_LAPTOP_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(4, 1630)
-	gunscript_playsound(4, SFX_RELOAD_04FB)
+	gunscript_playsound(4, SFXNUM_04FB_RELOAD)
 	gunscript_setsoundspeed(15, 1436)
-	gunscript_playsound(15, SFX_04FA)
-	gunscript_playsound(25, SFX_04F7)
+	gunscript_playsound(15, SFXNUM_04FA)
+	gunscript_playsound(25, SFXNUM_04F7)
 	gunscript_showpart(40, MODELPART_LAPTOPGUN_MAGAZINE1)
-	gunscript_playsound(42, SFX_0053)
+	gunscript_playsound(42, SFXNUM_0053)
 	gunscript_showpart(48, MODELPART_LAPTOPGUN_MAGAZINE2)
 	gunscript_hidepart(55, MODELPART_LAPTOPGUN_MAGAZINE1)
 	gunscript_hidepart(63, MODELPART_LAPTOPGUN_MAGAZINE2)
 	gunscript_showpart(63, MODELPART_LAPTOPGUN_MAGAZINE1)
-	gunscript_playsound(63, SFX_04F8)
+	gunscript_playsound(63, SFXNUM_04F8)
 	gunscript_hidepart(85, MODELPART_LAPTOPGUN_MAGAZINE1)
 	gunscript_allowfeature(85, GUNFEATURE_RELOAD)
-	gunscript_playsound(85, SFX_05C5)
-	gunscript_playsound(91, SFX_04F9)
+	gunscript_playsound(85, SFXNUM_05C5)
+	gunscript_playsound(91, SFXNUM_04F9)
 	gunscript_end
 };
 
@@ -2373,18 +2373,18 @@ struct guncmd invanim_laptopgun_shoot[] = {
 struct guncmd invanim_laptopgun_equip[] = {
 	gunscript_playanimation(ANIM_GUN_LAPTOP_EQUIP, 0, 10000)
 	gunscript_setsoundspeed(15, 720)
-	gunscript_playsound(15, SFX_04F7)
-	gunscript_playsound(35, SFX_04F7)
-	gunscript_playsound(58, SFX_04F8)
+	gunscript_playsound(15, SFXNUM_04F7)
+	gunscript_playsound(35, SFXNUM_04F7)
+	gunscript_playsound(58, SFXNUM_04F8)
 	gunscript_end
 };
 
 struct guncmd invanim_laptopgun_unequip[] = {
 	gunscript_playanimation(ANIM_GUN_LAPTOP_UNEQUIP, 0, 10000)
-	gunscript_playsound(1, SFX_04F7)
+	gunscript_playsound(1, SFXNUM_04F7)
 	gunscript_setsoundspeed(25, 720)
-	gunscript_playsound(25, SFX_04F7)
-	gunscript_playsound(50, SFX_04F8)
+	gunscript_playsound(25, SFXNUM_04F7)
+	gunscript_playsound(50, SFXNUM_04F8)
 	gunscript_end
 };
 
@@ -2406,7 +2406,7 @@ struct funcdef_shootauto invfunc_laptopgun_burstfire = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_8044, // shootsound
+	SFXMAP_8044, // shootsound
 	1, // penetration
 	1000, // initialrpm
 	1000, // maxrpm
@@ -2481,25 +2481,25 @@ struct modelpartvisibility invpartvisibility_shotgun[] = {
 struct guncmd invanim_shotgun_reload[] = {
 	gunscript_playanimation(ANIM_GUN_SHOTGUN_RELOAD, 0, 10000)
 	gunscript_showpart(1, MODELPART_SHOTGUN_CART)
-	gunscript_playsound(67, SFX_01D8)
+	gunscript_playsound(67, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_allowfeature(74, GUNFEATURE_RELOAD)
 	gunscript_hidepart(75, MODELPART_SHOTGUN_CART)
 	gunscript_repeatuntilfull(84, 50)
-	gunscript_playsound(103, SFX_RELOAD_04FB)
+	gunscript_playsound(103, SFXNUM_04FB_RELOAD)
 	gunscript_end
 };
 
 struct guncmd invanim_shotgun_singleshot[] = {
 	gunscript_playanimation(ANIM_GUN_SHOTGUN_SHOOT_SINGLE, 0, 10000)
 	gunscript_allowfeature(9, GUNFEATURE_ATTACK)
-	gunscript_playsound(34, SFX_RELOAD_04FB)
+	gunscript_playsound(34, SFXNUM_04FB_RELOAD)
 	gunscript_end
 };
 
 struct guncmd invanim_shotgun_doubleshot[] = {
 	gunscript_playanimation(ANIM_GUN_SHOTGUN_SHOOT_DOUBLE, 0, 10000)
 	gunscript_allowfeature(9, GUNFEATURE_ATTACK)
-	gunscript_playsound(54, SFX_RELOAD_04FB)
+	gunscript_playsound(54, SFXNUM_04FB_RELOAD)
 	gunscript_end
 };
 
@@ -2521,7 +2521,7 @@ struct funcdef_shootsingle invfunc_shotgun_single = {
 	0, // slidemax
 	4, // impactforce
 	0, // duration60
-	SFX_FIRE_SHOTGUN, // shootsound
+	SFXMAP_8055_FIRE_SHOTGUN, // shootsound
 	1, // penetration
 };
 
@@ -2543,7 +2543,7 @@ struct funcdef_shootsingle invfunc_shotgun_double = {
 	0, // slidemax
 	4, // impactforce
 	0, // duration60
-	SFX_FIRE_SHOTGUN, // shootsound
+	SFXMAP_8055_FIRE_SHOTGUN, // shootsound
 	1, // penetration
 };
 
@@ -2608,10 +2608,10 @@ struct guncmd invanim_reaper_shoot[] = {
 
 struct guncmd invanim_reaper_reload[] = {
 	gunscript_playanimation(ANIM_GUN_REAPER_RELOAD, 0, 10000)
-	gunscript_playsound(49, SFX_05C7)
+	gunscript_playsound(49, SFXNUM_05C7)
 	gunscript_hidepart(70, MODELPART_REAPER_MAGAZINE1)
 	gunscript_showpart(90, MODELPART_REAPER_MAGAZINE2)
-	gunscript_playsound(124, SFX_05C6)
+	gunscript_playsound(124, SFXNUM_05C6)
 	gunscript_showpart(134, MODELPART_REAPER_MAGAZINE1)
 	gunscript_hidepart(134, MODELPART_REAPER_MAGAZINE2)
 	gunscript_allowfeature(134, GUNFEATURE_RELOAD)
@@ -2646,7 +2646,7 @@ struct funcdef_shootauto invfunc_reaper_shoot = {
 	0, // slidemax
 	4, // impactforce
 	2, // duration60
-	SFX_803F, // shootsound
+	SFXMAP_803F, // shootsound
 	1, // penetration
 	60, // initialrpm
 	1800,  // maxrpm
@@ -2726,16 +2726,16 @@ struct gunviscmd gunviscmds_rocketlauncher[] = {
 struct guncmd invanim_rocketlauncher_reload[] = {
 	gunscript_playanimation(ANIM_GUN_ROCKETLAUNCHER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(16, 900)
-	gunscript_playsound(16, SFX_04F9)
-	gunscript_playsound(40, SFX_0053)
+	gunscript_playsound(16, SFXNUM_04F9)
+	gunscript_playsound(40, SFXNUM_0053)
 	gunscript_showpart(24, MODELPART_ROCKETLAUNCHER_ROCKET)
 	gunscript_allowfeature(76, GUNFEATURE_RELOAD)
 	gunscript_hidepart(76, MODELPART_ROCKETLAUNCHER_ROCKET)
-	gunscript_playsound(77, SFX_05D1)
+	gunscript_playsound(77, SFXNUM_05D1)
 	gunscript_setsoundspeed(106, 1000)
-	gunscript_playsound(106, SFX_04F9)
-	gunscript_playsound(123, SFX_0053)
-	gunscript_playsound(135, SFX_04FA)
+	gunscript_playsound(106, SFXNUM_04F9)
+	gunscript_playsound(123, SFXNUM_0053)
+	gunscript_playsound(135, SFXNUM_04FA)
 	gunscript_end
 };
 
@@ -2774,7 +2774,7 @@ struct funcdef_shootprojectile invfunc_rockerlauncher_shoot = {
 	0,
 	4,
 	4,
-	SFX_LAUNCH_ROCKET_8053,
+	SFXMAP_8053_LAUNCH_ROCKET,
 	1,
 	MODEL_CHRDYROCKETMIS, // projectilemodelnum
 	0, // unused
@@ -2784,7 +2784,7 @@ struct funcdef_shootprojectile invfunc_rockerlauncher_shoot = {
 	0, // traveldist
 	-1, // timer60
 	0.05, // reflectangle
-	SFX_LAUNCH_ROCKET_8053, // soundnum
+	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
 struct funcdef_shootprojectile invfunc_rocketlauncher_homing = {
@@ -2805,7 +2805,7 @@ struct funcdef_shootprojectile invfunc_rocketlauncher_homing = {
 	0,
 	4,
 	4,
-	SFX_LAUNCH_ROCKET_8053,
+	SFXMAP_8053_LAUNCH_ROCKET,
 	1,
 	MODEL_CHRDYROCKETMIS, // projectilemodelnum
 	0, // unused
@@ -2815,7 +2815,7 @@ struct funcdef_shootprojectile invfunc_rocketlauncher_homing = {
 	5, // traveldist
 	-1, // timer60
 	0.05, // reflectangle
-	SFX_LAUNCH_ROCKET_8053, // soundnum
+	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
 struct ammodef invammo_rocketlauncher = {
@@ -2859,10 +2859,10 @@ struct guncmd invanim_slayer_shoot[] = {
 struct guncmd invanim_slayer_reload[] = {
 	gunscript_playanimation(ANIM_GUN_SLAYER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(52, 800)
-	gunscript_playsound(52, SFX_0053)
-	gunscript_playsound(79, SFX_EYESPYHIT)
+	gunscript_playsound(52, SFXNUM_0053)
+	gunscript_playsound(79, SFXMAP_808C_EYESPYHIT)
 	gunscript_setsoundspeed(126, 900)
-	gunscript_playsound(126, SFX_RELOAD_04FB)
+	gunscript_playsound(126, SFXNUM_04FB_RELOAD)
 	gunscript_end
 };
 
@@ -2884,7 +2884,7 @@ struct funcdef_shootprojectile invfunc_slayer_shoot = {
 	0,
 	4,
 	4,
-	SFX_8067,
+	SFXMAP_8067,
 	1,
 	MODEL_CHRSKROCKETMIS, // projectilemodelnum
 	0, // unused
@@ -2894,7 +2894,7 @@ struct funcdef_shootprojectile invfunc_slayer_shoot = {
 	0, // traveldist
 	-1, // timer60
 	0.05, // reflectangle
-	SFX_LAUNCH_ROCKET_8053, // soundnum
+	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
 struct funcdef_shootprojectile invfunc_slayer_flybywire = {
@@ -2915,7 +2915,7 @@ struct funcdef_shootprojectile invfunc_slayer_flybywire = {
 	0,
 	4,
 	4,
-	SFX_8067,
+	SFXMAP_8067,
 	1,
 	MODEL_CHRSKROCKETMIS, // projectilemodelnum
 	0, // unused
@@ -2925,7 +2925,7 @@ struct funcdef_shootprojectile invfunc_slayer_flybywire = {
 	0, // traveldist
 	-1, // timer60
 	0.05, // reflectangle
-	SFX_SLAYER_WHIR, // soundnum
+	SFXMAP_8068_SLAYER_WHIR, // soundnum
 };
 
 struct ammodef invammo_slayer = {
@@ -2974,15 +2974,15 @@ struct guncmd invanim_devastator_shoot[] = {
 struct guncmd invanim_devastator_reload[] = {
 	gunscript_playanimation(ANIM_GUN_DEVASTATOR_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(15, 600)
-	gunscript_playsound(15, SFX_0053)
+	gunscript_playsound(15, SFXNUM_0053)
 	gunscript_hidepart(22, MODELPART_DEVASTATOR_MAGAZINE2)
 	gunscript_showpart(36, MODELPART_DEVASTATOR_MAGAZINE1)
 	gunscript_setsoundspeed(47, 700)
-	gunscript_playsound(47, SFX_05C5)
+	gunscript_playsound(47, SFXNUM_05C5)
 	gunscript_hidepart(47, MODELPART_DEVASTATOR_MAGAZINE1)
 	gunscript_showpart(47, MODELPART_DEVASTATOR_MAGAZINE2)
 	gunscript_allowfeature(47, GUNFEATURE_RELOAD)
-	gunscript_playsound(66, SFX_05CC)
+	gunscript_playsound(66, SFXNUM_05CC)
 	gunscript_end
 };
 
@@ -3004,7 +3004,7 @@ struct funcdef_shootprojectile invfunc_devastator_shoot = {
 	0,
 	4,
 	4,
-	SFX_8073,
+	SFXMAP_8073,
 	1,
 	MODEL_CHRDEVGRENADE, // projectilemodelnum
 	0, // unused
@@ -3014,7 +3014,7 @@ struct funcdef_shootprojectile invfunc_devastator_shoot = {
 	40, // traveldist
 	1200, // timer60
 	0.3, // reflectangle
-	SFX_LAUNCH_ROCKET_8053, // soundnum
+	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
 struct funcdef_shootprojectile invfunc_devastator_wallhugger = {
@@ -3035,7 +3035,7 @@ struct funcdef_shootprojectile invfunc_devastator_wallhugger = {
 	0,
 	4,
 	4,
-	SFX_8073,
+	SFXMAP_8073,
 	1,
 	MODEL_CHRDEVGRENADE, // projectilemodelnum
 	0, // unused
@@ -3045,7 +3045,7 @@ struct funcdef_shootprojectile invfunc_devastator_wallhugger = {
 	40, // traveldist
 	360, // timer60
 	0.3, // reflectangle
-	SFX_LAUNCH_ROCKET_8053, // soundnum
+	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
 struct ammodef invammo_devastator = {
@@ -3407,7 +3407,7 @@ struct gunviscmd gunviscmds_grenade[] = {
 struct guncmd invanim_grenade_throw[] = {
 	gunscript_playanimation(ANIM_GUN_GRENADE_THROW, 0, 10000)
 	gunscript_popoutsackofpills(6)
-	gunscript_playsound(6, SFX_05C1)
+	gunscript_playsound(6, SFXNUM_05C1)
 	gunscript_waitforzreleased(43)
 	gunscript_allowfeature(49, GUNFEATURE_ATTACK)
 	gunscript_end
@@ -3548,7 +3548,7 @@ struct gunviscmd gunviscmds_farsight[] = {
 struct guncmd invanim_farsight_reload[] = {
 	gunscript_playanimation(ANIM_GUN_FARSIGHT_RELOAD, 0, 10000)
 	gunscript_showpart(1, MODELPART_FARSIGHT_ORB)
-	gunscript_playsound(72, SFX_RELOAD_FARSIGHT)
+	gunscript_playsound(72, SFXNUM_0433_RELOAD_FARSIGHT)
 	gunscript_allowfeature(76, GUNFEATURE_RELOAD)
 	gunscript_hidepart(82, MODELPART_FARSIGHT_ORB)
 	gunscript_end
@@ -3589,7 +3589,7 @@ struct funcdef_shootsingle invfunc_farsight_shoot = {
 	0, // slidemax
 	0, // impactforce
 	4, // duration60
-	SFX_813E, // shootsound
+	SFXMAP_813E, // shootsound
 	5, // penetration
 };
 
@@ -3611,7 +3611,7 @@ struct funcdef_shootsingle invfunc_farsight_targetlocator = {
 	0, // slidemax
 	0, // impactforce
 	4, // duration60
-	SFX_813E, // shootsound
+	SFXMAP_813E, // shootsound
 	5, // penetration
 };
 
@@ -3666,7 +3666,7 @@ struct guncmd invanim_crossbow_reload[] = {
 	gunscript_showpart(1, MODELPART_HAND_LEFT)
 	gunscript_hidepart(19, MODELPART_CROSSBOW_0028)
 	gunscript_showpart(19, MODELPART_CROSSBOW_BOLT)
-	gunscript_playsound(45, SFX_04FC)
+	gunscript_playsound(45, SFXNUM_04FC)
 	gunscript_allowfeature(50, GUNFEATURE_RELOAD)
 	gunscript_hidepart(50, MODELPART_CROSSBOW_BOLT)
 	gunscript_showpart(50, MODELPART_CROSSBOW_0028)
@@ -3677,21 +3677,21 @@ struct guncmd invanim_crossbow_reload[] = {
 struct guncmd invanim_crossbow_shoot[] = {
 	gunscript_playanimation(ANIM_GUN_CROSSBOW_SHOOT, 0, 10000)
 	gunscript_hidepart(20, MODELPART_CROSSBOW_0028)
-	gunscript_playsound(37, SFX_04F8)
+	gunscript_playsound(37, SFXNUM_04F8)
 	gunscript_end
 };
 
 struct guncmd invanim_crossbow_unequip[] = {
 	gunscript_playanimation(ANIM_GUN_CROSSBOW_UNEQUIP, 0, 10000)
 	gunscript_hidepart(1, MODELPART_CROSSBOW_0028)
-	gunscript_playsound(37, SFX_04F8)
+	gunscript_playsound(37, SFXNUM_04F8)
 	gunscript_end
 };
 
 struct guncmd invanim_crosbow_equip[] = {
 	gunscript_playanimation(ANIM_GUN_CROSSBOW_EQUIP, 0, 10000)
-	gunscript_playsound(32, SFX_04FC)
-	gunscript_playsound(75, SFX_04F8)
+	gunscript_playsound(32, SFXNUM_04FC)
+	gunscript_playsound(75, SFXNUM_04F8)
 	gunscript_end
 };
 
@@ -3713,7 +3713,7 @@ struct funcdef_shootprojectile invfunc_crossbow_lethal = {
 	0,
 	4,
 	4,
-	SFX_8056,
+	SFXMAP_8056,
 	1,
 	MODEL_CHRCROSSBOLT, // projectilemodelnum
 	0, // unused
@@ -3744,7 +3744,7 @@ struct funcdef_shootprojectile invfunc_crossbow_shoot = {
 	0,
 	4,
 	4,
-	SFX_8056,
+	SFXMAP_8056,
 	1,
 	MODEL_CHRCROSSBOLT, // projectilemodelnum
 	0, // unused
@@ -3823,16 +3823,16 @@ struct guncmd invanim_tranquilizer_reload[] = {
 	gunscript_hidepart(1, MODELPART_TRANQUILIZER_MAGAZINE2)
 	gunscript_popoutsackofpills(1)
 	gunscript_setsoundspeed(3, 3500)
-	gunscript_playsound(3, SFX_DOOR_8016)
+	gunscript_playsound(3, SFXMAP_8016_DOOR)
 	gunscript_allowfeature(39, GUNFEATURE_RELOAD)
 	gunscript_hidepart(39, MODELPART_TRANQUILIZER_MAGAZINE3)
 	gunscript_showpart(39, MODELPART_TRANQUILIZER_MAGAZINE2)
 	gunscript_setsoundspeed(39, 3500)
-	gunscript_playsound(39, SFX_HIT_MUD_8083)
+	gunscript_playsound(39, SFXMAP_8083_HIT_MUD)
 	gunscript_setsoundspeed(63, 2070)
-	gunscript_playsound(63, SFX_04F5)
+	gunscript_playsound(63, SFXNUM_04F5)
 	gunscript_setsoundspeed(72, 3000)
-	gunscript_playsound(72, SFX_PRESS_SWITCH)
+	gunscript_playsound(72, SFXNUM_00BA_PRESS_SWITCH)
 	gunscript_end
 };
 
@@ -3854,7 +3854,7 @@ struct funcdef_shootsingle invfunc_tranquilizer_shoot = {
 	59.999996185303, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_DRUGSPY_FIREDART, // shootsound
+	SFXMAP_8057_DRUGSPY_FIREDART, // shootsound
 	1, // penetration
 };
 
@@ -3952,7 +3952,7 @@ struct funcdef_shootsingle invfunc_psychosisgun_shoot = {
 	59.999996185303, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_DRUGSPY_FIREDART, // shootsound
+	SFXMAP_8057_DRUGSPY_FIREDART, // shootsound
 	1, // penetration
 };
 
@@ -3994,14 +3994,14 @@ struct guncmd invanim_sniperrifle_equip[] = {
 struct guncmd invanim_sniperrifle_reload[] = {
 	gunscript_playanimation(ANIM_GUN_SNIPER_RELOAD, 0, 10000)
 	gunscript_setsoundspeed(22, 850)
-	gunscript_playsound(22, SFX_01D8)
+	gunscript_playsound(22, SFXNUM_01D8_RELOAD_REMOVE)
 	gunscript_showpart(42, MODELPART_SNIPERRIFLE_MAGAZINE2)
 	gunscript_hidepart(42, MODELPART_SNIPERRIFLE_MAGAZINE1)
 	gunscript_setsoundspeed(72, 850)
 #if VERSION >= VERSION_NTSC_1_0
-	gunscript_playsound(72, SFX_80F6)
+	gunscript_playsound(72, SFXMAP_80F6)
 #else
-	gunscript_playsound(72, SFX_01D9)
+	gunscript_playsound(72, SFXNUM_01D9_RELOAD_INSERT)
 #endif
 	gunscript_hidepart(72, MODELPART_SNIPERRIFLE_MAGAZINE2)
 	gunscript_showpart(72, MODELPART_SNIPERRIFLE_MAGAZINE1)
@@ -4039,7 +4039,7 @@ struct funcdef_shootsingle invfunc_sniperrifle_singleshot = {
 	0, // slidemax
 	0, // impactforce
 	4, // duration60
-	SFX_8058, // shootsound
+	SFXMAP_8058, // shootsound
 	1, // penetration
 };
 
@@ -4126,7 +4126,7 @@ struct funcdef_shootsingle invfunc_laser_pulse = {
 	0, // slidemax
 	0, // impactforce
 	3, // duration60
-	SFX_8043, // shootsound
+	SFXMAP_8043, // shootsound
 	1, // penetration
 };
 
@@ -4217,7 +4217,7 @@ struct funcdef_shootsingle invfunc_pp9i_shoot = {
 	29.999998092651, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_8069, // shootsound
+	SFXMAP_8069, // shootsound
 	1, // penetration
 };
 
@@ -4278,7 +4278,7 @@ struct funcdef_shootsingle invfunc_cc13_shoot = {
 	59.999996185303, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_806A, // shootsound
+	SFXMAP_806A, // shootsound
 	1, // penetration
 };
 
@@ -4333,7 +4333,7 @@ struct funcdef_shootauto invfunc_kl01313_shoot = {
 	0, // slidemax
 	0, // impactforce
 	11, // duration60
-	SFX_806B, // shootsound
+	SFXMAP_806B, // shootsound
 	1, // penetration
 	450, // initialrpm
 	450, // maxrpm
@@ -4394,7 +4394,7 @@ struct funcdef_shootauto invfunc_kf7special_shoot = {
 	0, // slidemax
 	3, // impactforce
 	4, // duration60
-	SFX_806C, // shootsound
+	SFXMAP_806C, // shootsound
 	1, // penetration
 	450, // initialrpm
 	450, // maxrpm
@@ -4455,7 +4455,7 @@ struct funcdef_shootauto invfunc_zzt9mm_shoot = {
 	0, // slidemax
 	0, // impactforce
 	4, // duration60
-	SFX_806D, // shootsound
+	SFXMAP_806D, // shootsound
 	1, // penetration
 	600, // initialrpm
 	600, // maxrpm
@@ -4516,7 +4516,7 @@ struct funcdef_shootauto invfunc_dmc_shoot = {
 	0, // slidemax
 	0, // impactforce
 	4, // duration60
-	SFX_806E, // shootsound
+	SFXMAP_806E, // shootsound
 	1, // penetration
 	450, // initialrpm
 	450, // maxrpm
@@ -4577,7 +4577,7 @@ struct funcdef_shootauto invfunc_ar53_shoot = {
 	0, // slidemax
 	4, // impactforce
 	5, // duration60
-	SFX_806F, // shootsound
+	SFXMAP_806F, // shootsound
 	1, // penetration
 	550, // initialrpm
 	550, // maxrpm
@@ -4638,7 +4638,7 @@ struct funcdef_shootauto invfunc_rcp45_shoot = {
 	0, // slidemax
 	4, // impactforce
 	2, // duration60
-	SFX_8070, // shootsound
+	SFXMAP_8070, // shootsound
 	1, // penetration
 	600, // initialrpm
 	600, // maxrpm
@@ -4739,7 +4739,7 @@ struct funcdef_shootauto invfunc_choppergun_rapidfire = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_8059, // shootsound
+	SFXMAP_8059, // shootsound
 	2, // penetration
 	900, // initialrpm
 	900, // maxrpm
@@ -4800,7 +4800,7 @@ struct funcdef_shootauto invfunc_watchlaser_rapidfire = {
 	0, // slidemax
 	4, // impactforce
 	4, // duration60
-	SFX_803F, // shootsound
+	SFXMAP_803F, // shootsound
 	1, // penetration
 	900, // initialrpm
 	900, // maxrpm
@@ -4868,15 +4868,15 @@ struct guncmd invanim_combatknife_slash[] = {
 
 struct guncmd invanim_combatknife_pritosec[] = {
 	gunscript_playanimation(ANIM_GUN_KNIFE_CHANGEFUNC, 0, 10000)
-	gunscript_playsound(30, SFX_80A7)
-	gunscript_playsound(40, SFX_80A6)
+	gunscript_playsound(30, SFXMAP_80A7)
+	gunscript_playsound(40, SFXMAP_80A6)
 	gunscript_end
 };
 
 struct guncmd invanim_combatknife_sectopri[] = {
 	gunscript_playanimation(ANIM_GUN_KNIFE_CHANGEFUNC, 65535, 55536)
-	gunscript_playsound(10, SFX_80A8)
-	gunscript_playsound(20, SFX_80A6)
+	gunscript_playsound(10, SFXMAP_80A8)
+	gunscript_playsound(20, SFXMAP_80A6)
 	gunscript_end
 };
 
@@ -5222,7 +5222,7 @@ struct funcdef_special invfunc_combatboost_boost = {
 	FUNCFLAG_NOMUZZLEFLASH,
 	HANDATTACKTYPE_BOOST,
 	30, // recoverytime60
-	SFX_JO_BOOST_ACTIVATE, // soundnum (unused)
+	SFXNUM_05C9_JO_BOOST_ACTIVATE, // soundnum (unused)
 };
 
 struct funcdef_special invfunc_combatboost_revert = {
@@ -5235,7 +5235,7 @@ struct funcdef_special invfunc_combatboost_revert = {
 	FUNCFLAG_NOMUZZLEFLASH,
 	HANDATTACKTYPE_REVERTBOOST,
 	30, // recoverytime60
-	SFX_JO_BOOST_ACTIVATE, // soundnum (unused)
+	SFXNUM_05C9_JO_BOOST_ACTIVATE, // soundnum (unused)
 };
 
 struct ammodef invammo_combatboost = {
@@ -6088,7 +6088,7 @@ struct funcdef_shootprojectile invfunc_kingsceptre_primary = {
 	0,
 	4,
 	4,
-	SFX_LAUNCH_ROCKET_8053,
+	SFXMAP_8053_LAUNCH_ROCKET,
 	1,
 	MODEL_CHRDYROCKETMIS, // projectilemodelnum
 	0, // unused
@@ -6098,7 +6098,7 @@ struct funcdef_shootprojectile invfunc_kingsceptre_primary = {
 	0, // traveldist
 	-1, // timer60
 	0.05, // reflectangle
-	SFX_LAUNCH_ROCKET_8053, // soundnum
+	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
 struct ammodef invammo_kingsceptre = {
@@ -6157,7 +6157,7 @@ struct funcdef_shootsingle invfunc_tester_primary = {
 	59.999996185303, // slidemax
 	0, // impactforce
 	0, // duration60
-	SFX_804D, // shootsound
+	SFXMAP_804D, // shootsound
 	1, // penetration
 };
 

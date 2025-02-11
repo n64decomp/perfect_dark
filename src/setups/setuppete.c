@@ -817,7 +817,7 @@ u8 func1026_uplink[] = {
 		// Uplinking
 		label(0x03)
 		show_hudmsg(CHR_P1P2, L_PETE_019) // "Accessing hovercab navigation systems."
-		assign_sound(SFX_0456, CHANNEL_7)
+		assign_sound(SFXNUM_0456, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_TAXI, TRUE)
 		restart_timer
 
@@ -831,7 +831,7 @@ u8 func1026_uplink[] = {
 		yield
 		show_hudmsg(CHR_P1P2, L_PETE_021) // "Hovercab navigation systems reprogrammed."
 		mute_channel(CHANNEL_7)
-		assign_sound(SFX_01C1, CHANNEL_7)
+		assign_sound(SFXNUM_01C1, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_TAXI, TRUE)
 		yield
 		set_stage_flag(STAGEFLAG_TAXI_REPROGRAMMED)
@@ -844,7 +844,7 @@ u8 func1026_uplink[] = {
 		yield
 		yield
 		yield
-		assign_sound(SFX_0457, CHANNEL_4)
+		assign_sound(SFXNUM_0457, CHANNEL_4)
 		bind_channel_to_object_repeating(CHANNEL_4, OBJ_TAXI, 1, 300, 400)
 		restart_timer
 
@@ -901,7 +901,7 @@ u8 func040d_limo[] = {
 	set_object_flag3(OBJ_LIMO, OBJFLAG3_FINDROOMSFAST)
 	object_do_animation(ANIM_02D6, OBJ_LIMO, 0x04, 0xffff)
 
-	assign_sound(SFX_BIKE_ENGINE, CHANNEL_1)
+	assign_sound(SFXNUM_01B4_BIKE_ENGINE, CHANNEL_1)
 	bind_channel_to_object_repeating(CHANNEL_1, OBJ_LIMO, 1, 2400, 3200)
 	if_stage_flag_eq(STAGEFLAG_TRACERBUG_PLACED, TRUE, /*goto*/ 0x03)
 	if_difficulty_lt(DIFF_PA, /*goto*/ 0x03)
@@ -940,7 +940,7 @@ u8 func040c_taxi[] = {
 
 	// Take off
 	label(0x03)
-	assign_sound(SFX_8000, CHANNEL_0)
+	assign_sound(SFXMAP_8000, CHANNEL_0)
 	bind_channel_to_object_repeating(CHANNEL_0, OBJ_TAXI, 1, 2400, 3200)
 	object_do_animation(ANIM_0168, OBJ_TAXI, 0x04, 0xffff)
 	set_object_flag2(OBJ_TAXI, OBJFLAG2_CANFILLVIEWPORT)
@@ -1632,7 +1632,7 @@ u8 func0413_bugspotter[] = {
 	// Bug was thrown recently
 	label(0x04)
 	chr_do_animation(ANIM_TALKING_00A3, 0, -1, 0, 16, CHR_SELF, 2)
-	assign_sound(SFX_044A, CHANNEL_6)
+	assign_sound(SFXNUM_044A_CIV_HEY_I_SAW_THAT, CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_stage_flag(STAGEFLAG_TRACERBUG_SPOTTED)
 	show_hudmsg(CHR_BOND, L_PETE_067) // "Tracer Bug has been spotted."
@@ -1668,7 +1668,7 @@ u8 func0413_bugspotter[] = {
 	// Alert everyone in group
 	label(0x04)
 	increase_squadron_alertness(100)
-	assign_sound(SFX_0467, CHANNEL_6)
+	assign_sound(SFXNUM_0467_CIV_SECURITY_SECURITY_SHES_OVER_THERE, CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 
 	// No other guard to run to
@@ -1981,17 +1981,17 @@ u8 func041a_robot[] = {
 		call_rng
 		if_rand_lt(86, /*goto*/ 0x06)
 		if_rand_lt(172, /*goto*/ 0x07)
-		assign_sound(SFX_046A, CHANNEL_5)
+		assign_sound(SFXNUM_046A_ROBOT_RADIO1, CHANNEL_5)
 		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		goto_next(0x03)
 
 		label(0x06)
-		assign_sound(SFX_046B, CHANNEL_5)
+		assign_sound(SFXNUM_046B_ROBOT_RADIO2, CHANNEL_5)
 		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		goto_next(0x03)
 
 		label(0x07)
-		assign_sound(SFX_046C, CHANNEL_5)
+		assign_sound(SFXNUM_046C_ROBOT_RADIO3, CHANNEL_5)
 		bind_channel_to_entity(CHANNEL_5, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		label(0x03)
 
@@ -2004,7 +2004,7 @@ u8 func041a_robot[] = {
 		restart_timer
 		stop_chr
 		if_self_flag_bankx_eq(CHRFLAG0_SKIPSAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x05)
-		play_sound(MP3_ROBOT_STOP_WHERE_YOU_ARE, -1)
+		play_sound(MP3_LO(FILE_ACHDROID1M), -1)
 		set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 		label(0x05)
 		if_chr_shield_damaged(CHR_SELF, /*goto*/ 0x03)
@@ -2012,7 +2012,7 @@ u8 func041a_robot[] = {
 
 		label(0x03)
 		if_self_flag_bankx_eq(CHRFLAG0_FORCESAFETYCHECKS, TRUE, BANK_0, /*goto*/ 0x05)
-		play_sound(MP3_ROBOT_ALERT_UNDER_ATTACK, -1)
+		play_sound(MP3_LO(FILE_ACHDROID2M), -1)
 		set_self_flag_bankx(CHRFLAG0_FORCESAFETYCHECKS, BANK_0)
 
 		beginloop(0x05)
@@ -2051,7 +2051,7 @@ u8 func041a_robot[] = {
 	endloop(0x02)
 
 	label(0x0c)
-	assign_sound(MP3_ROBOT_ALERT_UNDER_ATTACK, CHANNEL_6)
+	assign_sound(MP3_LO(FILE_ACHDROID2M), CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 
@@ -2135,7 +2135,7 @@ u8 func041e_sealer1[] = {
 
 	// Conversation
 	label(0x04)
-	assign_sound(SFX_814B, CHANNEL_6)
+	assign_sound(SFXMAP_814B, CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0098, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SELF, 2)
 	restart_timer
@@ -2146,7 +2146,7 @@ u8 func041e_sealer1[] = {
 	endloop(0x07)
 
 	label(0x03)
-	assign_sound(SFX_044F, CHANNEL_6)
+	assign_sound(SFXNUM_044F_M_WHAT_A_MESS, CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0231, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER1, 2)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SELF, 2)
@@ -2157,7 +2157,7 @@ u8 func041e_sealer1[] = {
 	goto_first(0x08)
 
 	label(0x03)
-	assign_sound(SFX_0450, CHANNEL_6)
+	assign_sound(SFXNUM_0450_M_I_NEVER_LIKED_THAT_ROBOT_ANYWAY, CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0233, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER3, 2)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER1, 2)
@@ -2169,7 +2169,7 @@ u8 func041e_sealer1[] = {
 	goto_first(0x09)
 
 	label(0x03)
-	assign_sound(SFX_0451, CHANNEL_6)
+	assign_sound(SFXNUM_0451_M_THE_BOSS_AINT_GONNA_BE_PLEASED, CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0232, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER1, 2)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER3, 2)
@@ -2181,7 +2181,7 @@ u8 func041e_sealer1[] = {
 	goto_first(0x0a)
 
 	label(0x03)
-	assign_sound(SFX_0452, CHANNEL_6)
+	assign_sound(SFXNUM_0452_M_WE_COULD_ALWAYS_GET_ANOTHER_ONE, CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	chr_do_animation(ANIM_TALKING_0234, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER3, 2)
 	chr_do_animation(ANIM_TWO_GUN_HOLD, -1, -1, CHRANIMFLAG_MOVEWHENINVIS, 0, CHR_SEALER1, 2)
@@ -2203,7 +2203,7 @@ u8 func041e_sealer1[] = {
 	lock_door(0x10, 0x02)
 	lock_door(0x11, 0x02)
 	set_stage_flag(STAGEFLAG_ELEVATOR_SEALED)
-	assign_sound(SFX_0469, CHANNEL_6)
+	assign_sound(SFXNUM_0469_M_THE_DOORS_ARE_CLOSED, CHANNEL_6)
 	bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 	show_hudmsg(CHR_BOND, L_PETE_033) // "Elevator access sealed."
 	chr_do_animation(ANIM_STANDING_TYPE_ONE_HAND, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -2225,7 +2225,7 @@ u8 func100d_spawn_alarm_responders[] = {
 
 	label(0x03)
 	restart_timer
-	play_sound(MP3_02F0, -1) // "Attention all personnel"
+	play_sound(MP3_LO_ZZ(FILE_ACSTAN1M), -1) // "Attention all personnel"
 
 	beginloop(0x1d)
 		if_timer_gt(200, /*goto*/ 0x03)
@@ -2233,7 +2233,7 @@ u8 func100d_spawn_alarm_responders[] = {
 
 	label(0x03)
 	restart_timer
-	play_sound(MP3_02F1, -1) // "Locate and apprehend fugitive"
+	play_sound(MP3_LO_ZZ(FILE_ACSTAN2M), -1) // "Locate and apprehend fugitive"
 
 	beginloop(0x1e)
 		if_timer_gt(120, /*goto*/ 0x03)
@@ -2399,9 +2399,9 @@ u8 func040a_intro_from_gameplay[] = {
 
 u8 func101f_setup_robot_noise[] = {
 #if VERSION >= VERSION_NTSC_1_0
-	play_sound_from_object(CHANNEL_2, CHR_ROBOT, SFX_80B9_THUNDER, PSTYPE_NONE, PSFLAG_REPEATING)
+	play_sound_from_object(CHANNEL_2, CHR_ROBOT, SFXMAP_80B9_THUNDER, PSTYPE_NONE, PSFLAG_REPEATING)
 #else
-	play_sound(SFX_80B9_THUNDER, CHANNEL_2)
+	play_sound(SFXMAP_80B9_THUNDER, CHANNEL_2)
 	bind_channel_to_object_repeating(CHANNEL_2, CHR_ROBOT, 0, 900, 1500)
 #endif
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -2549,16 +2549,16 @@ u8 func040a_intro_sfx[] = {
 		label(0x04)
 
 	wait_until(30, 0x55)
-	speak(CHR_BOND, L_PETE_068, MP3_0408, CHANNEL_7, COLOR_05_GREEN) // "We suspect the G5 Corporation is just a front for ..."
+	speak(CHR_BOND, L_PETE_068, MP3_ZZ(FILE_AP7_01_CAM), CHANNEL_7, COLOR_05_GREEN) // "We suspect the G5 Corporation is just a front for ..."
 
 	wait_until(1060, 0x56)
-	speak(CHR_BOND, L_PETE_069, MP3_0409, CHANNEL_7, COLOR_09_BLUE) // "Just who is this help you keep referring to?"
+	speak(CHR_BOND, L_PETE_069, MP3_ZZ(FILE_AP7_02_JOM), CHANNEL_7, COLOR_09_BLUE) // "Just who is this help you keep referring to?"
 
 	wait_until(1260, 0x57)
-	speak(CHR_BOND, L_PETE_070, MP3_040A, CHANNEL_7, COLOR_05_GREEN) // "Not now, Joanna. Time for radio silence. Good luck..."
+	speak(CHR_BOND, L_PETE_070, MP3_ZZ(FILE_AP7_03_CAM), CHANNEL_7, COLOR_05_GREEN) // "Not now, Joanna. Time for radio silence. Good luck..."
 
 	wait_until(1488, 0x58)
-	speak(CHR_BOND, L_PETE_071, MP3_040B, CHANNEL_7, COLOR_09_BLUE) // "Thanks a lot."
+	speak(CHR_BOND, L_PETE_071, MP3_ZZ(FILE_AP7_04_JOM), CHANNEL_7, COLOR_09_BLUE) // "Thanks a lot."
 
 	label(0x2d)
 	yield
@@ -2568,98 +2568,98 @@ u8 func040a_intro_sfx[] = {
 	goto_first(0x2d)
 
 	label(0x04)
-	play_sound(SFX_0161, CHANNEL_3)
+	play_sound(SFXNUM_0161, CHANNEL_3)
 
 	wait_until(1519, 0x2f)
-	play_sound(SFX_0162, CHANNEL_3)
+	play_sound(SFXNUM_0162, CHANNEL_3)
 
 	wait_until(1566, 0x30)
-	play_sound(SFX_046D, CHANNEL_4)
+	play_sound(SFXNUM_046D, CHANNEL_4)
 
 	wait_until(1649, 0x31)
-	play_sound(SFX_046D, CHANNEL_3)
+	play_sound(SFXNUM_046D, CHANNEL_3)
 
 	label(0x33)
 	wait_until(1758, 0x34)
-	play_sound(SFX_0164, CHANNEL_4)
+	play_sound(SFXNUM_0164, CHANNEL_4)
 
 	wait_until(1784, 0x35)
-	play_sound(SFX_0163, CHANNEL_3)
+	play_sound(SFXNUM_0163, CHANNEL_3)
 
 	wait_until(1814, 0x36)
-	play_sound(SFX_0162, CHANNEL_3)
+	play_sound(SFXNUM_0162, CHANNEL_3)
 
 	wait_until(1855, 0x37)
-	play_sound(SFX_0161, CHANNEL_3)
+	play_sound(SFXNUM_0161, CHANNEL_3)
 
 	wait_until(1897, 0x38)
-	play_sound(SFX_0470, CHANNEL_3)
+	play_sound(SFXNUM_0470, CHANNEL_3)
 
 	wait_until(2017, 0x3a)
-	play_sound(SFX_0165, CHANNEL_3)
+	play_sound(SFXNUM_0165, CHANNEL_3)
 
 	wait_until(2028, 0x3b)
-	play_sound(SFX_046E, CHANNEL_4)
+	play_sound(SFXNUM_046E_JO_JUMPING, CHANNEL_4)
 
 	wait_until(2050, 0x3c)
-	play_sound(SFX_0472, CHANNEL_3)
+	play_sound(SFXNUM_0472, CHANNEL_3)
 
 	wait_until(2175, 0x3d)
-	play_sound(SFX_0473, CHANNEL_4)
+	play_sound(SFXNUM_0473, CHANNEL_4)
 
 	wait_until(2239, 0x3e)
-	play_sound(SFX_0474, CHANNEL_3)
+	play_sound(SFXNUM_0474, CHANNEL_3)
 
 	wait_until(2269, 0x3f)
-	play_sound(SFX_0475, CHANNEL_4)
+	play_sound(SFXNUM_0475, CHANNEL_4)
 
 	wait_until(2278, 0x41)
-	play_sound(SFX_0166, CHANNEL_3)
+	play_sound(SFXNUM_0166, CHANNEL_3)
 
 	wait_until(2280, 0x40)
-	play_sound(SFX_JO_LANDING_046F, CHANNEL_4)
+	play_sound(SFXNUM_046F_JO_LANDING, CHANNEL_4)
 
 	wait_until(2323, 0x42)
-	play_sound(SFX_0165, CHANNEL_3)
+	play_sound(SFXNUM_0165, CHANNEL_3)
 
 	wait_until(2339, 0x43)
-	play_sound(SFX_0166, CHANNEL_3)
+	play_sound(SFXNUM_0166, CHANNEL_3)
 
 	wait_until(2356, 0x44)
-	play_sound(SFX_0167, CHANNEL_3)
+	play_sound(SFXNUM_0167, CHANNEL_3)
 
 	wait_until(2373, 0x45)
-	play_sound(SFX_0168, CHANNEL_3)
+	play_sound(SFXNUM_0168, CHANNEL_3)
 
 	wait_until(2386, 0x46)
-	play_sound(SFX_0165, CHANNEL_3)
+	play_sound(SFXNUM_0165, CHANNEL_3)
 
 	wait_until(2388, 0x47)
 
 	wait_until(2402, 0x48)
 	mute_channel(CHANNEL_4)
-	play_sound(SFX_0166, CHANNEL_3)
+	play_sound(SFXNUM_0166, CHANNEL_3)
 
 	wait_until(2404, 0x4a)
-	play_sound(SFX_0080, CHANNEL_4)
+	play_sound(SFXNUM_0080, CHANNEL_4)
 
 	wait_until(2424, 0x49)
-	play_sound(SFX_0167, CHANNEL_3)
+	play_sound(SFXNUM_0167, CHANNEL_3)
 
 	wait_until(2434, 0x4c)
-	play_sound(SFX_0476, CHANNEL_3)
+	play_sound(SFXNUM_0476_JO_PANTING, CHANNEL_3)
 
 	wait_until(2584, 0x4b)
-	play_sound(SFX_0161, CHANNEL_5)
+	play_sound(SFXNUM_0161, CHANNEL_5)
 
 	wait_until(2622, 0x4d)
 	mute_channel(CHANNEL_5)
 
-	play_sound(SFX_0162, CHANNEL_4)
+	play_sound(SFXNUM_0162, CHANNEL_4)
 	wait_until(2660, 0x4e)
 	mute_channel(CHANNEL_5)
 
-	play_sound(SFX_0163, CHANNEL_6)
+	play_sound(SFXNUM_0163, CHANNEL_6)
 
 	label(0x2e)
 	mute_channel(CHANNEL_5)
@@ -2707,47 +2707,47 @@ u8 func040b_outro[] = {
 		label(0x04)
 
 	func0c01_wait_until(30, 0x2d)
-	play_sound(SFX_0161, CHANNEL_7)
+	play_sound(SFXNUM_0161, CHANNEL_7)
 
 	func0c01_wait_until(70, 0x2f)
-	play_sound(SFX_0162, CHANNEL_7)
+	play_sound(SFXNUM_0162, CHANNEL_7)
 
 	func0c01_wait_until(120, 0x30)
-	play_sound(SFX_0163, CHANNEL_7)
+	play_sound(SFXNUM_0163, CHANNEL_7)
 
 	func0c01_wait_until(174, 0x31)
-	play_sound(SFX_0164, CHANNEL_7)
+	play_sound(SFXNUM_0164, CHANNEL_7)
 
 	func0c01_wait_until(208, 0x32)
-	play_sound(SFX_046D, CHANNEL_6)
+	play_sound(SFXNUM_046D, CHANNEL_6)
 
 	func0c01_wait_until(210, 0x33)
-	play_sound(SFX_0161, CHANNEL_7)
+	play_sound(SFXNUM_0161, CHANNEL_7)
 
 	func0c01_wait_until(238, 0x34)
-	play_sound(SFX_0162, CHANNEL_7)
+	play_sound(SFXNUM_0162, CHANNEL_7)
 
 	func0c01_wait_until(280, 0x35)
-	play_sound(SFX_0171, CHANNEL_7)
+	play_sound(SFXNUM_0171, CHANNEL_7)
 
 	func0c01_wait_until(350, 0x36)
-	play_sound(SFX_0173, CHANNEL_7)
+	play_sound(SFXNUM_0173, CHANNEL_7)
 
 	func0c01_wait_until(458, 0x37)
-	play_sound(SFX_0172, CHANNEL_7)
+	play_sound(SFXNUM_0172, CHANNEL_7)
 
 	func0c01_wait_until(506, 0x38)
-	play_sound(SFX_0171, CHANNEL_7)
+	play_sound(SFXNUM_0171, CHANNEL_7)
 
 	func0c01_wait_until(540, 0x39)
 	close_door(0x10)
 	close_door(0x11)
 
 	func0c01_wait_until(545, 0x3a)
-	play_sound(SFX_0171, CHANNEL_7)
+	play_sound(SFXNUM_0171, CHANNEL_7)
 
 	func0c01_wait_until(588, 0x3b)
-	play_sound(SFX_0172, CHANNEL_7)
+	play_sound(SFXNUM_0172, CHANNEL_7)
 
 	beginloop(0x05)
 		if_camera_animating(/*goto*/ 0x03)
@@ -2954,7 +2954,7 @@ u8 func101a_msg_onlyplace[] = {
 	endloop(0x10)
 
 	label(0x03)
-	speak(CHR_P1P2, L_PETE_060, SFX_8179, CHANNEL_6, COLOR_09_BLUE) // "The only place we could secure the equipment was a..."
+	speak(CHR_P1P2, L_PETE_060, SFXMAP_8179, CHANNEL_6, COLOR_09_BLUE) // "The only place we could secure the equipment was a..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -2974,7 +2974,7 @@ u8 func101b_msg_blockedupdoors[] = {
 	endloop(0x05)
 
 	label(0x03)
-	speak(CHR_P1P2, L_PETE_061, MP3_03B1, CHANNEL_6, COLOR_09_BLUE) // "Either of those blocked-up doors will do as an esc..."
+	speak(CHR_P1P2, L_PETE_061, MP3_ZZ(FILE_AM3_L1_BM), CHANNEL_6, COLOR_09_BLUE) // "Either of those blocked-up doors will do as an esc..."
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -2999,7 +2999,7 @@ u8 func101c_msg_reprogramthattaxi[] = {
 	endloop(0x05)
 
 	label(0x03)
-	speak(CHR_P1P2, L_PETE_062, SFX_817A, CHANNEL_6, COLOR_09_BLUE) // "Reprogram that taxi - it's a Mark 2 and should be ..."
+	speak(CHR_P1P2, L_PETE_062, SFXMAP_817A, CHANNEL_6, COLOR_09_BLUE) // "Reprogram that taxi - it's a Mark 2 and should be ..."
 	label(0x0a)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
@@ -3012,7 +3012,7 @@ u8 func101d_msg_pointofingress[] = {
 	endloop(0x10)
 
 	label(0x03)
-	speak(CHR_P1P2, L_PETE_063, SFX_817B, CHANNEL_6, COLOR_09_BLUE) // "That car park lift is your only point of ingress."
+	speak(CHR_P1P2, L_PETE_063, SFXMAP_817B, CHANNEL_6, COLOR_09_BLUE) // "That car park lift is your only point of ingress."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

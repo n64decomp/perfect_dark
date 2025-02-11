@@ -1129,13 +1129,13 @@ u8 func1003_uplink_doors[] = {
 
 		label(LABEL_2D)
 		if_stage_flag_eq(STAGEFLAG_DOOR_VIRUS_DOWNLOADED, FALSE, /*goto*/ 0x06)
-		play_sound(SFX_8116, -1)
+		play_sound(SFXMAP_8116, -1)
 		show_hudmsg(CHR_P1P2, L_LIP_048) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ LABEL_2D)
-		play_sound(SFX_8116, -1)
+		play_sound(SFXMAP_8116, -1)
 		show_hudmsg(CHR_P1P2, L_LIP_020) // "Access to door control systems denied."
 		reloop(0x04)
 
@@ -1155,7 +1155,7 @@ u8 func1003_uplink_doors[] = {
 		label(0x06)
 		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
-		assign_sound(SFX_01BF, CHANNEL_5)
+		assign_sound(SFXNUM_01BF, CHANNEL_5)
 		bind_channel_to_object(CHANNEL_5, 0x02, TRUE)
 
 		beginloop(0x11)
@@ -1173,7 +1173,7 @@ u8 func1003_uplink_doors[] = {
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(LABEL_2D)
-		assign_sound(SFX_01C1, CHANNEL_5)
+		assign_sound(SFXNUM_01C1, CHANNEL_5)
 		bind_channel_to_object(CHANNEL_5, 0x02, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
@@ -1183,7 +1183,7 @@ u8 func1003_uplink_doors[] = {
 		label(0x09)
 		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
-		assign_sound(SFX_01C0, CHANNEL_6)
+		assign_sound(SFXNUM_01C0, CHANNEL_6)
 		bind_channel_to_object(CHANNEL_6, 0x02, TRUE)
 		restart_timer
 
@@ -1206,13 +1206,13 @@ u8 func1004_uplink_lights[] = {
 
 		label(LABEL_2D)
 		if_stage_flag_eq(STAGEFLAG_LIGHT_VIRUS_DONE, FALSE, /*goto*/ 0x06)
-		play_sound(SFX_8116, -1)
+		play_sound(SFXMAP_8116, -1)
 		show_hudmsg(CHR_P1P2, L_LIP_048) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ LABEL_2D)
-		play_sound(SFX_8116, -1)
+		play_sound(SFXMAP_8116, -1)
 		show_hudmsg(CHR_P1P2, L_LIP_021) // "Access to light control systems denied."
 		reloop(0x04)
 
@@ -1232,7 +1232,7 @@ u8 func1004_uplink_lights[] = {
 		label(0x06)
 		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
-		assign_sound(SFX_01BF, CHANNEL_5)
+		assign_sound(SFXNUM_01BF, CHANNEL_5)
 		bind_channel_to_object(CHANNEL_5, 0x01, TRUE)
 
 		beginloop(0x11)
@@ -1250,7 +1250,7 @@ u8 func1004_uplink_lights[] = {
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 
 		label(LABEL_2D)
-		assign_sound(SFX_01C1, CHANNEL_5)
+		assign_sound(SFXNUM_01C1, CHANNEL_5)
 		bind_channel_to_object(CHANNEL_5, 0x01, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
@@ -1274,7 +1274,7 @@ u8 func1004_uplink_lights[] = {
 		label(0x09)
 		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
-		assign_sound(SFX_01C0, CHANNEL_6)
+		assign_sound(SFXNUM_01C0, CHANNEL_6)
 		bind_channel_to_object(CHANNEL_6, 0x01, TRUE)
 		restart_timer
 
@@ -1297,13 +1297,13 @@ u8 func1005_uplink_autoguns[] = {
 
 		label(LABEL_2D)
 		if_stage_flag_eq(STAGEFLAG_LIGHT_VIRUS_DONE, FALSE, /*goto*/ 0x06)
-		play_sound(SFX_8116, -1)
+		play_sound(SFXMAP_8116, -1)
 		show_hudmsg(CHR_P1P2, L_LIP_048) // "Virus has already been downloaded."
 		reloop(0x04)
 
 		label(0x06)
 		if_chr_weapon_equipped(CHR_P1P2, WEAPON_DATAUPLINK, /*goto*/ LABEL_2D)
-		play_sound(SFX_8116, -1)
+		play_sound(SFXMAP_8116, -1)
 		show_hudmsg(CHR_P1P2, L_LIP_022) // "Access to security control systems denied."
 		reloop(0x04)
 
@@ -1323,7 +1323,7 @@ u8 func1005_uplink_autoguns[] = {
 		label(0x06)
 		show_hudmsg(CHR_P1P2, L_LIP_049) // "Initiating virus download."
 		restart_timer
-		assign_sound(SFX_01BF, CHANNEL_5)
+		assign_sound(SFXNUM_01BF, CHANNEL_5)
 		bind_channel_to_object(CHANNEL_5, 0x03, TRUE)
 
 		beginloop(0x11)
@@ -1340,7 +1340,7 @@ u8 func1005_uplink_autoguns[] = {
 		if_object_in_good_condition(0x03, /*goto*/ LABEL_2D)
 		set_ailist(CHR_SELF, GAILIST_IDLE)
 		label(LABEL_2D)
-		assign_sound(SFX_01C1, CHANNEL_5)
+		assign_sound(SFXNUM_01C1, CHANNEL_5)
 		bind_channel_to_object(CHANNEL_5, 0x00, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_023) // "Virus downloaded to console."
 		yield
@@ -1351,7 +1351,7 @@ u8 func1005_uplink_autoguns[] = {
 		label(0x09)
 		show_hudmsg(CHR_P1P2, L_LIP_031) // "Data Uplink connection broken."
 		mute_channel(CHANNEL_5)
-		assign_sound(SFX_01C0, CHANNEL_6)
+		assign_sound(SFXNUM_01C0, CHANNEL_6)
 		bind_channel_to_object(CHANNEL_6, 0x03, TRUE)
 		restart_timer
 
@@ -1591,7 +1591,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 
 	label(0x06)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_TARGET, L_LIP_037, MP3_032D, CHANNEL_4, COLOR_08_RED) // "Who are you?"
+	speak(CHR_TARGET, L_LIP_037, MP3_LO(FILE_ALABTECH1M), CHANNEL_4, COLOR_08_RED) // "Who are you?"
 	restart_timer
 	try_face_entity(ATTACKFLAG_AIMATTARGET, 0, /*goto*/ LABEL_64)
 
@@ -1611,7 +1611,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 
 	// Jo has clothes
 	label(0x0d)
-	speak(CHR_TARGET, L_LIP_038, MP3_032E, CHANNEL_4, COLOR_08_RED) // "Hey - you've got my clothes."
+	speak(CHR_TARGET, L_LIP_038, MP3_LO(FILE_ALABTECH2M), CHANNEL_4, COLOR_08_RED) // "Hey - you've got my clothes."
 	restart_timer
 
 	beginloop(0x0e)
@@ -1624,7 +1624,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	endloop(0x0e)
 
 	label(0x06)
-	speak(CHR_TARGET, L_LIP_043, MP3_0332, CHANNEL_4, COLOR_08_RED) // "Give me back my clothes - or else!"
+	speak(CHR_TARGET, L_LIP_043, MP3_LO(FILE_ALABTECH7M), CHANNEL_4, COLOR_08_RED) // "Give me back my clothes - or else!"
 	restart_timer
 
 	beginloop(0x0f)
@@ -1670,14 +1670,14 @@ u8 func0410_labtech_showers_sa_pa[] = {
 		// Jo is in one of many rooms with nothing equipped - attack her
 		label(LABEL_2D)
 		if_self_flag_bankx_eq(CHRFLAG0_SKIPSAFETYCHECKS, TRUE, BANK_0, /*goto*/ LABEL_2D)
-		speak(CHR_TARGET, L_LIP_044, MP3_0333, CHANNEL_4, COLOR_08_RED) // "Right - you've asked for it!"
+		speak(CHR_TARGET, L_LIP_044, MP3_LO(FILE_ALABTECH8M), CHANNEL_4, COLOR_08_RED) // "Right - you've asked for it!"
 		set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 		goto_next(0x06)
 
 		label(LABEL_2D)
 		call_rng
 		if_rand_gt(25, /*goto*/ 0x06)
-		speak(CHR_TARGET, L_LIP_045, MP3_0334, CHANNEL_4, COLOR_08_RED) // "Give me my clothes."
+		speak(CHR_TARGET, L_LIP_045, MP3_LO(FILE_ALABTECH9M), CHANNEL_4, COLOR_08_RED) // "Give me my clothes."
 		label(0x06)
 		try_run_to_target(/*goto*/ LABEL_6F)
 		restart_timer
@@ -1704,7 +1704,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	label(LABEL_53)
 	chr_do_animation(ANIM_SURPRISED_0202, 0, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_TARGET, L_LIP_041, SFX_8156, CHANNEL_4, COLOR_08_RED) // "Oh, my God - a gun!"
+	speak(CHR_TARGET, L_LIP_041, SFXMAP_8156, CHANNEL_4, COLOR_08_RED) // "Oh, my God - a gun!"
 	restart_timer
 
 	beginloop(0x0a)
@@ -1714,7 +1714,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	// Jo in an unknown room, or follow through from seeing weapon
 	label(0x06)
 	restart_timer
-	speak(CHR_TARGET, L_LIP_039, MP3_032F, CHANNEL_4, COLOR_08_RED) // "Help - help!"
+	speak(CHR_TARGET, L_LIP_039, MP3_LO(FILE_ALABTECH3M), CHANNEL_4, COLOR_08_RED) // "Help - help!"
 	try_set_chrpreset_to_unalerted_teammate(0, /*goto*/ 0x06)
 
 	// No chr in same group - run to pad instead
@@ -1732,7 +1732,7 @@ u8 func0410_labtech_showers_sa_pa[] = {
 	endloop(0x0b)
 
 	label(LABEL_61)
-	speak(CHR_TARGET, L_LIP_042, MP3_0331, CHANNEL_4, COLOR_08_RED) // "There's an intruder in the complex."
+	speak(CHR_TARGET, L_LIP_042, MP3_LO(FILE_ALABTECH6M), CHANNEL_4, COLOR_08_RED) // "There's an intruder in the complex."
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	increase_squadron_alertness(100)
 	stop_chr
@@ -1769,7 +1769,7 @@ u8 func1009_disguise_timer[] = {
 	endloop(0x09)
 
 	label(0x06)
-	speak(CHR_BOND, L_LIP_046, MP3_02AB, CHANNEL_4, COLOR_09_BLUE) // "I don't have much time!!!"
+	speak(CHR_BOND, L_LIP_046, MP3_ZZ(FILE_AA51JO5M), CHANNEL_4, COLOR_09_BLUE) // "I don't have much time!!!"
 	if_difficulty_lt(DIFF_SA, /*goto*/ LABEL_5D)
 	if_difficulty_lt(DIFF_PA, /*goto*/ LABEL_5F)
 	set_countdown_timer(90)
@@ -1972,7 +1972,7 @@ u8 func0418_doorman[] = {
 	endloop(0x09)
 
 	label(0x06)
-	speak(CHR_TARGET, L_LIP_050, SFX_8157, CHANNEL_4, COLOR_08_RED) // "So, you got here at last."
+	speak(CHR_TARGET, L_LIP_050, SFXMAP_8157, CHANNEL_4, COLOR_08_RED) // "So, you got here at last."
 
 	beginloop(0x0a)
 		if_timer_gt(240, /*goto*/ 0x06)
@@ -1985,7 +1985,7 @@ u8 func0418_doorman[] = {
 	// Disguise not used, or uncovered
 	label(LABEL_2D)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_TARGET, L_LIP_051, SFX_8158, CHANNEL_4, COLOR_08_RED) // "Hey, you're not... SECURITY ALERT!"
+	speak(CHR_TARGET, L_LIP_051, SFXMAP_8158, CHANNEL_4, COLOR_08_RED) // "Hey, you're not... SECURITY ALERT!"
 	restart_timer
 	stop_chr
 
@@ -2005,7 +2005,7 @@ u8 func0418_doorman[] = {
 
 	// Jo has gun equipped
 	label(LABEL_2D)
-	speak(CHR_TARGET, L_LIP_052, SFX_8159, CHANNEL_4, COLOR_08_RED) // "No guns allowed in here - put your weapon away."
+	speak(CHR_TARGET, L_LIP_052, SFXMAP_8159, CHANNEL_4, COLOR_08_RED) // "No guns allowed in here - put your weapon away."
 	restart_timer
 
 	beginloop(0x0c)
@@ -2015,7 +2015,7 @@ u8 func0418_doorman[] = {
 	endloop(0x0c)
 
 	label(0x06)
-	speak(CHR_TARGET, L_LIP_053, SFX_815A, CHANNEL_4, COLOR_08_RED) // "I won't tell you again - lose the weapon."
+	speak(CHR_TARGET, L_LIP_053, SFXMAP_815A, CHANNEL_4, COLOR_08_RED) // "I won't tell you again - lose the weapon."
 	restart_timer
 
 	beginloop(0x0d)
@@ -2028,7 +2028,7 @@ u8 func0418_doorman[] = {
 	label(0x1b)
 #endif
 	label(0x06)
-	speak(CHR_TARGET, L_LIP_054, SFX_815B, CHANNEL_4, COLOR_08_RED) // "Right - I'm calling security."
+	speak(CHR_TARGET, L_LIP_054, SFXMAP_815B, CHANNEL_4, COLOR_08_RED) // "Right - I'm calling security."
 	restart_timer
 	label(0x10)
 	set_stage_flag(STAGEFLAG_DOORMAN_REJECTED)
@@ -2037,7 +2037,7 @@ u8 func0418_doorman[] = {
 
 	// Jo disguised and unarmed
 	label(LABEL_59)
-	speak(CHR_TARGET, L_LIP_055, SFX_815C, CHANNEL_4, COLOR_08_RED) // "Everyone's been waiting for you..."
+	speak(CHR_TARGET, L_LIP_055, SFXMAP_815C, CHANNEL_4, COLOR_08_RED) // "Everyone's been waiting for you..."
 	restart_timer
 
 	beginloop(0x0e)
@@ -2211,7 +2211,7 @@ u8 func041a_labtech_harrysmate[] = {
 	endloop(0x09)
 
 	label(0x06)
-	speak(CHR_TARGET, L_LIP_058, MP3_02BB, CHANNEL_4, COLOR_08_RED) // "Hey, that's not Harry. It's an intruder."
+	speak(CHR_TARGET, L_LIP_058, MP3_LO(FILE_AA51SCI1M), CHANNEL_4, COLOR_08_RED) // "Hey, that's not Harry. It's an intruder."
 	increase_squadron_alertness(120)
 	restart_timer
 	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -2586,7 +2586,7 @@ u8 func0413_mechanic[] = {
 
 	label(0x06)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_BOND, L_LIP_065, SFX_M0_GET_THE_HELL_OUT_OF_HERE, CHANNEL_4, COLOR_08_RED) // "Get the hell out of here!"
+	speak(CHR_BOND, L_LIP_065, SFXMAP_80FB_M0_GET_THE_HELL_OUT_OF_HERE, CHANNEL_4, COLOR_08_RED) // "Get the hell out of here!"
 	restart_timer
 	chr_do_animation(ANIM_SURRENDER_002E, 0, -1, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -2896,7 +2896,7 @@ u8 func041f_labtech_lights[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ LABEL_2D)
 	label(0x06)
 	object_do_animation(ANIM_025A, 0xff, 0x02, 0xffff)
-	speak(CHR_TARGET, L_LIP_037, SFX_SCI_WHO_THE_HELL_ARE_YOU, CHANNEL_4, COLOR_08_RED) // "Who are you?"
+	speak(CHR_TARGET, L_LIP_037, SFXMAP_8103_SCI_WHO_THE_HELL_ARE_YOU, CHANNEL_4, COLOR_08_RED) // "Who are you?"
 
 #if VERSION >= VERSION_JPN_FINAL
 	label(LABEL_68)
@@ -2910,7 +2910,7 @@ u8 func041f_labtech_lights[] = {
 	goto_next(0x06)
 
 	label(LABEL_2D)
-	speak(CHR_TARGET, L_LIP_083, MP3_027F, CHANNEL_4, COLOR_08_RED) // "Should you be in here?"
+	speak(CHR_TARGET, L_LIP_083, MP3(FILE_ASCIE2BM), CHANNEL_4, COLOR_08_RED) // "Should you be in here?"
 	restart_timer
 	do_preset_animation(PRESETANIM_TALKRANDOM)
 
@@ -2926,7 +2926,7 @@ u8 func041f_labtech_lights[] = {
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISE_UNCOVERED, /*goto*/ 0x06)
 	if_chr_has_hiddenflag(CHR_TARGET, CHRHFLAG_DISGUISED, /*goto*/ 0x0c)
 	label(0x06)
-	speak(CHR_TARGET, L_LIP_082, MP3_SCI_LEAVE_THIS_AREA, CHANNEL_4, COLOR_08_RED) // "Leave this area now."
+	speak(CHR_TARGET, L_LIP_082, MP3(FILE_ASCIE3BM), CHANNEL_4, COLOR_08_RED) // "Leave this area now."
 	restart_timer
 	do_preset_animation(PRESETANIM_TALKRANDOM)
 
@@ -3017,7 +3017,7 @@ u8 func041f_labtech_lights[] = {
 	endloop(0x0e)
 
 	label(0x0f)
-	speak(CHR_TARGET, L_LIP_084, SFX_M1_HOLY, CHANNEL_4, COLOR_08_RED) // "Holy..."
+	speak(CHR_TARGET, L_LIP_084, SFXMAP_8124_M1_HOLY, CHANNEL_4, COLOR_08_RED) // "Holy..."
 	set_self_flag_bankx(CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	chr_do_animation(ANIM_SURPRISED_0202, -1, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	restart_timer
@@ -3160,11 +3160,11 @@ u8 func0420_labtech_doors[] = {
 
 	label(LABEL_2D)
 	if_self_flag_bankx_eq(CHRFLAG0_GP1, TRUE, BANK_0, /*goto*/ LABEL_2E)
-	speak(CHR_BOND, L_LIP_085, MP3_M0_ITS_A_SPY, CHANNEL_4, COLOR_08_RED) // "It's a spy!"
+	speak(CHR_BOND, L_LIP_085, MP3_LO(FILE_AA51GRD10M), CHANNEL_4, COLOR_08_RED) // "It's a spy!"
 	goto_next(LABEL_2D)
 
 	label(LABEL_2E)
-	speak(CHR_BOND, L_LIP_087, MP3_M0_IMPOSTER, CHANNEL_4, COLOR_08_RED) // "Imposter!"
+	speak(CHR_BOND, L_LIP_087, MP3_LO(FILE_AA51GRD09M), CHANNEL_4, COLOR_08_RED) // "Imposter!"
 	label(LABEL_2D)
 	label(0x06)
 	go_to_target_pad(GOPOSFLAG_JOG)
@@ -3195,12 +3195,12 @@ u8 func0420_labtech_doors[] = {
 		if_stage_flag_eq(STAGEFLAG_AUTOGUN_VIRUS_DONE, TRUE, /*goto*/ LABEL_2D)
 		set_stage_flag(STAGEFLAG_AUTOGUN_ACTIVATED)
 		if_self_flag_bankx_eq(CHRFLAG0_GP1, TRUE, BANK_0, /*goto*/ LABEL_75)
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, 0x3c, TRUE)
 		goto_next(LABEL_2D)
 
 		label(LABEL_75)
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, 0x3d, TRUE)
 		label(LABEL_2D)
 	endloop(LABEL_71)
@@ -3358,7 +3358,7 @@ u8 func0422_labtech_records[] = {
 	label(0x06)
 	if_alertness(99, OPERATOR_GREATER_THAN, /*goto*/ LABEL_2D)
 	increase_squadron_alertness(100)
-	speak(CHR_TARGET, L_LIP_087, MP3_M0_IMPOSTER, CHANNEL_4, COLOR_08_RED) // "Imposter!"
+	speak(CHR_TARGET, L_LIP_087, MP3_LO(FILE_AA51GRD09M), CHANNEL_4, COLOR_08_RED) // "Imposter!"
 	chr_do_animation(ANIM_SURPRISED_0202, -1, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 10, CHR_SELF, 2)
 	restart_timer
 
@@ -3368,7 +3368,7 @@ u8 func0422_labtech_records[] = {
 
 	label(LABEL_2D)
 	dprint 'T','A','L','K',' ','1','\n',0,
-	speak(CHR_TARGET, L_LIP_086, SFX_M1_WARN_THE_OTHERS, CHANNEL_4, COLOR_08_RED) // "Warn the others..."
+	speak(CHR_TARGET, L_LIP_086, SFXNUM_04CE_M1_WARN_THE_OTHERS, CHANNEL_4, COLOR_08_RED) // "Warn the others..."
 	label(LABEL_2D)
 	label(0x06)
 	run_to_pad(PAD_LIP_0108)
@@ -3424,9 +3424,9 @@ u8 func1018_disable_chambers[] = {
 		mute_channel(CHANNEL_0) \
  \
 		/* Raising chamber */ \
-		assign_sound(SFX_DOOR_042B, CHANNEL_0) \
+		assign_sound(SFXNUM_042B_DOOR, CHANNEL_0) \
 		bind_channel_to_object(CHANNEL_0, chamber, TRUE) \
-		assign_sound(SFX_043A, CHANNEL_7) \
+		assign_sound(SFXNUM_043A, CHANNEL_7) \
 		bind_channel_to_object(CHANNEL_7, switch, TRUE) \
 		show_hudmsg(CHR_P1P2, 0x2a42) /* "Containment unit raised up." */ \
 		set_object_image(switch, 0, TVPROGRAM_SOLID_GREEN) \
@@ -3440,7 +3440,7 @@ u8 func1018_disable_chambers[] = {
  \
 		label(0x06) \
 		mute_channel(CHANNEL_0) \
-		assign_sound(SFX_DOOR_042C, CHANNEL_0) \
+		assign_sound(SFXNUM_042C_DOOR, CHANNEL_0) \
 		bind_channel_to_object(CHANNEL_0, chamber, TRUE) \
 		set_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 		reloop(0x04) \
@@ -3448,9 +3448,9 @@ u8 func1018_disable_chambers[] = {
 		/* Lowering chamber */ \
 		label(LABEL_2D) \
 		mute_channel(CHANNEL_0) \
-		assign_sound(SFX_DOOR_042B, CHANNEL_0) \
+		assign_sound(SFXNUM_042B_DOOR, CHANNEL_0) \
 		bind_channel_to_object(CHANNEL_0, chamber, TRUE) \
-		assign_sound(SFX_043A, CHANNEL_7) \
+		assign_sound(SFXNUM_043A, CHANNEL_7) \
 		bind_channel_to_object(CHANNEL_7, switch, TRUE) \
 		show_hudmsg(CHR_P1P2, 0x2a43) /* "Containment unit lowered down." */ \
 		set_object_image(switch, 0, TVPROGRAM_SOLID_RED) \
@@ -3464,7 +3464,7 @@ u8 func1018_disable_chambers[] = {
  \
 		label(0x06) \
 		mute_channel(CHANNEL_0) \
-		assign_sound(SFX_DOOR_042C, CHANNEL_0) \
+		assign_sound(SFXNUM_042C_DOOR, CHANNEL_0) \
 		bind_channel_to_object(CHANNEL_0, chamber, TRUE) \
 		set_object_flag(chamber, OBJFLAG_DEACTIVATED) \
 	endloop(0x04)
@@ -3484,9 +3484,9 @@ u8 func1019_chamber1[] = {
 		mute_channel(CHANNEL_0)
 
 		// Raising chamber
-		assign_sound(SFX_DOOR_042B, CHANNEL_0)
+		assign_sound(SFXNUM_042B_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
@@ -3500,7 +3500,7 @@ u8 func1019_chamber1[] = {
 
 		label(0x06)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042C, CHANNEL_0)
+		assign_sound(SFXNUM_042C_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		set_chr_hiddenflag(CHR_ALIEN, CHRHFLAG_WARPONSCREEN)
 
@@ -3519,10 +3519,10 @@ u8 func1019_chamber1[] = {
 		// Lowering chamber
 		label(LABEL_2D)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042B, CHANNEL_0)
+		assign_sound(SFXNUM_042B_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		set_chr_chrflag(CHR_ALIEN, CHRCFLAG_HIDDEN)
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER1_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER1_SWITCH, 0, TVPROGRAM_SOLID_RED)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
@@ -3536,7 +3536,7 @@ u8 func1019_chamber1[] = {
 
 		label(0x06)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042C, CHANNEL_0)
+		assign_sound(SFXNUM_042C_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER1, TRUE)
 		set_object_flag(OBJ_CHAMBER1, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
@@ -3555,9 +3555,9 @@ u8 func101a_chamber2[] = {
 		if_stage_flag_eq(STAGEFLAG_CHAMBER2_RAISED, TRUE, /*goto*/ LABEL_2D)
 
 		// Raising chamber
-		assign_sound(SFX_DOOR_042B, CHANNEL_0)
+		assign_sound(SFXNUM_042B_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
@@ -3571,7 +3571,7 @@ u8 func101a_chamber2[] = {
 
 		label(0x06)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042C, CHANNEL_0)
+		assign_sound(SFXNUM_042C_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 
 		set_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
@@ -3580,9 +3580,9 @@ u8 func101a_chamber2[] = {
 		// Lowering chamber
 		label(LABEL_2D)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042B, CHANNEL_0)
+		assign_sound(SFXNUM_042B_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER2_SWITCH, TRUE)
 		set_object_image(OBJ_CHAMBER2_SWITCH, 0, TVPROGRAM_SOLID_RED)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
@@ -3596,7 +3596,7 @@ u8 func101a_chamber2[] = {
 
 		label(0x06)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042C, CHANNEL_0)
+		assign_sound(SFXNUM_042C_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER2, TRUE)
 		set_object_flag(OBJ_CHAMBER2, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
@@ -3642,9 +3642,9 @@ u8 func1020_chamber8[] = {
 		mute_channel(CHANNEL_0)
 
 		// Raising chamber
-		assign_sound(SFX_DOOR_042B, CHANNEL_0)
+		assign_sound(SFXNUM_042B_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_066) // "Containment unit raised up."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0, TVPROGRAM_SOLID_GREEN)
@@ -3658,7 +3658,7 @@ u8 func1020_chamber8[] = {
 
 		label(0x06)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042C, CHANNEL_0)
+		assign_sound(SFXNUM_042C_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 
 		set_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
@@ -3667,10 +3667,10 @@ u8 func1020_chamber8[] = {
 		// Lowering chamber
 		label(LABEL_2D)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042B, CHANNEL_0)
+		assign_sound(SFXNUM_042B_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_CHAMBER8_SWITCH, TRUE)
 		show_hudmsg(CHR_P1P2, L_LIP_067) // "Containment unit lowered down."
 		set_object_image(OBJ_CHAMBER8_SWITCH, 0, TVPROGRAM_SOLID_RED)
@@ -3684,7 +3684,7 @@ u8 func1020_chamber8[] = {
 
 		label(0x06)
 		mute_channel(CHANNEL_0)
-		assign_sound(SFX_DOOR_042C, CHANNEL_0)
+		assign_sound(SFXNUM_042C_DOOR, CHANNEL_0)
 		bind_channel_to_object(CHANNEL_0, OBJ_CHAMBER8, TRUE)
 		set_object_flag(OBJ_CHAMBER8, OBJFLAG_DEACTIVATED)
 	endloop(0x04)
@@ -3943,45 +3943,45 @@ u8 func0c01_outro[] = {
 	open_door(0x31)
 
 	wait_until(344, LABEL_64)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(380, LABEL_66)
-	speak(CHR_P1P2, L_LIP_100, MP3_0433, CHANNEL_7, COLOR_09_BLUE) // "Put your hands up and step away from the alien."
+	speak(CHR_P1P2, L_LIP_100, MP3_ZZ(FILE_AP13_01_JOM), CHANNEL_7, COLOR_09_BLUE) // "Put your hands up and step away from the alien."
 
 	wait_until(390, LABEL_68)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(460, LABEL_69)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(500, LABEL_74)
 
 	wait_until(514, LABEL_6A)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(580, LABEL_6C)
-	speak(CHR_P1P2, L_LIP_102, MP3_0435, CHANNEL_7, COLOR_09_BLUE) // "Don't make me tell you again, Doctor. And turn tha..."
+	speak(CHR_P1P2, L_LIP_102, MP3_ZZ(FILE_AP13_03_JOM), CHANNEL_7, COLOR_09_BLUE) // "Don't make me tell you again, Doctor. And turn tha..."
 
 	wait_until(588, LABEL_6B)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(606, LABEL_6D)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(612, LABEL_6E)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(618, LABEL_6F)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(656, LABEL_70)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(720, LABEL_71)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(786, LABEL_72)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ LABEL_2D)
@@ -4034,117 +4034,117 @@ u8 func1002_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_FALCON2_SILENCER, WEAPON_NONE)
 
 	wait_until(62, LABEL_67)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(90, LABEL_64)
-	speak(CHR_BOND, L_LIP_090, MP3_0429, CHANNEL_5, COLOR_03_RED) // "The problem you have is that there is no way to sn..."
+	speak(CHR_BOND, L_LIP_090, MP3_ZZ(FILE_AP12_01_JNM), CHANNEL_5, COLOR_03_RED) // "The problem you have is that there is no way to sn..."
 
 	wait_until(108, LABEL_66)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(686, LABEL_68)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(738, LABEL_69)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(782, LABEL_6A)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(810, LABEL_6B)
-	speak(CHR_BOND, L_LIP_091, MP3_042A, CHANNEL_5, COLOR_09_BLUE) // "Doesn't sound like a problem to me. Where are thes..."
+	speak(CHR_BOND, L_LIP_091, MP3_ZZ(FILE_AP12_02_JOM), CHANNEL_5, COLOR_09_BLUE) // "Doesn't sound like a problem to me. Where are thes..."
 
 	wait_until(1104, LABEL_6C)
-	speak(CHR_BOND, L_LIP_092, MP3_042B, CHANNEL_5, COLOR_03_RED) // "In that crate."
+	speak(CHR_BOND, L_LIP_092, MP3_ZZ(FILE_AP12_03_JNM), CHANNEL_5, COLOR_03_RED) // "In that crate."
 
 	wait_until(1186, LABEL_6D)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(1222, LABEL_6E)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(1246, LABEL_6F)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(1316, LABEL_70)
-	play_sound(SFX_01DC, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_01DC, CHANNEL_CUTSCENE)
 
 	wait_until(1346, LABEL_71)
-	assign_sound(SFX_8169, CHANNEL_1)
+	assign_sound(SFXMAP_8169, CHANNEL_1)
 	bind_channel_to_object(CHANNEL_1, OBJ_CRATE, TRUE)
 
 	wait_until(1390, LABEL_72)
-	speak(CHR_BOND, L_LIP_093, MP3_042C, CHANNEL_5, COLOR_09_BLUE) // "Cute. Very cute."
+	speak(CHR_BOND, L_LIP_093, MP3_ZZ(FILE_AP12_04_JOM), CHANNEL_5, COLOR_09_BLUE) // "Cute. Very cute."
 
 	wait_until(1440, LABEL_73)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(1492, LABEL_74)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(1584, LABEL_75)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(1597, LABEL_76)
-	speak(CHR_BOND, L_LIP_094, MP3_042D, CHANNEL_5, COLOR_03_RED) // "By the way, the stores are crawling with guards. I..."
+	speak(CHR_BOND, L_LIP_094, MP3_ZZ(FILE_AP12_05_JNM), CHANNEL_5, COLOR_03_RED) // "By the way, the stores are crawling with guards. I..."
 
 	wait_until(1628, LABEL_77)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(1658, LABEL_78)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(1724, LABEL_79)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(1792, LABEL_7A)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(1866, LABEL_7B)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(1906, LABEL_7C)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(2024, LABEL_7D)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(2017, LABEL_7E)
-	speak(CHR_BOND, L_LIP_095, MP3_042E, CHANNEL_5, COLOR_09_BLUE) // "Certainly. Any other pearls of wisdom?"
+	speak(CHR_BOND, L_LIP_095, MP3_ZZ(FILE_AP12_06_JOM), CHANNEL_5, COLOR_09_BLUE) // "Certainly. Any other pearls of wisdom?"
 
 	wait_until(2275, LABEL_7F)
-	speak(CHR_BOND, L_LIP_096, MP3_042F, CHANNEL_5, COLOR_03_RED) // "That crate..."
+	speak(CHR_BOND, L_LIP_096, MP3_ZZ(FILE_AP12_07_JNM), CHANNEL_5, COLOR_03_RED) // "That crate..."
 
 	wait_until(2338, LABEL_80)
-	speak(CHR_BOND, L_LIP_097, MP3_0430, CHANNEL_5, COLOR_09_BLUE) // "Yes?"
+	speak(CHR_BOND, L_LIP_097, MP3_ZZ(FILE_AP12_08_JOM), CHANNEL_5, COLOR_09_BLUE) // "Yes?"
 
 	wait_until(2409, LABEL_81)
-	speak(CHR_BOND, L_LIP_098, MP3_0431, CHANNEL_5, COLOR_03_RED) // "It really doesn't like being shot."
+	speak(CHR_BOND, L_LIP_098, MP3_ZZ(FILE_AP12_09_JNM), CHANNEL_5, COLOR_03_RED) // "It really doesn't like being shot."
 
 	wait_until(2440, LABEL_65)
 	open_door(0x33)
 	open_door(0x34)
 
 	wait_until(2648, LABEL_82)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(2680, LABEL_83)
-	speak(CHR_BOND, L_LIP_099, MP3_0432, CHANNEL_5, COLOR_09_BLUE) // "Great. Now, if I can just fight the urge to report..."
+	speak(CHR_BOND, L_LIP_099, MP3_ZZ(FILE_AP12_10_JOM), CHANNEL_5, COLOR_09_BLUE) // "Great. Now, if I can just fight the urge to report..."
 
 	wait_until(2690, LABEL_84)
-	play_sound(SFX_0173, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0173, CHANNEL_CUTSCENE)
 
 	wait_until(2986, LABEL_85)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(3048, LABEL_86)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(3104, LABEL_87)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(3152, LABEL_88)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	beginloop(0x08)
 		if_camera_animating(/*goto*/ LABEL_2D)
@@ -4159,7 +4159,7 @@ u8 func1002_intro[] = {
 	mute_channel(CHANNEL_CUTSCENE)
 	mute_channel(CHANNEL_5)
 	mute_channel(CHANNEL_1)
-	assign_sound(SFX_8169, CHANNEL_1)
+	assign_sound(SFXMAP_8169, CHANNEL_1)
 	bind_channel_to_object(CHANNEL_1, OBJ_CRATE, TRUE)
 	unset_chr_chrflag(CHR_BOND, CHRCFLAG_UNPLAYABLE)
 	set_chr_hiddenflag(CHR_BOND, CHRHFLAG_FINDROOMSFAST)
@@ -4519,7 +4519,7 @@ u8 func1029_msg_showers[] = {
 	endloop(0x04)
 
 	label(LABEL_2D)
-	speak(CHR_BOND, L_LIP_078, MP3_03BC, CHANNEL_6, COLOR_09_BLUE) // "The showers... Now, if I can convince someone to p..."
+	speak(CHR_BOND, L_LIP_078, MP3_ZZ(FILE_AM4_L2_AM), CHANNEL_6, COLOR_09_BLUE) // "The showers... Now, if I can convince someone to p..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4532,7 +4532,7 @@ u8 func102a_msg_temperaturedropping[] = {
 	endloop(0x04)
 
 	label(LABEL_2D)
-	speak(CHR_BOND, L_LIP_079, SFX_8180, CHANNEL_6, COLOR_09_BLUE) // "The temperature's dropping... You must be close to..."
+	speak(CHR_BOND, L_LIP_079, SFXMAP_8180, CHANNEL_6, COLOR_09_BLUE) // "The temperature's dropping... You must be close to..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4543,7 +4543,7 @@ u8 func102b_msg_airrecycled[] = {
 	endloop(0x04)
 
 	label(LABEL_2D)
-	speak(CHR_BOND, L_LIP_080, MP3_03BE, CHANNEL_6, COLOR_09_BLUE) // "The air's heavily recycled around here - must be n..."
+	speak(CHR_BOND, L_LIP_080, MP3_ZZ(FILE_AM4_L2_CM), CHANNEL_6, COLOR_09_BLUE) // "The air's heavily recycled around here - must be n..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4554,7 +4554,7 @@ u8 func102c_msg_hurry[] = {
 	endloop(0x04)
 
 	label(LABEL_2D)
-	speak(CHR_BOND, L_LIP_081, SFX_8181, CHANNEL_6, COLOR_09_BLUE) // "There he is, Jo! Hurry or you'll be too late!"
+	speak(CHR_BOND, L_LIP_081, SFXMAP_8181, CHANNEL_6, COLOR_09_BLUE) // "There he is, Jo! Hurry or you'll be too late!"
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4678,7 +4678,7 @@ u8 func1030_lift_door_sounds[] = {
 		reloop(LABEL_5E)
 
 		label(LABEL_2D)
-		play_sound(SFX_DOOR_81B0, -1)
+		play_sound(SFXMAP_81B0_DOOR, -1)
 		restart_timer
 
 		beginloop(0x08)

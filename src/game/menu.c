@@ -143,42 +143,42 @@ void menu_play_sound(s32 menusound)
 
 	switch (menusound) {
 	case MENUSOUND_SWIPE:
-		sound = SFX_MENU_SWIPE;
+		sound = SFXNUM_05BB_MENU_SWIPE;
 		break;
 	case MENUSOUND_OPENDIALOG:
-		sound = SFX_MENU_OPENDIALOG;
+		sound = SFXNUM_05BC_MENU_OPENDIALOG;
 		break;
 	case MENUSOUND_FOCUS:
-		sound = SFX_MENU_FOCUS;
+		sound = SFXNUM_0441_MENU_FOCUS;
 		break;
 	case MENUSOUND_SELECT:
-		sound = SFX_MENU_SELECT;
+		sound = SFXNUM_05DD_MENU_SELECT;
 		break;
 	case MENUSOUND_ERROR:
 		pitch = 0.4f;
-		sound = SFX_MENU_ERROR;
+		sound = SFXMAP_8040_MENU_ERROR;
 		setpitch = true;
 		break;
 	case MENUSOUND_EXPLOSION:
-		sound = SFX_EXPLOSION_8098;
+		sound = SFXMAP_8098_EXPLOSION;
 		break;
 	case MENUSOUND_TOGGLEON:
-		sound = SFX_MENU_SELECT;
+		sound = SFXNUM_05DD_MENU_SELECT;
 		break;
 	case MENUSOUND_TOGGLEOFF:
-		sound = SFX_MENU_SUBFOCUS;
+		sound = SFXNUM_043E_MENU_SUBFOCUS;
 		break;
 	case MENUSOUND_SUBFOCUS:
-		sound = SFX_MENU_SUBFOCUS;
+		sound = SFXNUM_043E_MENU_SUBFOCUS;
 		break;
 	case MENUSOUND_KEYBOARDFOCUS:
-		sound = SFX_PICKUP_AMMO;
+		sound = SFXNUM_00EA_PICKUP_AMMO;
 		setpitch = true;
 		setvol = true;
 		pitch = 3.5f;
 		break;
 	case MENUSOUND_KEYBOARDCANCEL:
-		sound = SFX_MENU_CANCEL;
+		sound = SFXNUM_002B_MENU_CANCEL;
 		setpitch = true;
 		pitch = 0.41904801130295f;
 		break;

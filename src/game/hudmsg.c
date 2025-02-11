@@ -1267,9 +1267,9 @@ void hudmsgs_tick(void)
 #endif
 						&& PLAYERCOUNT() == 1) {
 #if VERSION >= VERSION_NTSC_1_0
-					snd_start(var80095200, SFX_HUDMSG, NULL, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXNUM_003E_HUDMSG, NULL, -1, -1, -1, -1, -1);
 #else
-					snd_start(var80095200, SFX_HUDMSG, &var800736b0nb, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXNUM_003E_HUDMSG, &var800736b0nb, -1, -1, -1, -1, -1);
 #endif
 				}
 

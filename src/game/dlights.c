@@ -497,7 +497,7 @@ bool lights_handle_hit(struct coord *gunpos, struct coord *hitpos, s32 roomnum)
 				soundpos.z = light->bbox[0].z;
 
 				room_set_light_broken(roomnum, i);
-				ps_create(0, 0, SFX_HIT_GLASS, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
+				ps_create(0, 0, SFXMAP_8077_HIT_GLASS, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, &soundpos, -1.0f, 0, roomnum, -1.0f, -1.0f, -1.0f);
 				return true;
 			}
 		}
@@ -2111,13 +2111,13 @@ void lights_update_goggle_sounds(void)
 	if (USINGDEVICE(DEVICE_NIGHTVISION) && !lv_is_paused()) {
 		// Play the goggle's hum sound
 		if (g_Vars.currentplayer->nvhum == NULL) {
-			snd_start(var80095200, SFX_0505, &g_Vars.currentplayer->nvhum, -1, -1, -1.0f, -1, -1);
+			snd_start(var80095200, SFXNUM_0505, &g_Vars.currentplayer->nvhum, -1, -1, -1.0f, -1, -1);
 		}
 
 		if (brightness > 128) {
 			// Room is too bright for night vision - play overload sound
 			if (g_Vars.currentplayer->nvoverload == NULL) {
-				snd_start(var80095200, SFX_01BE, &g_Vars.currentplayer->nvoverload, -1, -1, -1.0f, -1, -1);
+				snd_start(var80095200, SFXNUM_01BE, &g_Vars.currentplayer->nvoverload, -1, -1, -1.0f, -1, -1);
 			}
 		} else {
 			// Room is dark enough for night vision - stop overload sound if active

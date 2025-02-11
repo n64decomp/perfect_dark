@@ -41,7 +41,7 @@ struct tilestate g_TexTileStates[8];
 struct tilesize g_TexTileSizes[8];
 
 // Default
-u16 g_SurfaceTypeDefaultSounds[] = { SFX_HIT_STONE_8087, SFX_HIT_STONE_8088 };
+u16 g_SurfaceTypeDefaultSounds[] = { SFXMAP_8087_HIT_STONE, SFXMAP_8088_HIT_STONE };
 u8 g_SurfaceTypeDefaultTexes[] = { WALLHITTEX_BULLET2 };
 
 struct surfacetype g_SurfaceTypeDefault = {
@@ -49,7 +49,7 @@ struct surfacetype g_SurfaceTypeDefault = {
 };
 
 // Stone
-u16 g_SurfaceTypeStoneSounds[] = { SFX_HIT_STONE_8087, SFX_HIT_STONE_8088 };
+u16 g_SurfaceTypeStoneSounds[] = { SFXMAP_8087_HIT_STONE, SFXMAP_8088_HIT_STONE };
 u8 g_SurfaceTypeStoneTexes[] = { WALLHITTEX_BULLET1 };
 
 struct surfacetype g_SurfaceTypeStone = {
@@ -57,7 +57,7 @@ struct surfacetype g_SurfaceTypeStone = {
 };
 
 // Wood
-u16 g_SurfaceTypeWoodSounds[] = { SFX_HIT_WOOD_807E, SFX_HIT_WOOD_807F };
+u16 g_SurfaceTypeWoodSounds[] = { SFXMAP_807E_HIT_WOOD, SFXMAP_807F_HIT_WOOD };
 u8 g_SurfaceTypeWoodTexes[] = { WALLHITTEX_WOOD };
 
 struct surfacetype g_SurfaceTypeWood = {
@@ -65,7 +65,7 @@ struct surfacetype g_SurfaceTypeWood = {
 };
 
 // Metal
-u16 g_SurfaceTypeMetalSounds[] = { SFX_HIT_METAL_8079, SFX_HIT_METAL_807B };
+u16 g_SurfaceTypeMetalSounds[] = { SFXMAP_8079_HIT_METAL, SFXMAP_807B_HIT_METAL };
 u8 g_SurfaceTypeMetalTexes[] = { WALLHITTEX_METAL };
 
 struct surfacetype g_SurfaceTypeMetal = {
@@ -73,7 +73,7 @@ struct surfacetype g_SurfaceTypeMetal = {
 };
 
 // Glass
-u16 g_SurfaceTypeGlassSounds[] = { SFX_HIT_GLASS };
+u16 g_SurfaceTypeGlassSounds[] = { SFXMAP_8077_HIT_GLASS };
 u8 g_SurfaceTypeGlassTexes[] = { WALLHITTEX_GLASS1, WALLHITTEX_GLASS2, WALLHITTEX_GLASS3 };
 
 struct surfacetype g_SurfaceTypeGlass = {
@@ -81,7 +81,7 @@ struct surfacetype g_SurfaceTypeGlass = {
 };
 
 // Snow
-u16 g_SurfaceTypeSnowSounds[] = { SFX_HIT_SNOW };
+u16 g_SurfaceTypeSnowSounds[] = { SFXMAP_807D_HIT_SNOW };
 u8 g_SurfaceTypeSnowTexes[] = { WALLHITTEX_BULLET1 };
 
 struct surfacetype g_SurfaceTypeSnow = {
@@ -89,7 +89,7 @@ struct surfacetype g_SurfaceTypeSnow = {
 };
 
 // Dirt
-u16 g_SurfaceTypeDirtSounds[] = { SFX_HIT_DIRT_8084, SFX_HIT_DIRT_8085 };
+u16 g_SurfaceTypeDirtSounds[] = { SFXMAP_8084_HIT_DIRT, SFXMAP_8085_HIT_DIRT };
 u8 g_SurfaceTypeDirtTexes[] = { WALLHITTEX_SOFT };
 
 struct surfacetype g_SurfaceTypeDirt = {
@@ -97,7 +97,7 @@ struct surfacetype g_SurfaceTypeDirt = {
 };
 
 // Mud
-u16 g_SurfaceTypeMudSounds[] = { SFX_HIT_MUD_8081, SFX_HIT_MUD_8082, SFX_HIT_MUD_8083 };
+u16 g_SurfaceTypeMudSounds[] = { SFXMAP_8081_HIT_MUD, SFXMAP_8082_HIT_MUD, SFXMAP_8083_HIT_MUD };
 u8 g_SurfaceTypeMudTexes[] = { WALLHITTEX_SOFT };
 
 struct surfacetype g_SurfaceTypeMud = {
@@ -105,7 +105,7 @@ struct surfacetype g_SurfaceTypeMud = {
 };
 
 // Tile
-u16 g_SurfaceTypeTileSounds[] = { SFX_HIT_TILE };
+u16 g_SurfaceTypeTileSounds[] = { SFXMAP_8086_HIT_TILE };
 u8 g_SurfaceTypeTileTexes[] = { WALLHITTEX_BULLET1 };
 
 struct surfacetype g_SurfaceTypeTile = {
@@ -113,7 +113,7 @@ struct surfacetype g_SurfaceTypeTile = {
 };
 
 // Metal obj
-u16 g_SurfaceTypeMetalObjSounds[] = { SFX_HIT_METALOBJ_8089, SFX_HIT_METALOBJ_808A };
+u16 g_SurfaceTypeMetalObjSounds[] = { SFXMAP_8089_HIT_METALOBJ, SFXMAP_808A_HIT_METALOBJ };
 u8 g_SurfaceTypeMetalObjTexes[] = { WALLHITTEX_BULLET1, WALLHITTEX_BULLET2 };
 
 struct surfacetype g_SurfaceTypeMetalObj = {
@@ -121,7 +121,7 @@ struct surfacetype g_SurfaceTypeMetalObj = {
 };
 
 // Chr
-u16 g_SurfaceTypeChrSounds[] = { SFX_HIT_CHR };
+u16 g_SurfaceTypeChrSounds[] = { SFXMAP_8076_HIT_CHR };
 u8 g_SurfaceTypeChrTexes[] = { WALLHITTEX_SOFT };
 
 struct surfacetype g_SurfaceTypeChr = {
@@ -129,7 +129,7 @@ struct surfacetype g_SurfaceTypeChr = {
 };
 
 // Glass XLU
-u16 g_SurfaceTypeGlassXluSounds[] = { SFX_HIT_GLASS };
+u16 g_SurfaceTypeGlassXluSounds[] = { SFXMAP_8077_HIT_GLASS };
 u8 g_SurfaceTypeGlassXluTexes[] = { WALLHITTEX_GLASS1, WALLHITTEX_GLASS2, WALLHITTEX_GLASS3 };
 
 struct surfacetype g_SurfaceTypeGlassXlu = {
@@ -142,7 +142,7 @@ struct surfacetype g_SurfaceTypeNone = {
 };
 
 // Shallow water
-u16 g_SurfaceTypeShallowWaterSounds[] = { SFX_HIT_WATER };
+u16 g_SurfaceTypeShallowWaterSounds[] = { SFXMAP_8080_HIT_WATER };
 u8 g_SurfaceTypeShallowWaterTexes[] = { WALLHITTEX_WATER };
 
 struct surfacetype g_SurfaceTypeShallowWater = {
@@ -150,7 +150,7 @@ struct surfacetype g_SurfaceTypeShallowWater = {
 };
 
 // Deep water
-u16 g_SurfaceTypeDeepWaterSounds[] = { SFX_HIT_WATER };
+u16 g_SurfaceTypeDeepWaterSounds[] = { SFXMAP_8080_HIT_WATER };
 u8 g_SurfaceTypeDeepWaterTexes[] = { WALLHITTEX_WATER };
 
 struct surfacetype g_SurfaceTypeDeepWater = {

@@ -5874,6 +5874,6 @@ void mp_open_advanced_setup(s32 silent)
 
 	if (!silent) {
 		// Explosion sound
-		snd_start(var80095200, SFX_EXPLOSION_809A, NULL, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXMAP_809A_EXPLOSION, NULL, -1, -1, -1, -1, -1);
 	}
 }

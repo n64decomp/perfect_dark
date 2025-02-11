@@ -655,7 +655,7 @@ bool eyespy_try_launch(void)
 		// Launch successful
 		g_Vars.currentplayer->eyespy->deployed = true;
 
-		snd_start(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXMAP_80AB_DETONATE, 0, -1, -1, -1, -1, -1);
 
 		launched = true;
 
@@ -663,10 +663,10 @@ bool eyespy_try_launch(void)
 		chr->chrflags &= ~CHRCFLAG_INVINCIBLE;
 
 #if VERSION >= VERSION_NTSC_1_0
-		ps_create(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
+		ps_create(NULL, g_Vars.currentplayer->eyespy->prop, SFXNUM_01BD_EYESPY_RUNNING, -1,
 				-1, PSFLAG_REPEATING, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 #else
-		ps_create(NULL, g_Vars.currentplayer->eyespy->prop, SFX_EYESPY_RUNNING, -1,
+		ps_create(NULL, g_Vars.currentplayer->eyespy->prop, SFXNUM_01BD_EYESPY_RUNNING, -1,
 				-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 #endif
 	}
@@ -1058,19 +1058,19 @@ void eyespy_process_input(bool allowbuttons)
 
 		switch (g_EyespyHit) {
 		case EYESPYHIT_BG:
-			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
+			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_OBJ:
-			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
+			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_DOOR:
-			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
+			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_CHR:
-			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFX_EYESPYHIT, 1, 1, -1, 1);
+			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, 1);
 			break;
 		case EYESPYHIT_DAMAGE:
-			snd_start(var80095200, SFX_PICKUP_LASER, NULL, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXNUM_00F2_PICKUP_LASER, NULL, -1, -1, -1, -1, -1);
 			break;
 		default:
 			break;

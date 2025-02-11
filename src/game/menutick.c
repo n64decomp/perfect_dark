@@ -252,7 +252,7 @@ void menu_tick(void)
 				g_MpPlayerNum = 0;
 
 				if (g_MpSetup.chrslots & 0xf) {
-					snd_start(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXMAP_8098_EXPLOSION, 0, -1, -1, -1, -1, -1);
 
 					player_pause(IS4MB() ? MENUROOT_4MBMAINMENU : MENUROOT_MPSETUP);
 				}
@@ -370,12 +370,12 @@ void menu_tick(void)
 							// players here, so they are waiting to join.
 #if VERSION >= VERSION_NTSC_1_0
 							if (!g_Vars.waitingtojoin[i]) {
-								snd_start(var80095200, SFX_EXPLOSION_809A, 0, -1, -1, -1, -1, -1);
+								snd_start(var80095200, SFXMAP_809A_EXPLOSION, 0, -1, -1, -1, -1, -1);
 							}
 							g_Vars.waitingtojoin[i] = true;
 #else
 							g_Vars.waitingtojoin[i] = true;
-							snd_start(var80095200, SFX_EXPLOSION_809A, 0, -1, -1, -1, -1, -1);
+							snd_start(var80095200, SFXMAP_809A_EXPLOSION, 0, -1, -1, -1, -1, -1);
 #endif
 
 						} else if (g_Vars.mpsetupmenu == MPSETUPMENU_QUICKGO) {
@@ -577,7 +577,7 @@ void menu_tick(void)
 
 				if (g_MenuData.root == MENUROOT_MPSETUP || g_MenuData.root == MENUROOT_4MBMAINMENU) {
 					startmusic = true;
-					snd_start(var80095200, SFX_EXPLOSION_8098, 0, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXMAP_8098_EXPLOSION, 0, -1, -1, -1, -1, -1);
 				}
 
 				if (g_MenuData.root == MENUROOT_MAINMENU || g_MenuData.root == MENUROOT_TRAINING) {

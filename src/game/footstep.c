@@ -12,15 +12,15 @@
 #include "types.h"
 
 s32 g_FootstepSounds[] = {
-	/* none   */ -1,                -1,                -1,                -1,                -1,                -1,                -1,                -1,
-	/* wood   */ SFX_FOOTSTEP_80DC, SFX_FOOTSTEP_80DD, SFX_FOOTSTEP_80E0, SFX_FOOTSTEP_80E1, SFX_FOOTSTEP_80DE, SFX_FOOTSTEP_80DF, SFX_FOOTSTEP_80E2, SFX_FOOTSTEP_80E3,
-	/* stone  */ SFX_FOOTSTEP_80C4, SFX_FOOTSTEP_80C5, SFX_FOOTSTEP_80C8, SFX_FOOTSTEP_80C9, SFX_FOOTSTEP_80C6, SFX_FOOTSTEP_80C7, SFX_FOOTSTEP_80CA, SFX_FOOTSTEP_80CB,
-	/* carpet */ SFX_FOOTSTEP_80E6, SFX_FOOTSTEP_80E7, SFX_FOOTSTEP_80EA, SFX_FOOTSTEP_80EB, SFX_FOOTSTEP_80E8, SFX_FOOTSTEP_80E9, SFX_FOOTSTEP_80EC, SFX_FOOTSTEP_80ED,
-	/* metal  */ SFX_FOOTSTEP_80D4, SFX_FOOTSTEP_80D5, SFX_FOOTSTEP_80D8, SFX_FOOTSTEP_80D9, SFX_FOOTSTEP_80D6, SFX_FOOTSTEP_80D7, SFX_FOOTSTEP_80DA, SFX_FOOTSTEP_80DB,
-	/* mud    */ SFX_FOOTSTEP_80EE, SFX_FOOTSTEP_80EF, SFX_FOOTSTEP_80F2, SFX_FOOTSTEP_80F3, SFX_FOOTSTEP_80F0, SFX_FOOTSTEP_80F1, SFX_FOOTSTEP_80F4, SFX_FOOTSTEP_80F5,
-	/* water  */ SFX_FOOTSTEP_80E4, SFX_FOOTSTEP_80E5, SFX_FOOTSTEP_80E4, SFX_FOOTSTEP_80E5, SFX_FOOTSTEP_80E4, SFX_FOOTSTEP_80E5, SFX_FOOTSTEP_80E4, SFX_FOOTSTEP_80E5,
-	/* dirt   */ SFX_FOOTSTEP_80CC, SFX_FOOTSTEP_80CD, SFX_FOOTSTEP_80D0, SFX_FOOTSTEP_80D1, SFX_FOOTSTEP_80CE, SFX_FOOTSTEP_80CF, SFX_FOOTSTEP_80D2, SFX_FOOTSTEP_80D3,
-	/* snow   */ SFX_FOOTSTEP_8187, SFX_FOOTSTEP_8188, SFX_FOOTSTEP_818B, SFX_FOOTSTEP_818C, SFX_FOOTSTEP_8189, SFX_FOOTSTEP_818A, SFX_FOOTSTEP_818D, SFX_FOOTSTEP_818E,
+	/* none   */ -1,                   -1,                   -1,                   -1,                   -1,                   -1,                   -1,                   -1,
+	/* wood   */ SFXMAP_80DC_FOOTSTEP, SFXMAP_80DD_FOOTSTEP, SFXMAP_80E0_FOOTSTEP, SFXMAP_80E1_FOOTSTEP, SFXMAP_80DE_FOOTSTEP, SFXMAP_80DF_FOOTSTEP, SFXMAP_80E2_FOOTSTEP, SFXMAP_80E3_FOOTSTEP,
+	/* stone  */ SFXMAP_80C4_FOOTSTEP, SFXMAP_80C5_FOOTSTEP, SFXMAP_80C8_FOOTSTEP, SFXMAP_80C9_FOOTSTEP, SFXMAP_80C6_FOOTSTEP, SFXMAP_80C7_FOOTSTEP, SFXMAP_80CA_FOOTSTEP, SFXMAP_80CB_FOOTSTEP,
+	/* carpet */ SFXMAP_80E6_FOOTSTEP, SFXMAP_80E7_FOOTSTEP, SFXMAP_80EA_FOOTSTEP, SFXMAP_80EB_FOOTSTEP, SFXMAP_80E8_FOOTSTEP, SFXMAP_80E9_FOOTSTEP, SFXMAP_80EC_FOOTSTEP, SFXMAP_80ED_FOOTSTEP,
+	/* metal  */ SFXMAP_80D4_FOOTSTEP, SFXMAP_80D5_FOOTSTEP, SFXMAP_80D8_FOOTSTEP, SFXMAP_80D9_FOOTSTEP, SFXMAP_80D6_FOOTSTEP, SFXMAP_80D7_FOOTSTEP, SFXMAP_80DA_FOOTSTEP, SFXMAP_80DB_FOOTSTEP,
+	/* mud    */ SFXMAP_80EE_FOOTSTEP, SFXMAP_80EF_FOOTSTEP, SFXMAP_80F2_FOOTSTEP, SFXMAP_80F3_FOOTSTEP, SFXMAP_80F0_FOOTSTEP, SFXMAP_80F1_FOOTSTEP, SFXMAP_80F4_FOOTSTEP, SFXMAP_80F5_FOOTSTEP,
+	/* water  */ SFXMAP_80E4_FOOTSTEP, SFXMAP_80E5_FOOTSTEP, SFXMAP_80E4_FOOTSTEP, SFXMAP_80E5_FOOTSTEP, SFXMAP_80E4_FOOTSTEP, SFXMAP_80E5_FOOTSTEP, SFXMAP_80E4_FOOTSTEP, SFXMAP_80E5_FOOTSTEP,
+	/* dirt   */ SFXMAP_80CC_FOOTSTEP, SFXMAP_80CD_FOOTSTEP, SFXMAP_80D0_FOOTSTEP, SFXMAP_80D1_FOOTSTEP, SFXMAP_80CE_FOOTSTEP, SFXMAP_80CF_FOOTSTEP, SFXMAP_80D2_FOOTSTEP, SFXMAP_80D3_FOOTSTEP,
+	/* snow   */ SFXMAP_8187_FOOTSTEP, SFXMAP_8188_FOOTSTEP, SFXMAP_818B_FOOTSTEP, SFXMAP_818C_FOOTSTEP, SFXMAP_8189_FOOTSTEP, SFXMAP_818A_FOOTSTEP, SFXMAP_818D_FOOTSTEP, SFXMAP_818E_FOOTSTEP,
 };
 
 struct footstepframe {
@@ -30,41 +30,41 @@ struct footstepframe {
 };
 
 struct footstepframe g_FootstepAnims[] = {
-	{ ANIM_002B,               0x08, 0x19 },
-	{ ANIM_0029,               0x05, 0x0e },
-	{ ANIM_006B,               0x08, 0x19 },
-	{ ANIM_0028,               0x1b, 0x08 },
-	{ ANIM_RUNNING_TWOHANDGUN, 0x12, 0x06 },
-	{ ANIM_0052,               0x08, 0x19 },
-	{ ANIM_0053,               0x19, 0x08 },
-	{ ANIM_0054,               0x19, 0x08 },
-	{ ANIM_0055,               0x07, 0x12 },
-	{ ANIM_0056,               0x07, 0x12 },
-	{ ANIM_0057,               0x12, 0x07 },
-	{ ANIM_0058,               0x0f, 0x05 },
-	{ ANIM_RUNNING_ONEHANDGUN, 0x08, 0x14 },
-	{ ANIM_005A,               0x06, 0x0f },
-	{ ANIM_006C,               0x19, 0x08 },
-	{ ANIM_006D,               0x19, 0x08 },
-	{ ANIM_006E,               0x08, 0x13 },
-	{ ANIM_006F,               0x15, 0x08 },
-	{ ANIM_0070,               0x0f, 0x05 },
-	{ ANIM_0071,               0x0f, 0x05 },
-	{ ANIM_0072,               0x17, 0x08 },
-	{ ANIM_0073,               0x08, 0x13 },
-	{ ANIM_0093,               0x17, 0x0a },
-	{ ANIM_0094,               0x0f, 0x05 },
-	{ ANIM_005F,               0x0e, 0x01 },
-	{ ANIM_0016,               0x1d, 0x0a },
-	{ ANIM_0018,               0x18, 0x2e },
-	{ ANIM_001B,               0x0a, 0x1c },
-	{ ANIM_001D,               0x0d, 0x02 },
-	{ ANIM_001E,               0x0c, 0x01 },
-	{ ANIM_005C,               0x13, 0x2a },
-	{ ANIM_005D,               0x0f, 0x05 },
-	{ ANIM_005E,               0x04, 0x0c },
-	{ ANIM_0392,               0x05, 0x14 },
-	{ ANIM_SKEDAR_RUNNING,     0x00, 0x00 },
+	{ ANIM_002B,               8,  25 },
+	{ ANIM_0029,               5,  14 },
+	{ ANIM_006B,               8,  25 },
+	{ ANIM_0028,               27, 8  },
+	{ ANIM_RUNNING_TWOHANDGUN, 18, 6  },
+	{ ANIM_0052,               8,  25 },
+	{ ANIM_0053,               25, 8  },
+	{ ANIM_0054,               25, 8  },
+	{ ANIM_0055,               7,  18 },
+	{ ANIM_0056,               7,  18 },
+	{ ANIM_0057,               18, 7  },
+	{ ANIM_0058,               15, 5  },
+	{ ANIM_RUNNING_ONEHANDGUN, 8,  20 },
+	{ ANIM_005A,               6,  15 },
+	{ ANIM_006C,               25, 8  },
+	{ ANIM_006D,               25, 8  },
+	{ ANIM_006E,               8,  19 },
+	{ ANIM_006F,               21, 8  },
+	{ ANIM_0070,               15, 5  },
+	{ ANIM_0071,               15, 5  },
+	{ ANIM_0072,               23, 8  },
+	{ ANIM_0073,               8,  19 },
+	{ ANIM_0093,               23, 10 },
+	{ ANIM_0094,               15, 5  },
+	{ ANIM_005F,               14, 1  },
+	{ ANIM_0016,               29, 10 },
+	{ ANIM_0018,               24, 46 },
+	{ ANIM_001B,               10, 28 },
+	{ ANIM_001D,               13, 2  },
+	{ ANIM_001E,               12, 1  },
+	{ ANIM_005C,               19, 42 },
+	{ ANIM_005D,               15, 5  },
+	{ ANIM_005E,               4,  12 },
+	{ ANIM_0392,               5,  20 },
+	{ ANIM_SKEDAR_RUNNING,     0,  0  },
 };
 
 bool footstep_is_running(s32 animnum)
@@ -120,15 +120,15 @@ s32 footstep_choose_sound(struct chrdata *chr, s32 footstepindex)
 
 		if (floortype == FLOORTYPE_METAL) {
 			if (chr->lastfootsample) {
-				result = SFX_FOOTSTEP_8191;
+				result = SFXMAP_8191_FOOTSTEP;
 			} else {
-				result = SFX_FOOTSTEP_8192;
+				result = SFXMAP_8192_FOOTSTEP;
 			}
 		} else {
 			if (chr->lastfootsample) {
-				result = SFX_FOOTSTEP_818F;
+				result = SFXMAP_818F_FOOTSTEP;
 			} else {
-				result = SFX_FOOTSTEP_8190;
+				result = SFXMAP_8190_FOOTSTEP;
 			}
 		}
 

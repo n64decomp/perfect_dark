@@ -88,7 +88,7 @@ void bbike_exit(void)
 	obj_apply_momentum(obj, &speed, rotation, false, false);
 	ps_stop_sound(g_Vars.currentplayer->hoverbike, PSTYPE_GENERAL, 0xffff);
 	ps_stop_sound(g_Vars.currentplayer->prop, PSTYPE_GENERAL, 0xffff);
-	ps_create(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_PULSE, -1,
+	ps_create(NULL, g_Vars.currentplayer->hoverbike, SFXMAP_80AF_BIKE_PULSE, -1,
 			-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 	obj->flags |= OBJFLAG_HOVERBIKE_MOVINGWHILEEMPTY;
@@ -972,13 +972,13 @@ void bbike_tick(void)
 
 			ps_stop_sound(g_Vars.currentplayer->hoverbike, PSTYPE_GENERAL, 0xffff);
 
-			ps_create(NULL, g_Vars.currentplayer->prop, SFX_BIKE_TAKEOFF, -1,
+			ps_create(NULL, g_Vars.currentplayer->prop, SFXNUM_00F5_BIKE_TAKEOFF, -1,
 					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 
-			ps_create(NULL, g_Vars.currentplayer->prop, SFX_BIKE_PULSE, -1,
+			ps_create(NULL, g_Vars.currentplayer->prop, SFXMAP_80AF_BIKE_PULSE, -1,
 					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 
-			ps_create(NULL, g_Vars.currentplayer->hoverbike, SFX_BIKE_ENGINE, -1,
+			ps_create(NULL, g_Vars.currentplayer->hoverbike, SFXNUM_01B4_BIKE_ENGINE, -1,
 					-1, 0, 0, PSTYPE_NONE, NULL, -1, NULL, -1, -1, -1, -1);
 		}
 

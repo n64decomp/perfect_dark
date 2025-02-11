@@ -878,28 +878,28 @@ u8 func0425_outro[] = {
 		label(0x02)
 
 	wait_until(38, 0x92)
-	play_sound(SFX_FOOTSTEP_80C4, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80C4_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(84, 0x93)
-	play_sound(SFX_FOOTSTEP_80C5, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80C5_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(130, 0x94)
-	play_sound(SFX_FOOTSTEP_80C6, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80C6_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(176, 0x95)
-	play_sound(SFX_FOOTSTEP_80C7, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80C7_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(220, 0x96)
-	play_sound(SFX_FOOTSTEP_80C4, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80C4_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(274, 0x97)
-	play_sound(SFX_FOOTSTEP_80C5, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80C5_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(320, 0x98)
-	play_sound(SFX_FOOTSTEP_80C6, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80C6_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	wait_until(365, 0x99)
-	play_sound(SFX_FOOTSTEP_80C7, CHANNEL_CUTSCENE)
+	play_sound(SFXMAP_80C7_FOOTSTEP, CHANNEL_CUTSCENE)
 
 	beginloop(0x04)
 		if_camera_animating(/*goto*/ 0x31)
@@ -1240,7 +1240,7 @@ u8 func0407_stewardess[] = {
 	endloop(0x05)
 
 	label(0x02)
-	speak(CHR_TARGET, L_CAVE_025, MP3_02DC, CHANNEL_4, COLOR_07_RED) // "Look out - it's an intruder..."
+	speak(CHR_TARGET, L_CAVE_025, MP3_LO(FILE_AAIRSTW01M), CHANNEL_4, COLOR_07_RED) // "Look out - it's an intruder..."
 	increase_squadron_alertness(100)
 	chr_do_animation(ANIM_SURRENDER_002E, 0, 193, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 
@@ -1303,7 +1303,7 @@ u8 func0407_stewardess[] = {
 
 	label(0x4a)
 	unset_self_flag_bankx(CHRFLAG0_CAN_EXAMINE_BODY, BANK_0)
-	speak(CHR_TARGET, L_CAVE_027, MP3_02DD, CHANNEL_4, COLOR_07_RED) // "Is he OK?"
+	speak(CHR_TARGET, L_CAVE_027, MP3_LO(FILE_AAIRSTW02M), CHANNEL_4, COLOR_07_RED) // "Is he OK?"
 	stop_chr
 	restart_timer
 
@@ -1319,7 +1319,7 @@ u8 func0407_stewardess[] = {
 	endloop(0x4b)
 
 	label(0x02)
-	speak(CHR_TARGET, L_CAVE_028, MP3_02DE, CHANNEL_4, COLOR_07_RED) // "I'll go and get some help."
+	speak(CHR_TARGET, L_CAVE_028, MP3_LO(FILE_AAIRSTW03M), CHANNEL_4, COLOR_07_RED) // "I'll go and get some help."
 	restart_timer
 	stop_chr
 
@@ -1544,7 +1544,7 @@ u8 func0408_secretary[] = {
 	mute_channel(CHANNEL_4)
 	yield
 	label(0x02)
-	speak(CHR_TARGET, L_CAVE_032, SFX_8162, CHANNEL_4, COLOR_06_WHITE) // "Oh, my God!"
+	speak(CHR_TARGET, L_CAVE_032, SFXMAP_8162, CHANNEL_4, COLOR_06_WHITE) // "Oh, my God!"
 
 	label(0x67)
 	increase_squadron_alertness(100)
@@ -1582,7 +1582,7 @@ u8 func0408_secretary[] = {
 	// FIRST TALK
 	//
 	label(0x32)
-	speak(CHR_TARGET, L_CAVE_029, SFX_8161, CHANNEL_4, COLOR_06_WHITE) // "Good afternoon."
+	speak(CHR_TARGET, L_CAVE_029, SFXMAP_8161, CHANNEL_4, COLOR_06_WHITE) // "Good afternoon."
 	chr_do_animation(ANIM_TALKING_0231, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	restart_timer
 	set_morale(2)
@@ -1612,7 +1612,7 @@ u8 func0408_secretary[] = {
 	// WEAPON TALK 1
 	//
 	label(0x32)
-	speak(CHR_TARGET, L_CAVE_031, MP3_0273, CHANNEL_4, COLOR_06_WHITE) // "You'll have to check that weapon in here."
+	speak(CHR_TARGET, L_CAVE_031, MP3(FILE_ARECEP03M), CHANNEL_4, COLOR_06_WHITE) // "You'll have to check that weapon in here."
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0232, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	set_morale(3)
@@ -1637,7 +1637,7 @@ u8 func0408_secretary[] = {
 	goto_next(0x02)
 
 	label(0x32)
-	speak(CHR_TARGET, L_CAVE_033, MP3_0274, CHANNEL_4, COLOR_06_WHITE) // "Weapons are not allowed in the base."
+	speak(CHR_TARGET, L_CAVE_033, MP3(FILE_ARECEP04M), CHANNEL_4, COLOR_06_WHITE) // "Weapons are not allowed in the base."
 	restart_timer
 	chr_do_animation(ANIM_TALKING_0233, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	set_morale(4)
@@ -1668,7 +1668,7 @@ u8 func0408_secretary[] = {
 
 	// Calling security
 	label(0x77)
-	speak(CHR_TARGET, L_CAVE_034, MP3_0276, CHANNEL_4, COLOR_06_WHITE) // "Right, I'm calling security."
+	speak(CHR_TARGET, L_CAVE_034, MP3(FILE_ARECEP06M), CHANNEL_4, COLOR_06_WHITE) // "Right, I'm calling security."
 	set_stage_flag(STAGEFLAG_RECEPTIONIST_CALLED_SECURITY)
 	activate_alarm
 	restart_timer
@@ -1688,7 +1688,7 @@ u8 func0408_secretary[] = {
 	// TALK 2
 	//
 	label(0x31)
-	speak(CHR_TARGET, L_CAVE_030, MP3_0272, CHANNEL_4, COLOR_06_WHITE) // "OK, you know the way from here."
+	speak(CHR_TARGET, L_CAVE_030, MP3(FILE_ARECEP02M), CHANNEL_4, COLOR_06_WHITE) // "OK, you know the way from here."
 	chr_do_animation(ANIM_TALKING_0232, 0, 193, CHRANIMFLAG_COMPLETED | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
 	unlock_door(0x18, 0x02)
 
@@ -1740,7 +1740,7 @@ u8 func1007_console_activation[] = {
 	set_chr_flag_bankx(0x12, CHRFLAG0_SKIPSAFETYCHECKS, BANK_0)
 	show_hudmsg(CHR_P1P2, L_CAVE_035) // "System shutdown initiated..."
 	mute_channel(CHANNEL_1)
-	assign_sound(SFX_01B9, CHANNEL_1)
+	assign_sound(SFXNUM_01B9, CHANNEL_1)
 	bind_channel_to_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
 	restart_timer
 
@@ -1755,7 +1755,7 @@ u8 func1007_console_activation[] = {
 	label(0x02)
 	set_object_image(OBJ_CONSOLE, 0, TVPROGRAM_SOLID_BLACK)
 	mute_channel(CHANNEL_1)
-	assign_sound(SFX_0479, CHANNEL_1)
+	assign_sound(SFXNUM_0479, CHANNEL_1)
 	bind_channel_to_object(CHANNEL_1, OBJ_CONSOLE, TRUE)
 	show_hudmsg(CHR_P1P2, L_CAVE_036) // "Security systems have been shut down."
 	set_stage_flag(STAGEFLAG_SECURITY_SHUT_DOWN)
@@ -1815,7 +1815,7 @@ u8 func1007_console_activation[] = {
 	set_lights_state(0x0041, LIGHTOP_SINELOOP, 0, 255, 60) \
 	set_lights_state(0x0042, LIGHTOP_SINELOOP, 0, 255, 60) \
 	set_lights_state(0x0043, LIGHTOP_SINELOOP, 0, 255, 60) \
-	play_sound(SFX_ALARM_INFILTRATION, CHANNEL_6) \
+	play_sound(SFXNUM_04AC_ALARM_INFILTRATION, CHANNEL_6) \
 	restart_timer \
  \
 	beginloop(0x04) \
@@ -1968,7 +1968,7 @@ u8 func1009_carousel_activation[] = {
 	show_hudmsg(CHR_P1P2, L_CAVE_038) // "Suitcase has been deposited."
 	chr_draw_weapon_in_cutscene(CHR_P1P2, WEAPON_UNARMED)
 	set_stage_flag(STAGEFLAG_SUITCASE_DEPOSITED)
-	play_sound(SFX_80AA, CHANNEL_7)
+	play_sound(SFXMAP_80AA, CHANNEL_7)
 	unset_object_flag2(OBJ_BRIEFCASE2, OBJFLAG2_INVISIBLE)
 	move_object_to_pad(OBJ_BRIEFCASE2, PAD_CAVE_00DE)
 	yield
@@ -2092,7 +2092,7 @@ u8 func0409_office1[] = {
 	// Disguised and unarmed-ish
 	label(0x31)
 	chr_do_animation(ANIM_SITTING_0265, 0, -1, CHRANIMFLAG_PAUSEATEND | CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
-	speak(CHR_TARGET, L_CAVE_041, MP3_02E6, CHANNEL_4, COLOR_08_RED) // "Are you new around here?"
+	speak(CHR_TARGET, L_CAVE_041, MP3_LO(FILE_ABSEWRK02M), CHANNEL_4, COLOR_08_RED) // "Are you new around here?"
 
 	beginloop(0x09)
 		if_saw_injury(0x00, /*goto*/ LABEL_RUN_TO_FOYER)
@@ -2129,7 +2129,7 @@ u8 func0409_office1[] = {
 	endloop(0x0b)
 
 	label(0x02)
-	speak(CHR_TARGET, L_CAVE_042, MP3_02E7, CHANNEL_4, COLOR_08_RED) // "Hey - give me back my case."
+	speak(CHR_TARGET, L_CAVE_042, MP3_LO(FILE_ABSEWRK03M), CHANNEL_4, COLOR_08_RED) // "Hey - give me back my case."
 	restart_timer
 	increase_squadron_alertness(100)
 
@@ -2153,7 +2153,7 @@ u8 func0409_office1[] = {
 
 	label(0x72)
 	label(0x02)
-	speak(CHR_TARGET, L_CAVE_040, MP3_02E5, CHANNEL_4, COLOR_08_RED) // "Hey, you - this is a restricted area."
+	speak(CHR_TARGET, L_CAVE_040, MP3_LO(FILE_ABSEWRK01M), CHANNEL_4, COLOR_08_RED) // "Hey, you - this is a restricted area."
 	increase_squadron_alertness(100)
 	restart_timer
 	chr_do_animation(ANIM_WALK_BACKWARDS, -1, -1, CHRANIMFLAG_SLOWUPDATE, 16, CHR_SELF, 2)
@@ -2171,7 +2171,7 @@ u8 func0409_office1[] = {
 	endloop(0x08)
 
 	label(0x02)
-	speak(CHR_TARGET, L_CAVE_044, MP3_02E8, CHANNEL_4, COLOR_08_RED) // "Upstairs...there's an intruder."
+	speak(CHR_TARGET, L_CAVE_044, MP3_LO(FILE_ABSEWRK04M), CHANNEL_4, COLOR_08_RED) // "Upstairs...there's an intruder."
 	increase_squadron_alertness(100)
 	set_stage_flag(STAGEFLAG_DISGUISE_UNCOVERED)
 	activate_alarm
@@ -2250,7 +2250,7 @@ u8 func040a_office2[] = {
 	if_chr_dead(CHR_OFFICE1, /*goto*/ 0x02)
 	if_chr_death_animation_finished(CHR_OFFICE1, /*goto*/ 0x02)
 	if_chr_knockedout(CHR_OFFICE1, /*goto*/ 0x02)
-	speak(CHR_TARGET, L_CAVE_043, MP3_02E9, CHANNEL_4, COLOR_09_BLUE) // "You get security - I'll deal with her..."
+	speak(CHR_TARGET, L_CAVE_043, MP3_LO(FILE_ABSEWRK05M), CHANNEL_4, COLOR_09_BLUE) // "You get security - I'll deal with her..."
 	increase_squadron_alertness(100)
 	restart_timer
 
@@ -2357,7 +2357,7 @@ u8 func100d_laser_panel[] = {
 		reloop(0x00)
 
 		label(0x04)
-		assign_sound(SFX_043A, CHANNEL_7)
+		assign_sound(SFXNUM_043A, CHANNEL_7)
 		bind_channel_to_object(CHANNEL_7, OBJ_LASER_PANEL, TRUE)
 		show_hudmsg(CHR_P1P2, L_CAVE_045) // "Laser grid access denied."
 	endloop(0x00)
@@ -2648,7 +2648,7 @@ u8 func0411_takeover_lackey[] = {
 	endloop(0x04)
 
 	label(0x02)
-	speak(CHR_TARGET, L_CAVE_065, SFX_WERE_TAKING_OVER, CHANNEL_6, COLOR_08_RED) // "We're taking over!!"
+	speak(CHR_TARGET, L_CAVE_065, SFXNUM_05BF_WERE_TAKING_OVER, CHANNEL_6, COLOR_08_RED) // "We're taking over!!"
 
 	beginloop(0x09)
 		if_chr_stopped(/*goto*/ 0x02)
@@ -2751,7 +2751,7 @@ u8 func0414_officeworker[] = {
 
 	label(0x02)
 	do_preset_animation(PRESETANIM_TALK7)
-	speak(CHR_TARGET, L_CAVE_054, MP3_0338, CHANNEL_4, COLOR_08_RED) // "Stop them - they're breaking into the safe..."
+	speak(CHR_TARGET, L_CAVE_054, MP3_LO(FILE_AOFFWRK04M), CHANNEL_4, COLOR_08_RED) // "Stop them - they're breaking into the safe..."
 
 	beginloop(0x05)
 		if_sound_finished(CHANNEL_4, /*goto*/ 0x79)
@@ -2955,17 +2955,17 @@ u8 func0404_laser_guard[] = {
 
 u8 func1016_console_noises[] = {
 	yield
-	assign_sound(SFX_8141, CHANNEL_0)
+	assign_sound(SFXMAP_8141, CHANNEL_0)
 	bind_channel_to_object_repeating(CHANNEL_0, 0x04, 1, 600, 800)
 	yield
-	assign_sound(SFX_8143, CHANNEL_2)
+	assign_sound(SFXMAP_8143, CHANNEL_2)
 	bind_channel_to_object_repeating(CHANNEL_2, 0x05, 1, 500, 1000)
 	yield
-	bind_channel_to_pad_repeating(PAD_CAVE_0114, SFX_81A7)
+	bind_channel_to_pad_repeating(PAD_CAVE_0114, SFXMAP_81A7)
 	yield
-	bind_channel_to_pad_repeating(PAD_CAVE_0115, SFX_81A7)
+	bind_channel_to_pad_repeating(PAD_CAVE_0115, SFXMAP_81A7)
 	yield
-	bind_channel_to_pad_repeating(PAD_CAVE_01AC, SFX_811B)
+	bind_channel_to_pad_repeating(PAD_CAVE_01AC, SFXMAP_811B)
 
 	label(0x42)
 	restart_timer
@@ -3003,7 +3003,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	yield
-	assign_sound(SFX_8112, CHANNEL_1)
+	assign_sound(SFXMAP_8112, CHANNEL_1)
 	bind_channel_to_object_repeating(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
@@ -3019,7 +3019,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	yield
-	assign_sound(SFX_813F, CHANNEL_1)
+	assign_sound(SFXMAP_813F, CHANNEL_1)
 	bind_channel_to_object_repeating(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
@@ -3035,7 +3035,7 @@ u8 func1016_console_noises[] = {
 	yield
 	yield
 	yield
-	assign_sound(SFX_8140, CHANNEL_1)
+	assign_sound(SFXMAP_8140, CHANNEL_1)
 	bind_channel_to_object_repeating(CHANNEL_1, OBJ_CONSOLE, 1, 600, 800)
 	goto_first(0x42)
 
@@ -3514,7 +3514,7 @@ u8 func1018_safe_switch[] = {
 
 	// Open safe
 	label(0x31)
-	play_sound(SFX_PRESS_SWITCH, -1)
+	play_sound(SFXNUM_00BA_PRESS_SWITCH, -1)
 	yield
 	yield
 	yield
@@ -3636,171 +3636,171 @@ u8 func1003_intro[] = {
 	set_cutscene_weapon(CHR_BOND, WEAPON_NONE, WEAPON_NONE)
 
 	wait_until(30, 0x6d)
-	speak(CHR_BOND, L_CAVE_055, MP3_0447, CHANNEL_7, COLOR_09_BLUE) // "Agent Dark in position. I can see the main entranc..."
+	speak(CHR_BOND, L_CAVE_055, MP3_ZZ(FILE_AP16_01_JOM), CHANNEL_7, COLOR_09_BLUE) // "Agent Dark in position. I can see the main entranc..."
 
 	wait_until(312, 0x89)
-	play_sound(SFX_0594, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0594, CHANNEL_CUTSCENE)
 
 	wait_until(346, 0x8a)
-	play_sound(SFX_0595, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0595, CHANNEL_CUTSCENE)
 
 	wait_until(580, 0x76)
-	speak(CHR_BOND, L_CAVE_056, MP3_0448, CHANNEL_CUTSCENE, COLOR_06_WHITE) // "Excellent, Joanna. That cable car is your way in....."
+	speak(CHR_BOND, L_CAVE_056, MP3_ZZ(FILE_AP16_02_CAM), CHANNEL_CUTSCENE, COLOR_06_WHITE) // "Excellent, Joanna. That cable car is your way in....."
 
 	wait_until(968, 0x8b)
-	play_sound(SFX_0596, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0596, CHANNEL_CUTSCENE)
 
 	wait_until(1315, 0x77)
-	speak(CHR_BOND, L_CAVE_057, MP3_07DB, CHANNEL_CUTSCENE, COLOR_09_BLUE) // "That they're probably innocent of any involvement ..."
+	speak(CHR_BOND, L_CAVE_057, MP3_ZZ(FILE_AP16_03_JOM), CHANNEL_CUTSCENE, COLOR_09_BLUE) // "That they're probably innocent of any involvement ..."
 
 	wait_until(1411, 0x8e)
-	play_sound(SFX_04AF, CHANNEL_0)
+	play_sound(SFXNUM_04AF, CHANNEL_0)
 
 	wait_until(1735, 0x85)
 	mute_channel(CHANNEL_0)
-	play_sound(SFX_04EA, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_04EA, CHANNEL_CUTSCENE)
 
 	wait_until(1800, 0x86)
-	play_sound(SFX_04EB, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_04EB, CHANNEL_CUTSCENE)
 
 	wait_until(1890, 0x87)
-	play_sound(SFX_04EC, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_04EC, CHANNEL_CUTSCENE)
 
 	wait_until(1900, 0x78)
-	speak(CHR_BOND, L_CAVE_058, MP3_0449, CHANNEL_5, COLOR_06_WHITE) // "I don't know how far the conspiracy has spread thr..."
+	speak(CHR_BOND, L_CAVE_058, MP3_ZZ(FILE_AP16_04_CAM), CHANNEL_5, COLOR_06_WHITE) // "I don't know how far the conspiracy has spread thr..."
 
 	wait_until(1970, 0x8c)
-	play_sound(SFX_0171, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0171, CHANNEL_CUTSCENE)
 
 	wait_until(1980, 0x88)
 
 	wait_until(2013, 0x8d)
-	play_sound(SFX_0172, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0172, CHANNEL_CUTSCENE)
 
 	wait_until(2048, 0x8f)
-	play_sound(SFX_0596, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0596, CHANNEL_CUTSCENE)
 
 	wait_until(2076, 0x92)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(2088, 0x93)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(2116, 0x94)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(2140, 0x95)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(2154, 0x96)
-	play_sound(SFX_0165, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0165, CHANNEL_CUTSCENE)
 
 	wait_until(2184, 0x97)
-	play_sound(SFX_0166, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0166, CHANNEL_CUTSCENE)
 
 	wait_until(2202, 0x98)
-	play_sound(SFX_0167, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0167, CHANNEL_CUTSCENE)
 
 	wait_until(2246, 0x99)
-	play_sound(SFX_0168, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0168, CHANNEL_CUTSCENE)
 
 	wait_until(2296, 0x9a)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(2332, 0x9b)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(2376, 0x9c)
-	play_sound(SFX_0165, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0165, CHANNEL_CUTSCENE)
 
 	wait_until(2418, 0x9d)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(2446, 0x9e)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(2486, 0x9f)
-	play_sound(SFX_0168, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0168, CHANNEL_CUTSCENE)
 
 	wait_until(2526, 0xa0)
-	play_sound(SFX_0166, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0166, CHANNEL_CUTSCENE)
 
 	wait_until(2558, 0xa1)
-	play_sound(SFX_0167, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0167, CHANNEL_CUTSCENE)
 
 	wait_until(2674, 0xa2)
-	play_sound(SFX_0168, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0168, CHANNEL_CUTSCENE)
 
 	wait_until(2700, 0x79)
-	speak(CHR_BOND, L_CAVE_059, MP3_044A, CHANNEL_7, COLOR_09_BLUE) // "Yes, and protect him from his abductors. Do you ha..."
+	speak(CHR_BOND, L_CAVE_059, MP3_ZZ(FILE_AP16_05_JOM), CHANNEL_7, COLOR_09_BLUE) // "Yes, and protect him from his abductors. Do you ha..."
 
 	wait_until(2704, 0xa3)
-	play_sound(SFX_0161, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0161, CHANNEL_CUTSCENE)
 
 	wait_until(2720, 0xa4)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(2770, 0xa5)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(2796, 0xa6)
-	play_sound(SFX_0167, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0167, CHANNEL_CUTSCENE)
 
 	wait_until(2812, 0xa7)
-	play_sound(SFX_0168, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0168, CHANNEL_CUTSCENE)
 
 	wait_until(2830, 0xa8)
-	play_sound(SFX_0162, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0162, CHANNEL_CUTSCENE)
 
 	wait_until(2846, 0xa9)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(2856, 0xaa)
-	play_sound(SFX_0165, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0165, CHANNEL_CUTSCENE)
 
 	wait_until(2890, 0xab)
-	play_sound(SFX_0166, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0166, CHANNEL_CUTSCENE)
 
 	wait_until(2946, 0xac)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(2976, 0xad)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(3008, 0xae)
-	play_sound(SFX_0167, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0167, CHANNEL_CUTSCENE)
 
 	wait_until(3116, 0xaf)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(3154, 0xb0)
-	play_sound(SFX_0165, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0165, CHANNEL_CUTSCENE)
 
 	wait_until(3188, 0xb1)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(3230, 0xb2)
-	play_sound(SFX_0164, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0164, CHANNEL_CUTSCENE)
 
 	wait_until(3250, 0x7a)
-	speak(CHR_BOND, L_CAVE_060, MP3_044B, CHANNEL_5, COLOR_06_WHITE) // "Only vague suspicions, and I won't distract you wi..."
+	speak(CHR_BOND, L_CAVE_060, MP3_ZZ(FILE_AP16_06_CAM), CHANNEL_5, COLOR_06_WHITE) // "Only vague suspicions, and I won't distract you wi..."
 
 	wait_until(3387, 0xb3)
-	play_sound(SFX_0166, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0166, CHANNEL_CUTSCENE)
 
 	wait_until(3427, 0xb4)
-	play_sound(SFX_0167, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0167, CHANNEL_CUTSCENE)
 
 	wait_until(3448, 0xb5)
-	play_sound(SFX_0168, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0168, CHANNEL_CUTSCENE)
 
 	wait_until(3656, 0xb6)
-	play_sound(SFX_0163, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_0163, CHANNEL_CUTSCENE)
 
 	wait_until(3723, 0x90)
 
 	wait_until(3796, 0x91)
-	play_sound(SFX_04FC, CHANNEL_CUTSCENE)
+	play_sound(SFXNUM_04FC, CHANNEL_CUTSCENE)
 
 	beginloop(0x04)
 		if_camera_animating(/*goto*/ 0x31)
@@ -3861,7 +3861,7 @@ u8 func101c_msg_nowsyourchance[] = {
 	endloop(0x00)
 
 	label(0x31)
-	speak(CHR_BOND, L_CAVE_050, SFX_8182, CHANNEL_6, COLOR_09_BLUE) // "Now's your chance! Grab the stewardess's bag and g..."
+	speak(CHR_BOND, L_CAVE_050, SFXMAP_8182, CHANNEL_6, COLOR_09_BLUE) // "Now's your chance! Grab the stewardess's bag and g..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3888,7 +3888,7 @@ u8 func101d_msg_usethatcase[] = {
 	endloop(0x04)
 
 	label(0x31)
-	speak(CHR_P1P2, L_CAVE_051, SFX_8183, CHANNEL_4, COLOR_09_BLUE) // "Use that case to conceal your equipment."
+	speak(CHR_P1P2, L_CAVE_051, SFXMAP_8183, CHANNEL_4, COLOR_09_BLUE) // "Use that case to conceal your equipment."
 
 	label(0x09)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
@@ -3908,7 +3908,7 @@ u8 func101e_msg_casewillgetstopped[] = {
 	endloop(0x04)
 
 	label(0x31)
-	speak(CHR_BOND, L_CAVE_052, SFX_8184, CHANNEL_6, COLOR_09_BLUE) // "The case will get stopped unless you do something."
+	speak(CHR_BOND, L_CAVE_052, SFXMAP_8184, CHANNEL_6, COLOR_09_BLUE) // "The case will get stopped unless you do something."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -3921,7 +3921,7 @@ u8 func101f_msg_smallerthanithought[] = {
 	endloop(0x00)
 
 	label(0x31)
-	speak(CHR_P1P2, L_CAVE_053, MP3_03C7, CHANNEL_6, COLOR_09_BLUE) // "So that's Air Force One? ... Huh, smaller than I t..."
+	speak(CHR_P1P2, L_CAVE_053, MP3_ZZ(FILE_AM5_L1_DM), CHANNEL_6, COLOR_09_BLUE) // "So that's Air Force One? ... Huh, smaller than I t..."
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };
@@ -4170,7 +4170,7 @@ u8 func1029_lift_doors[] = {
 		reloop(0x00)
 
 		label(0x05)
-		play_sound(SFX_DOOR_81B0, -1)
+		play_sound(SFXMAP_81B0_DOOR, -1)
 		restart_timer
 
 		beginloop(0x06)

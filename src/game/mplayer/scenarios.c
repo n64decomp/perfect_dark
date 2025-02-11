@@ -1170,7 +1170,7 @@ s32 scenario_pick_up_briefcase(struct chrdata *chr, struct prop *prop)
 					botinv_drop_one(chr, WEAPON_BRIEFCASE2);
 					chr->aibot->hascase = false;
 				} else {
-					snd_start(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXNUM_05B8_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 					weapon_create_for_player_drop(WEAPON_BRIEFCASE2);
 					inv_remove_item_by_num(WEAPON_BRIEFCASE2);
 				}

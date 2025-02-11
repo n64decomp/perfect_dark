@@ -591,7 +591,7 @@ void nbombs_tick(void)
 	if (youngest240 < TICKS(350)) {
 		if (g_Vars.lvupdate240 != 0) {
 			if (g_NbombAudioHandle == 0) {
-				snd_start(var80095200, SFX_SHIP_HUM, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXMAP_810C_SHIP_HUM, &g_NbombAudioHandle, -1, -1, -1, -1, -1);
 			}
 
 			volume = AL_VOL_FULL;
@@ -701,7 +701,7 @@ void nbomb_create_storm(struct coord *pos, struct prop *ownerprop)
 	// Newer versions only play audio if the handles are null,
 	// while ntsc-beta clears the handles then plays them unconditionally.
 	if (g_Nbombs[index].audiohandle20 == NULL) {
-		snd_start(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXNUM_0001_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
 
 		if (g_Nbombs[index].audiohandle20) {
 			union audioparam param;
@@ -711,7 +711,7 @@ void nbomb_create_storm(struct coord *pos, struct prop *ownerprop)
 	}
 
 	if (g_Nbombs[index].audiohandle24 == NULL) {
-		snd_start(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXNUM_0001_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
 
 		if (g_Nbombs[index].audiohandle24) {
 			union audioparam param;
@@ -723,7 +723,7 @@ void nbomb_create_storm(struct coord *pos, struct prop *ownerprop)
 	g_Nbombs[index].audiohandle20 = NULL;
 	g_Nbombs[index].audiohandle24 = NULL;
 
-	snd_start(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
+	snd_start(var80095200, SFXNUM_0001_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle20, -1, -1, -1, -1, -1);
 
 	if (g_Nbombs[index].audiohandle20) {
 		union audioparam param;
@@ -731,7 +731,7 @@ void nbomb_create_storm(struct coord *pos, struct prop *ownerprop)
 		sndp_post_event(g_Nbombs[index].audiohandle20, AL_SNDP_PITCH_EVT, param.s32);
 	}
 
-	snd_start(var80095200, SFX_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
+	snd_start(var80095200, SFXNUM_0001_LAUNCH_ROCKET, &g_Nbombs[index].audiohandle24, -1, -1, -1, -1, -1);
 
 	if (g_Nbombs[index].audiohandle24) {
 		union audioparam param;

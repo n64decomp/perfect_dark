@@ -355,7 +355,7 @@ void htb_tick_chr(struct chrdata *chr)
 			chr->aibot->htbheldtimer60 += g_Vars.lvupdate240;
 
 			if (chr->aibot->htbheldtimer60 >= TICKS(7200)) {
-				snd_start(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_05B8_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				g_MpAllChrConfigPtrs[mp_chr_to_chrindex(chr)]->numpoints++;
 				chr->aibot->htbheldtimer60 = 0;
 			}
@@ -367,7 +367,7 @@ void htb_tick_chr(struct chrdata *chr)
 			g_Vars.currentplayerstats->tokenheldtime += g_Vars.lvupdate240;
 
 			if (g_Vars.currentplayerstats->tokenheldtime >= TICKS(7200)) {
-				snd_start(var80095200, SFX_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_05B8_MP_SCOREPOINT, NULL, -1, -1, -1, -1, -1);
 				g_MpAllChrConfigPtrs[g_Vars.currentplayernum]->numpoints++;
 #if VERSION >= VERSION_JPN_FINAL
 				hudmsg_create_with_flags(lang_get(L_MPWEAPONS_024), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE | HUDMSGFLAG_NOWRAP); // "1 Point!"

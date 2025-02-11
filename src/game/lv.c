@@ -118,9 +118,9 @@ f32 g_StageTimeElapsed1f = 0;
 bool var80084040 = true;
 
 u32 g_MiscSfxSounds[] = {
-	SFX_HEARTBEAT,
-	SFX_SLAYER_WHIR,
-	SFX_SLAYER_BEEP,
+	SFXNUM_05C8_HEARTBEAT,
+	SFXMAP_8068_SLAYER_WHIR,
+	SFXNUM_01C8_SLAYER_BEEP,
 };
 
 s32 var80084050 = 0;
@@ -1261,12 +1261,12 @@ Gfx *lv_render(Gfx *gdl)
 						&& g_Vars.currentplayer->eyespy->camerabuttonheld) {
 					if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_CAMSPY) {
 						objective_check_holograph(400);
-						snd_start(var80095200, SFX_CAMSPY_SHUTTER, 0, -1, -1, -1, -1, -1);
+						snd_start(var80095200, SFXNUM_04FF_CAMSPY_SHUTTER, 0, -1, -1, -1, -1, -1);
 					} else if (g_Vars.currentplayer->eyespy->mode == EYESPYMODE_DRUGSPY) {
 						if (g_Vars.currentplayer->eyespydarts) {
 							// Fire dart
 							struct coord direction;
-							snd_start(var80095200, SFX_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
+							snd_start(var80095200, SFXMAP_8057_DRUGSPY_FIREDART, 0, -1, -1, -1, -1, -1);
 							g_Vars.currentplayer->eyespydarts--;
 
 							direction.x = g_Vars.currentplayer->eyespy->look.x;
@@ -1277,7 +1277,7 @@ Gfx *lv_render(Gfx *gdl)
 									&g_Vars.currentplayer->eyespy->prop->pos, &direction, WEAPON_TRANQUILIZER, NULL);
 						} else {
 							// No dart ammo
-							snd_start(var80095200, SFX_FIREEMPTY, 0, -1, -1, -1, -1, -1);
+							snd_start(var80095200, SFXMAP_8052_FIREEMPTY, 0, -1, -1, -1, -1, -1);
 						}
 					} else { // EYESPYMODE_BOMBSPY
 						struct coord vel = {0, 0, 0};
@@ -1397,7 +1397,7 @@ Gfx *lv_render(Gfx *gdl)
 								cutscenehasstatic = true;
 
 								if (g_CutsceneStaticAudioHandle == NULL) {
-									snd_start(var80095200, SFX_INFIL_STATIC_LONG, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
+									snd_start(var80095200, SFXNUM_059F_INFIL_STATIC_LONG, &g_CutsceneStaticAudioHandle, -1, -1, -1, -1, -1);
 								}
 
 								g_CutsceneStaticTimer -= g_Vars.diffframe60;
@@ -1412,7 +1412,7 @@ Gfx *lv_render(Gfx *gdl)
 								if (g_CutsceneStaticTimer < TICKS(15)) {
 									if (g_CutsceneStaticActive == false) {
 										g_CutsceneStaticActive = true;
-										snd_start(var80095200, SFX_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
+										snd_start(var80095200, SFXNUM_059E_INFIL_STATIC_MEDIUM, NULL, -1, -1, -1, -1, -1);
 									}
 
 									cutscenestatic = 225 - g_CutsceneStaticTimer * PALUP(10);
@@ -1422,7 +1422,7 @@ Gfx *lv_render(Gfx *gdl)
 								// to the main static above
 								if (random() % 60 == 1) {
 									cutscenestatic = 255;
-									snd_start(var80095200, SFX_INFIL_STATIC_SHORT, NULL, -1, -1, -1, -1, -1);
+									snd_start(var80095200, SFXNUM_059D_INFIL_STATIC_SHORT, NULL, -1, -1, -1, -1, -1);
 								}
 
 								if (cutscenestatic) {
@@ -1480,7 +1480,7 @@ Gfx *lv_render(Gfx *gdl)
 							|| (g_Vars.speedpillwant && !g_Vars.speedpillon)
 							|| (!g_Vars.speedpillwant && g_Vars.speedpillon)) {
 						if (g_Vars.speedpillchange == (PAL ? 26 : 30) && !g_Vars.speedpillwant) {
-							snd_start(var80095200, lv_get_slow_motion_type() ? SFX_JO_BOOST_ACTIVATE : SFX_ARGH_JO_02AD, 0, -1, -1, -1, -1, -1);
+							snd_start(var80095200, lv_get_slow_motion_type() ? SFXNUM_05C9_JO_BOOST_ACTIVATE : SFXNUM_02AD_JO_ARGH, 0, -1, -1, -1, -1, -1);
 						}
 
 						if (g_Vars.speedpillchange < (PAL ? 13 : 15)) {
@@ -2209,7 +2209,7 @@ void lv_tick(void)
 					&& g_MiscAudioHandle == NULL
 					&& !lv_is_paused()
 					&& nexttime < TICKS(g_MpTimeLimit60)) {
-				snd00010718(&g_MiscAudioHandle, 0, AL_VOL_FULL, AL_PAN_CENTER, SFX_ALARM_DEFAULT, 1, 1, -1, true);
+				snd00010718(&g_MiscAudioHandle, 0, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_00A3_ALARM_DEFAULT, 1, 1, -1, true);
 			}
 		}
 

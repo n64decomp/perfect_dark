@@ -3836,12 +3836,12 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 
 	if (race == RACE_DRCAROLL) {
 		s16 sounds[] = {
-			SFX_ARGH_DRCAROLL_0240,
-			SFX_ARGH_DRCAROLL_024C,
-			SFX_ARGH_DRCAROLL_0250,
-			SFX_ARGH_DRCAROLL_0251,
-			SFX_ARGH_DRCAROLL_0259,
-			SFX_ARGH_DRCAROLL_025A,
+			SFXNUM_0240_DRC_ARGH,
+			SFXNUM_024C_DRC_ARGH,
+			SFXNUM_0250_DRC_ARGH,
+			SFXNUM_0251_DRC_ARGH,
+			SFXNUM_0259_DRC_ARGH,
+			SFXNUM_025A_DRC_ARGH,
 		};
 
 		if (g_DrCarollDyingTimer > TICKS(10)) {
@@ -3859,9 +3859,9 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 			|| chr->headnum == HEAD_MAIAN_S
 			|| chr->headnum == HEAD_ELVIS_GOGS) {
 		s16 sounds[] = {
-			SFX_ARGH_MAIAN_05DF,
-			SFX_ARGH_MAIAN_05E0,
-			SFX_ARGH_MAIAN_05E1
+			SFXNUM_05DF_MAIAN_ARGH,
+			SFXNUM_05E0_MAIAN_ARGH,
+			SFXNUM_05E1_MAIAN_ARGH
 		};
 
 		soundnum = sounds[random() % 3];
@@ -3873,11 +3873,11 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 	} else if (race == RACE_SKEDAR) {
 		if (chr->bodynum == BODY_MINISKEDAR) {
 			s16 sounds[] = {
-				SFX_SKEDAR_ROAR_0536,
-				SFX_SKEDAR_ROAR_0537,
-				SFX_SKEDAR_ROAR_0538,
-				SFX_SKEDAR_ROAR_0539,
-				SFX_SKEDAR_ROAR_053A,
+				SFXNUM_0536_SKEDAR_ROAR,
+				SFXNUM_0537_SKEDAR_ROAR,
+				SFXNUM_0538_SKEDAR_ROAR,
+				SFXNUM_0539_SKEDAR_ROAR,
+				SFXNUM_053A_SKEDAR_ROAR,
 			};
 
 			soundnum = sounds[random() % 5];
@@ -3888,9 +3888,9 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 			}
 		} else {
 			s16 sounds[] = {
-				SFX_SKEDAR_ROAR_052D,
-				SFX_SKEDAR_ROAR_052E,
-				SFX_SKEDAR_ROAR_052F,
+				SFXNUM_052D_SKEDAR_ROAR,
+				SFXNUM_052E_SKEDAR_ROAR,
+				SFXNUM_052F_SKEDAR_ROAR,
 			};
 
 			soundnum = sounds[random() % 3];
@@ -3902,20 +3902,20 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 		}
 	} else if (chr->headnum == HEAD_DDSHOCK) {
 		s16 sounds[] = {
-			SFX_ARGH_MALE_0086,
-			SFX_ARGH_MALE_0088,
-			SFX_ARGH_MALE_008A,
-			SFX_ARGH_MALE_008C,
-			SFX_ARGH_MALE_008E,
-			SFX_ARGH_MALE_0090,
-			SFX_ARGH_MALE_0092,
-			SFX_ARGH_MALE_0094,
-			SFX_ARGH_MALE_0096,
-			SFX_ARGH_MALE_0098,
-			SFX_ARGH_MALE_009A,
-			SFX_ARGH_MALE_009C,
-			SFX_ARGH_MALE_009E,
-			SFX_ARGH_MALE_0087,
+			SFXNUM_0086_M_ARGH,
+			SFXNUM_0088_M_ARGH,
+			SFXNUM_008A_M_ARGH,
+			SFXNUM_008C_M_ARGH,
+			SFXNUM_008E_M_ARGH,
+			SFXNUM_0090_M_ARGH,
+			SFXNUM_0092_M_ARGH,
+			SFXNUM_0094_M_ARGH,
+			SFXNUM_0096_M_ARGH,
+			SFXNUM_0098_M_ARGH,
+			SFXNUM_009A_M_ARGH,
+			SFXNUM_009C_M_ARGH,
+			SFXNUM_009E_M_ARGH,
+			SFXNUM_0087_M_ARGH,
 		};
 
 		soundnum = sounds[nextindexshock];
@@ -3928,31 +3928,31 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 		human = true;
 	} else if (male) {
 		s16 sounds[] = {
-			SFX_ARGH_MALE_0086,
-			SFX_ARGH_MALE_0087,
-			SFX_ARGH_MALE_0088,
-			SFX_ARGH_MALE_0089,
-			SFX_ARGH_MALE_008A,
-			SFX_ARGH_MALE_008B,
-			SFX_ARGH_MALE_008C,
-			SFX_ARGH_MALE_008D,
-			SFX_ARGH_MALE_008E,
-			SFX_ARGH_MALE_008F,
-			SFX_ARGH_MALE_0090,
-			SFX_ARGH_MALE_0091,
-			SFX_ARGH_MALE_0092,
-			SFX_ARGH_MALE_0093,
-			SFX_ARGH_MALE_0094,
-			SFX_ARGH_MALE_0095,
-			SFX_ARGH_MALE_0096,
-			SFX_ARGH_MALE_0097,
-			SFX_ARGH_MALE_0098,
-			SFX_ARGH_MALE_0099,
-			SFX_ARGH_MALE_009A,
-			SFX_ARGH_MALE_009B,
-			SFX_ARGH_MALE_009C,
-			SFX_ARGH_MALE_009D,
-			SFX_ARGH_MALE_009E,
+			SFXNUM_0086_M_ARGH,
+			SFXNUM_0087_M_ARGH,
+			SFXNUM_0088_M_ARGH,
+			SFXNUM_0089_M_ARGH,
+			SFXNUM_008A_M_ARGH,
+			SFXNUM_008B_M_ARGH,
+			SFXNUM_008C_M_ARGH,
+			SFXNUM_008D_M_ARGH,
+			SFXNUM_008E_M_ARGH,
+			SFXNUM_008F_M_ARGH,
+			SFXNUM_0090_M_ARGH,
+			SFXNUM_0091_M_ARGH,
+			SFXNUM_0092_M_ARGH,
+			SFXNUM_0093_M_ARGH,
+			SFXNUM_0094_M_ARGH,
+			SFXNUM_0095_M_ARGH,
+			SFXNUM_0096_M_ARGH,
+			SFXNUM_0097_M_ARGH,
+			SFXNUM_0098_M_ARGH,
+			SFXNUM_0099_M_ARGH,
+			SFXNUM_009A_M_ARGH,
+			SFXNUM_009B_M_ARGH,
+			SFXNUM_009C_M_ARGH,
+			SFXNUM_009D_M_ARGH,
+			SFXNUM_009E_M_ARGH,
 		};
 
 		soundnum = sounds[nextindexmale];
@@ -3968,25 +3968,25 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 			|| chr->headnum == HEAD_DARKAQUA
 			|| chr->headnum == HEAD_DARK_SNOW) {
 		s16 sounds[] = {
-			SFX_ARGH_JO_02AA,
-			SFX_ARGH_JO_02AB,
-			SFX_ARGH_JO_02AC,
-			SFX_ARGH_JO_02AD,
-			SFX_ARGH_JO_02AE,
-			SFX_ARGH_JO_02AF,
-			SFX_ARGH_JO_02B0,
-			SFX_ARGH_JO_02B1,
-			SFX_ARGH_JO_02B2,
-			SFX_ARGH_JO_02B3,
+			SFXNUM_02AA_JO_ARGH,
+			SFXNUM_02AB_JO_ARGH,
+			SFXNUM_02AC_JO_ARGH,
+			SFXNUM_02AD_JO_ARGH,
+			SFXNUM_02AE_JO_ARGH,
+			SFXNUM_02AF_JO_ARGH,
+			SFXNUM_02B0_JO_ARGH,
+			SFXNUM_02B1_JO_ARGH,
+			SFXNUM_02B2_JO_ARGH,
+			SFXNUM_02B3_JO_ARGH,
 		};
 
 		soundnum = sounds[random() % 10];
 		human = true;
 	} else {
 		s16 sounds[] = {
-			SFX_ARGH_FEMALE_000D,
-			SFX_ARGH_FEMALE_000E,
-			SFX_ARGH_FEMALE_000F,
+			SFXNUM_000D_F_ARGH,
+			SFXNUM_000E_F_ARGH,
+			SFXNUM_000F_F_ARGH,
 		};
 
 		soundnum = sounds[nextindexfemale];
@@ -4002,9 +4002,9 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 	if (human) {
 		if (choketype == CHOKETYPE_GURGLE) {
 			s32 sounds[] = {
-				SFX_M1_CHOKING,
-				SFX_GURGLE_05B1,
-				SFX_GURGLE_05B2,
+				SFXNUM_034E_M1_CHOKING,
+				SFXNUM_05B1_GURGLE,
+				SFXNUM_05B2_GURGLE,
 			};
 
 			if ((random() % 8) == 0) {
@@ -4016,17 +4016,17 @@ void chr_grunt(struct chrdata *chr, s32 choketype)
 		} else if (choketype == CHOKETYPE_COUGH) {
 			if (male) {
 				if ((random() % 2) == 0) {
-					soundnum = SFX_COUGH_04AF;
+					soundnum = SFXNUM_05AF_COUGH;
 				} else {
-					soundnum = SFX_COUGH_04B0;
+					soundnum = SFXNUM_05B0_COUGH;
 				}
 			} else {
 				s32 index = random() % 4;
 				s32 sounds[] = {
-					SFX_COUGH_05AB,
-					SFX_COUGH_05AC,
-					SFX_COUGH_05AD,
-					SFX_COUGH_05AE,
+					SFXNUM_05AB_COUGH,
+					SFXNUM_05AC_COUGH,
+					SFXNUM_05AD_COUGH,
+					SFXNUM_05AE_COUGH,
 				};
 
 				soundnum = sounds[index];
@@ -4596,7 +4596,7 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 			chr->hidden |= CHRHFLAG_DROPPINGITEM;
 		} else {
 			// Metal helmets don't fall off and make a metallic chink noise when shot
-			u16 sounds[] = { SFX_HIT_METAL_807B, SFX_HIT_METAL_8079, SFX_HATHIT_807C };
+			u16 sounds[] = { SFXMAP_807B_HIT_METAL, SFXMAP_8079_HIT_METAL, SFXMAP_807C_HATHIT };
 			damage = 0;
 
 			ps_create(NULL, chr->prop, sounds[random() % 3], -1,
@@ -8165,7 +8165,7 @@ void chr_tick_anim(struct chrdata *chr)
 			&& model_get_cur_anim_frame(chr->model) >= 42
 			&& (g_Vars.lvframenum % 2) == 0
 			&& chr_get_distance_to_current_player(chr) < 800) {
-		ps_create(NULL, chr->prop, SFX_0037, -1,
+		ps_create(NULL, chr->prop, SFXNUM_0037, -1,
 				-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 	}
 
@@ -8345,39 +8345,39 @@ void chr_tick_die(struct chrdata *chr)
 	u32 race = CHRRACE(chr);
 
 	u16 thuds[] = {
-		SFX_THUD_808D,
-		SFX_THUD_808E,
-		SFX_THUD_808F,
-		SFX_THUD_8090,
-		SFX_THUD_8091,
-		SFX_THUD_8092,
-		SFX_THUD_8093,
-		SFX_THUD_8094,
-		SFX_THUD_8095,
-		SFX_THUD_8096,
-		SFX_THUD_8097,
+		SFXMAP_808D_THUD,
+		SFXMAP_808E_THUD,
+		SFXMAP_808F_THUD,
+		SFXMAP_8090_THUD,
+		SFXMAP_8091_THUD,
+		SFXMAP_8092_THUD,
+		SFXMAP_8093_THUD,
+		SFXMAP_8094_THUD,
+		SFXMAP_8095_THUD,
+		SFXMAP_8096_THUD,
+		SFXMAP_8097_THUD,
 	};
 
 	u16 specialdiesounds[] = {
 #if VERSION >= VERSION_NTSC_1_0
-		SFX_M1_NOOO, // "Noooo!"
-		SFX_M1_SCREAM, // Death scream
-		SFX_M2_NOOO, // "Noooo!"
-		SFX_M2_NOOO, // "Noooo!"
-		SFX_M1_SCREAM, // Death scream
+		SFXMAP_8129_M1_NOOO, // "Noooo!"
+		SFXMAP_812F_M1_SCREAM, // Death scream
+		SFXMAP_813A_M2_NOOO, // "Noooo!"
+		SFXMAP_813A_M2_NOOO, // "Noooo!"
+		SFXMAP_812F_M1_SCREAM, // Death scream
 #else
-		SFX_0313,
-		SFX_034C,
-		SFX_0411,
-		SFX_0411,
-		SFX_034C,
+		SFXNUM_0313_M_NOOO,
+		SFXNUM_034C_M_WAIL,
+		SFXNUM_0411_M_NOOO,
+		SFXNUM_0411_M_NOOO,
+		SFXNUM_034C_M_WAIL,
 #endif
-		SFX_THUD_8092,
-		SFX_THUD_8093,
-		SFX_THUD_8094,
-		SFX_THUD_8095,
-		SFX_THUD_8096,
-		SFX_THUD_8097,
+		SFXMAP_8092_THUD,
+		SFXMAP_8093_THUD,
+		SFXMAP_8094_THUD,
+		SFXMAP_8095_THUD,
+		SFXMAP_8096_THUD,
+		SFXMAP_8097_THUD,
 	};
 
 	static s32 thudindex = 0;
@@ -8400,12 +8400,12 @@ void chr_tick_die(struct chrdata *chr)
 		if (g_DrCarollDyingTimer > TICKS(120) && chr->voicebox) {
 			// Play speech
 			u16 phrases[] = {
-				SFX_DRCAROLL_SYSTEMS_FAILURE,
-				SFX_DRCAROLL_YOU_GO_ON,
-				SFX_DRCAROLL_I_CANT_MAKE_IT,
-				SFX_DRCAROLL_IM_DYING,
-				SFX_DRCAROLL_GOODBYE,
-				SFX_DRCAROLL_YOU_WERE_SUPPOSED,
+				SFXNUM_024D_DRC_SYSTEMS_FAILURE,
+				SFXNUM_024E_DRC_YOU_GO_ON,
+				SFXNUM_024F_DRC_I_CANT_MAKE_IT,
+				SFXNUM_0256_DRC_IM_DYING,
+				SFXNUM_0257_DRC_GOODBYE,
+				SFXNUM_0258_DRC_YOU_WERE_SUPPOSED,
 			};
 
 			ps_create(NULL, chr->prop, phrases[random() % 5], -1,
@@ -8431,7 +8431,7 @@ void chr_tick_die(struct chrdata *chr)
 			// Play shield damage sound
 			chr->soundtimer = 0;
 			var80068080 -= 5;
-			ps_create(NULL, prop, SFX_SHIELD_DAMAGE, -1,
+			ps_create(NULL, prop, SFXNUM_0064_SHIELD_DAMAGE, -1,
 					-1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			sparks_create(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
 		}
@@ -8462,7 +8462,7 @@ void chr_tick_die(struct chrdata *chr)
 	// If due, play thud 2 sound
 	if (chr->act_die.thudframe2 >= 0 && model_get_cur_anim_frame(model) >= chr->act_die.thudframe2) {
 		if (chr->specialdie < 5) {
-			ps_create(NULL, chr->prop, SFX_THUD_808E, -1,
+			ps_create(NULL, chr->prop, SFXMAP_808E_THUD, -1,
 					-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		} else {
 			ps_create(NULL, chr->prop, thuds[thudindex], -1,
@@ -8495,17 +8495,17 @@ void chr_tick_die(struct chrdata *chr)
 void chr_tick_druggedcomingup(struct chrdata *chr)
 {
 	u16 thuds[] = {
-		SFX_THUD_808D,
-		SFX_THUD_808E,
-		SFX_THUD_808F,
-		SFX_THUD_8090,
-		SFX_THUD_8091,
-		SFX_THUD_8092,
-		SFX_THUD_8093,
-		SFX_THUD_8094,
-		SFX_THUD_8095,
-		SFX_THUD_8096,
-		SFX_THUD_8097,
+		SFXMAP_808D_THUD,
+		SFXMAP_808E_THUD,
+		SFXMAP_808F_THUD,
+		SFXMAP_8090_THUD,
+		SFXMAP_8091_THUD,
+		SFXMAP_8092_THUD,
+		SFXMAP_8093_THUD,
+		SFXMAP_8094_THUD,
+		SFXMAP_8095_THUD,
+		SFXMAP_8096_THUD,
+		SFXMAP_8097_THUD,
 	};
 
 	chr->act_druggedcomingup.timer60 += g_Vars.lvupdate60;
@@ -8573,17 +8573,17 @@ void chr_tick_druggeddrop(struct chrdata *chr)
 	struct model *model = chr->model;
 
 	u16 thuds[] = {
-		SFX_THUD_808D,
-		SFX_THUD_808E,
-		SFX_THUD_808F,
-		SFX_THUD_8090,
-		SFX_THUD_8091,
-		SFX_THUD_8092,
-		SFX_THUD_8093,
-		SFX_THUD_8094,
-		SFX_THUD_8095,
-		SFX_THUD_8096,
-		SFX_THUD_8097,
+		SFXMAP_808D_THUD,
+		SFXMAP_808E_THUD,
+		SFXMAP_808F_THUD,
+		SFXMAP_8090_THUD,
+		SFXMAP_8091_THUD,
+		SFXMAP_8092_THUD,
+		SFXMAP_8093_THUD,
+		SFXMAP_8094_THUD,
+		SFXMAP_8095_THUD,
+		SFXMAP_8096_THUD,
+		SFXMAP_8097_THUD,
 	};
 
 	static s32 thudindex = 0;
@@ -13245,9 +13245,9 @@ void chr_tick_skjump(struct chrdata *chr)
 			break;
 		case SKJUMPSTATE_AIRBORNE: {
 				u16 sounds[] = {
-					SFX_SKEDAR_ROAR_0532,
-					SFX_SKEDAR_ROAR_0533,
-					SFX_SKEDAR_ROAR_0534,
+					SFXNUM_0532_SKEDAR_ROAR,
+					SFXNUM_0533_SKEDAR_ROAR,
+					SFXNUM_0534_SKEDAR_ROAR,
 				};
 
 				ps_create(NULL, chr->prop, sounds[random() % 3], -1,
@@ -16295,7 +16295,7 @@ bool chr_is_avoiding(struct chrdata *chr)
 void chr_drcaroll_emit_sparks(struct chrdata *chr)
 {
 	if (chr && chr->prop) {
-		ps_create(0, chr->prop, SFX_SHIELD_DAMAGE, -1, -1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+		ps_create(0, chr->prop, SFXNUM_0064_SHIELD_DAMAGE, -1, -1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 		sparks_create(chr->prop->rooms[0], chr->prop, &chr->prop->pos, NULL, 0, SPARKTYPE_ELECTRICAL);
 	}
 }

@@ -410,7 +410,7 @@ void koh_tick(void)
 			// So if these don't match then the hill is turning into a team
 			// colour rather than going green.
 			if (hillteam != g_ScenarioData.koh.occupiedteam) {
-				snd_start(var80095200, SFX_MP_HILLENTERED, 0, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_05B9_MP_HILLENTERED, 0, -1, -1, -1, -1, -1);
 
 				g_ScenarioData.koh.occupiedteam = hillteam;
 				g_ScenarioData.koh.elapsed240 = 0;
@@ -455,7 +455,7 @@ void koh_tick(void)
 
 					if (g_ScenarioData.koh.elapsed240 >= g_Vars.mphilltime * TICKS(240) + TICKS(2400)) {
 						// Scored a point
-						snd_start(var80095200, SFX_MP_SCOREPOINT, 0, -1, -1, -1, -1, -1);
+						snd_start(var80095200, SFXNUM_05B8_MP_SCOREPOINT, 0, -1, -1, -1, -1, -1);
 
 						// @bug: There is no check for a chr being dead here.
 						// If a player dies in the hill and waits on the

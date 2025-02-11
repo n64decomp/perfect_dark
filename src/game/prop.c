@@ -456,15 +456,15 @@ void weapon_play_melee_miss_sound(s32 weaponnum, struct prop *prop)
 	f32 speed = 1;
 
 	if (weaponnum == WEAPON_TRANQUILIZER) {
-		soundnum = SFX_RELOAD_04FB;
+		soundnum = SFXNUM_04FB_RELOAD;
 		speed = 2.78f;
 	} else if (weaponnum == WEAPON_REAPER) {
 		// empty
 	} else if (weaponnum == WEAPON_COMBATKNIFE) {
-		soundnum = random() % 2 == 1 ? SFX_8060 : SFX_8061;
+		soundnum = random() % 2 == 1 ? SFXMAP_8060 : SFXMAP_8061;
 		speed = 1.05f - RANDOMFRAC() * 0.2f;
 	} else {
-		soundnum = SFX_0069;
+		soundnum = SFXNUM_0069;
 		speed = 1.0f - RANDOMFRAC() * 0.2f;
 	}
 
@@ -508,25 +508,25 @@ void weapon_play_melee_hit_sound(s32 weaponnum, struct prop *prop)
 	struct sndstate *handle;
 
 	if (weaponnum == WEAPON_UNARMED) {
-		soundnum = SFX_THUD_808F;
+		soundnum = SFXMAP_808F_THUD;
 
 		if ((random() % 2) == 1) {
-			soundnum = SFX_THUD_8094;
+			soundnum = SFXMAP_8094_THUD;
 		}
 
 		speed = 1.0f - RANDOMFRAC() * 0.1f;
 	} else if (weaponnum == WEAPON_TRANQUILIZER) {
-		soundnum = SFX_RELOAD_04FB;
+		soundnum = SFXNUM_04FB_RELOAD;
 		speed = 2.78f;
 	} else {
 #if VERSION >= VERSION_NTSC_1_0
-		soundnum = SFX_HIT_METAL_8079;
+		soundnum = SFXMAP_8079_HIT_METAL;
 		speed = 1.0f - RANDOMFRAC() * 0.1f;
 #else
-		soundnum = SFX_HIT_METAL_8079;
+		soundnum = SFXMAP_8079_HIT_METAL;
 
 		if (weaponnum != WEAPON_COMBATKNIFE && (random() % 2) == 1) {
-			soundnum = SFX_HATHIT_807C;
+			soundnum = SFXMAP_807C_HATHIT;
 		}
 
 		speed = 1.0f - RANDOMFRAC() * 0.1f;

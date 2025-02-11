@@ -300,9 +300,9 @@ void weather_tick_rain(struct weatherdata *weather)
 	// Rain noise
 	for (i = 0; i != 4; i++) {
 		s32 sounds[] = {
-			SFX_80B7,
-			SFX_80B6,
-			SFX_80B8,
+			SFXMAP_80B7,
+			SFXMAP_80B6,
+			SFXMAP_80B8,
 			-1,
 		};
 
@@ -986,44 +986,44 @@ Gfx *weather_render_rain(Gfx *gdl, struct weatherdata *weather, s32 arg2)
 				}
 
 				if (weather->unka4 == weather->unk94) {
-					soundnum = SFX_80BA_THUNDER;
+					soundnum = SFXMAP_80BA_THUNDER;
 					pitch = 0.4f + RANDOMFRAC() * 1.5f;
 					frac = RANDOMFRAC();
 
 					if (frac <= 0.2f && frac > .1f) {
-						soundnum = SFX_80BB_THUNDER;
+						soundnum = SFXMAP_80BB_THUNDER;
 					}
 
 					if (frac <= 0.3f && frac > 0.20000001788139f) {
-						soundnum = SFX_80BC_THUNDER;
+						soundnum = SFXMAP_80BC_THUNDER;
 					}
 
 					if (frac <= 0.4f && frac > .3f) {
-						soundnum = SFX_80BD_THUNDER;
+						soundnum = SFXMAP_80BD_THUNDER;
 					}
 
 					if (frac <= 0.5f && frac > .4f) {
-						soundnum = SFX_80BE_THUNDER;
+						soundnum = SFXMAP_80BE_THUNDER;
 					}
 
 					if (frac <= 0.6f && frac > .5f) {
-						soundnum = SFX_80BF_LIGHTNING;
+						soundnum = SFXMAP_80BF_LIGHTNING;
 					}
 
 					if (frac <= 0.7f && frac > 0.59999996423721f) {
-						soundnum = SFX_80C0_LIGHTNING;
+						soundnum = SFXMAP_80C0_LIGHTNING;
 					}
 
 					if (frac <= 0.8f && frac > .7f) {
-						soundnum = SFX_80C1_LIGHTNING;
+						soundnum = SFXMAP_80C1_LIGHTNING;
 					}
 
 					if (frac <= 0.9f && frac > 0.79999995231628f) {
-						soundnum = SFX_80C2_LIGHTNING;
+						soundnum = SFXMAP_80C2_LIGHTNING;
 					}
 
 					if (frac <= 1.0f && frac > .9f) {
-						soundnum = SFX_80C3_LIGHTNING;
+						soundnum = SFXMAP_80C3_LIGHTNING;
 					}
 
 					if (weather->audiohandles[3] == NULL) {

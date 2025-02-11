@@ -389,7 +389,7 @@ bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamoun
 						chr_damage_by_laser(g_Vars.currentplayer->prop->chr, 0.4f, &sp90, 0, g_Vars.currentplayer->prop);
 
 						// Laser zap sound
-						snd_start(var80095200, SFX_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
+						snd_start(var80095200, SFXNUM_00F2_PICKUP_LASER, 0, -1, -1, -1, -1, -1);
 					}
 				}
 			} else if (obstacle->type == PROPTYPE_CHR) {
@@ -1061,9 +1061,9 @@ void bwalk_update_vertical(void)
 					&& g_Vars.lvframe60 - g_Vars.currentplayer->fallstart > TICKS(40)) {
 				// Play Jo landing grunt
 				s32 sounds[] = {
-					SFX_JO_LANDING_046F,
-					SFX_JO_LANDING_05B6,
-					SFX_JO_LANDING_05B7
+					SFXNUM_046F_JO_LANDING,
+					SFXNUM_05B6_JO_LANDING,
+					SFXNUM_05B7_JO_LANDING
 				};
 
 				ps_create(NULL, g_Vars.currentplayer->prop, sounds[random() % 3],

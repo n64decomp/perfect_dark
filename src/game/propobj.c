@@ -3312,7 +3312,7 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 						struct coord spa4 = {0, 0, 0};
 						s0 = false;
 						sparks_create(prop->rooms[0], prop, &hitthing.pos, &spa4, &hitthing.unk0c, SPARKTYPE_DEEPWATER);
-						ps_create(0, prop, SFX_HIT_WATER, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						ps_create(0, prop, SFXMAP_8080_HIT_WATER, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 						obj->hidden |= OBJHFLAG_DELETING;
 					}
 				}
@@ -3908,7 +3908,7 @@ void knife_play_woosh_sound(struct defaultobj *obj)
 		if ((obj->projectile->flags & PROJECTILEFLAG_AIRBORNE)
 				&& obj->projectile->bouncecount <= 0
 				&& (obj->hidden & OBJHFLAG_THROWNKNIFE)) {
-			u16 soundnums[] = { SFX_8074, SFX_8074, SFX_8074 };
+			u16 soundnums[] = { SFXMAP_8074, SFXMAP_8074, SFXMAP_8074 };
 			s32 index = random() % ARRAYCOUNT(soundnums);
 
 			if (obj->projectile->lastwooshframe < g_Vars.lvframe60 - TICKS(6)) {
@@ -5333,7 +5333,7 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 			hov->flags &= ~HOVFLAG_FIRSTTICK;
 
 			if (obj->type == OBJTYPE_HOVERBIKE) {
-				ps_create(NULL, obj->prop, SFX_BIKE_PULSE, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				ps_create(NULL, obj->prop, SFXMAP_80AF_BIKE_PULSE, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 			}
 		}
 
@@ -7430,14 +7430,14 @@ s32 projectile_tick(struct defaultobj *obj, bool *embedded)
 						if (cdresult == CDRESULT_COLLISION) {
 							if (projectile->unk0a4 < g_Vars.lvframenum - 2) {
 								if (weapon->weaponnum == WEAPON_COMBATKNIFE || weapon->weaponnum == WEAPON_COMBATKNIFE) {
-									ps_create(0, prop, SFX_808B, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+									ps_create(0, prop, SFXMAP_808B, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 								} else if (weapon->weaponnum == WEAPON_GRENADE && weapon->gunfunc == FUNC_SECONDARY) {
-									u16 sp100[] = {SFX_0027, SFX_0028, SFX_0029, SFX_002A};
+									u16 sp100[] = {SFXNUM_0027, SFXNUM_0028, SFXNUM_0029, SFXNUM_002A};
 
 									ps_create(0, prop, sp100[random() % 4], -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
-									ps_create(0, prop, SFX_EYESPYHIT, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+									ps_create(0, prop, SFXMAP_808C_EYESPYHIT, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 								} else {
-									ps_create(0, prop, SFX_EYESPYHIT, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+									ps_create(0, prop, SFXMAP_808C_EYESPYHIT, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 								}
 							}
 
@@ -7701,13 +7701,13 @@ void door_tick(struct prop *doorprop)
 		if (door->frac > soundpoint) {
 			if (prevfrac <= soundpoint) {
 				// frac increased past the soundpoint
-				ps_create(NULL, doorprop, SFX_DOOR_8014, -1,
+				ps_create(NULL, doorprop, SFXMAP_8014_DOOR, -1,
 						-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 			}
 		} else {
 			if (prevfrac > soundpoint) {
 				// frac decreased past the soundpoint
-				ps_create(NULL, doorprop, SFX_DOOR_8015, -1,
+				ps_create(NULL, doorprop, SFXMAP_8015_DOOR, -1,
 						-1, 0, 0, PSTYPE_DOOR, 0, -1, 0, -1, -1, -1, -1);
 			}
 		}
@@ -9382,14 +9382,14 @@ void autogun_tick_shoot(struct prop *autogunprop)
 				ps_stop_sound(autogunprop, PSTYPE_GENERAL, 0xffff);
 
 				if (!friendly) {
-					s32 soundnum = SFX_806F;
+					s32 soundnum = SFXMAP_806F;
 
 					if (autogun->base.modelnum == MODEL_CETROOFGUN) {
-						soundnum = SFX_MENU_ERROR;
+						soundnum = SFXMAP_8040_MENU_ERROR;
 					}
 
 					if (autogun->base.modelnum == MODEL_CHRAUTOGUN) {
-						soundnum = SFX_8044;
+						soundnum = SFXMAP_8044;
 						soundgap = 4;
 					}
 
@@ -9938,7 +9938,7 @@ void chopper_increment_movement(struct prop *prop, f32 goalroty, f32 goalrotx, s
 	mtx3_copy(rotmtx3, chopper->base.realrot);
 
 	if (chopper->power > 0.45f && !firing && (chopper->base.flags2 & OBJFLAG2_INVISIBLE) == 0 && obj_is_healthy(&chopper->base)) {
-		soundnum = g_Vars.stagenum == STAGE_EXTRACTION ? SFX_810D : SFX_8110;
+		soundnum = g_Vars.stagenum == STAGE_EXTRACTION ? SFXMAP_810D : SFXMAP_8110;
 
 		ps_create_if_not_dupe(prop, soundnum, PSTYPE_CHOPPERHUM2);
 	} else {
@@ -9975,7 +9975,7 @@ void chopper_increment_movement(struct prop *prop, f32 goalroty, f32 goalrotx, s
 	chopper_increment_barrel(prop, firing);
 
 	if ((chopper->base.flags2 & OBJFLAG2_INVISIBLE) == 0 && obj_is_healthy(&chopper->base)) {
-		soundnum = g_Vars.stagenum == STAGE_EXTRACTION ? SFX_SHIP_HUM : SFX_810F;
+		soundnum = g_Vars.stagenum == STAGE_EXTRACTION ? SFXMAP_810C_SHIP_HUM : SFXMAP_810F;
 
 		ps_create_if_not_dupe(prop, soundnum, PSTYPE_CHOPPERHUM1);
 	} else {
@@ -10469,7 +10469,7 @@ void hovercar_tick(struct prop *prop)
 			if (hovercar->sparkstimer60 < 0) {
 				hovercar->sparkstimer60 = TICKS(50);
 
-				ps_create(NULL, prop, SFX_SHIELD_DAMAGE, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
+				ps_create(NULL, prop, SFXNUM_0064_SHIELD_DAMAGE, -1, -1, PSFLAG_AMBIENT, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 
 				sparks_create(prop->rooms[0], prop, &prop->pos, NULL, 0, SPARKTYPE_DEFAULT);
 			}
@@ -10955,7 +10955,7 @@ u32 obj_tick(struct prop *prop)
 
 			if (!silent) {
 				// Play respawn sound
-				ps_create(NULL, prop, SFX_REGEN, -1,
+				ps_create(NULL, prop, SFXNUM_0052_REGEN, -1,
 						-1, 0, 0, PSTYPE_NONE, 0, -1, 0, -1, -1, -1, -1);
 			}
 		}
@@ -15165,13 +15165,13 @@ bool propobj_interact(struct prop *prop)
 
 		if (handled) {
 			// Typing sound
-			snd_start(var80095200, SFX_TYPING_8118, NULL, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXMAP_8118_TYPING, NULL, -1, -1, -1, -1, -1);
 		}
 
 		menu_set_source_pos(&prop->pos);
 	} else if (obj->type == OBJTYPE_ALARM) {
 		// Button press sound
-		snd_start(var80095200, SFX_PRESS_SWITCH, NULL, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXNUM_00BA_PRESS_SWITCH, NULL, -1, -1, -1, -1, -1);
 
 		if (alarm_is_active()) {
 			alarm_deactivate();
@@ -15804,7 +15804,7 @@ void ammotype_play_pickup_sound(u32 ammotype)
 	case AMMOTYPE_CLOAK:
 	case AMMOTYPE_BOOST:
 	case AMMOTYPE_TOKEN:
-		snd_start(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXNUM_00EA_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
 		break;
 	case AMMOTYPE_REMOTE_MINE:
 	case AMMOTYPE_PROXY_MINE:
@@ -15813,10 +15813,10 @@ void ammotype_play_pickup_sound(u32 ammotype)
 	case AMMOTYPE_MICROCAMERA:
 	case AMMOTYPE_PLASTIQUE:
 	case AMMOTYPE_ECM_MINE:
-		snd_start(var80095200, SFX_PICKUP_MINE, NULL, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXNUM_00EB_PICKUP_MINE, NULL, -1, -1, -1, -1, -1);
 		break;
 	case AMMOTYPE_KNIFE:
-		snd_start(var80095200, SFX_PICKUP_KNIFE, NULL, -1, -1, -1, -1, -1);
+		snd_start(var80095200, SFXNUM_00E9_PICKUP_KNIFE, NULL, -1, -1, -1, -1, -1);
 		break;
 	}
 }
@@ -15826,7 +15826,7 @@ s32 prop_play_pickup_sound(struct prop *prop, s32 weapon)
 	s16 sound;
 
 	if (weapon == WEAPON_COMBATKNIFE || weapon == WEAPON_COMBATKNIFE) {
-		sound = SFX_PICKUP_KNIFE;
+		sound = SFXNUM_00E9_PICKUP_KNIFE;
 	} else if (weapon == WEAPON_REMOTEMINE
 			|| weapon == WEAPON_PROXIMITYMINE
 			|| weapon == WEAPON_TIMEDMINE
@@ -15834,16 +15834,16 @@ s32 prop_play_pickup_sound(struct prop *prop, s32 weapon)
 			|| weapon == WEAPON_TRACERBUG
 			|| weapon == WEAPON_TARGETAMPLIFIER
 			|| weapon == WEAPON_ECMMINE) {
-		sound = SFX_PICKUP_MINE;
+		sound = SFXNUM_00EB_PICKUP_MINE;
 	} else if (weapon == WEAPON_GRENADE
 			|| weapon == WEAPON_GRENADEROUND
 			|| weapon == WEAPON_ROCKET
 			|| weapon == WEAPON_HOMINGROCKET) {
-		sound = SFX_PICKUP_AMMO;
+		sound = SFXNUM_00EA_PICKUP_AMMO;
 	} else if (weapon == WEAPON_LASER) {
-		sound = SFX_PICKUP_LASER;
+		sound = SFXNUM_00F2_PICKUP_LASER;
 	} else {
-		sound = SFX_PICKUP_GUN;
+		sound = SFXNUM_00E8_PICKUP_GUN;
 	}
 
 	return ps_create(NULL, prop, sound, -1,
@@ -15855,7 +15855,7 @@ void weapon_play_pickup_sound(s32 weaponnum)
 	s32 sound;
 
 	if (weaponnum == WEAPON_COMBATKNIFE || weaponnum == WEAPON_COMBATKNIFE) {
-		sound = SFX_PICKUP_KNIFE;
+		sound = SFXNUM_00E9_PICKUP_KNIFE;
 	} else if (weaponnum == WEAPON_REMOTEMINE
 			|| weaponnum == WEAPON_PROXIMITYMINE
 			|| weaponnum == WEAPON_TIMEDMINE
@@ -15863,22 +15863,22 @@ void weapon_play_pickup_sound(s32 weaponnum)
 			|| weaponnum == WEAPON_TARGETAMPLIFIER
 			|| weaponnum == WEAPON_COMMSRIDER
 			|| weaponnum == WEAPON_ECMMINE) {
-		sound = SFX_PICKUP_MINE;
+		sound = SFXNUM_00EB_PICKUP_MINE;
 	} else if (weaponnum == WEAPON_GRENADE
 			|| weaponnum == WEAPON_GRENADEROUND
 			|| weaponnum == WEAPON_ROCKET
 			|| weaponnum == WEAPON_HOMINGROCKET) {
-		sound = SFX_PICKUP_AMMO;
+		sound = SFXNUM_00EA_PICKUP_AMMO;
 	} else if (weaponnum == WEAPON_LASER) {
-		sound = SFX_PICKUP_LASER;
+		sound = SFXNUM_00F2_PICKUP_LASER;
 	} else if (weaponnum == WEAPON_BOLT) {
-		sound = SFX_PICKUP_GUN;
+		sound = SFXNUM_00E8_PICKUP_GUN;
 	} else if (weaponnum == WEAPON_EYESPY) {
-		sound = SFX_PICKUP_KEYCARD;
+		sound = SFXNUM_00E5_PICKUP_KEYCARD;
 	} else if (weaponnum > WEAPON_PSYCHOSISGUN) {
-		sound = SFX_PICKUP_KEYCARD;
+		sound = SFXNUM_00E5_PICKUP_KEYCARD;
 	} else {
-		sound = SFX_PICKUP_GUN;
+		sound = SFXNUM_00E8_PICKUP_GUN;
 	}
 
 	snd_start(var80095200, sound, NULL, -1, -1, -1, -1, -1);
@@ -16194,7 +16194,7 @@ s32 prop_pickup_by_player(struct prop *prop, bool showhudmsg)
 	switch (obj->type) {
 	case OBJTYPE_KEY:
 		if (g_Vars.in_cutscene == false) {
-			snd_start(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXNUM_00E5_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 		}
 
 		if (showhudmsg) {
@@ -16234,7 +16234,7 @@ s32 prop_pickup_by_player(struct prop *prop, bool showhudmsg)
 			}
 
 			if (g_Vars.in_cutscene == false) {
-				snd_start(var80095200, SFX_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_00EA_PICKUP_AMMO, NULL, -1, -1, -1, -1, -1);
 			}
 
 			result = TICKOP_FREE;
@@ -16377,7 +16377,7 @@ s32 prop_pickup_by_player(struct prop *prop, bool showhudmsg)
 			player_set_shield_frac(((struct shieldobj *) prop->obj)->amount);
 
 			if (!g_Vars.in_cutscene) {
-				snd_start(var80095200, SFX_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
+				snd_start(var80095200, SFXNUM_01CD_PICKUP_SHIELD, NULL, -1, -1, -1, -1, -1);
 			}
 
 			if (showhudmsg) {
@@ -16414,7 +16414,7 @@ s32 prop_pickup_by_player(struct prop *prop, bool showhudmsg)
 	case OBJTYPE_TINTEDGLASS:
 	default:
 		if (g_Vars.in_cutscene == false) {
-			snd_start(var80095200, SFX_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXNUM_00E5_PICKUP_KEYCARD, NULL, -1, -1, -1, -1, -1);
 		}
 
 		if (showhudmsg) {
@@ -17149,7 +17149,7 @@ void player_activate_remote_mine_detonator(s32 playernum)
 {
 	g_PlayersDetonatingMines |= 1 << playernum;
 
-	snd_start(var80095200, SFX_DETONATE, 0, -1, -1, -1, -1, -1);
+	snd_start(var80095200, SFXMAP_80AB_DETONATE, 0, -1, -1, -1, -1, -1);
 
 	bgun_start_detonate_animation(playernum);
 }
@@ -18434,42 +18434,42 @@ void door_play_opening_sound(s32 soundtype, struct prop *prop)
 	}
 
 	switch (soundtype) {
-	case 28: sound1 = SFX_DOOR_8007; break;
-	case 1:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801B; break;
-	case 29: sound1 = SFX_DOOR_8015; sound2 = SFX_DOOR_801D; break;
-	case 2:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801C; break;
-	case 3:  sound1 = SFX_DOOR_8014; sound2 = SFX_DOOR_8016; break;
-	case 4:  sound1 = SFX_DOOR_801E; sound2 = SFX_DOOR_8020; break;
-	case 5:  sound1 = SFX_DOOR_8001; break;
-	case 6:  sound1 = SFX_DOOR_8004; break;
-	case 7:  sound1 = SFX_DOOR_8005; break;
-	case 8:  sound1 = SFX_DOOR_800A; sound2 = SFX_DOOR_8008; break;
-	case 9:  sound1 = SFX_DOOR_8004; sound2 = SFX_DOOR_800B; break;
-	case 10: sound1 = SFX_DOOR_800C; break;
-	case 11: sound1 = SFX_DOOR_800E; break;
-	case 12: sound1 = SFX_DOOR_8010; break;
-	case 13: sound1 = SFX_DOOR_8012; break;
-	case 30: sound1 = SFX_DOOR_816B; sound2 = SFX_DOOR_81AA; break;
-	case 14: sound1 = SFX_DOOR_8017; sound2 = SFX_DOOR_8019; break;
-	case 15: sound1 = SFX_DOOR_8022; break;
-	case 25: sound1 = SFX_DOOR_81B8; break;
-	case 16: sound1 = SFX_DOOR_8026; break;
-	case 17: sound1 = SFX_DOOR_801E; break;
+	case 28: sound1 = SFXMAP_8007_DOOR; break;
+	case 1:  sound1 = SFXMAP_801A_DOOR; sound2 = SFXMAP_801B_DOOR; break;
+	case 29: sound1 = SFXMAP_8015_DOOR; sound2 = SFXMAP_801D_DOOR; break;
+	case 2:  sound1 = SFXMAP_801A_DOOR; sound2 = SFXMAP_801C_DOOR; break;
+	case 3:  sound1 = SFXMAP_8014_DOOR; sound2 = SFXMAP_8016_DOOR; break;
+	case 4:  sound1 = SFXMAP_801E_DOOR; sound2 = SFXMAP_8020_DOOR; break;
+	case 5:  sound1 = SFXMAP_8001_DOOR; break;
+	case 6:  sound1 = SFXMAP_8004_DOOR; break;
+	case 7:  sound1 = SFXMAP_8005_DOOR; break;
+	case 8:  sound1 = SFXMAP_800A_DOOR; sound2 = SFXMAP_8008_DOOR; break;
+	case 9:  sound1 = SFXMAP_8004_DOOR; sound2 = SFXMAP_800B_DOOR; break;
+	case 10: sound1 = SFXMAP_800C_DOOR; break;
+	case 11: sound1 = SFXMAP_800E_DOOR; break;
+	case 12: sound1 = SFXMAP_8010_DOOR; break;
+	case 13: sound1 = SFXMAP_8012_DOOR; break;
+	case 30: sound1 = SFXMAP_816B_DOOR; sound2 = SFXMAP_81AA_DOOR; break;
+	case 14: sound1 = SFXMAP_8017_DOOR; sound2 = SFXMAP_8019_DOOR; break;
+	case 15: sound1 = SFXMAP_8022_DOOR; break;
+	case 25: sound1 = SFXMAP_81B8_DOOR; break;
+	case 16: sound1 = SFXMAP_8026_DOOR; break;
+	case 17: sound1 = SFXMAP_801E_DOOR; break;
 	case 18:
-		 sound1 = SFX_DOOR_81B0;
-		 sound2 = SFX_DOOR_8014;
-		 sound3 = SFX_DOOR_8016;
+		 sound1 = SFXMAP_81B0_DOOR;
+		 sound2 = SFXMAP_8014_DOOR;
+		 sound3 = SFXMAP_8016_DOOR;
 		 break;
-	case 19: sound1 = SFX_DOOR_81AE; sound2 = SFX_DOOR_81B3; break;
-	case 26: sound1 = SFX_DOOR_042C; sound2 = SFX_DOOR_042B; break;
-	case 20: sound1 = SFX_DOOR_81B1; sound2 = SFX_DOOR_81B6; break;
-	case 21: sound1 = SFX_DOOR_81A8; sound2 = SFX_DOOR_81AA; break;
-	case 32: sound1 = SFX_DOOR_81AB; sound2 = SFX_DOOR_81AD; break;
-	case 31: sound1 = SFX_DOOR_81AB; sound2 = SFX_DOOR_81B4; break;
-	case 22: sound1 = SFX_DOOR_81AE; sound2 = SFX_DOOR_81B5; break;
-	case 23: sound1 = SFX_DOOR_80AC; sound2 = SFX_DOOR_80AE; break;
-	case 24: sound1 = SFX_DOOR_816B; sound2 = SFX_DOOR_816C; break;
-	case 27: sound1 = SFX_DOOR_8014; sound2 = SFX_DOOR_042B; break;
+	case 19: sound1 = SFXMAP_81AE_DOOR; sound2 = SFXMAP_81B3_DOOR; break;
+	case 26: sound1 = SFXNUM_042C_DOOR; sound2 = SFXNUM_042B_DOOR; break;
+	case 20: sound1 = SFXMAP_81B1_DOOR; sound2 = SFXMAP_81B6_DOOR; break;
+	case 21: sound1 = SFXMAP_81A8_DOOR; sound2 = SFXMAP_81AA_DOOR; break;
+	case 32: sound1 = SFXMAP_81AB_DOOR; sound2 = SFXMAP_81AD_DOOR; break;
+	case 31: sound1 = SFXMAP_81AB_DOOR; sound2 = SFXMAP_81B4_DOOR; break;
+	case 22: sound1 = SFXMAP_81AE_DOOR; sound2 = SFXMAP_81B5_DOOR; break;
+	case 23: sound1 = SFXMAP_80AC_DOOR; sound2 = SFXMAP_80AE_DOOR; break;
+	case 24: sound1 = SFXMAP_816B_DOOR; sound2 = SFXMAP_816C_DOOR; break;
+	case 27: sound1 = SFXMAP_8014_DOOR; sound2 = SFXNUM_042B_DOOR; break;
 	}
 
 	if (sound1) {
@@ -18511,29 +18511,29 @@ void door_play_closing_sound(s32 soundtype, struct prop *prop)
 	}
 
 	switch (soundtype) {
-	case 28: sound1 = SFX_DOOR_8007; break;
-	case 1:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801B; break;
-	case 29: sound1 = SFX_DOOR_8015; sound2 = SFX_DOOR_801D; break;
-	case 2:  sound1 = SFX_DOOR_801A; sound2 = SFX_DOOR_801C; break;
-	case 3:  sound1 = SFX_DOOR_8014; sound2 = SFX_DOOR_8016; break;
-	case 4:  sound1 = SFX_DOOR_801E; sound2 = SFX_DOOR_8020; break;
-	case 5:  sound1 = SFX_DOOR_8001; break;
-	case 8:  sound1 = SFX_DOOR_800A; sound2 = SFX_DOOR_8008; break;
-	case 9:  sound1 = SFX_DOOR_8004; sound2 = SFX_DOOR_800B; break;
-	case 10: sound1 = SFX_DOOR_800C; break;
-	case 30: sound1 = SFX_DOOR_816B; sound2 = SFX_DOOR_81AA; break;
-	case 14: sound1 = SFX_DOOR_8017; sound2 = SFX_DOOR_8019; break;
-	case 15: sound1 = SFX_DOOR_8022; break;
-	case 25: sound1 = SFX_DOOR_81B8; break;
-	case 16: sound1 = SFX_DOOR_8026; break;
-	case 17: sound1 = SFX_DOOR_801E; break;
+	case 28: sound1 = SFXMAP_8007_DOOR; break;
+	case 1:  sound1 = SFXMAP_801A_DOOR; sound2 = SFXMAP_801B_DOOR; break;
+	case 29: sound1 = SFXMAP_8015_DOOR; sound2 = SFXMAP_801D_DOOR; break;
+	case 2:  sound1 = SFXMAP_801A_DOOR; sound2 = SFXMAP_801C_DOOR; break;
+	case 3:  sound1 = SFXMAP_8014_DOOR; sound2 = SFXMAP_8016_DOOR; break;
+	case 4:  sound1 = SFXMAP_801E_DOOR; sound2 = SFXMAP_8020_DOOR; break;
+	case 5:  sound1 = SFXMAP_8001_DOOR; break;
+	case 8:  sound1 = SFXMAP_800A_DOOR; sound2 = SFXMAP_8008_DOOR; break;
+	case 9:  sound1 = SFXMAP_8004_DOOR; sound2 = SFXMAP_800B_DOOR; break;
+	case 10: sound1 = SFXMAP_800C_DOOR; break;
+	case 30: sound1 = SFXMAP_816B_DOOR; sound2 = SFXMAP_81AA_DOOR; break;
+	case 14: sound1 = SFXMAP_8017_DOOR; sound2 = SFXMAP_8019_DOOR; break;
+	case 15: sound1 = SFXMAP_8022_DOOR; break;
+	case 25: sound1 = SFXMAP_81B8_DOOR; break;
+	case 16: sound1 = SFXMAP_8026_DOOR; break;
+	case 17: sound1 = SFXMAP_801E_DOOR; break;
 	case 18:
-		 sound1 = SFX_DOOR_81B0;
-		 sound2 = SFX_DOOR_8014;
-		 sound3 = SFX_DOOR_8016;
+		 sound1 = SFXMAP_81B0_DOOR;
+		 sound2 = SFXMAP_8014_DOOR;
+		 sound3 = SFXMAP_8016_DOOR;
 		 break;
-	case 23: sound1 = SFX_DOOR_80AC; sound2 = SFX_DOOR_80AE; break;
-	case 24: sound1 = SFX_DOOR_816B; sound2 = SFX_DOOR_816C; break;
+	case 23: sound1 = SFXMAP_80AC_DOOR; sound2 = SFXMAP_80AE_DOOR; break;
+	case 24: sound1 = SFXMAP_816B_DOOR; sound2 = SFXMAP_816C_DOOR; break;
 	}
 
 	if (sound1) {
@@ -18570,33 +18570,33 @@ void door_play_opened_sound(s32 soundtype, struct prop *prop)
 	}
 
 	switch (soundtype) {
-	case 28: sound = SFX_DOOR_801A; break;
-	case 1:  sound = SFX_DOOR_801A; break;
-	case 29: sound = SFX_DOOR_8015; break;
-	case 2:  sound = SFX_DOOR_801A; break;
-	case 3:  sound = SFX_DOOR_8015; break;
-	case 4:  sound = SFX_DOOR_801F; break;
-	case 5:  sound = SFX_DOOR_8002; break;
-	case 8:  sound = SFX_DOOR_801A; break;
-	case 9:  sound = SFX_DOOR_8003; break;
-	case 10: sound = SFX_DOOR_800D; break;
-	case 30: sound = SFX_DOOR_816D; break;
-	case 14: sound = SFX_DOOR_816D; break;
-	case 15: sound = SFX_DOOR_8021; break;
-	case 25: sound = SFX_DOOR_81B7; break;
-	case 16: sound = SFX_DOOR_8027; break;
-	case 17: sound = SFX_DOOR_801F; break;
-	case 18: sound = SFX_DOOR_8015; break;
-	case 26: sound = SFX_DOOR_042C; break;
-	case 19: sound = SFX_DOOR_81AF; break;
-	case 20: sound = SFX_DOOR_81B2; break;
-	case 21: sound = SFX_DOOR_81A8; break;
-	case 32: sound = SFX_DOOR_81AB; break;
-	case 31: sound = SFX_DOOR_81AB; break;
-	case 22: sound = SFX_DOOR_81AF; break;
-	case 23: sound = SFX_DOOR_80AD; break;
-	case 24: sound = SFX_DOOR_816D; break;
-	case 27: sound = SFX_DOOR_8015; break;
+	case 28: sound = SFXMAP_801A_DOOR; break;
+	case 1:  sound = SFXMAP_801A_DOOR; break;
+	case 29: sound = SFXMAP_8015_DOOR; break;
+	case 2:  sound = SFXMAP_801A_DOOR; break;
+	case 3:  sound = SFXMAP_8015_DOOR; break;
+	case 4:  sound = SFXMAP_801F_DOOR; break;
+	case 5:  sound = SFXMAP_8002_DOOR; break;
+	case 8:  sound = SFXMAP_801A_DOOR; break;
+	case 9:  sound = SFXMAP_8003_DOOR; break;
+	case 10: sound = SFXMAP_800D_DOOR; break;
+	case 30: sound = SFXMAP_816D_DOOR; break;
+	case 14: sound = SFXMAP_816D_DOOR; break;
+	case 15: sound = SFXMAP_8021_DOOR; break;
+	case 25: sound = SFXMAP_81B7_DOOR; break;
+	case 16: sound = SFXMAP_8027_DOOR; break;
+	case 17: sound = SFXMAP_801F_DOOR; break;
+	case 18: sound = SFXMAP_8015_DOOR; break;
+	case 26: sound = SFXNUM_042C_DOOR; break;
+	case 19: sound = SFXMAP_81AF_DOOR; break;
+	case 20: sound = SFXMAP_81B2_DOOR; break;
+	case 21: sound = SFXMAP_81A8_DOOR; break;
+	case 32: sound = SFXMAP_81AB_DOOR; break;
+	case 31: sound = SFXMAP_81AB_DOOR; break;
+	case 22: sound = SFXMAP_81AF_DOOR; break;
+	case 23: sound = SFXMAP_80AD_DOOR; break;
+	case 24: sound = SFXMAP_816D_DOOR; break;
+	case 27: sound = SFXMAP_8015_DOOR; break;
 	}
 
 	if (sound) {
@@ -18623,30 +18623,30 @@ void door_play_closed_sound(s32 soundtype, struct prop *prop)
 	}
 
 	switch (soundtype) {
-	case 28: sound = SFX_DOOR_801A; break;
-	case 1:  sound = SFX_DOOR_801A; break;
-	case 29: sound = SFX_DOOR_8015; break;
-	case 2:  sound = SFX_DOOR_801A; break;
-	case 3:  sound = SFX_DOOR_8015; break;
-	case 4:  sound = SFX_DOOR_801F; break;
-	case 5:  sound = SFX_DOOR_8002; break;
-	case 6:  sound = SFX_DOOR_8003; break;
-	case 7:  sound = SFX_DOOR_8006; break;
-	case 8:  sound = SFX_DOOR_801A; break;
-	case 9:  sound = SFX_DOOR_8003; break;
-	case 10: sound = SFX_DOOR_800D; break;
-	case 11: sound = SFX_DOOR_800F; break;
-	case 12: sound = SFX_DOOR_8011; break;
-	case 13: sound = SFX_DOOR_8013; break;
-	case 30: sound = SFX_DOOR_816D; break;
-	case 14: sound = SFX_DOOR_8018; break;
-	case 15: sound = SFX_DOOR_8021; break;
-	case 25: sound = SFX_DOOR_81B7; break;
-	case 16: sound = SFX_DOOR_8027; break;
-	case 17: sound = SFX_DOOR_801F; break;
-	case 18: sound = SFX_DOOR_8015; break;
-	case 23: sound = SFX_DOOR_80AD; break;
-	case 24: sound = SFX_DOOR_816D; break;
+	case 28: sound = SFXMAP_801A_DOOR; break;
+	case 1:  sound = SFXMAP_801A_DOOR; break;
+	case 29: sound = SFXMAP_8015_DOOR; break;
+	case 2:  sound = SFXMAP_801A_DOOR; break;
+	case 3:  sound = SFXMAP_8015_DOOR; break;
+	case 4:  sound = SFXMAP_801F_DOOR; break;
+	case 5:  sound = SFXMAP_8002_DOOR; break;
+	case 6:  sound = SFXMAP_8003_DOOR; break;
+	case 7:  sound = SFXMAP_8006_DOOR; break;
+	case 8:  sound = SFXMAP_801A_DOOR; break;
+	case 9:  sound = SFXMAP_8003_DOOR; break;
+	case 10: sound = SFXMAP_800D_DOOR; break;
+	case 11: sound = SFXMAP_800F_DOOR; break;
+	case 12: sound = SFXMAP_8011_DOOR; break;
+	case 13: sound = SFXMAP_8013_DOOR; break;
+	case 30: sound = SFXMAP_816D_DOOR; break;
+	case 14: sound = SFXMAP_8018_DOOR; break;
+	case 15: sound = SFXMAP_8021_DOOR; break;
+	case 25: sound = SFXMAP_81B7_DOOR; break;
+	case 16: sound = SFXMAP_8027_DOOR; break;
+	case 17: sound = SFXMAP_801F_DOOR; break;
+	case 18: sound = SFXMAP_8015_DOOR; break;
+	case 23: sound = SFXMAP_80AD_DOOR; break;
+	case 24: sound = SFXMAP_816D_DOOR; break;
 	}
 
 	if (sound) {
@@ -19827,7 +19827,7 @@ void gas_tick(void)
 				g_GasLastCough60 = g_Vars.lvframe60;
 
 				if (g_GasReleaseTimer240 >= 600) {
-					snd_start(var80095200, SFX_0037, 0, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXNUM_0037, 0, -1, -1, -1, -1, -1);
 				}
 
 				if (g_GasReleaseTimer240 >= 1800) {
@@ -19843,7 +19843,7 @@ void gas_tick(void)
 				g_GasSoundTimer240 += g_Vars.lvupdate60freal;
 
 				if (!g_GasAudioHandle && !lv_is_paused()) {
-					soundnum = SFX_0037;
+					soundnum = SFXNUM_0037;
 					snd_start(var80095200, soundnum, &g_GasAudioHandle, -1, -1, -1, -1, -1);
 				}
 
@@ -19993,13 +19993,13 @@ void alarm_tick(void)
 		// These sounds are alarm sounds.
 		// They go for a fraction of a second and are repeated by this function.
 		switch (g_Vars.stagenum) {
-		case STAGE_CHICAGO:      sound = SFX_ALARM_CHICAGO; break;
-		case STAGE_G5BUILDING:   sound = SFX_ALARM_2; break;
-		case STAGE_AIRBASE:      sound = SFX_ALARM_AIRBASE; break;
-		case STAGE_PELAGIC:      sound = SFX_ALARM_2; break;
-		case STAGE_ATTACKSHIP:   sound = SFX_ALARM_ATTACKSHIP; break;
-		case STAGE_INFILTRATION: sound = SFX_ALARM_INFILTRATION; break;
-		default:                 sound = SFX_ALARM_DEFAULT; break;
+		case STAGE_CHICAGO:      sound = SFXNUM_0455_ALARM_CHICAGO | 0x6000; break;
+		case STAGE_G5BUILDING:   sound = SFXNUM_00A2_ALARM_2; break;
+		case STAGE_AIRBASE:      sound = SFXNUM_00A1_ALARM_AIRBASE; break;
+		case STAGE_PELAGIC:      sound = SFXNUM_00A2_ALARM_2; break;
+		case STAGE_ATTACKSHIP:   sound = SFXNUM_05C2_ALARM_ATTACKSHIP; break;
+		case STAGE_INFILTRATION: sound = SFXNUM_04AC_ALARM_INFILTRATION; break;
+		default:                 sound = SFXNUM_00A3_ALARM_DEFAULT; break;
 		}
 
 		if (!lv_is_paused()) {
@@ -20194,22 +20194,22 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 			switch (weaponnum) {
 			case WEAPON_CHOPPERGUN:
 				ps_stop_sound(fromprop, PSTYPE_CHOPPERGUN, 0xffff);
-				ps_create(0, fromprop, SFX_810E, -1, -1, 0, 0, PSTYPE_CHOPPERGUN, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				ps_create(0, fromprop, SFXMAP_810E, -1, -1, 0, 0, PSTYPE_CHOPPERGUN, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 4;
 				break;
 			case WEAPON_RCP45:
 				ps_stop_sound(fromprop, PSTYPE_GENERAL, 0xffff);
-				ps_create(0, fromprop, SFX_805A, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				ps_create(0, fromprop, SFXMAP_805A, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 2;
 				break;
 			case WEAPON_WATCHLASER:
 				ps_stop_sound(fromprop, PSTYPE_GENERAL, 0xffff);
-				ps_create(0, fromprop, SFX_8043, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				ps_create(0, fromprop, SFXMAP_8043, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 8;
 				break;
 			default:
 				ps_stop_sound(fromprop, PSTYPE_GENERAL, 0xffff);
-				ps_create(0, fromprop, SFX_8045, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+				ps_create(0, fromprop, SFXMAP_8045, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 				arg1->unk08 = g_Vars.lvframe60 + 2;
 				break;
 			}
@@ -20263,7 +20263,7 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 						rocket->base.projectile->unk014 = sp120.y;
 						rocket->base.projectile->unk018 = sp120.z;
 
-						ps_create(NULL, rocket->base.prop, SFX_LAUNCH_ROCKET_8053, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
+						ps_create(NULL, rocket->base.prop, SFXMAP_8053_LAUNCH_ROCKET, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
 					}
 				}
 			}

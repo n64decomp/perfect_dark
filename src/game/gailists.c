@@ -1900,9 +1900,9 @@ u8 func0007_alerted[] = {
 		if_self_flag_bankx_eq(CHRFLAG1_CAN_RELOAD, FALSE, BANK_1, /*goto*/ 0x16)
 		if_timer_lt(120, /*goto*/ 0x16)
 #if VERSION >= VERSION_NTSC_1_0
-		assign_sound(SFX_80F6, CHANNEL_7)
+		assign_sound(SFXMAP_80F6, CHANNEL_7)
 #else
-		assign_sound(SFX_01D9, CHANNEL_7)
+		assign_sound(SFXNUM_01D9_RELOAD_INSERT, CHANNEL_7)
 #endif
 		bind_channel_to_entity(CHANNEL_7, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_CAN_RELOAD, BANK_1)
@@ -2321,9 +2321,9 @@ u8 func0007_alerted[] = {
 		if_self_flag_bankx_eq(CHRFLAG1_CAN_RELOAD, FALSE, BANK_1, /*goto*/ 0x16)
 		if_timer_lt(120, /*goto*/ 0x16)
 #if VERSION >= VERSION_NTSC_1_0
-		assign_sound(SFX_80F6, CHANNEL_6)
+		assign_sound(SFXMAP_80F6, CHANNEL_6)
 #else
-		assign_sound(SFX_01D9, CHANNEL_6)
+		assign_sound(SFXNUM_01D9_RELOAD_INSERT, CHANNEL_6)
 #endif
 		bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_CAN_RELOAD, BANK_1)
@@ -2708,9 +2708,9 @@ u8 func0007_alerted[] = {
 		if_self_flag_bankx_eq(CHRFLAG1_CAN_RELOAD, FALSE, BANK_1, /*goto*/ 0x16)
 		if_timer_lt(120, /*goto*/ 0x16)
 #if VERSION >= VERSION_NTSC_1_0
-		assign_sound(SFX_80F6, CHANNEL_6)
+		assign_sound(SFXMAP_80F6, CHANNEL_6)
 #else
-		assign_sound(SFX_01D9, CHANNEL_6)
+		assign_sound(SFXNUM_01D9_RELOAD_INSERT, CHANNEL_6)
 #endif
 		bind_channel_to_entity(CHANNEL_6, CHR_SELF, 0x0bb8, 0x1770, 0x01)
 		unset_self_flag_bankx(CHRFLAG1_CAN_RELOAD, BANK_1)

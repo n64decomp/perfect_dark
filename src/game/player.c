@@ -3283,7 +3283,7 @@ void player_tick(bool arg0)
 					eyespy->camerashuttertime = 0;
 					eyespy->startuptimer60 = 0;
 					eyespy->prop->chr->soundtimer = TICKS(10);
-					snd_start(var80095200, SFX_DETONATE, NULL, -1, -1, -1, -1, -1);
+					snd_start(var80095200, SFXMAP_80AB_DETONATE, NULL, -1, -1, -1, -1, -1);
 				}
 
 				g_Vars.currentplayer->invdowntime = TICKS(-40);

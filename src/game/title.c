@@ -160,7 +160,7 @@ void title_init_legal(void)
 	// Play a sound if player has successfully enabled the crash screen.
 	// This is done in main_init by holding all four C buttons.
 	if (g_CrashEnabled) {
-		snd_start(var80095200, SFX_8113, 0, -1, -1, -1.0f, -1, -1);
+		snd_start(var80095200, SFXMAP_8113, 0, -1, -1, -1.0f, -1, -1);
 	}
 #endif
 }
@@ -1738,7 +1738,7 @@ Gfx *title_render_rare_presents(Gfx *gdl)
 
 	if (g_TitleTypewriterFinishing) {
 		if (g_TitleAudioHandle == NULL) {
-			snd_start(var80095200, SFX_HUDMSG, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
+			snd_start(var80095200, SFXNUM_003E_HUDMSG, &g_TitleAudioHandle, -1, -1, -1, -1, -1);
 		}
 	} else {
 		if (g_TitleAudioHandle) {
