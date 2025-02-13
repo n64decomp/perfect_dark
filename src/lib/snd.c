@@ -1605,7 +1605,7 @@ bool snd_stop_mp3(s16 soundnum)
 	return true;
 }
 
-void snd0000fc40(s32 arg0)
+void snd_stub_1arg(s32 arg0)
 {
 	// empty
 }
@@ -1724,7 +1724,7 @@ void snd_unpause_mp3(void)
 	}
 }
 
-void snd0000fe80(void)
+void snd_stub_0args(void)
 {
 	// empty
 }
@@ -1890,14 +1890,14 @@ void snd_tick(void)
 	}
 }
 
-s16 snd0001034c(s16 sfxnum)
+s16 snd_sfxref_to_sndnum(s16 sfxnum)
 {
-	union soundnumhack sfxref;
+	union soundnumhack tmp;
 
-	sfxref.packed = sfxnum;
-	sfxnum = sfxref.id;
+	tmp.packed = sfxnum;
+	sfxnum = tmp.id;
 
-	if (sfxref.id);
+	if (tmp.id);
 
 	return sfxnum;
 }
@@ -1963,11 +1963,7 @@ void snd_adjust(struct sndstate **handle, bool ismp3, s32 vol, s32 pan, s32 soun
 	struct audioconfig *config;
 
 	if (forcefxmix || fxmixarg != -1) {
-		if (fxmixarg != -1) {
-			fxmix = fxmixarg;
-		} else {
-			fxmix = 0;
-		}
+		fxmix = fxmixarg != -1 ? fxmixarg : 0;
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (pan != -1 && g_SoundMode == SOUNDMODE_SURROUND && (pan & 0x80)) {
@@ -2037,7 +2033,23 @@ void snd_adjust(struct sndstate **handle, bool ismp3, s32 vol, s32 pan, s32 soun
 	}
 }
 
-struct sndstate *snd00010718(struct sndstate **handle, bool ismp3, s32 volume, s32 pan, s32 soundnum, f32 pitch, s32 fxbus, s32 fxmixarg, bool forcefxmix)
+/**
+ * Wrapper around snd_start, but using the same arguments as snd_adjust.
+ *
+ * Unlike snd_start, this function does the follow "extra" things:
+ * - Allows increasing the fxmix by 128 (likely to do with surround sound data)
+ * - Applies volpercentage from config
+ * - Applies pan from config
+ * - Applies language filter if flagged as offensive in config
+ *
+ * The function starts the sound by ensuring the current thread is higher
+ * priority than the audio thread. This doesn't matter so this is pointless.
+ *
+ * It is likely that snd_adjust was written first, then copied to create
+ * snd_start_extra, and because snd_adjust has to be threadsafe they made this
+ * one threadsafe as well.
+ */
+struct sndstate *snd_start_extra(struct sndstate **handle, bool ismp3, s32 volume, s32 pan, s32 soundnum, f32 pitch, s32 fxbus, s32 fxmixarg, bool forcefxmix)
 {
 	OSPri prevpri = osGetThreadPri(NULL);
 	s32 fxmix = -1;
@@ -2049,11 +2061,7 @@ struct sndstate *snd00010718(struct sndstate **handle, bool ismp3, s32 volume, s
 	osSetThreadPri(0, osGetThreadPri(&g_AudioManager.thread) + 1);
 
 	if (forcefxmix || fxmixarg != -1) {
-		if (fxmixarg != -1) {
-			fxmix = fxmixarg;
-		} else {
-			fxmix = 0;
-		}
+		fxmix = fxmixarg != -1 ? fxmixarg : 0;
 
 #if VERSION >= VERSION_NTSC_1_0
 		if (pan != -1 && g_SoundMode == SOUNDMODE_SURROUND && (pan & 0x80)) {

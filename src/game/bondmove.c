@@ -1966,7 +1966,7 @@ void bmove_tick(bool allowc1x, bool allowc1y, bool allowc1buttons, bool ignorec2
 				sound = footstep_choose_sound(chr, distance > 10);
 
 				if (sound != -1) {
-					snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, sound, 1, 1, -1, true);
+					snd_start_extra(NULL, false, AL_VOL_FULL, AL_PAN_CENTER, sound, 1, 1, -1, true);
 				}
 			}
 		}

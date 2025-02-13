@@ -2209,7 +2209,7 @@ void lv_tick(void)
 					&& g_MiscAudioHandle == NULL
 					&& !lv_is_paused()
 					&& nexttime < TICKS(g_MpTimeLimit60)) {
-				snd00010718(&g_MiscAudioHandle, 0, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_00A3_ALARM_DEFAULT, 1, 1, -1, true);
+				snd_start_extra(&g_MiscAudioHandle, false, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_00A3_ALARM_DEFAULT, 1, 1, -1, true);
 			}
 		}
 

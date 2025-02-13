@@ -1058,16 +1058,16 @@ void eyespy_process_input(bool allowbuttons)
 
 		switch (g_EyespyHit) {
 		case EYESPYHIT_BG:
-			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, 1);
+			snd_start_extra(NULL, false, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, true);
 			break;
 		case EYESPYHIT_OBJ:
-			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, 1);
+			snd_start_extra(NULL, false, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, true);
 			break;
 		case EYESPYHIT_DOOR:
-			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, 1);
+			snd_start_extra(NULL, false, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, true);
 			break;
 		case EYESPYHIT_CHR:
-			snd00010718(NULL, 0, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, 1);
+			snd_start_extra(NULL, false, 16000, AL_PAN_CENTER, SFXMAP_808C_EYESPYHIT, 1, 1, -1, true);
 			break;
 		case EYESPYHIT_DAMAGE:
 			snd_start(var80095200, SFXNUM_00F2_PICKUP_LASER, NULL, -1, -1, -1, -1, -1);

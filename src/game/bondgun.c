@@ -674,10 +674,10 @@ void bgun_tick_anim(struct hand *hand, struct modeldef *modeldef)
 							case GUNCMD_PLAYSOUND:
 #if VERSION >= VERSION_NTSC_1_0
 								if (hasspeed) {
-									snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, cmd->soundnum, speed, 1, -1, 1);
+									snd_start_extra(NULL, false, AL_VOL_FULL, AL_PAN_CENTER, cmd->soundnum, speed, 1, -1, true);
 									hasspeed = false;
 								} else {
-									snd00010718(0, 0, AL_VOL_FULL, AL_PAN_CENTER, cmd->soundnum, 1.0f, 1, -1, 1);
+									snd_start_extra(NULL, false, AL_VOL_FULL, AL_PAN_CENTER, cmd->soundnum, 1.0f, 1, -1, true);
 								}
 #else
 								audiohandle = snd_start(var80095200, cmd->soundnum, NULL, -1, -1, -1, -1, -1);

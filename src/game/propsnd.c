@@ -438,18 +438,18 @@ void ps_tick_channel(s32 channelnum)
 #if VERSION >= VERSION_NTSC_1_0
 					if (channel->flags & PSFLAG_AMBIENT) {
 						if (newvol) {
-							snd00010718(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
-									channel->requestedsoundnum, newpitch, channel->fxbus, newfx, 1);
+							snd_start_extra(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
+									channel->requestedsoundnum, newpitch, channel->fxbus, newfx, true);
 						}
 					} else {
 						if (newvol) {
-							snd00010718(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
-									channel->requestedsoundnum, newpitch, channel->fxbus, newfx, 1);
+							snd_start_extra(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
+									channel->requestedsoundnum, newpitch, channel->fxbus, newfx, true);
 						}
 					}
 #else
-					snd00010718(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
-							channel->requestedsoundnum, newpitch, channel->fxbus, newfx, 1);
+					snd_start_extra(&channel->audiohandle, channel->flags & PSFLAG_ISMP3, newvol, newpan,
+							channel->requestedsoundnum, newpitch, channel->fxbus, newfx, true);
 #endif
 				}
 

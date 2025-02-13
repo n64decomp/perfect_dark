@@ -455,7 +455,7 @@ void htm_tick_chr(struct chrdata *chr)
 #else
 						hudmsg_create_with_flags(lang_get(L_MPWEAPONS_019), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE); // "You need to use the Data Uplink."
 #endif
-						snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_01CC, 1, 1, -1, 1);
+						snd_start_extra(NULL, false, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_01CC, 1, 1, -1, true);
 					}
 				}
 			}
@@ -529,7 +529,7 @@ void htm_tick_chr(struct chrdata *chr)
 				hudmsg_create_with_flags(lang_get(L_MPWEAPONS_017), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
 				ps_stop_sound(data->terminals[data->dlterminalnum].prop, PSTYPE_GENERAL, 0xffff);
-				snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_01CC, 1, 1, -1, 1);
+				snd_start_extra(NULL, false, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_01CC, 1, 1, -1, true);
 			}
 
 			data->dlterminalnum = -1;
@@ -550,7 +550,7 @@ void htm_tick_chr(struct chrdata *chr)
 					hudmsg_create_with_flags(lang_get(L_MPWEAPONS_016), HUDMSGTYPE_MPSCENARIO, HUDMSGFLAG_ONLYIFALIVE);
 #endif
 					ps_stop_sound(data->terminals[data->dlterminalnum].prop, PSTYPE_GENERAL, 0xffff);
-					snd00010718(NULL, 0, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_01C1, 1, 1, -1, 1);
+					snd_start_extra(NULL, false, AL_VOL_FULL, AL_PAN_CENTER, SFXNUM_01C1, 1, 1, -1, true);
 				}
 
 				data->dlterminalnum = -1;
