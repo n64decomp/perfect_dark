@@ -1,7 +1,7 @@
 #include <ultra64.h>
 #include "n_synthInternals.h"
 
-s32 func00037fc0(s32 arg0, Acmd **cmd);
+s32 mp3_make_samples(s32 arg0, Acmd **cmd);
 void func0003ba64(struct fx *fx, f32 outputrate);
 
 Acmd *n_alMainBusPull(s32 sampleOffset, Acmd *p)
@@ -9,7 +9,7 @@ Acmd *n_alMainBusPull(s32 sampleOffset, Acmd *p)
 	Acmd *ptr = p;
 	s32 i;
 
-	if (!func00037fc0(FIXED_SAMPLE, &ptr)) {
+	if (!mp3_make_samples(FIXED_SAMPLE, &ptr)) {
 		aClearBuffer(ptr++, N_AL_MAIN_L_OUT, N_AL_DIVIDED << 1);
 	}
 

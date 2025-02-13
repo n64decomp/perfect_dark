@@ -2438,9 +2438,9 @@ void lv_set_paused(bool paused)
 {
 	if (paused) {
 		pak_disable_rumble_for_all_players();
-		snd0000fe20();
+		snd_pause_mp3();
 	} else {
-		snd0000fe50();
+		snd_unpause_mp3();
 		pak_enable_rumble_for_all_players();
 	}
 

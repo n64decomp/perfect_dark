@@ -1847,14 +1847,14 @@ const f32 var700596bc[] = {
 	0.99999314546585,
 };
 
-const u32 var700596dc[2][15] = {
-	{ 0, 8000,  16000, 24000, 32000, 40000, 48000, 56000, 64000,  80000,  96000,  112000, 128000, 144000, 160000 },
-	{ 0, 32000, 40000, 48000, 56000, 64000, 80000, 96000, 112000, 128000, 160000, 192000, 224000, 256000, 320000 },
+const u32 g_BitRateTable[2][15] = {
+	/* MPEG 2 */ { 0, 8000,  16000, 24000, 32000, 40000, 48000, 56000, 64000,  80000,  96000,  112000, 128000, 144000, 160000 },
+	/* MPEG 1 */ { 0, 32000, 40000, 48000, 56000, 64000, 80000, 96000, 112000, 128000, 160000, 192000, 224000, 256000, 320000 },
 };
 
-const u32 var70059754[2][4] = {
-	{ 22050, 24000, 16000, 22050 },
-	{ 44100, 48000, 32000, 44100 },
+const u32 g_SampleRateTable[2][4] = {
+	/* MPEG 2 */ { 22050, 24000, 16000, 22050 },
+	/* MPEG 1 */ { 44100, 48000, 32000, 44100 },
 };
 
 const u32 var70059774[] = {0xbd03ba34};
@@ -2488,7 +2488,7 @@ bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch)
 	block_type = stream->block_type[0][ch];
 	window_switching = stream->window_switching[0][ch];
 
-	if ((stream->unk3bc4 != 1 && stream->unk3bc4 != 3) || ch != 1) {
+	if ((stream->channelmodeext != 1 && stream->channelmodeext != 3) || ch != 1) {
 		sp48 = 0;
 
 		if (compress < 400) {
@@ -2515,7 +2515,7 @@ bool mp3dec00041600(struct asistream *stream, u32 gr, u32 ch)
 		}
 	}
 
-	if (stream->unk3bc4 == 1 || stream->unk3bc4 == 3) {
+	if (stream->channelmodeext == 1 || stream->channelmodeext == 3) {
 		if (ch == 1) {
 			stream->unk3ef8 = compress % 2;
 			sp38 = compress >> 1;
@@ -2822,7 +2822,7 @@ bool mp3dec_set_side_info(struct asistream *stream)
 		stream->unk206c = stream->channelmode == CHANNELMODE_SINGLEMONO ? 9 : 17;
 	}
 
-	sp34 = stream->unk04(stream->unk00, &stream->buffer[stream->unk2068], stream->unk206c, -1);
+	sp34 = stream->dmafunc(stream->unk00, &stream->buffer[stream->unk2068], stream->unk206c, -1);
 
 	if (stream->unk206c != sp34) {
 		return false;
@@ -2834,24 +2834,24 @@ bool mp3dec_set_side_info(struct asistream *stream)
 	stream->numgranules = stream->version != VERSION_2 ? 2 : 1;
 
 	if (stream->version != VERSION_2) {
-		stream->main_data_begin = mp3util_get_bits(stream->buffer, &stream->count, 9);
+		stream->main_data_begin = mp3util_get_bits(stream->buffer, &stream->offset, 9);
 
 		// skip private bits
 		stream->numchannels == 1
-			? mp3util_get_bits(stream->buffer, &stream->count, 5)
-			: mp3util_get_bits(stream->buffer, &stream->count, 3);
+			? mp3util_get_bits(stream->buffer, &stream->offset, 5)
+			: mp3util_get_bits(stream->buffer, &stream->offset, 3);
 	} else {
-		stream->main_data_begin = mp3util_get_bits(stream->buffer, &stream->count, 8);
+		stream->main_data_begin = mp3util_get_bits(stream->buffer, &stream->offset, 8);
 
 		stream->numchannels == 1
-			? mp3util_get_bits(stream->buffer, &stream->count, 1)
-			: mp3util_get_bits(stream->buffer, &stream->count, 2);
+			? mp3util_get_bits(stream->buffer, &stream->offset, 1)
+			: mp3util_get_bits(stream->buffer, &stream->offset, 2);
 	}
 
 	if (stream->version != VERSION_2) {
 		for (ch = 0; ch < stream->numchannels; ch++) {
 			for (scfsi_band = 0; scfsi_band < 4; scfsi_band++) {
-				stream->scfsi[ch][scfsi_band] = mp3util_get_bits(stream->buffer, &stream->count, 1);
+				stream->scfsi[ch][scfsi_band] = mp3util_get_bits(stream->buffer, &stream->offset, 1);
 			}
 		}
 	}
@@ -2864,53 +2864,53 @@ bool mp3dec_set_side_info(struct asistream *stream)
 
 	for (gr = 0; gr < stream->numgranules; gr++) {
 		for (ch = 0; ch < stream->numchannels; ch++) {
-			stream->part2_3_length[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 12);
-			stream->big_value[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 9);
-			stream->global_gain[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 8);
-			stream->scalefac_compress[gr][ch] = sp28 ? mp3util_get_bits(stream->buffer, &stream->count, sp28) : 0;
-			stream->window_switching[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 1);
+			stream->part2_3_length[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 12);
+			stream->big_value[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 9);
+			stream->global_gain[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 8);
+			stream->scalefac_compress[gr][ch] = sp28 ? mp3util_get_bits(stream->buffer, &stream->offset, sp28) : 0;
+			stream->window_switching[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 1);
 
 			if (stream->window_switching[gr][ch]) {
-				stream->block_type[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 2);
-				stream->mixed_block_flag[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 1);
+				stream->block_type[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 2);
+				stream->mixed_block_flag[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 1);
 
 				for (region = 0; region < 2; region++) {
-					stream->table_select[gr][ch][region] = mp3util_get_bits(stream->buffer, &stream->count, 5);
+					stream->table_select[gr][ch][region] = mp3util_get_bits(stream->buffer, &stream->offset, 5);
 				}
 
 				stream->table_select[gr][ch][2] = 0;
 
 				for (window = 0; window < 3; window++) {
-					stream->subblock_gain[gr][ch][window] = mp3util_get_bits(stream->buffer, &stream->count, 3);
+					stream->subblock_gain[gr][ch][window] = mp3util_get_bits(stream->buffer, &stream->offset, 3);
 				}
 			} else {
 				stream->block_type[gr][ch] = 0;
 				stream->mixed_block_flag[gr][ch] = false;
 
 				for (region = 0; region < 3; region++) {
-					stream->table_select[gr][ch][region] = mp3util_get_bits(stream->buffer, &stream->count, 5);
+					stream->table_select[gr][ch][region] = mp3util_get_bits(stream->buffer, &stream->offset, 5);
 				}
 
-				stream->region0_count[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 4);
-				stream->region1_count[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 3);
+				stream->region0_count[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 4);
+				stream->region1_count[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 3);
 			}
 
 			if (stream->version != VERSION_2) {
-				stream->preflag[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 1);
+				stream->preflag[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 1);
 			}
 
-			stream->scalefac_scale[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 1);
-			stream->count1table_select[gr][ch] = mp3util_get_bits(stream->buffer, &stream->count, 1);
+			stream->scalefac_scale[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 1);
+			stream->count1table_select[gr][ch] = mp3util_get_bits(stream->buffer, &stream->offset, 1);
 		}
 	}
 
-	stream->unk3f7c = var700596dc[stream->version][stream->bitrateindex];
-	stream->unk3f80 = var70059754[stream->version][stream->samplerateindex];
+	stream->bitrate = g_BitRateTable[stream->version][stream->bitrateindex];
+	stream->samplerate = g_SampleRateTable[stream->version][stream->samplerateindex];
 
 	if (stream->version != VERSION_2) {
-		stream->unk3f84 = stream->unk3f7c * 144 / stream->unk3f80;
+		stream->unk3f84 = stream->bitrate * 144 / stream->samplerate;
 	} else {
-		stream->unk3f84 = stream->unk3f7c * 72 / stream->unk3f80;
+		stream->unk3f84 = stream->bitrate * 72 / stream->samplerate;
 	}
 
 	stream->unk3f88 = (stream->unk3f84 + stream->haspadding) - (stream->unk2068 + stream->unk206c);

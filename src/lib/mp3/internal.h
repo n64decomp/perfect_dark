@@ -11,7 +11,7 @@ s32 mp3main00043dd0(struct asistream *stream);
 
 f32 func00045ed0(f32 arg0, f32 arg1);
 
-s32 mp3util_get_bits(u8 *buffer, s32 *count, s32 numbits);
+s32 mp3util_get_bits(u8 *buffer, s32 *offset, s32 numbits);
 s32 mp3util000462f8(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s16 **arg6, u8 **arg7);
 s32 mp3util000464a8(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s16 **arg5, u8 **arg6);
 

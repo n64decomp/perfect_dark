@@ -11,7 +11,7 @@ Acmd *n_alAuxBusPull(s32 sampleOffset, Acmd *cmdptr, s32 fxBus, s32 *numpulls)
 	u32 sp30 = 1;
 	u32 sp2c;
 
-	aClearBuffer(cmd++, 1984, 736);
+	aClearBuffer(cmd++, N_AL_AUX_L_OUT, N_AL_TEMP_2);
 
 	*numpulls = 0;
 
@@ -36,8 +36,8 @@ Acmd *n_alAuxBusPull(s32 sampleOffset, Acmd *cmdptr, s32 fxBus, s32 *numpulls)
 			sp2c = 65536.0f / sp30;
 		}
 
-		n_aNoop(cmd++, 1248, sp2c, sp30);
-		n_aNoop(cmd++, 1616, sp2c, sp30);
+		n_aNoop(cmd++, N_AL_MAIN_L_OUT, sp2c, sp30);
+		n_aNoop(cmd++, N_AL_MAIN_R_OUT, sp2c, sp30);
 	}
 
 	for (i = 0; i < bus->sourceCount; i++) {
