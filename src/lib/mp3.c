@@ -171,8 +171,8 @@ bool mp3_make_samples(s32 arg0, Acmd **cmd)
 	s32 i;
 	s32 diff;
 	s32 numchannels = 0;
-	struct mp3thing *sp58;
-	struct mp3thing *sp54 = NULL;
+	u16 *sp58;
+	u16 *sp54 = NULL;
 	s32 sp50;
 	s32 sp4c = N_AL_MAIN_L_OUT;
 	s32 sp48 = N_AL_MAIN_R_OUT;
@@ -228,7 +228,7 @@ bool mp3_make_samples(s32 arg0, Acmd **cmd)
 			g_Mp3Vars.var8009c3cc -= g_Mp3Vars.var8009c3d0;
 
 			if (g_Mp3Vars.var8009c3cc != 0 && g_Mp3Vars.var8009c3c8 != NULL) {
-				sp54 = (struct mp3thing *)(g_Mp3Vars.var8009c3d0 + g_Mp3Vars.var8009c3c8->unk00);
+				sp54 = &g_Mp3Vars.var8009c3c8[g_Mp3Vars.var8009c3d0];
 				sp50 = g_Mp3Vars.var8009c3cc;
 			}
 
@@ -242,7 +242,7 @@ bool mp3_make_samples(s32 arg0, Acmd **cmd)
 					aMp3SetAddr((*cmd)++, osVirtualToPhysical(g_Mp3Vars.var8009c3d4[i]));
 					aMp3ExecDma((*cmd)++, g_Mp3Vars.var8009c3d8, osVirtualToPhysical(sp58));
 
-					sp58++;
+					sp58 += 580;
 				}
 
 				g_Mp3Vars.var8009c3d8 = (g_Mp3Vars.var8009c3d8 - 0x24) & 0x1e;
@@ -263,7 +263,7 @@ bool mp3_make_samples(s32 arg0, Acmd **cmd)
 			n_aLoadBuffer((*cmd)++, sp50 + sp50, sp4c, osVirtualToPhysical(sp54));
 
 			if (g_Mp3Vars.dualchannel) {
-				sp54++;
+				sp54 += 580;
 				n_aLoadBuffer((*cmd)++, sp50 + sp50, sp48, osVirtualToPhysical(sp54));
 			}
 
@@ -273,12 +273,12 @@ bool mp3_make_samples(s32 arg0, Acmd **cmd)
 		}
 
 		if (arg0 > 0 && g_Mp3Vars.var8009c3c8 != NULL) {
-			sp54 = (struct mp3thing *)(g_Mp3Vars.var8009c3d0 * 2 + (uintptr_t)g_Mp3Vars.var8009c3c8);
+			sp54 = &g_Mp3Vars.var8009c3c8[g_Mp3Vars.var8009c3d0];
 
 			n_aLoadBuffer((*cmd)++, arg0 + arg0, sp4c, osVirtualToPhysical(sp54));
 
 			if (g_Mp3Vars.dualchannel) {
-				sp54++;
+				sp54 += 580;
 				n_aLoadBuffer((*cmd)++, arg0 + arg0, sp48, osVirtualToPhysical(sp54));
 			}
 

@@ -34,7 +34,7 @@ struct asistream {
 	/*0x2064*/ s32 offset;
 	/*0x2068*/ u32 unk2068;
 	/*0x206c*/ u32 unk206c;
-	/*0x2070*/ struct mp3thing unk2070[6];
+	/*0x2070*/ u16 unk2070[6][580];
 	/*0x3ba0*/ s32 unk3ba0;
 	/*0x3ba4*/ u32 version;
 	/*0x3ba8*/ u32 layer;
@@ -98,6 +98,6 @@ struct asistream {
 
 u32 mp3main_init(void);
 struct asistream *mp3main_start_file(s32 arg0, void *arg1, s32 arg2);
-s32 mp3main_continue_file(struct asistream *stream, struct mp3thing **arg1, s32 *arg2);
+s32 mp3main_continue_file(struct asistream *stream, u16 **arg1, s32 *arg2);
 
 #endif

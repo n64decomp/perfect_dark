@@ -200,7 +200,7 @@ struct asistream *mp3main_start_file(s32 arg0, void *dmafunc, s32 filesize)
 	return stream;
 }
 
-s32 mp3main_continue_file(struct asistream *streamptr, struct mp3thing **arg1, s32 *numchannels)
+s32 mp3main_continue_file(struct asistream *streamptr, u16 **arg1, s32 *numchannels)
 {
 	struct asistream *stream = streamptr;
 	s32 result;
@@ -223,7 +223,7 @@ s32 mp3main_continue_file(struct asistream *streamptr, struct mp3thing **arg1, s
 	if (!result) {
 		// empty
 	} else {
-		*arg1 = &stream->unk2070[stream->unk3ba0];
+		*arg1 = stream->unk2070[stream->unk3ba0];
 		*numchannels = stream->numchannels;
 	}
 

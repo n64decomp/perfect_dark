@@ -2936,7 +2936,7 @@ bool mp3dec_decode_frame(struct asistream *stream)
 	s32 sp24;
 	s32 sp20;
 
-	sp934 = stream->unk2070[stream->unk3ba0].unk00;
+	sp934 = stream->unk2070[stream->unk3ba0];
 	sp954 = mp3main00043dd0(stream);
 
 	if (sp954 == -1) {

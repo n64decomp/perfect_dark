@@ -5578,10 +5578,6 @@ struct seqtable {
 	struct seqtableentry entries[1];
 };
 
-struct mp3thing {
-	u16 unk00[580];
-};
-
 struct mp3vars {
 	/*0x00*/ s32 romaddr;
 	/*0x04*/ struct asistream *stream;
@@ -5603,7 +5599,7 @@ struct mp3vars {
 	/*0x2c*/ s32 em_segEnd;
 	/*0x30*/ s32 filesize;
 	/*0x34*/ s32 dmaoffset;
-	/*0x38*/ struct mp3thing *var8009c3c8;
+	/*0x38*/ u16 *var8009c3c8;
 	/*0x3c*/ s32 var8009c3cc;
 	/*0x40*/ s32 var8009c3d0;
 	/*0x44*/ u32 *var8009c3d4[1];
