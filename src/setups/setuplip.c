@@ -1079,7 +1079,7 @@ s32 path14[] = {
 
 u8 func1400_give_datauplinks[] = {
 	yield
-	set_chr_team(CHR_ANTI, TEAM_22)
+	set_chr_team(CHR_ANTI, TEAM_ENEMY | TEAM_20)
 	give_object_to_chr(OBJ_DATAUPLINK_BOND, CHR_BOND)
 	give_object_to_chr(OBJ_DATAUPLINK_COOP, CHR_COOP)
 	set_ailist(CHR_SELF, GAILIST_REBUILD_GROUPS)

@@ -5528,7 +5528,7 @@ void bg_process_queue_item(struct bgqueueitem *item)
 		}
 
 		// Reusing the side variable as a bboxisvalid variable
-		if (g_BgPortals[portalnum].flags & PORTALFLAG_02) {
+		if (g_BgPortals[portalnum].flags & PORTALFLAG_USEROOMBOX) {
 			newbox.xmin = item->screenbox.xmin;
 			newbox.ymin = item->screenbox.ymin;
 			newbox.xmax = item->screenbox.xmax;

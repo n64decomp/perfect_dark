@@ -9335,13 +9335,13 @@ struct ammotype g_AmmoTypes[] = {
 	{ TICKS(18000), 0, 0  }, // AMMOTYPE_CLOAK
 	{ 4,            0, 0  }, // AMMOTYPE_BOOST
 	{ 200,          0, 0  }, // AMMOTYPE_PSYCHOSIS
-	{ 2,            0, 0  }, // AMMOTYPE_17
+	{ 2,            0, 0  }, // AMMOTYPE_BOMBCASE
 	{ 10,           0, 0  }, // AMMOTYPE_BUG
 	{ 10,           0, 0  }, // AMMOTYPE_MICROCAMERA
 	{ 10,           0, 0  }, // AMMOTYPE_PLASTIQUE
-	{ 1000,         0, 0  }, // AMMOTYPE_1B
+	{ 1000,         0, 0  }, // AMMOTYPE_WATCHLASER
 	{ 10,           0, 0  }, // AMMOTYPE_1C
-	{ 50,           0, -1 }, // AMMOTYPE_1D
+	{ 50,           0, -1 }, // AMMOTYPE_TANK
 	{ 1,            0, 0  }, // AMMOTYPE_TOKEN
 	{ 200,          0, 0  }, // AMMOTYPE_1F
 	{ 10,           0, 0  }, // AMMOTYPE_ECM_MINE
@@ -9449,13 +9449,13 @@ bool bgun_ammotype_allows_unlimited_ammo(u32 ammotype)
 		}
 		break;
 	case AMMOTYPE_PSYCHOSIS:
-	case AMMOTYPE_17:
+	case AMMOTYPE_BOMBCASE:
 	case AMMOTYPE_BUG:
 	case AMMOTYPE_MICROCAMERA:
 	case AMMOTYPE_PLASTIQUE:
-	case AMMOTYPE_1B:
+	case AMMOTYPE_WATCHLASER:
 	case AMMOTYPE_1C:
-	case AMMOTYPE_1D:
+	case AMMOTYPE_TANK:
 	case AMMOTYPE_TOKEN:
 	case AMMOTYPE_1F:
 	case AMMOTYPE_ECM_MINE:

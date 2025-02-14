@@ -36,19 +36,19 @@ void portal_get_centre(s32 portalnum, struct coord *avg)
 }
 
 #if VERSION < VERSION_NTSC_1_0
-bool portal00018e34nb(s32 portalnum)
+bool portal_uses_room_box(s32 portalnum)
 {
-	return g_BgPortals[portalnum].flags & PORTALFLAG_02;
+	return g_BgPortals[portalnum].flags & PORTALFLAG_USEROOMBOX;
 }
 
-void portal00018e54nb(s32 portalnum)
+void portal_set_use_room_box(s32 portalnum)
 {
-	g_BgPortals[portalnum].flags |= PORTALFLAG_02;
+	g_BgPortals[portalnum].flags |= PORTALFLAG_USEROOMBOX;
 }
 
-void portal00018e74nb(s32 portalnum)
+void portal_unset_use_room_box(s32 portalnum)
 {
-	g_BgPortals[portalnum].flags &= (~PORTALFLAG_02 & 0xff);
+	g_BgPortals[portalnum].flags &= (~PORTALFLAG_USEROOMBOX & 0xff);
 }
 #endif
 

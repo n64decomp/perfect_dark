@@ -823,7 +823,7 @@ u8 func0428_colleague10[] = {
 
 u8 func1001_set_jo_team[] = {
 	yield
-	set_chr_team(CHR_BOND, TEAM_32)
+	set_chr_team(CHR_BOND, TEAM_ENEMY | TEAM_ALLY | TEAM_20)
 	set_ailist(CHR_SELF, GAILIST_IDLE)
 	endlist
 };

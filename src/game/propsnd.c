@@ -802,7 +802,7 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 			channel->flags2 |= PSFLAG2_RESPONDHELLO;
 		}
 
-		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_08) {
+		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_IGNOREROOMS) {
 			if (channel->targetvol == -1) {
 				channel->targetvol = channel->maxvol;
 			}
@@ -814,7 +814,7 @@ s16 ps_create(struct pschannel *channel, struct prop *prop, s16 soundnum, s16 pa
 			channel->flags2 |= PSFLAG2_OFFENSIVE;
 		}
 
-		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_20) {
+		if (g_AudioConfigs[confignum].flags & AUDIOCONFIGFLAG_AMBIENT) {
 			channel->flags2 |= PSFLAG2_AMBIENT;
 		}
 

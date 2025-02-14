@@ -6608,13 +6608,13 @@ s16 g_GuardQuipBank[][4] = {
 	{ QUIP_GOFORALARM,         SFXNUM_0037,                                SFXNUM_0037,                                  SFXNUM_0037                               },
 	{ QUIP_SURPRISED,          SFXNUM_025B_M0_WHAT_THE,                    SFXNUM_025C_M0_WHO_THE,                       SFXNUM_025C_M0_WHO_THE                    },
 	{ QUIP_INSPECTBODY,        SFXNUM_026E_M0_ARE_YOU_OKAY,                SFXNUM_026F_M0_GOT_A_MAN_DOWN,                SFXNUM_0270_M0_HES_BOUGHT_IT              },
-	{ QUIP_20,                 SFXNUM_0037,                                SFXNUM_0037,                                  SFXNUM_0037                               },
+	{ QUIP_UNDERFIRE,          SFXNUM_0037,                                SFXNUM_0037,                                  SFXNUM_0037                               },
 	{ QUIP_HITPLAYER,          SFXNUM_0280_M0_GIVE_IT_UP,                  SFXNUM_0281_M0_SURRENDER_NOW,                 SFXNUM_0282_M0_TAKE_THAT                  },
 	{ QUIP_MISSEDPLAYER1,      SFXMAP_80F9_M0_DAMN_IT_MISSED,              SFXMAP_80F9_M0_DAMN_IT_MISSED,                SFXNUM_0287_M0_HOW_DID_I_MISS             },
 	{ QUIP_MISSEDPLAYER2,      SFXMAP_80FA_M0_GODS_SAKE_SOMEONE_HIT_HER,   SFXMAP_80FA_M0_GODS_SAKE_SOMEONE_HIT_HER,     SFXNUM_0289_M0_SHES_A_TRICKY_ONE          },
 	{ QUIP_GOTOCOVER2,         SFXNUM_028D_M0_TAKE_COVER,                  SFXNUM_028E_M0_ILL_COVER_YOU,                 SFXNUM_028F_M0_GET_DOWN                   },
 	{ QUIP_DIE,                SFXMAP_80FC_M0_YOU_BITCH,                   SFXMAP_80FD_M0_OH_MY_GOD,                     SFXNUM_02A2_M0_SHE_GOT_ME                 },
-	{ QUIP_26,                 SFXNUM_0037,                                SFXNUM_0037,                                  SFXNUM_0037                               },
+	{ QUIP_KILLEDPLAYER3,      SFXNUM_0037,                                SFXNUM_0037,                                  SFXNUM_0037                               },
 	{ QUIP_SEARCHSUCCESS,      SFXNUM_0275_M0_I_SEE_HER,                   SFXNUM_0277_M0_THERE_SHE_IS,                  SFXNUM_0278_M0_THERE_MOVEMENT             },
 	{ QUIP_SEEEYESPY,          SFXMAP_8167_M0_WHAT_THE_HELL,               SFXNUM_04C9_M0_HELLO_THERE,                   SFXNUM_04CA_M0_WHATS_THIS                 },
 	{ QUIP_GREETING,           SFXMAP_815D_M0_HOWS_THINGS,                 SFXMAP_815E_M0_HEY_THERE,                     SFXMAP_815F_M0_HI_HOW_ARE_YOU             },
@@ -6654,7 +6654,7 @@ s16 g_GuardQuipBank[][4] = {
 #else
 	{ QUIP_INSPECTBODY,        SFXNUM_0313_M_NOOO,                         SFXMAP_8129_M1_NOOO,                          SFXNUM_0316_M1_HES_GONE                   },
 #endif
-	{ QUIP_20,                 SFXNUM_031C_M1_M2_LOOK_OUT_SHES_COMING,     SFXNUM_031D_M1_M2_TAKE_COVER,                 SFXNUM_031E_M1_M2_LOOK_OUT_LOOK_OUT       },
+	{ QUIP_UNDERFIRE,          SFXNUM_031C_M1_M2_LOOK_OUT_SHES_COMING,     SFXNUM_031D_M1_M2_TAKE_COVER,                 SFXNUM_031E_M1_M2_LOOK_OUT_LOOK_OUT       },
 	{ QUIP_HITPLAYER,          SFXNUM_0356_M1_IM_JUST_TOO_GOOD,            SFXNUM_0329_M1_YEAH_BABY,                     SFXNUM_0329_M1_YEAH_BABY                  },
 	{ QUIP_MISSEDPLAYER1,      SFXMAP_812B_M1_BLOODY_STUPID_GUN,           SFXNUM_032F_M1_MY_GUN_ITS_USELESS,            SFXMAP_812C_M1_DAMN_IT                    },
 	{ QUIP_MISSEDPLAYER2,      SFXNUM_0331_M1_STOP_DODGING,                SFXNUM_0332_M1_SOMEONE_HIT_HER,               SFXMAP_812D_M1_DAMN_SHES_GOOD             },
@@ -6664,7 +6664,7 @@ s16 g_GuardQuipBank[][4] = {
 #else
 	{ QUIP_DIE,                SFXNUM_034C_M_WAIL,                         SFXNUM_034D_M1_WHY_ME,                        SFXNUM_034E_M1_CHOKING                    },
 #endif
-	{ QUIP_26,                 SFXNUM_0355_M1_OUTSTANDING,                 SFXNUM_0356_M1_IM_JUST_TOO_GOOD,              SFXNUM_0357_M1_YEEHAH_GOT_ONE             },
+	{ QUIP_KILLEDPLAYER3,      SFXNUM_0355_M1_OUTSTANDING,                 SFXNUM_0356_M1_IM_JUST_TOO_GOOD,              SFXNUM_0357_M1_YEEHAH_GOT_ONE             },
 	{ QUIP_SEARCHSUCCESS,      SFXNUM_031F_M1_OVER_THERE,                  SFXNUM_0320_M1_HALT,                          SFXNUM_0321_M1_FREEZE                     },
 	{ QUIP_SEEEYESPY,          SFXNUM_04CF_M1_WHAT_IS_IT,                  SFXNUM_04D0_M1_HOW_DID_THAT_GET_HERE,         SFXNUM_04D1_M1_DONT_TOUCH_IT              },
 	{ QUIP_GREETING,           SFXMAP_8163_M1_HI_THERE,                    SFXMAP_8163_M1_HI_THERE,                      SFXMAP_8164_M1_HOWS_THINGS                },
@@ -6700,7 +6700,7 @@ s16 g_GuardQuipBank[][4] = {
 	{ QUIP_GOFORALARM,         SFXNUM_0037,                                SFXNUM_0037,                                  SFXNUM_0037                               },
 	{ QUIP_SURPRISED,          SFXNUM_03C4_M2_HOW_THE,                     SFXNUM_03C5_M2_HEY,                           SFXNUM_03C6_M2_STOP                       },
 	{ QUIP_INSPECTBODY,        SFXNUM_03D9_M2_BODY_COUNTS_TOO_HIGH,        SFXNUM_03DA_M2_I_NEVER_LIKED_HIM_ANYWAY,      SFXNUM_03DB_M2_THAT_WAS_MY_BEST_FRIEND    },
-	{ QUIP_20,                 SFXNUM_031C_M1_M2_LOOK_OUT_SHES_COMING,     SFXNUM_031D_M1_M2_TAKE_COVER,                 SFXNUM_031E_M1_M2_LOOK_OUT_LOOK_OUT       },
+	{ QUIP_UNDERFIRE,          SFXNUM_031C_M1_M2_LOOK_OUT_SHES_COMING,     SFXNUM_031D_M1_M2_TAKE_COVER,                 SFXNUM_031E_M1_M2_LOOK_OUT_LOOK_OUT       },
 	{ QUIP_HITPLAYER,          SFXNUM_03ED_M2_SURRENDER_OR_DIE,            SFXNUM_03EE_M2_I_HAVE_YOU_NOW,                SFXNUM_03EF_M2_YOU_WANT_BEAT_ME           },
 	{ QUIP_MISSEDPLAYER1,      SFXMAP_8136_M2_DAMN_MISSED_AGAIN,           SFXNUM_03F4_M2_I_DONT_BELIEVE_IT,             SFXMAP_8137_M2_DAMN_YOU                   },
 	{ QUIP_MISSEDPLAYER2,      SFXMAP_8138_M2_HELL_SHES_GOOD,              SFXNUM_03F7_M2_STOP_MOVING,                   SFXNUM_03F8_M2_NO_ESCAPE_FOR_YOU          },
@@ -6710,7 +6710,7 @@ s16 g_GuardQuipBank[][4] = {
 #else
 	{ QUIP_DIE,                SFXNUM_0411_M_NOOO,                         SFXMAP_813C_M2_OH_GOD_IM_DYING,               SFXNUM_0415_M2_I_DONT_WANT_TO_DIE         },
 #endif
-	{ QUIP_26,                 SFXNUM_041B_M2_IM_THE_MAN,                  SFXNUM_041C_M2_BOY_THAT_WAS_CLOSE,            SFXNUM_041D_M2_DID_YOU_SEE_THAT           },
+	{ QUIP_KILLEDPLAYER3,      SFXNUM_041B_M2_IM_THE_MAN,                  SFXNUM_041C_M2_BOY_THAT_WAS_CLOSE,            SFXNUM_041D_M2_DID_YOU_SEE_THAT           },
 	{ QUIP_SEARCHSUCCESS,      SFXNUM_03E4_M2_GET_HER,                     SFXNUM_03E5_M2_THERE_ATTACK,                  SFXNUM_03E6_M2_HEY_YOU_STOP               },
 	{ QUIP_SEEEYESPY,          SFXNUM_04D5_M2_IS_IT_DANGEROUS,             SFXNUM_04D6_M2_DONT_MOVE,                     SFXNUM_04D7_M2_STAY_BACK                  },
 	{ QUIP_GREETING,           SFXMAP_8165_M2_HELLO,                       SFXMAP_8165_M2_HELLO,                         SFXMAP_8166_M2_HEY_WHATS_UP               },
@@ -6746,7 +6746,7 @@ s16 g_GuardQuipBank[][4] = {
 	{ QUIP_GOFORALARM,         SFXNUM_03AA_F_GET_REINFORCEMENTS,           SFXNUM_03AB_F_EVACUATE_THE_AREA,              SFXNUM_03AC_F_RETREAT                     },
 	{ QUIP_SURPRISED,          SFXNUM_0037,                                SFXNUM_037B_F_HEY,                            SFXNUM_037C_F_HUH                         },
 	{ QUIP_INSPECTBODY,        SFXNUM_038D_F_UNIT_DOWN,                    SFXNUM_038D_F_UNIT_DOWN,                      SFXNUM_038D_F_UNIT_DOWN                   },
-	{ QUIP_20,                 SFXNUM_0384_F_TARGET_ATTACKING,             SFXNUM_0385_F_UNDER_FIRE,                     SFXNUM_0387_F_WERE_UNDER_FIRE             },
+	{ QUIP_UNDERFIRE,          SFXNUM_0384_F_TARGET_ATTACKING,             SFXNUM_0385_F_UNDER_FIRE,                     SFXNUM_0387_F_WERE_UNDER_FIRE             },
 	{ QUIP_HITPLAYER,          SFXNUM_039A_F_DID_THAT_HURT,                SFXNUM_039B_F_YOU_WANT_SOME_MORE,             SFXNUM_0037                               },
 	{ QUIP_MISSEDPLAYER1,      SFXNUM_039F_F_THIS_GUNS_USELESS,            SFXNUM_0037,                                  SFXNUM_03A1_F_STAND_STILL                 },
 #if VERSION >= VERSION_NTSC_1_0
@@ -6756,7 +6756,7 @@ s16 g_GuardQuipBank[][4] = {
 #endif
 	{ QUIP_GOTOCOVER2,         SFXNUM_03A7_F_GO_FOR_IT,                    SFXNUM_0037,                                  SFXNUM_03A9_F_RUN                         },
 	{ QUIP_DIE,                SFXNUM_03B7_F_WHY_ME,                       SFXNUM_03B8_F_NOO,                            SFXMAP_8131_F_MY_GOD                      },
-	{ QUIP_26,                 SFXNUM_03BE_F_IM_JUST_TOO_GOOD,             SFXNUM_0037,                                  SFXNUM_03C0_F_SUCH_A_WASTE                },
+	{ QUIP_KILLEDPLAYER3,      SFXNUM_03BE_F_IM_JUST_TOO_GOOD,             SFXNUM_0037,                                  SFXNUM_03C0_F_SUCH_A_WASTE                },
 	{ QUIP_SEARCHSUCCESS,      SFXNUM_0381_F_GET_HER,                      SFXNUM_0382_F_HEY_YOU_COME_HERE,              SFXNUM_0037                               },
 	{ QUIP_SEEEYESPY,          0,                                          0,                                            0                                         },
 	{ QUIP_GREETING,           SFXNUM_0037,                                SFXNUM_0396_F_COME_ON,                        SFXNUM_0037                               },

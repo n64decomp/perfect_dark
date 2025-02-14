@@ -263,13 +263,13 @@
 #define AMMOTYPE_CLOAK        0x14
 #define AMMOTYPE_BOOST        0x15
 #define AMMOTYPE_PSYCHOSIS    0x16
-#define AMMOTYPE_17           0x17
+#define AMMOTYPE_BOMBCASE     0x17
 #define AMMOTYPE_BUG          0x18
 #define AMMOTYPE_MICROCAMERA  0x19
 #define AMMOTYPE_PLASTIQUE    0x1a
-#define AMMOTYPE_1B           0x1b
+#define AMMOTYPE_WATCHLASER   0x1b
 #define AMMOTYPE_1C           0x1c
-#define AMMOTYPE_1D           0x1d
+#define AMMOTYPE_TANK         0x1d
 #define AMMOTYPE_TOKEN        0x1e
 #define AMMOTYPE_1F           0x1f
 #define AMMOTYPE_ECM_MINE     0x20
@@ -316,11 +316,11 @@
 #define ATTACKFLAG_NOVERTICAL     0x0100 // don't aim up/down
 #define ATTACKFLAG_AIMATTARGET    0x0200 // aim/shoot at whatever is in the chr's `target` field
 
-#define AUDIOCONFIGFLAG_SPECIALPAN           0x01
+#define AUDIOCONFIGFLAG_SPECIALPAN   0x01
 #define AUDIOCONFIGFLAG_RESPONDHELLO 0x04
-#define AUDIOCONFIGFLAG_08           0x08
+#define AUDIOCONFIGFLAG_IGNOREROOMS  0x08
 #define AUDIOCONFIGFLAG_OFFENSIVE    0x10
-#define AUDIOCONFIGFLAG_20           0x20
+#define AUDIOCONFIGFLAG_AMBIENT      0x20
 #define AUDIOCONFIGFLAG_40           0x40
 
 #define AWARD_MOSTSUICIDAL     0x00000001
@@ -721,7 +721,7 @@
 #define COVERCRITERIA_1000                   0x1000
 #define COVERCRITERIA_2000                   0x2000
 #define COVERCRITERIA_DISTTOFETCHPROP        0x4000
-#define COVERCRITERIA_ALLOWSOFT                   0x8000
+#define COVERCRITERIA_ALLOWSOFT              0x8000
 
 #define COVERFLAG_OUTOFSIGHT      0x0001
 #define COVERFLAG_INUSE           0x0002
@@ -3447,10 +3447,10 @@
 #define PDMODEPROP_DAMAGE   2
 #define PDMODEPROP_ACCURACY 3
 
-#define PORTALFLAG_CLOSED    0x01 // Due to door being closed, or player is too far from glass
-#define PORTALFLAG_02        0x02
-#define PORTALFLAG_FORCEOPEN 0x04 // Glass is destroyed, or door is freed
-#define PORTALFLAG_SKIP      0x08 // DD tower exterior - don't bother processing these
+#define PORTALFLAG_CLOSED     0x01 // Due to door being closed, or player is too far from glass
+#define PORTALFLAG_USEROOMBOX 0x02 // Use room's screenbox instead of calculating portal's screenbox
+#define PORTALFLAG_FORCEOPEN  0x04 // Glass is destroyed, or door is freed
+#define PORTALFLAG_SKIP       0x08 // DD tower exterior - don't bother processing these
 
 #define PRESETANIM_TALK0      0
 #define PRESETANIM_TALK1      1
@@ -3571,13 +3571,13 @@
 #define QUIP_17                 17
 #define QUIP_SURPRISED          18
 #define QUIP_INSPECTBODY        19
-#define QUIP_20                 20
+#define QUIP_UNDERFIRE          20
 #define QUIP_HITPLAYER          21
 #define QUIP_MISSEDPLAYER1      22
 #define QUIP_MISSEDPLAYER2      23
 #define QUIP_GOTOCOVER2         24
 #define QUIP_DIE                25
-#define QUIP_26                 26
+#define QUIP_KILLEDPLAYER3      26
 #define QUIP_SEARCHSUCCESS      27
 #define QUIP_SEEEYESPY          28
 #define QUIP_GREETING           29
@@ -4132,8 +4132,6 @@
 #define TEAM_04        0x04
 #define TEAM_ALLY      0x10
 #define TEAM_20        0x20
-#define TEAM_22        0x22
-#define TEAM_32        0x32
 #define TEAM_NONCOMBAT 0x80
 
 #define TELEPORTSTATE_INACTIVE 0
