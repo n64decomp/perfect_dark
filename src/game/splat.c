@@ -30,7 +30,7 @@ struct splatdata {
 	s32 room;
 	s32 isskedar;
 	s32 translucent;
-	f32 unk50;
+	f32 scale;
 	s32 timermax;
 	s32 timerspeed;
 };
@@ -39,18 +39,18 @@ struct splatdata {
 u32 var80082100nb = 0;
 #endif
 
-f32 var8007f8a0 = 0.15;
+f32 g_SplatDistanceScale = 0.15;
 f32 var8007f8a4 = 3;
-f32 var8007f8a8 = 12;
+f32 g_SplatMaxAngleInDegrees = 12;
 s32 var8007f8ac = 8;
 f32 g_SplatMaxDistance = 180;
-f32 var8007f8b4 = 5;
-f32 var8007f8b8 = 50;
+f32 g_SplatMinDiameter = 5;
+f32 g_SplatMaxDiameter = 50;
 
 #if VERSION == VERSION_JPN_FINAL
 #else
-bool splat0f149274(f32 arg0, struct prop *prop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 arg5, s32 arg6, struct chrdata *chr, s32 arg8);
-void splat0f14986c(struct splatdata *splatdata);
+bool splat_create_one(f32 scale, struct prop *prop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 arg5, s32 arg6, struct chrdata *chr, s32 arg8);
+void splat_create_wallhit(struct splatdata *splatdata);
 #endif
 
 s32 splats_create(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg,
@@ -147,7 +147,7 @@ void splats_create_for_chr_hit(struct prop *prop, struct shotdata *shotdata, str
 #endif
 }
 
-s32 splats_create(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdataarg,
+s32 splats_create(s32 qty, f32 scale, struct prop *prop, struct shotdata *shotdataarg,
 		struct coord *arg4, struct coord *arg5, bool isskedar, s32 splattype,
 		s32 timermax, struct chrdata *chr, s32 timerspeed)
 {
@@ -158,7 +158,7 @@ s32 splats_create(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdat
 	struct shotdata *shotdata = splattype == 0 ? shotdataarg : &stackshotdata;
 	struct coord spfc;
 	struct coord spf0;
-	struct coord spe4;
+	struct coord dir;
 	Mtxf spa4;
 	s32 numdropped = 0;
 	f32 dist;
@@ -204,10 +204,10 @@ s32 splats_create(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdat
 
 	for (i = 0; i < qty; i++) {
 		for (j = 0; j < 3; j++) {
-			spe4.f[j] = (RANDOMFRAC() * var8007f8a8 * 2.0f - var8007f8a8) * 0.017453292384744f;
+			dir.f[j] = DTOR2(RANDOMFRAC() * g_SplatMaxAngleInDegrees * 2.0f - g_SplatMaxAngleInDegrees);
 		}
 
-		mtx4_load_rotation(&spe4, &spa4);
+		mtx4_load_rotation(&dir, &spa4);
 		mtx4_rotate_vec(&spa4, &spfc, &shotdata->gundir3d);
 		mtx4_rotate_vec(&spa4, &spf0, &shotdata->gundir2d);
 
@@ -219,7 +219,7 @@ s32 splats_create(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdat
 		func0f177164(&shotdata->gundir2d, &shotdata->gundir2d, 406, "splat.c");
 #endif
 
-		if (splat0f149274(arg1, prop, shotdata, /*reused var*/ dist, isskedar, splattype, timermax, chr, timerspeed)) {
+		if (splat_create_one(scale, prop, shotdata, /*reused var*/ dist, isskedar, splattype, timermax, chr, timerspeed)) {
 			numdropped++;
 		}
 	}
@@ -238,12 +238,12 @@ s32 splats_create(s32 qty, f32 arg1, struct prop *prop, struct shotdata *shotdat
 }
 
 #if VERSION == VERSION_JPN_FINAL
-void splat0f149274(void)
+void splat_create_one(void)
 {
 	osSyncPrintf("Splat : Out of range\n");
 }
 #else
-bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 splattype, s32 timermax, struct chrdata *chr, s32 timerspeed)
+bool splat_create_one(f32 scale, struct prop *chrprop, struct shotdata *shotdata, f32 arg3, bool isskedar, s32 splattype, s32 timermax, struct chrdata *chr, s32 timerspeed)
 {
 	struct prop **propptr;
 	struct prop *objprop;
@@ -381,12 +381,12 @@ bool splat0f149274(f32 arg0, struct prop *chrprop, struct shotdata *shotdata, f3
 		splatdata.room = room;
 		splatdata.isskedar = isskedar;
 		splatdata.timermax = timermax;
-		splatdata.unk50 = arg0;
+		splatdata.scale = scale;
 		splatdata.splattype = splattype;
 		splatdata.timerspeed = timerspeed;
 		splatdata.translucent = translucent;
 
-		splat0f14986c(&splatdata);
+		splat_create_wallhit(&splatdata);
 
 		return true;
 	}
@@ -405,18 +405,18 @@ void splats_tick(void)
 }
 
 #if VERSION == VERSION_JPN_FINAL
-void splat0f14986c(void)
+void splat_create_wallhit(void)
 {
 	// empty
 }
 #else
-void splat0f14986c(struct splatdata *splat)
+void splat_create_wallhit(struct splatdata *splat)
 {
-	f32 spac;
-	f32 spa8;
+	f32 radiusw;
+	f32 radiush;
 	struct defaultobj *obj;
-	f32 spa0;
-	f32 sp9c;
+	f32 diameter;
+	f32 scale;
 	f32 height;
 	f32 width;
 	u8 maxalpha = 0xff;
@@ -452,52 +452,52 @@ void splat0f14986c(struct splatdata *splat)
 	case 0:
 	case 1:
 	case 2:
-		sp9c = 1.5f;
+		scale = 1.5f;
 		break;
 	case 3:
 	case 4:
-		sp9c = 5.0f;
+		scale = 5.0f;
 		break;
 	case 5:
-		sp9c = 3.0f;
+		scale = 3.0f;
 		break;
 	}
 
 	distance = coords_get_distance(&splat->gunpos, &splat->unk0c);
-	spa0 = var8007f8a0 * distance * sp9c;
+	diameter = g_SplatDistanceScale * distance * scale;
 
-	if (var8007f8b8 < spa0) {
-		spa0 = var8007f8b8;
+	if (diameter > g_SplatMaxDiameter) {
+		diameter = g_SplatMaxDiameter;
 	}
 
-	if (var8007f8b4 > spa0) {
-		spa0 = var8007f8b4;
+	if (diameter < g_SplatMinDiameter) {
+		diameter = g_SplatMinDiameter;
 	}
 
-	spac = 0.5f * spa0;
-	spa8 = 0.5f * spa0;
+	radiusw = 0.5f * diameter;
+	radiush = 0.5f * diameter;
 
-	if (spac < 1.0f) {
-		spac = 1.0f;
+	if (radiusw < 1.0f) {
+		radiusw = 1.0f;
 	}
 
-	if (spa8 < 1.0f) {
-		spa8 = 1.0f;
+	if (radiush < 1.0f) {
+		radiush = 1.0f;
 	}
 
-	width = RANDOMFRAC() * spac * 2.0f - spac + spa0;
-	height = RANDOMFRAC() * spa8 * 2.0f - spa8 + spa0;
+	width = RANDOMFRAC() * radiusw * 2.0f - radiusw + diameter;
+	height = RANDOMFRAC() * radiush * 2.0f - radiush + diameter;
 
-	if (width > var8007f8b8) {
-		width = var8007f8b8;
+	if (width > g_SplatMaxDiameter) {
+		width = g_SplatMaxDiameter;
 	}
 
-	if (height > var8007f8b8) {
-		height = var8007f8b8;
+	if (height > g_SplatMaxDiameter) {
+		height = g_SplatMaxDiameter;
 	}
 
-	width *= splat->unk50;
-	height *= splat->unk50;
+	width *= splat->scale;
+	height *= splat->scale;
 
 	wallhit_choose_blood_colour(splat->chrprop);
 

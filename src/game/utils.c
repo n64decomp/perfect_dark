@@ -177,10 +177,10 @@ void func0f17713c(struct coord *in, struct coord *out)
 
 bool func0f177164(struct coord *arg0, struct coord *arg1, u32 line, char *file)
 {
-	f32 sqdist = arg0->x * arg0->x + arg0->y * arg0->y + arg0->z * arg0->z;
+	f32 hypotenuse = arg0->x * arg0->x + arg0->y * arg0->y + arg0->z * arg0->z;
 	f32 mult;
 
-	if (sqdist < var800845d4) {
+	if (hypotenuse < var800845d4) {
 		arg0->x = var800845f4.x;
 		arg0->y = var800845f4.y;
 		arg0->z = var800845f4.z;
@@ -188,7 +188,7 @@ bool func0f177164(struct coord *arg0, struct coord *arg1, u32 line, char *file)
 		return false;
 	}
 
-	mult = 1.0f / sqrtf(sqdist);
+	mult = 1.0f / sqrtf(hypotenuse);
 
 	arg1->x = arg0->x * mult;
 	arg1->y = arg0->y * mult;
