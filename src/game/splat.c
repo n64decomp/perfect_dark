@@ -100,7 +100,7 @@ void splat_tick_chr(struct prop *prop)
 			u32 value = chr->bulletstaken * chr->tickssincesplat;
 
 			if (value > TICKS(240)) {
-				f32 dist = coords_get_distance(&chr->lastdroppos, &prop->pos);
+				f32 dist = vec3f_get_distance(&chr->lastdroppos, &prop->pos);
 				s32 addmore = false;
 
 				if (dist > 40) {
@@ -166,7 +166,7 @@ s32 splats_create(s32 qty, f32 scale, struct prop *prop, struct shotdata *shotda
 	s32 j;
 
 	if (splattype == 0) {
-		dist = coords_get_distance(&shotdata->gunpos3d, arg5);
+		dist = vec3f_get_distance(&shotdata->gunpos3d, arg5);
 
 		for (i = 0; i < 3; i++) {
 			spfc.f[i] = shotdata->gundir3d.f[i];
@@ -212,11 +212,11 @@ s32 splats_create(s32 qty, f32 scale, struct prop *prop, struct shotdata *shotda
 		mtx4_rotate_vec(&spa4, &spf0, &shotdata->gundir2d);
 
 #if VERSION >= VERSION_NTSC_1_0
-		func0f177164(&shotdata->gundir3d, &shotdata->gundir3d, 403, "splat.c");
-		func0f177164(&shotdata->gundir2d, &shotdata->gundir2d, 404, "splat.c");
+		vec3f_normalise(&shotdata->gundir3d, &shotdata->gundir3d, 403, "splat.c");
+		vec3f_normalise(&shotdata->gundir2d, &shotdata->gundir2d, 404, "splat.c");
 #else
-		func0f177164(&shotdata->gundir3d, &shotdata->gundir3d, 405, "splat.c");
-		func0f177164(&shotdata->gundir2d, &shotdata->gundir2d, 406, "splat.c");
+		vec3f_normalise(&shotdata->gundir3d, &shotdata->gundir3d, 405, "splat.c");
+		vec3f_normalise(&shotdata->gundir2d, &shotdata->gundir2d, 406, "splat.c");
 #endif
 
 		if (splat_create_one(scale, prop, shotdata, /*reused var*/ dist, isskedar, splattype, timermax, chr, timerspeed)) {
@@ -301,7 +301,7 @@ bool splat_create_one(f32 scale, struct prop *chrprop, struct shotdata *shotdata
 	}
 
 	if (hasresult) {
-		spraydistance = coords_get_distance(&stackshotdata.gunpos3d, &besthitthing.pos);
+		spraydistance = vec3f_get_distance(&stackshotdata.gunpos3d, &besthitthing.pos);
 
 		if (spraydistance < g_SplatMaxDistance) {
 			sp50c = &hitthing.pos;
@@ -463,7 +463,7 @@ void splat_create_wallhit(struct splatdata *splat)
 		break;
 	}
 
-	distance = coords_get_distance(&splat->gunpos, &splat->unk0c);
+	distance = vec3f_get_distance(&splat->gunpos, &splat->unk0c);
 	diameter = g_SplatDistanceScale * distance * scale;
 
 	if (diameter > g_SplatMaxDiameter) {

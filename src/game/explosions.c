@@ -742,7 +742,7 @@ void explosion_inflict_damage(struct prop *expprop)
 					sp158.f[1] = damageradius;
 					sp158.f[2] = damageradius;
 
-					if (func0f1773c8(&sp14c, &sp158)) {
+					if (vec3f_is_pos_within_radius(&sp14c, &sp158)) {
 						room_set_light_broken(roomnum, j);
 					}
 				}

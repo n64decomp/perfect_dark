@@ -689,9 +689,9 @@ void wallhit_create_with_20_args(struct coord *relpos, struct coord *arg1, struc
 	sp1b8.z = arg1->z;
 
 #if VERSION >= VERSION_NTSC_1_0
-	func0f177164(&sp1b8, &sp1b8, 956, "wallhit.c");
+	vec3f_normalise(&sp1b8, &sp1b8, 956, "wallhit.c");
 #else
-	func0f177164(&sp1b8, &sp1b8, 955, "wallhit.c");
+	vec3f_normalise(&sp1b8, &sp1b8, 955, "wallhit.c");
 #endif
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -829,9 +829,9 @@ void wallhit_create_with_20_args(struct coord *relpos, struct coord *arg1, struc
 		sp1ac.f[1] = relpos->y;
 		sp1ac.f[2] = relpos->z;
 
-		xiszero = ABS(arg1->x) < var800845d4 ? true : false;
-		yiszero = ABS(arg1->y) < var800845d4 ? true : false;
-		ziszero = ABS(arg1->z) < var800845d4 ? true : false;
+		xiszero = ABS(arg1->x) < g_UtilsMinSaneFloat ? true : false;
+		yiszero = ABS(arg1->y) < g_UtilsMinSaneFloat ? true : false;
+		ziszero = ABS(arg1->z) < g_UtilsMinSaneFloat ? true : false;
 
 		if (xiszero && ziszero) {
 			sp1f4.x = -1.0f;
@@ -867,11 +867,11 @@ void wallhit_create_with_20_args(struct coord *relpos, struct coord *arg1, struc
 			sp130.z = arg4[2];
 
 #if VERSION >= VERSION_NTSC_1_0
-			func0f177164(&sp13c, &sp13c, 1151, "wallhit.c");
-			func0f177164(&sp130, &sp130, 1152, "wallhit.c");
+			vec3f_normalise(&sp13c, &sp13c, 1151, "wallhit.c");
+			vec3f_normalise(&sp130, &sp130, 1152, "wallhit.c");
 #else
-			func0f177164(&sp13c, &sp13c, 1142, "wallhit.c");
-			func0f177164(&sp130, &sp130, 1143, "wallhit.c");
+			vec3f_normalise(&sp13c, &sp13c, 1142, "wallhit.c");
+			vec3f_normalise(&sp130, &sp130, 1143, "wallhit.c");
 #endif
 
 			f0 = (sp13c.x * sp130.x + sp13c.y * sp130.y + sp13c.z * sp130.z) * -1.0f;

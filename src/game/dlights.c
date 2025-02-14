@@ -1093,13 +1093,13 @@ bool light_tick_broken(s32 roomnum, s32 lightnum)
 			sp80.y = -sp8c.y;
 			sp80.z = -sp8c.z;
 
-			func0f177164(&sp98, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1546 : 1570, "dlights.c");
+			vec3f_normalise(&sp98, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1546 : 1570, "dlights.c");
 
 			spa4.x += sp80.x;
 			spa4.y += sp80.y;
 			spa4.z += sp80.z;
 
-			func0f177164(&spa4, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1548 : 1572, "dlights.c");
+			vec3f_normalise(&spa4, &spa4, VERSION >= VERSION_NTSC_1_0 ? 1548 : 1572, "dlights.c");
 
 			room = (void *) (roomnum * sizeof(struct bgroom));
 
@@ -2070,7 +2070,7 @@ void lights_find_distance_through_rooms(s32 roomnum1, struct coord *pos1, s32 ro
 	*result = 32767;
 
 	if (roomnum1 == roomnum2) {
-		*result = coords_get_distance(pos1, pos2);
+		*result = vec3f_get_distance(pos1, pos2);
 	} else {
 		for (i = 0; i < g_Rooms[roomnum1].numportals; i++) {
 			portalnum1 = g_RoomPortals[g_Rooms[roomnum1].roomportallistoffset + i];
