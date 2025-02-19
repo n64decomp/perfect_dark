@@ -822,29 +822,37 @@ u8 bot_get_targets_weapon_num(struct chrdata *chr)
 	return weaponnum;
 }
 
-bool bot_is_about_to_attack(struct chrdata *chr, bool arg1)
+/**
+ * Return true if the bot is in sight of their target, or is about to be.
+ *
+ * The function is used to make the bot start turning to zero their target.
+ * It's also used to trigger cloak.
+ */
+bool bot_is_about_to_attack(struct chrdata *chr, bool forcloak)
 {
 	bool result = false;
-	struct prop *target;
-	u32 stack;
-	s32 mpindex;
 
 	if (chr->target != -1) {
+		struct prop *target;
+		s32 stack;
+		s32 mpindex;
 		target = chr_get_target_prop(chr);
 		mpindex = mp_chr_to_chrindex(target->chr);
-		result = false;
 
 		if (chr->aibot->chrsinsight[mpindex]) {
 			result = true;
 		}
 
-		if (chr->aibot->config->difficulty > BOTDIFF_MEAT) {
+		if (chr->aibot->config->difficulty >= BOTDIFF_EASY) {
+			// If seen within the last 4 seconds or in the same room
 			if (chr->aibot->chrslastseen60[mpindex] >= g_Vars.lvframe60 - TICKS(240)
 					|| (array_intersects(chr->prop->rooms, target->rooms))) {
 				result = true;
 			}
 
 			if (chr->aibot->config->difficulty >= BOTDIFF_NORMAL) {
+				// If bot's room and target's room are neighbours
+				// or target is in their last seen room or a neighbour of it
 				if (bg_rooms_are_neighbours(chr->prop->rooms[0], target->rooms[0])
 						|| chr->aibot->chrrooms[mpindex] == target->rooms[0]
 						|| bg_rooms_are_neighbours(chr->aibot->chrrooms[mpindex], target->rooms[0])) {
@@ -852,38 +860,43 @@ bool bot_is_about_to_attack(struct chrdata *chr, bool arg1)
 				}
 
 				if (chr->aibot->config->difficulty == BOTDIFF_NORMAL) {
-					if (chr->aibot->numwaystepstotarget > 0 && chr->aibot->numwaystepstotarget < 4) {
+					if (chr->aibot->numwaystepstotarget >= 1 && chr->aibot->numwaystepstotarget <= 3) {
 						result = true;
 					}
 				} else {
-					// Higher than BOTDIFF_NORMAL
-					if (chr->aibot->numwaystepstotarget > 0 && chr->aibot->numwaystepstotarget < 5) {
+					// >= BOTDIFF_HARD
+					if (chr->aibot->numwaystepstotarget >= 1 && chr->aibot->numwaystepstotarget <= 4) {
 						result = true;
 					}
 				}
 			}
 		}
 
-		if (!arg1
+		/**
+		 * Meat: Angle to player must be within 25 degrees.
+		 * Easy: Angle to player must be within 90 degrees.
+		 * Normal and higher: Angle to player doesn't matter.
+		 */
+		if (!forcloak
 				&& (chr->aibot->config->difficulty == BOTDIFF_MEAT || chr->aibot->config->difficulty == BOTDIFF_EASY)
 				&& !chr_gopos_is_waiting(chr)) {
-			f32 tmp = chr_get_rot_y(chr);
-			f32 angle = atan2f(target->pos.x - chr->prop->pos.x, target->pos.z - chr->prop->pos.z) - tmp;
+			f32 roty = chr_get_rot_y(chr);
+			f32 angletotarget = atan2f(target->pos.x - chr->prop->pos.x, target->pos.z - chr->prop->pos.z) - roty;
 
-			if (angle < 0) {
-				angle += BADDTOR(360);
+			if (angletotarget < 0) {
+				angletotarget += BADDTOR(360);
 			}
 
-			if (angle > DTOR(180)) {
-				angle = BADDTOR(360) - angle;
+			if (angletotarget > DTOR(180)) {
+				angletotarget = BADDTOR(360) - angletotarget;
 			}
 
 			if (chr->aibot->config->difficulty == BOTDIFF_MEAT) {
-				if (angle > BADDTOR(25)) {
+				if (angletotarget > BADDTOR(25)) {
 					result = false;
 				}
-			} else {
-				if (chr->aibot->config->difficulty == BOTDIFF_EASY && angle > BADDTOR2(90)) {
+			} else if (chr->aibot->config->difficulty == BOTDIFF_EASY) {
+				if (angletotarget > BADDTOR2(90)) {
 					result = false;
 				}
 			}
