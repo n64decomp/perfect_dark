@@ -584,8 +584,8 @@ void playermgr_allocate_player(s32 index)
 
 	g_Vars.players[index]->hoverbike = NULL;
 	g_Vars.players[index]->bondonground = false;
-	g_Vars.players[index]->tank = NULL;
-	g_Vars.players[index]->unk1af0 = NULL;
+	g_Vars.players[index]->ontank = NULL;
+	g_Vars.players[index]->intank = NULL;
 	g_Vars.players[index]->bondonturret = 0;
 	g_Vars.players[index]->grabbedprop = NULL;
 	g_Vars.players[index]->bondtankexplode = false;

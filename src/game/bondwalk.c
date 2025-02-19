@@ -37,8 +37,8 @@ void bwalk_init(void)
 
 	g_Vars.currentplayer->bondmovemode = MOVEMODE_WALK;
 	g_Vars.currentplayer->bondonground = 0;
-	g_Vars.currentplayer->tank = NULL;
-	g_Vars.currentplayer->unk1af0 = NULL;
+	g_Vars.currentplayer->ontank = NULL;
+	g_Vars.currentplayer->intank = NULL;
 	g_Vars.currentplayer->bondonturret = false;
 
 	g_Vars.currentplayer->swaypos = 0;
@@ -260,8 +260,8 @@ bool bwalk_calculate_new_position(struct coord *vel, f32 rotateamount, bool appl
 	dstpos.z = g_Vars.currentplayer->prop->pos.z;
 
 	if (vel->x || vel->y || vel->z) {
-		if (g_Vars.currentplayer->tank) {
-			prop_set_perim_enabled(g_Vars.currentplayer->tank, false);
+		if (g_Vars.currentplayer->ontank) {
+			prop_set_perim_enabled(g_Vars.currentplayer->ontank, false);
 		}
 
 		prop_set_perim_enabled(g_Vars.currentplayer->prop, false);
@@ -321,8 +321,8 @@ bool bwalk_calculate_new_position(struct coord *vel, f32 rotateamount, bool appl
 
 		prop_set_perim_enabled(g_Vars.currentplayer->prop, true);
 
-		if (g_Vars.currentplayer->tank) {
-			prop_set_perim_enabled(g_Vars.currentplayer->tank, true);
+		if (g_Vars.currentplayer->ontank) {
+			prop_set_perim_enabled(g_Vars.currentplayer->ontank, true);
 		}
 	}
 
@@ -459,8 +459,8 @@ bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamoun
 				bool dothething;
 
 				if ((obj->hidden & OBJHFLAG_MOUNTED) == 0 && (obj->hidden & OBJHFLAG_GRABBED) == 0) {
-					if (g_Vars.currentplayer->unk1af0 == 0 && obj->type == OBJTYPE_TANK) {
-						g_Vars.currentplayer->tank = obstacle;
+					if (g_Vars.currentplayer->intank == NULL && obj->type == OBJTYPE_TANK) {
+						g_Vars.currentplayer->ontank = obstacle;
 					} else if (obj->flags3 & OBJFLAG3_PUSHABLE) {
 						g_Vars.currentplayer->speedmaxtime60 = 0;
 						dothething = true;

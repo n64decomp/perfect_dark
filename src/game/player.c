@@ -4841,7 +4841,7 @@ void player_die_by_shooter(u32 shooter, bool force)
 		g_Vars.currentplayer->posdie.z = g_Vars.currentplayer->prop->pos.z;
 
 		if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-			if (g_Vars.currentplayer->unk1af0) {
+			if (g_Vars.currentplayer->intank) {
 				g_Vars.currentplayer->bondtankexplode = true;
 			}
 		} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
@@ -5121,8 +5121,8 @@ void player_set_perim_enabled(struct prop *prop, bool enable)
 	}
 
 	if (g_Vars.currentplayer->bondmovemode == MOVEMODE_WALK) {
-		if (g_Vars.currentplayer->unk1af0) {
-			obj_set_perim_enabled(g_Vars.currentplayer->unk1af0, enable);
+		if (g_Vars.currentplayer->intank) {
+			obj_set_perim_enabled(g_Vars.currentplayer->intank, enable);
 		}
 	} else if (g_Vars.currentplayer->bondmovemode == MOVEMODE_BIKE) {
 		obj_set_perim_enabled(g_Vars.currentplayer->hoverbike, enable);

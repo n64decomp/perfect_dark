@@ -2733,8 +2733,8 @@ struct player {
 	/*0x1adc*/ struct coord bondenteraim;
 
 	/*0x1ae8*/ f32 bondonground;
-	/*0x1aec*/ struct prop *tank;
-	/*0x1af0*/ struct prop *unk1af0;
+	/*0x1aec*/ struct prop *ontank;
+	/*0x1af0*/ struct prop *intank;
 	/*0x1af4*/ u32 bondonturret;
 	/*0x1af8*/ s32 walkinitmove;
 	/*0x1afc*/ struct coord walkinitpos;
