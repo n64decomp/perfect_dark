@@ -7161,12 +7161,12 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 									if (obj->projectile->ownerprop && obj->projectile->ownerprop->type == PROPTYPE_PLAYER) {
 										s32 prevplayernum = g_Vars.currentplayernum;
 										set_current_player_num(playermgr_get_player_num_by_prop(obj->projectile->ownerprop));
-										mpstats_increment_player_shot_count(&weapon->gset, SHOTREGION_TOTAL);
+										mpstats_increment_player_shotcount_projectiles(&weapon->gset, SHOTREGION_TOTAL);
 
 										if (g_EmbedProp != NULL) {
 											if (g_EmbedProp->type == PROPTYPE_OBJ) {
 												if (obj_is_healthy(g_EmbedProp->obj)) {
-													mpstats_increment_player_shot_count(&weapon->gset, SHOTREGION_OBJECT);
+													mpstats_increment_player_shotcount_projectiles(&weapon->gset, SHOTREGION_OBJECT);
 												}
 											} else if (g_EmbedProp->type == PROPTYPE_CHR || g_EmbedProp->type == PROPTYPE_PLAYER) {
 												struct chrdata *embedchr = g_EmbedProp->chr;
@@ -7185,20 +7185,20 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 													case 0:
 														break;
 													case HITPART_HEAD:
-														mpstats_increment_player_shot_count(&weapon->gset, SHOTREGION_HEAD);
+														mpstats_increment_player_shotcount_projectiles(&weapon->gset, SHOTREGION_HEAD);
 														break;
 													case HITPART_GUN:
-														mpstats_increment_player_shot_count(&weapon->gset, SHOTREGION_GUN);
+														mpstats_increment_player_shotcount_projectiles(&weapon->gset, SHOTREGION_GUN);
 														break;
 													case HITPART_HAT:
-														mpstats_increment_player_shot_count(&weapon->gset, SHOTREGION_HAT);
+														mpstats_increment_player_shotcount_projectiles(&weapon->gset, SHOTREGION_HAT);
 														break;
 													case HITPART_PELVIS:
 													case HITPART_TORSO:
-														mpstats_increment_player_shot_count(&weapon->gset, SHOTREGION_BODY);
+														mpstats_increment_player_shotcount_projectiles(&weapon->gset, SHOTREGION_BODY);
 														break;
 													default:
-														mpstats_increment_player_shot_count(&weapon->gset, SHOTREGION_LIMB);
+														mpstats_increment_player_shotcount_projectiles(&weapon->gset, SHOTREGION_LIMB);
 														break;
 													}
 												}
@@ -14853,7 +14853,7 @@ void obj_hit(struct shotdata *shotdata, struct hit *hit)
 
 	// Increment object hit count
 	if (obj_is_healthy(obj) && obj_is_mortal(obj) && hit->slowsbullet) {
-		mpstats_increment_player_shot_count2(&shotdata->gset, SHOTREGION_OBJECT);
+		mpstats_increment_player_shotcount(&shotdata->gset, SHOTREGION_OBJECT);
 	}
 
 	// Play hit sound

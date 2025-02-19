@@ -17,41 +17,51 @@
 #include "data.h"
 #include "types.h"
 
-u32 var80070590 = 0x00000000;
+bool g_AllowRegionShot = false;
 
-void mpstats_increment_player_shot_count(struct gset *gset, s32 region)
+void mpstats_increment_player_shotcount_projectiles(struct gset *gset, s32 region)
 {
 	if (!gset_has_weapon_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
 		g_Vars.currentplayerstats->shotcount[region]++;
 	}
 }
 
-void mpstats_increment_player_shot_count2(struct gset *gset, s32 region)
+/**
+ * The usage of g_AllowRegionShot ensures that the sum of region shots does not
+ * exceed the total shots.
+ *
+ * The sequence of calls when firing a shot is:
+ * - Call mpstats_increment_player_shotcount with SHOTREGION_TOTAL.
+ * - For each hits that landed (there can be multiple with the shotgun),
+ *   call mpstats_increment_player_shotcount with that region.
+ * - Call mpstats_end_shot so any unexpected region shots will not be counted.
+ */
+void mpstats_increment_player_shotcount(struct gset *gset, s32 region)
 {
-	if (region == 0) {
+	if (region == SHOTREGION_TOTAL) {
 		if (!gset_has_weapon_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
-			var80070590 = 1;
+			g_AllowRegionShot = true;
 			g_Vars.currentplayerstats->shotcount[region]++;
 		}
 	} else {
-		if (var80070590) {
+		if (g_AllowRegionShot) {
 			if (!gset_has_weapon_flag(gset->weaponnum, WEAPONFLAG_DONTCOUNTSHOTS)) {
 				g_Vars.currentplayerstats->shotcount[region]++;
 			}
 
-			var80070590 = 0;
+			g_AllowRegionShot = false;
 		}
 	}
 }
 
-void mpstats0f0b0520(void)
+void mpstats_end_shot(void)
 {
-	var80070590 = 0;
+	g_AllowRegionShot = false;
 }
 
-s32 mpstats_get_player_shot_count_by_region(u32 type)
+s32 mpstats_get_player_shotcount_by_region(s32 region)
 {
-	return g_Vars.currentplayerstats->shotcount[type];
+	return g_Vars.currentplayerstats->shotcount[region];
 }
 
 void mpstats_increment_total_kill_count(void)

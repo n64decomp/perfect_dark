@@ -2018,8 +2018,8 @@ void mp_calculate_awards(void)
 		g_Vars.currentplayer->award1 = NULL;
 		g_Vars.currentplayer->award2 = NULL;
 
-		metrics[i].numshots = mpstats_get_player_shot_count_by_region(SHOTREGION_TOTAL);
-		metrics[i].numheadshots = mpstats_get_player_shot_count_by_region(SHOTREGION_HEAD);
+		metrics[i].numshots = mpstats_get_player_shotcount_by_region(SHOTREGION_TOTAL);
+		metrics[i].numheadshots = mpstats_get_player_shotcount_by_region(SHOTREGION_HEAD);
 		metrics[i].numkills = 0;
 		metrics[i].numdeaths = 0;
 		metrics[i].numsuicides = 0;
@@ -2056,12 +2056,12 @@ void mp_calculate_awards(void)
 		metrics[i].longestlife = g_Vars.playerstats[i].longestlife;
 		metrics[i].shortestlife = g_Vars.playerstats[i].shortestlife;
 
-		sum = mpstats_get_player_shot_count_by_region(SHOTREGION_HEAD)
-			+ mpstats_get_player_shot_count_by_region(SHOTREGION_BODY)
-			+ mpstats_get_player_shot_count_by_region(SHOTREGION_LIMB)
-			+ mpstats_get_player_shot_count_by_region(SHOTREGION_GUN)
-			+ mpstats_get_player_shot_count_by_region(SHOTREGION_HAT)
-			+ mpstats_get_player_shot_count_by_region(SHOTREGION_OBJECT);
+		sum = mpstats_get_player_shotcount_by_region(SHOTREGION_HEAD)
+			+ mpstats_get_player_shotcount_by_region(SHOTREGION_BODY)
+			+ mpstats_get_player_shotcount_by_region(SHOTREGION_LIMB)
+			+ mpstats_get_player_shotcount_by_region(SHOTREGION_GUN)
+			+ mpstats_get_player_shotcount_by_region(SHOTREGION_HAT)
+			+ mpstats_get_player_shotcount_by_region(SHOTREGION_OBJECT);
 
 		if (metrics[i].numshots > 0) {
 			metrics[i].accuracyfrac = sum / (f32)metrics[i].numshots;

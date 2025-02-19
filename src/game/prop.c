@@ -1316,7 +1316,7 @@ void hand_tick_attack(s32 handnum)
 			// right hand is not (ie. prevent firing both guns on the same tick)
 			if (handnum == HAND_RIGHT || !bgun_is_firing(HAND_RIGHT)) {
 				chr_uncloak_temporarily(g_Vars.currentplayer->prop->chr);
-				mpstats_increment_player_shot_count2(&gset, 0);
+				mpstats_increment_player_shotcount(&gset, SHOTREGION_TOTAL);
 
 				if (weaponnum == WEAPON_SHOTGUN) {
 					shot_create(handnum, true, true, 1, true);
@@ -1329,7 +1329,7 @@ void hand_tick_attack(s32 handnum)
 					shot_create(handnum, true, true, bgun_get_shots_to_take(handnum), g_Vars.mplayerisrunning);
 				}
 
-				mpstats0f0b0520();
+				mpstats_end_shot();
 			}
 			break;
 		case HANDATTACKTYPE_MELEE:

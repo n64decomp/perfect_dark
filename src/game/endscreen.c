@@ -253,44 +253,44 @@ char *endscreen_menu_text_num_kills(struct menuitem *item)
 
 char *endscreen_menu_text_num_shots(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", mpstats_get_player_shot_count_by_region(SHOTREGION_TOTAL));
+	sprintf(g_StringPointer, "%d", mpstats_get_player_shotcount_by_region(SHOTREGION_TOTAL));
 	return g_StringPointer;
 }
 
 char *endscreen_menu_text_num_head_shots(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", mpstats_get_player_shot_count_by_region(SHOTREGION_HEAD));
+	sprintf(g_StringPointer, "%d", mpstats_get_player_shotcount_by_region(SHOTREGION_HEAD));
 	return g_StringPointer;
 }
 
 char *endscreen_menu_text_num_body_shots(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", mpstats_get_player_shot_count_by_region(SHOTREGION_BODY));
+	sprintf(g_StringPointer, "%d", mpstats_get_player_shotcount_by_region(SHOTREGION_BODY));
 	return g_StringPointer;
 }
 
 char *endscreen_menu_text_num_limb_shots(struct menuitem *item)
 {
-	sprintf(g_StringPointer, "%d", mpstats_get_player_shot_count_by_region(SHOTREGION_LIMB));
+	sprintf(g_StringPointer, "%d", mpstats_get_player_shotcount_by_region(SHOTREGION_LIMB));
 	return g_StringPointer;
 }
 
 char *endscreen_menu_text_num_other_shots(struct menuitem *item)
 {
-	u32 total = mpstats_get_player_shot_count_by_region(SHOTREGION_GUN) + mpstats_get_player_shot_count_by_region(SHOTREGION_HAT);
+	u32 total = mpstats_get_player_shotcount_by_region(SHOTREGION_GUN) + mpstats_get_player_shotcount_by_region(SHOTREGION_HAT);
 	sprintf(g_StringPointer, "%d", total);
 	return g_StringPointer;
 }
 
 char *endscreen_menu_text_accuracy(struct menuitem *item)
 {
-	s32 total = mpstats_get_player_shot_count_by_region(SHOTREGION_TOTAL);
-	s32 numhead = mpstats_get_player_shot_count_by_region(SHOTREGION_HEAD);
-	s32 numbody = mpstats_get_player_shot_count_by_region(SHOTREGION_BODY);
-	s32 numlimb = mpstats_get_player_shot_count_by_region(SHOTREGION_LIMB);
-	s32 numgun = mpstats_get_player_shot_count_by_region(SHOTREGION_GUN);
-	s32 numhat = mpstats_get_player_shot_count_by_region(SHOTREGION_HAT);
-	s32 numobject = mpstats_get_player_shot_count_by_region(SHOTREGION_OBJECT);
+	s32 total = mpstats_get_player_shotcount_by_region(SHOTREGION_TOTAL);
+	s32 numhead = mpstats_get_player_shotcount_by_region(SHOTREGION_HEAD);
+	s32 numbody = mpstats_get_player_shotcount_by_region(SHOTREGION_BODY);
+	s32 numlimb = mpstats_get_player_shotcount_by_region(SHOTREGION_LIMB);
+	s32 numgun = mpstats_get_player_shotcount_by_region(SHOTREGION_GUN);
+	s32 numhat = mpstats_get_player_shotcount_by_region(SHOTREGION_HAT);
+	s32 numobject = mpstats_get_player_shotcount_by_region(SHOTREGION_OBJECT);
 	f32 accuracy;
 
 	if (total > 0) {

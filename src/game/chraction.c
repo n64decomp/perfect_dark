@@ -4623,20 +4623,20 @@ void chr_damage(struct chrdata *chr, f32 damage, struct coord *vector, struct gs
 		if (!alreadydead && hitpart) {
 			switch (hitpart) {
 			case HITPART_HEAD:
-				mpstats_increment_player_shot_count2(gset, SHOTREGION_HEAD);
+				mpstats_increment_player_shotcount(gset, SHOTREGION_HEAD);
 				break;
 			case HITPART_GUN:
-				mpstats_increment_player_shot_count2(gset, SHOTREGION_GUN);
+				mpstats_increment_player_shotcount(gset, SHOTREGION_GUN);
 				break;
 			case HITPART_HAT:
-				mpstats_increment_player_shot_count2(gset, SHOTREGION_HAT);
+				mpstats_increment_player_shotcount(gset, SHOTREGION_HAT);
 				break;
 			case HITPART_PELVIS:
 			case HITPART_TORSO:
-				mpstats_increment_player_shot_count2(gset, SHOTREGION_BODY);
+				mpstats_increment_player_shotcount(gset, SHOTREGION_BODY);
 				break;
 			default:
-				mpstats_increment_player_shot_count2(gset, SHOTREGION_LIMB);
+				mpstats_increment_player_shotcount(gset, SHOTREGION_LIMB);
 				break;
 			}
 		}
