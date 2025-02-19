@@ -508,7 +508,7 @@ void setup_create_object(struct defaultobj *obj, s32 cmdindex)
 				obj_place_3d(obj, &pos, &mtx, rooms, &centre);
 			}
 
-			if (obj->hidden & OBJHFLAG_00008000) {
+			if (obj->hidden & OBJHFLAG_ONANOTHEROBJ) {
 				prop_activate_this_frame(prop2);
 			} else {
 				prop_activate(prop2);

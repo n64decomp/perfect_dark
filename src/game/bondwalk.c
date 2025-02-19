@@ -466,7 +466,7 @@ bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamoun
 						dothething = true;
 
 						if ((obj->hidden & OBJHFLAG_PROJECTILE) &&
-								(obj->projectile->flags & PROJECTILEFLAG_00001000)) {
+								(obj->projectile->flags & PROJECTILEFLAG_TICKEDEARLY)) {
 							dothething = false;
 						}
 
@@ -474,21 +474,21 @@ bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamoun
 							bwalk0f0c3b38(delta, obj);
 
 							if (obj->hidden & OBJHFLAG_PROJECTILE && (obj->projectile->flags & PROJECTILEFLAG_SLIDING)) {
-								bool somevalue;
+								bool moved;
 								bool embedded = false;
-								somevalue = projectile_tick(obj, &embedded);
+								moved = projectile_tick(obj, &embedded);
 
 								if (obj->hidden & OBJHFLAG_PROJECTILE) {
-									obj->projectile->flags |= PROJECTILEFLAG_00001000;
+									obj->projectile->flags |= PROJECTILEFLAG_TICKEDEARLY;
 
-									if (somevalue) {
-										obj->projectile->flags |= PROJECTILEFLAG_00002000;
+									if (moved) {
+										obj->projectile->flags |= PROJECTILEFLAG_TICKEDEARLYMOVED;
 									} else {
-										obj->projectile->flags &= ~PROJECTILEFLAG_00002000;
+										obj->projectile->flags &= ~PROJECTILEFLAG_TICKEDEARLYMOVED;
 									}
 								}
 
-								if (somevalue) {
+								if (moved) {
 									result = bwalk_calculate_new_position(delta, rotateamount, apply, extrawidth, types);
 								}
 							}

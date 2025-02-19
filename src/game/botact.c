@@ -516,14 +516,14 @@ void botact_create_slayer_rocket(struct chrdata *chr)
 		mtx00015be0(&sp132, &sp196);
 		mtx4_load_identity(&sp260);
 
-		bgun0f09ebcc(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, &sp100, &sp260, chr->prop, &chr->prop->pos);
+		bgun_configure_projectile(&rocket->base, &chr->prop->pos, chr->prop->rooms, &sp196, &sp100, &sp260, chr->prop, &chr->prop->pos);
 
 		if (rocket->base.hidden & OBJHFLAG_PROJECTILE) {
 			struct prop *target = chr_get_target_prop(chr);
 			rocket->timer240 = -1;
-			rocket->base.projectile->unk010 = 7.5;
-			rocket->base.projectile->unk014 = xrot;
-			rocket->base.projectile->unk018 = yrot;
+			rocket->base.projectile->fbwspeed = 7.5;
+			rocket->base.projectile->fbwrotx = xrot;
+			rocket->base.projectile->fbwroty = yrot;
 			rocket->base.projectile->smoketimer240 = 0;
 			rocket->base.projectile->pickuptimer240 = 0x20000000;
 

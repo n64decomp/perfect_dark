@@ -39,7 +39,7 @@ bool model_get_screen_coords(struct model *model, f32 *x2, f32 *x1, f32 *y2, f32
 void obj_get_screeninfo(struct coord *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 *arg4);
 struct defaultobj *obj_find_by_pad_num(s32 padnum);
 void projectiles_unref_owner(struct prop *owner);
-void func0f0685e4(struct prop *prop);
+void obj_ensure_projectile(struct prop *prop);
 void projectile_set_sticky(struct prop *prop);
 struct embedment *embedment_allocate(void);
 s32 obj_get_destroyed_level(struct defaultobj *obj);
@@ -80,7 +80,7 @@ void hoverprop_set_turn_angle(struct defaultobj *obj, f32 angle);
 s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3);
 void hoverbike_update_movement(struct hoverbikeobj *hoverbike, f32 arg1, f32 arg2, f32 arg3);
 s32 projectile_launch(struct defaultobj *obj, struct projectile *projectile, struct coord *arg2, struct coord *arg3);
-s32 projectile_tick(struct defaultobj *obj, bool *embedded);
+bool projectile_tick(struct defaultobj *obj, bool *embedded);
 struct chopperobj *chopper_from_hovercar(struct chopperobj *obj);
 bool chopper_check_target_in_fov(struct chopperobj *hovercar, u8 param_2);
 bool chopper_check_target_in_sight(struct chopperobj *obj);

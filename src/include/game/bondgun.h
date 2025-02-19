@@ -21,7 +21,7 @@ void bgun_free_gun_mem(void);
 bool bgun_change_gun_mem(s32 newowner);
 bool bgun_load_all(void);
 struct modeldef *bgun_get_cart_modeldef(void);
-void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, RoomNum *rooms, Mtxf *matrix1, struct coord *velocity, Mtxf *matrix2, struct prop *prop, struct coord *pos);
+void bgun_configure_projectile(struct defaultobj *obj, struct coord *coord, RoomNum *rooms, Mtxf *matrix1, struct coord *velocity, Mtxf *matrix2, struct prop *prop, struct coord *pos);
 struct defaultobj *bgun_create_thrown_projectile2(struct chrdata *chr, struct gset *gset, struct coord *pos, RoomNum *rooms, Mtxf *arg4, struct coord *velocity);
 void bgun_create_thrown_projectile(s32 handnum, struct gset *gset);
 void bgun_create_fired_projectile(s32 handnum);

@@ -2006,10 +2006,10 @@ struct funcdef_shootprojectile invfunc_superdragon_grenadelauncher = {
 	0, // unused
 	1, // scale
 	0, // speed
-	0.08, // unk50
+	0.08, // speeddecel
 	30, // traveldist
 	1200, // timer60
-	0.1, // reflectangle
+	0.1, // hitspeedpreservationfrac
 	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
@@ -2780,10 +2780,10 @@ struct funcdef_shootprojectile invfunc_rockerlauncher_shoot = {
 	0, // unused
 	2.1, // scale
 	60, // speed
-	0, // unk50
+	0, // speeddecel
 	0, // traveldist
 	-1, // timer60
-	0.05, // reflectangle
+	0.05, // hitspeedpreservationfrac
 	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
@@ -2811,10 +2811,10 @@ struct funcdef_shootprojectile invfunc_rocketlauncher_homing = {
 	0, // unused
 	2.1, // scale
 	0, // speed
-	0, // unk50
+	0, // speeddecel
 	5, // traveldist
 	-1, // timer60
-	0.05, // reflectangle
+	0.05, // hitspeedpreservationfrac
 	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
@@ -2890,10 +2890,10 @@ struct funcdef_shootprojectile invfunc_slayer_shoot = {
 	0, // unused
 	4.1, // scale
 	10, // speed
-	0, // unk50
+	0, // speeddecel
 	0, // traveldist
 	-1, // timer60
-	0.05, // reflectangle
+	0.05, // hitspeedpreservationfrac
 	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
@@ -2921,10 +2921,10 @@ struct funcdef_shootprojectile invfunc_slayer_flybywire = {
 	0, // unused
 	4.1, // scale
 	10, // speed
-	0, // unk50
+	0, // speeddecel
 	0, // traveldist
 	-1, // timer60
-	0.05, // reflectangle
+	0.05, // hitspeedpreservationfrac
 	SFXMAP_8068_SLAYER_WHIR, // soundnum
 };
 
@@ -3010,10 +3010,10 @@ struct funcdef_shootprojectile invfunc_devastator_shoot = {
 	0, // unused
 	1, // scale
 	0, // speed
-	0.08, // unk50
+	0.08, // speeddecel
 	40, // traveldist
 	1200, // timer60
-	0.3, // reflectangle
+	0.3, // hitspeedpreservationfrac
 	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
@@ -3041,10 +3041,10 @@ struct funcdef_shootprojectile invfunc_devastator_wallhugger = {
 	0, // unused
 	1, // scale
 	0, // speed
-	0.08, // unk50
+	0.08, // speeddecel
 	40, // traveldist
 	360, // timer60
-	0.3, // reflectangle
+	0.3, // hitspeedpreservationfrac
 	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 
@@ -3719,10 +3719,10 @@ struct funcdef_shootprojectile invfunc_crossbow_lethal = {
 	0, // unused
 	2.1, // scale
 	0, // speed
-	0, // unk50
+	0, // speeddecel
 	60, // traveldist
 	-1, // timer60
-	0.05, // reflectangle
+	0.05, // hitspeedpreservationfrac
 	-1, // soundnum
 };
 
@@ -3750,10 +3750,10 @@ struct funcdef_shootprojectile invfunc_crossbow_shoot = {
 	0, // unused
 	2.1, // scale
 	0, // speed
-	0, // unk50
+	0, // speeddecel
 	60, // traveldist
 	-1, // timer60
-	0.05, // reflectangle
+	0.05, // hitspeedpreservationfrac
 	-1, // soundnum
 };
 
@@ -6094,10 +6094,10 @@ struct funcdef_shootprojectile invfunc_kingsceptre_primary = {
 	0, // unused
 	2.1, // scale
 	20, // speed
-	0, // unk50
+	0, // speeddecel
 	0, // traveldist
 	-1, // timer60
-	0.05, // reflectangle
+	0.05, // hitspeedpreservationfrac
 	SFXMAP_8053_LAUNCH_ROCKET, // soundnum
 };
 

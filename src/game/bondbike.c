@@ -63,7 +63,7 @@ void bbike_init(void)
 		struct projectile *projectile = hoverbike->base.projectile;
 		hoverbike->speed[0] = projectile->speed.x;
 		hoverbike->speed[1] = projectile->speed.z;
-		hoverbike->w = projectile->unk0dc;
+		hoverbike->w = projectile->yrotspeed;
 	}
 
 	obj_free_embedment_or_projectile(g_Vars.currentplayer->hoverbike);
@@ -492,7 +492,7 @@ s32 bbike_calculate_new_position_with_push(struct coord *arg0, f32 arg1)
 					struct defaultobj *bike = g_Vars.currentplayer->hoverbike->obj;
 
 					if ((obj->hidden & OBJHFLAG_PROJECTILE)
-							&& (obj->projectile->flags & PROJECTILEFLAG_00001000)) {
+							&& (obj->projectile->flags & PROJECTILEFLAG_TICKEDEARLY)) {
 						pass = false;
 					}
 
@@ -501,21 +501,21 @@ s32 bbike_calculate_new_position_with_push(struct coord *arg0, f32 arg1)
 
 						if ((obj->hidden & OBJHFLAG_PROJECTILE)
 								&& (obj->projectile->flags & PROJECTILEFLAG_SLIDING)) {
-							s32 somevalue;
+							bool moved;
 							bool embedded = false;
-							somevalue = projectile_tick(obj, &embedded);
+							moved = projectile_tick(obj, &embedded);
 
 							if (obj->hidden & OBJHFLAG_PROJECTILE) {
-								obj->projectile->flags |= PROJECTILEFLAG_00001000;
+								obj->projectile->flags |= PROJECTILEFLAG_TICKEDEARLY;
 
-								if (somevalue) {
-									obj->projectile->flags |= PROJECTILEFLAG_00002000;
+								if (moved) {
+									obj->projectile->flags |= PROJECTILEFLAG_TICKEDEARLYMOVED;
 								} else {
-									obj->projectile->flags &= ~PROJECTILEFLAG_00002000;
+									obj->projectile->flags &= ~PROJECTILEFLAG_TICKEDEARLYMOVED;
 								}
 							}
 
-							if (somevalue) {
+							if (moved) {
 								result = bbike_calculate_new_position(arg0, arg1);
 							}
 						}

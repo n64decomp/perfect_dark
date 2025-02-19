@@ -1330,25 +1330,30 @@ struct chrdata {
 struct projectile {
 	/*0x000*/ u32 flags;
 	/*0x004*/ struct coord speed; // distance moved in last tick
-	/*0x010*/ f32 unk010;
-	/*0x014*/ f32 unk014;
-	/*0x018*/ f32 unk018;
-	/*0x01c*/ f32 unk01c;
+	union {
+		struct coord accel;
+		struct {
+			/*0x010*/ f32 fbwspeed;
+			/*0x014*/ f32 fbwrotx;
+			/*0x018*/ f32 fbwroty;
+		};
+	};
+	/*0x01c*/ f32 missileyaccel;
 	/*0x020*/ Mtxf mtx;
-	/*0x060*/ f32 unk060;
-	/*0x064*/ f32 unk064;
+	/*0x060*/ f32 settledrotfrac;
+	/*0x064*/ f32 settledrotinc;
 	/*0x068*/ f32 unk068[4];
 	/*0x078*/ f32 unk078[4];
 	/*0x088*/ struct prop *ownerprop;
-	/*0x08c*/ f32 unk08c;
+	/*0x08c*/ f32 hitspeedpreservationfrac;
 	/*0x090*/ s32 bouncecount;
 	/*0x094*/ s32 bounceframe;
-	/*0x098*/ f32 unk098;
+	/*0x098*/ f32 speeddecel;
 	/*0x09c*/ s32 lastwooshframe;
 	/*0x0a0*/ s32 flighttime240;
-	/*0x0a4*/ s32 unk0a4;
-	/*0x0a8*/ f32 unk0a8;
-	/*0x0ac*/ f32 unk0ac;
+	/*0x0a4*/ s32 collisionframe;
+	/*0x0a8*/ f32 missiley;
+	/*0x0ac*/ f32 missileyspeed;
 	/*0x0b0*/ s16 droptype;
 	/*0x0b2*/ s16 powerlimit240;
 	/*0x0b4*/ s32 pickuptimer240;
@@ -1356,13 +1361,13 @@ struct projectile {
 	/*0x0c4*/ struct coord nextsteppos;
 	/*0x0d0*/ s32 losttimer240;
 	/*0x0d4*/ struct defaultobj *obj;
-	/*0x0d8*/ s32 unk0d8;
-	/*0x0dc*/ f32 unk0dc;
-	/*0x0e0*/ f32 unk0e0;
-	/*0x0e4*/ f32 unk0e4;
+	/*0x0d8*/ s32 startframe;
+	/*0x0dc*/ f32 yrotspeed;
+	/*0x0e0*/ f32 yrotdecel;
+	/*0x0e4*/ f32 excessivedecelrate;
 	/*0x0e8*/ struct prop *targetprop; // for homing rockets
-	/*0x0ec*/ f32 unk0ec;
-	/*0x0f0*/ f32 unk0f0;
+	/*0x0ec*/ f32 yrotexcessivedecelbase;
+	/*0x0f0*/ f32 xzexcessivedecelbase;
 	/*0x0f4*/ s32 smoketimer240;
 	/*0x0f8*/ s16 waypads[MAX_CHRWAYPOINTS];
 	/*0x104*/ u8 numwaypads;
@@ -2957,10 +2962,10 @@ struct funcdef_shootprojectile {
 	/*0x44*/ u32 unk44; // unused
 	/*0x48*/ f32 scale;
 	/*0x4c*/ s32 speed;
-	/*0x50*/ f32 unk50;
+	/*0x50*/ f32 speeddecel;
 	/*0x54*/ s32 traveldist;
 	/*0x58*/ s32 timer60;
-	/*0x5c*/ f32 reflectangle;
+	/*0x5c*/ f32 hitspeedpreservationfrac;
 	/*0x60*/ s16 soundnum;
 };
 

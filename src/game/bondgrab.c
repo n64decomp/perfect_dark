@@ -561,7 +561,7 @@ bool bgrab_calculate_new_positiont_with_push(struct coord *delta, f32 angle, boo
 					g_Vars.currentplayer->speedmaxtime60 = 0;
 
 					if ((obj->hidden & OBJHFLAG_PROJECTILE)
-							&& (obj->projectile->flags & PROJECTILEFLAG_00001000)) {
+							&& (obj->projectile->flags & PROJECTILEFLAG_TICKEDEARLY)) {
 						canpush = false;
 					}
 
@@ -570,21 +570,21 @@ bool bgrab_calculate_new_positiont_with_push(struct coord *delta, f32 angle, boo
 
 						if ((obj->hidden & OBJHFLAG_PROJECTILE)
 								&& (obj->projectile->flags & PROJECTILEFLAG_SLIDING)) {
-							s32 someint;
+							bool moved;
 							bool embedded = false;
-							someint = projectile_tick(obj, &embedded);
+							moved = projectile_tick(obj, &embedded);
 
 							if ((obj->hidden & OBJHFLAG_PROJECTILE)) {
-								obj->projectile->flags |= PROJECTILEFLAG_00001000;
+								obj->projectile->flags |= PROJECTILEFLAG_TICKEDEARLY;
 
-								if (someint) {
-									obj->projectile->flags |= PROJECTILEFLAG_00002000;
+								if (moved) {
+									obj->projectile->flags |= PROJECTILEFLAG_TICKEDEARLYMOVED;
 								} else {
-									obj->projectile->flags &= ~PROJECTILEFLAG_00002000;
+									obj->projectile->flags &= ~PROJECTILEFLAG_TICKEDEARLYMOVED;
 								}
 							}
 
-							if (someint) {
+							if (moved) {
 								result = bgrab_calculate_new_position(delta, angle, arg2);
 							}
 						}

@@ -856,7 +856,7 @@
 #define DROPTYPE_SURRENDER    2
 #define DROPTYPE_THROWGRENADE 3
 #define DROPTYPE_HAT          4
-#define DROPTYPE_5            5
+#define DROPTYPE_DEBRIS       5
 #define DROPTYPE_OWNERREAP    6
 
 #define DYNTEXTYPE_RIVER       1
@@ -3072,7 +3072,7 @@
 #define OBJFLAG_CHOPPER_INIT               0x20000000
 #define OBJFLAG_DOOR_OPENTOFRONT           0x20000000
 #define OBJFLAG_HOVERCAR_INIT              0x20000000
-#define OBJFLAG_HOVERPROP_20000000         0x20000000
+#define OBJFLAG_HOVERPROP_ISCRATE          0x20000000
 #define OBJFLAG_LIFT_LATERALMOVEMENT       0x20000000
 #define OBJFLAG_MONITOR_20000000           0x20000000
 #define OBJFLAG_WEAPON_AICANNOTUSE         0x20000000
@@ -3134,38 +3134,38 @@
 #define OBJFLAG2_WEAPON_HUGEEXP         0x80000000
 
 // obj->flags3
-#define OBJFLAG3_PUSHABLE             0x00000001
-#define OBJFLAG3_GRABBABLE            0x00000002
-#define OBJFLAG3_DOOR_STICKY          0x00000004 // eg. Skedar Ruins
-#define OBJFLAG3_00000008             0x00000008 // Not used in scripts
-#define OBJFLAG3_FINDROOMSFAST        0x00000010 // Can use if obj never goes out of bounds or in overlapping rooms
-#define OBJFLAG3_AUTOCUTSCENESOUNDS   0x00000020 // For doors and objs - play default open/close noises
-#define OBJFLAG3_RTRACKED_YELLOW      0x00000040
-#define OBJFLAG3_CANHARDFREE          0x00000080 // Can free prop while on screen (MP weapons only)
-#define OBJFLAG3_HARDFREEING          0x00000100
-#define OBJFLAG3_00000200             0x00000200 // Not used in scripts
-#define OBJFLAG3_WALKTHROUGH          0x00000400
-#define OBJFLAG3_RTRACKED_BLUE        0x00000800
-#define OBJFLAG3_SHOWSHIELD           0x00001000 // Show shield effect around object (always)
-#define OBJFLAG3_HTMTERMINAL          0x00002000 // Terminal for Hacker Central scenario (HTM = Hack That Mac)
-#define OBJFLAG3_ISFETCHTARGET        0x00004000 // AI bot is fetching this obj
-#define OBJFLAG3_REACTTOSIGHT         0x00008000 // Turn sight blue or red when targeted with R
-#define OBJFLAG3_INTERACTABLE         0x00010000
-#define OBJFLAG3_SHIELDHIT            0x00020000 // Turns off when shield no longer visible
-#define OBJFLAG3_RENDERPOSTBG         0x00040000
-#define OBJFLAG3_DRAWONTOP            0x00080000
-#define OBJFLAG3_HOVERBEDSHIELD       0x00100000
-#define OBJFLAG3_INTERACTSHORTRANGE   0x00200000
-#define OBJFLAG3_PLAYERUNDROPPABLE    0x00400000 // Player does not drop item when dead
-#define OBJFLAG3_LONGPUSHRANGE        0x00800000 // Not used in scripts
-#define OBJFLAG3_PUSHFREELY           0x01000000 // Not used in scripts
-#define OBJFLAG3_GEOCYL               0x02000000 // Use cylinder geometry rather than block
-#define OBJFLAG3_04000000             0x04000000 // Not used in scripts
-#define OBJFLAG3_08000000             0x08000000 // Not used in scripts
-#define OBJFLAG3_KEEPGEOWHENDESTROYED 0x10000000
-#define OBJFLAG3_ONSHELF              0x20000000 // Obj is on a shelf - use bigger pickup range for Small Jo and Play as Elvis cheats and skip line of sight checks
-#define OBJFLAG3_INFRARED             0x40000000 // Obj is highlighted on IR scanner
-#define OBJFLAG3_80000000             0x80000000 // Not used in scripts
+#define OBJFLAG3_PUSHABLE               0x00000001
+#define OBJFLAG3_GRABBABLE              0x00000002
+#define OBJFLAG3_DOOR_STICKY            0x00000004 // eg. Skedar Ruins
+#define OBJFLAG3_SETTLEROT_BYACTUALSIZE 0x00000008
+#define OBJFLAG3_FINDROOMSFAST          0x00000010 // Can use if obj never goes out of bounds or in overlapping rooms
+#define OBJFLAG3_AUTOCUTSCENESOUNDS     0x00000020 // For doors and objs - play default open/close noises
+#define OBJFLAG3_RTRACKED_YELLOW        0x00000040
+#define OBJFLAG3_CANHARDFREE            0x00000080 // Can free prop while on screen (MP weapons only)
+#define OBJFLAG3_HARDFREEING            0x00000100
+#define OBJFLAG3_SETTLEROT_UPRIGHT      0x00000200
+#define OBJFLAG3_WALKTHROUGH            0x00000400
+#define OBJFLAG3_RTRACKED_BLUE          0x00000800
+#define OBJFLAG3_SHOWSHIELD             0x00001000 // Show shield effect around object (always)
+#define OBJFLAG3_HTMTERMINAL            0x00002000 // Terminal for Hacker Central scenario (HTM = Hack That Mac)
+#define OBJFLAG3_ISFETCHTARGET          0x00004000 // AI bot is fetching this obj
+#define OBJFLAG3_REACTTOSIGHT           0x00008000 // Turn sight blue or red when targeted with R
+#define OBJFLAG3_INTERACTABLE           0x00010000
+#define OBJFLAG3_SHIELDHIT              0x00020000 // Turns off when shield no longer visible
+#define OBJFLAG3_RENDERPOSTBG           0x00040000
+#define OBJFLAG3_DRAWONTOP              0x00080000
+#define OBJFLAG3_HOVERBEDSHIELD         0x00100000
+#define OBJFLAG3_INTERACTSHORTRANGE     0x00200000
+#define OBJFLAG3_PLAYERUNDROPPABLE      0x00400000 // Player does not drop item when dead
+#define OBJFLAG3_LONGPUSHRANGE          0x00800000 // Not used in scripts
+#define OBJFLAG3_PUSHFREELY             0x01000000 // Not used in scripts
+#define OBJFLAG3_GEOCYL                 0x02000000 // Use cylinder geometry rather than block
+#define OBJFLAG3_04000000               0x04000000 // Not used in scripts
+#define OBJFLAG3_SETTLEROT_LAPTOP       0x08000000
+#define OBJFLAG3_KEEPGEOWHENDESTROYED   0x10000000
+#define OBJFLAG3_ONSHELF                0x20000000 // Obj is on a shelf - use bigger pickup range for Small Jo and Play as Elvis cheats and skip line of sight checks
+#define OBJFLAG3_INFRARED               0x40000000 // Obj is highlighted on IR scanner
+#define OBJFLAG3_80000000               0x80000000 // Not used in scripts
 
 // obj->hidden
 #define OBJHFLAG_LIFTDOOR           0x00000001
@@ -3183,9 +3183,9 @@
 #define OBJHFLAG_00001000           0x00001000
 #define OBJHFLAG_PADLOCKEDDOOR      0x00002000
 #define OBJHFLAG_ACTIVATED_BY_BOND  0x00004000
-#define OBJHFLAG_00008000           0x00008000
-#define OBJHFLAG_00010000           0x00010000
-#define OBJHFLAG_00020000           0x00020000
+#define OBJHFLAG_ONANOTHEROBJ       0x00008000
+#define OBJHFLAG_IMMUNETOBOUNCES    0x00010000
+#define OBJHFLAG_ATTACHED           0x00020000
 #define OBJHFLAG_ACTIVATED_BY_COOP  0x00040000
 #define OBJHFLAG_HASOWNER           0x00080000
 #define OBJHFLAG_SUSPICIOUS         0x00100000
@@ -3473,22 +3473,22 @@
 #define PROFILE_RDP_START1       0x40001
 #define PROFILE_AUDIOFRAME_END   0x60000
 
-#define PROJECTILEFLAG_AIRBORNE    0x00000001
-#define PROJECTILEFLAG_00000002    0x00000002
-#define PROJECTILEFLAG_STICKY      0x00000004
-#define PROJECTILEFLAG_POWERED     0x00000010 // No gravity
-#define PROJECTILEFLAG_00000020    0x00000020
-#define PROJECTILEFLAG_LAUNCHING   0x00000080
-#define PROJECTILEFLAG_00000100    0x00000100
-#define PROJECTILEFLAG_FALLING     0x00000400
-#define PROJECTILEFLAG_SLIDING     0x00000800
-#define PROJECTILEFLAG_00001000    0x00001000
-#define PROJECTILEFLAG_00002000    0x00002000
-#define PROJECTILEFLAG_NOTIMELIMIT 0x00004000
-#define PROJECTILEFLAG_INROOM      0x00008000
-#define PROJECTILEFLAG_00010000    0x00010000
-#define PROJECTILEFLAG_LIGHTWEIGHT 0x40000000
-#define PROJECTILEFLAG_FREE        0x80000000
+#define PROJECTILEFLAG_AIRBORNE         0x00000001
+#define PROJECTILEFLAG_FORCEGOODBOUNCE  0x00000002 // Projectile's first bounce will have a forced minimum upward velocity
+#define PROJECTILEFLAG_STICKY           0x00000004
+#define PROJECTILEFLAG_POWERED          0x00000010 // No gravity
+#define PROJECTILEFLAG_MISSILE          0x00000020 // Implemented but unused
+#define PROJECTILEFLAG_LAUNCHING        0x00000080
+#define PROJECTILEFLAG_BOUNCEKEEPROT    0x00000100
+#define PROJECTILEFLAG_SETTLING         0x00000400 // Projectile is finding its final rotation for resting
+#define PROJECTILEFLAG_SLIDING          0x00000800
+#define PROJECTILEFLAG_TICKEDEARLY      0x00001000
+#define PROJECTILEFLAG_TICKEDEARLYMOVED 0x00002000
+#define PROJECTILEFLAG_NOTIMELIMIT      0x00004000
+#define PROJECTILEFLAG_INROOM           0x00008000
+#define PROJECTILEFLAG_DONEOOBSEARCH    0x00010000
+#define PROJECTILEFLAG_LIGHTWEIGHT      0x40000000
+#define PROJECTILEFLAG_FREE             0x80000000
 
 #define PROPFLAG_RENDERPOSTBG         0x01
 #define PROPFLAG_ONTHISSCREENTHISTICK 0x02

@@ -3560,9 +3560,9 @@ void player_tick(bool arg0)
 
 				projectile->powerlimit240 = -1;
 				projectile->flags |= PROJECTILEFLAG_NOTIMELIMIT;
-				projectile->unk018 = 0;
-				projectile->unk014 = 0;
-				projectile->unk010 = 0;
+				projectile->accel.z = 0;
+				projectile->accel.y = 0;
+				projectile->accel.x = 0;
 
 				if ((projectile->flags & PROJECTILEFLAG_LAUNCHING) == 0) {
 					projectile->ownerprop = NULL;

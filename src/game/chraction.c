@@ -7519,7 +7519,7 @@ bool chr_go_to_cover_prop(struct chrdata *chr)
 
 			if (prop->type == PROPTYPE_OBJ
 					&& (obj->hidden2 & OBJH2FLAG_DESTROYED) == 0
-					&& (obj->hidden & OBJHFLAG_00008000) == 0
+					&& (obj->hidden & OBJHFLAG_ONANOTHEROBJ) == 0
 					&& (obj->hidden & OBJHFLAG_OCCUPIEDCHAIR) == 0) {
 				f32 targetdist = prop_get_distance_to_prop(targetprop, prop);
 				f32 chrdist = prop_get_distance_to_prop(chrprop, prop);
@@ -10279,7 +10279,7 @@ void chr_shoot(struct chrdata *chr, s32 handnum)
 #endif
 							}
 
-							bgun0f09ebcc(&projectileobj->base, &gunpos, gunrooms, &projectilemtx, &sp16c, &identmtx, chrprop, &gunpos);
+							bgun_configure_projectile(&projectileobj->base, &gunpos, gunrooms, &projectilemtx, &sp16c, &identmtx, chrprop, &gunpos);
 
 							if (projectileobj->base.hidden & OBJHFLAG_PROJECTILE) {
 								if (func->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
@@ -10288,13 +10288,13 @@ void chr_shoot(struct chrdata *chr, s32 handnum)
 									projectileobj->base.projectile->flags |= PROJECTILEFLAG_POWERED;
 								}
 
-								projectileobj->base.projectile->unk010 = sp15c.x;
-								projectileobj->base.projectile->unk014 = sp15c.y;
-								projectileobj->base.projectile->unk018 = sp15c.z;
+								projectileobj->base.projectile->accel.x = sp15c.x;
+								projectileobj->base.projectile->accel.y = sp15c.y;
+								projectileobj->base.projectile->accel.z = sp15c.z;
 
 								projectileobj->base.projectile->pickuptimer240 = TICKS(240);
-								projectileobj->base.projectile->unk08c = func->reflectangle;
-								projectileobj->base.projectile->unk098 = func->unk50 * (1.0f / 0.6f);
+								projectileobj->base.projectile->hitspeedpreservationfrac = func->hitspeedpreservationfrac;
+								projectileobj->base.projectile->speeddecel = func->speeddecel * (1.0f / 0.6f);
 
 								projectileobj->base.projectile->targetprop = chr_get_target_prop(chr);
 

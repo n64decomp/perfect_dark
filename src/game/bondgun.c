@@ -4126,14 +4126,16 @@ struct modeldef *bgun_get_cart_modeldef(void)
 	return g_Vars.currentplayer->gunctrl.cartmodeldef;
 }
 
-void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, RoomNum *rooms, Mtxf *matrix1, struct coord *velocity, Mtxf *matrix2, struct prop *prop, struct coord *pos)
+void bgun_configure_projectile(struct defaultobj *obj, struct coord *coord, RoomNum *rooms, Mtxf *matrix1, struct coord *velocity, Mtxf *matrix2, struct prop *prop, struct coord *pos)
 {
 	struct prop *objprop = obj->prop;
 
 	if (objprop) {
 		prop_activate(objprop);
 		prop_enable(objprop);
+
 		mtx00015f04(obj->model->scale, matrix1);
+
 		obj_place(obj, coord, matrix1, rooms);
 
 		if (obj->type == OBJTYPE_WEAPON && ((struct weaponobj *) obj)->weaponnum == WEAPON_BOLT) {
@@ -4149,25 +4151,25 @@ void bgun0f09ebcc(struct defaultobj *obj, struct coord *coord, RoomNum *rooms, M
 			}
 		}
 
-		func0f0685e4(objprop);
+		obj_ensure_projectile(objprop);
 
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
 			obj->projectile->flags |= PROJECTILEFLAG_AIRBORNE;
 			obj->projectile->ownerprop = prop;
 
 			projectile_set_sticky(objprop);
-			mtx4_copy(matrix2, (Mtxf *)&obj->projectile->mtx);
+			mtx4_copy(matrix2, &obj->projectile->mtx);
 
 			obj->projectile->speed.x = velocity->x;
 			obj->projectile->speed.y = velocity->y;
 			obj->projectile->speed.z = velocity->z;
 			obj->projectile->obj = obj;
-			obj->projectile->unk0d8 = g_Vars.lvframenum;
+			obj->projectile->startframe = g_Vars.lvframenum;
 		}
 	}
 }
 
-void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, struct coord *velocity, Mtxf *arg4)
+void bgun_create_fired_projectile2(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, struct coord *velocity, Mtxf *arg4)
 {
 	struct prop *objprop = obj->prop;
 	struct coord pos;
@@ -4182,7 +4184,7 @@ void bgun0f09ed2c(struct defaultobj *obj, struct coord *newpos, Mtxf *arg2, stru
 
 		rooms_copy(playerprop->rooms, rooms);
 
-		bgun0f09ebcc(obj, &pos, rooms, arg2, velocity, arg4, playerprop, newpos);
+		bgun_configure_projectile(obj, &pos, rooms, arg2, velocity, arg4, playerprop, newpos);
 
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
 			obj->projectile->flags |= PROJECTILEFLAG_LAUNCHING;
@@ -4250,13 +4252,13 @@ struct defaultobj *bgun_create_thrown_projectile2(struct chrdata *chr, struct gs
 					|| func->projectilemodelnum == MODEL_CHRTIMEDMINE
 					|| func->projectilemodelnum == MODEL_CHRPROXIMITYMINE
 					|| func->projectilemodelnum == MODEL_CHRECMMINE) {
-				weaponobj->base.flags3 |= OBJFLAG3_00000008;
+				weaponobj->base.flags3 |= OBJFLAG3_SETTLEROT_BYACTUALSIZE;
 			}
 		}
 	}
 
 	if (obj != NULL) {
-		bgun0f09ebcc(obj, pos, rooms, arg4, velocity, &mtx, chr->prop, pos);
+		bgun_configure_projectile(obj, pos, rooms, arg4, velocity, &mtx, chr->prop, pos);
 
 		obj->hidden &= 0x0fffffff;
 
@@ -4269,8 +4271,8 @@ struct defaultobj *bgun_create_thrown_projectile2(struct chrdata *chr, struct gs
 		obj->hidden |= playernum << 28;
 
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
-			obj->projectile->flags |= PROJECTILEFLAG_00000002;
-			obj->projectile->unk08c = 0.1f;
+			obj->projectile->flags |= PROJECTILEFLAG_FORCEGOODBOUNCE;
+			obj->projectile->hitspeedpreservationfrac = 0.1f;
 			obj->projectile->pickuptimer240 = TICKS(240);
 
 			ps_create(NULL, obj->prop, SFXMAP_80A9_THROW, -1,
@@ -4471,14 +4473,14 @@ void bgun_create_thrown_projectile(s32 handnum, struct gset *gset)
 			obj->projectile->nextsteppos.z = muzzlepos.z;
 
 			if (gset->weaponnum == WEAPON_GRENADE && gset->weaponfunc == FUNC_SECONDARY) {
-				obj->projectile->unk08c = 1.0f;
+				obj->projectile->hitspeedpreservationfrac = 1.0f;
 			}
 
 			if (gset->weaponnum == WEAPON_COMBATKNIFE) {
 				// In theory, weapon can be uninitialised here,
 				// but in practice it's always set.
-				weapon->base.projectile->flags |= PROJECTILEFLAG_00000002;
-				weapon->base.projectile->unk08c = 0.1f;
+				weapon->base.projectile->flags |= PROJECTILEFLAG_FORCEGOODBOUNCE;
+				weapon->base.projectile->hitspeedpreservationfrac = 0.1f;
 				weapon->base.projectile->pickuptimer240 = TICKS(240);
 				weapon->base.hidden |= OBJHFLAG_THROWNKNIFE;
 			}
@@ -4565,7 +4567,7 @@ void bgun_create_fired_projectile(s32 handnum)
 	struct coord sp264;
 	f32 sp260;
 	f32 sp25c;
-	struct coord sp250;
+	struct coord accel;
 	Mtxf sp210;
 	struct coord gunpos;
 	struct coord gundir;
@@ -4658,13 +4660,13 @@ void bgun_create_fired_projectile(s32 handnum)
 				}
 			}
 
-			sp250.x = gundir.x * sp260;
-			sp250.y = gundir.y * sp260;
-			sp250.z = gundir.z * sp260;
+			accel.x = gundir.x * sp260;
+			accel.y = gundir.y * sp260;
+			accel.z = gundir.z * sp260;
 
-			sp264.x = sp250.f[0] * g_Vars.lvupdate60freal + gundir.f[0] * sp25c;
-			sp264.y = sp250.f[1] * g_Vars.lvupdate60freal + gundir.f[1] * sp25c;
-			sp264.z = sp250.f[2] * g_Vars.lvupdate60freal + gundir.f[2] * sp25c;
+			sp264.x = accel.f[0] * g_Vars.lvupdate60freal + gundir.f[0] * sp25c;
+			sp264.y = accel.f[1] * g_Vars.lvupdate60freal + gundir.f[1] * sp25c;
+			sp264.z = accel.f[2] * g_Vars.lvupdate60freal + gundir.f[2] * sp25c;
 
 			if ((funcdef->base.base.flags & FUNCFLAG_FLYBYWIRE) == 0 && g_Vars.lvupdate240 > 0) {
 				sp264.x += (playerprop->pos.x - prevpos->x + extrapos->x) / g_Vars.lvupdate60freal;
@@ -4738,7 +4740,7 @@ void bgun_create_fired_projectile(s32 handnum)
 					weapon->base.hidden &= 0x0fffffff;
 					weapon->base.hidden |= g_Vars.currentplayernum << 28;
 
-					bgun0f09ed2c(&weapon->base, &spawnpos, &sp210, &sp264, &sp270);
+					bgun_create_fired_projectile2(&weapon->base, &spawnpos, &sp210, &sp264, &sp270);
 
 					if (weapon->base.hidden & OBJHFLAG_PROJECTILE) {
 						if (funcdef->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
@@ -4758,14 +4760,14 @@ void bgun_create_fired_projectile(s32 handnum)
 						}
 
 						weapon->base.projectile->powerlimit240 = TICKS(1200);
-						weapon->base.projectile->unk0a8 = weapon->base.prop->pos.y;
-						weapon->base.projectile->unk0ac = weapon->base.projectile->speed.y;
-						weapon->base.projectile->unk010 = sp250.x;
-						weapon->base.projectile->unk014 = sp250.y;
-						weapon->base.projectile->unk018 = sp250.z;
+						weapon->base.projectile->missiley = weapon->base.prop->pos.y;
+						weapon->base.projectile->missileyspeed = weapon->base.projectile->speed.y;
+						weapon->base.projectile->accel.x = accel.x;
+						weapon->base.projectile->accel.y = accel.y;
+						weapon->base.projectile->accel.z = accel.z;
 						weapon->base.projectile->pickuptimer240 = TICKS(240);
-						weapon->base.projectile->unk08c = funcdef->reflectangle;
-						weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
+						weapon->base.projectile->hitspeedpreservationfrac = funcdef->hitspeedpreservationfrac;
+						weapon->base.projectile->speeddecel = funcdef->speeddecel * 1.6666666f;
 
 						if (funcdef->soundnum > 0) {
 							ps_create(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
@@ -4814,7 +4816,7 @@ void bgun_create_fired_projectile(s32 handnum)
 				weapon->base.hidden &= 0x0fffffff;
 				weapon->base.hidden |= g_Vars.currentplayernum << 28;
 
-				bgun0f09ed2c(&weapon->base, &spawnpos, &sp210, &sp264, &sp270);
+				bgun_create_fired_projectile2(&weapon->base, &spawnpos, &sp210, &sp264, &sp270);
 
 				if (weapon->base.hidden & OBJHFLAG_PROJECTILE) {
 					if (funcdef->base.base.flags & FUNCFLAG_PROJECTILE_LIGHTWEIGHT) {
@@ -4834,14 +4836,14 @@ void bgun_create_fired_projectile(s32 handnum)
 					}
 
 					weapon->base.projectile->powerlimit240 = TICKS(1200);
-					weapon->base.projectile->unk0a8 = weapon->base.prop->pos.y;
-					weapon->base.projectile->unk0ac = weapon->base.projectile->speed.y;
-					weapon->base.projectile->unk010 = sp250.x;
-					weapon->base.projectile->unk014 = sp250.y;
-					weapon->base.projectile->unk018 = sp250.z;
+					weapon->base.projectile->missiley = weapon->base.prop->pos.y;
+					weapon->base.projectile->missileyspeed = weapon->base.projectile->speed.y;
+					weapon->base.projectile->accel.x = accel.x;
+					weapon->base.projectile->accel.y = accel.y;
+					weapon->base.projectile->accel.z = accel.z;
 					weapon->base.projectile->pickuptimer240 = TICKS(240);
-					weapon->base.projectile->unk08c = funcdef->reflectangle;
-					weapon->base.projectile->unk098 = funcdef->unk50 * 1.6666666f;
+					weapon->base.projectile->hitspeedpreservationfrac = funcdef->hitspeedpreservationfrac;
+					weapon->base.projectile->speeddecel = funcdef->speeddecel * 1.6666666f;
 
 					if (funcdef->soundnum > 0) {
 						ps_create(NULL, weapon->base.prop, funcdef->soundnum, -1, -1, 0, 0, PSTYPE_NONE, 0, -1.0f, 0, -1, -1.0f, -1.0f, -1.0f);
@@ -10365,13 +10367,6 @@ void bgun_revert_boost(void)
 	}
 }
 
-/**
- * The main tick function as called from lv_tick.
- *
- * This function doesn't do much because it's called during both cutscenes and
- * gameplay, while most gun tick operations happen during gameplay only.
- * See bgun_tick_gameplay for that.
- */
 void bgun_tick_boost(void)
 {
 	if (g_Vars.speedpillon && g_Vars.speedpilltime > 0 && !g_Vars.in_cutscene) {
