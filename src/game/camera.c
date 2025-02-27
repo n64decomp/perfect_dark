@@ -583,50 +583,28 @@ bool cam_is_pos_in_screen_box(struct coord *pos, f32 arg1, struct drawslot *draw
 	return true;
 }
 
-/**
- * This function is building a drawslot on the stack so it can pass it to
- * cam_is_pos_in_screen_box, however if we allocate this struct then it uses too much
- * stack and creates a mismatch.
- *
- * We resolve this by allocating a screenbox instead, which is a substruct of
- * drawslot and is all we need in this function. screenbox isn't at the
- * start of drawslot though, so we use a negative array index to pass the
- * correct address to cam_is_pos_in_screen_box so it can interpret the pointer as a
- * drawslot.
- */
 bool cam_is_pos_in_fov_and_visible_room(RoomNum *rooms, struct coord *pos, f32 modelscale)
 {
-	s32 i;
-	RoomNum room;
 	bool hasdata = false;
-	struct drawslot *thisthing;
-	struct screenbox box;
+	RoomNum *ptr;
+	RoomNum room;
+	struct drawslot *roomslot;
+	struct drawslot tmpslot;
 
-	for (i = 0, room = rooms[i]; room != -1; i++, room = rooms[i]) {
+	for (ptr = rooms; (room = *ptr) != -1; ptr++) {
 		if (g_Rooms[room].flags & ROOMFLAG_ONSCREEN) {
-			thisthing = bg_get_room_draw_slot(room);
+			roomslot = bg_get_room_draw_slot(room);
 
 			if (hasdata == false) {
-				box.xmin = thisthing->box.xmin;
-				box.ymin = thisthing->box.ymin;
-				box.xmax = thisthing->box.xmax;
-				box.ymax = thisthing->box.ymax;
+				tmpslot.box.xmin = roomslot->box.xmin;
+				tmpslot.box.ymin = roomslot->box.ymin;
+				tmpslot.box.xmax = roomslot->box.xmax;
+				tmpslot.box.ymax = roomslot->box.ymax;
 			} else {
-				if (thisthing->box.xmin < box.xmin) {
-					box.xmin = thisthing->box.xmin;
-				}
-
-				if (thisthing->box.ymin < box.ymin) {
-					box.ymin = thisthing->box.ymin;
-				}
-
-				if (thisthing->box.xmax > box.xmax) {
-					box.xmax = thisthing->box.xmax;
-				}
-
-				if (thisthing->box.ymax > box.ymax) {
-					box.ymax = thisthing->box.ymax;
-				}
+				tmpslot.box.xmin = MIN(roomslot->box.xmin, tmpslot.box.xmin);
+				tmpslot.box.ymin = MIN(roomslot->box.ymin, tmpslot.box.ymin);
+				tmpslot.box.xmax = MAX(roomslot->box.xmax, tmpslot.box.xmax);
+				tmpslot.box.ymax = MAX(roomslot->box.ymax, tmpslot.box.ymax);
 			}
 
 			hasdata = true;
@@ -637,5 +615,5 @@ bool cam_is_pos_in_fov_and_visible_room(RoomNum *rooms, struct coord *pos, f32 m
 		return false;
 	}
 
-	return cam_is_pos_in_screen_box(pos, modelscale, (struct drawslot *) &(((u8 *) &box)[-((uintptr_t) &(((struct drawslot *)0)->box))]));
+	return cam_is_pos_in_screen_box(pos, modelscale, &tmpslot);
 }
