@@ -4,7 +4,7 @@
 #include "data.h"
 #include "types.h"
 
-void speakers_set_mode(u8 mode);
-void speaker00034104(s32 index, s32 arg1);
+void alSurround_OutputType(u8 mode);
+void alSurround_ReverbSetup(s32 index, s32 arg1);
 
 #endif

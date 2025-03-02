@@ -85,7 +85,7 @@ s32     n_alSynAllocVoice( N_ALVoice *voice, ALVoiceConfig *vc);
 
 
 void    n_alSynFreeVoice(N_ALVoice *voice);
-ALFxRef n_alSynGetFXRef( s16 bus, s16 index);
+ALFxRef n_alSynGetFXRef(s16 bus);
 s16     n_alSynGetPriority( N_ALVoice *voice);
 void    n_alSynRemovePlayer( ALPlayer *client);
 void    n_alSynSetFXMix(N_ALVoice *v, u8 fxmix);
@@ -257,8 +257,8 @@ typedef struct {
     ALSeqMarker        *loopStart;
     ALSeqMarker        *loopEnd;
     s32                 loopCount;      /* -1 = loop forever, 0 = no loop   */
-    u8 unk88;
-    u8 unk89;
+    u8 voicelimit;
+    u8 voicecount;
 } N_ALSeqPlayer;
 
 typedef struct {
@@ -284,11 +284,11 @@ typedef struct {
     ALOscInit           initOsc;
     ALOscUpdate         updateOsc;
     ALOscStop           stopOsc;
-    f32 unk7c;
-    f32 unk80;
+    f32 fxmixmajor;
+    f32 fxmixmega;
     void *queue;
-    u8 unk88;
-    u8 unk89;
+    u8 voicelimit;
+    u8 voicecount;
 } N_ALCSPlayer;
 
 

@@ -186,7 +186,7 @@ s32 n_alFxParamHdl(void *filter, s32 paramID, void *param)
 	case LPFILT_PARAM:
 		if (f->delay[s].lp) {
 			f->delay[s].lp->fc = (s16)val;
-			_init_lpfilter(f->delay[s].lp);
+			n_alFxInitlpfilter(f->delay[s].lp);
 		}
 		break;
 	}

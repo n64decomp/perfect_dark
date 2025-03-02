@@ -5,47 +5,47 @@
 #include "data.h"
 #include "types.h"
 
-void func00039cd0(N_ALCSPlayer *seqp)
+void n_alCSPAllChanOn(N_ALCSPlayer *seqp)
 {
 	s32 i;
 
 	seqp->chanMask = 0xffff;
 
 	for (i = 0; i < seqp->maxChannels; i++) {
-		seqp->chanState[i].unk0e = 0xff;
-		seqp->chanState[i].unk0d = 0xff;
+		seqp->chanState[i].fadevoltarget = 255;
+		seqp->chanState[i].fadevolcurrent = 255;
 	}
 }
 
-void func00039d68(N_ALCSPlayer *seqp, u32 status)
+void n_alCSPChanOff(N_ALCSPlayer *seqp, s32 chan)
 {
-	n_alCSPSendMidi(seqp, 0, status | 0xb0, 0xfc, 0);
+	n_alCSPSendMidi(seqp, 0, AL_MIDI_ControlChange | chan, AL_MIDI_FADEEND_CTRL, 0);
 }
 
-void func00039dac(N_ALCSPlayer *seqp, u32 arg1)
+void n_alCSPChanOn(N_ALCSPlayer *seqp, s32 chan)
 {
-	seqp->chanMask |= 1 << arg1;
+	seqp->chanMask |= 1 << chan;
 
-	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xfc, 0xff);
+	n_alCSPSendMidi(seqp, 0, AL_MIDI_ControlChange | chan, AL_MIDI_FADEEND_CTRL, 255);
 }
 
-void func00039e10(N_ALCSPlayer *seqp, u32 arg1, u8 arg2)
+void n_alCSPChanFadeAuto(N_ALCSPlayer *seqp, s32 chan, u8 targetvol)
 {
-	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xff, arg2);
+	n_alCSPSendMidi(seqp, 0, AL_MIDI_ControlChange | chan, AL_MIDI_FADESTART_CTRL, targetvol);
 }
 
-void func00039e5c(N_ALCSPlayer *seqp, s32 arg1, u8 arg2, u8 arg3)
+void n_alCSPChanFade(N_ALCSPlayer *seqp, s32 chan, u8 targetvol, u8 incvol)
 {
-	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xfd, arg3);
-	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xff, arg2);
+	n_alCSPSendMidi(seqp, 0, AL_MIDI_ControlChange | chan, AL_MIDI_FADESPEED_CTRL, incvol);
+	n_alCSPSendMidi(seqp, 0, AL_MIDI_ControlChange | chan, AL_MIDI_FADESTART_CTRL, targetvol);
 }
 
-void func00039ecc(N_ALCSPlayer *seqp, u32 arg1, u8 arg2)
+void n_alCSPChanSurround(N_ALCSPlayer *seqp, s32 chan, u8 arg2)
 {
-	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0x41, arg2);
+	n_alCSPSendMidi(seqp, 0, AL_MIDI_ControlChange | chan, AL_MIDI_FXMIX80_CTRL, arg2);
 }
 
-void func00039f18(N_ALCSPlayer *seqp, u32 arg1, u8 arg2)
+void n_alCSPChanFadeForce(N_ALCSPlayer *seqp, s32 chan, u8 vol)
 {
-	n_alCSPSendMidi(seqp, 0, arg1 | 0xb0, 0xfc, arg2);
+	n_alCSPSendMidi(seqp, 0, AL_MIDI_ControlChange | chan, AL_MIDI_FADEEND_CTRL, vol);
 }

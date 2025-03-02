@@ -441,8 +441,8 @@ enum ALMsg {
     /*0x15*/ AL_CSP_NOTEOFF_EVT,
     /*0x16*/ AL_TREM_OSC_EVT,
     /*0x17*/ AL_VIB_OSC_EVT,
-    /*0x18*/ AL_18_EVT,
-    /*0x19*/ AL_19_EVT
+    /*0x18*/ AL_SEQP_FXMIX_EVT,
+    /*0x19*/ AL_SEQP_FXPARAM_EVT
 };
 
 /*
@@ -493,22 +493,46 @@ enum AL_MIDIstatus {
 };
 
 enum AL_MIDIctrl {
-    AL_MIDI_VOLUME_CTRL         = 0x07,
-    AL_MIDI_PAN_CTRL            = 0x0A,
-    AL_MIDI_PRIORITY_CTRL       = 0x10, /* use general purpose controller for priority */
-    AL_MIDI_FX_CTRL_0           = 0x14,
-    AL_MIDI_FX_CTRL_1           = 0x15,
-    AL_MIDI_FX_CTRL_2           = 0x16,
-    AL_MIDI_FX_CTRL_3           = 0x17,
-    AL_MIDI_FX_CTRL_4           = 0x18,
-    AL_MIDI_FX_CTRL_5           = 0x19,
-    AL_MIDI_FX_CTRL_6           = 0x1A,
-    AL_MIDI_FX_CTRL_7           = 0x1B,
-    AL_MIDI_FX_CTRL_8           = 0x1C,
-    AL_MIDI_FX_CTRL_9           = 0x1D,
-    AL_MIDI_SUSTAIN_CTRL        = 0x40,
-    AL_MIDI_FX1_CTRL            = 0x5B,
-    AL_MIDI_FX3_CTRL            = 0x5D
+    AL_MIDI_NOOP_CTRL            = 0x00, // Exists in Extraction outro, but there's no handler for it
+    AL_MIDI_OSC_CTRL             = 0x01, // Used in Defection ambience
+    AL_MIDI_PITCH_CTRL           = 0x02, // Not used
+    AL_MIDI_BENDRANGE_MINOR_CTRL = 0x03, // Not used
+    AL_MIDI_BENDRANGE_MAJOR_CTRL = 0x04, // Not used
+    AL_MIDI_VOLUME_CTRL          = 0x07, // Not used
+    AL_MIDI_PAN_CTRL             = 0x0A, // Not used
+    AL_MIDI_VIBTYPE_CTRL         = 0x0B, // Not used
+    AL_MIDI_VIBRATE_CTRL         = 0x0C, // Not used
+    AL_MIDI_VIBDEPTH_CTRL        = 0x0D, // Not used
+    AL_MIDI_VIBDELAY_CTRL        = 0x0E, // Not used
+    AL_MIDI_TREMTYPE_CTRL        = 0x0F, // Not used
+    AL_MIDI_PRIORITY_CTRL        = 0x10, // Not used
+    AL_MIDI_TREMRATE_CTRL        = 0x11, // Not used
+    AL_MIDI_TREMDEPTH_CTRL       = 0x12, // Not used
+    AL_MIDI_TREMDELAY_CTRL       = 0x13, // Not used
+    AL_MIDI_ATTACKTIME_CTRL      = 0x14, // Not used
+    AL_MIDI_ATTACKVOL_CTRL       = 0x15, // Not used
+    AL_MIDI_DECAYTIME_CTRL       = 0x16, // Not used
+    AL_MIDI_DECAYVOL_CTRL        = 0x17, // Not used
+    AL_MIDI_RELEASETIME_CTRL     = 0x18, // Not used
+    AL_MIDI_TIMEINDEX_CTRL       = 0x19, // Not used
+    AL_MIDI_MP3_CTRL             = 0x1A, // Not used
+    AL_MIDI_FX_CTRL_7            = 0x1B, // Not used
+    AL_MIDI_FX_CTRL_8            = 0x1C, // Not used
+    AL_MIDI_FX_CTRL_9            = 0x1D, // Not used
+    AL_MIDI_OSMESG_CTRL          = 0x1E, // Not used
+    AL_MIDI_INST_MAJOR_CTRL      = 0x20, // Not used
+    AL_MIDI_UNK11_CTRL           = 0x21, // Not used
+    AL_MIDI_UNK12_CTRL           = 0x22, // Not used
+    AL_MIDI_UNK13_CTRL           = 0x23, // Not used
+    AL_MIDI_SUSTAIN_CTRL         = 0x40, // Not used
+    AL_MIDI_FXMIX80_CTRL         = 0x41, // Used in most sequences
+    AL_MIDI_FXMIX7F_CTRL         = 0x5B, // Used in most sequences
+    AL_MIDI_FXBUS_CTRL           = 0x5C, // Not used
+    AL_MIDI_FX3_CTRL             = 0x5D, // Not used
+    AL_MIDI_FADEEND_CTRL         = 0xFC, // Not used
+    AL_MIDI_FADESPEED_CTRL       = 0xFD, // Not used
+    AL_MIDI_SETFADEINC_CTRL      = 0xFE, // Not used
+    AL_MIDI_FADESTART_CTRL       = 0xFF  // Not used
 };
 
 enum AL_MIDImeta {
@@ -667,12 +691,12 @@ typedef struct {
     u8                  priority;       /* priority for this chan           */
     u8                  vol;            /* current volume for this chan     */
     u8                  fxmix;          /* current fx mix for this chan     */
-    u8                  unk0b;
+    u8                  fxbus;
     u8                  sustain;        /* current sustain pedal state      */
-    u8 unk0d;
-    u8 unk0e;
-    u8 unk0f;
-    u8 unk10;
+    u8 fadevolcurrent;
+    u8 fadevoltarget;
+    u8 fadevolinc;
+    u8 notemesgflags;
     u8 unk11;
     u8 unk12;
     u8 unk13;
@@ -680,10 +704,10 @@ typedef struct {
     ALMicroTime attackTime;
     ALMicroTime decayTime;
     ALMicroTime releaseTime;
-    u8 unk24;
+    u8 usechanparams;
     u8 attackVolume;
     u8 decayVolume;
-    s8 unk27;
+    s8 pitch;
     u8 tremType;
     u8 tremRate;
     u8 tremDepth;
@@ -693,8 +717,8 @@ typedef struct {
     u8 vibDepth;
     u8 vibDelay;
     u8 unk30;
-    u8 unk31;
-    u8 unk32;
+    u8 timeindex;
+    u8 instmajor;
 } ALChanState;
 
 typedef struct ALSeq_s {

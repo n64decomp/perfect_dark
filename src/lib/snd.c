@@ -716,151 +716,130 @@ struct audioconfig g_AudioConfigs[] = {
 	{ /*62*/ 1000, 2500, 3000, -1, 100, -1,   0, AUDIOCONFIGFLAG_IGNOREROOMS },
 	{ /*63*/  400, 1000, 1200, -1, 100, -1,   0, 0 },
 #endif
+	{ 0 },
 };
 
-u32 var8005ecd8 = 0x00000000;
-u32 var8005ecdc = 0x00000000;
-u32 var8005ece0 = 0x00000000;
-u32 var8005ece4 = 0x00000000;
-u32 var8005ece8 = 0x00000000;
-u32 var8005ecec = 0x00000000;
-u32 var8005ecf0 = 0x00000000;
-u32 var8005ecf4 = 0x00000000;
-
-s16 var8005ecf8[] = {
-	0x6665,
-	0x5998,
-	0x5fff,
-	0x4ccc,
-	0x5fff,
-	0x2ccc,
-	0x5998,
-	0x6665,
-	0x4ccc,
-	0x5998,
-	0x5998,
-	0x5998,
-	0x5fff,
-	0x6665,
-	0x6665,
-	0x5fff,
-	0x5998,
-	0x6665,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x6665,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x7332,
-	0x5fff,
-	0x6665,
-	0x5fff,
-#if VERSION >= VERSION_NTSC_1_0
-	0x5998,
-	0x5998,
-#else
-	0x5fff,
-	0x5fff,
-#endif
-	0x5332,
-	0x5332,
-	0x5fff,
-	0x3332,
-#if VERSION >= VERSION_NTSC_1_0
-	0x4ccc,
-#else
-	0x3fff,
-#endif
-	0x5fff,
-	0x4ccc,
-	0x3fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x4ccc,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x5fff,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x7332,
-	0x7332,
-	0x7332,
-	0x4ccc,
-#if VERSION >= VERSION_NTSC_1_0
-	0x3c28,
-#else
-	0x4ccc,
-#endif
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x7332,
-	0x7332,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x6665,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x4ccc,
-	0x6ccb,
-	0x5fff,
-	0x5998,
-	0x7998,
-	0x5998,
-	0x5998,
-	0x6665,
-	0x5fff,
-	0x5fff,
-	0x7332,
-	0x7332,
-	0x7332,
-	0x7332,
-	0x7332,
-	0x4ccc,
-	0x6665,
-	0x6665,
-	0x6665,
-	0x4ccc,
-	0x6ccb,
+s16 g_SeqVolumes[] = {
+	/* MUSIC_NONE                    */ AL_VOL_FULL * 0.80,
+	/* MUSIC_TITLE2                  */ AL_VOL_FULL * 0.70,
+	/* MUSIC_EXTRACTION              */ AL_VOL_FULL * 0.75,
+	/* MUSIC_PAUSEMENU               */ AL_VOL_FULL * 0.60,
+	/* MUSIC_DEFENSE                 */ AL_VOL_FULL * 0.75,
+	/* MUSIC_INVESTIGATION_SFX       */ AL_VOL_FULL * 0.35,
+	/* MUSIC_ESCAPE                  */ AL_VOL_FULL * 0.70,
+	/* MUSIC_DEEPSEA                 */ AL_VOL_FULL * 0.80,
+	/* MUSIC_DDTOWER_SFX             */ AL_VOL_FULL * 0.60,
+	/* MUSIC_DEFECTION               */ AL_VOL_FULL * 0.70,
+	/* MUSIC_DEATH_SOLO              */ AL_VOL_FULL * 0.70,
+	/* MUSIC_DEFECTION_INTRO_SFX     */ AL_VOL_FULL * 0.70,
+	/* MUSIC_VILLA                   */ AL_VOL_FULL * 0.75,
+	/* MUSIC_CI                      */ AL_VOL_FULL * 0.80,
+	/* MUSIC_CHICAGO                 */ AL_VOL_FULL * 0.80,
+	/* MUSIC_G5                      */ AL_VOL_FULL * 0.75,
+	/* MUSIC_DEFECTION_X             */ AL_VOL_FULL * 0.70,
+	/* MUSIC_EXTRACTION_X            */ AL_VOL_FULL * 0.80,
+	/* MUSIC_INVESTIGATION           */ AL_VOL_FULL * 0.75,
+	/* MUSIC_INVESTIGATION_X         */ AL_VOL_FULL * 0.75,
+	/* MUSIC_INFILTRATION            */ AL_VOL_FULL * 0.75,
+	/* MUSIC_DEATH_BETA              */ AL_VOL_FULL * 0.80,
+	/* MUSIC_RESCUE                  */ AL_VOL_FULL * 0.75,
+	/* MUSIC_AIRBASE                 */ AL_VOL_FULL * 0.75,
+	/* MUSIC_AIRFORCEONE             */ AL_VOL_FULL * 0.75,
+	/* MUSIC_DEATH_MP                */ AL_VOL_FULL * 0.90,
+	/* MUSIC_EXTRACTION_OUTRO_SFX    */ AL_VOL_FULL * 0.75,
+	/* MUSIC_MISSION_UNKNOWN         */ AL_VOL_FULL * 0.80,
+	/* MUSIC_PELAGIC                 */ AL_VOL_FULL * 0.75,
+	/* MUSIC_CRASHSITE               */ AL_VOL_FULL * (VERSION >= VERSION_NTSC_1_0 ? 0.70 : 0.75),
+	/* MUSIC_CRASHSITE_X             */ AL_VOL_FULL * (VERSION >= VERSION_NTSC_1_0 ? 0.70 : 0.75),
+	/* MUSIC_ATTACKSHIP              */ AL_VOL_FULL * 0.65,
+	/* MUSIC_ATTACKSHIP_X            */ AL_VOL_FULL * 0.65,
+	/* MUSIC_SKEDARRUINS             */ AL_VOL_FULL * 0.75,
+	/* MUSIC_DEFECTION_INTRO         */ AL_VOL_FULL * 0.40,
+	/* MUSIC_DEFECTION_OUTRO         */ AL_VOL_FULL * (VERSION >= VERSION_NTSC_1_0 ? 0.60 : 0.50),
+	/* MUSIC_DEFENSE_X               */ AL_VOL_FULL * 0.75,
+	/* MUSIC_INVESTIGATION_INTRO     */ AL_VOL_FULL * 0.60,
+	/* MUSIC_INVESTIGATION_OUTRO     */ AL_VOL_FULL * 0.50,
+	/* MUSIC_VILLA_X                 */ AL_VOL_FULL * 0.75,
+	/* MUSIC_CHICAGO_X               */ AL_VOL_FULL * 0.75,
+	/* MUSIC_G5_X                    */ AL_VOL_FULL * 0.75,
+	/* MUSIC_INFILTRATION_X          */ AL_VOL_FULL * 0.75,
+	/* MUSIC_CHICAGO_OUTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_EXTRACTION_OUTRO        */ AL_VOL_FULL * 0.60,
+	/* MUSIC_EXTRACTION_INTRO        */ AL_VOL_FULL * 0.60,
+	/* MUSIC_G5_INTRO                */ AL_VOL_FULL * 0.60,
+	/* MUSIC_CHICAGO_INTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_VILLA_INTRO1            */ AL_VOL_FULL * 0.60,
+	/* MUSIC_INFILTRATION_INTRO      */ AL_VOL_FULL * 0.60,
+	/* MUSIC_RESCUE_X                */ AL_VOL_FULL * 0.75,
+	/* MUSIC_ESCAPE_X                */ AL_VOL_FULL * 0.75,
+	/* MUSIC_AIRBASE_X               */ AL_VOL_FULL * 0.75,
+	/* MUSIC_AIRFORCEONE_X           */ AL_VOL_FULL * 0.75,
+	/* MUSIC_PELAGIC_X               */ AL_VOL_FULL * 0.75,
+	/* MUSIC_DEEPSEA_X               */ AL_VOL_FULL * 0.75,
+	/* MUSIC_SKEDARRUINS_X           */ AL_VOL_FULL * 0.75,
+	/* MUSIC_AIRBASE_OUTRO_LONG      */ AL_VOL_FULL * 0.60,
+	/* MUSIC_DARK_COMBAT             */ AL_VOL_FULL * 0.75,
+	/* MUSIC_SKEDAR_MYSTERY          */ AL_VOL_FULL * 0.75,
+	/* MUSIC_DEEPSEA_BETA            */ AL_VOL_FULL * 0.75,
+	/* MUSIC_CI_OPERATIVE            */ AL_VOL_FULL * 0.75,
+	/* MUSIC_DATADYNE_ACTION         */ AL_VOL_FULL * 0.75,
+	/* MUSIC_MAIAN_TEARS             */ AL_VOL_FULL * 0.75,
+	/* MUSIC_ALIEN_CONFLICT          */ AL_VOL_FULL * 0.75,
+	/* MUSIC_ESCAPE_INTRO            */ AL_VOL_FULL * 0.60,
+	/* MUSIC_RESCUE_OUTRO            */ AL_VOL_FULL * 0.60,
+	/* MUSIC_VILLA_INTRO2            */ AL_VOL_FULL * 0.60,
+	/* MUSIC_VILLA_INTRO3            */ AL_VOL_FULL * 0.60,
+	/* MUSIC_G5_OUTRO                */ AL_VOL_FULL * 0.60,
+	/* MUSIC_G5_MIDCUTSCENE          */ AL_VOL_FULL * 0.60,
+	/* MUSIC_MISSION_FAILED          */ AL_VOL_FULL * 0.90,
+	/* MUSIC_COMBATSIM_MENU          */ AL_VOL_FULL * 0.90,
+	/* MUSIC_MISSION_SUCCESS         */ AL_VOL_FULL * 0.90,
+	/* MUSIC_CRASHSITE_INTRO         */ AL_VOL_FULL * 0.60,
+	/* MUSIC_AIRBASE_INTRO           */ AL_VOL_FULL * (VERSION >= VERSION_NTSC_1_0 ? 0.47 : 0.60),
+	/* MUSIC_ATTACKSHIP_INTRO        */ AL_VOL_FULL * 0.60,
+	/* MUSIC_DEEPSEA_MIDCUTSCENE     */ AL_VOL_FULL * 0.60,
+	/* MUSIC_AIRFORCEONE_INTRO       */ AL_VOL_FULL * 0.60,
+	/* MUSIC_ATTACKSHIP_OUTRO        */ AL_VOL_FULL * 0.60,
+	/* MUSIC_ESCAPE_MIDCUTSCENE      */ AL_VOL_FULL * 0.60,
+	/* MUSIC_RESCUE_INTRO            */ AL_VOL_FULL * 0.60,
+	/* MUSIC_DEEPSEA_INTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_INFILTRATION_OUTRO      */ AL_VOL_FULL * 0.60,
+	/* MUSIC_PELAGIC_INTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_ESCAPE_OUTRO_LONG       */ AL_VOL_FULL * 0.60,
+	/* MUSIC_DEFENSE_INTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_CRASHSITE_OUTRO         */ AL_VOL_FULL * 0.60,
+	/* MUSIC_CREDITS                 */ AL_VOL_FULL * 0.90,
+	/* MUSIC_MAINMENU                */ AL_VOL_FULL * 0.90,
+	/* MUSIC_DEEPSEA_OUTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_AIRFORCEONE_MIDCUTSCENE */ AL_VOL_FULL * 0.60,
+	/* MUSIC_PELAGIC_OUTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_AIRFORCEONE_OUTRO       */ AL_VOL_FULL * 0.60,
+	/* MUSIC_SKEDARRUINS_INTRO       */ AL_VOL_FULL * 0.60,
+	/* MUSIC_BETA_NOTE               */ AL_VOL_FULL * 0.80,
+	/* MUSIC_AIRBASE_OUTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_DEFENSE_OUTRO           */ AL_VOL_FULL * 0.60,
+	/* MUSIC_SKEDARRUINS_OUTRO       */ AL_VOL_FULL * 0.60,
+	/* MUSIC_VILLA_OUTRO             */ AL_VOL_FULL * 0.60,
+	/* MUSIC_SKEDARRUINS_KING        */ AL_VOL_FULL * 0.85,
+	/* MUSIC_CI_TRAINING             */ AL_VOL_FULL * 0.75,
+	/* MUSIC_CRASHSITE_WIND          */ AL_VOL_FULL * 0.70,
+	/* MUSIC_COMBATSIM_COMPLETE      */ AL_VOL_FULL * 0.95,
+	/* MUSIC_OCEAN                   */ AL_VOL_FULL * 0.70,
+	/* MUSIC_WIND                    */ AL_VOL_FULL * 0.70,
+	/* MUSIC_TRAFFIC                 */ AL_VOL_FULL * 0.80,
+	/* MUSIC_TITLE1                  */ AL_VOL_FULL * 0.75,
+	/* MUSIC_CI_INTRO                */ AL_VOL_FULL * 0.75,
+	/* MUSIC_INFILTRATION_SFX        */ AL_VOL_FULL * 0.90,
+	/* MUSIC_DEEPSEA_SFX             */ AL_VOL_FULL * 0.90,
+	/* MUSIC_AIRFORCEONE_SFX         */ AL_VOL_FULL * 0.90,
+	/* MUSIC_ATTACKSHIP_SFX          */ AL_VOL_FULL * 0.90,
+	/* MUSIC_SKEDAR_WIND             */ AL_VOL_FULL * 0.90,
+	/* MUSIC_ESCAPE_OUTRO_SFX        */ AL_VOL_FULL * 0.60,
+	/* MUSIC_A51_LOUDSPEAKER1        */ AL_VOL_FULL * 0.80,
+	/* MUSIC_A51_LOUDSPEAKER2        */ AL_VOL_FULL * 0.80,
+	/* MUSIC_BETA_MELODY             */ AL_VOL_FULL * 0.80,
+	/* MUSIC_ESCAPE_OUTRO_SHORT      */ AL_VOL_FULL * 0.60,
+	AL_VOL_FULL * 0.85,
 	-1,
 };
 
@@ -980,14 +959,13 @@ void snd_load_sfx_ctl(void)
 	g_NumSounds = ((ALInstrument *)buffer)->soundCount + 1;
 
 	// Calculate the size of the ALInstrument and load it. The pointer is then
-	// shifted forward to point to the instrument's ALSound array. This leaks
-	// some memory but this is initialisation code so it's not much of an issue.
+	// shifted forward to point to the instrument's ALSound array.
 	size = g_NumSounds * 4 + 20;
 	size = ALIGN16(size);
 	g_ALSoundRomOffsets = alHeapAlloc(&g_SndHeap, 1, size);
 	dma_exec(g_ALSoundRomOffsets, romaddr, size);
 
-	*(u32 *)&g_ALSoundRomOffsets += 0x10;
+	g_ALSoundRomOffsets += 4;
 
 	// Convert ctl-local offsets to ROM offsets
 	for (i = 0; i < g_NumSounds; i++) {
@@ -1284,27 +1262,27 @@ void snd_set_sound_mode(s32 mode)
 
 	switch (mode) {
 	case SOUNDMODE_MONO:
-		speakers_set_mode(SPEAKERMODE_MONO);
+		alSurround_OutputType(SPEAKERMODE_MONO);
 		break;
 	case SOUNDMODE_STEREO:
-		speakers_set_mode(SPEAKERMODE_STEREO);
+		alSurround_OutputType(SPEAKERMODE_STEREO);
 		break;
 	case SOUNDMODE_HEADPHONE:
-		speakers_set_mode(SPEAKERMODE_HEADPHONE);
+		alSurround_OutputType(SPEAKERMODE_HEADPHONE);
 		break;
 	case SOUNDMODE_SURROUND:
-		speakers_set_mode(SPEAKERMODE_SURROUND);
+		alSurround_OutputType(SPEAKERMODE_SURROUND);
 		break;
 	}
 
-	speaker00034104(0, 4);
+	alSurround_ReverbSetup(0, 4);
 
 	for (i = 1; i < g_SndMaxFxBusses; i++) {
 		switch (mode) {
 		case SOUNDMODE_STEREO:
 		case SOUNDMODE_HEADPHONE:
 		case SOUNDMODE_SURROUND:
-			speaker00034104(i, 4);
+			alSurround_ReverbSetup(i, 4);
 			break;
 		}
 	}
@@ -1405,7 +1383,7 @@ void seq_init(struct seqinstance *seq)
 	config.debugFlags = 0;
 	config.heap = &g_SndHeap;
 
-	func00030c98(&config);
+	osc_set_handlers(&config);
 
 	if (IS4MB()) {
 		g_SeqBufferSize = MAX_SEQ_SIZE_4MB;
@@ -1533,7 +1511,7 @@ void snd_init(void)
 		synconfig.maxFXbusses = g_SndMaxFxBusses;
 
 		for (i = 0; i < g_SndMaxFxBusses; i++) {
-			synconfig.fxTypes[i] = 6;
+			synconfig.fxTypes[i] = AL_FX_CUSTOM;
 		}
 
 		sndpconfig.maxEvents = 64;
@@ -1692,7 +1670,7 @@ u16 seq_get_volume(struct seqinstance *seq)
 void seq_set_volume(struct seqinstance *seq, u16 volume)
 {
 	if (!g_SndDisabled) {
-		u32 tmp = var8005ecf8[seq->tracknum] * volume;
+		u32 tmp = g_SeqVolumes[seq->tracknum] * volume;
 		tmp >>=	15;
 
 		seq->volume = volume;

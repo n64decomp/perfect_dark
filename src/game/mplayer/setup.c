@@ -3829,13 +3829,6 @@ struct menudialogdef g_MpTeamsMenuDialog = {
 	NULL,
 };
 
-u32 var80085ce8[] = {
-	L_MISC_166, // "Random"
-	L_MISC_167, // "Select All"
-	L_MISC_168, // "Select None"
-	L_MISC_169, // "Randomize"
-};
-
 /**
  * List handler for the select tune dialog.
  *
@@ -3847,6 +3840,13 @@ u32 var80085ce8[] = {
  */
 MenuItemHandlerResult mp_select_tune_list_handler(s32 operation, struct menuitem *item, union handlerdata *data)
 {
+	static s32 specialoptions[] = {
+		L_MISC_166, // "Random"
+		L_MISC_167, // "Select All"
+		L_MISC_168, // "Select None"
+		L_MISC_169, // "Randomize"
+	};
+
 	switch (operation) {
 	case MENUOP_GET_OPTION_COUNT:
 		data->list.value = mp_get_num_unlocked_tracks();
@@ -3866,10 +3866,10 @@ MenuItemHandlerResult mp_select_tune_list_handler(s32 operation, struct menuitem
 			}
 
 			if (mp_get_using_multiple_tunes()) {
-				return (s32) lang_get(var80085ce8[1 + data->list.value - numtracks]);
+				return (s32) lang_get(specialoptions[1 + data->list.value - numtracks]);
 			}
 
-			return (s32) lang_get(var80085ce8[data->list.value - numtracks]);
+			return (s32) lang_get(specialoptions[data->list.value - numtracks]);
 		}
 	case MENUOP_CONFIRM:
 		{

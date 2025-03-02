@@ -2,12 +2,33 @@
 #include "constants.h"
 #include "types.h"
 
-struct typea {
+/**
+ * The seq.ctl file uses values 0 and 1 for tremType, and 0 and 128 for vibType.
+ *
+ * The other values are not used in seq.ctl but are referenced in this file.
+ */
+#define OSCTYPE_OFF  0
+#define OSCTYPE_TREM 1
+#define OSCTYPE_02   2
+#define OSCTYPE_03   3
+#define OSCTYPE_04   4
+#define OSCTYPE_05   5
+#define OSCTYPE_06   6
+#define OSCTYPE_07   7
+#define OSCTYPE_08   8
+#define OSCTYPE_09   9
+#define OSCTYPE_10   10
+#define OSCTYPE_11   11
+#define OSCTYPE_12   12
+#define OSCTYPE_13   13
+#define OSCTYPE_VIB  128
+
+struct typetrem {
 	u8 unk28;
 	u8 unk29;
 };
 
-struct typeb {
+struct typevib {
 	f32 unk28;
 };
 
@@ -28,8 +49,8 @@ typedef struct oscData_s {
 	u16 unk24;
 	u16 unk26;
 	union {
-		struct typea a;
-		struct typeb b;
+		struct typetrem trem;
+		struct typevib vib;
 	} data;
 } oscData;
 
@@ -40,10 +61,10 @@ u32 var8009c2c8;
 u32 var8009c2cc;
 N_ALSndPlayer var8009c2d0;
 
-ALMicroTime updateOsc(void *oscState, f32 *updateVal);
-ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal);
-void func00030bd8(void *oscState);
-ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 oscDepth, u8 arg5, u8 arg6);
+ALMicroTime osc_update(void *oscState, f32 *updateVal);
+ALMicroTime osc_update_other(oscData *statePtr, f32 *updateVal);
+void osc_stop_other(void *oscState);
+ALMicroTime osc_init_other(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 oscDepth, u8 oscDelay, u8 arg6);
 
 f32 _depth2Cents(u8 depth)
 {
@@ -62,7 +83,7 @@ f32 _depth2Cents(u8 depth)
 	return cents;
 }
 
-ALMicroTime initOsc(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 oscDepth, u8 oscDelay, u8 arg6)
+ALMicroTime osc_init(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 oscDepth, u8 oscDelay, u8 arg6)
 {
 	oscData *state;
 	ALMicroTime result = 0;
@@ -71,8 +92,8 @@ ALMicroTime initOsc(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 os
 		return 0;
 	}
 
-	if (oscType != 1 && oscType != 0x80) {
-		return initOscMain(oscState, initVal, oscType, oscRate, oscDepth, oscDelay, arg6);
+	if (oscType != OSCTYPE_TREM && oscType != OSCTYPE_VIB) {
+		return osc_init_other(oscState, initVal, oscType, oscRate, oscDepth, oscDelay, arg6);
 	}
 
 	if (freeOscStateList != NULL) {
@@ -83,15 +104,15 @@ ALMicroTime initOsc(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 os
 		result = oscDelay << 14;
 
 		switch (oscType) {
-		case 1:
+		case OSCTYPE_TREM:
 			state->unk24 = 0;
 			state->unk22 = 259 - oscRate;
-			state->data.a.unk28 = oscDepth >> 1;
-			state->data.a.unk29 = 127 - state->data.a.unk28;
-			*initVal = state->data.a.unk29;
+			state->data.trem.unk28 = oscDepth >> 1;
+			state->data.trem.unk29 = 127 - state->data.trem.unk28;
+			*initVal = state->data.trem.unk29;
 			break;
-		case 0x80:
-			state->data.b.unk28 = _depth2Cents(oscDepth);
+		case OSCTYPE_VIB:
+			state->data.vib.unk28 = _depth2Cents(oscDepth);
 			state->unk24 = 0;
 			state->unk22 = 259 - oscRate;
 			*initVal = 1.0f;
@@ -104,18 +125,18 @@ ALMicroTime initOsc(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 os
 	return result;
 }
 
-ALMicroTime updateOsc(void *oscState, f32 *updateVal)
+ALMicroTime osc_update(void *oscState, f32 *updateVal)
 {
 	f32 sp2c;
 	oscData *state = oscState;
 	ALMicroTime result = AL_USEC_PER_FRAME;
 
-	if (state->type != 1 && state->type != 0x80) {
-		return updateOscMain(oscState, updateVal);
+	if (state->type != OSCTYPE_TREM && state->type != OSCTYPE_VIB) {
+		return osc_update_other(oscState, updateVal);
 	}
 
 	switch (state->type) {
-	case 0x01:
+	case OSCTYPE_TREM:
 		state->unk24++;
 
 		if (state->unk24 >= state->unk22) {
@@ -124,10 +145,10 @@ ALMicroTime updateOsc(void *oscState, f32 *updateVal)
 
 		sp2c = (f32)state->unk24 / (f32)state->unk22;
 		sp2c = sinf(sp2c * DTOR(360));
-		sp2c = sp2c * state->data.a.unk28;
-		*updateVal = state->data.a.unk29 + sp2c;
+		sp2c = sp2c * state->data.trem.unk28;
+		*updateVal = state->data.trem.unk29 + sp2c;
 		break;
-	case 0x80:
+	case OSCTYPE_VIB:
 		state->unk24++;
 
 		if (state->unk24 >= state->unk22) {
@@ -135,7 +156,7 @@ ALMicroTime updateOsc(void *oscState, f32 *updateVal)
 		}
 
 		sp2c = (f32)state->unk24 / (f32)state->unk22;
-		sp2c = sinf(sp2c * DTOR(360)) * state->data.b.unk28;
+		sp2c = sinf(sp2c * DTOR(360)) * state->data.vib.unk28;
 		*updateVal = alCents2Ratio(sp2c);
 		break;
 	default:
@@ -145,38 +166,48 @@ ALMicroTime updateOsc(void *oscState, f32 *updateVal)
 	return result;
 }
 
-void stopOsc(void *oscState)
+void osc_stop(void *oscState)
 {
 	oscData *state = (oscData *)oscState;
 
-	if (state->type != 1 && state->type != 0x80) {
-		func00030bd8(oscState);
+	if (state->type != OSCTYPE_TREM && state->type != OSCTYPE_VIB) {
+		/**
+		 * @bug: This function does the same freeing behaviour, which would
+		 * cause the state's `next` pointer to point to itself, thus corrupting
+		 * the linked list.
+		 */
+		osc_stop_other(oscState);
 	}
 
 	((oscData*)oscState)->next = freeOscStateList;
 	freeOscStateList = (oscData*)oscState;
 }
 
-f32 func000301a4(f32 value)
+/**
+ * 32767 => 0.00
+ * 16384 => 1.00
+ * 0     => 0.00
+ */
+f32 osc_s16_to_sine(f32 value)
 {
 	// Almost value / (32768 / M_PI), but has a precision mismatch
 	return sinf(value / 10430.379882812f);
 }
 
-extern s32 var8005f150[];
-extern f32 var8005f34c[100];
+extern s32 g_CspTimeLookup[];
+extern f32 g_CspRateLookup[100];
 
-ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 oscDepth, u8 arg5, u8 arg6)
+ALMicroTime osc_init_other(void **oscState, f32 *initVal, u8 oscType, u8 oscRate, u8 oscDepth, u8 oscDelay, u8 arg6)
 {
 	oscData *state;
 	f32 oscDepthf;
 
-	if (arg3 > 99) {
-		arg3 = 99;
+	if (oscRate > 99) {
+		oscRate = 99;
 	}
 
-	if (arg5 > 127) {
-		arg5 = 127;
+	if (oscDelay > 127) {
+		oscDelay = 127;
 	}
 
 	if (arg6 > 127) {
@@ -194,51 +225,51 @@ ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 o
 		state->unk1c = 0;
 	} else {
 		state->unk18 = 0;
-		state->unk1c = 1.0f / ((f32)var8005f150[arg6] / AL_USEC_PER_FRAME);
+		state->unk1c = 1.0f / ((f32)g_CspTimeLookup[arg6] / AL_USEC_PER_FRAME);
 	}
 
 	state->type = oscType;
 	state->unk14 = 0;
-	state->unk16 = 1000000.0f / (f32)var8005f34c[arg3] / AL_USEC_PER_FRAME;
+	state->unk16 = 1000000.0f / (f32)g_CspRateLookup[oscRate] / AL_USEC_PER_FRAME;
 	state->curCount = AL_USEC_PER_FRAME;
 
 	oscDepthf = oscDepth;
 
-	if (oscType & 0x80) {
+	if (oscType & OSCTYPE_VIB) {
 		oscDepthf = _depth2Cents(oscDepthf);
 	}
 
-	oscType &= ~0x80;
+	oscType &= ~OSCTYPE_VIB;
 
-	switch (oscType & ~0x80) {
-	case 2:
-	case 3:
-	case 4:
-	case 5:
+	switch (oscType & ~OSCTYPE_VIB) {
+	case OSCTYPE_02:
+	case OSCTYPE_03:
+	case OSCTYPE_04:
+	case OSCTYPE_05:
 		state->unk0c = oscDepthf;
 
-		if (oscType == 2) {
+		if (oscType == OSCTYPE_02) {
 			state->unk10 = -oscDepthf;
 		} else {
 			state->unk10 = 0;
 		}
 
-		state->curCount = 500000.0f / (f32)var8005f34c[arg3];
+		state->curCount = 500000.0f / (f32)g_CspRateLookup[oscRate];
 		break;
-	case 6:
-	case 8:
-	case 11:
-	case 12:
+	case OSCTYPE_06:
+	case OSCTYPE_08:
+	case OSCTYPE_11:
+	case OSCTYPE_12:
 		state->unk10 = 0;
 		state->unk0c = oscDepthf;
 		break;
-	case 7:
-	case 9:
-	case 13:
+	case OSCTYPE_07:
+	case OSCTYPE_09:
+	case OSCTYPE_13:
 		state->unk10 = oscDepthf / 2.0f;
 		state->unk0c = oscDepthf / 2.0f;
 		break;
-	case 10:
+	case OSCTYPE_10:
 		state->unk10 = -oscDepthf;
 		state->unk0c = oscDepthf * 2.0f;
 		break;
@@ -246,7 +277,7 @@ ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 o
 		return 0;
 	}
 
-	if (state->type & 0x80) {
+	if (state->type & OSCTYPE_VIB) {
 		*initVal = alCents2Ratio(state->unk10);
 	} else {
 		*initVal = state->unk10 + 127.0f;
@@ -256,20 +287,20 @@ ALMicroTime initOscMain(void **oscState, f32 *initVal, u8 oscType, u8 arg3, u8 o
 
 	freeOscStateList = freeOscStateList->next;
 
-	if (arg5) {
-		return var8005f150[arg5];
+	if (oscDelay) {
+		return g_CspTimeLookup[oscDelay];
 	}
 
 	return AL_USEC_PER_FRAME;
 }
 
-ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
+ALMicroTime osc_update_other(oscData *statePtr, f32 *updateVal)
 {
 	f32 sp24;
 	f32 sp20;
 	f32 sp1c;
 
-	if ((statePtr->type & ~0x80) >= 6) {
+	if ((statePtr->type & ~OSCTYPE_VIB) >= 6) {
 		statePtr->unk14++;
 
 		if (statePtr->unk14 >= statePtr->unk16) {
@@ -294,11 +325,11 @@ ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
 		sp24 *= statePtr->unk18;
 	}
 
-	switch (statePtr->type & ~0x80) {
-	case 2:
-	case 3:
-	case 4:
-	case 5:
+	switch (statePtr->type & ~OSCTYPE_VIB) {
+	case OSCTYPE_02:
+	case OSCTYPE_03:
+	case OSCTYPE_04:
+	case OSCTYPE_05:
 		if (statePtr->unk14) {
 			sp20 = sp24;
 		} else {
@@ -306,8 +337,8 @@ ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
 		}
 		statePtr->unk14 ^= 1;
 		break;
-	case 6:
-	case 7:
+	case OSCTYPE_06:
+	case OSCTYPE_07:
 		if (sp20 < 0.25f) {
 			sp20 *= 4.0f * sp24;
 		} else if (sp20 >= 0.75f) {
@@ -321,17 +352,17 @@ ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
 		}
 		sp20 += statePtr->unk10;
 		break;
-	case 8:
-	case 9:
-		sp20 = func000301a4(sp20 * 65536.0f) * sp24 + statePtr->unk10;
+	case OSCTYPE_08:
+	case OSCTYPE_09:
+		sp20 = osc_s16_to_sine(sp20 * 65536.0f) * sp24 + statePtr->unk10;
 		break;
-	case 10:
-	case 11:
+	case OSCTYPE_10:
+	case OSCTYPE_11:
 		sp20 *= sp24;
 		sp20 += statePtr->unk10;
 		break;
-	case 12:
-	case 13:
+	case OSCTYPE_12:
+	case OSCTYPE_13:
 		if (sp20 < 0.25f) {
 			sp20 *= 4.0f * sp24;
 		} else if (sp20 >= 0.75f) {
@@ -346,13 +377,13 @@ ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
 
 		sp1c = statePtr->unk10 + sp20;
 		sp20 = (f32)statePtr->unk14 / (f32)statePtr->unk16;
-		sp20 = func000301a4(sp20 * 65536.0f) * sp24 + statePtr->unk10;
+		sp20 = osc_s16_to_sine(sp20 * 65536.0f) * sp24 + statePtr->unk10;
 		sp20 += sp1c;
 		sp20 /= 2.0f;
 		break;
 	}
 
-	if (statePtr->type & 0x80) {
+	if (statePtr->type & OSCTYPE_VIB) {
 		*updateVal = alCents2Ratio(sp20);
 	} else {
 		*updateVal = sp20 + 127;
@@ -361,13 +392,13 @@ ALMicroTime updateOscMain(oscData *statePtr, f32 *updateVal)
 	return statePtr->curCount;
 }
 
-void func00030bd8(void *oscState)
+void osc_stop_other(void *oscState)
 {
 	((oscData*)oscState)->next = freeOscStateList;
 	freeOscStateList = (oscData*)oscState;
 }
 
-void func00030bfc(s32 arg0, s32 count)
+void osc_build_linkedlist(s32 arg0, s32 count)
 {
 	oscData *item;
 	s32 i;
@@ -383,11 +414,11 @@ void func00030bfc(s32 arg0, s32 count)
 	item->next = NULL;
 }
 
-void func00030c98(ALSeqpConfig *config)
+void osc_set_handlers(ALSeqpConfig *config)
 {
-	config->initOsc = initOsc;
-	config->updateOsc = updateOsc;
-	config->stopOsc = stopOsc;
+	config->initOsc = osc_init;
+	config->updateOsc = osc_update;
+	config->stopOsc = osc_stop;
 
 	return;
 }

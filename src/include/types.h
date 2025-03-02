@@ -5109,7 +5109,7 @@ struct musicevent {
 		s32 timer240;
 	};
 	bool keepafterfade;
-	f32 unk0c;
+	f32 fadesecs;
 	s16 volume;
 	u16 eventtype;
 	s16 id;

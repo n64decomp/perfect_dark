@@ -15,7 +15,7 @@
 #define RESULT_OK_NEXT  1
 #define RESULT_OK_BREAK 2
 
-const u8 var70053ca0[] = {0, 0, 0, 0, 0, 5};
+const u8 g_FadeTargetByTrackType[] = {0, 0, 0, 0, 0, 5};
 
 s32 g_MusicNextAmbientTick240 = -1;
 
@@ -51,12 +51,12 @@ s32 music_handle_play_event(struct musicevent *event, s32 result)
 
 	// Check if this tracktype is currently in use. If it is then that's
 	// an error - the caller should have stopped the existing track first.
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 		if (event->tracktype == g_SeqChannels[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
 			value = event->tracktype == TRACKTYPE_AMBIENT ? 24 : 32;
 
 			for (j = 0; j < 16; j++) {
-				func00039e5c(g_SeqInstances[i].seqp, j, 0xff, value);
+				n_alCSPChanFade(g_SeqInstances[i].seqp, j, 0xff, value);
 				osSyncPrintf("MUSIC(Play) : Unpaused midi channel %d for state %d\n", j, event->tracktype);
 			}
 
@@ -71,7 +71,7 @@ s32 music_handle_play_event(struct musicevent *event, s32 result)
 
 	if (result == RESULT_FAIL) {
 		// Find an unused channel
-		for (i = 0; i < 3; i++) {
+		for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 			/**
 			 * @bug: When adding a new track, the seqp's state remains at AL_STOPPED
 			 * and is only changed to AL_PLAYING once the audio thread has run.
@@ -109,7 +109,7 @@ s32 music_handle_play_event(struct musicevent *event, s32 result)
 		if (result == RESULT_FAIL) {
 			index = -1;
 
-			for (i = 0; i < 3; i++) {
+			for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 				if ((g_SeqChannels[i].tracktype == TRACKTYPE_NONE || event->tracktype == g_SeqChannels[i].tracktype)
 						&& n_alCSPGetState(g_SeqInstances[i].seqp) != AL_STOPPED) {
 					index = i;
@@ -120,7 +120,7 @@ s32 music_handle_play_event(struct musicevent *event, s32 result)
 
 			if (index == -1) {
 				if (event->failcount >= 3) {
-					for (i = 0; i < 3; i++) {
+					for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 						if (g_SeqChannels[i].tracktype == TRACKTYPE_AMBIENT
 								&& n_alCSPGetState(g_SeqInstances[i].seqp) != AL_STOPPED) {
 							index = i;
@@ -165,7 +165,7 @@ s32 music_handle_stop_event(struct musicevent *event, s32 result)
 {
 	s32 i;
 
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 		if (event->tracktype == g_SeqChannels[i].tracktype) {
 			n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
@@ -186,15 +186,15 @@ s32 music_handle_fade_event(struct musicevent *event, s32 result)
 	s32 i;
 	s32 j;
 
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 		if (event->tracktype == g_SeqChannels[i].tracktype && g_SeqChannels[i].inuse) {
 			for (j = 0; j < 16; j++) {
-				func00039e5c(g_SeqInstances[i].seqp, j, var70053ca0[event->tracktype], 32);
+				n_alCSPChanFade(g_SeqInstances[i].seqp, j, g_FadeTargetByTrackType[event->tracktype], 32);
 			}
 
 			g_SeqChannels[i].inuse = event->keepafterfade;
 			g_SeqChannels[i].keepafterfade = event->keepafterfade;
-			g_SeqChannels[i].unk0c = g_SeqInstances[i].seqp->chanState[0].unk0d;
+			g_SeqChannels[i].unk0c = g_SeqInstances[i].seqp->chanState[0].fadevolcurrent;
 		}
 	}
 
@@ -205,7 +205,7 @@ s32 music_handle_stop_all_event(s32 result)
 {
 	s32 i;
 
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 		n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
 		g_SeqChannels[i].tracktype = 0;
@@ -239,16 +239,16 @@ void music_tick_events(void)
 	if (g_MusicEventQueueLength);
 
 	// Release channels if their track has finished fading out
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 		if (!g_SeqChannels[i].inuse && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
-			if (g_SeqInstances[i].seqp->chanState[0].unk0d <= var70053ca0[g_SeqChannels[i].tracktype]) {
+			if (g_SeqInstances[i].seqp->chanState[0].fadevolcurrent <= g_FadeTargetByTrackType[g_SeqChannels[i].tracktype]) {
 				n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
 				g_SeqChannels[i].tracktype = TRACKTYPE_NONE;
 				g_SeqChannels[i].inuse = false;
 				g_SeqChannels[i].keepafterfade = false;
 				g_SeqChannels[i].unk0c = 0;
-			} else if (g_SeqInstances[i].seqp->chanState[0].unk0d == g_SeqChannels[i].unk0c) {
+			} else if (g_SeqInstances[i].seqp->chanState[0].fadevolcurrent == g_SeqChannels[i].unk0c) {
 				n_alSeqpStop((N_ALSeqPlayer *)g_SeqInstances[i].seqp);
 
 				g_SeqChannels[i].tracktype = TRACKTYPE_NONE;
@@ -508,7 +508,7 @@ bool music_is_track_type_playing(s32 tracktype)
 {
 	s32 i;
 
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < ARRAYCOUNT(g_SeqInstances); i++) {
 		if (tracktype == g_SeqChannels[i].tracktype && n_alCSPGetState(g_SeqInstances[i].seqp) == AL_PLAYING) {
 			return true;
 		}

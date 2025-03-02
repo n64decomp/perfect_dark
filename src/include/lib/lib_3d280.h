@@ -7,6 +7,6 @@
 u32 __n_unmapVoice(void);
 u32 __n_mapVoice(void);
 u32 __n_lookupSoundQuick(void);
-u8 func0003d9cc(N_ALVoiceState *vs, N_ALCSPlayer *seqp);
+u8 __n_vsMix(N_ALVoiceState *vs, N_ALCSPlayer *seqp);
 
 #endif

@@ -7,9 +7,9 @@
 u16 music_get_volume(void);
 void music_set_volume(u16 volume);
 bool music_is_track_state(s32 tracktype, s32 state);
-void music_queue_start_event(u32 tracktype, u32 tracknum, f32 arg2, u16 volume);
+void music_queue_start_event(u32 tracktype, u32 tracknum, f32 seconds, u16 volume);
 void music_queue_stop_event(s32 tracktype);
-void music_queue_fade_event(s32 tracktype, f32 arg1, bool keepafterfade);
+void music_queue_fade_event(s32 tracktype, f32 seconds, bool keepafterfade);
 void music_reset(void);
 void music_queue_stop_all_event(void);
 void music_start_primary(f32 arg0);

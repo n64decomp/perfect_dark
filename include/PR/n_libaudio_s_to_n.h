@@ -7,7 +7,7 @@
 #define alSynAllocVoice( a, b, c)     n_alSynAllocVoice( b, c)
 #define alSynDelete( a)               n_alSynDelete()
 #define alSynFreeVoice( a, b)         n_alSynFreeVoice( b)
-#define alSynGetFXRef( a, b, c)       n_alSynGetFXRef( b, c)
+#define alSynGetFXRef( a, b, c)       n_alSynGetFXRef( b)
 #define alSynGetPriority( a, b)       n_alSynGetPriority( b)
 #define alSynRemovePlayer( a, b)      n_alSynRemovePlayer( b)
 #define alSynSetFXMix( a, b, c)       n_alSynSetFXMix( b, c)

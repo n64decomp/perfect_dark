@@ -2,23 +2,23 @@
 #include <n_libaudio.h>
 #include "naudio/n_synthInternals.h"
 
-ALFxRef func0003e540(s16 index)
+ALFxRef n_alSynGetFXRef(s16 bus)
 {
 	struct N_ALMainBus_s *mainbus = n_syn->mainBus;
 
 	if (mainbus->filter.handler == (void *)n_alFxPull) {
-		return (ALFxRef) n_syn->auxBus[index].fx;
+		return n_syn->auxBus[bus].fx;
 	} else {
 		return NULL;
 	}
 }
 
-ALFxRef func0003e5b8(s16 index)
+ALFxRef n_alSynGetOutputLPRef(s16 bus)
 {
 	struct N_ALMainBus_s *mainbus = n_syn->mainBus;
 
 	if (mainbus->filter.handler == (void *)n_alFxPull) {
-		return (ALFxRef) n_syn->auxBus[index].unk44;
+		return &n_syn->auxBus[bus].unk44->fx;
 	} else {
 		return NULL;
 	}

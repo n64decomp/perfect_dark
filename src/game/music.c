@@ -179,12 +179,12 @@ s32 music_get_channel_by_track_type(s32 tracktype)
 	return -1;
 }
 
-void music_queue_start_event(u32 tracktype, u32 tracknum, f32 arg2, u16 volume)
+void music_queue_start_event(u32 tracktype, u32 tracknum, f32 seconds, u16 volume)
 {
 	if (!g_SndDisabled) {
 		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
 		g_MusicEventQueue[g_MusicEventQueueLength].tracknum = tracknum;
-		g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg2;
+		g_MusicEventQueue[g_MusicEventQueueLength].fadesecs = seconds;
 		g_MusicEventQueue[g_MusicEventQueueLength].volume = volume;
 		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_PLAY;
 		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;
@@ -206,11 +206,11 @@ void music_queue_stop_event(s32 tracktype)
 	}
 }
 
-void music_queue_fade_event(s32 tracktype, f32 arg1, bool keepafterfade)
+void music_queue_fade_event(s32 tracktype, f32 seconds, bool keepafterfade)
 {
 	if (!g_SndDisabled) {
 		g_MusicEventQueue[g_MusicEventQueueLength].tracktype = tracktype;
-		g_MusicEventQueue[g_MusicEventQueueLength].unk0c = arg1;
+		g_MusicEventQueue[g_MusicEventQueueLength].fadesecs = seconds;
 		g_MusicEventQueue[g_MusicEventQueueLength].keepafterfade = keepafterfade;
 		g_MusicEventQueue[g_MusicEventQueueLength].eventtype = MUSICEVENTTYPE_FADE;
 		g_MusicEventQueue[g_MusicEventQueueLength].id = g_MusicNextEventId++;

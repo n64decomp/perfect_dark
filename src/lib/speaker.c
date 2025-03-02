@@ -17,7 +17,7 @@ u8 var8009c344[2];
 u8 var8009c346[2];
 u8 var8009c348[4];
 
-void speakers_set_mode(u8 mode)
+void alSurround_OutputType(u8 mode)
 {
 	s32 i;
 
@@ -38,11 +38,11 @@ void speakers_set_mode(u8 mode)
 	}
 
 	for (i = 0; i < 2; i++) {
-		speaker00034104(i, 0);
+		alSurround_ReverbSetup(i, 0);
 	}
 }
 
-void speaker00034104(s32 index, s32 arg1)
+void alSurround_ReverbSetup(s32 index, s32 arg1)
 {
 	if (arg1 == 0) {
 		arg1 = var8009c348[index];

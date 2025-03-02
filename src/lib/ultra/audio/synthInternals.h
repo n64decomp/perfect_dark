@@ -339,7 +339,7 @@ void            _collectPVoices(ALSynth *drvr);
 s32             _timeToSamples(ALSynth *ALSynth, s32 micros);
 ALMicroTime     _samplesToTime(ALSynth *synth, s32 samples);
 
-void            _init_lpfilter(ALLowPass *lp);
+void            n_alFxInitlpfilter(ALLowPass *lp);
 
 #endif
 

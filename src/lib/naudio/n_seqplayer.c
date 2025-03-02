@@ -30,7 +30,7 @@ void __n_unmapVoice(N_ALSeqPlayer *seqp, N_ALVoice *voice)
 
 			vs->next = seqp->vFreeList;
 			seqp->vFreeList = vs;
-			seqp->unk89--;
+			seqp->voicecount--;
 			return;
 		}
 
@@ -133,7 +133,7 @@ N_ALVoiceState *__n_mapVoice(N_ALSeqPlayer *seqp, u8 key, u8 vel, u8 channel)
 {
 	N_ALVoiceState *vs = seqp->vFreeList;
 
-	if (seqp->unk89 > seqp->unk88) {
+	if (seqp->voicecount > seqp->voicelimit) {
 		return 0;
 	}
 
@@ -154,7 +154,7 @@ N_ALVoiceState *__n_mapVoice(N_ALSeqPlayer *seqp, u8 key, u8 vel, u8 channel)
 		vs->velocity = vel;
 		vs->voice.clientPrivate = vs;
 
-		seqp->unk89++;
+		seqp->voicecount++;
 	}
 
 	return vs;
@@ -213,8 +213,8 @@ s16 __n_vsVol(N_ALVoiceState *vs, N_ALSeqPlayer *seqp)
 	u32 t1 = (vs->tremelo * vs->velocity * vs->envGain) >> 6;
 	u32 t2 = (vs->sound->sampleVolume * seqp->vol * seqp->chanState[vs->channel].vol) >> 14;
 
-	if (seqp->chanState[vs->channel].unk0d != 0xff) {
-		t2 = (seqp->chanState[vs->channel].unk0d * t2 + 1) >> 8;
+	if (seqp->chanState[vs->channel].fadevolcurrent != 0xff) {
+		t2 = (seqp->chanState[vs->channel].fadevolcurrent * t2 + 1) >> 8;
 	}
 
 	t1 *= t2;
@@ -223,12 +223,12 @@ s16 __n_vsVol(N_ALVoiceState *vs, N_ALSeqPlayer *seqp)
 	return t1;
 }
 
-u8 func0003d9cc(N_ALVoiceState *vs, N_ALCSPlayer *seqp)
+u8 __n_vsMix(N_ALVoiceState *vs, N_ALCSPlayer *seqp)
 {
-	s32 sp14 = seqp->chanState[vs->channel].fxmix & 0x80;
-	s32 sp10 = ((seqp->chanState[vs->channel].fxmix & 0x7f) + (s32)(seqp->unk7c * 127)) * seqp->unk80;
+	s32 sign = seqp->chanState[vs->channel].fxmix & 0x80;
+	s32 fxmix = ((seqp->chanState[vs->channel].fxmix & 0x7f) + (s32)(seqp->fxmixmajor * 127)) * seqp->fxmixmega;
 
-	return ((sp10 > 127 ? 127 : sp10) < 0 ? 0 : (sp10 > 127 ? 127 : sp10)) | sp14;
+	return MAX(0, MIN(127, fxmix)) | sign;
 }
 
 ALMicroTime __n_vsDelta(N_ALVoiceState *vs, ALMicroTime t)
@@ -307,15 +307,15 @@ void __n_resetPerfChanState(N_ALSeqPlayer *seqp, s32 chan)
 	seqp->chanState[chan].sustain = 0;
 	seqp->chanState[chan].bendRange = 200;
 	seqp->chanState[chan].pitchBend = 1;
-	seqp->chanState[chan].unk10 = 0;
-	seqp->chanState[chan].unk0d = 255;
-	seqp->chanState[chan].unk0e = 255;
-	seqp->chanState[chan].unk0f = 0;
-	seqp->chanState[chan].unk0b = 0;
+	seqp->chanState[chan].notemesgflags = 0;
+	seqp->chanState[chan].fadevolcurrent = 255;
+	seqp->chanState[chan].fadevoltarget = 255;
+	seqp->chanState[chan].fadevolinc = 0;
+	seqp->chanState[chan].fxbus = 0;
 	seqp->chanState[chan].unk13 = 0;
 	seqp->chanState[chan].unk12 = 0;
 	seqp->chanState[chan].unk11 = 0;
-	seqp->chanState[chan].unk32 = 0;
+	seqp->chanState[chan].instmajor = 0;
 }
 
 void __n_setInstChanState(N_ALSeqPlayer *seqp, ALInstrument *inst, s32 chan)
@@ -340,7 +340,7 @@ void __n_setInstChanState(N_ALSeqPlayer *seqp, ALInstrument *inst, s32 chan)
 	seqp->chanState[chan].attackVolume = sound->envelope->attackVolume;
 	seqp->chanState[chan].decayVolume = sound->envelope->decayVolume;
 
-	seqp->chanState[chan].unk27 = 0;
+	seqp->chanState[chan].pitch = 0;
 	seqp->chanState[chan].tremType = inst->tremType;
 	seqp->chanState[chan].tremRate = inst->tremRate;
 	seqp->chanState[chan].tremDepth = inst->tremDepth;
@@ -350,8 +350,8 @@ void __n_setInstChanState(N_ALSeqPlayer *seqp, ALInstrument *inst, s32 chan)
 	seqp->chanState[chan].vibDepth = inst->vibDepth;
 	seqp->chanState[chan].vibDelay = inst->vibDelay;
 
-	seqp->chanState[chan].unk24 = 0;
-	seqp->chanState[chan].unk31 = 0;
+	seqp->chanState[chan].usechanparams = 0;
+	seqp->chanState[chan].timeindex = 0;
 }
 
 void __n_seqpStopOsc(N_ALSeqPlayer *seqp, N_ALVoiceState *vs)

@@ -8,6 +8,14 @@
 #include "data.h"
 #include "types.h"
 
+#define KEYMAP_DELAY(m)            (m->velocityMax * 33333)
+#define KEYMAP_FLAGS(m)            (m->keyMax & 0xf0)
+#define KEYMAP_FXMIX(m)            ((m->keyMax & 0x0f) * 8)
+#define KEYMAP_PITCHCENTS_EXACT(m) (m->keyBase * 100 + m->detune - 6000)
+#define KEYMAP_PITCHCENTS_ROUGH(m) (m->keyBase * 100 - 6000)
+#define KEYMAP_SOUNDNUM(m)         (m->velocityMin + (m->keyMin & 0xc0) * 4)
+#define KEYMAP_VOLINDEX(m)         (m->keyMin & 0x1f)
+
 u32 var8009c330;
 s16 *g_SndpVolumeTable;
 
@@ -60,7 +68,7 @@ void n_alSndpNew(ALSndpConfig *config)
 	g_SndpVolumeTable = alHeapAlloc(config->heap, sizeof(s16), config->maxVolumes);
 
 	for (i = 0; i < config->maxVolumes; i++) {
-		g_SndpVolumeTable[i] = 0x7fff;
+		g_SndpVolumeTable[i] = AL_VOL_FULL;
 	}
 
 	// Add ourselves to the driver
@@ -165,12 +173,12 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			config.unityPitch = 0;
 			isfull = g_SndpNumPlaying >= g_SndPlayer->maxSounds;
 
-			if (!isfull || (state->flags & SNDSTATEFLAG_10)) {
+			if (!isfull || (state->flags & SNDSTATEFLAG_PARENT_OF_LEAF)) {
 				hasvoice = n_alSynAllocVoice(&state->voice, &config);
 			}
 
 			if (!hasvoice) {
-				if (state->flags & (SNDSTATEFLAG_NO_DECAY | SNDSTATEFLAG_10) || state->unk34 > 0) {
+				if (state->flags & (SNDSTATEFLAG_NO_DECAY | SNDSTATEFLAG_PARENT_OF_LEAF) || state->unk34 > 0) {
 					state->state = AL_STATE4;
 					state->unk34--;
 					n_alEvtqPostEvent(&g_SndPlayer->evtq, &event->msg, 33333, 0);
@@ -178,7 +186,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 					iterstate = g_SndpAllocStatesTail;
 
 					do {
-						if ((iterstate->flags & (SNDSTATEFLAG_NO_DECAY | SNDSTATEFLAG_10)) == 0
+						if ((iterstate->flags & (SNDSTATEFLAG_NO_DECAY | SNDSTATEFLAG_PARENT_OF_LEAF)) == 0
 								&& (iterstate->flags & SNDSTATEFLAG_HAS_VOICE)
 								&& iterstate->state != AL_STATE3) {
 							isfull = false;
@@ -242,11 +250,11 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			state->endtime = g_SndPlayer->curTime + delta;
 #endif
 
-			vol = MAX(0, (g_SndpVolumeTable[keymap->keyMin & 0x1f] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01)) / 0x7fff - 1);
+			vol = MAX(0, (g_SndpVolumeTable[KEYMAP_VOLINDEX(keymap)] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01)) / AL_VOL_FULL - 1);
 			tmppan = state->pan + sound->samplePan - AL_PAN_CENTER;
 			pan = MIN(MAX(tmppan, 0), 127);
 
-			fxmix = (state->fxmix & 0x7f) + (keymap->keyMax & 0xf) * 8;
+			fxmix = (state->fxmix & 0x7f) + KEYMAP_FXMIX(keymap);
 			fxmix = MIN(127, MAX(0, fxmix));
 			fxmix |= state->fxmix & 0x80;
 
@@ -258,7 +266,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 				if (delta == 0) {
 					state->envvol =  sound->envelope->decayVolume;
 
-					vol = MAX(0, (g_SndpVolumeTable[keymap->keyMin & 0x1f] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01)) / 0x7fff - 1);
+					vol = MAX(0, (g_SndpVolumeTable[KEYMAP_VOLINDEX(keymap)] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01)) / AL_VOL_FULL - 1);
 
 					delta = sound->envelope->decayTime / state->basepitch / state->pitch;
 
@@ -317,8 +325,8 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			 * - If the sound has no releaseTime, free it immediately
 			 */
 		case AL_SNDP_STOP_EVT:
-		case AL_SNDP_STOPALL_EVT:
 		case AL_SNDP_STOP2_EVT:
+		case AL_SNDP_STOPALL_EVT:
 			if (event->common.type != AL_SNDP_STOP2_EVT || (state->flags & SNDSTATEFLAG_NO_DECAY)) {
 				switch (state->state) {
 				case AL_PLAYING:
@@ -356,6 +364,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 				}
 			}
 			break;
+
 		case AL_SNDP_PAN_EVT:
 			state->pan = event->common.unk08;
 
@@ -381,7 +390,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			state->fxmix = event->common.unk08;
 
 			if (state->state == AL_PLAYING) {
-				fxmix = (state->fxmix & 0x7f) + (keymap->keyMax & 0xf) * 8;
+				fxmix = (state->fxmix & 0x7f) + KEYMAP_FXMIX(keymap);
 				fxmix = MIN(127, MAX(0, fxmix));
 				fxmix |= state->fxmix & 0x80;
 
@@ -392,7 +401,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			state->fxmix = (u8)(state->fxmix & 0x7f) | (u8)(event->common.unk08 & 0x80);
 
 			if (state->state == AL_PLAYING) {
-				fxmix = (state->fxmix & 0x7f) + (keymap->keyMax & 0xf) * 8;
+				fxmix = (state->fxmix & 0x7f) + KEYMAP_FXMIX(keymap);
 				fxmix = MIN(127, MAX(0, fxmix));
 				fxmix |= state->fxmix & 0x80;
 
@@ -414,7 +423,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			state->vol = event->common.unk08;
 
 			if (state->state == AL_PLAYING) {
-				vol = MAX(0, (g_SndpVolumeTable[keymap->keyMin & 0x1f] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01)) / 0x7fff - 1);
+				vol = MAX(0, (g_SndpVolumeTable[KEYMAP_VOLINDEX(keymap)] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01)) / AL_VOL_FULL - 1);
 
 				n_alSynSetVol(&state->voice, vol, MAX(1000, state->endtime - g_SndPlayer->curTime));
 			}
@@ -430,7 +439,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 				}
 #endif
 
-				vol = MAX(0, g_SndpVolumeTable[keymap->keyMin & 0x1f] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01) / 0x7fff - 1);
+				vol = MAX(0, g_SndpVolumeTable[KEYMAP_VOLINDEX(keymap)] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01) / AL_VOL_FULL - 1);
 
 				n_alSynSetVol(&state->voice, vol, delta);
 			}
@@ -438,7 +447,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 		case AL_SNDP_DECAY_EVT:
 			if ((state->flags & SNDSTATEFLAG_NO_DECAY) == 0) {
 				state->envvol = sound->envelope->decayVolume;
-				vol = MAX(0, g_SndpVolumeTable[keymap->keyMin & 0x1f] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01) / 0x7fff - 1);
+				vol = MAX(0, g_SndpVolumeTable[KEYMAP_VOLINDEX(keymap)] * (state->envvol * state->vol * sound->sampleVolume / 0x3f01) / AL_VOL_FULL - 1);
 				delta = sound->envelope->decayTime / state->basepitch / state->pitch;
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -466,7 +475,7 @@ void _n_handleEvent(N_ALSndpEvent *event)
 			sndp_free_state(state);
 			break;
 		case AL_SNDP_PLAYNEXT_EVT:
-			if (state->flags & SNDSTATEFLAG_10) {
+			if (state->flags & SNDSTATEFLAG_PARENT_OF_LEAF) {
 				sndp_play_sound(event->msg.msg.generic.data2, event->msg.msg.generic.data, state->vol, state->pan,
 						state->pitch, state->fxmix, state->fxbus, state->unk30);
 			}
@@ -615,13 +624,13 @@ struct sndstate *sndp_alloc_state(s32 arg0, ALSound *sound)
 		state->state = AL_STATE5;
 		state->pitch = 1;
 		state->unk34 = 2;
-		state->flags = keymap->keyMax & 0xf0;
+		state->flags = KEYMAP_FLAGS(keymap);
 		state->unk30 = NULL;
 
 		if (state->flags & SNDSTATEFLAG_HAS_DETUNE_PITCH) {
-			state->basepitch = alCents2Ratio(keymap->keyBase * 100 - 6000);
+			state->basepitch = alCents2Ratio(KEYMAP_PITCHCENTS_ROUGH(keymap));
 		} else {
-			state->basepitch = alCents2Ratio(keymap->keyBase * 100 + keymap->detune - 6000);
+			state->basepitch = alCents2Ratio(KEYMAP_PITCHCENTS_EXACT(keymap));
 		}
 
 		if (sp18) {
@@ -630,7 +639,7 @@ struct sndstate *sndp_alloc_state(s32 arg0, ALSound *sound)
 
 		state->fxmix = 0;
 		state->pan = AL_PAN_CENTER;
-		state->vol = 0x7fff;
+		state->vol = AL_VOL_FULL;
 
 		if (g_SndpAddRefCallback != NULL) {
 			g_SndpAddRefCallback(state->sound);
@@ -712,8 +721,8 @@ struct sndstate *sndp_play_sound(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32
 	struct sndstate *leafstate = NULL;
 	ALKeyMap *keymap;
 	ALSound *sound;
-	s16 sp4e = 0;
-	s32 sp48;
+	s16 prevsoundnum = 0;
+	s32 prevdelay;
 	s32 thisdelay;
 	s32 sumdelay = 0;
 	s32 abspan;
@@ -735,14 +744,14 @@ struct sndstate *sndp_play_sound(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32
 				evt.msg.generic.sndstate = state;
 				abspan = pan + state->pan - AL_PAN_CENTER;
 
-				if (abspan > 127) {
-					abspan = 127;
-				} else if (abspan < 0) {
-					abspan = 0;
+				if (abspan > AL_PAN_RIGHT) {
+					abspan = AL_PAN_RIGHT;
+				} else if (abspan < AL_PAN_LEFT) {
+					abspan = AL_PAN_LEFT;
 				}
 
 				state->pan = abspan;
-				state->vol = (u32)(vol * state->vol) >> 15;
+				state->vol = (u32)(vol * state->vol) / 32768;
 				state->pitch *= pitch;
 				state->fxmix = fxmix;
 				state->fxbus = fxbus;
@@ -751,13 +760,13 @@ struct sndstate *sndp_play_sound(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32
 				state->cleanuptime = 0;
 #endif
 
-				thisdelay = sound->keyMap->velocityMax * 33333;
+				thisdelay = KEYMAP_DELAY(sound->keyMap);
 
-				if (state->flags & SNDSTATEFLAG_10) {
-					state->flags &= ~SNDSTATEFLAG_10;
+				if (state->flags & SNDSTATEFLAG_RELATIVE_DELAY) {
+					state->flags &= ~SNDSTATEFLAG_RELATIVE_DELAY;
 					n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, sumdelay + 1, 0);
-					sp48 = thisdelay + 1;
-					sp4e = soundnum;
+					prevdelay = thisdelay + 1;
+					prevsoundnum = soundnum;
 				} else {
 					n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, thisdelay + 1, 0);
 				}
@@ -767,22 +776,22 @@ struct sndstate *sndp_play_sound(s32 arg0, s16 soundnum, u16 vol, ALPan pan, f32
 
 			sumdelay += thisdelay;
 			keymap = sound->keyMap;
-			soundnum = keymap->velocityMin + ((keymap->keyMin & 0xc0) << 2);
+			soundnum = KEYMAP_SOUNDNUM(keymap);
 		} while (soundnum && state);
 
 		if (leafstate != NULL) {
 			leafstate->flags |= SNDSTATEFLAG_LEAF;
 			leafstate->unk30 = handleptr;
 
-			if (sp4e != 0) {
-				leafstate->flags |= SNDSTATEFLAG_10;
+			if (prevsoundnum != 0) {
+				leafstate->flags |= SNDSTATEFLAG_PARENT_OF_LEAF;
 
 				evt2.type = AL_SNDP_PLAYNEXT_EVT;
 				evt2.msg.generic.sndstate = leafstate;
-				evt2.msg.generic.data = sp4e;
+				evt2.msg.generic.data = prevsoundnum;
 				evt2.msg.generic.data2 = arg0;
 
-				n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt2, sp48, 0);
+				n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt2, prevdelay, 0);
 			}
 		}
 	}
@@ -806,7 +815,7 @@ void sndp_stop_sound(struct sndstate *state)
 		evt.msg.generic.sndstate = state;
 
 		if (state != NULL) {
-			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
+			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_PARENT_OF_LEAF;
 
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
@@ -820,7 +829,7 @@ void sndp_stop_sound(struct sndstate *state)
 		evt.msg.generic.sndstate = state;
 
 		if (state != NULL) {
-			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
+			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_PARENT_OF_LEAF;
 
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
@@ -830,7 +839,7 @@ void sndp_stop_sound(struct sndstate *state)
 	evt.msg.generic.sndstate = state;
 
 	if (state != NULL) {
-		evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
+		evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_PARENT_OF_LEAF;
 
 		n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 	}
@@ -846,7 +855,7 @@ void sndp_post_end_event(struct sndstate *state)
 	evt.msg.generic.sndstate = state;
 
 	if (state) {
-		evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
+		evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_PARENT_OF_LEAF;
 
 		n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 	}
@@ -864,7 +873,7 @@ void sndp_post_stopall_event_bulk(u8 flags)
 		evt.msg.generic.sndstate = state;
 
 		if ((state->flags & flags) == flags) {
-			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
+			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_PARENT_OF_LEAF;
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 
@@ -886,7 +895,7 @@ void sndp_post_end_event_bulk(u8 flags)
 		evt.msg.generic.sndstate = state;
 
 		if ((state->flags & flags) == flags) {
-			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_10;
+			evt.msg.generic.sndstate->flags &= ~SNDSTATEFLAG_PARENT_OF_LEAF;
 			n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);
 		}
 
@@ -911,7 +920,7 @@ void sndp_stop_all(void)
 
 void sndp_stop_specials(void)
 {
-	sndp_post_stopall_event_bulk(SNDSTATEFLAG_LEAF | SNDSTATEFLAG_10);
+	sndp_post_stopall_event_bulk(SNDSTATEFLAG_LEAF | SNDSTATEFLAG_PARENT_OF_LEAF);
 }
 
 void sndp_stop_nodecays(void)
@@ -969,7 +978,7 @@ void sndp_set_volume_entry(u8 index, u16 volume)
 		g_SndpVolumeTable[index] = volume;
 
 		for (i = 0; state != NULL; i++, state = (struct sndstate *)state->node.next) {
-			if ((state->sound->keyMap->keyMin & 0x1f) == index) {
+			if (KEYMAP_VOLINDEX(state->sound->keyMap) == index) {
 				evt.type = AL_SNDP_VOLTBL_EVT;
 				evt.msg.generic.sndstate = state;
 				n_alEvtqPostEvent(&g_SndPlayer->evtq, &evt, 0, 0);

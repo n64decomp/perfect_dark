@@ -306,13 +306,13 @@ s32 n_alEnvmixerParam(N_PVoice *filter, s32 paramID, void *param)
 		e->rs_first = 1;
 		e->rs_upitch = 0;
 
-		n_alResampleParam2(e, AL_FILTER_RESET, param);
+		n_alLPFilterParam(e, AL_FILTER_RESET, param);
 		break;
 	case AL_FILTER_START:
 		e->em_motion = AL_PLAYING;
 		break;
 	default:
-		n_alResampleParam2(e, paramID, param);
+		n_alLPFilterParam(e, paramID, param);
 		break;
 	}
 
@@ -334,7 +334,7 @@ Acmd *_pullSubFrame(N_PVoice *filter, s16 *inp, s16 *outp, s32 outCount, Acmd *p
 	 * lists.
 	 */
 
-	ptr = n_alResamplePull2(e, inp, outCount, p);
+	ptr = n_alLPFilterPull(e, inp, outCount, p);
 
 	/*
 	 * construct our portion of the command list

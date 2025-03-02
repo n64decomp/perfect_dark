@@ -2,7 +2,7 @@
 #include "n_synthInternals.h"
 
 s32 mp3_make_samples(s32 arg0, Acmd **cmd);
-void func0003ba64(struct fx *fx, f32 outputrate);
+void n_alFxInitlpfilter_mono(struct fx *fx, f32 outputrate);
 
 Acmd *n_alMainBusPull(s32 sampleOffset, Acmd *p)
 {
@@ -36,7 +36,7 @@ Acmd *n_alMainBusPull(s32 sampleOffset, Acmd *p)
 			struct auxbus44 *bus44 = n_syn->auxBus[i].unk44;
 
 			if (bus44->unk28) {
-				func0003ba64(&bus44->fx, n_syn->outputRate);
+				n_alFxInitlpfilter_mono(&bus44->fx, n_syn->outputRate);
 			}
 
 			n_aLoadADPCM(ptr++, 32, osVirtualToPhysical(&bus44->fx.unk08));

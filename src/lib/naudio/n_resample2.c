@@ -3,9 +3,9 @@
 #include <gu.h>
 #include "types.h"
 
-void func0003ba64(struct fx *fx, f32 outputrate);
+void n_alFxInitlpfilter_mono(struct fx *fx, f32 outputrate);
 
-Acmd *n_alResamplePull2(N_PVoice *e, s16 *outp, s32 outCount, Acmd *p)
+Acmd *n_alLPFilterPull(N_PVoice *e, s16 *outp, s32 outCount, Acmd *p)
 {
 	Acmd *ptr = p;
 	f32 sp28;
@@ -28,7 +28,7 @@ Acmd *n_alResamplePull2(N_PVoice *e, s16 *outp, s32 outCount, Acmd *p)
 
 	if (e->fx.unk02 > 0) {
 		if (e->unkb8 != 0) {
-			func0003ba64(&e->fx, 22050);
+			n_alFxInitlpfilter_mono(&e->fx, 22050);
 		}
 
 		n_aLoadADPCM(ptr++, 32, osVirtualToPhysical(e->fx.unk08))
@@ -45,7 +45,7 @@ Acmd *n_alResamplePull2(N_PVoice *e, s16 *outp, s32 outCount, Acmd *p)
 	return ptr;
 }
 
-s32 n_alResampleParam2(N_PVoice *filter, s32 paramID, void *param)
+s32 n_alLPFilterParam(N_PVoice *filter, s32 paramID, void *param)
 {
 	f32 *f = (f32 *) &param;
 
