@@ -85,7 +85,6 @@
 #include "lib/collision.h"
 #include "lib/crash.h"
 #include "lib/joy.h"
-#include "lib/lib_06440.h"
 #include "lib/lib_317f0.h"
 #include "lib/main.h"
 #include "lib/mtx.h"

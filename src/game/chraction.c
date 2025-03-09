@@ -44,7 +44,7 @@
 #include "game/wallhit.h"
 #include "bss.h"
 #include "lib/joy.h"
-#include "lib/lib_17ce0.h"
+#include "lib/portal.h"
 #include "lib/main.h"
 #include "lib/model.h"
 #include "lib/snd.h"

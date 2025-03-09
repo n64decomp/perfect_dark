@@ -30,7 +30,7 @@
 #include "game/mpstats.h"
 #include "bss.h"
 #include "lib/collision.h"
-#include "lib/lib_17ce0.h"
+#include "lib/portal.h"
 #include "lib/model.h"
 #include "lib/snd.h"
 #include "lib/rng.h"

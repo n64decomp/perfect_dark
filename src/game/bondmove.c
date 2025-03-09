@@ -28,7 +28,7 @@
 #include "game/options.h"
 #include "game/propobj.h"
 #include "bss.h"
-#include "lib/lib_17ce0.h"
+#include "lib/portal.h"
 #include "lib/vi.h"
 #include "lib/collision.h"
 #include "lib/joy.h"

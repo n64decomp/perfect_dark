@@ -58,7 +58,7 @@
 #include "lib/ailist.h"
 #include "lib/collision.h"
 #include "lib/joy.h"
-#include "lib/lib_17ce0.h"
+#include "lib/portal.h"
 #include "lib/vi.h"
 #include "lib/main.h"
 #include "lib/snd.h"

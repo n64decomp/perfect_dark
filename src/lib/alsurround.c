@@ -4,7 +4,7 @@
 #include "bss.h"
 #include "lib/snd.h"
 #include "lib/speaker.h"
-#include "lib/lib_2fc60.h"
+#include "lib/osc.h"
 #include "lib/lib_317f0.h"
 #include "lib/lib_39c80.h"
 #include "lib/lib_3d280.h"

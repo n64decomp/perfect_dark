@@ -71,7 +71,7 @@
 #include "lib/mtx.h"
 #include "lib/anim.h"
 #include "lib/collision.h"
-#include "lib/lib_17ce0.h"
+#include "lib/portal.h"
 #include "lib/lib_317f0.h"
 #include "data.h"
 #include "textures.h"

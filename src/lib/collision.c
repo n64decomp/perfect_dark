@@ -7,7 +7,7 @@
 #include "lib/dma.h"
 #include "lib/memp.h"
 #include "lib/mtx.h"
-#include "lib/lib_17ce0.h"
+#include "lib/portal.h"
 #include "lib/anim.h"
 #include "lib/collision.h"
 #include "lib/lib_2f490.h"

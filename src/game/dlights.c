@@ -23,7 +23,7 @@
 #include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/mtx.h"
-#include "lib/lib_17ce0.h"
+#include "lib/portal.h"
 #include "lib/lib_2f490.h"
 #include "lib/lib_317f0.h"
 #include "data.h"

@@ -55,7 +55,7 @@
 	build/ROMID/lib/varsinit.o (section); \
 	build/ROMID/lib/mtxasm.o (section); \
 	build/ROMID/lib/mtx.o (section); \
-	build/ROMID/lib/lib_17ce0.o (section); \
+	build/ROMID/lib/portal.o (section); \
 	build/ROMID/lib/ailist.o (section); \
 	build/ROMID/lib/path.o (section); \
 	build/ROMID/lib/modelasm.o (section); \
@@ -68,11 +68,11 @@
 	build/ROMID/lib/rmon.o (section); \
 	build/ROMID/lib/ultra/audio/heap.o (section); \
 	build/ROMID/lib/naudio/n_sl.o (section); \
-	build/ROMID/lib/lib_2fc60.o (section); \
+	build/ROMID/lib/naudio/osc.o (section); \
 	build/ROMID/lib/naudio/n_synthesizer.o (section); \
 	build/ROMID/lib/ultra/audio/sl.o (section); \
 	build/ROMID/lib/naudio/n_sndplayer.o (section); \
-	build/ROMID/lib/speaker.o (section); \
+	build/ROMID/lib/alsurround.o (section); \
 	build/ROMID/lib/naudio/n_csplayer.o (section); \
 	build/ROMID/lib/naudio/n_cspsetbank.o (section); \
 	build/ROMID/lib/ultra/audio/bnkf.o (section); \
@@ -82,7 +82,7 @@
 	build/ROMID/lib/naudio/n_cspsetseq.o (section); \
 	build/ROMID/lib/naudio/n_cspplay.o (section); \
 	build/ROMID/lib/naudio/n_cspsetvol.o (section); \
-	build/ROMID/lib/lib_39c80.o (section); \
+	build/ROMID/lib/naudio/n_cspchan.o (section); \
 	build/ROMID/lib/naudio/n_seqpstop.o (section); \
 	build/ROMID/lib/naudio/n_syndelete.o (section); \
 	build/ROMID/lib/ultra/audio/cents2ratio.o (section); \
@@ -103,7 +103,7 @@
 	build/ROMID/lib/naudio/n_seqplayer.o (section); \
 	build/ROMID/lib/naudio/n_synfilter13.o (section); \
 	build/ROMID/lib/naudio/n_synfilter12.o (section); \
-	build/ROMID/lib/lib_3e3e0.o (section); \
+	build/ROMID/lib/naudio/n_syngetfxref.o (section); \
 	build/ROMID/lib/naudio/n_synsetfxparam.o (section); \
 	build/ROMID/lib/naudio/n_synfilter11.o (section); \
 	build/ROMID/lib/ultra/audio/cseq.o (section); \

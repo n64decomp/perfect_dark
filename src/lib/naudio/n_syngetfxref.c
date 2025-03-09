@@ -1,6 +1,6 @@
 #include <ultra64.h>
 #include <n_libaudio.h>
-#include "naudio/n_synthInternals.h"
+#include "n_synthInternals.h"
 
 ALFxRef n_alSynGetFXRef(s16 bus)
 {

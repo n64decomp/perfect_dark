@@ -31,7 +31,7 @@
 #include "bss.h"
 #include "lib/crash.h"
 #include "lib/dma.h"
-#include "lib/lib_17ce0.h"
+#include "lib/portal.h"
 #include "lib/lib_2f490.h"
 #include "lib/main.h"
 #include "lib/mema.h"

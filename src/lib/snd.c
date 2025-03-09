@@ -15,7 +15,7 @@
 #include "lib/memp.h"
 #include "lib/rng.h"
 #include "lib/str.h"
-#include "lib/lib_2fc60.h"
+#include "lib/osc.h"
 #include "lib/lib_317f0.h"
 #include "lib/mp3.h"
 #include "lib/lib_39c80.h"
