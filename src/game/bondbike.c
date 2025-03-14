@@ -139,15 +139,15 @@ void bbike_try_dismount_angle(f32 relativeangle, f32 distance)
 		los_find_final_room_exhaustive(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms, &pos, rooms);
 		bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &pos, rooms);
 
-		result = cd_test_cyl_move02(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
-				&pos, rooms, CDTYPE_ALL, true,
+		result = cd_test_cylmove_oobfail(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+				&pos, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 				ymax - g_Vars.currentplayer->prop->pos.y,
 				ymin - g_Vars.currentplayer->prop->pos.y);
 
 		prop_set_perim_enabled(g_Vars.currentplayer->hoverbike, true);
 
 		if (result == CDRESULT_NOCOLLISION) {
-			result = cd_test_volume(&pos, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
+			result = cd_test_volume_simple(&pos, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -369,7 +369,7 @@ void bbike0f0d2b40(struct defaultobj *bike, struct coord *arg1, f32 arg2, struct
 	}
 }
 
-s32 bbike_calculate_new_position(struct coord *vel, f32 angledelta)
+s32 bbike_try_delta_nopush(struct coord *vel, f32 angledelta)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	struct coord dstpos;
@@ -416,20 +416,20 @@ s32 bbike_calculate_new_position(struct coord *vel, f32 angledelta)
 		zdiff = dstpos.z - g_Vars.currentplayer->hoverbike->pos.z;
 
 		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
-			result = cd_exam_cyl_move06(&g_Vars.currentplayer->hoverbike->pos,
+			result = cd_test_cylmove_oobfail_findclosest_finddist(&g_Vars.currentplayer->hoverbike->pos,
 					g_Vars.currentplayer->hoverbike->rooms,
-					&dstpos, dstrooms, radius, CDTYPE_ALL, 1,
+					&dstpos, dstrooms, radius, CDTYPE_ALL, CHECKVERTICAL_YES,
 					ymax - g_Vars.currentplayer->hoverbike->pos.y,
 					ymin - g_Vars.currentplayer->hoverbike->pos.y);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = cd_exam_cyl_move02(&g_Vars.currentplayer->hoverbike->pos,
-						&dstpos, radius, dstrooms, CDTYPE_ALL, true,
+				result = cd_test_volume_fromdir(&g_Vars.currentplayer->hoverbike->pos,
+						&dstpos, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 						ymax - g_Vars.currentplayer->hoverbike->pos.y,
 						ymin - g_Vars.currentplayer->hoverbike->pos.y);
 			}
 		} else {
-			result = cd_exam_cyl_move02(&g_Vars.currentplayer->hoverbike->pos,
+			result = cd_test_volume_fromdir(&g_Vars.currentplayer->hoverbike->pos,
 					&dstpos, radius, spa8, CDTYPE_ALL, true,
 					ymax - g_Vars.currentplayer->hoverbike->pos.y,
 					ymin - g_Vars.currentplayer->hoverbike->pos.y);
@@ -470,9 +470,9 @@ s32 bbike_calculate_new_position(struct coord *vel, f32 angledelta)
 	return result;
 }
 
-s32 bbike_calculate_new_position_with_push(struct coord *arg0, f32 arg1)
+s32 bbike_try_delta(struct coord *arg0, f32 arg1)
 {
-	s32 result = bbike_calculate_new_position(arg0, arg1);
+	s32 result = bbike_try_delta_nopush(arg0, arg1);
 
 	if (result != CDRESULT_NOCOLLISION) {
 		struct prop *obstacle = cd_get_obstacle_prop();
@@ -516,7 +516,7 @@ s32 bbike_calculate_new_position_with_push(struct coord *arg0, f32 arg1)
 							}
 
 							if (moved) {
-								result = bbike_calculate_new_position(arg0, arg1);
+								result = bbike_try_delta_nopush(arg0, arg1);
 							}
 						}
 					}
@@ -565,7 +565,7 @@ void bbike_update_vertical(struct coord *pos)
 	g_Vars.currentplayer->prop->pos.y = pos->y;
 	g_Vars.currentplayer->prop->pos.z = pos->z;
 
-	ground = cd_find_ground_info_at_cyl(&g_Vars.currentplayer->prop->pos,
+	ground = cd_find_ground_at_cyl_ctfril(&g_Vars.currentplayer->prop->pos,
 			g_Vars.currentplayer->bond2.radius,
 			g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->floorcol,
@@ -607,67 +607,67 @@ void bbike_update_vertical(struct coord *pos)
 	bmove_update_look();
 }
 
-s32 bbike0f0d363c(f32 arg0)
+s32 bbike_resolve_turndelta(f32 turndelta)
 {
 	struct coord coord = {0, 0, 0};
 
-	return bbike_calculate_new_position_with_push(&coord, arg0);
+	return bbike_try_delta(&coord, turndelta);
 }
 
-s32 bbike0f0d3680(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 bbike_try_fulldelta(struct coord *deltapos, struct coord *edgevtx1, struct coord *edgevtx2)
 {
-	s32 result = bbike_calculate_new_position_with_push(arg0, 0);
+	s32 result = bbike_try_delta(deltapos, 0);
 
-	if (!result) {
+	if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
-		cd_get_edge(arg1, arg2, 659, "bondbike.c");
+		cd_get_edge(edgevtx1, edgevtx2, 659, "bondbike.c");
 #else
-		cd_get_edge(arg1, arg2, 656, "bondbike.c");
+		cd_get_edge(edgevtx1, edgevtx2, 656, "bondbike.c");
 #endif
 	}
 
 	return result;
 }
 
-s32 bbike0f0d36d4(struct coord *arg0, struct coord *arg1, struct coord *arg2, struct coord *arg3, struct coord *arg4)
+s32 bbike_try_quarterdelta(struct coord *posdelta, struct coord *prevedge_vtx1, struct coord *prevedge_vtx2, struct coord *edge_vtx1, struct coord *edge_vtx2)
 {
 	if (cd_has_distance()) {
-		struct coord sp24;
-		f32 somefloat = cd_get_distance();
-		s32 someint;
+		struct coord quarter;
+		f32 distance = cd_get_distance();
+		s32 result;
 
-		sp24.x = arg0->x * somefloat * 0.25f;
-		sp24.y = arg0->y * somefloat * 0.25f;
-		sp24.z = arg0->z * somefloat * 0.25f;
+		quarter.x = posdelta->x * distance / 4.0f;
+		quarter.y = posdelta->y * distance / 4.0f;
+		quarter.z = posdelta->z * distance / 4.0f;
 
-		someint = bbike_calculate_new_position_with_push(&sp24, 0);
+		result = bbike_try_delta(&quarter, 0);
 
-		if (someint == 1) {
-			return 1;
+		if (result == CDRESULT_NOCOLLISION) {
+			return CDRESULT_NOCOLLISION;
 		}
 
-		if (someint == 0) {
+		if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
-			cd_get_edge(arg3, arg4, 685, "bondbike.c");
+			cd_get_edge(edge_vtx1, edge_vtx2, 685, "bondbike.c");
 #else
-			cd_get_edge(arg3, arg4, 682, "bondbike.c");
+			cd_get_edge(edge_vtx1, edge_vtx2, 682, "bondbike.c");
 #endif
 
-			if (arg3->f[0] != arg1->f[0]
-					|| arg3->f[1] != arg1->f[1]
-					|| arg3->f[2] != arg1->f[2]
-					|| arg4->f[0] != arg2->f[0]
-					|| arg4->f[1] != arg2->f[1]
-					|| arg4->f[2] != arg2->f[2]) {
-				return 0;
+			if (edge_vtx1->f[0] != prevedge_vtx1->f[0]
+					|| edge_vtx1->f[1] != prevedge_vtx1->f[1]
+					|| edge_vtx1->f[2] != prevedge_vtx1->f[2]
+					|| edge_vtx2->f[0] != prevedge_vtx2->f[0]
+					|| edge_vtx2->f[1] != prevedge_vtx2->f[1]
+					|| edge_vtx2->f[2] != prevedge_vtx2->f[2]) {
+				return CDRESULT_COLLISION;
 			}
 		}
 	}
 
-	return -1;
+	return CDRESULT_ERROR;
 }
 
-s32 bbike0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 bbike_try_slide_along_edge(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	s32 result;
 
@@ -690,7 +690,7 @@ s32 bbike0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 		sp24.y = 0;
 		sp24.z = sp30.z * tmp;
 
-		result = bbike_calculate_new_position_with_push(&sp24, 0);
+		result = bbike_try_delta(&sp24, 0);
 	} else {
 		result = -1;
 	}
@@ -698,7 +698,7 @@ s32 bbike0f0d3840(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
+s32 bbike_try_slide_along_corner(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 {
 	struct coord sp34;
 	struct coord sp28;
@@ -732,7 +732,7 @@ s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 			sp28.y = 0;
 			sp28.z = sp34.z;
 
-			if (bbike_calculate_new_position_with_push(&sp28, 0) == CDRESULT_NOCOLLISION) {
+			if (bbike_try_delta(&sp28, 0) == CDRESULT_NOCOLLISION) {
 				return true;
 			}
 		}
@@ -760,7 +760,7 @@ s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 				sp28.y = 0;
 				sp28.z = sp34.z;
 
-				if (bbike_calculate_new_position_with_push(&sp28, 0) == CDRESULT_NOCOLLISION) {
+				if (bbike_try_delta(&sp28, 0) == CDRESULT_NOCOLLISION) {
 					return true;
 				}
 			}
@@ -770,31 +770,31 @@ s32 bbike0f0d3940(struct coord *arg0, struct coord *arg1, struct coord *arg2)
 	return false;
 }
 
-void bbike0f0d3c60(struct coord *arg0)
+void bbike_resolve_posdelta(struct coord *arg0)
 {
-	struct coord sp64;
-	struct coord sp58;
-	struct coord sp4c;
-	struct coord sp40;
-	s32 value;
-	struct coord sp30;
-	struct coord sp24;
+	struct coord edgea_vtx1;
+	struct coord edgea_vtx2;
+	struct coord edgeb_vtx1;
+	struct coord edgeb_vtx2;
+	s32 result;
+	struct coord edgec_vtx1;
+	struct coord edgec_vtx2;
 
-	if (bbike0f0d3680(arg0, &sp64, &sp58) == 0) {
-		value = bbike0f0d36d4(arg0, &sp64, &sp58, &sp4c, &sp40);
+	if (bbike_try_fulldelta(arg0, &edgea_vtx1, &edgea_vtx2) == CDRESULT_COLLISION) {
+		result = bbike_try_quarterdelta(arg0, &edgea_vtx1, &edgea_vtx2, &edgeb_vtx1, &edgeb_vtx2);
 
-		if (value > 0 || value < 0) {
-			if (bbike0f0d3840(arg0, &sp64, &sp58) <= 0
-					&& bbike0f0d3940(arg0, &sp64, &sp58) <= 0) {
+		if (result >= CDRESULT_NOCOLLISION || result <= CDRESULT_ERROR) {
+			if (bbike_try_slide_along_edge(arg0, &edgea_vtx1, &edgea_vtx2) <= CDRESULT_COLLISION
+					&& bbike_try_slide_along_corner(arg0, &edgea_vtx1, &edgea_vtx2) <= CDRESULT_COLLISION) {
 				// empty
 			}
-		} else if (value == 0) {
-			bbike0f0d36d4(arg0, &sp4c, &sp40, &sp30, &sp24);
+		} else if (result == CDRESULT_COLLISION) {
+			result = bbike_try_quarterdelta(arg0, &edgeb_vtx1, &edgeb_vtx2, &edgec_vtx1, &edgec_vtx2);
 
-			if (bbike0f0d3840(arg0, &sp4c, &sp40) <= 0
-					&& bbike0f0d3840(arg0, &sp64, &sp58) <= 0
-					&& bbike0f0d3940(arg0, &sp4c, &sp40) <= 0
-					&& bbike0f0d3940(arg0, &sp64, &sp58) <= 0) {
+			if (bbike_try_slide_along_edge(arg0, &edgeb_vtx1, &edgeb_vtx2) <= CDRESULT_COLLISION
+					&& bbike_try_slide_along_edge(arg0, &edgea_vtx1, &edgea_vtx2) <= CDRESULT_COLLISION
+					&& bbike_try_slide_along_corner(arg0, &edgeb_vtx1, &edgeb_vtx2) <= CDRESULT_COLLISION
+					&& bbike_try_slide_along_corner(arg0, &edgea_vtx1, &edgea_vtx2) <= CDRESULT_COLLISION) {
 				if (&arg0);
 			}
 		}
@@ -887,7 +887,7 @@ void bbike_tick(void)
 
 		if (1);
 
-		bbike0f0d363c(bike->w * g_Vars.lvupdate60freal);
+		bbike_resolve_turndelta(bike->w * g_Vars.lvupdate60freal);
 
 		sp20c.x = bike->speed[0] * g_Vars.lvupdate60freal;
 		sp20c.y = 0.0f;
@@ -896,7 +896,7 @@ void bbike_tick(void)
 		bike->prevpos[0] = bike->base.prop->pos.x;
 		bike->prevpos[1] = bike->base.prop->pos.z;
 
-		bbike0f0d3c60(&sp20c);
+		bbike_resolve_posdelta(&sp20c);
 
 		sp1f8 = (bike->base.prop->pos.x - bike->prevpos[0]) / g_Vars.lvupdate60freal;
 		sp1f4 = (bike->base.prop->pos.z - bike->prevpos[1]) / g_Vars.lvupdate60freal;

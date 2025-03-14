@@ -60,7 +60,7 @@ f32 eyespy_find_ground(RoomNum *floorroom)
 	pos.y = prop->pos.y + yoffset;
 	pos.z = prop->pos.z;
 
-	ground = cd_find_ground_info_at_cyl(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
+	ground = cd_find_ground_at_cyl_ctfril(&pos, 26, prop->rooms, NULL, NULL, NULL, floorroom, &inlift, &lift);
 
 	if (ground < -30000) {
 		ground = -30000;
@@ -100,7 +100,7 @@ s32 eyespy_try_move_upwards(f32 yvel)
 
 	f0 -= 0.1f;
 
-	result = cd_test_volume(&dstpos, 26, dstrooms, types, CHECKVERTICAL_YES, 15, f0);
+	result = cd_test_volume_simple(&dstpos, 26, dstrooms, types, CHECKVERTICAL_YES, 15, f0);
 	prop_set_perim_enabled(prop, true);
 
 	if (result == CDRESULT_NOCOLLISION) {
@@ -112,7 +112,7 @@ s32 eyespy_try_move_upwards(f32 yvel)
 	return result;
 }
 
-s32 eyespy_calculate_new_position(struct coord *vel)
+s32 eyespy_try_delta_nopush(struct coord *vel)
 {
 	bool cdresult = CDRESULT_NOCOLLISION;
 	struct prop *eyespyprop = g_Vars.currentplayer->eyespy->prop;
@@ -176,13 +176,13 @@ s32 eyespy_calculate_new_position(struct coord *vel)
 		halfradius = radius * 0.5f;
 
 		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
-			cdresult = cd_exam_cyl_move06(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, radius, types, 1, 15, ymin);
+			cdresult = cd_test_cylmove_oobfail_findclosest_finddist(&eyespyprop->pos, eyespyprop->rooms, &dstpos, dstrooms, radius, types, CHECKVERTICAL_YES, 15, ymin);
 
 			if (cdresult == CDRESULT_NOCOLLISION) {
-				cdresult = cd_exam_cyl_move02(&eyespyprop->pos, &dstpos, radius, dstrooms, types, true, 15, ymin);
+				cdresult = cd_test_volume_fromdir(&eyespyprop->pos, &dstpos, radius, dstrooms, types, CHECKVERTICAL_YES, 15, ymin);
 			}
 		} else {
-			cdresult = cd_exam_cyl_move02(&eyespyprop->pos, &dstpos, radius, sp74, types, true, 15, ymin);
+			cdresult = cd_test_volume_fromdir(&eyespyprop->pos, &dstpos, radius, sp74, types, CHECKVERTICAL_YES, 15, ymin);
 		}
 
 		if (cdresult == CDRESULT_COLLISION) {
@@ -214,9 +214,9 @@ s32 eyespy_calculate_new_position(struct coord *vel)
 	return cdresult;
 }
 
-bool eyespy_calculate_new_position_with_push(struct coord *vel)
+bool eyespy_try_delta(struct coord *vel)
 {
-	s32 cdresult = eyespy_calculate_new_position(vel);
+	s32 cdresult = eyespy_try_delta_nopush(vel);
 	struct prop *prop;
 
 	if (cdresult != CDRESULT_NOCOLLISION) {
@@ -269,7 +269,7 @@ bool eyespy_calculate_new_position_with_push(struct coord *vel)
 	return cdresult;
 }
 
-s32 eyespy_try_quarterstep(struct coord *vel, struct coord *prevedge1, struct coord *prevedge2, struct coord *newedge1, struct coord *newedge2)
+s32 eyespy_try_quarterdelta(struct coord *vel, struct coord *prevedge1, struct coord *prevedge2, struct coord *newedge1, struct coord *newedge2)
 {
 	if (cd_has_distance()) {
 		struct coord tryvel;
@@ -280,7 +280,7 @@ s32 eyespy_try_quarterstep(struct coord *vel, struct coord *prevedge1, struct co
 		tryvel.y = vel->y * distance * 0.25f;
 		tryvel.z = vel->z * distance * 0.25f;
 
-		cdresult = eyespy_calculate_new_position_with_push(&tryvel);
+		cdresult = eyespy_try_delta(&tryvel);
 
 		if (cdresult == CDRESULT_NOCOLLISION) {
 			return CDRESULT_NOCOLLISION;
@@ -303,7 +303,7 @@ s32 eyespy_try_quarterstep(struct coord *vel, struct coord *prevedge1, struct co
 	return CDRESULT_ERROR;
 }
 
-s32 eyespy_try_move_to_edge(struct coord *vel, struct coord *edge1, struct coord *edge2)
+s32 eyespy_try_slide_along_edge(struct coord *vel, struct coord *edge1, struct coord *edge2)
 {
 	f32 frac;
 	struct coord tri;
@@ -326,13 +326,13 @@ s32 eyespy_try_move_to_edge(struct coord *vel, struct coord *edge1, struct coord
 		tryvel.y = 0;
 		tryvel.z = tri.z * frac;
 
-		return eyespy_calculate_new_position_with_push(&tryvel);
+		return eyespy_try_delta(&tryvel);
 	}
 
 	return CDRESULT_ERROR;
 }
 
-s32 eyespy_try_grind(struct coord *vel, struct coord *edge1, struct coord *edge2)
+s32 eyespy_try_slide_along_corner(struct coord *vel, struct coord *edge1, struct coord *edge2)
 {
 	struct coord tri;
 	struct coord tryvel;
@@ -363,7 +363,7 @@ s32 eyespy_try_grind(struct coord *vel, struct coord *edge1, struct coord *edge2
 			tryvel.y = 0;
 			tryvel.z = tri.z;
 
-			if (eyespy_calculate_new_position_with_push(&tryvel) == CDRESULT_NOCOLLISION) {
+			if (eyespy_try_delta(&tryvel) == CDRESULT_NOCOLLISION) {
 				return CDRESULT_NOCOLLISION;
 			}
 		}
@@ -391,7 +391,7 @@ s32 eyespy_try_grind(struct coord *vel, struct coord *edge1, struct coord *edge2
 				tryvel.y = 0;
 				tryvel.z = tri.z;
 
-				if (eyespy_calculate_new_position_with_push(&tryvel) == CDRESULT_NOCOLLISION) {
+				if (eyespy_try_delta(&tryvel) == CDRESULT_NOCOLLISION) {
 					return CDRESULT_NOCOLLISION;
 				}
 			}
@@ -401,9 +401,9 @@ s32 eyespy_try_grind(struct coord *vel, struct coord *edge1, struct coord *edge2
 	return CDRESULT_COLLISION;
 }
 
-s32 eyespy_try_fullstep(struct coord *vel, struct coord *edge1, struct coord *edge2)
+s32 eyespy_try_fulldelta(struct coord *vel, struct coord *edge1, struct coord *edge2)
 {
-	bool cdresult = eyespy_calculate_new_position_with_push(vel);
+	bool cdresult = eyespy_try_delta(vel);
 
 	if (cdresult != CDRESULT_NOCOLLISION) {
 		cd_get_edge(edge1, edge2, 473, "bondeyespy.c");
@@ -414,8 +414,8 @@ s32 eyespy_try_fullstep(struct coord *vel, struct coord *edge1, struct coord *ed
 
 void eyespy_update_position(void)
 {
-	struct coord fulledge1;
-	struct coord fulledge2;
+	struct coord edgea_vtx1;
+	struct coord edgea_vtx2;
 	struct prop *prop = g_Vars.currentplayer->eyespy->prop;
 	struct coord vel;
 	f32 newground;
@@ -425,11 +425,11 @@ void eyespy_update_position(void)
 	f32 maxfallspeed;
 	u8 hit = EYESPYHIT_NONE;
 	f32 newy;
-	struct coord quarteredge1;
-	struct coord quarteredge2;
+	struct coord edgeb_vtx1;
+	struct coord edgeb_vtx2;
 	u32 stack;
-	struct coord throwawayedge1;
-	struct coord throwawayedge2;
+	struct coord edgec_vtx1;
+	struct coord edgec_vtx2;
 
 	origpos.f[0] = prop->pos.x;
 	origpos.f[1] = prop->pos.y;
@@ -440,18 +440,18 @@ void eyespy_update_position(void)
 	vel.y = 0;
 	vel.z = g_Vars.currentplayer->eyespy->vel.z;
 
-	if (eyespy_try_fullstep(&vel, &fulledge1, &fulledge2) == CDRESULT_COLLISION) {
-		if (eyespy_try_quarterstep(&vel, &fulledge1, &fulledge2, &quarteredge1, &quarteredge2) != CDRESULT_COLLISION) {
-			if (eyespy_try_move_to_edge(&vel, &fulledge1, &fulledge2) <= CDRESULT_COLLISION) {
-				eyespy_try_grind(&vel, &fulledge1, &fulledge2);
+	if (eyespy_try_fulldelta(&vel, &edgea_vtx1, &edgea_vtx2) == CDRESULT_COLLISION) {
+		if (eyespy_try_quarterdelta(&vel, &edgea_vtx1, &edgea_vtx2, &edgeb_vtx1, &edgeb_vtx2) != CDRESULT_COLLISION) {
+			if (eyespy_try_slide_along_edge(&vel, &edgea_vtx1, &edgea_vtx2) <= CDRESULT_COLLISION) {
+				eyespy_try_slide_along_corner(&vel, &edgea_vtx1, &edgea_vtx2);
 			}
 		} else {
-			eyespy_try_quarterstep(&vel, &quarteredge1, &quarteredge2, &throwawayedge1, &throwawayedge2);
+			eyespy_try_quarterdelta(&vel, &edgeb_vtx1, &edgeb_vtx2, &edgec_vtx1, &edgec_vtx2);
 
-			if (eyespy_try_move_to_edge(&vel, &quarteredge1, &quarteredge2) <= CDRESULT_COLLISION
-					&& eyespy_try_move_to_edge(&vel, &fulledge1, &fulledge2) <= CDRESULT_COLLISION
-					&& eyespy_try_grind(&vel, &quarteredge1, &quarteredge2) <= CDRESULT_COLLISION) {
-				eyespy_try_grind(&vel, &fulledge1, &fulledge2);
+			if (eyespy_try_slide_along_edge(&vel, &edgeb_vtx1, &edgeb_vtx2) <= CDRESULT_COLLISION
+					&& eyespy_try_slide_along_edge(&vel, &edgea_vtx1, &edgea_vtx2) <= CDRESULT_COLLISION
+					&& eyespy_try_slide_along_corner(&vel, &edgeb_vtx1, &edgeb_vtx2) <= CDRESULT_COLLISION) {
+				eyespy_try_slide_along_corner(&vel, &edgea_vtx1, &edgea_vtx2);
 			}
 		}
 	}
@@ -634,7 +634,7 @@ bool eyespy_try_launch(void)
 
 	player_set_perim_enabled(g_Vars.currentplayer->prop, false);
 
-	if (insafe || !cd_exam_los08(&testfrompos, g_Vars.currentplayer->prop->rooms,
+	if (insafe || !cd_test_los_oobok_findclosest(&testfrompos, g_Vars.currentplayer->prop->rooms,
 				&g_Vars.currentplayer->eyespy->prop->pos,
 				CDTYPE_ALL,
 				GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT)) {
@@ -1143,7 +1143,7 @@ void eyespy_process_input(bool allowbuttons)
 			g_EyespyPickup = false;
 		}
 
-		cdresult = cd_test_los05(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+		cdresult = cd_test_los_oobfail(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 				&g_Vars.currentplayer->eyespy->prop->pos, g_Vars.currentplayer->eyespy->prop->rooms,
 				CDTYPE_DOORS | CDTYPE_BG,
 				GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT);

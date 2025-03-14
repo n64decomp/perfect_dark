@@ -202,7 +202,7 @@ void koh_init_props(void)
 	g_ScenarioData.koh.hillpos.x = pad.pos.x;
 	g_ScenarioData.koh.hillpos.y = pad.pos.y;
 	g_ScenarioData.koh.hillpos.z = pad.pos.z;
-	g_ScenarioData.koh.hillpos.y = cd_find_floor_y_colour_type_at_pos(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillrooms[0], 0, 0);
+	g_ScenarioData.koh.hillpos.y = cd_find_ground_at_pos_ct(&g_ScenarioData.koh.hillpos, &g_ScenarioData.koh.hillrooms[0], 0, 0);
 	g_ScenarioData.koh.movehill = false;
 
 	room_set_light_op(g_ScenarioData.koh.hillrooms[0], LIGHTOP_HIGHLIGHT, 0, 0, 0);
@@ -294,7 +294,7 @@ void koh_tick(void)
 			g_ScenarioData.koh.hillpos.y = pad.pos.y;
 			g_ScenarioData.koh.hillpos.z = pad.pos.z;
 
-			g_ScenarioData.koh.hillpos.y = cd_find_floor_y_colour_type_at_pos(&g_ScenarioData.koh.hillpos, g_ScenarioData.koh.hillrooms, NULL, NULL);
+			g_ScenarioData.koh.hillpos.y = cd_find_ground_at_pos_ct(&g_ScenarioData.koh.hillpos, g_ScenarioData.koh.hillrooms, NULL, NULL);
 
 			room_set_light_op(g_ScenarioData.koh.hillrooms[0], LIGHTOP_HIGHLIGHT, 0, 0, 0);
 

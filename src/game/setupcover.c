@@ -77,7 +77,7 @@ void setup_prepare_cover(void)
 				g_CoverRooms[i] = -1;
 
 				if (roomsptr != NULL) {
-					s32 room = cd_find_floor_room_at_pos(cover.pos, roomsptr);
+					s32 room = cd_find_room_at_pos(cover.pos, roomsptr);
 
 					if (room > 0) {
 						g_CoverRooms[i] = (RoomNum)room;
@@ -103,7 +103,7 @@ void setup_prepare_cover(void)
 					}
 
 					if (roomsptr) {
-						s32 aimroom = cd_find_floor_room_at_pos(&aimpos, roomsptr);
+						s32 aimroom = cd_find_room_at_pos(&aimpos, roomsptr);
 
 						if (aimroom > 0) {
 							g_CoverFlags[i] |= (g_CoverRooms[i] == (RoomNum)aimroom) ? COVERFLAG_AIMSAMEROOM : COVERFLAG_AIMDIFFROOM;

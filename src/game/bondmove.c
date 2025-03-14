@@ -432,10 +432,10 @@ f32 bmove_calculate_lookahead(void)
 	sp150.y = spf0.y + sp100.y * 400;
 	sp150.z = spf0.z + sp100.z * 400;
 
-	if (cd_exam_los08(&spf0, spe0, &sp150,
+	if (cd_test_los_oobok_findclosest(&spf0, spe0, &sp150,
 				CDTYPE_BG | CDTYPE_CLOSEDDOORS,
 				GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT) == CDRESULT_COLLISION) {
-		cd_get_pos(&sp150, 455, "bondmove.c");
+		cd_get_obstacle_pos(&sp150, 455, "bondmove.c");
 		flags = cd_get_geo_flags();
 
 		sp160 = sqrtf((sp150.x - spf0.x) * (sp150.x - spf0.x)
@@ -462,9 +462,9 @@ f32 bmove_calculate_lookahead(void)
 
 			if (
 #if VERSION >= VERSION_NTSC_1_0
-					cd_find_floor_room_y_colour_flags_at_pos(&spbc, sp80, &sp78, NULL, NULL) > 0
+					cd_find_room_at_pos_ycf(&spbc, sp80, &sp78, NULL, NULL) > 0
 #else
-					cd_find_floor_room_y_colour_flags_at_pos(&spbc, sp80, &sp78, NULL) > 0
+					cd_find_room_at_pos_ycf(&spbc, sp80, &sp78, NULL) > 0
 #endif
 					&& sp78 - ground < 200
 					&& sp78 - ground > -200) {

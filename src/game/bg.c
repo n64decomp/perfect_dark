@@ -5745,6 +5745,7 @@ void bg_tick_portals(void)
 
 		if (!g_BgRoomTestsDisabled) {
 			if (g_BgPortals[0].verticesoffset == 0) {
+				// Unreachable because all BGs have portals
 				for (room = 1; room < g_Vars.roomcount; room++) {
 					if (bg_room_intersects_screen_box(room, &box)
 							&& ((g_StageIndex != STAGEINDEX_INFILTRATION && g_StageIndex != STAGEINDEX_RESCUE && g_StageIndex != STAGEINDEX_ESCAPE) || room != 0xf)

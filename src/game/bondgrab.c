@@ -27,7 +27,7 @@ u32 var8009de8c;
 
 bool var80070e80 = false;
 
-void bgrab0f0ce0bc(struct coord *arg0);
+void bgrab_resolve_posdelta(struct coord *arg0);
 
 void bgrab_init(void)
 {
@@ -98,12 +98,12 @@ void bgrab_init(void)
 		obj->hidden |= OBJHFLAG_GRABBED;
 
 		if (obj->flags3 & OBJFLAG3_GEOCYL) {
-			cdresult = cd_000276c8_cyl(obj->geocyl,
+			cdresult = cd_cyl_collides_with_cyl_laterally(obj->geocyl,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z,
 					VERSION >= VERSION_NTSC_1_0 ? 45 : 40, 0, 0);
 		} else {
-			cdresult = cd_000274e0_block(obj->geoblock,
+			cdresult = cd_block_collides_with_cyl_laterally(obj->geoblock,
 					g_Vars.currentplayer->prop->pos.x,
 					g_Vars.currentplayer->prop->pos.z,
 					VERSION >= VERSION_NTSC_1_0 ? 45 : 40, 0, 0);
@@ -222,7 +222,7 @@ void bgrab0f0ccbf0(struct coord *delta, f32 angle, struct defaultobj *obj)
 			cd_get_edge(&sp68, &sp5c, 227, "bondgrab.c");
 #endif
 
-			if (cd_get_saved_pos(&sp50, &sp44)) {
+			if (cd_get_block_edge(&sp50, &sp44)) {
 				sp44.x -= sp50.x;
 				sp44.y -= sp50.y;
 				sp44.z -= sp50.z;
@@ -300,7 +300,7 @@ bool bgrab_try_move_upwards(f32 y)
 
 	ymin -= 0.1f;
 
-	result = cd_test_volume(&newpos, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
+	result = cd_test_volume_simple(&newpos, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
@@ -315,7 +315,7 @@ bool bgrab_try_move_upwards(f32 y)
 	return result;
 }
 
-s32 bgrab_calculate_new_position(struct coord *delta, f32 angle, bool arg2)
+s32 bgrab_try_delta_nopush(struct coord *delta, f32 angle, bool arg2)
 {
 	s32 cdresult = CDRESULT_NOCOLLISION;
 	s32 i;
@@ -369,13 +369,13 @@ s32 bgrab_calculate_new_position(struct coord *delta, f32 angle, bool arg2)
 
 		ismoving = true;
 
-		cdresult = cd_exam_cyl_move05(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
-				&pos, rooms, CDTYPE_ALL, true,
+		cdresult = cd_test_cylmove_oobfail_findclosest(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+				&pos, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 				ymax - g_Vars.currentplayer->prop->pos.y,
 				ymin - g_Vars.currentplayer->prop->pos.y);
 
 		if (cdresult == CDRESULT_NOCOLLISION) {
-			cdresult = cd_exam_cyl_move01(&g_Vars.currentplayer->prop->pos, &pos, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
+			cdresult = cd_test_volume_closestedge(&g_Vars.currentplayer->prop->pos, &pos, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -538,9 +538,9 @@ s32 bgrab_calculate_new_position(struct coord *delta, f32 angle, bool arg2)
 	return cdresult;
 }
 
-bool bgrab_calculate_new_positiont_with_push(struct coord *delta, f32 angle, bool arg2)
+bool bgrab_try_delta(struct coord *delta, f32 angle, bool arg2)
 {
-	s32 result = bgrab_calculate_new_position(delta, angle, arg2);
+	s32 result = bgrab_try_delta_nopush(delta, angle, arg2);
 
 	if (result != CDRESULT_NOCOLLISION) {
 		struct prop *obstacle = cd_get_obstacle_prop();
@@ -585,7 +585,7 @@ bool bgrab_calculate_new_positiont_with_push(struct coord *delta, f32 angle, boo
 							}
 
 							if (moved) {
-								result = bgrab_calculate_new_position(delta, angle, arg2);
+								result = bgrab_try_delta_nopush(delta, angle, arg2);
 							}
 						}
 					}
@@ -597,13 +597,13 @@ bool bgrab_calculate_new_positiont_with_push(struct coord *delta, f32 angle, boo
 	return result;
 }
 
-bool bgrab0f0cdb04(f32 angle, bool arg2)
+bool bgrab_try_turndelta(f32 angle, bool arg2)
 {
 	struct coord coord = {0, 0, 0};
 	bool result;
 
 	g_Vars.currentplayer->grabbeddoextra = true;
-	result = bgrab_calculate_new_positiont_with_push(&coord, angle, arg2);
+	result = bgrab_try_delta(&coord, angle, arg2);
 	g_Vars.currentplayer->grabbeddoextra = false;
 
 	return result;
@@ -654,9 +654,9 @@ bool bgrab0f0cdb68(f32 angle)
 		f22 = -f22;
 	}
 
-	if (g_CdHasSavedBlock) {
-		for (i = 0; i < g_CdSavedBlock.header.numvertices; i++) {
-			f0 = (g_CdSavedBlock.vertices[i][0] - spa4.f[0]) * f20 + (g_CdSavedBlock.vertices[i][1] - spa4.f[2]) * f22;
+	if (g_CdHasBlock) {
+		for (i = 0; i < g_CdBlock.header.numvertices; i++) {
+			f0 = (g_CdBlock.vertices[i][0] - spa4.f[0]) * f20 + (g_CdBlock.vertices[i][1] - spa4.f[2]) * f22;
 
 			if (f0 < 0.0f) {
 				f0 = -f0;
@@ -667,7 +667,7 @@ bool bgrab0f0cdb68(f32 angle)
 			}
 		}
 	} else {
-		if (cd_get_saved_pos(&sp8c, &sp80)) {
+		if (cd_get_block_edge(&sp8c, &sp80)) {
 			f32 f0 = (sp8c.f[0] - spa4.f[0]) * f20 + f22 * (sp8c.f[2] - spa4.f[2]);
 			f32 f16 = (sp80.f[0] - spa4.f[0]) * f20 + f22 * (sp80.f[2] - spa4.f[2]);
 
@@ -709,30 +709,30 @@ bool bgrab0f0cdb68(f32 angle)
 		sp54.y = 0.0f;
 		sp54.z = sp60 * f22 * 1.01f;
 
-		bgrab0f0ce0bc(&sp54);
+		bgrab_resolve_posdelta(&sp54);
 
-		return bgrab0f0cdb04(angle, true);
+		return bgrab_try_turndelta(angle, true);
 	}
 
 	return false;
 }
 
-void bgrab0f0cdef0(void)
+void bgrab_resolve_turndelta(void)
 {
 	if (g_Vars.lvupdate240 > 0) {
 		f32 angle = g_Vars.currentplayer->speedtheta * g_Vars.lvupdate60freal * 0.017450513318181f * 3.5f;
 
-		if (bgrab0f0cdb04(angle, true) == 0) {
+		if (bgrab_try_turndelta(angle, true) == CDRESULT_COLLISION) {
 			bgrab0f0cdb68(angle);
 		}
 	}
 }
 
-bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
+bool bgrab_try_fulldelta(struct coord *delta, struct coord *arg1, struct coord *arg2)
 {
-	bool result = bgrab_calculate_new_positiont_with_push(delta, 0, true);
+	bool result = bgrab_try_delta(delta, 0, true);
 
-	if (!result) {
+	if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
 		cd_get_edge(arg1, arg2, 815, "bondgrab.c");
 #else
@@ -743,7 +743,7 @@ bool bgrab0f0cdf64(struct coord *delta, struct coord *arg1, struct coord *arg2)
 	return result;
 }
 
-s32 bgrab0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
+s32 bgrab_try_slide_along_edge(struct coord *delta, struct coord *arg1, struct coord *arg2)
 {
 	if (arg1->f[0] != arg2->f[0] || arg1->f[2] != arg2->f[2]) {
 		f32 tmp;
@@ -764,29 +764,27 @@ s32 bgrab0f0cdfbc(struct coord *delta, struct coord *arg1, struct coord *arg2)
 		sp24.y = 0;
 		sp24.z = sp30.z * tmp;
 
-		return bgrab_calculate_new_positiont_with_push(&sp24, 0, true);
+		return bgrab_try_delta(&sp24, 0, true);
 	}
 
-	return -1;
+	return CDRESULT_ERROR;
 }
 
-void bgrab0f0ce0bc(struct coord *arg0)
+void bgrab_resolve_posdelta(struct coord *arg0)
 {
 	struct coord a;
 	struct coord b;
-	s32 value = bgrab0f0cdf64(arg0, &a, &b);
+	s32 result = bgrab_try_fulldelta(arg0, &a, &b);
 
-	if (value == 0) {
-		value = bgrab0f0cdfbc(arg0, &a, &b);
+	if (result == CDRESULT_COLLISION) {
+		result = bgrab_try_slide_along_edge(arg0, &a, &b);
 
-		if (value <= 0) {
-			value = 1;
+		if (result <= CDRESULT_COLLISION) {
+			result = CDRESULT_NOCOLLISION;
 		}
 	}
 
-	if (value) {
-		// empty
-	}
+	if (result);
 }
 
 void bgrab_update_prev_pos(void)
@@ -815,11 +813,11 @@ void bgrab_update_vertical(void)
 	s32 inlift;
 	struct prop *lift = NULL;
 	f32 dist;
-	f32 f14;
-	f32 fVar3;
+	f32 ground;
+	f32 sumground;
 	f32 f0;
 
-	f14 = cd_find_ground_info_at_cyl(&g_Vars.currentplayer->prop->pos,
+	ground = cd_find_ground_at_cyl_ctfril(&g_Vars.currentplayer->prop->pos,
 			g_Vars.currentplayer->bond2.radius,
 			g_Vars.currentplayer->prop->rooms,
 			&g_Vars.currentplayer->floorcol,
@@ -827,8 +825,8 @@ void bgrab_update_vertical(void)
 			&g_Vars.currentplayer->floorflags,
 			&g_Vars.currentplayer->floorroom, &inlift, &lift);
 
-	if (f14 < -30000) {
-		f14 = -30000;
+	if (ground < -30000) {
+		ground = -30000;
 	}
 
 	if (g_Vars.currentplayer->inlift && inlift) {
@@ -836,7 +834,7 @@ void bgrab_update_vertical(void)
 			dist = g_Vars.currentplayer->liftground - g_Vars.currentplayer->vv_manground;
 
 			if (dist < 1.0f && dist > -1.0f) {
-				f0 = f14 - g_Vars.currentplayer->vv_ground;
+				f0 = ground - g_Vars.currentplayer->vv_ground;
 				g_Vars.currentplayer->vv_ground += f0;
 				g_Vars.currentplayer->vv_manground += f0;
 				g_Vars.currentplayer->sumground = g_Vars.currentplayer->vv_manground / (PAL ? 0.054400026798248f : 0.045499980449677f);
@@ -849,18 +847,18 @@ void bgrab_update_vertical(void)
 	g_Vars.currentplayer->inlift = inlift;
 
 	if (inlift) {
-		g_Vars.currentplayer->liftground = f14;
+		g_Vars.currentplayer->liftground = ground;
 	}
 
 	g_Vars.currentplayer->lift = lift;
-	g_Vars.currentplayer->vv_ground = f14;
+	g_Vars.currentplayer->vv_ground = ground;
 	g_Vars.currentplayer->vv_height =
 		(g_Vars.currentplayer->headpos.y / g_Vars.currentplayer->standheight) *
 		g_Vars.currentplayer->vv_eyeheight;
-	fVar3 = g_Vars.currentplayer->vv_manground / (PAL ? 0.054400026798248f : 0.045499980449677f);
+	sumground = g_Vars.currentplayer->vv_manground / (PAL ? 0.054400026798248f : 0.045499980449677f);
 
 	for (i = 0; i < g_Vars.lvupdate240; i++) {
-		fVar3 = (PAL ? 0.94559997320175f : 0.9545f) * fVar3 + g_Vars.currentplayer->vv_ground;
+		sumground = (PAL ? 0.94559997320175f : 0.9545f) * sumground + g_Vars.currentplayer->vv_ground;
 	}
 
 	f0 = g_Vars.currentplayer->vv_height;
@@ -869,7 +867,7 @@ void bgrab_update_vertical(void)
 		f0 = 30;
 	}
 
-	tmp = fVar3 * (PAL ? 0.054400026798248f : 0.045499980449677f) + f0 - g_Vars.currentplayer->prop->pos.y;
+	tmp = sumground * (PAL ? 0.054400026798248f : 0.045499980449677f) + f0 - g_Vars.currentplayer->prop->pos.y;
 
 #if VERSION >= VERSION_NTSC_1_0
 	if (g_Vars.currentplayer->prop->pos.y + tmp < g_Vars.currentplayer->vv_ground + 10.0f) {
@@ -878,8 +876,8 @@ void bgrab_update_vertical(void)
 #endif
 
 	if (bgrab_try_move_upwards(tmp)) {
-		g_Vars.currentplayer->sumground = fVar3;
-		g_Vars.currentplayer->vv_manground = fVar3 * (PAL ? 0.054400026798248f : 0.045499980449677f);
+		g_Vars.currentplayer->sumground = sumground;
+		g_Vars.currentplayer->vv_manground = sumground * (PAL ? 0.054400026798248f : 0.045499980449677f);
 	}
 
 	if ((g_Vars.currentplayer->floorflags & GEOFLAG_DIE) &&
@@ -1104,7 +1102,7 @@ void bgrab0f0ce924(void)
 			sp74.z += (g_Vars.currentplayer->bond2.theta.f[2] * g_Vars.currentplayer->speedforwards + (g_Vars.currentplayer->bond2.theta.f[0] * g_Vars.currentplayer->speedsideways)) * g_Vars.lvupdate60freal * 10.0f;
 		}
 
-		bgrab0f0ce0bc(&sp74);
+		bgrab_resolve_posdelta(&sp74);
 
 		xdelta = g_Vars.currentplayer->prop->pos.f[0] - g_Vars.currentplayer->bondprevpos.f[0];
 		zdelta = g_Vars.currentplayer->prop->pos.f[2] - g_Vars.currentplayer->bondprevpos.f[2];
@@ -1162,7 +1160,7 @@ void bgrab0f0ce924(void)
 void bgrab_tick(void)
 {
 	bgrab_update_prev_pos();
-	bgrab0f0cdef0();
+	bgrab_resolve_turndelta();
 	bmove_update_look();
 	bgrab0f0ce924();
 	bgrab_onmoved();
@@ -1219,7 +1217,7 @@ void bgrab_tick(void)
 			if (g_Vars.currentplayer->vv_ground <= -30000
 					|| ydiff < -100 || ydiff > 100
 					|| g_Vars.currentplayer->vv_ground < g_Vars.currentplayer->vv_manground - 50
-					|| !cd_test_los05(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
+					|| !cd_test_los_oobfail(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
 						&g_Vars.currentplayer->grabbedprop->pos, g_Vars.currentplayer->grabbedprop->rooms,
 						CDTYPE_ALL,
 						GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT)) {

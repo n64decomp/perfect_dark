@@ -103,12 +103,12 @@ bool explosion_create_complex(struct prop *prop, struct coord *pos, RoomNum *roo
 	}
 
 	if (prop) {
-		room = cd_find_floor_room_y_colour_normal_prop_at_pos(&prop->pos, prop->rooms, &y, NULL, &sp88, &collisionprop);
+		room = cd_find_room_at_pos_ycnp(&prop->pos, prop->rooms, &y, NULL, &sp88, &collisionprop);
 		sp100.x = prop->pos.x;
 		sp100.y = y;
 		sp100.z = prop->pos.z;
 	} else {
-		room = cd_find_floor_room_y_colour_normal_prop_at_pos(pos, rooms, &y, NULL, &sp88, &collisionprop);
+		room = cd_find_room_at_pos_ycnp(pos, rooms, &y, NULL, &sp88, &collisionprop);
 		sp100.x = pos->x;
 		sp100.y = y;
 		sp100.z = pos->z;

@@ -56,7 +56,7 @@ The decomp project wraps all decompiled piracy checks in `#if PIRACYCHECKS` stat
 
 **What It Checks:** Checksums `bot_pickup_prop` to make sure it hasn't been modified.
 
-**Payload:** Disables the ability for the player and other characters to go up or down slopes. This is done by nopping the `jr ra` instruction in `cd_find_ground_info_at_cyl`, which causes it to flow into the following function, which unconditionally returns false and only exists for this purpose.
+**Payload:** Disables the ability for the player and other characters to go up or down slopes. This is done by nopping the `jr ra` instruction in `cd_find_ground_at_cyl_ctfril`, which causes it to flow into the following function, which unconditionally returns false and only exists for this purpose.
 
 ---
 

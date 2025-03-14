@@ -5810,8 +5810,8 @@ struct xraydata {
 	/*0x24a*/ s16 numtris;
 };
 
-struct widthxz {
-	f32 width;
+struct radiusxz {
+	f32 radius;
 	f32 x;
 	f32 z;
 };

@@ -1022,7 +1022,7 @@ struct defaultobj *obj_find_by_pos(struct coord *pos, RoomNum *rooms)
 		if (prop->type == PROPTYPE_OBJ
 				&& array_intersects(prop->rooms, rooms)
 				&& prop_get_geometry(prop, &start, &end)
-				&& cd_is_2d_point_in_geo(pos->x, pos->z, (struct geo *)start)) {
+				&& cd_is_xz_in_geo(pos->x, pos->z, (struct geo *)start)) {
 			return prop->obj;
 		}
 
@@ -2207,9 +2207,9 @@ void obj_place_grounded(struct defaultobj *obj, struct coord *pos, Mtxf *rotmtx,
 	bbox = model_find_bbox_rodata(obj->model);
 
 #if VERSION >= VERSION_NTSC_1_0
-	room = cd_find_floor_room_y_colour_flags_at_pos(pos, rooms, &ground, &obj->floorcol, NULL);
+	room = cd_find_room_at_pos_ycf(pos, rooms, &ground, &obj->floorcol, NULL);
 #else
-	room = cd_find_floor_room_y_colour_flags_at_pos(pos, rooms, &ground, &obj->floorcol);
+	room = cd_find_room_at_pos_ycf(pos, rooms, &ground, &obj->floorcol);
 #endif
 
 	if (room > 0) {
@@ -2322,9 +2322,9 @@ void obj_place_3d(struct defaultobj *obj, struct coord *arg1, Mtxf *mtx, RoomNum
 		los_find_final_room_exhaustive(arg1, rooms, &pos2, rooms2);
 
 #if VERSION >= VERSION_NTSC_1_0
-		if (cd_find_floor_room_y_colour_flags_at_pos(&pos2, rooms2, &y, &obj->floorcol, NULL) > 0)
+		if (cd_find_room_at_pos_ycf(&pos2, rooms2, &y, &obj->floorcol, NULL) > 0)
 #else
-		if (cd_find_floor_room_y_colour_flags_at_pos(&pos2, rooms2, &y, &obj->floorcol) > 0)
+		if (cd_find_room_at_pos_ycf(&pos2, rooms2, &y, &obj->floorcol) > 0)
 #endif
 		{
 			s32 stack;
@@ -2630,19 +2630,19 @@ bool projectile_0f06b488(struct prop *prop, struct coord *arg1, struct coord *ar
 	f32 f0;
 	struct coord sp20;
 
-	if (!cd_0002ded8(arg1, arg2, prop)) {
+	if (!cd_test_line_intersects_prop(arg1, arg2, prop)) {
 #if VERSION >= VERSION_PAL_FINAL
 		cd_get_edge(&sp3c, &sp30, 2910, "prop/propobj.c");
-		cd_get_pos(&sp20, 2911, "prop/propobj.c");
+		cd_get_obstacle_pos(&sp20, 2911, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
 		cd_get_edge(&sp3c, &sp30, 2910, "propobj.c");
-		cd_get_pos(&sp20, 2911, "propobj.c");
+		cd_get_obstacle_pos(&sp20, 2911, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
 		cd_get_edge(&sp3c, &sp30, 2909, "propobj.c");
-		cd_get_pos(&sp20, 2910, "propobj.c");
+		cd_get_obstacle_pos(&sp20, 2910, "propobj.c");
 #else
 		cd_get_edge(&sp3c, &sp30, 2898, "propobj.c");
-		cd_get_pos(&sp20, 2899, "propobj.c");
+		cd_get_obstacle_pos(&sp20, 2899, "propobj.c");
 #endif
 
 		f0 = (sp20.f[0] - arg1->f[0]) * arg3->f[0]
@@ -3320,16 +3320,16 @@ s32 func0f06cd00(struct defaultobj *obj, struct coord *pos, struct coord *arg2, 
 				spa0[0] = spcc[i];
 				spa0[1] = -1;
 
-				if (cd_exam_los09(&prop->pos, spa0, &sp1c4, CDTYPE_BG) == CDRESULT_COLLISION) {
+				if (cd_test_los_oobok_findclosest_autoflags(&prop->pos, spa0, &sp1c4, CDTYPE_BG) == CDRESULT_COLLISION) {
 					s0 = true;
 #if VERSION >= VERSION_PAL_FINAL
-					cd_get_pos(&hitthing.pos, 4258, "prop/propobj.c");
+					cd_get_obstacle_pos(&hitthing.pos, 4258, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-					cd_get_pos(&hitthing.pos, 4258, "propobj.c");
+					cd_get_obstacle_pos(&hitthing.pos, 4258, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-					cd_get_pos(&hitthing.pos, 4257, "propobj.c");
+					cd_get_obstacle_pos(&hitthing.pos, 4257, "propobj.c");
 #else
-					cd_get_pos(&hitthing.pos, 4246, "propobj.c");
+					cd_get_obstacle_pos(&hitthing.pos, 4246, "propobj.c");
 #endif
 					cd_get_obstacle_normal(&hitthing.unk0c);
 				}
@@ -3421,10 +3421,10 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 
 	if (prop->pos.x != arg1->x || prop->pos.y != arg1->y || prop->pos.z != arg1->z) {
 		if (obj->hidden & OBJHFLAG_PROJECTILE) {
-			if (cd_exam_cyl_move08(&prop->pos, prop->rooms, &sp80, rooms, radius, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+			if (cd_test_cylmove_oobok_findclosest_getfinalroom_finddist(&prop->pos, prop->rooms, &sp80, rooms, radius, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 				obj_find_rooms(obj, &sp80, obj->realrot, rooms);
 
-				if (cd_exam_cyl_move02(&prop->pos, &sp80, radius, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+				if (cd_test_volume_fromdir(&prop->pos, &sp80, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 					prop->pos.x = sp80.x;
 					prop->pos.y = sp80.y;
 					prop->pos.z = sp80.z;
@@ -3514,10 +3514,10 @@ bool func0f06d37c(struct defaultobj *obj, struct coord *arg1, struct coord *arg2
 					sp4c.y = sp80.y;
 					sp4c.z = sp8c.z * f2 + prop->pos.z;
 
-					if (cd_exam_cyl_move07(&prop->pos, prop->rooms, &sp4c, rooms, CDTYPE_ALL, false, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+					if (cd_test_cylmove_oobok_findclosest_getfinalroom(&prop->pos, prop->rooms, &sp4c, rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 						obj_find_rooms(obj, &sp4c, obj->realrot, rooms);
 
-						if (cd_test_volume(&sp4c, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+						if (cd_test_volume_simple(&sp4c, radius, rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 							prop->pos.x = sp4c.x;
 							prop->pos.y = sp4c.y;
 							prop->pos.z = sp4c.z;
@@ -5227,7 +5227,7 @@ void hov_update_ground(struct defaultobj *obj, struct hov *hov, struct coord *po
 		rooms_copy(rooms, testrooms);
 		obj_find_rooms(obj, &testpos, matrix, testrooms);
 
-		ground = cd_find_ground_at_cyl(pos, 5, testrooms, &obj->floorcol, NULL);
+		ground = cd_find_ground_at_cyl_ct(pos, 5, testrooms, &obj->floorcol, NULL);
 
 		if (ground < -30000) {
 			ground = hov->ground;
@@ -5313,11 +5313,11 @@ void hov_tick(struct defaultobj *obj, struct hov *hov)
 
 			los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp1b4, sp198);
 			rooms_append(sp9c, sp198, ARRAYCOUNT(sp198));
-			ground1 = cd_find_ground_at_cyl(&sp1b4, 5, sp198, &obj->floorcol, NULL);
+			ground1 = cd_find_ground_at_cyl_ct(&sp1b4, 5, sp198, &obj->floorcol, NULL);
 
 			los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp1a8, sp188);
 			rooms_append(sp9c, sp188, ARRAYCOUNT(sp188));
-			ground2 = cd_find_ground_at_cyl(&sp1a8, 5, sp188, NULL, NULL);
+			ground2 = cd_find_ground_at_cyl_ct(&sp1a8, 5, sp188, NULL, NULL);
 
 			if (ground1 >= -30000.0f && ground2 >= -30000.0f) {
 				groundangle = atan2f(ground1 - ground2, sp1cc - sp1d0);
@@ -5611,12 +5611,12 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 			pos.y += hov->ground - prevhov.ground;
 		}
 
-		cdresult = cd_exam_cyl_move05(&prop->pos, prop->rooms, &pos, rooms, CDTYPE_ALL, true, 0.0f, 0.0f);
+		cdresult = cd_test_cylmove_oobfail_findclosest(&prop->pos, prop->rooms, &pos, rooms, CDTYPE_ALL, CHECKVERTICAL_YES, 0.0f, 0.0f);
 
 		if (cdresult == CDRESULT_ERROR) {
 			// empty
 		} else if (cdresult == CDRESULT_COLLISION) {
-			cd_set_saved_pos(&prop->pos, &pos);
+			cd_set_block_edge(&prop->pos, &pos);
 		}
 	} else {
 		rooms_copy(prop->rooms, rooms);
@@ -5627,10 +5627,10 @@ s32 func0f072144(struct defaultobj *obj, struct coord *arg1, f32 arg2, bool arg3
 		obj_update_core_geo(obj, &pos, sp460, &geounion.cyl);
 
 		if (obj->flags3 & OBJFLAG3_GEOCYL) {
-			cdresult = cd_exam_cyl_move01(&prop->pos, &pos, geounion.cyl.radius, rooms, CDTYPE_ALL,
+			cdresult = cd_test_volume_closestedge(&prop->pos, &pos, geounion.cyl.radius, rooms, CDTYPE_ALL,
 					CHECKVERTICAL_YES, geounion.cyl.ymax - pos.y, geounion.cyl.ymin - pos.y);
 		} else {
-			cdresult = cd_0002f02c(&geounion.block, rooms, CDTYPE_ALL);
+			cdresult = cd_test_blockmove(&geounion.block, rooms, CDTYPE_ALL);
 		}
 	}
 
@@ -5771,7 +5771,7 @@ f32 obj_collide(struct defaultobj *movingobj, struct coord *movingvel, f32 rotat
 				cd_get_edge(&sp70, &sp64, 7308, "propobj.c");
 #endif
 
-				if (cd_get_saved_pos(&sp58, &sp4c)) {
+				if (cd_get_block_edge(&sp58, &sp4c)) {
 					sp4c.x -= sp58.x;
 					sp4c.y -= sp58.y;
 					sp4c.z -= sp58.z;
@@ -6020,7 +6020,7 @@ void platform_displace_props2(struct prop *platform, Mtxf *arg1)
 
 				if (prop->pos.y > platform->pos.y
 						&& (obj->hidden & OBJHFLAG_ONANOTHEROBJ)
-						&& cd_is_2d_point_in_geo(prop->pos.x, prop->pos.z, (struct geo *)start)) {
+						&& cd_is_xz_in_geo(prop->pos.x, prop->pos.z, (struct geo *)start)) {
 					mtx3_to_mtx4(obj->realrot, &mtx);
 					mtx4_set_translation(&prop->pos, &mtx);
 					mtx4_mult_mtx4_in_place(arg1, &mtx);
@@ -6194,7 +6194,7 @@ bool rocket_tick_fbw(struct weaponobj *rocket)
 				// Check if rocket can fly directly to target
 				if (chr_get_target_prop(ownerchr) == chr->prop
 						&& mp_chr_to_chrindex(ownerchr) == g_Vars.lvframenum % g_MpNumChrs
-						&& cd_test_los05(&rocketprop->pos, rocketprop->rooms, &chr->prop->pos, chr->prop->rooms,
+						&& cd_test_los_oobfail(&rocketprop->pos, rocketprop->rooms, &chr->prop->pos, chr->prop->rooms,
 							CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
 							GEOFLAG_BLOCK_SIGHT)) {
 					projectile->nextsteppos.x = chr->prop->pos.x;
@@ -6503,7 +6503,7 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 						struct coord sp3ac;
 						f32 f0_2;
 
-						if (cd_get_saved_pos(&sp3d0, &sp3c4)) {
+						if (cd_get_block_edge(&sp3d0, &sp3c4)) {
 							sp3c4.x -= sp3d0.x;
 							sp3c4.y -= sp3d0.y;
 							sp3c4.z -= sp3d0.z;
@@ -6718,7 +6718,7 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 				}
 
 				if (cdresult == CDRESULT_NOCOLLISION) {
-					ground = cd_find_ground_at_cyl(&prop->pos, 2, prop->rooms, &obj->floorcol, NULL);
+					ground = cd_find_ground_at_cyl_ct(&prop->pos, 2, prop->rooms, &obj->floorcol, NULL);
 
 					if (ground > -30000.0f) {
 						prop->pos.y = ground + obj_get_hov_bob_offset_y(obj);
@@ -7276,16 +7276,16 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 					sp5ac.y = prop->pos.y + sp37c;
 					sp5ac.z = prop->pos.z;
 
-					roomnum = cd_find_ceiling_room_y_colour_flags_normal_at_pos(&sp5ac, prop->rooms, &sp390, &obj->floorcol, &geoflags, &sp380);
+					roomnum = cd_find_ceiling_room_at_pos_ycfn(&sp5ac, prop->rooms, &sp390, &obj->floorcol, &geoflags, &sp380);
 
 #if VERSION >= VERSION_NTSC_1_0
 					if (roomnum > 0
 							&& prop->pos.y + sp37c < sp390
-							&& !cd_test_los03(&prevpos, prevrooms, &sp5ac, CDTYPE_OBJS | CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2))
+							&& !cd_test_los_oobok(&prevpos, prevrooms, &sp5ac, CDTYPE_OBJS | CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2))
 #else
 					if (roomnum > 0
 							&& prop->pos.y + sp37c < sp390
-							&& !cd_test_los03(&prevpos, prevrooms, &sp5ac, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2))
+							&& !cd_test_los_oobok(&prevpos, prevrooms, &sp5ac, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2))
 #endif
 					{
 						settle = true;
@@ -7305,18 +7305,18 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 							obj->hidden |= OBJHFLAG_DELETING;
 						}
 					} else {
-						roomnum = cd_find_floor_room_y_colour_normal_prop_at_pos(&prop->pos, prop->rooms, &sp390, &obj->floorcol, &sp380, NULL);
+						roomnum = cd_find_room_at_pos_ycnp(&prop->pos, prop->rooms, &sp390, &obj->floorcol, &sp380, NULL);
 
 #if VERSION >= VERSION_NTSC_1_0
 						// If the projectile has gone out of bounds, the room
 						// search above wll have failed. It's likely that
-						// cd_find_floor_room_at_pos is a more expensive room
+						// cd_find_room_at_pos is a more expensive room
 						// search, due to it only being run once per projectile.
 						if (roomnum <= 0 && (projectile->flags & PROJECTILEFLAG_STICKY) == 0) {
 							if ((projectile->flags & PROJECTILEFLAG_DONEOOBSEARCH) == 0) {
 								projectile->flags |= PROJECTILEFLAG_DONEOOBSEARCH;
 
-								if (cd_find_floor_room_at_pos(&prevpos, prevrooms) > 0) {
+								if (cd_find_room_at_pos(&prevpos, prevrooms) > 0) {
 									projectile->flags |= PROJECTILEFLAG_INROOM;
 								}
 							}
@@ -7329,7 +7329,7 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 								prop_deregister_rooms(prop);
 								rooms_copy(prevrooms, prop->rooms);
 
-								roomnum = cd_find_floor_room_y_colour_flags_at_pos(&prop->pos, prop->rooms, &sp390, &obj->floorcol, NULL);
+								roomnum = cd_find_room_at_pos_ycf(&prop->pos, prop->rooms, &sp390, &obj->floorcol, NULL);
 
 								projectile->speed.x = 0.0f;
 								projectile->speed.z = 0.0f;
@@ -7594,16 +7594,16 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 					sp5ac.z = prop->pos.z;
 
 #if VERSION >= VERSION_NTSC_1_0
-					roomnum = cd_find_ceiling_room_y_colour_flags_at_pos(&sp5ac, prop->rooms, &spa4, &obj->floorcol, &geoflags);
+					roomnum = cd_find_ceiling_room_at_pos_ycf(&sp5ac, prop->rooms, &spa4, &obj->floorcol, &geoflags);
 
-					if (roomnum <= 0 || cd_test_los03(&prevpos, prevrooms, &sp5ac, CDTYPE_OBJS | CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2)) {
-						roomnum = cd_find_floor_room_y_colour_flags_at_pos(&prop->pos, prop->rooms, &spa4, &obj->floorcol, &geoflags);
+					if (roomnum <= 0 || cd_test_los_oobok(&prevpos, prevrooms, &sp5ac, CDTYPE_OBJS | CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2)) {
+						roomnum = cd_find_room_at_pos_ycf(&prop->pos, prop->rooms, &spa4, &obj->floorcol, &geoflags);
 					}
 #else
-					roomnum = cd_find_ceiling_room_y_colour_flags_at_pos(&sp5ac, prop->rooms, &spa4, &obj->floorcol);
+					roomnum = cd_find_ceiling_room_at_pos_ycf(&sp5ac, prop->rooms, &spa4, &obj->floorcol);
 
-					if (roomnum <= 0 || cd_test_los03(&prevpos, prevrooms, &sp5ac, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2)) {
-						roomnum = cd_find_floor_room_y_colour_flags_at_pos(&prop->pos, prop->rooms, &spa4, &obj->floorcol);
+					if (roomnum <= 0 || cd_test_los_oobok(&prevpos, prevrooms, &sp5ac, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2)) {
+						roomnum = cd_find_room_at_pos_ycf(&prop->pos, prop->rooms, &spa4, &obj->floorcol);
 					}
 #endif
 
@@ -7615,9 +7615,9 @@ bool projectile_tick(struct defaultobj *obj, bool *embedded)
 						rooms_copy(prevrooms, prop->rooms);
 
 #if VERSION >= VERSION_NTSC_1_0
-						roomnum = cd_find_floor_room_y_colour_flags_at_pos(&prop->pos, prop->rooms, &spa4, &obj->floorcol, &geoflags);
+						roomnum = cd_find_room_at_pos_ycf(&prop->pos, prop->rooms, &spa4, &obj->floorcol, &geoflags);
 #else
-						roomnum = cd_find_floor_room_y_colour_flags_at_pos(&prop->pos, prop->rooms, &spa4, &obj->floorcol);
+						roomnum = cd_find_room_at_pos_ycf(&prop->pos, prop->rooms, &spa4, &obj->floorcol);
 #endif
 
 						projectile->speed.x = 0.0f;
@@ -7972,7 +7972,7 @@ void platform_displace_props(struct prop *platform, s16 *propnums, struct coord 
 						prevplayernum = g_Vars.currentplayernum;
 
 						set_current_player_num(playernum);
-						bwalk0f0c63bc(&sp8c, 1, CDTYPE_BG);
+						bwalk_resolve_posdelta(&sp8c, true, CDTYPE_BG);
 						player_update_perim_info();
 						bmove_update_rooms(g_Vars.players[playernum]);
 						set_current_player_num(prevplayernum);
@@ -8038,7 +8038,7 @@ void platform_displace_props(struct prop *platform, s16 *propnums, struct coord 
 					sp8c.z = newpos->z - prevpos->z;
 
 					set_current_player_num(playernum);
-					bwalk0f0c63bc(&sp8c, 1, CDTYPE_BG);
+					bwalk_resolve_posdelta(&sp8c, true, CDTYPE_BG);
 
 					prop->pos.y += newpos->y - prevpos->y;
 
@@ -8256,7 +8256,7 @@ void escastep_tick(struct prop *prop)
 	prop->pos.z = newpos.z;
 
 	if ((obj->flags & OBJFLAG_IGNOREFLOORCOLOUR) == 0) {
-		cd_find_floor_y_colour_type_at_pos(&prop->pos, prop->rooms, &obj->floorcol, 0);
+		cd_find_ground_at_pos_ct(&prop->pos, prop->rooms, &obj->floorcol, 0);
 	}
 
 	obj_onmoved(obj, true, true);
@@ -8374,7 +8374,7 @@ void cctv_tick(struct prop *camprop)
 	if (canseeplayer) {
 		player_set_perim_enabled(playerprop, false);
 
-		if (!cd_test_los05(&camprop->pos, camprop->rooms, &playerprop->pos, playerprop->rooms,
+		if (!cd_test_los_oobfail(&camprop->pos, camprop->rooms, &playerprop->pos, playerprop->rooms,
 					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
 					GEOFLAG_BLOCK_SIGHT)) {
 			canseeplayer = false;
@@ -8865,7 +8865,7 @@ void autogun_tick(struct prop *prop)
 				if (relangleh <= autogun->ymaxleft
 						&& relangleh >= autogun->ymaxright
 						&& track
-						&& cd_test_los05(&prop->pos, prop->rooms, &target->pos, target->rooms, CDTYPE_ALL, GEOFLAG_BLOCK_SIGHT)) {
+						&& cd_test_los_oobfail(&prop->pos, prop->rooms, &target->pos, target->rooms, CDTYPE_ALL, GEOFLAG_BLOCK_SIGHT)) {
 					// Target is in sight
 					obj->flags |= OBJFLAG_AUTOGUN_SEENTARGET;
 					insight = true;
@@ -9164,7 +9164,7 @@ void autogun_tick_shoot(struct prop *autogunprop)
 					mtx00015be4(cam_get_projection_mtxf(), sp108, &spc8);
 					mtx4_transform_vec_in_place(&spc8, &gunpos);
 
-					if (cd_test_los10(&autogunprop->pos, autogunprop->rooms, &gunpos, gunrooms, CDTYPE_BG, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
+					if (cd_test_los_oobok_getfinalroom(&autogunprop->pos, autogunprop->rooms, &gunpos, gunrooms, CDTYPE_BG, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 						gunpos.x = autogunprop->pos.x;
 						gunpos.y = autogunprop->pos.y;
 						gunpos.z = autogunprop->pos.z;
@@ -9192,15 +9192,15 @@ void autogun_tick_shoot(struct prop *autogunprop)
 				if (g_Vars.normmplayerisrunning
 						|| (targetprop && (targetprop->type == PROPTYPE_CHR))
 						|| (g_Vars.antiplayernum >= 0 && targetprop && targetprop == g_Vars.anti->prop)) {
-					if (cd_exam_los08(&gunpos, gunrooms, &hitpos, CDTYPE_ALL, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
+					if (cd_test_los_oobok_findclosest(&gunpos, gunrooms, &hitpos, CDTYPE_ALL, GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_PAL_FINAL
-						cd_get_pos(&hitpos, 11480, "prop/propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11480, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-						cd_get_pos(&hitpos, 11480, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11480, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-						cd_get_pos(&hitpos, 11458, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11458, "propobj.c");
 #else
-						cd_get_pos(&hitpos, 11296, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11296, "propobj.c");
 #endif
 
 						hitprop = cd_get_obstacle_prop();
@@ -9247,17 +9247,17 @@ void autogun_tick_shoot(struct prop *autogunprop)
 					// Laptop in firing range
 					struct prop *hitprop = NULL;
 
-					if (cd_exam_los08(&gunpos, gunrooms, &hitpos,
+					if (cd_test_los_oobok_findclosest(&gunpos, gunrooms, &hitpos,
 								CDTYPE_ALL & ~CDTYPE_PLAYERS,
 								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_PAL_FINAL
-						cd_get_pos(&hitpos, 11535, "prop/propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11535, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-						cd_get_pos(&hitpos, 11535, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11535, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-						cd_get_pos(&hitpos, 11513, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11513, "propobj.c");
 #else
-						cd_get_pos(&hitpos, 11351, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11351, "propobj.c");
 #endif
 
 						hitprop = cd_get_obstacle_prop();
@@ -9285,17 +9285,17 @@ void autogun_tick_shoot(struct prop *autogunprop)
 					}
 				} else {
 					// Enemy autogun in solo
-					if (cd_exam_los08(&gunpos, gunrooms, &hitpos,
+					if (cd_test_los_oobok_findclosest(&gunpos, gunrooms, &hitpos,
 								CDTYPE_DOORS | CDTYPE_BG,
 								GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_PAL_FINAL
-						cd_get_pos(&hitpos, 11561, "prop/propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11561, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-						cd_get_pos(&hitpos, 11561, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11561, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-						cd_get_pos(&hitpos, 11539, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11539, "propobj.c");
 #else
-						cd_get_pos(&hitpos, 11377, "propobj.c");
+						cd_get_obstacle_pos(&hitpos, 11377, "propobj.c");
 #endif
 
 						missed = true;
@@ -9565,7 +9565,7 @@ bool chopper_check_target_in_sight(struct chopperobj *obj)
 		struct prop *target = chopper_get_target_prop(chopper);
 
 		if (target->type != PROPTYPE_PLAYER || g_Vars.bondvisible) {
-			visible = cd_test_los05(&target->pos, target->rooms, &chopper->base.prop->pos, chopper->base.prop->rooms,
+			visible = cd_test_los_oobfail(&target->pos, target->rooms, &chopper->base.prop->pos, chopper->base.prop->rooms,
 					CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE,
 					GEOFLAG_BLOCK_SHOOT);
 		}
@@ -10162,7 +10162,7 @@ void chopper_tick_fall(struct prop *chopperprop)
 		newpos.y = chopperprop->pos.y + newspeed.f[1] * g_Vars.lvupdate60freal;
 		newpos.z = chopperprop->pos.z + newspeed.f[2] * g_Vars.lvupdate60freal;
 
-		if (cd_exam_los09(&chopperprop->pos, chopperprop->rooms, &newpos, CDTYPE_BG) == CDRESULT_COLLISION) {
+		if (cd_test_los_oobok_findclosest_autoflags(&chopperprop->pos, chopperprop->rooms, &newpos, CDTYPE_BG) == CDRESULT_COLLISION) {
 			struct coord sp74;
 			RoomNum room;
 			struct coord sp64;
@@ -10170,17 +10170,17 @@ void chopper_tick_fall(struct prop *chopperprop)
 			RoomNum newrooms[8];
 
 			chopperprop->pos.y += 100;
-			ground = cd_find_ground_at_cyl(&chopperprop->pos, 5, chopperprop->rooms, NULL, NULL);
+			ground = cd_find_ground_at_cyl_ct(&chopperprop->pos, 5, chopperprop->rooms, NULL, NULL);
 			chopperprop->pos.y -= 100;
 
 #if VERSION >= VERSION_PAL_FINAL
-			cd_get_pos(&sp64, 12476, "prop/propobj.c");
+			cd_get_obstacle_pos(&sp64, 12476, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-			cd_get_pos(&sp64, 12476, "propobj.c");
+			cd_get_obstacle_pos(&sp64, 12476, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-			cd_get_pos(&sp64, 12449, "propobj.c");
+			cd_get_obstacle_pos(&sp64, 12449, "propobj.c");
 #else
-			cd_get_pos(&sp64, 12286, "propobj.c");
+			cd_get_obstacle_pos(&sp64, 12286, "propobj.c");
 #endif
 
 			newpos.x = sp64.x;
@@ -10409,7 +10409,7 @@ void chopper_tick_combat(struct prop *chopperprop)
 				goalpos.y = sp6c.y;
 				goalpos.z = sp6c.z;
 			}
-		} else if (cd_test_los03(&targetprop->pos, targetprop->rooms, &goalpos, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE, GEOFLAG_BLOCK_SHOOT) == 0) {
+		} else if (cd_test_los_oobok(&targetprop->pos, targetprop->rooms, &goalpos, CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG | CDTYPE_AIOPAQUE, GEOFLAG_BLOCK_SHOOT) == 0) {
 			pad_unpack(chopper->path->pads[chopper->cw ? (sp8c + 1) % chopper->path->len : sp8c], PADFIELD_POS, &pad);
 
 			pad.pos.y += -250.0f;
@@ -10579,7 +10579,7 @@ void hovercar_tick(struct prop *prop)
 			sp210[0] = pad.room;
 			sp210[1] = -1;
 
-			sp214.y = cd_find_ground_at_cyl(&pad.pos, 5, sp210, NULL, NULL) + 35;
+			sp214.y = cd_find_ground_at_cyl_ct(&pad.pos, 5, sp210, NULL, NULL) + 35;
 		} else {
 			sp214.y = pad.pos.y;
 		}
@@ -10608,8 +10608,8 @@ void hovercar_tick(struct prop *prop)
 		}
 
 		if (ishoverbot) {
-			if (cd_exam_cyl_move03(&prop->pos, prop->rooms, &sp214,
-						CDTYPE_CLOSEDDOORS | CDTYPE_AJARDOORS, 0, 0, 0) == CDRESULT_COLLISION) {
+			if (cd_test_cylmove_oobok_findclosest(&prop->pos, prop->rooms, &sp214,
+						CDTYPE_CLOSEDDOORS | CDTYPE_AJARDOORS, CHECKVERTICAL_NO, 0, 0) == CDRESULT_COLLISION) {
 				doorprop = cd_get_obstacle_prop();
 			}
 
@@ -10744,7 +10744,7 @@ void hovercar_tick(struct prop *prop)
 		los_find_final_room_exhaustive(&prop->pos, prop->rooms, &sp150, sp140);
 
 		if (ishoverbot) {
-			sp150.y = cd_find_ground_at_cyl(&sp150, 5, sp140, NULL, NULL) + 35;
+			sp150.y = cd_find_ground_at_cyl_ct(&sp150, 5, sp140, NULL, NULL) + 35;
 
 #if VERSION >= VERSION_NTSC_1_0
 			if (sp150.y < -100000) {
@@ -11197,7 +11197,7 @@ s32 obj_tick_player(struct prop *prop)
 						}
 
 						if ((obj->flags & OBJFLAG_IGNOREFLOORCOLOUR) == 0) {
-							cd_find_floor_y_colour_type_at_pos(&prop->pos, prop->rooms, &obj->floorcol, 0);
+							cd_find_ground_at_pos_ct(&prop->pos, prop->rooms, &obj->floorcol, 0);
 						}
 
 						obj_onmoved(obj, true, true);
@@ -11294,7 +11294,7 @@ s32 obj_tick_player(struct prop *prop)
 				rooms_copy(sp220, prop->rooms);
 
 				if (sp148 <= sp144) {
-					prop->pos.y = cd_find_ground_at_cyl(&prop->pos, 5, prop->rooms, &obj->floorcol, NULL)
+					prop->pos.y = cd_find_ground_at_cyl_ct(&prop->pos, 5, prop->rooms, &obj->floorcol, NULL)
 						+ obj_get_ground_clearance(obj) + sp112;
 				}
 
@@ -11303,7 +11303,7 @@ s32 obj_tick_player(struct prop *prop)
 
 				if (obj_get_geometry(prop, (u8 **)geos, &end)
 						&& geos[0]->type == GEOTYPE_BLOCK
-						&& cd_test_block_overlaps_any_prop((struct geoblock *) geos[0], prop->rooms, CDTYPE_PLAYERS) == CDRESULT_COLLISION) {
+						&& cd_test_blockvolume((struct geoblock *) geos[0], prop->rooms, CDTYPE_PLAYERS) == CDRESULT_COLLISION) {
 					damage = ((obj->maxdamage - obj->damage) + 1) / 250.0f;
 					obj->flags &= ~OBJFLAG_INVINCIBLE;
 					obj_damage(obj, damage, &prop->pos, WEAPON_REMOTEMINE, -1);
@@ -12648,9 +12648,9 @@ Gfx *obj_render_shadow(struct defaultobj *obj, Gfx *gdl)
 	f32 y;
 
 #if VERSION >= VERSION_NTSC_1_0
-	s32 room = cd_find_floor_room_y_colour_flags_at_pos(&obj->prop->pos, obj->prop->rooms, &y, NULL, NULL);
+	s32 room = cd_find_room_at_pos_ycf(&obj->prop->pos, obj->prop->rooms, &y, NULL, NULL);
 #else
-	s32 room = cd_find_floor_room_y_colour_flags_at_pos(&obj->prop->pos, obj->prop->rooms, &y, NULL);
+	s32 room = cd_find_room_at_pos_ycf(&obj->prop->pos, obj->prop->rooms, &y, NULL);
 #endif
 
 	if (room > 0 && (obj->modelnum == MODEL_HOOVERBOT || obj->modelnum == MODEL_TESTERBOT)) {
@@ -13651,10 +13651,10 @@ bool obj_drop(struct prop *prop, bool lazy)
 				spe4.y = spf0.m[3][1];
 				spe4.z = spf0.m[3][2];
 
-				if (cd_test_los10(&root->pos, root->rooms, &spe4, rooms, CDTYPE_ALL,
+				if (cd_test_los_oobok_getfinalroom(&root->pos, root->rooms, &spe4, rooms, CDTYPE_ALL,
 							GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2 | GEOFLAG_WALL) == CDRESULT_COLLISION
 						|| (projectile->flags & PROJECTILEFLAG_STICKY) == 0) {
-					if (cd_test_volume(&spe4, obj_get_radius(obj), rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0) == CDRESULT_COLLISION) {
+					if (cd_test_volume_simple(&spe4, obj_get_radius(obj), rooms, CDTYPE_ALL, CHECKVERTICAL_NO, 0.0f, 0) == CDRESULT_COLLISION) {
 						spf0.m[3][0] = root->pos.x;
 						spf0.m[3][2] = root->pos.z;
 					}
@@ -13799,7 +13799,7 @@ void obj_destroy_supported_objects(struct prop *tableprop, s32 playernum)
 				{
 					if (prop->pos.y > tableprop->pos.y
 							&& (obj->hidden & OBJHFLAG_ONANOTHEROBJ)
-							&& cd_is_2d_point_in_geo(prop->pos.x, prop->pos.z, (struct geo *)start)) {
+							&& cd_is_xz_in_geo(prop->pos.x, prop->pos.z, (struct geo *)start)) {
 						obj_fall(obj, playernum);
 					}
 				}
@@ -15108,7 +15108,7 @@ bool obj_test_for_interact(struct prop *prop)
 
 			if (angle <= BADDTOR(22.5f)) {
 				if ((obj->flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0
-						|| cd_test_los06(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
+						|| cd_test_los_oobtail_autoflags(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
 					g_InteractProp = prop;
 				}
 			}
@@ -16737,7 +16737,7 @@ s32 obj_test_for_pickup(struct prop *prop)
 		if (pickup
 				&& (obj->flags2 & OBJFLAG2_PICKUPWITHOUTLOS) == 0
 				&& !usebigrange
-				&& cd_test_los05(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms,
+				&& cd_test_los_oobfail(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms,
 					CDTYPE_DOORS | CDTYPE_BG,
 					GEOFLAG_WALL | GEOFLAG_BLOCK_SIGHT | GEOFLAG_BLOCK_SHOOT) == false) {
 			pickup = false;
@@ -19265,7 +19265,7 @@ void doors_calc_frac(struct doorobj *door)
 			{
 				prop_set_perim_enabled(loopprop, false);
 
-				cdresult = cd_test_block_overlaps_any_prop(loopdoor->base.geoblock, loopprop->rooms,
+				cdresult = cd_test_blockvolume(loopdoor->base.geoblock, loopprop->rooms,
 						CDTYPE_OBJS | CDTYPE_PLAYERS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_OBJSNOTSAFEORHELI);
 
 				prop_set_perim_enabled(loopprop, true);
@@ -19657,7 +19657,7 @@ bool door_test_for_interact(struct prop *prop)
 
 		if (maybe) {
 			if ((door->base.flags2 & OBJFLAG2_INTERACTCHECKLOS) == 0
-					|| cd_test_los06(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
+					|| cd_test_los_oobtail_autoflags(&playerprop->pos, playerprop->rooms, &prop->pos, prop->rooms, CDTYPE_BG)) {
 				checkmore = door_test_interact_angle(door, false);
 
 				if (checkmore && (door->base.flags2 & OBJFLAG2_DOOR_ALTCOORDSYSTEM)) {
@@ -20341,20 +20341,20 @@ void projectile_create(struct prop *fromprop, struct fireslotthing *arg1, struct
 
 			prop_set_perim_enabled(fromprop, false);
 
-			if (cd_exam_los08(pos, fromprop->rooms, &endpos,
-						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER| CDTYPE_BG,
+			if (cd_test_los_oobok_findclosest(pos, fromprop->rooms, &endpos,
+						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_CHRS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
 						GEOFLAG_BLOCK_SHOOT) == CDRESULT_COLLISION) {
 				blocked = true;
 #if VERSION >= VERSION_JPN_FINAL
-				cd_get_pos(&endpos, 24883, "prop/propobj.c");
+				cd_get_obstacle_pos(&endpos, 24883, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_FINAL
-				cd_get_pos(&endpos, 24873, "prop/propobj.c");
+				cd_get_obstacle_pos(&endpos, 24873, "prop/propobj.c");
 #elif VERSION >= VERSION_PAL_BETA
-				cd_get_pos(&endpos, 24873, "propobj.c");
+				cd_get_obstacle_pos(&endpos, 24873, "propobj.c");
 #elif VERSION >= VERSION_NTSC_1_0
-				cd_get_pos(&endpos, 24482, "propobj.c");
+				cd_get_obstacle_pos(&endpos, 24482, "propobj.c");
 #else
-				cd_get_pos(&endpos, 24137, "propobj.c");
+				cd_get_obstacle_pos(&endpos, 24137, "propobj.c");
 #endif
 				obstacle = cd_get_obstacle_prop();
 			}

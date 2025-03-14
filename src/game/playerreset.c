@@ -409,7 +409,7 @@ void player_reset(void)
 		}
 	}
 
-	groundy = cd_find_ground_info_at_cyl(&pos, 30, rooms,
+	groundy = cd_find_ground_at_cyl_ctfril(&pos, 30, rooms,
 			&g_Vars.currentplayer->floorcol,
 			&g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags,

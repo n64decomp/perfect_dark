@@ -484,7 +484,7 @@ void botact_get_rocket_next_step_pos(u16 padnum, struct coord *pos)
 	rooms[1] = -1;
 
 	pos->x = pad.pos.x;
-	pos->y = cd_find_floor_y_colour_type_at_pos(&pad.pos, rooms, 0, 0) + 150;
+	pos->y = cd_find_ground_at_pos_ct(&pad.pos, rooms, 0, 0) + 150;
 	pos->z = pad.pos.z;
 }
 

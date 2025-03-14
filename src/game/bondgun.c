@@ -4354,7 +4354,7 @@ void bgun_create_thrown_projectile(s32 handnum, struct gset *gset)
 
 	player_set_perim_enabled(playerprop, false);
 
-	if (cd_test_los11(&playerprop->pos, playerprop->rooms, &muzzlepos, spawnrooms, CDTYPE_ALL) != CDRESULT_COLLISION) {
+	if (cd_test_los_oobok_getfinalroom_autoflags(&playerprop->pos, playerprop->rooms, &muzzlepos, spawnrooms, CDTYPE_ALL) != CDRESULT_COLLISION) {
 		spawnpos.x = muzzlepos.x;
 		spawnpos.y = muzzlepos.y;
 		spawnpos.z = muzzlepos.z;

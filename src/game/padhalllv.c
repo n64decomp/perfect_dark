@@ -159,8 +159,8 @@ struct waypoint *waypoint_find_closest_to_pos(struct coord *pos, RoomNum *rooms)
 			padrooms[0] = pad.room;
 			padrooms[1] = -1;
 
-			if (cd_test_los05(pos, rooms, &pad.pos, padrooms, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2) != CDRESULT_COLLISION) {
-				s32 cdresult = cd_exam_cyl_move05(pos, rooms, &pad.pos, padrooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, true, 0.0f, 0.0f);
+			if (cd_test_los_oobfail(pos, rooms, &pad.pos, padrooms, CDTYPE_BG, GEOFLAG_FLOOR1 | GEOFLAG_FLOOR2) != CDRESULT_COLLISION) {
+				s32 cdresult = cd_test_cylmove_oobfail_findclosest(pos, rooms, &pad.pos, padrooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, CHECKVERTICAL_YES, 0.0f, 0.0f);
 
 				if (cdresult == CDRESULT_ERROR) {
 					checkmore[i] = false;
@@ -209,7 +209,7 @@ struct waypoint *waypoint_find_closest_to_pos(struct coord *pos, RoomNum *rooms)
 					tmppos.y = pos->y;
 					tmppos.z = sp250[i].f[2] + sp98.f[2];
 
-					if (cd_test_cyl_move04(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, 1, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+					if (cd_test_cylmove_oobok_getfinalroom(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, CHECKVERTICAL_YES, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 						closest = candwaypoints[i];
 						break;
 					}
@@ -218,7 +218,7 @@ struct waypoint *waypoint_find_closest_to_pos(struct coord *pos, RoomNum *rooms)
 					tmppos.y = pos->y;
 					tmppos.z = sp1d8[i].z - sp98.z;
 
-					if (cd_test_cyl_move04(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, 1, 0.0f, 0.0f) != CDRESULT_COLLISION) {
+					if (cd_test_cylmove_oobok_getfinalroom(pos, rooms, &tmppos, tmprooms, CDTYPE_BG | CDTYPE_PATHBLOCKER, CHECKVERTICAL_YES, 0.0f, 0.0f) != CDRESULT_COLLISION) {
 						closest = candwaypoints[i];
 						break;
 					}

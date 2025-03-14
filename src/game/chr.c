@@ -268,98 +268,154 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 	movez = dstpos->z - prop->pos.z;
 
 	if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-		cdresult = cd_exam_cyl_move05(&prop->pos, prop->rooms, dstpos, dstrooms, CDTYPE_ALL, 1, ymax - prop->pos.y, ymin - prop->pos.y);
+		cdresult = cd_test_cylmove_oobfail_findclosest(&prop->pos, prop->rooms, dstpos, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 
 		if (cdresult == CDRESULT_NOCOLLISION) {
-			cdresult = cd_exam_cyl_move01(&prop->pos, dstpos, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+			cdresult = cd_test_volume_closestedge(&prop->pos, dstpos, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 		}
 	} else {
-		cdresult = cd_exam_cyl_move01(&prop->pos, dstpos, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+		cdresult = cd_test_volume_closestedge(&prop->pos, dstpos, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 	}
 
-	if (cdresult != CDRESULT_ERROR) {
-		if (cdresult == CDRESULT_NOCOLLISION) {
-			// The move was completely valid
-			if (arg3) {
-				chr->invalidmove = 0;
-				chr->lastmoveok60 = g_Vars.lvframe60;
-			}
+	if (cdresult == CDRESULT_ERROR) {
+		// empty
+	} else if (cdresult == CDRESULT_NOCOLLISION) {
+		// The move was completely valid
+		if (arg3) {
+			chr->invalidmove = 0;
+			chr->lastmoveok60 = g_Vars.lvframe60;
+		}
 
-			moveok = true;
-		} else {
+		moveok = true;
+	} else {
+		// Collision
 #if VERSION >= VERSION_PAL_FINAL
-			cd_get_edge(&sp78, &sp6c, 453, "chr/chr.c");
+		cd_get_edge(&sp78, &sp6c, 453, "chr/chr.c");
 #elif VERSION >= VERSION_PAL_BETA
-			cd_get_edge(&sp78, &sp6c, 453, "chr.c");
+		cd_get_edge(&sp78, &sp6c, 453, "chr.c");
 #elif VERSION >= VERSION_NTSC_1_0
-			cd_get_edge(&sp78, &sp6c, 453, "chr/chr.c");
+		cd_get_edge(&sp78, &sp6c, 453, "chr/chr.c");
 #else
-			cd_get_edge(&sp78, &sp6c, 451, "chr.c");
+		cd_get_edge(&sp78, &sp6c, 451, "chr.c");
 #endif
 
-			// Attempt to find a valid position - method #1
-			sp60.x = dstpos->x - prop->pos.x;
-			sp60.z = dstpos->z - prop->pos.z;
+		// Attempt to find a valid position - method #1
+		sp60.x = dstpos->x - prop->pos.x;
+		sp60.z = dstpos->z - prop->pos.z;
 
-			if (sp78.f[0] != sp6c.f[0] || sp78.f[2] != sp6c.f[2]) {
-				sp54.x = sp6c.x - sp78.x;
-				sp54.z = sp6c.z - sp78.z;
+		if (sp78.f[0] != sp6c.f[0] || sp78.f[2] != sp6c.f[2]) {
+			sp54.x = sp6c.x - sp78.x;
+			sp54.z = sp6c.z - sp78.z;
 
-				value = 1.0f / sqrtf(sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2]);
+			value = 1.0f / sqrtf(sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2]);
 
-				sp54.x *= value;
-				sp54.z *= value;
+			sp54.x *= value;
+			sp54.z *= value;
 
-				value = sp60.f[0] * sp54.f[0] + sp60.f[2] * sp54.f[2];
+			value = sp60.f[0] * sp54.f[0] + sp60.f[2] * sp54.f[2];
 
-				sp44.x = sp54.x * value + prop->pos.x;
-				sp44.y = dstpos->y;
-				sp44.z = sp54.z * value + prop->pos.z;
+			sp44.x = sp54.x * value + prop->pos.x;
+			sp44.y = dstpos->y;
+			sp44.z = sp54.z * value + prop->pos.z;
 
-				los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
+			los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
 
 #if VERSION < VERSION_NTSC_1_0
-				for (j = 0; dstrooms[j] != -1; j++) {
-					if (dstrooms[j] == chr->floorroom) {
-						dstrooms[0] = chr->floorroom;
-						dstrooms[1] = -1;
-						break;
-					}
-				}
-#endif
-
-				chr_find_entered_rooms_at_pos(chr, &sp44, dstrooms);
-
-				movex = sp44.x - prop->pos.x;
-				movez = sp44.z - prop->pos.z;
-
-				if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-					cdresult = cd_test_cyl_move02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
-
-					if (cdresult == CDRESULT_NOCOLLISION) {
-						cdresult = cd_test_volume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
-					}
-				} else {
-					cdresult = cd_test_volume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
-				}
-
-				if (cdresult == CDRESULT_NOCOLLISION) {
-					dstpos->x = sp44.x;
-					dstpos->z = sp44.z;
-					chr->invalidmove = 2;
-					moveok = true;
+			for (j = 0; dstrooms[j] != -1; j++) {
+				if (dstrooms[j] == chr->floorroom) {
+					dstrooms[0] = chr->floorroom;
+					dstrooms[1] = -1;
+					break;
 				}
 			}
+#endif
 
-			if (!moveok) {
-				// Attempt to find a valid position - method #2
-				sp54.x = sp78.x - dstpos->x;
-				sp54.z = sp78.z - dstpos->z;
+			chr_find_entered_rooms_at_pos(chr, &sp44, dstrooms);
+
+			movex = sp44.x - prop->pos.x;
+			movez = sp44.z - prop->pos.z;
+
+			if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
+				cdresult = cd_test_cylmove_oobfail(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+
+				if (cdresult == CDRESULT_NOCOLLISION) {
+					cdresult = cd_test_volume_simple(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+				}
+			} else {
+				cdresult = cd_test_volume_simple(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+			}
+
+			if (cdresult == CDRESULT_NOCOLLISION) {
+				dstpos->x = sp44.x;
+				dstpos->z = sp44.z;
+				chr->invalidmove = 2;
+				moveok = true;
+			}
+		}
+
+		if (!moveok) {
+			// Attempt to find a valid position - method #2
+			sp54.x = sp78.x - dstpos->x;
+			sp54.z = sp78.z - dstpos->z;
+
+			if (sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2] <= radius * radius) {
+				if (sp78.f[0] != prop->pos.f[0] || sp78.f[2] != prop->pos.f[2]) {
+					sp54.x = -(sp78.z - prop->pos.z);
+					sp54.z = sp78.x - prop->pos.x;
+
+					value = 1.0f / sqrtf(sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2]);
+
+					sp54.x *= value;
+					sp54.z *= value;
+
+					value = sp60.f[0] * sp54.f[0] + sp60.f[2] * sp54.f[2];
+
+					sp44.x = sp54.x * value + prop->pos.x;
+					sp44.y = dstpos->y;
+					sp44.z = sp54.z * value + prop->pos.z;
+
+					los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
+
+#if VERSION < VERSION_NTSC_1_0
+					for (k = 0; dstrooms[k] != -1; k++) {
+						if (dstrooms[k] == chr->floorroom) {
+							dstrooms[0] = chr->floorroom;
+							dstrooms[1] = -1;
+							break;
+						}
+					}
+#endif
+
+					chr_find_entered_rooms_at_pos(chr, &sp44, dstrooms);
+
+					movex = sp44.x - prop->pos.x;
+					movez = sp44.z - prop->pos.z;
+
+					if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
+						cdresult = cd_test_cylmove_oobfail(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+
+						if (cdresult == CDRESULT_NOCOLLISION) {
+							cdresult = cd_test_volume_simple(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+						}
+					} else {
+						cdresult = cd_test_volume_simple(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+					}
+
+					if (cdresult == CDRESULT_NOCOLLISION) {
+						dstpos->x = sp44.x;
+						dstpos->z = sp44.z;
+						chr->invalidmove = 2;
+						moveok = true;
+					}
+				}
+			} else {
+				sp54.x = sp6c.x - dstpos->x;
+				sp54.z = sp6c.z - dstpos->z;
 
 				if (sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2] <= radius * radius) {
-					if (sp78.f[0] != prop->pos.f[0] || sp78.f[2] != prop->pos.f[2]) {
-						sp54.x = -(sp78.z - prop->pos.z);
-						sp54.z = sp78.x - prop->pos.x;
+					if (sp6c.f[0] != prop->pos.f[0] || sp6c.f[2] != prop->pos.f[2]) {
+						sp54.x = -(sp6c.z - prop->pos.z);
+						sp54.z = sp6c.x - prop->pos.x;
 
 						value = 1.0f / sqrtf(sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2]);
 
@@ -375,8 +431,8 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 						los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
 
 #if VERSION < VERSION_NTSC_1_0
-						for (k = 0; dstrooms[k] != -1; k++) {
-							if (dstrooms[k] == chr->floorroom) {
+						for (l = 0; dstrooms[l] != -1; l++) {
+							if (dstrooms[l] == chr->floorroom) {
 								dstrooms[0] = chr->floorroom;
 								dstrooms[1] = -1;
 								break;
@@ -390,13 +446,13 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 						movez = sp44.z - prop->pos.z;
 
 						if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-							cdresult = cd_test_cyl_move02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
+							cdresult = cd_test_cylmove_oobfail(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 
 							if (cdresult == CDRESULT_NOCOLLISION) {
-								cdresult = cd_test_volume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+								cdresult = cd_test_volume_simple(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 							}
 						} else {
-							cdresult = cd_test_volume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
+							cdresult = cd_test_volume_simple(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
 						}
 
 						if (cdresult == CDRESULT_NOCOLLISION) {
@@ -404,61 +460,6 @@ void chr_calculate_push_pos(struct chrdata *chr, struct coord *dstpos, RoomNum *
 							dstpos->z = sp44.z;
 							chr->invalidmove = 2;
 							moveok = true;
-						}
-					}
-				} else {
-					sp54.x = sp6c.x - dstpos->x;
-					sp54.z = sp6c.z - dstpos->z;
-
-					if (sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2] <= radius * radius) {
-						if (sp6c.f[0] != prop->pos.f[0] || sp6c.f[2] != prop->pos.f[2]) {
-							sp54.x = -(sp6c.z - prop->pos.z);
-							sp54.z = sp6c.x - prop->pos.x;
-
-							value = 1.0f / sqrtf(sp54.f[0] * sp54.f[0] + sp54.f[2] * sp54.f[2]);
-
-							sp54.x *= value;
-							sp54.z *= value;
-
-							value = sp60.f[0] * sp54.f[0] + sp60.f[2] * sp54.f[2];
-
-							sp44.x = sp54.x * value + prop->pos.x;
-							sp44.y = dstpos->y;
-							sp44.z = sp54.z * value + prop->pos.z;
-
-							los_find_intersecting_rooms_exhaustive(&prop->pos, prop->rooms, &sp44, dstrooms, sp84, 20);
-
-#if VERSION < VERSION_NTSC_1_0
-							for (l = 0; dstrooms[l] != -1; l++) {
-								if (dstrooms[l] == chr->floorroom) {
-									dstrooms[0] = chr->floorroom;
-									dstrooms[1] = -1;
-									break;
-								}
-							}
-#endif
-
-							chr_find_entered_rooms_at_pos(chr, &sp44, dstrooms);
-
-							movex = sp44.x - prop->pos.x;
-							movez = sp44.z - prop->pos.z;
-
-							if (movex > halfradius || movez > halfradius || movex < -halfradius || movez < -halfradius) {
-								cdresult = cd_test_cyl_move02(&prop->pos, prop->rooms, &sp44, dstrooms, CDTYPE_ALL, true, ymax - prop->pos.y, ymin - prop->pos.y);
-
-								if (cdresult == CDRESULT_NOCOLLISION) {
-									cdresult = cd_test_volume(&sp44, radius, dstrooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
-								}
-							} else {
-								cdresult = cd_test_volume(&sp44, radius, sp84, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - prop->pos.y, ymin - prop->pos.y);
-							}
-
-							if (cdresult == CDRESULT_NOCOLLISION) {
-								dstpos->x = sp44.x;
-								dstpos->z = sp44.z;
-								chr->invalidmove = 2;
-								moveok = true;
-							}
 						}
 					}
 				}
@@ -502,7 +503,7 @@ bool chr_ascend(struct chrdata *chr, struct coord *pos, RoomNum *rooms, f32 amou
 	los_find_final_room_exhaustive(pos, rooms, &newpos, newrooms);
 	chr_find_entered_rooms_at_pos(chr, &newpos, newrooms);
 	chr_set_perim_enabled(chr, false);
-	result = cd_test_volume(&newpos, radius, newrooms, CDTYPE_ALL, CHECKVERTICAL_YES,
+	result = cd_test_volume_simple(&newpos, radius, newrooms, CDTYPE_ALL, CHECKVERTICAL_YES,
 			ymax - chr->prop->pos.y,
 			ymin - chr->prop->pos.y);
 	chr_set_perim_enabled(chr, true);
@@ -558,7 +559,7 @@ bool chr_update_position(struct model *model, struct coord *arg1, struct coord *
 			los_find_final_room_exhaustive(&prop->pos, prop->rooms, arg2, spfc);
 		}
 
-		ground = cd_find_ground_info_at_cyl(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
+		ground = cd_find_ground_at_cyl_ctfril(arg2, chr->radius, spfc, &chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
 		if (ground < -1000000) {
 			ground = 0.0f;
@@ -630,12 +631,12 @@ bool chr_update_position(struct model *model, struct coord *arg1, struct coord *
 				chr->height = 135.0f;
 			} else if (chr->actiontype == ACT_GOPOS && (chr->act_gopos.flags & GOPOSFLAG_CROUCH)) {
 				chr->height = 90.0f;
-			} else if (cd_0002a13c(&chr->prop->pos, chr->radius * 1.1f,
+			} else if (is_cyl_touching_tile_with_flags(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 185.0f - chr->prop->pos.y,
 						chr->manground - 10.0f - chr->prop->pos.y,
 						chr->prop->rooms, GEOFLAG_AIBOTDUCK)) {
 				chr->height = 135.0f;
-			} else if (cd_0002a13c(&chr->prop->pos, chr->radius * 1.1f,
+			} else if (is_cyl_touching_tile_with_flags(&chr->prop->pos, chr->radius * 1.1f,
 						chr->manground + 135.0f - chr->prop->pos.y,
 						chr->manground - 10.0f - chr->prop->pos.y,
 						chr->prop->rooms, GEOFLAG_AIBOTCROUCH)) {
@@ -827,7 +828,7 @@ bool chr_update_position(struct model *model, struct coord *arg1, struct coord *
 						sp94 = spfc;
 					}
 
-					ground = cd_find_ground_info_at_cyl(sp98, chr->radius, sp94,
+					ground = cd_find_ground_at_cyl_ctfril(sp98, chr->radius, sp94,
 							&chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 
 #if VERSION >= VERSION_NTSC_1_0
@@ -850,7 +851,7 @@ bool chr_update_position(struct model *model, struct coord *arg1, struct coord *
 
 						lvupdate60freal = 0.0f;
 
-						ground = cd_find_ground_info_at_cyl(arg2, chr->radius, spfc,
+						ground = cd_find_ground_at_cyl_ctfril(arg2, chr->radius, spfc,
 								&chr->floorcol, &chr->floortype, &floorflags, &chr->floorroom, &inlift, &lift);
 					}
 #endif
@@ -1328,7 +1329,7 @@ struct prop *chr_place(struct prop *prop, struct model *model,
 	testpos.y = pos->y + 100;
 	testpos.z = pos->z;
 
-	chr->ground = chr->manground = ground = cd_find_ground_info_at_cyl(&testpos, chr->radius, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
+	chr->ground = chr->manground = ground = cd_find_ground_at_cyl_ctfril(&testpos, chr->radius, rooms, &chr->floorcol, &chr->floortype, NULL, &chr->floorroom, NULL, NULL);
 
 	chr->sumground = ground * (PAL ? 8.4175090789795f : 9.999998f);
 

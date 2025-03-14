@@ -32,7 +32,7 @@ f32 func0f1577f0(f32 arg0[2], f32 arg1[2], f32 arg2[2], f32 arg3[2])
 	return a;
 }
 
-f32 func0f1578c8(struct widthxz *arg0, struct xz *arg1, struct xz *arg2)
+f32 func0f1578c8(struct radiusxz *arg0, struct xz *arg1, struct xz *arg2)
 {
 	f32 value2;
 	f32 value1;
@@ -46,7 +46,7 @@ f32 func0f1578c8(struct widthxz *arg0, struct xz *arg1, struct xz *arg2)
 	value1 = mult2 * arg1->x - mult1 * arg1->z;
 	value2 = mult1 * arg1->x + mult2 * arg1->z;
 
-	sp24 = (arg0->width - value1) * (arg0->width + value1);
+	sp24 = (arg0->radius - value1) * (arg0->radius + value1);
 
 	if (sp24 < 0.0f) {
 		return MAXFLOAT;
@@ -55,7 +55,7 @@ f32 func0f1578c8(struct widthxz *arg0, struct xz *arg1, struct xz *arg2)
 	value2 -= sqrtf(sp24);
 
 	if (value2 < 0.0f) {
-		if (value2 * value2 + value1 * value1 <= arg0->width * arg0->width) {
+		if (value2 * value2 + value1 * value1 <= arg0->radius * arg0->radius) {
 			return 0.0f;
 		}
 
@@ -65,7 +65,7 @@ f32 func0f1578c8(struct widthxz *arg0, struct xz *arg1, struct xz *arg2)
 	return value2;
 }
 
-f32 func0f1579cc(struct widthxz *arg0, struct xz *arg1, struct xz *arg2, struct xz *arg3)
+f32 func0f1579cc(struct radiusxz *rxz, struct xz *edge_vtx1, struct xz *edge_vtx2, struct xz *diff)
 {
 	f32 spac;
 	f32 spa8;
@@ -90,17 +90,17 @@ f32 func0f1579cc(struct widthxz *arg0, struct xz *arg1, struct xz *arg2, struct 
 	f32 sp58;
 	f32 sp54;
 
-	spac = sqrtf(arg3->x * arg3->x + arg3->z * arg3->z);
+	spac = sqrtf(diff->x * diff->x + diff->z * diff->z);
 
 	if (spac == 0.0f) {
 		return 1.0f;
 	}
 
-	spa0.x = arg3->x * (1.0f / spac);
-	spa0.z = arg3->z * (1.0f / spac);
+	spa0.x = diff->x * (1.0f / spac);
+	spa0.z = diff->z * (1.0f / spac);
 
-	sp98 = arg2->x - arg1->x;
-	sp9c = arg2->z - arg1->z;
+	sp98 = edge_vtx2->x - edge_vtx1->x;
+	sp9c = edge_vtx2->z - edge_vtx1->z;
 
 	sp94 = sqrtf(sp98 * sp98 + sp9c * sp9c);
 
@@ -112,22 +112,22 @@ f32 func0f1579cc(struct widthxz *arg0, struct xz *arg1, struct xz *arg2, struct 
 	sp88 = sp9c * sp90;
 	sp8c = -sp98 * sp90;
 
-	sp84 = arg0->width * sp88;
-	sp80 = arg0->width * sp8c;
+	sp84 = rxz->radius * sp88;
+	sp80 = rxz->radius * sp8c;
 
-	if (sp84 * (arg0->x - arg1->x) + sp80 * (arg0->z - arg1->z) < 0.0f) {
+	if (sp84 * (rxz->x - edge_vtx1->x) + sp80 * (rxz->z - edge_vtx1->z) < 0.0f) {
 		sp84 = -sp84;
 		sp80 = -sp80;
 	}
 
-	sp78 = arg1->x + sp84;
-	sp7c = arg1->z + sp80;
-	sp70 = arg2->x + sp84;
-	sp74 = arg2->z + sp80;
+	sp78 = edge_vtx1->x + sp84;
+	sp7c = edge_vtx1->z + sp80;
+	sp70 = edge_vtx2->x + sp84;
+	sp74 = edge_vtx2->z + sp80;
 
-	sp68 = (arg3->z * sp78) - (sp7c * arg3->x);
-	sp6c = (arg0->x * arg3->z) - (arg0->z * arg3->x);
-	sp64 = (arg3->z * sp70) - (sp74 * arg3->x);
+	sp68 = (diff->z * sp78) - (sp7c * diff->x);
+	sp6c = (rxz->x * diff->z) - (rxz->z * diff->x);
+	sp64 = (diff->z * sp70) - (sp74 * diff->x);
 
 	if (sp64 < sp68) {
 		struct xz *tmp;
@@ -136,35 +136,35 @@ f32 func0f1579cc(struct widthxz *arg0, struct xz *arg1, struct xz *arg2, struct 
 		sp68 = sp64;
 		sp64 = spa8;
 
-		tmp = arg1;
-		arg1 = arg2;
-		arg2 = tmp;
+		tmp = edge_vtx1;
+		edge_vtx1 = edge_vtx2;
+		edge_vtx2 = tmp;
 
 		sp88 = -sp88;
 		sp8c = -sp8c;
 	}
 
 	if (sp64 == sp68) {
-		sp60 = func0f1578c8(arg0, &spa0, arg1);
-		sp5c = func0f1578c8(arg0, &spa0, arg2);
+		sp60 = func0f1578c8(rxz, &spa0, edge_vtx1);
+		sp5c = func0f1578c8(rxz, &spa0, edge_vtx2);
 
 		if (sp5c < sp60) {
 			sp60 = sp5c;
 		}
 	} else if (sp64 < sp6c) {
 handlezero:
-		sp60 = func0f1578c8(arg0, &spa0, arg2);
+		sp60 = func0f1578c8(rxz, &spa0, edge_vtx2);
 	} else if (sp6c < sp68) {
-		sp60 = func0f1578c8(arg0, &spa0, arg1);
+		sp60 = func0f1578c8(rxz, &spa0, edge_vtx1);
 	} else {
-		sp58 = sp88 * (arg0->x - arg1->x) + sp8c * (arg0->z - arg1->z);
-		sp54 = sp88 * (arg0->x + arg3->x - arg1->x) + sp8c * (arg0->z + arg3->z - arg1->z);
+		sp58 = sp88 * (rxz->x - edge_vtx1->x) + sp8c * (rxz->z - edge_vtx1->z);
+		sp54 = sp88 * (rxz->x + diff->x - edge_vtx1->x) + sp8c * (rxz->z + diff->z - edge_vtx1->z);
 
 		if (sp58 == sp54) {
 			return 1.0f;
 		}
 
-		sp60 = (sp58 - arg0->width) * spac / (sp58 - sp54);
+		sp60 = (sp58 - rxz->radius) * spac / (sp58 - sp54);
 	}
 
 	if (spac < sp60) {

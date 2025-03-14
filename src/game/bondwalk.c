@@ -27,7 +27,7 @@
 #include "data.h"
 #include "types.h"
 
-bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types);
+s32 bwalk_try_delta(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types);
 void bwalk_update_crouch_offset_real(void);
 
 void bwalk_init(void)
@@ -114,7 +114,7 @@ void bwalk_init(void)
 		delta.z = g_Vars.currentplayer->walkinitpos.z - g_Vars.currentplayer->prop->pos.z;
 
 		prop_set_perim_enabled(g_Vars.currentplayer->hoverbike, false);
-		bwalk_calculate_new_position_with_push(&delta, 0, true, 0, CDTYPE_ALL);
+		bwalk_try_delta(&delta, 0, true, 0, CDTYPE_ALL);
 		prop_set_perim_enabled(g_Vars.currentplayer->hoverbike, true);
 	} else if (prevmode != MOVEMODE_GRAB && prevmode != MOVEMODE_WALK) {
 		g_Vars.currentplayer->moveinitspeed.x = 0;
@@ -216,7 +216,7 @@ s32 bwalk_try_move_upwards(f32 amount)
 
 	ymin -= 0.1f;
 
-	result = cd_test_volume(&newpos, radius, rooms, types, CHECKVERTICAL_YES,
+	result = cd_test_volume_simple(&newpos, radius, rooms, types, CHECKVERTICAL_YES,
 			ymax - g_Vars.currentplayer->prop->pos.y,
 			ymin - g_Vars.currentplayer->prop->pos.y);
 
@@ -233,14 +233,14 @@ s32 bwalk_try_move_upwards(f32 amount)
 	return result;
 }
 
-bool bwalk_calculate_new_position(struct coord *vel, f32 rotateamount, bool apply, f32 extrawidth, s32 checktypes)
+s32 bwalk_try_delta_nopush(struct coord *deltapos, f32 rotateamount, bool apply, f32 extrawidth, s32 checktypes)
 {
 	s32 result = CDRESULT_NOCOLLISION;
 	f32 halfradius;
 	struct coord dstpos;
 	RoomNum dstrooms[8];
 	bool copyrooms = false;
-	RoomNum sp64[22];
+	RoomNum throughrooms[22];
 	s32 types;
 	f32 ymax;
 	f32 ymin;
@@ -259,24 +259,38 @@ bool bwalk_calculate_new_position(struct coord *vel, f32 rotateamount, bool appl
 	dstpos.y = g_Vars.currentplayer->prop->pos.y;
 	dstpos.z = g_Vars.currentplayer->prop->pos.z;
 
-	if (vel->x || vel->y || vel->z) {
+	if (deltapos->x || deltapos->y || deltapos->z) {
 		if (g_Vars.currentplayer->ontank) {
 			prop_set_perim_enabled(g_Vars.currentplayer->ontank, false);
 		}
 
 		prop_set_perim_enabled(g_Vars.currentplayer->prop, false);
 
-		dstpos.x += vel->x;
-		dstpos.y += vel->y;
-		dstpos.z += vel->z;
+		dstpos.x += deltapos->x;
+		dstpos.y += deltapos->y;
+		dstpos.z += deltapos->z;
 
 		types = g_Vars.bondcollisions ? checktypes : CDTYPE_BG;
 
 		player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 		radius += extrawidth;
 
+		/**
+		 * Populate dstrooms with the room that dstpos is in, using portals to trace the path.
+		 * If that fails:
+		 *     If dstpos is in the bounding box of the last portalled room, use that room.
+		 * If that fails:
+		 *     Search all rooms for a bounding box that covers dstpos and use those rooms.
+		 * If that fails:
+		 *     Search all rooms for a bounding box that is underneath dstpos and use those rooms.
+		 * If that fails:
+		 *     Use the player's previous rooms list.
+		 *
+		 * The throughrooms list will contain all rooms that the portal test went through,
+		 * as well as any rooms in dstrooms.
+		 */
 		los_find_intersecting_rooms_exhaustive(&g_Vars.currentplayer->prop->pos, g_Vars.currentplayer->prop->rooms,
-				&dstpos, dstrooms, sp64, 20);
+				&dstpos, dstrooms, throughrooms, 20);
 
 #if VERSION < VERSION_NTSC_1_0
 		for (i = 0; dstrooms[i] != -1; i++) {
@@ -288,33 +302,40 @@ bool bwalk_calculate_new_position(struct coord *vel, f32 rotateamount, bool appl
 		}
 #endif
 
+		/**
+		 * If the dstpos + player's bounding box overlaps a portal,
+		 * include that portal's rooms in dstrooms.
+		 * In this case the bounding box is 50cm in each direction.
+		 */
 		bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &dstpos, dstrooms);
 
 		copyrooms = true;
 
-		// Check if the player is moving at least half their radius along the
-		// X or Z axis in a single frame. If less, only do a collision check for
-		// the dst position. If more, do a halfway check too?
+		/**
+		 * Check if the player is moving at least half their radius along the X or Z axis in a single frame.
+		 * If less, only do a cylinder volume test at the dst position.
+		 * If more, do a cylinder move test as well.
+		 */
 		xdiff = dstpos.x - g_Vars.currentplayer->prop->pos.x;
 		zdiff = dstpos.z - g_Vars.currentplayer->prop->pos.z;
 		halfradius = radius * 0.5f;
 
 		if (xdiff > halfradius || zdiff > halfradius || xdiff < -halfradius || zdiff < -halfradius) {
-			result = cd_exam_cyl_move06(&g_Vars.currentplayer->prop->pos,
+			result = cd_test_cylmove_oobfail_findclosest_finddist(&g_Vars.currentplayer->prop->pos,
 					g_Vars.currentplayer->prop->rooms,
-					&dstpos, dstrooms, radius, types, 1,
+					&dstpos, dstrooms, radius, types, CHECKVERTICAL_YES,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 
 			if (result == CDRESULT_NOCOLLISION) {
-				result = cd_exam_cyl_move02(&g_Vars.currentplayer->prop->pos,
-						&dstpos, radius, dstrooms, types, true,
+				result = cd_test_volume_fromdir(&g_Vars.currentplayer->prop->pos,
+						&dstpos, radius, dstrooms, types, CHECKVERTICAL_YES,
 						ymax - g_Vars.currentplayer->prop->pos.y,
 						ymin - g_Vars.currentplayer->prop->pos.y);
 			}
 		} else {
-			result = cd_exam_cyl_move02(&g_Vars.currentplayer->prop->pos,
-					&dstpos, radius, sp64, types, true,
+			result = cd_test_volume_fromdir(&g_Vars.currentplayer->prop->pos,
+					&dstpos, radius, throughrooms, types, CHECKVERTICAL_YES,
 					ymax - g_Vars.currentplayer->prop->pos.y,
 					ymin - g_Vars.currentplayer->prop->pos.y);
 		}
@@ -354,9 +375,9 @@ bool bwalk_calculate_new_position(struct coord *vel, f32 rotateamount, bool appl
 	return result;
 }
 
-bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
+s32 bwalk_try_delta(struct coord *delta, f32 rotateamount, bool apply, f32 extrawidth, s32 types)
 {
-	s32 result = bwalk_calculate_new_position(delta, rotateamount, apply, extrawidth, types);
+	s32 result = bwalk_try_delta_nopush(delta, rotateamount, apply, extrawidth, types);
 
 	if (result != CDRESULT_NOCOLLISION) {
 		struct prop *obstacle = cd_get_obstacle_prop();
@@ -448,7 +469,7 @@ bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamoun
 							chr_detect_rooms(chr);
 							model_set_root_position(chr->model, &newpos);
 
-							result = bwalk_calculate_new_position(delta, rotateamount, apply, extrawidth, types);
+							result = bwalk_try_delta_nopush(delta, rotateamount, apply, extrawidth, types);
 						}
 					}
 				}
@@ -489,7 +510,7 @@ bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamoun
 								}
 
 								if (moved) {
-									result = bwalk_calculate_new_position(delta, rotateamount, apply, extrawidth, types);
+									result = bwalk_try_delta_nopush(delta, rotateamount, apply, extrawidth, types);
 								}
 							}
 						}
@@ -502,33 +523,35 @@ bool bwalk_calculate_new_position_with_push(struct coord *delta, f32 rotateamoun
 	return result;
 }
 
-s32 bwalk0f0c4764(struct coord *delta, struct coord *arg1, struct coord *arg2, s32 types)
+s32 bwalk_try_fulldelta(struct coord *delta, struct coord *edge1, struct coord *edge2, s32 types)
 {
-	s32 result = bwalk_calculate_new_position_with_push(delta, 0, true, 0, types);
+	s32 result = bwalk_try_delta(delta, 0, true, 0, types);
 
 	if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
-		cd_get_edge(arg1, arg2, 607, "bondwalk.c");
+		cd_get_edge(edge1, edge2, 607, "bondwalk.c");
 #else
-		cd_get_edge(arg1, arg2, 602, "bondwalk.c");
+		cd_get_edge(edge1, edge2, 602, "bondwalk.c");
 #endif
 	}
 
 	return result;
 }
 
-s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
-		struct coord *d, struct coord *e, s32 types)
+s32 bwalk_try_quarterdelta(struct coord *posdelta, struct coord *prevedge1, struct coord *prevedge2,
+		struct coord *edge1, struct coord *edge2, s32 types)
 {
 	struct coord quarter;
 	bool result;
 
 	if (cd_has_distance()) {
-		f32 mult = cd_get_distance();
-		quarter.x = a->x * mult * 0.25f;
-		quarter.y = a->y * mult * 0.25f;
-		quarter.z = a->z * mult * 0.25f;
-		result = bwalk_calculate_new_position_with_push(&quarter, 0, true, 0, types);
+		f32 distance = cd_get_distance();
+
+		quarter.x = posdelta->x * distance / 4.0f;
+		quarter.y = posdelta->y * distance / 4.0f;
+		quarter.z = posdelta->z * distance / 4.0f;
+
+		result = bwalk_try_delta(&quarter, 0, true, 0, types);
 
 		if (result == CDRESULT_NOCOLLISION) {
 			return CDRESULT_NOCOLLISION;
@@ -536,17 +559,17 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 
 		if (result == CDRESULT_COLLISION) {
 #if VERSION >= VERSION_NTSC_1_0
-			cd_get_edge(d, e, 635, "bondwalk.c");
+			cd_get_edge(edge1, edge2, 635, "bondwalk.c");
 #else
-			cd_get_edge(d, e, 630, "bondwalk.c");
+			cd_get_edge(edge1, edge2, 630, "bondwalk.c");
 #endif
 
-			if (b->x != d->x
-					|| b->y != d->y
-					|| b->z != d->z
-					|| c->x != e->x
-					|| c->y != e->y
-					|| c->z != e->z) {
+			if (prevedge1->x != edge1->x
+					|| prevedge1->y != edge1->y
+					|| prevedge1->z != edge1->z
+					|| prevedge2->x != edge2->x
+					|| prevedge2->y != edge2->y
+					|| prevedge2->z != edge2->z) {
 				return CDRESULT_COLLISION;
 			}
 		}
@@ -555,38 +578,45 @@ s32 bwalk0f0c47d0(struct coord *a, struct coord *b, struct coord *c,
 	return CDRESULT_ERROR;
 }
 
-s32 bwalk0f0c494c(struct coord *a, struct coord *b, struct coord *c, s32 types)
+/**
+ * This test fails when sliding past the corner of Jo's desk.
+ * When this happens, the caller uses bwalk_try_slide_along_corner.
+ *
+ * Maybe the edge on the other side of the corner interferes with the
+ * collision test due to float precision?
+ */
+s32 bwalk_try_slide_along_edge(struct coord *deltapos, struct coord *edge_vtx1, struct coord *edge_vtx2, s32 types)
 {
-	if (b->f[0] != c->f[0] || b->f[2] != c->f[2]) {
+	if (edge_vtx1->f[0] != edge_vtx2->f[0] || edge_vtx1->f[2] != edge_vtx2->f[2]) {
 		f32 tmp;
-		struct coord sp38;
-		struct coord sp2c;
+		struct coord edgedir;
+		struct coord newdeltapos;
 
-		sp38.x = c->x - b->x;
-		sp38.y = 0;
-		sp38.z = c->z - b->z;
+		edgedir.x = edge_vtx2->x - edge_vtx1->x;
+		edgedir.y = 0;
+		edgedir.z = edge_vtx2->z - edge_vtx1->z;
 
-		tmp = sqrtf(sp38.f[0] * sp38.f[0] + sp38.f[2] * sp38.f[2]);
+		tmp = sqrtf(edgedir.f[0] * edgedir.f[0] + edgedir.f[2] * edgedir.f[2]);
 
-		sp38.x *= 1.0f / tmp;
-		sp38.z *= 1.0f / tmp;
+		edgedir.x *= 1.0f / tmp;
+		edgedir.z *= 1.0f / tmp;
 
-		tmp = a->f[0] * sp38.f[0] + a->f[2] * sp38.f[2];
+		tmp = deltapos->f[0] * edgedir.f[0] + deltapos->f[2] * edgedir.f[2];
 
-		sp2c.x = sp38.x * tmp;
-		sp2c.y = 0;
-		sp2c.z = sp38.z * tmp;
+		newdeltapos.x = edgedir.x * tmp;
+		newdeltapos.y = 0;
+		newdeltapos.z = edgedir.z * tmp;
 
-		return bwalk_calculate_new_position_with_push(&sp2c, 0, true, 0, types);
+		return bwalk_try_delta(&newdeltapos, 0, true, 0, types);
 	}
 
-	return -1;
+	return CDRESULT_ERROR;
 }
 
-s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s32 types)
+s32 bwalk_try_slide_along_corner(struct coord *deltapos, struct coord *edgevtx1, struct coord *edgevtx2, s32 types)
 {
 	struct coord sp34;
-	struct coord sp28;
+	struct coord newdeltapos;
 	f32 ymax;
 	f32 ymin;
 	f32 tmp;
@@ -594,68 +624,68 @@ s32 bwalk0f0c4a5c(struct coord *arg0, struct coord *arg1, struct coord *arg2, s3
 
 	player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
-	sp34.x = arg1->x - (g_Vars.currentplayer->prop->pos.x + arg0->f[0]);
-	sp34.z = arg1->z - (g_Vars.currentplayer->prop->pos.z + arg0->f[2]);
+	sp34.x = edgevtx1->x - (g_Vars.currentplayer->prop->pos.x + deltapos->f[0]);
+	sp34.z = edgevtx1->z - (g_Vars.currentplayer->prop->pos.z + deltapos->f[2]);
 
 	if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= radius * radius) {
-		if (arg1->f[0] != g_Vars.currentplayer->prop->pos.f[0] || arg1->f[2] != g_Vars.currentplayer->prop->pos.f[2]) {
-			sp34.x = -(arg1->z - g_Vars.currentplayer->prop->pos.z);
+		if (edgevtx1->f[0] != g_Vars.currentplayer->prop->pos.f[0] || edgevtx1->f[2] != g_Vars.currentplayer->prop->pos.f[2]) {
+			sp34.x = -(edgevtx1->z - g_Vars.currentplayer->prop->pos.z);
 			sp34.y = 0;
-			sp34.z = arg1->x - g_Vars.currentplayer->prop->pos.x;
+			sp34.z = edgevtx1->x - g_Vars.currentplayer->prop->pos.x;
 
 			tmp = sqrtf(sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2]);
 
 			sp34.x = sp34.f[0] * (1.0f / tmp);
 			sp34.z = sp34.f[2] * (1.0f / tmp);
 
-			tmp = arg0->f[0] * sp34.f[0] + arg0->f[2] * sp34.f[2];
+			tmp = deltapos->f[0] * sp34.f[0] + deltapos->f[2] * sp34.f[2];
 
 			sp34.x = sp34.x * tmp;
 			sp34.z = sp34.z * tmp;
 
-			sp28.x = sp34.x;
-			sp28.y = 0;
-			sp28.z = sp34.z;
+			newdeltapos.x = sp34.x;
+			newdeltapos.y = 0;
+			newdeltapos.z = sp34.z;
 
-			if (bwalk_calculate_new_position_with_push(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
-				return true;
+			if (bwalk_try_delta(&newdeltapos, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
+				return CDRESULT_NOCOLLISION;
 			}
 		}
 	} else {
-		sp34.x = arg2->x - (g_Vars.currentplayer->prop->pos.x + arg0->f[0]);
-		sp34.z = arg2->z - (g_Vars.currentplayer->prop->pos.z + arg0->f[2]);
+		sp34.x = edgevtx2->x - (g_Vars.currentplayer->prop->pos.x + deltapos->f[0]);
+		sp34.z = edgevtx2->z - (g_Vars.currentplayer->prop->pos.z + deltapos->f[2]);
 
 		if (sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2] <= radius * radius) {
-			if (arg2->f[0] != g_Vars.currentplayer->prop->pos.f[0] || arg2->f[2] != g_Vars.currentplayer->prop->pos.f[2]) {
-				sp34.x = -(arg2->z - g_Vars.currentplayer->prop->pos.z);
+			if (edgevtx2->f[0] != g_Vars.currentplayer->prop->pos.f[0] || edgevtx2->f[2] != g_Vars.currentplayer->prop->pos.f[2]) {
+				sp34.x = -(edgevtx2->z - g_Vars.currentplayer->prop->pos.z);
 				sp34.y = 0;
-				sp34.z = arg2->x - g_Vars.currentplayer->prop->pos.x;
+				sp34.z = edgevtx2->x - g_Vars.currentplayer->prop->pos.x;
 
 				tmp = sqrtf(sp34.f[0] * sp34.f[0] + sp34.f[2] * sp34.f[2]);
 
 				sp34.x = sp34.f[0] * (1.0f / tmp);
 				sp34.z = sp34.f[2] * (1.0f / tmp);
 
-				tmp = arg0->f[0] * sp34.f[0] + arg0->f[2] * sp34.f[2];
+				tmp = deltapos->f[0] * sp34.f[0] + deltapos->f[2] * sp34.f[2];
 
 				sp34.x = sp34.x * tmp;
 				sp34.z = sp34.z * tmp;
 
-				sp28.x = sp34.x;
-				sp28.y = 0;
-				sp28.z = sp34.z;
+				newdeltapos.x = sp34.x;
+				newdeltapos.y = 0;
+				newdeltapos.z = sp34.z;
 
-				if (bwalk_calculate_new_position_with_push(&sp28, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
-					return true;
+				if (bwalk_try_delta(&newdeltapos, 0, true, 0, types) == CDRESULT_NOCOLLISION) {
+					return CDRESULT_NOCOLLISION;
 				}
 			}
 		}
 	}
 
-	return false;
+	return CDRESULT_COLLISION;
 }
 
-void bwalk0f0c4d98(void)
+void bwalk_stub(void)
 {
 	// empty
 }
@@ -745,7 +775,7 @@ void bwalk_update_vertical(void)
 	if (g_Vars.antiplayernum >= 0
 			&& g_Vars.currentplayer == g_Vars.anti
 			&& g_Vars.currentplayer->bond2.radius != 30
-			&& cd_test_volume(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
+			&& cd_test_volume_simple(&g_Vars.currentplayer->prop->pos, 30, g_Vars.currentplayer->prop->rooms, CDTYPE_ALL, CHECKVERTICAL_YES, ymax - g_Vars.currentplayer->prop->pos.y, ymin - g_Vars.currentplayer->prop->pos.y)) {
 		g_Vars.currentplayer->prop->chr->radius = 30;
 		g_Vars.currentplayer->bond2.radius = 30;
 		radius = 30;
@@ -784,7 +814,7 @@ void bwalk_update_vertical(void)
 
 	rooms_copy(g_Vars.currentplayer->prop->rooms, rooms);
 	bmove_find_entered_rooms_by_pos(g_Vars.currentplayer, &testpos, rooms);
-	ground = cd_find_ground_info_at_cyl(&testpos, g_Vars.currentplayer->bond2.radius, rooms,
+	ground = cd_find_ground_at_cyl_ctfril(&testpos, g_Vars.currentplayer->bond2.radius, rooms,
 			&g_Vars.currentplayer->floorcol, &g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags, &g_Vars.currentplayer->floorroom,
 			&newinlift, &lift);
@@ -1217,53 +1247,73 @@ void bwalk_update_theta(void)
 	rotateamount = g_Vars.currentplayer->speedtheta * mult
 		* g_Vars.lvupdate60freal * 0.0174505133f * 3.5f;
 
-	bwalk_calculate_new_position_with_push(&delta, rotateamount, true, 0, CDTYPE_ALL);
+	bwalk_try_delta(&delta, rotateamount, true, 0, CDTYPE_ALL);
 }
 
-void bwalk0f0c63bc(struct coord *arg0, u32 arg1, s32 types)
+/**
+ * Given a delta position (the desired distance to move in one frame),
+ * figure out the actual final position and apply it.
+ */
+void bwalk_resolve_posdelta(struct coord *deltapos, bool notrleaning, s32 cdtypes)
 {
-	struct coord sp100;
-	struct coord sp88;
+	struct coord edgea_vtx1;
+	struct coord edgea_vtx2;
 
 	g_Vars.currentplayer->bondonturret = false;
 	g_Vars.currentplayer->autocrouchpos = CROUCHPOS_STAND;
 
-	bwalk0f0c4d98();
+	bwalk_stub();
 
-	if (bwalk0f0c4764(arg0, &sp100, &sp88, types) == CDRESULT_COLLISION) {
-		struct coord sp76;
-		struct coord sp64;
+	// Try to move the delta's full distance. If there's something in the way,
+	// the vertices of the obstacle's edge will be written to the edge pointers.
+	if (bwalk_try_fulldelta(deltapos, &edgea_vtx1, &edgea_vtx2, cdtypes) == CDRESULT_COLLISION) {
+		struct coord edgeb_vtx1;
+		struct coord edgeb_vtx2;
+		s32 result;
+		struct coord edgec_vtx1;
+		struct coord edgec_vtx2;
 
-		s32 result = bwalk0f0c47d0(arg0, &sp100, &sp88, &sp76, &sp64, types);
+		// Take the distance to the obstacle and try a quarter of that distance.
+		result = bwalk_try_quarterdelta(deltapos, &edgea_vtx1, &edgea_vtx2, &edgeb_vtx1, &edgeb_vtx2, cdtypes);
 
 		if (result >= CDRESULT_NOCOLLISION || result <= CDRESULT_ERROR) {
 			if (result >= CDRESULT_NOCOLLISION) {
-				bwalk0f0c4d98();
+				bwalk_stub();
 			}
 
-			if (arg1
-					&& bwalk0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
-					&& bwalk0f0c4a5c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION) {
+			// The quarter distance had no collision, so try to move the player
+			// right up to the obstacle and slide along the edge a bit.
+			if (notrleaning
+					&& bwalk_try_slide_along_edge(deltapos, &edgea_vtx1, &edgea_vtx2, cdtypes) <= CDRESULT_COLLISION
+					&& bwalk_try_slide_along_corner(deltapos, &edgea_vtx1, &edgea_vtx2, cdtypes) <= CDRESULT_COLLISION) {
 				// empty
 			}
 		} else if (result == CDRESULT_COLLISION) {
-			struct coord sp48;
-			struct coord sp36;
+			// The quarter delta also had an obstacle. This must have been a
+			// different obstacle to the one that was hit in the full delta.
 
-			if (bwalk0f0c47d0(arg0, &sp76, &sp64, &sp48, &sp36, types) >= CDRESULT_NOCOLLISION) {
-				bwalk0f0c4d98();
+			// Try again with a quarter of the way to the closer obstacle.
+			result = bwalk_try_quarterdelta(deltapos, &edgeb_vtx1, &edgeb_vtx2, &edgec_vtx1, &edgec_vtx2, cdtypes);
+
+			if (result >= CDRESULT_NOCOLLISION) {
+				bwalk_stub();
 			}
 
-			if (arg1
-					&& bwalk0f0c494c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION
-					&& bwalk0f0c494c(arg0, &sp100, &sp88, types) <= CDRESULT_COLLISION
-					&& bwalk0f0c4a5c(arg0, &sp76, &sp64, types) <= CDRESULT_COLLISION) {
-				bwalk0f0c4a5c(arg0, &sp100, &sp88, types);
+			// Regardless of what happened above, try to move them to the edge of the closer obstacle.
+			// If that fails, try to move them to the edge of the further obstacle? This will surely fail though?
+			// Then try to slide along the closer obstacle's edge, which may work.
+			// Then try to slide along the further obstacle's edge, which will fail.
+			if (notrleaning
+					&& bwalk_try_slide_along_edge(deltapos, &edgeb_vtx1, &edgeb_vtx2, cdtypes) <= CDRESULT_COLLISION
+					&& bwalk_try_slide_along_edge(deltapos, &edgea_vtx1, &edgea_vtx2, cdtypes) <= CDRESULT_COLLISION
+					&& bwalk_try_slide_along_corner(deltapos, &edgeb_vtx1, &edgeb_vtx2, cdtypes) <= CDRESULT_COLLISION
+					&& bwalk_try_slide_along_corner(deltapos, &edgea_vtx1, &edgea_vtx2, cdtypes) <= CDRESULT_COLLISION) {
+				// empty
 			}
 		}
 	}
 
-	bwalk0f0c4d98();
+	bwalk_stub();
 }
 
 void bwalk_update_prev_pos(void)
@@ -1372,7 +1422,7 @@ void bwalk_update_speed_theta(void)
 	}
 }
 
-void bwalk0f0c69b8(void)
+void bwalk_update_horizontal(void)
 {
 	s32 i;
 	f32 spe0;
@@ -1450,7 +1500,7 @@ void bwalk0f0c69b8(void)
 		g_Vars.currentplayer->gunspeed = 0.0f;
 
 		bmove_update_move_init_speed(&spcc);
-		bwalk_calculate_new_position_with_push(&spcc, 0.0f, true, 0.0f, CDTYPE_ALL);
+		bwalk_try_delta(&spcc, 0.0f, true, 0.0f, CDTYPE_ALL);
 	} else {
 		bwalk_apply_crouch_speed();
 		bwalk_update_crouch_offset();
@@ -1597,7 +1647,7 @@ void bwalk0f0c69b8(void)
 				} else {
 					player_get_bbox(g_Vars.currentplayer->prop, &radius, &ymax, &ymin);
 
-					if (!cd_0002a13c(&g_Vars.currentplayer->prop->pos,
+					if (!is_cyl_touching_tile_with_flags(&g_Vars.currentplayer->prop->pos,
 							radius * 1.1f, ymax - g_Vars.currentplayer->prop->pos.y,
 							(g_Vars.currentplayer->vv_manground - g_Vars.currentplayer->prop->pos.y) + 1.0f,
 							g_Vars.currentplayer->prop->rooms, GEOFLAG_LADDER | GEOFLAG_LADDER_PLAYERONLY)) {
@@ -1628,7 +1678,7 @@ void bwalk0f0c69b8(void)
 		sp8c = g_Vars.currentplayer->prop->pos.x;
 		sp88 = g_Vars.currentplayer->prop->pos.z;
 
-		bwalk0f0c63bc(&spcc, g_Vars.currentplayer->swaytarget == 0.0f, CDTYPE_ALL);
+		bwalk_resolve_posdelta(&spcc, g_Vars.currentplayer->swaytarget == 0.0f, CDTYPE_ALL);
 
 		xdelta = g_Vars.currentplayer->prop->pos.x - g_Vars.currentplayer->bondprevpos.x;
 		zdelta = g_Vars.currentplayer->prop->pos.z - g_Vars.currentplayer->bondprevpos.z;
@@ -1743,7 +1793,7 @@ void bwalk_tick(void)
 	bwalk_update_prev_pos();
 	bwalk_update_theta();
 	bmove_update_look();
-	bwalk0f0c69b8();
+	bwalk_update_horizontal();
 	bwalk_update_vertical();
 
 #if VERSION >= VERSION_NTSC_1_0

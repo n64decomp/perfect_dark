@@ -1221,7 +1221,7 @@ void hand_inflict_melee_damage(s32 handnum, struct gset *gset, bool arg2)
 						cdtypes = 0;
 					}
 
-					if (cd_test_los04(&playerprop->pos, playerprop->rooms, &prop->pos, cdtypes)) {
+					if (cd_test_los_oobok_autoflags(&playerprop->pos, playerprop->rooms, &prop->pos, cdtypes)) {
 						if (isglass) {
 							struct model *model = obj->model;
 							struct coord gunpos2d;
@@ -2467,11 +2467,11 @@ f32 prop_calculate_autoaim_score(struct prop *prop, struct coord *screenpos, f32
 			player_set_perim_enabled(playerprop, false);
 
 			if (throughobjects) {
-				ok = cd_test_los03(&playerprop->pos, playerprop->rooms, &prop->pos,
+				ok = cd_test_los_oobok(&playerprop->pos, playerprop->rooms, &prop->pos,
 						CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
 						GEOFLAG_BLOCK_SHOOT);
 			} else {
-				ok = cd_test_los03(&playerprop->pos, playerprop->rooms, &prop->pos,
+				ok = cd_test_los_oobok(&playerprop->pos, playerprop->rooms, &prop->pos,
 						CDTYPE_OBJS | CDTYPE_DOORS | CDTYPE_PATHBLOCKER | CDTYPE_BG,
 						GEOFLAG_BLOCK_SHOOT);
 			}
@@ -3089,24 +3089,24 @@ void prop_register_rooms(struct prop *prop)
  * If the line goes out of bounds, the intersecting list up until that point
  * will be returned.
  */
-void los_find_intersecting_rooms_properly(struct coord *frompos, RoomNum *fromrooms, struct coord *topos, RoomNum *finalrooms, RoomNum *intersecting, s32 maxintersecting)
+void los_find_intersecting_rooms_properly(struct coord *frompos, RoomNum *fromrooms, struct coord *topos, RoomNum *finalroomsptr, RoomNum *intersecting, s32 maxintersecting)
 {
-	RoomNum tmprooms[8];
+	RoomNum finalrooms[8];
 	s32 len;
 	s32 i;
 
-	portal_find_rooms(frompos, topos, fromrooms, tmprooms, intersecting, maxintersecting);
+	portal_find_rooms(frompos, topos, fromrooms, finalrooms, intersecting, maxintersecting);
 
 	len = 0;
 
-	for (i = 0; tmprooms[i] != -1; i++) {
-		if (bg_room_contains_coord(topos, tmprooms[i])) {
-			finalrooms[len] = tmprooms[i];
+	for (i = 0; finalrooms[i] != -1; i++) {
+		if (bg_room_contains_coord(topos, finalrooms[i])) {
+			finalroomsptr[len] = finalrooms[i];
 			len++;
 		}
 	}
 
-	finalrooms[len] = -1;
+	finalroomsptr[len] = -1;
 }
 
 /**
@@ -3173,7 +3173,7 @@ void los_find_final_room_fast(struct coord *frompos, RoomNum *fromrooms, struct 
 	}
 
 	if (ptr) {
-		s32 room = cd_find_floor_room_at_pos(topos, ptr);
+		s32 room = cd_find_room_at_pos(topos, ptr);
 
 		if (room > 0) {
 			finalrooms[0] = room;

@@ -361,7 +361,7 @@ void body_instantiate_chr(s32 stagenum, struct packedchr *packed, s32 cmdindex)
 	rooms[0] = pad.room;
 	rooms[1] = -1;
 
-	if (cd_test_volume(&pad.pos, 20, rooms, CDTYPE_ALL, CHECKVERTICAL_YES, 200, -200) == CDRESULT_COLLISION
+	if (cd_test_volume_simple(&pad.pos, 20, rooms, CDTYPE_ALL, CHECKVERTICAL_YES, 200, -200) == CDRESULT_COLLISION
 			&& packed->chair == -1
 			&& (packed->spawnflags & SPAWNFLAG_IGNORECOLLISION) == 0) {
 		return;
@@ -587,7 +587,7 @@ struct prop *body_instantiate_eyespy(struct pad *pad, RoomNum room)
 			chr->visionrange = 0;
 			chr->race = body_get_race(chr->bodynum);
 
-			ground = cd_find_ground_info_at_cyl(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &inlift, &lift);
+			ground = cd_find_ground_at_cyl_ctfril(&pad->pos, 30, rooms, NULL, NULL, NULL, NULL, &inlift, &lift);
 			chr->ground = ground;
 			chr->manground = ground;
 

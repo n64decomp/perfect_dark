@@ -173,10 +173,10 @@ s32 portal_calculate_intersection(s32 portalnum, struct coord *pos1, struct coor
  * Given frompos, fromrooms and a topos,
  * use portals to figure out the new rooms list.
  *
- * The final rooms are written to results1,
+ * The final rooms are written to finalrooms,
  * which should only ever have 0 or 1 room in it.
  *
- * The caller may optionally pass results2 and its length,
+ * The caller may optionally pass intersecting and its length,
  * which will be populated with all traversed rooms.
  *
  * This is overengineered. It allows a room to have multiple

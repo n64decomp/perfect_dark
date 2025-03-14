@@ -527,7 +527,7 @@ void player_start_new_life(void)
 
 	angle = BADDTOR(360) - scenario_choose_spawn_location(30, &pos, rooms, g_Vars.currentplayer->prop);
 
-	groundy = cd_find_ground_info_at_cyl(&pos, 30, rooms,
+	groundy = cd_find_ground_at_cyl_ctfril(&pos, 30, rooms,
 			&g_Vars.currentplayer->floorcol,
 			&g_Vars.currentplayer->floortype,
 			&g_Vars.currentplayer->floorflags,
@@ -5019,7 +5019,7 @@ void player_move_camera_from_pos_rooms(struct coord *pos, struct coord *up, stru
 		bg_find_rooms_by_pos(pos, inrooms, aboverooms, 20, &bestroom);
 
 		if (inrooms[0] != -1) {
-			tmp = room = cd_find_floor_room_at_pos(pos, inrooms);
+			tmp = room = cd_find_room_at_pos(pos, inrooms);
 
 			if (room > 0) {
 				player_set_cam_properties_in_bounds(pos, up, look, tmp);
@@ -5027,7 +5027,7 @@ void player_move_camera_from_pos_rooms(struct coord *pos, struct coord *up, stru
 				player_set_cam_properties_in_bounds(pos, up, look, inrooms[0]);
 			}
 		} else if (aboverooms[0] != -1) {
-			tmp = room = cd_find_floor_room_at_pos(pos, aboverooms);
+			tmp = room = cd_find_room_at_pos(pos, aboverooms);
 
 			if (room > 0) {
 				player_set_cam_properties_out_of_bounds(pos, up, look, tmp);
