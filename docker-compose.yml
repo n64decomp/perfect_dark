@@ -1,0 +1,17 @@
+services:
+    pd:
+        # platform (service) and build.platforms are both needed: the first
+        # applies when the container runs, the second when the image is built.
+        # Without the service-level one, `docker compose run` on an arm64 host
+        # warns that the image platform does not match. amd64 is required --
+        # libc6-dev-i386 is i386 multilib. See docs/docker-build.md.
+        platform: linux/amd64
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+            platforms:
+                - linux/amd64
+        volumes:
+            - ./:/home/dev/pd
+        hostname: pd
+        tty: true

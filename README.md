@@ -24,6 +24,20 @@ For Debian and Ubuntu:
 * Install these packages: `binutils-mips-linux-gnu build-essential gcc-mips-linux-gnu libc6-dev-i386 libcapstone-dev make`
 * Compile and install `armips`
 
+Using Docker (recommended — see [docs/docker-build.md](docs/docker-build.md)):
+
+```
+docker compose build
+docker compose run --rm pd make -j"$(nproc)"
+docker compose run --rm pd make test
+```
+
+> **The binutils version matters and is not pinned above.** binutils 2.34
+> (Ubuntu 20.04) builds a matching ROM; 2.38 (Ubuntu 22.04) does not — it fails
+> 811 of 1553 `make test` checksums even though the decompiled code and every
+> asset are byte-correct. The container pins 20.04 for this reason.
+> [docs/docker-build.md](docs/docker-build.md) has the analysis.
+
 ## ROM Versions
 
 Perfect Dark has six known versions:

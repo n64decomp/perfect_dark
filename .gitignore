@@ -1,5 +1,6 @@
 *.o
 *.pyc
+.DS_Store
 pd.*.z64
 build
 extracted
